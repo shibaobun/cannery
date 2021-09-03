@@ -17,13 +17,6 @@
             <i class="fas fa-sign-out-alt"></i>
           <% end %>
         </li>
-
-        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-          <li>
-            <%= link "LiveDashboard", class: "hover:underline",
-              to: Routes.live_dashboard_path(CanneryWeb.Endpoint, :home) %>
-          </li>
-        <% end %>
       <% else %>
         <li>
           <%= link "Register", class: "hover:underline",
