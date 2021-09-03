@@ -60,6 +60,34 @@ defmodule CanneryWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    
+    live "/tags", TagLive.Index, :index
+    live "/tags/new", TagLive.Index, :new
+    live "/tags/:id/edit", TagLive.Index, :edit
+
+    live "/tags/:id", TagLive.Show, :show
+    live "/tags/:id/show/edit", TagLive.Show, :edit
+    
+    live "/ammo_types", AmmoTypeLive.Index, :index
+    live "/ammo_types/new", AmmoTypeLive.Index, :new
+    live "/ammo_types/:id/edit", AmmoTypeLive.Index, :edit
+
+    live "/ammo_types/:id", AmmoTypeLive.Show, :show
+    live "/ammo_types/:id/show/edit", AmmoTypeLive.Show, :edit
+    
+    live "/containers", ContainerLive.Index, :index
+    live "/containers/new", ContainerLive.Index, :new
+    live "/containers/:id/edit", ContainerLive.Index, :edit
+
+    live "/containers/:id", ContainerLive.Show, :show
+    live "/containers/:id/show/edit", ContainerLive.Show, :edit
+    
+    live "/ammo_groups", AmmoGroupLive.Index, :index
+    live "/ammo_groups/new", AmmoGroupLive.Index, :new
+    live "/ammo_groups/:id/edit", AmmoGroupLive.Index, :edit
+
+    live "/ammo_groups/:id", AmmoGroupLive.Show, :show
+    live "/ammo_groups/:id/show/edit", AmmoGroupLive.Show, :edit
   end
 
   scope "/", CanneryWeb do

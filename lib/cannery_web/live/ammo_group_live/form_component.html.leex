@@ -1,0 +1,22 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "ammo_group-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :count %>
+  <%= number_input f, :count %>
+  <%= error_tag f, :count %>
+
+  <%= label f, :price_paid %>
+  <%= number_input f, :price_paid, step: "any" %>
+  <%= error_tag f, :price_paid %>
+
+  <%= label f, :notes %>
+  <%= textarea f, :notes %>
+  <%= error_tag f, :notes %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

@@ -1,12 +1,12 @@
 defmodule CanneryWeb.Live.Component.Topbar do
   use CanneryWeb, :live_component
-  
+
   alias CanneryWeb.{PageLive}
-  
+
   def mount(socket) do
     {:ok, socket |> assign(results: [], title_content: nil)}
   end
-  
+
   def update(assigns, socket) do
     {:ok, socket |> assign(assigns)}
   end
@@ -41,7 +41,7 @@ defmodule CanneryWeb.Live.Component.Topbar do
             </form>
 
             <%# user settings %>
-            <%= if assigns |> Map.has_key?(:current_user) do %>
+            <%= if @current_user do %>
               <li>
                 <%= @current_user.email %></li>
               <li>

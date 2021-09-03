@@ -46,7 +46,7 @@ defmodule CanneryWeb do
     quote do
       use Phoenix.LiveView,
         layout: {CanneryWeb.LayoutView, "live.html"}
-
+        
       unquote(view_helpers())
     end
   end
@@ -83,6 +83,7 @@ defmodule CanneryWeb do
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
       import Phoenix.LiveView.Helpers
+      import CanneryWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

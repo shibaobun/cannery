@@ -1,0 +1,47 @@
+<h1>Show Ammo type</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal CanneryWeb.AmmoTypeLive.FormComponent,
+    id: @ammo_type.id,
+    title: @page_title,
+    action: @live_action,
+    ammo_type: @ammo_type,
+    return_to: Routes.ammo_type_show_path(@socket, :show, @ammo_type) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @ammo_type.name %>
+  </li>
+
+  <li>
+    <strong>Desc:</strong>
+    <%= @ammo_type.desc %>
+  </li>
+
+  <li>
+    <strong>Case material:</strong>
+    <%= @ammo_type.case_material %>
+  </li>
+
+  <li>
+    <strong>Bullet type:</strong>
+    <%= @ammo_type.bullet_type %>
+  </li>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @ammo_type.weight %>
+  </li>
+
+  <li>
+    <strong>Manufacturer:</strong>
+    <%= @ammo_type.manufacturer %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.ammo_type_index_path(@socket, :index) %></span>

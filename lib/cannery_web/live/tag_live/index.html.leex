@@ -1,0 +1,39 @@
+<h1>Listing Tags</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal CanneryWeb.TagLive.FormComponent,
+    id: @tag.id || :new,
+    title: @page_title,
+    action: @live_action,
+    tag: @tag,
+    return_to: Routes.tag_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bg-color</th>
+      <th>Text-color</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tags">
+    <%= for tag <- @tags do %>
+      <tr id="tag-<%= tag.id %>">
+        <td><%= tag.name %></td>
+        <td><%= tag.bg_color %></td>
+        <td><%= tag.text_color %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.tag_show_path(@socket, :show, tag) %></span>
+          <span><%= live_patch "Edit", to: Routes.tag_index_path(@socket, :edit, tag) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: tag.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Tag", to: Routes.tag_index_path(@socket, :new) %></span>
