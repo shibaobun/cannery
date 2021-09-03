@@ -35,7 +35,7 @@ defmodule CanneryWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: CanneryWeb.Telemetry
+      live_dashboard "/dashboard", metrics: CanneryWeb.Telemetry, ecto_repos: [Cannery.Repo]
     end
   end
 
