@@ -43,14 +43,13 @@ defmodule CanneryWeb.Live.Component.Topbar do
             <%# user settings %>
             <%= if @current_user do %>
               <li>
-                <%= @current_user.email %></li>
-              <li>
-                <%= link "Settings", class: "hover:underline",
+                <%= link @current_user.email, class: "hover:underline",
                   to: Routes.user_settings_path(CanneryWeb.Endpoint, :edit) %>
               </li>
               <li>
-                <%= link "Log out", class: "hover:underline",
-                  to: Routes.user_session_path(CanneryWeb.Endpoint, :delete), method: :delete %>
+                <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete), method: :delete do %>
+                  <i class="fas fa-sign-out-alt"></i>
+                <% end %>
               </li>
 
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>

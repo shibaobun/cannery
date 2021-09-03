@@ -40,7 +40,15 @@ module.exports = (env, options) => {
             "css-loader",
             "postcss-loader",
             "sass-loader",
-          ],
+          ]
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]?[hash]',
+            outputPath: '../fonts'
+          }
         }
       ]
     },
