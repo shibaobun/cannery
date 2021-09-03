@@ -5,8 +5,8 @@ defmodule CanneryWeb.TagLive.Index do
   alias Cannery.Tags.Tag
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket |> assign(:tags, list_tags())}
+  def mount(_params, session, socket) do
+    {:ok, socket |> assign_defaults(session) |> assign(:tags, list_tags())}
   end
 
   @impl true

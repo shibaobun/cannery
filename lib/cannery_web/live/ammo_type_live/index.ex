@@ -5,8 +5,8 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   alias Cannery.Ammo.AmmoType
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket |> assign(:ammo_types, list_ammo_types())}
+  def mount(_params, session, socket) do
+    {:ok, socket |> assign_defaults(session) |> assign(:ammo_types, list_ammo_types())}
   end
 
   @impl true

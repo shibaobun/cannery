@@ -5,8 +5,8 @@ defmodule CanneryWeb.ContainerLive.Index do
   alias Cannery.Containers.Container
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket |> assign(:containers, list_containers())}
+  def mount(_params, session, socket) do
+    {:ok, socket |> assign_defaults(session) |> assign(:containers, list_containers())}
   end
 
   @impl true

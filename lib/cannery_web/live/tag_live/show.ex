@@ -4,8 +4,8 @@ defmodule CanneryWeb.TagLive.Show do
   alias Cannery.Tags
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(_params, session, socket) do
+    {:ok, socket |> assign_defaults(session)}
   end
 
   @impl true

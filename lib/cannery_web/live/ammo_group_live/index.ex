@@ -5,8 +5,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   alias Cannery.Ammo.AmmoGroup
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket |> assign(:ammo_groups, list_ammo_groups())}
+  def mount(_params, session, socket) do
+    {:ok, socket |> assign_defaults(session) |> assign(:ammo_groups, list_ammo_groups())}
   end
 
   @impl true
