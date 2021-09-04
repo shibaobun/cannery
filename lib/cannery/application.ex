@@ -9,6 +9,7 @@ defmodule Cannery.Application do
     children = [
       # Start the Ecto repository
       Cannery.Repo,
+      Cannery.Repo.Migrator,
       # Start the Telemetry supervisor
       CanneryWeb.Telemetry,
       # Start the PubSub system

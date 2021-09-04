@@ -1,12 +1,8 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :cannery, Cannery.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "cannery_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
+  url: "ecto://postgres:postgres@localhost/cannery_dev",
   pool_size: 10
 
 # For development, we disable any cache and enable
