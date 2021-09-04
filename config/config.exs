@@ -16,7 +16,8 @@ config :cannery, CanneryWeb.Endpoint,
   secret_key_base: "KH59P0iZixX5gP/u+zkxxG8vAAj6vgt0YqnwEB5JP5K+E567SsqkCz69uWShjE7I",
   render_errors: [view: CanneryWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Cannery.PubSub,
-  live_view: [signing_salt: "zOLgd3lr"]
+  live_view: [signing_salt: "zOLgd3lr"],
+  registration: System.get_env("REGISTRATION") || "invite"
 
 # Configures Elixir's Logger
 config :logger, :console,

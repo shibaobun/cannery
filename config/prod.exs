@@ -13,7 +13,7 @@ config :cannery, CanneryWeb.Endpoint,
   url: [host: "localhost"],
   http: [port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json"
-  
+
 config :cannery, Cannery.Repo,
   url: "ecto://postgres:postgres@localhost/cannery",
   pool_size: 10

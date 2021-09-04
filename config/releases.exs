@@ -6,7 +6,7 @@ import Config
 
 database_url =
   System.get_env("DATABASE_URL") ||
-  "ecto://postgres:postgres@cannery-db/cannery"
+    "ecto://postgres:postgres@cannery-db/cannery"
 
 config :cannery, Cannery.Repo,
   # ssl: true,
@@ -26,4 +26,5 @@ config :cannery, CanneryWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base,
-  server: true
+  server: true,
+  registration: System.get_env("REGISTRATION") || "invite"
