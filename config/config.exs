@@ -12,13 +12,14 @@ config :cannery,
 
 # Configures the endpoint
 config :cannery, CanneryWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("HOST") || "localhost"],
+  http: [port: String.to_integer(System.get_env("PORT") || "80")],
   secret_key_base: "KH59P0iZixX5gP/u+zkxxG8vAAj6vgt0YqnwEB5JP5K+E567SsqkCz69uWShjE7I",
   render_errors: [view: CanneryWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Cannery.PubSub,
   live_view: [signing_salt: "zOLgd3lr"],
   registration: System.get_env("REGISTRATION") || "invite"
-  
+
 config :cannery, :generators,
   migration: true,
   binary_id: true,

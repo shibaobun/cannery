@@ -20,9 +20,12 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
+host = System.get_env("HOST") || "localhost"
+
 config :cannery, CanneryWeb.Endpoint,
+  url: [host: host],
   http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
+    port: String.to_integer(System.get_env("PORT") || "80"),
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base,
