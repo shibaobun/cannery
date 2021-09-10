@@ -5,13 +5,13 @@
         <%= link to: Routes.home_path(CanneryWeb.Endpoint, :index) do %>
           <h1 class="leading-5 text-xl text-white hover:underline">Cannery</h1>
         <% end %>
-        
+
         <%= if @title_content do %>
           <span>|</span>
           <%= @title_content %>
         <% end %>
       </div>
-    
+
       <ul class="flex flex-row flex-wrap justify-center items-center
         text-lg space-x-4 text-lg text-white">
         <%# user settings %>
@@ -32,7 +32,14 @@
             <%= link "Manage", class: "hover:underline",
               to: Routes.ammo_group_index_path(CanneryWeb.Endpoint, :index) %>
           </li>
-        
+
+          <%= if @current_user.role == :admin do %>
+            <li>
+              <%= link "Invites", class: "hover:underline",
+                to: Routes.invite_index_path(CanneryWeb.Endpoint, :index) %>
+            </li>
+          <% end %>
+
           <%# search %>
           <form phx-change="suggest" phx-submit="search">
             <input type="text" name="q" class="input input-primary"
@@ -43,7 +50,7 @@
               <% end %>
             </datalist>
           </form>
-        
+
           <li>
             <%= link @current_user.email, class: "hover:underline",
               to: Routes.user_settings_path(CanneryWeb.Endpoint, :edit) %>
@@ -67,10 +74,10 @@
         <% else %>
 
           <%= if Accounts.allow_registration?() do %>
-          <li>
-            <%= link "Register", class: "hover:underline",
-              to: Routes.user_registration_path(CanneryWeb.Endpoint, :new) %>
-          </li>
+            <li>
+              <%= link "Register", class: "hover:underline",
+                to: Routes.user_registration_path(CanneryWeb.Endpoint, :new) %>
+            </li>
           <% end %>
 
           <li>
