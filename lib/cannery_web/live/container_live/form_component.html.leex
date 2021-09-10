@@ -6,20 +6,20 @@
   phx_change: "validate",
   phx_submit: "save" %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
+  <%= label f, :name, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :name, class: "input input-primary" %>
   <%= error_tag f, :name %>
 
-  <%= label f, :desc %>
-  <%= text_input f, :desc %>
+  <%= label f, :desc, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :desc, class: "input input-primary" %>
   <%= error_tag f, :desc %>
 
-  <%= label f, :type %>
-  <%= text_input f, :type %>
+  <%= label f, :type, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :type, class: "input input-primary" %>
   <%= error_tag f, :type %>
 
-  <%= label f, :location %>
-  <%= text_input f, :location %>
+  <%= label f, :location, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :location, class: "input input-primary" %>
   <%= error_tag f, :location %>
 
   <%= submit "Save", phx_disable_with: "Saving..." %>
