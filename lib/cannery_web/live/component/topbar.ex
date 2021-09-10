@@ -1,7 +1,7 @@
 defmodule CanneryWeb.Live.Component.Topbar do
   use CanneryWeb, :live_component
 
-  alias CanneryWeb.{PageLive}
+  alias CanneryWeb.{HomeLive}
 
   def mount(socket) do
     {:ok, socket |> assign(results: [], title_content: nil)}

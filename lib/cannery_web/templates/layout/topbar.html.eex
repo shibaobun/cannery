@@ -1,9 +1,9 @@
 <nav role="navigation">
   <div class="flex flex-row justify-between items-center space-x-4">
-    <%= link to: Routes.page_path(CanneryWeb.Endpoint, :index) do %>
+    <%= link to: Routes.home_path(CanneryWeb.Endpoint, :index) do %>
       <h1 class="leading-5 text-xl text-white hover:underline">Cannery</h1>
     <% end %>
-  
+
     <ul class="flex flex-row flex-wrap justify-center items-center
       space-x-4 text-lg text-white">
       <%# user settings %>
@@ -20,10 +20,10 @@
         </li>
       <% else %>
         <%= if Accounts.allow_registration?() do %>
-        <li>
-          <%= link "Register", class: "hover:underline",
-            to: Routes.user_registration_path(CanneryWeb.Endpoint, :new) %>
-        </li>
+          <li>
+            <%= link "Register", class: "hover:underline",
+              to: Routes.user_registration_path(CanneryWeb.Endpoint, :new) %>
+          </li>
         <% end %>
 
         <li>

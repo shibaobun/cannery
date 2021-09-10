@@ -1,9 +1,11 @@
-defmodule CanneryWeb.PageLive do
+defmodule CanneryWeb.HomeLive do
   use CanneryWeb, :live_view
+  alias Cannery.{Accounts}
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> assign(query: "", results: %{})}
+    admins = Accounts.list_users_by_role(:admin)
+    {:ok, socket |> assign_defaults(session) |> assign(query: "", results: %{}, admins: admins)}
   end
 
   @impl true

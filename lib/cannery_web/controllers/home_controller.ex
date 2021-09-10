@@ -1,4 +1,4 @@
-defmodule CanneryWeb.PageController do
+defmodule CanneryWeb.HomeController do
   use CanneryWeb, :controller
 
   def index(conn, _params) do
