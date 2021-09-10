@@ -1,6 +1,7 @@
 defmodule Cannery.Accounts.UserToken do
   use Ecto.Schema
   import Ecto.Query
+  alias Cannery.{Accounts}
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -18,7 +19,7 @@ defmodule Cannery.Accounts.UserToken do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, Cannery.Accounts.User
+    belongs_to :user, Accounts.User
 
     timestamps(updated_at: false)
   end
@@ -30,7 +31,7 @@ defmodule Cannery.Accounts.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %Cannery.Accounts.UserToken{token: token, context: "session", user_id: user.id}}
+    {token, %Accounts.UserToken{token: token, context: "session", user_id: user.id}}
   end
 
   @doc """
@@ -65,7 +66,7 @@ defmodule Cannery.Accounts.UserToken do
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %Cannery.Accounts.UserToken{
+     %Accounts.UserToken{
        token: hashed_token,
        context: context,
        sent_to: sent_to,
@@ -125,17 +126,17 @@ defmodule Cannery.Accounts.UserToken do
   Returns the given token with the given context.
   """
   def token_and_context_query(token, context) do
-    from Cannery.Accounts.UserToken, where: [token: ^token, context: ^context]
+    from Accounts.UserToken, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
   def user_and_contexts_query(user, :all) do
-    from t in Cannery.Accounts.UserToken, where: t.user_id == ^user.id
+    from t in Accounts.UserToken, where: t.user_id == ^user.id
   end
 
   def user_and_contexts_query(user, [_ | _] = contexts) do
-    from t in Cannery.Accounts.UserToken, where: t.user_id == ^user.id and t.context in ^contexts
+    from t in Accounts.UserToken, where: t.user_id == ^user.id and t.context in ^contexts
   end
 end

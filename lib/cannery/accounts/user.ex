@@ -1,6 +1,7 @@
 defmodule Cannery.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.Accounts.{User}
 
   @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -10,9 +11,22 @@ defmodule Cannery.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field :role, Ecto.Enum, values: [:admin, :user], default: :user
 
     timestamps()
   end
+
+  @type t :: %{
+          id: Ecto.UUID.t(),
+          email: String.t(),
+          password: String.t(),
+          hashed_password: String.t(),
+          confirmed_at: NaiveDateTime.t(),
+          role: atom(),
+          invites: [Invite.t()],
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
 
   @doc """
   A user changeset for registration.
@@ -31,13 +45,25 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
+  @spec registration_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec registration_changeset(User.t(), map(), keyword()) :: Ecto.Changeset.t()
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :role])
     |> validate_email()
     |> validate_password(opts)
   end
 
+  @doc """
+  A user changeset for role.
+
+  """
+  @spec role_changeset(User.t(), atom()) :: Ecto.Changeset.t()
+  def role_changeset(user, role) do
+    user |> cast(%{"role" => role}, [:role])
+  end
+
+  @spec validate_email(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
@@ -47,6 +73,7 @@ defmodule Cannery.Accounts.User do
     |> unique_constraint(:email)
   end
 
+  @spec validate_password(Ecto.Changeset.t(), keyword()) :: Ecto.Changeset.t()
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
@@ -57,6 +84,7 @@ defmodule Cannery.Accounts.User do
     |> maybe_hash_password(opts)
   end
 
+  @spec maybe_hash_password(Ecto.Changeset.t(), keyword()) :: Ecto.Changeset.t()
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
     password = get_change(changeset, :password)
@@ -75,6 +103,7 @@ defmodule Cannery.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
+  @spec email_changeset(User.t(), map()) :: Ecto.Changeset.t()
   def email_changeset(user, attrs) do
     user
     |> cast(attrs, [:email])
@@ -97,6 +126,8 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
+  @spec password_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec password_changeset(User.t(), map(), keyword()) :: Ecto.Changeset.t()
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
@@ -107,6 +138,7 @@ defmodule Cannery.Accounts.User do
   @doc """
   Confirms the account by setting `confirmed_at`.
   """
+  @spec confirm_changeset(User.t()) :: Ecto.Changeset.t()
   def confirm_changeset(user) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
     change(user, confirmed_at: now)
@@ -118,7 +150,8 @@ defmodule Cannery.Accounts.User do
   If there is no user or the user doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
-  def valid_password?(%Cannery.Accounts.User{hashed_password: hashed_password}, password)
+  @spec valid_password?(User.t(), String.t()) :: boolean()
+  def valid_password?(%User{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end
@@ -131,6 +164,7 @@ defmodule Cannery.Accounts.User do
   @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
+  @spec validate_current_password(Ecto.Changeset.t(), String.t()) :: Ecto.UUID.t()
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password) do
       changeset
