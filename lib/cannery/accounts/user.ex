@@ -2,6 +2,7 @@ defmodule Cannery.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.Accounts.{User}
+  alias Cannery.Invites.{Invite}
 
   @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -12,6 +13,8 @@ defmodule Cannery.Accounts.User do
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
     field :role, Ecto.Enum, values: [:admin, :user], default: :user
+
+    has_many :invites, Invite, on_delete: :delete_all
 
     timestamps()
   end
