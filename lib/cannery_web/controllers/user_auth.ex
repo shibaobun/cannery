@@ -138,6 +138,21 @@ defmodule CanneryWeb.UserAuth do
       |> halt()
     end
   end
+  
+  @doc """
+  Used for routes that require the user to be an admin.
+  """
+  def require_role(conn, role: role_atom) do
+    if conn.assigns[:current_user] && conn.assigns.current_user.role == role_atom do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not authorized to view this page.")
+      |> maybe_store_return_to()
+      |> redirect(to: Routes.home_path(conn, :index))
+      |> halt()
+    end
+  end
 
   defp maybe_store_return_to(%{method: "GET"} = conn) do
     put_session(conn, :user_return_to, current_path(conn))
