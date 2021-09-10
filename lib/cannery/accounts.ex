@@ -4,7 +4,7 @@ defmodule Cannery.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Repo
+  alias Cannery.{Repo}
   alias Cannery.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
@@ -74,9 +74,13 @@ defmodule Cannery.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    # if no registered users, make first user an admin
+    attrs =
+      if Repo.one!(from u in User, select: count(u.id), distinct: true) == 0,
+        do: attrs |> Map.put("role", "admin"),
+        else: attrs
+
+    %User{} |> User.registration_changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -105,6 +109,20 @@ defmodule Cannery.Accounts do
   """
   def change_user_email(user, attrs \\ %{}) do
     User.email_changeset(user, attrs)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user role.
+
+  ## Examples
+
+      iex> change_user_role(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  @spec change_user_role(User.t(), atom()) :: Ecto.Changeset.t()
+  def change_user_role(user, role) do
+    User.role_changeset(user, role)
   end
 
   @doc """
