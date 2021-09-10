@@ -2,7 +2,9 @@ import Config
 
 # Configure your database
 config :cannery, Cannery.Repo,
-  url: "ecto://postgres:postgres@localhost/cannery_dev",
+  url:
+    System.get_env("DATABASE_URL") ||
+      "ecto://postgres:postgres@localhost/cannery_dev",
   pool_size: 10
 
 # For development, we disable any cache and enable
