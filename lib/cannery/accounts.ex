@@ -59,6 +59,21 @@ defmodule Cannery.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @spec list_users_by_role(atom()) :: [User.t()]
+  def list_users_by_role(role) do
+    Repo.all(from u in User, where: u.role == ^role)
+  end
+
+  @spec list_all_users(boolean()) :: [User.t()]
+  def list_all_users(confirmed_users_only \\ true) do
+    if confirmed_users_only do
+      from u in User, where: u.confirmed_at
+    else
+      User
+    end
+    |> Repo.all()
+  end
+
   ## User registration
 
   @doc """
