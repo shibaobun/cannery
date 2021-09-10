@@ -5,9 +5,9 @@ defmodule CanneryWeb.TagLiveTest do
 
   alias Cannery.Tags
 
-  @create_attrs %{"bg-color": "some bg-color", name: "some name", "text-color": "some text-color"}
-  @update_attrs %{"bg-color": "some updated bg-color", name: "some updated name", "text-color": "some updated text-color"}
-  @invalid_attrs %{"bg-color": nil, name: nil, "text-color": nil}
+  @create_attrs %{bg_color: "some bg-color", name: "some name", text_color: "some text-color"}
+  @update_attrs %{bg_color: "some updated bg-color", name: "some updated name", text_color: "some updated text-color"}
+  @invalid_attrs %{bg_color: nil, name: nil, text_color: nil}
 
   defp fixture(:tag) do
     {:ok, tag} = Tags.create_tag(@create_attrs)

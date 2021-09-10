@@ -6,17 +6,17 @@
   phx_change: "validate",
   phx_submit: "save" %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
+  <%= label f, :name, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :name, class: "input input-primary" %>
   <%= error_tag f, :name %>
 
-  <%= label f, :"bg-color" %>
-  <%= text_input f, :"bg-color" %>
-  <%= error_tag f, :"bg-color" %>
+  <%= label f, :bg_color, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :bg_color %>
+  <%= error_tag f, :bg_color %>
 
-  <%= label f, :"text-color" %>
-  <%= text_input f, :"text-color" %>
-  <%= error_tag f, :"text-color" %>
+  <%= label f, :text_color, class: "title text-lg text-primary-500" %>
+  <%= text_input f, :text_color %>
+  <%= error_tag f, :text_color %>
 
   <%= submit "Save", phx_disable_with: "Saving..." %>
 </form>

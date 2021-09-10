@@ -5,9 +5,9 @@ defmodule Cannery.Tags.Tag do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tags" do
-    field :"bg-color", :string
+    field :bg_color, :string
     field :name, :string
-    field :"text-color", :string
+    field :text_color, :string
     field :user_id, :binary_id
 
     timestamps()
@@ -16,7 +16,7 @@ defmodule Cannery.Tags.Tag do
   @doc false
   def changeset(tag, attrs) do
     tag
-    |> cast(attrs, [:name, :"bg-color", :"text-color"])
-    |> validate_required([:name, :"bg-color", :"text-color"])
+    |> cast(attrs, [:name, :bg_color, :text_color])
+    |> validate_required([:name, :bg_color, :text_color])
   end
 end

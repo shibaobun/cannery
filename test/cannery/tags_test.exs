@@ -6,9 +6,9 @@ defmodule Cannery.TagsTest do
   describe "tags" do
     alias Cannery.Tags.Tag
 
-    @valid_attrs %{"bg-color": "some bg-color", name: "some name", "text-color": "some text-color"}
-    @update_attrs %{"bg-color": "some updated bg-color", name: "some updated name", "text-color": "some updated text-color"}
-    @invalid_attrs %{"bg-color": nil, name: nil, "text-color": nil}
+    @valid_attrs %{bg_color: "some bg-color", name: "some name", text_color: "some text-color"}
+    @update_attrs %{bg_color: "some updated bg-color", name: "some updated name", text_color: "some updated text-color"}
+    @invalid_attrs %{bg_color: nil, name: nil, text_color: nil}
 
     def tag_fixture(attrs \\ %{}) do
       {:ok, tag} =
