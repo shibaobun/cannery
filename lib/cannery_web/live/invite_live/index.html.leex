@@ -1,0 +1,38 @@
+<h1>Listing Invites</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal CanneryWeb.InviteLive.FormComponent,
+    id: @invite.id || :new,
+    title: @page_title,
+    action: @live_action,
+    invite: @invite,
+    return_to: Routes.invite_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Token</th>
+      <th>Uses left</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="invites">
+    <%= for invite <- @invites do %>
+      <tr id="invite-<%= invite.id %>">
+        <td><%= invite.name %></td>
+        <td><%= invite.token %></td>
+        <td><%= invite.uses_left || "Unlimited" %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.invite_show_path(@socket, :show, invite) %></span>
+          <span><%= live_patch "Edit", to: Routes.invite_index_path(@socket, :edit, invite) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: invite.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Invite", to: Routes.invite_index_path(@socket, :new) %></span>

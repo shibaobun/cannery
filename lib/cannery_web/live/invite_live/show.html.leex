@@ -1,0 +1,27 @@
+<h1>Show Invite</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal CanneryWeb.InviteLive.FormComponent,
+    id: @invite.id,
+    title: @page_title,
+    action: @live_action,
+    invite: @invite,
+    return_to: Routes.invite_show_path(@socket, :show, @invite) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @invite.name %>
+  </li>
+
+  <li>
+    <strong>Token:</strong>
+    <%= @invite.token %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.invite_show_path(@socket, :edit, @invite), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.invite_index_path(@socket, :index) %></span>
