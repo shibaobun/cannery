@@ -48,24 +48,31 @@
             <%= link @current_user.email, class: "hover:underline",
               to: Routes.user_settings_path(CanneryWeb.Endpoint, :edit) %>
           </li>
+
           <li>
-            <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete), method: :delete do %>
+            <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete), method: :delete,
+              data: [confirm: "Are you sure you want to log out?"] do %>
               <i class="fas fa-sign-out-alt"></i>
             <% end %>
           </li>
 
-          <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+          <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
             <li>
               <%= link to: Routes.live_dashboard_path(CanneryWeb.Endpoint, :home) do %>
                 <i class="fas fa-tachometer-alt"></i>
               <% end %>
             </li>
           <% end %>
+
         <% else %>
+
+          <%= if Accounts.allow_registration?() do %>
           <li>
             <%= link "Register", class: "hover:underline",
               to: Routes.user_registration_path(CanneryWeb.Endpoint, :new) %>
           </li>
+          <% end %>
+
           <li>
             <%= link "Log in", class: "hover:underline",
               to: Routes.user_session_path(CanneryWeb.Endpoint, :new) %>

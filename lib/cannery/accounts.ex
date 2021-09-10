@@ -238,6 +238,14 @@ defmodule Cannery.Accounts do
     :ok
   end
 
+  @doc """
+  Returns a boolean if registration is allowed or not
+  """
+  def allow_registration?() do
+    Application.get_env(:cannery, CanneryWeb.Endpoint)[:registration] == "public" or
+      list_users_by_role(:admin) |> Enum.empty?()
+  end
+
   ## Confirmation
 
   @doc """
