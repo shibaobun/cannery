@@ -64,6 +64,20 @@ defmodule CanneryWeb.UserSettingsController do
     end
   end
 
+  def delete(conn, %{"id" => user_id}) do
+    if user_id == conn.assigns.current_user.id do
+      Accounts.delete_user!(conn.assigns.current_user)
+
+      conn
+      |> put_flash(:error, "Your account has been deleted")
+      |> redirect(to: Routes.home_path(conn, :index))
+    else
+      conn
+      |> put_flash(:error, "Unable to delete user")
+      |> redirect(to: Routes.user_settings_path(conn, :edit))
+    end
+  end
+
   defp assign_email_and_password_changesets(conn, _opts) do
     user = conn.assigns.current_user
 

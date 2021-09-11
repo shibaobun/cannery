@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center items-center space-y-4">
+<div class="mb-8 flex flex-col justify-center items-center space-y-8">
   <h1 class="title text-primary-500 text-xl">
     Settings
   </h1>
@@ -22,7 +22,7 @@
       <%= email_input f, :email, required: true, class: "input input-primary col-span-2" %>
     </div>
     <%= error_tag f, :email %>
-    
+
     <div class="grid grid-cols-3 justify-center items-center text-center space-x-4">
       <%= label f, :current_password, for: "current_password_for_email", class: "title text-lg text-primary-500" %>
       <%= password_input f, :current_password,
@@ -58,7 +58,7 @@
         class: "input input-primary col-span-2" %>
     </div>
     <%= error_tag f, :password %>
-    
+
     <div class="grid grid-cols-3 justify-center items-center text-center space-x-4">
       <%= label f, :password_confirmation, "Confirm new password",
         class: "title text-lg text-primary-500" %>
@@ -67,7 +67,7 @@
         class: "input input-primary col-span-2" %>
     </div>
     <%= error_tag f, :password_confirmation %>
-    
+
     <div class="grid grid-cols-3 justify-center items-center text-center space-x-4">
       <%= label f, :current_password,
         for: "current_password_for_password",
@@ -82,4 +82,8 @@
 
     <%= submit "Change password", class: "btn btn-primary" %>
   <% end %>
+
+  <%= link "Delete User", to: Routes.user_settings_path(@conn, :delete, @current_user),
+    method: :delete, class: "btn btn-alert",
+    data: [confirm: "Are you sure you want to delete your account?"] %>
 </div>

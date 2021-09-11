@@ -12,7 +12,7 @@ defmodule CanneryWeb.Router do
     plug :put_secure_browser_headers
     plug :fetch_current_user
   end
-  
+
   pipeline :require_admin do
     plug :require_role, role: :admin
   end
@@ -26,7 +26,7 @@ defmodule CanneryWeb.Router do
 
     live "/", HomeLive, :index
   end
-  
+
   ## Authentication routes
 
   scope "/", CanneryWeb do
@@ -47,6 +47,7 @@ defmodule CanneryWeb.Router do
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
+    delete "/users/settings/:id", UserSettingsController, :delete
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/tags", TagLive.Index, :index
@@ -80,7 +81,7 @@ defmodule CanneryWeb.Router do
 
   scope "/", CanneryWeb do
     pipe_through [:browser, :require_authenticated_user, :require_admin]
-    
+
     live_dashboard "/dashboard", metrics: CanneryWeb.Telemetry, ecto_repos: [Cannery.Repo]
 
     live "/invites", InviteLive.Index, :index

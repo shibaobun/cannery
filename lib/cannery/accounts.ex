@@ -244,6 +244,11 @@ defmodule Cannery.Accounts do
     end
   end
 
+  @spec delete_user!(User.t()) :: User.t()
+  def delete_user!(%User{} = user) do
+    user |> Repo.delete!()
+  end
+
   ## Session
 
   @doc """
