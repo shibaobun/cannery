@@ -15,6 +15,8 @@ defmodule CanneryWeb.TagLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"tag" => tag_params}, socket) do
+    tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
+
     changeset =
       socket.assigns.tag
       |> Tags.change_tag(tag_params)
@@ -24,6 +26,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
   end
 
   def handle_event("save", %{"tag" => tag_params}, socket) do
+    tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
     save_tag(socket, socket.assigns.action, tag_params)
   end
 

@@ -1,4 +1,55 @@
-<h1>Listing Tags</h1>
+<div class="flex flex-col space-y-8 justify-center items-center">
+  <h1 class="title text-2xl title-primary-500">
+    Listing Tags
+  </h1>
+
+  <p class="title text-md text-primary-500">
+    Tags can be added to your containers to help you organize
+  </p>
+
+  <%= if @tags |> Enum.empty?() do %>
+    <div class="flex flex-col space-y-4 justify-center items-center">
+      <h1 class="title text-xl text-primary-500">
+        No tags
+      </h1>
+
+      <%= live_patch to: Routes.tag_index_path(@socket, :new),
+        class: "btn btn-primary" do %>
+        Create your first tag!
+      <% end %>
+    </div>
+  <% else %>
+    <%= live_patch to: Routes.tag_index_path(@socket, :new),
+      class: "btn btn-primary" do %>
+      New Tag
+    <% end %>
+  <% end %>
+
+  <div class="flex flex-row flex-wrap space-x-4 space-y-4">
+    <%= for tag <- @tags do %>
+      <div id="tag-<%= tag.id %>"
+        class="px-8 py-4 flex flex-col justify-center items-center space-y-4
+        border border-gray-400 rounded-lg shadow-lg hover:shadow-md">
+
+        <h1 class="px-4 py-2 rounded-lg title text-xl"
+          style="color: <%= tag.text_color %>; background-color: <%= tag.bg_color %>">
+          <%= tag.name %>
+        </h1>
+
+        <div class="flex space-x-4 justify-center items-center">
+          <%= live_patch "Edit", to: Routes.tag_index_path(@socket, :edit, tag),
+            class: "text-primary-500 link" %>
+
+          <%= link "Delete", to: "#",
+            class: "text-primary-500 link",
+            phx_click: "delete",
+            phx_value_id: tag.id,
+            data: [confirm: "Are you sure you want to delete #{tag.name}?"] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal CanneryWeb.TagLive.FormComponent,
@@ -6,33 +57,6 @@
     title: @page_title,
     action: @live_action,
     tag: @tag,
-    return_to: Routes.tag_index_path(@socket, :index) %>
+    return_to: Routes.tag_index_path(@socket, :index),
+    current_user: @current_user %>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Bg-color</th>
-      <th>Text-color</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="tags">
-    <%= for tag <- @tags do %>
-      <tr id="tag-<%= tag.id %>">
-        <td><%= tag.name %></td>
-        <td><%= tag.bg_color %></td>
-        <td><%= tag.text_color %></td>
-
-        <td>
-          <span><%= live_patch "Edit", to: Routes.tag_index_path(@socket, :edit, tag) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: tag.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<span><%= live_patch "New Tag", to: Routes.tag_index_path(@socket, :new) %></span>

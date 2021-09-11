@@ -6,7 +6,7 @@ defmodule CanneryWeb.TagLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> assign(:tags, list_tags())}
+    {:ok, socket |> assign_defaults(session) |> display_tags()}
   end
 
   @impl true
@@ -36,11 +36,12 @@ defmodule CanneryWeb.TagLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     tag = Tags.get_tag!(id)
     {:ok, _} = Tags.delete_tag(tag)
-
-    {:noreply, socket |> assign(:tags, list_tags())}
+    socket = socket |> put_flash(:info, "Tag deleted succesfully")
+    {:noreply, socket |> display_tags()}
   end
 
-  defp list_tags do
-    Tags.list_tags()
+  defp display_tags(socket) do
+    tags = Tags.list_tags(socket.assigns.current_user)
+    socket |> assign(tags: tags)
   end
 end

@@ -4,7 +4,7 @@ defmodule Cannery.Tags do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Repo
+  alias Cannery.{Accounts, Repo}
 
   alias Cannery.Tags.Tag
 
@@ -17,8 +17,15 @@ defmodule Cannery.Tags do
       [%Tag{}, ...]
 
   """
-  def list_tags do
-    Repo.all(Tag)
+  @spec list_tags(Accounts.User.t()) :: [Tag.t()]
+  def list_tags(%{id: user_id}) do
+    list_tags(user_id)
+  end
+
+  def list_tags(user_id) do
+    Repo.all(
+      from t in Tag, where: t.user_id == ^user_id
+    )
   end
 
   @doc """
@@ -35,6 +42,7 @@ defmodule Cannery.Tags do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_tag!(Ecto.UUID.t()) :: Tag.t()
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
@@ -49,10 +57,9 @@ defmodule Cannery.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tag(attrs \\ %{}) do
-    %Tag{}
-    |> Tag.changeset(attrs)
-    |> Repo.insert()
+  @spec create_tag(map()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
+  def create_tag(attrs) do
+    %Tag{} |> Tag.changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -67,10 +74,9 @@ defmodule Cannery.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_tag(%Tag{} = tag, attrs) do
-    tag
-    |> Tag.changeset(attrs)
-    |> Repo.update()
+  @spec update_tag(Tag.t(), map()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
+  def update_tag(tag, attrs) do
+    tag |> Tag.changeset(attrs) |> Repo.update()
   end
 
   @doc """
@@ -85,7 +91,8 @@ defmodule Cannery.Tags do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_tag(%Tag{} = tag) do
+  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
+  def delete_tag(tag) do
     Repo.delete(tag)
   end
 
@@ -98,7 +105,9 @@ defmodule Cannery.Tags do
       %Ecto.Changeset{data: %Tag{}}
 
   """
-  def change_tag(%Tag{} = tag, attrs \\ %{}) do
+  @spec change_tag(Tag.t()) :: Ecto.Changeset.t()
+  @spec change_tag(Tag.t(), map()) :: Ecto.Changeset.t()
+  def change_tag(tag, attrs \\ %{}) do
     Tag.changeset(tag, attrs)
   end
 end

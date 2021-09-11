@@ -16,7 +16,7 @@ defmodule Cannery.Tags.Tag do
   @doc false
   def changeset(tag, attrs) do
     tag
-    |> cast(attrs, [:name, :bg_color, :text_color])
-    |> validate_required([:name, :bg_color, :text_color])
+    |> cast(attrs, [:name, :bg_color, :text_color, :user_id])
+    |> validate_required([:name, :bg_color, :text_color, :user_id])
   end
 end
