@@ -18,6 +18,7 @@ defmodule Cannery.Invites do
       [%Invite{}, ...]
 
   """
+  @spec list_invites() :: [Invite.t()]
   def list_invites, do: Repo.all(Invite)
 
   @doc """
@@ -34,6 +35,7 @@ defmodule Cannery.Invites do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_invite!(Ecto.UUID.t()) :: Invite.t()
   def get_invite!(id), do: Repo.get!(Invite, id)
 
   @doc """
@@ -95,7 +97,7 @@ defmodule Cannery.Invites do
 
   """
   @spec create_invite(Accounts.User.t() | Ecto.UUID.t(), map()) :: Invite.t()
-  def create_invite(%Accounts.User{id: user_id}, attrs) do
+  def create_invite(%{id: user_id}, attrs) do
     create_invite(user_id, attrs)
   end
 
@@ -125,10 +127,9 @@ defmodule Cannery.Invites do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_invite(%Invite{} = invite, attrs) do
-    invite
-    |> Invite.changeset(attrs)
-    |> Repo.update()
+  @spec update_invite(Invite.t(), map()) :: {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
+  def update_invite(invite, attrs) do
+    invite |> Invite.changeset(attrs) |> Repo.update()
   end
 
   @doc """
@@ -143,7 +144,8 @@ defmodule Cannery.Invites do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_invite(%Invite{} = invite) do
+  @spec delete_invite(Invite.t()) :: {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
+  def delete_invite(invite) do
     Repo.delete(invite)
   end
 
@@ -156,7 +158,9 @@ defmodule Cannery.Invites do
       %Ecto.Changeset{data: %Invite{}}
 
   """
-  def change_invite(%Invite{} = invite, attrs \\ %{}) do
+  @spec change_invite(Invite.t()) :: Ecto.Changeset.t()
+  @spec change_invite(Invite.t(), map()) :: Ecto.Changeset.t()
+  def change_invite(invite, attrs \\ %{}) do
     Invite.changeset(invite, attrs)
   end
 end
