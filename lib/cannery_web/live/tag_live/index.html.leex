@@ -27,7 +27,6 @@
         <td><%= tag.text_color %></td>
 
         <td>
-          <span><%= live_redirect "Show", to: Routes.tag_show_path(@socket, :show, tag) %></span>
           <span><%= live_patch "Edit", to: Routes.tag_index_path(@socket, :edit, tag) %></span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: tag.id, data: [confirm: "Are you sure?"] %></span>
         </td>
