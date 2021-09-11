@@ -21,8 +21,6 @@
     <%= error_tag f, :uses_left %>
   </span>
 
-  <div class="flex flex-row justify-center items-center space-x-4 col-span-3">
-    <%= submit "Save", class: "btn btn-primary",
-      phx_disable_with: "Saving..." %>
-  </div>
+  <%= submit "Save", class: "mx-auto btn btn-primary col-span-3",
+    phx_disable_with: "Saving..." %>
 </form>
