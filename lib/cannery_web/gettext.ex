@@ -20,5 +20,5 @@ defmodule CanneryWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  # use Gettext, otp_app: :cannery
+  use Gettext, otp_app: :cannery
 end
