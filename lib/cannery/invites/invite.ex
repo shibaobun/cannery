@@ -20,6 +20,7 @@ defmodule Cannery.Invites.Invite do
     invite
     |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])
     |> validate_required([:name, :token, :user_id])
+    |> validate_number(:uses_left, greater_than_or_equal_to: 0)
   end
 
   @type t :: %{

@@ -37,7 +37,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
-    end
+      end
   end
 
   defp save_invite(socket, :new, invite_params) do

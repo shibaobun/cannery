@@ -11,6 +11,10 @@
       </div>
     <% end %>
 
+    <%= if @invite do %>
+      <%= hidden_input f, :invite_token, value: @invite.token %>
+    <% end %>
+
     <div class="grid grid-cols-3 justify-center items-center text-center space-x-4">
       <%= label f, :email, class: "title text-lg text-primary-500" %>
       <%= email_input f, :email, required: true, class: "input input-primary col-span-2" %>
@@ -24,7 +28,7 @@
     <%= error_tag f, :password %>
 
     <%= submit "Register", class: "btn btn-primary" %>
-    
+
     <hr class="hr">
 
     <div class="flex flex-row justify-center items-center space-x-4">

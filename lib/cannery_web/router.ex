@@ -87,9 +87,6 @@ defmodule CanneryWeb.Router do
     live "/invites", InviteLive.Index, :index
     live "/invites/new", InviteLive.Index, :new
     live "/invites/:id/edit", InviteLive.Index, :edit
-
-    live "/invites/:id", InviteLive.Show, :show
-    live "/invites/:id/show/edit", InviteLive.Show, :edit
   end
 
   scope "/", CanneryWeb do

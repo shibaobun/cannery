@@ -50,13 +50,21 @@ defmodule Cannery.Invites do
   @spec get_invite_by_token(String.t()) :: Invite.t() | nil
   def get_invite_by_token(nil), do: nil
   def get_invite_by_token(""), do: nil
-  def get_invite_by_token(token), do: Repo.get_by(Invite, token: token, disabled_at: nil)
+
+  def get_invite_by_token(token) do
+    Repo.one(
+      from i in Invite,
+        where: i.token == ^token and i.disabled_at |> is_nil()
+    )
+  end
 
   @doc """
-  Uses invite by decrementing uses_left, or markes invite invalid if it's been completely used
-
+  Uses invite by decrementing uses_left, or marks invite invalid if it's been
+  completely used.
   """
   @spec use_invite!(Invite.t()) :: Invite.t()
+  def use_invite!(%Invite{uses_left: nil} = invite), do: invite
+
   def use_invite!(%Invite{uses_left: uses_left} = invite) do
     new_uses_left = uses_left - 1
 
@@ -96,7 +104,10 @@ defmodule Cannery.Invites do
       attrs
       |> Map.merge(%{
         "user_id" => user_id,
-        "token" => :crypto.strong_rand_bytes(@invite_token_length)
+        "token" =>
+          :crypto.strong_rand_bytes(@invite_token_length)
+          |> Base.url_encode64()
+          |> binary_part(0, @invite_token_length)
       })
 
     %Invite{} |> Invite.changeset(attrs) |> Repo.insert()
