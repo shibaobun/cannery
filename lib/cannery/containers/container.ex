@@ -1,6 +1,7 @@
 defmodule Cannery.Containers.Container do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.{Accounts}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -9,7 +10,8 @@ defmodule Cannery.Containers.Container do
     field :location, :string
     field :name, :string
     field :type, :string
-    field :user_id, :binary_id
+
+    belongs_to :user, Accounts.User
 
     timestamps()
   end
@@ -17,7 +19,7 @@ defmodule Cannery.Containers.Container do
   @doc false
   def changeset(container, attrs) do
     container
-    |> cast(attrs, [:name, :desc, :type, :location])
-    |> validate_required([:name, :desc, :type, :location])
+    |> cast(attrs, [:name, :desc, :type, :location, :user_id])
+    |> validate_required([:name, :desc, :type, :location, :user_id])
   end
 end

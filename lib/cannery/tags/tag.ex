@@ -1,6 +1,7 @@
 defmodule Cannery.Tags.Tag do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.{Accounts}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -8,7 +9,8 @@ defmodule Cannery.Tags.Tag do
     field :bg_color, :string
     field :name, :string
     field :text_color, :string
-    field :user_id, :binary_id
+
+    belongs_to :user, Accounts.User
 
     timestamps()
   end

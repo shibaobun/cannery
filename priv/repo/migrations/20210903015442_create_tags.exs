@@ -7,6 +7,7 @@ defmodule Cannery.Repo.Migrations.CreateTags do
       add :name, :string
       add :bg_color, :string
       add :text_color, :string
+      
       add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
 
       timestamps()
