@@ -10,17 +10,10 @@ defmodule Cannery.Invites.Invite do
     field :token, :string
     field :uses_left, :integer, default: nil
     field :disabled_at, :naive_datetime
+
     belongs_to :user, Accounts.User
 
     timestamps()
-  end
-
-  @doc false
-  def changeset(invite, attrs) do
-    invite
-    |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])
-    |> validate_required([:name, :token, :user_id])
-    |> validate_number(:uses_left, greater_than_or_equal_to: 0)
   end
 
   @type t :: %{
@@ -29,7 +22,15 @@ defmodule Cannery.Invites.Invite do
           token: String.t(),
           uses_left: integer() | nil,
           disabled_at: NaiveDateTime.t(),
-          user_id: Ecto.UUID.t(),
-          user: Accounts.User.t()
+          user: Accounts.User.t(),
+          user_id: Ecto.UUID.t()
         }
+
+  @doc false
+  def changeset(invite, attrs) do
+    invite
+    |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])
+    |> validate_required([:name, :token, :user_id])
+    |> validate_number(:uses_left, greater_than_or_equal_to: 0)
+  end
 end
