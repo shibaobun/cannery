@@ -8,7 +8,8 @@ defmodule Cannery.Repo.Migrations.CreateInvites do
       add :token, :string
       add :uses_left, :integer, default: nil
       add :disabled_at, :naive_datetime, default: nil
-      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
+
+      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

@@ -7,10 +7,11 @@ defmodule Cannery.Repo.Migrations.CreateAmmoGroups do
       add :count, :integer
       add :price_paid, :float
       add :notes, :text
+
       add :tag_id, references(:tags, on_delete: :nothing, type: :binary_id)
-      add :ammo_type_id, references(:ammo_types, on_delete: :nothing, type: :binary_id)
+      add :ammo_type_id, references(:ammo_types, on_delete: :delete_all, type: :binary_id)
       add :container_id, references(:containers, on_delete: :nothing, type: :binary_id)
-      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
+      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

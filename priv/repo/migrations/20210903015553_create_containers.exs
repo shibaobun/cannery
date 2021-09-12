@@ -5,10 +5,11 @@ defmodule Cannery.Repo.Migrations.CreateContainers do
     create table(:containers, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :name, :string
-      add :desc, :string
+      add :desc, :text
       add :type, :string
-      add :location, :string
-      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
+      add :location, :text
+
+      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end
