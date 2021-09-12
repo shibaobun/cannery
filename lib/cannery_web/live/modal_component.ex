@@ -25,7 +25,7 @@ defmodule CanneryWeb.ModalComponent do
         <% end %>
 
         <%# modal content %>
-        <div class="flex flex-col space-y-4 justify-center items-center">
+        <div class="w-full flex flex-col space-y-4 justify-center items-center">
           <%= live_component @socket, @component, @opts %>
         </div>
       </div>
