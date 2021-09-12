@@ -10,7 +10,8 @@ defmodule Cannery.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive]
     ]
   end
 
@@ -51,6 +52,7 @@ defmodule Cannery.MixProject do
       {:phx_gen_auth, "~> 0.7", only: [:dev], runtime: false},
       {:ecto_psql_extras, "~> 0.6"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
     ]
   end
 
