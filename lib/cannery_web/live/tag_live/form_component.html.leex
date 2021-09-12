@@ -16,13 +16,17 @@
   </span>
 
   <%= label f, :bg_color, class: "title text-lg text-primary-500" %>
-  <%= color_input f, :bg_color, class: "mx-auto col-span-2" %>
+  <span class="mx-auto col-span-2" phx-update="ignore">
+    <%= color_input f, :bg_color, value: random_color() %>
+  </span>
   <span class="col-span-3">
     <%= error_tag f, :bg_color %>
   </span>
 
   <%= label f, :text_color, class: "title text-lg text-primary-500" %>
-  <%= color_input f, :text_color, class: "mx-auto col-span-2" %>
+  <span class="mx-auto col-span-2" phx-update="ignore">
+    <%= color_input f, :text_color, value: "#ffffff" %>
+  </span>
   <span class="col-span-3">
     <%= error_tag f, :text_color %>
   </span>

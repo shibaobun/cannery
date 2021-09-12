@@ -55,4 +55,13 @@ defmodule CanneryWeb.TagLive.FormComponent do
         {:noreply, socket |> assign(changeset: changeset)}
     end
   end
+
+  @doc """
+  Returns a random tag color in `#ffffff` hex format
+  """
+  @spec random_color() :: String.t()
+  def random_color() do
+    ["#cc0066", "#ff6699", "#6666ff", "#0066cc", "#00cc66", "#669900", "#ff9900", "#996633"]
+    |> Enum.random()
+  end
 end
