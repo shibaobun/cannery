@@ -25,7 +25,7 @@ host = System.get_env("HOST") || "localhost"
 config :cannery, CanneryWeb.Endpoint,
   url: [scheme: "https", host: host, port: "443"],
   http: [
-    port: String.to_integer(System.get_env("PORT") || "80"),
+    port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base,

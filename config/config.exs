@@ -12,8 +12,8 @@ config :cannery,
 
 # Configures the endpoint
 config :cannery, CanneryWeb.Endpoint,
-  url: [host: System.get_env("HOST") || "localhost"],
-  http: [port: String.to_integer(System.get_env("PORT") || "80")],
+  url: [scheme: "https", host: System.get_env("HOST") || "localhost", port: "443"],
+  http: [port: String.to_integer(System.get_env("PORT") || "4000")],
   secret_key_base: "KH59P0iZixX5gP/u+zkxxG8vAAj6vgt0YqnwEB5JP5K+E567SsqkCz69uWShjE7I",
   render_errors: [view: CanneryWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Cannery.PubSub,
