@@ -30,6 +30,50 @@ defmodule CanneryWeb.TagLive.FormComponent do
     save_tag(socket, socket.assigns.action, tag_params)
   end
 
+  @impl true
+  def render(assigns) do
+    ~H"""
+    <div>
+      <h2 class="title text-xl text-primary-500">
+        <%= @title %>
+      </h2>
+
+      <.form let={f} for={@changeset}
+        id="tag-form"
+        class="grid grid-cols-3 justify-center items-center space-y-4"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save">
+
+        <%= label f, :name, class: "title text-lg text-primary-500" %>
+        <%= text_input f, :name, class: "input input-primary col-span-2" %>
+        <span class="col-span-3">
+          <%= error_tag f, :name %>
+        </span>
+
+        <%= label f, :bg_color, class: "title text-lg text-primary-500" %>
+        <span class="mx-auto col-span-2" phx-update="ignore">
+          <%= color_input f, :bg_color, value: random_color() %>
+        </span>
+        <span class="col-span-3">
+          <%= error_tag f, :bg_color %>
+        </span>
+
+        <%= label f, :text_color, class: "title text-lg text-primary-500" %>
+        <span class="mx-auto col-span-2" phx-update="ignore">
+          <%= color_input f, :text_color, value: "#ffffff" %>
+        </span>
+        <span class="col-span-3">
+          <%= error_tag f, :text_color %>
+        </span>
+
+        <%= submit "Save", class: "mx-auto btn btn-primary col-span-3",
+          phx_disable_with: "Saving..." %>
+      </.form>
+    </div>
+    """
+  end
+
   defp save_tag(socket, :edit, tag_params) do
     case Tags.update_tag(socket.assigns.tag, tag_params) do
       {:ok, _tag} ->
@@ -54,8 +98,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, socket |> assign(changeset: changeset)}
     end
-  end
-
+  end-
   @doc """
   Returns a random tag color in `#ffffff` hex format
   """

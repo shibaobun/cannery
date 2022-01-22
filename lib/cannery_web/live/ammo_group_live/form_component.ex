@@ -27,6 +27,36 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     save_ammo_group(socket, socket.assigns.action, ammo_group_params)
   end
 
+  @impl true
+  def render(assigns) do
+    ~H"""
+    <div>
+      <h2><%= @title %></h2>
+
+      <.form let={f} for={@changeset},
+        id="ammo_group-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save">
+
+        <%= label f, :count, class: "title text-lg text-primary-500" %>
+        <%= number_input f, :count %>
+        <%= error_tag f, :count %>
+
+        <%= label f, :price_paid, class: "title text-lg text-primary-500" %>
+        <%= number_input f, :price_paid, step: "any" %>
+        <%= error_tag f, :price_paid %>
+
+        <%= label f, :notes, class: "title text-lg text-primary-500" %>
+        <%= textarea f, :notes, class: "input" %>
+        <%= error_tag f, :notes %>
+
+        <%= submit "Save", phx_disable_with: "Saving..." %>
+      </.form>
+    </div>
+    """
+  end
+
   defp save_ammo_group(socket, :edit, ammo_group_params) do
     case Ammo.update_ammo_group(socket.assigns.ammo_group, ammo_group_params) do
       {:ok, _ammo_group} ->

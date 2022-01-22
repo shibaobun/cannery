@@ -3,15 +3,15 @@ defmodule CanneryWeb.ModalComponent do
 
   @impl true
   def render(assigns) do
-    ~L"""
-    <div id="<%= @id %>" class="fixed z-10 left-0 top-0
+    ~H"""
+    <div id={@id} class="fixed z-10 left-0 top-0
       w-full h-full overflow-hidden
       p-8 flex flex-col justify-center items-center"
       style="opacity: 1 !important; background-color: rgba(0,0,0,0.4);"
       phx-capture-click="close"
       phx-window-keydown="close"
       phx-key="escape"
-      phx-target="#<%= @id %>"
+      phx-target={"#{@id}"}
       phx-page-loading>
 
       <div class="w-full max-w-4xl relative

@@ -27,6 +27,40 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
     save_container(socket, socket.assigns.action, container_params)
   end
 
+  @impl true
+  def render(assigns) do
+    ~H"""
+    <div>
+      <h2><%= @title %></h2>
+
+      <.form let={f} for={@changeset}
+        id="container-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save">
+
+        <%= label f, :name, class: "title text-lg text-primary-500" %>
+        <%= text_input f, :name, class: "input input-primary" %>
+        <%= error_tag f, :name %>
+
+        <%= label f, :desc, class: "title text-lg text-primary-500" %>
+        <%= text_input f, :desc, class: "input input-primary" %>
+        <%= error_tag f, :desc %>
+
+        <%= label f, :type, class: "title text-lg text-primary-500" %>
+        <%= text_input f, :type, class: "input input-primary" %>
+        <%= error_tag f, :type %>
+
+        <%= label f, :location, class: "title text-lg text-primary-500" %>
+        <%= text_input f, :location, class: "input input-primary" %>
+        <%= error_tag f, :location %>
+
+        <%= submit "Save", phx_disable_with: "Saving..." %>
+      </.form>
+    </div>
+    """
+  end
+
   defp save_container(socket, :edit, container_params) do
     case Containers.update_container(socket.assigns.container, container_params) do
       {:ok, _container} ->
