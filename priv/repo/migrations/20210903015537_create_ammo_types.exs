@@ -13,6 +13,5 @@ defmodule Cannery.Repo.Migrations.CreateAmmoTypes do
 
       timestamps()
     end
-
   end
 end

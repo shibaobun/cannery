@@ -23,9 +23,7 @@ defmodule Cannery.Tags do
   end
 
   def list_tags(user_id) do
-    Repo.all(
-      from t in Tag, where: t.user_id == ^user_id
-    )
+    Repo.all(from t in Tag, where: t.user_id == ^user_id)
   end
 
   @doc """

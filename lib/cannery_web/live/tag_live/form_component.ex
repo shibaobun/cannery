@@ -37,8 +37,9 @@ defmodule CanneryWeb.TagLive.FormComponent do
       <h2 class="title text-xl text-primary-500">
         <%= @title %>
       </h2>
-
-      <.form let={f} for={@changeset}
+      <.form
+        let={f}
+        for={@changeset}
         id="tag-form"
         class="grid grid-cols-3 justify-center items-center space-y-4"
         phx-target={@myself}
@@ -48,27 +49,26 @@ defmodule CanneryWeb.TagLive.FormComponent do
         <%= label f, :name, class: "title text-lg text-primary-500" %>
         <%= text_input f, :name, class: "input input-primary col-span-2" %>
         <span class="col-span-3">
-          <%= error_tag f, :name %>
+          <%= error_tag(f, :name) %>
         </span>
-
-        <%= label f, :bg_color, class: "title text-lg text-primary-500" %>
+        <%= label(f, :bg_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input f, :bg_color, value: random_color() %>
+          <%= color_input(f, :bg_color, value: random_color()) %>
         </span>
         <span class="col-span-3">
-          <%= error_tag f, :bg_color %>
+          <%= error_tag(f, :bg_color) %>
         </span>
-
-        <%= label f, :text_color, class: "title text-lg text-primary-500" %>
+        <%= label(f, :text_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input f, :text_color, value: "#ffffff" %>
+          <%= color_input(f, :text_color, value: "#ffffff") %>
         </span>
         <span class="col-span-3">
-          <%= error_tag f, :text_color %>
+          <%= error_tag(f, :text_color) %>
         </span>
-
-        <%= submit "Save", class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: "Saving..." %>
+        <%= submit("Save",
+          class: "mx-auto btn btn-primary col-span-3",
+          phx_disable_with: "Saving..."
+        ) %>
       </.form>
     </div>
     """

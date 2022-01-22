@@ -31,9 +31,13 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h2><%= @title %></h2>
-
-      <.form let={f} for={@changeset},
+      <h2>
+        <%= @title %>
+      </h2>
+      <.form
+        let={f}
+        for={@changeset}
+        ,
         id="ammo_group-form"
         phx-target={@myself}
         phx-change="validate"

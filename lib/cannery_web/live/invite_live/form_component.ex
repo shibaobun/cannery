@@ -34,8 +34,9 @@ defmodule CanneryWeb.InviteLive.FormComponent do
       <h2 class="title text-xl text-primary-500">
         <%= @title %>
       </h2>
-
-      <.form let={f} for={@changeset}
+      <.form
+        let={f}
+        for={@changeset}
         id="invite-form"
         class="grid grid-cols-3 justify-center items-center space-y-4"
         phx-target={@myself}
@@ -45,17 +46,17 @@ defmodule CanneryWeb.InviteLive.FormComponent do
         <%= label f, :name, class: "title text-lg text-primary-500" %>
         <%= text_input f, :name, class: "input input-primary col-span-2" %>
         <span class="col-span-3">
-          <%= error_tag f, :name %>
+          <%= error_tag(f, :name) %>
         </span>
-
-        <%= label f, :uses_left, class: "title text-lg text-primary-500" %>
-        <%= number_input f, :uses_left, min: 0, class: "input input-primary col-span-2" %>
+        <%= label(f, :uses_left, class: "title text-lg text-primary-500") %>
+        <%= number_input(f, :uses_left, min: 0, class: "input input-primary col-span-2") %>
         <span class="col-span-3">
-          <%= error_tag f, :uses_left %>
+          <%= error_tag(f, :uses_left) %>
         </span>
-
-        <%= submit "Save", class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: "Saving..." %>
+        <%= submit("Save",
+          class: "mx-auto btn btn-primary col-span-3",
+          phx_disable_with: "Saving..."
+        ) %>
       </.form>
     </div>
     """
@@ -71,7 +72,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
-      end
+    end
   end
 
   defp save_invite(socket, :new, invite_params) do
