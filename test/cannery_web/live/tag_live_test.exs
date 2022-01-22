@@ -5,9 +5,21 @@ defmodule CanneryWeb.TagLiveTest do
 
   alias Cannery.Tags
 
-  @create_attrs %{bg_color: "some bg-color", name: "some name", text_color: "some text-color"}
-  @update_attrs %{bg_color: "some updated bg-color", name: "some updated name", text_color: "some updated text-color"}
-  @invalid_attrs %{bg_color: nil, name: nil, text_color: nil}
+  @create_attrs %{
+    "bg_color" => "some bg-color",
+    "name" => "some name",
+    "text_color" => "some text-color"
+  }
+  @update_attrs %{
+    "bg_color" => "some updated bg-color",
+    "name" => "some updated name",
+    "text_color" => "some updated text-color"
+  }
+  @invalid_attrs %{
+    "bg_color" => nil,
+    "name" => nil,
+    "text_color" => nil
+  }
 
   defp fixture(:tag) do
     {:ok, tag} = Tags.create_tag(@create_attrs)
@@ -26,7 +38,7 @@ defmodule CanneryWeb.TagLiveTest do
       {:ok, _index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
 
       assert html =~ "Listing Tags"
-      assert html =~ tag.bg-color
+      assert html =~ tag.bg_color
     end
 
     test "saves new tag", %{conn: conn} do
@@ -88,7 +100,7 @@ defmodule CanneryWeb.TagLiveTest do
       {:ok, _show_live, html} = live(conn, Routes.tag_show_path(conn, :show, tag))
 
       assert html =~ "Show Tag"
-      assert html =~ tag.bg-color
+      assert html =~ tag.bg_color
     end
 
     test "updates tag within modal", %{conn: conn, tag: tag} do

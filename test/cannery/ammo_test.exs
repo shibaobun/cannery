@@ -6,9 +6,30 @@ defmodule Cannery.AmmoTest do
   describe "ammo_types" do
     alias Cannery.Ammo.AmmoType
 
-    @valid_attrs %{bullet_type: "some bullet_type", case_material: "some case_material", desc: "some desc", manufacturer: "some manufacturer", name: "some name", weight: 120.5}
-    @update_attrs %{bullet_type: "some updated bullet_type", case_material: "some updated case_material", desc: "some updated desc", manufacturer: "some updated manufacturer", name: "some updated name", weight: 456.7}
-    @invalid_attrs %{bullet_type: nil, case_material: nil, desc: nil, manufacturer: nil, name: nil, weight: nil}
+    @valid_attrs %{
+      "bullet_type" => "some bullet_type",
+      "case_material" => "some case_material",
+      "desc" => "some desc",
+      "manufacturer" => "some manufacturer",
+      "name" => "some name",
+      "weight" => 120.5
+    }
+    @update_attrs %{
+      "bullet_type" => "some updated bullet_type",
+      "case_material" => "some updated case_material",
+      "desc" => "some updated desc",
+      "manufacturer" => "some updated manufacturer",
+      "name" => "some updated name",
+      "weight" => 456.7
+    }
+    @invalid_attrs %{
+      "bullet_type" => nil,
+      "case_material" => nil,
+      "desc" => nil,
+      "manufacturer" => nil,
+      "name" => nil,
+      "weight" => nil
+    }
 
     def ammo_type_fixture(attrs \\ %{}) do
       {:ok, ammo_type} =

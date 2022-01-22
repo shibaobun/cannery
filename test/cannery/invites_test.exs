@@ -1,20 +1,28 @@
 defmodule Cannery.InvitesTest do
   use Cannery.DataCase
 
-  alias Cannery.Invites
+  alias Cannery.{AccountsFixtures, Invites}
 
   describe "invites" do
     alias Cannery.Invites.Invite
 
-    @valid_attrs %{name: "some name", token: "some token"}
-    @update_attrs %{name: "some updated name", token: "some updated token"}
-    @invalid_attrs %{name: nil, token: nil}
+    @valid_attrs %{
+      "name" => "some name",
+      "token" => "some token"
+    }
+    @update_attrs %{
+      "name" => "some updated name",
+      "token" => "some updated token"
+    }
+    @invalid_attrs %{
+      "name" => nil,
+      "token" => nil
+    }
 
     def invite_fixture(attrs \\ %{}) do
       {:ok, invite} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Invites.create_invite()
+        AccountsFixtures.user_fixture()
+        |> Invites.create_invite(attrs |> Enum.into(@valid_attrs))
 
       invite
     end

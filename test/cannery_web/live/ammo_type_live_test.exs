@@ -5,9 +5,30 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
   alias Cannery.Ammo
 
-  @create_attrs %{bullet_type: "some bullet_type", case_material: "some case_material", desc: "some desc", manufacturer: "some manufacturer", name: "some name", weight: 120.5}
-  @update_attrs %{bullet_type: "some updated bullet_type", case_material: "some updated case_material", desc: "some updated desc", manufacturer: "some updated manufacturer", name: "some updated name", weight: 456.7}
-  @invalid_attrs %{bullet_type: nil, case_material: nil, desc: nil, manufacturer: nil, name: nil, weight: nil}
+  @create_attrs %{
+    "bullet_type" => "some bullet_type",
+    "case_material" => "some case_material",
+    "desc" => "some desc",
+    "manufacturer" => "some manufacturer",
+    "name" => "some name",
+    "weight" => 120.5
+  }
+  @update_attrs %{
+    "bullet_type" => "some updated bullet_type",
+    "case_material" => "some updated case_material",
+    "desc" => "some updated desc",
+    "manufacturer" => "some updated manufacturer",
+    "name" => "some updated name",
+    "weight" => 456.7
+  }
+  @invalid_attrs %{
+    "bullet_type" => nil,
+    "case_material" => nil,
+    "desc" => nil,
+    "manufacturer" => nil,
+    "name" => nil,
+    "weight" => nil
+  }
 
   defp fixture(:ammo_type) do
     {:ok, ammo_type} = Ammo.create_ammo_type(@create_attrs)

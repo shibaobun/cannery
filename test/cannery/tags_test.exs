@@ -1,18 +1,33 @@
 defmodule Cannery.TagsTest do
   use Cannery.DataCase
 
-  alias Cannery.Tags
+  alias Cannery.{AccountsFixtures, Tags}
 
   describe "tags" do
     alias Cannery.Tags.Tag
 
-    @valid_attrs %{bg_color: "some bg-color", name: "some name", text_color: "some text-color"}
-    @update_attrs %{bg_color: "some updated bg-color", name: "some updated name", text_color: "some updated text-color"}
-    @invalid_attrs %{bg_color: nil, name: nil, text_color: nil}
+    @valid_attrs %{
+      "bg_color" => "some bg-color",
+      "name" => "some name",
+      "text_color" => "some text-color"
+    }
+    @update_attrs %{
+      "bg_color" => "some updated bg-color",
+      "name" => "some updated name",
+      "text_color" => "some updated text-color"
+    }
+    @invalid_attrs %{
+      "bg_color" => nil,
+      "name" => nil,
+      "text_color" => nil
+    }
 
     def tag_fixture(attrs \\ %{}) do
+      %{id: user_id} = AccountsFixtures.user_fixture()
+
       {:ok, tag} =
         attrs
+        |> Map.put("user_id", user_id)
         |> Enum.into(@valid_attrs)
         |> Tags.create_tag()
 
@@ -31,9 +46,9 @@ defmodule Cannery.TagsTest do
 
     test "create_tag/1 with valid data creates a tag" do
       assert {:ok, %Tag{} = tag} = Tags.create_tag(@valid_attrs)
-      assert tag.bg-color == "some bg-color"
+      assert tag.bg_color == "some bg-color"
       assert tag.name == "some name"
-      assert tag.text-color == "some text-color"
+      assert tag.text_color == "some text-color"
     end
 
     test "create_tag/1 with invalid data returns error changeset" do
@@ -43,9 +58,9 @@ defmodule Cannery.TagsTest do
     test "update_tag/2 with valid data updates the tag" do
       tag = tag_fixture()
       assert {:ok, %Tag{} = tag} = Tags.update_tag(tag, @update_attrs)
-      assert tag.bg-color == "some updated bg-color"
+      assert tag.bg_color == "some updated bg-color"
       assert tag.name == "some updated name"
-      assert tag.text-color == "some updated text-color"
+      assert tag.text_color == "some updated text-color"
     end
 
     test "update_tag/2 with invalid data returns error changeset" do

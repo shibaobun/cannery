@@ -96,7 +96,8 @@ defmodule Cannery.Invites do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_invite(Accounts.User.t() | Ecto.UUID.t(), map()) :: Invite.t()
+  @spec create_invite(user_or_user_id :: Accounts.User.t() | Ecto.UUID.t(), attrs :: map()) ::
+          Invite.t()
   def create_invite(%{id: user_id}, attrs) do
     create_invite(user_id, attrs)
   end

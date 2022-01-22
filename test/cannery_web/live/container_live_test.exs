@@ -5,8 +5,18 @@ defmodule CanneryWeb.ContainerLiveTest do
 
   alias Cannery.Containers
 
-  @create_attrs %{desc: "some desc", location: "some location", name: "some name", type: "some type"}
-  @update_attrs %{desc: "some updated desc", location: "some updated location", name: "some updated name", type: "some updated type"}
+  @create_attrs %{
+    "desc" => "some desc",
+    "location" => "some location",
+    "name" => "some name",
+    "type" => "some type"
+  }
+  @update_attrs %{
+    "desc" => "some updated desc",
+    "location" => "some updated location",
+    "name" => "some updated name",
+    "type" => "some updated type"
+  }
   @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
   defp fixture(:container) do

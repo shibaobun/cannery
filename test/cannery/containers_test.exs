@@ -6,8 +6,18 @@ defmodule Cannery.ContainersTest do
   describe "containers" do
     alias Cannery.Containers.Container
 
-    @valid_attrs %{desc: "some desc", location: "some location", name: "some name", type: "some type"}
-    @update_attrs %{desc: "some updated desc", location: "some updated location", name: "some updated name", type: "some updated type"}
+    @valid_attrs %{
+      "desc" => "some desc",
+      "location" => "some location",
+      "name" => "some name",
+      "type" => "some type"
+    }
+    @update_attrs %{
+      "desc" => "some updated desc",
+      "location" => "some updated location",
+      "name" => "some updated name",
+      "type" => "some updated type"
+    }
     @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
     def container_fixture(attrs \\ %{}) do
@@ -43,7 +53,10 @@ defmodule Cannery.ContainersTest do
 
     test "update_container/2 with valid data updates the container" do
       container = container_fixture()
-      assert {:ok, %Container{} = container} = Containers.update_container(container, @update_attrs)
+
+      assert {:ok, %Container{} = container} =
+               Containers.update_container(container, @update_attrs)
+
       assert container.desc == "some updated desc"
       assert container.location == "some updated location"
       assert container.name == "some updated name"
