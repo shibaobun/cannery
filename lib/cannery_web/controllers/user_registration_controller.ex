@@ -3,7 +3,7 @@ defmodule CanneryWeb.UserRegistrationController do
 
   alias Cannery.{Accounts, Invites}
   alias Cannery.Accounts.User
-  alias CanneryWeb.UserAuth
+  alias CanneryWeb.{HomeLive, UserAuth}
 
   def new(conn, %{"invite" => invite_token}) do
     invite = Invites.get_invite_by_token(invite_token)
@@ -13,7 +13,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, "Sorry, this invite was not found or expired")
-      |> redirect(to: Routes.home_path(CanneryWeb.Endpoint, :index))
+      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
 
@@ -23,7 +23,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, "Sorry, public registration is disabled")
-      |> redirect(to: Routes.home_path(CanneryWeb.Endpoint, :index))
+      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
 
@@ -41,7 +41,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, "Sorry, this invite was not found or expired")
-      |> redirect(to: Routes.home_path(CanneryWeb.Endpoint, :index))
+      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
 
@@ -51,7 +51,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, "Sorry, public registration is disabled")
-      |> redirect(to: Routes.home_path(CanneryWeb.Endpoint, :index))
+      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
 

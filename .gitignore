@@ -25,7 +25,7 @@ cannery-*.tar
 # If NPM crashes, it generates a log, let's ignore it too.
 npm-debug.log
 
-# The directory NPM downloads your dependencies sources to.
+# Ignore assets that are produced by build tools.
 /assets/node_modules/
 
 # Since we are building assets from assets/,

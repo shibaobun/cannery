@@ -2,7 +2,7 @@ defmodule CanneryWeb.UserSettingsController do
   use CanneryWeb, :controller
 
   alias Cannery.Accounts
-  alias CanneryWeb.UserAuth
+  alias CanneryWeb.{HomeLive, UserAuth}
 
   plug :assign_email_and_password_changesets
 
@@ -70,7 +70,7 @@ defmodule CanneryWeb.UserSettingsController do
 
       conn
       |> put_flash(:error, "Your account has been deleted")
-      |> redirect(to: Routes.home_path(conn, :index))
+      |> redirect(to: Routes.live_path(conn, HomeLive))
     else
       conn
       |> put_flash(:error, "Unable to delete user")

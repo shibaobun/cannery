@@ -3,6 +3,7 @@ defmodule CanneryWeb.UserAuth do
   import Phoenix.Controller
 
   alias Cannery.Accounts
+  alias CanneryWeb.{HomeLive}
   alias CanneryWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
@@ -138,7 +139,7 @@ defmodule CanneryWeb.UserAuth do
       |> halt()
     end
   end
-  
+
   @doc """
   Used for routes that require the user to be an admin.
   """
@@ -149,7 +150,7 @@ defmodule CanneryWeb.UserAuth do
       conn
       |> put_flash(:error, "You are not authorized to view this page.")
       |> maybe_store_return_to()
-      |> redirect(to: Routes.home_path(conn, :index))
+      |> redirect(to: Routes.live_path(conn, HomeLive))
       |> halt()
     end
   end

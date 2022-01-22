@@ -7,12 +7,8 @@ defmodule CanneryWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_cannery_key",
-    signing_salt: "fxAnJltS"
+    signing_salt: "N8eMKwCG"
   ]
-
-  socket "/socket", CanneryWeb.UserSocket,
-    websocket: true,
-    longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 

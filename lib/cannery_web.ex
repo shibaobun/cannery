@@ -46,7 +46,7 @@ defmodule CanneryWeb do
     quote do
       use Phoenix.LiveView,
         layout: {CanneryWeb.LayoutView, "live.html"}
-        
+
       unquote(view_helpers())
     end
   end
@@ -54,6 +54,14 @@ defmodule CanneryWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  def component do
+    quote do
+      use Phoenix.Component
 
       unquote(view_helpers())
     end
@@ -81,7 +89,7 @@ defmodule CanneryWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      # Import LiveView helpers (live_render, live_component, live_patch, etc)
+      # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
       import CanneryWeb.LiveHelpers
 

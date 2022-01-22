@@ -24,7 +24,7 @@ defmodule CanneryWeb.Router do
   scope "/", CanneryWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :index
+    live "/", HomeLive
   end
 
   ## Authentication routes
@@ -93,5 +93,17 @@ defmodule CanneryWeb.Router do
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :confirm
+  end
+
+  # Enables the Swoosh mailbox preview in development.
+  #
+  # Note that preview only shows emails that were sent by the same
+  # node running the Phoenix server.
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through :browser
+
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end
