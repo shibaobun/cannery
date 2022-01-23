@@ -1,4 +1,8 @@
 defmodule CanneryWeb.ContainerLive.FormComponent do
+  @moduledoc """
+  Livecomponent that can update or create an Cannery.Containers.Container
+  """
+
   use CanneryWeb, :live_component
 
   alias Cannery.Containers

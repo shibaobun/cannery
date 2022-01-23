@@ -1,8 +1,12 @@
 defmodule Cannery.Accounts.User do
+  @moduledoc """
+  A cannery user
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
-  alias Cannery.Accounts.{User}
-  alias Cannery.Invites.{Invite}
+  alias Ecto.{Changeset, UUID}
+  alias Cannery.{Accounts.User, Invites.Invite}
 
   @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -19,8 +23,8 @@ defmodule Cannery.Accounts.User do
     timestamps()
   end
 
-  @type t :: %{
-          id: Ecto.UUID.t(),
+  @type t :: %User{
+          id: UUID.t(),
           email: String.t(),
           password: String.t(),
           hashed_password: String.t(),
@@ -30,6 +34,8 @@ defmodule Cannery.Accounts.User do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
+
+  @type new_user :: %User{}
 
   @doc """
   A user changeset for registration.
@@ -48,8 +54,8 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec registration_changeset(User.t(), map()) :: Ecto.Changeset.t()
-  @spec registration_changeset(User.t(), map(), keyword()) :: Ecto.Changeset.t()
+  @spec registration_changeset(User.t() | User.new_user(), map()) :: Changeset.t()
+  @spec registration_changeset(User.t() | User.new_user(), map(), keyword()) :: Changeset.t()
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :role])
@@ -61,12 +67,12 @@ defmodule Cannery.Accounts.User do
   A user changeset for role.
 
   """
-  @spec role_changeset(User.t(), atom()) :: Ecto.Changeset.t()
+  @spec role_changeset(User.t(), atom()) :: Changeset.t()
   def role_changeset(user, role) do
     user |> cast(%{"role" => role}, [:role])
   end
 
-  @spec validate_email(Ecto.Changeset.t()) :: Ecto.Changeset.t()
+  @spec validate_email(Changeset.t()) :: Changeset.t()
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
@@ -76,7 +82,7 @@ defmodule Cannery.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  @spec validate_password(Ecto.Changeset.t(), keyword()) :: Ecto.Changeset.t()
+  @spec validate_password(Changeset.t(), keyword()) :: Changeset.t()
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
@@ -87,7 +93,7 @@ defmodule Cannery.Accounts.User do
     |> maybe_hash_password(opts)
   end
 
-  @spec maybe_hash_password(Ecto.Changeset.t(), keyword()) :: Ecto.Changeset.t()
+  @spec maybe_hash_password(Changeset.t(), keyword()) :: Changeset.t()
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
     password = get_change(changeset, :password)
@@ -106,7 +112,7 @@ defmodule Cannery.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
-  @spec email_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec email_changeset(User.t(), map()) :: Changeset.t()
   def email_changeset(user, attrs) do
     user
     |> cast(attrs, [:email])
@@ -129,8 +135,8 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec password_changeset(User.t(), map()) :: Ecto.Changeset.t()
-  @spec password_changeset(User.t(), map(), keyword()) :: Ecto.Changeset.t()
+  @spec password_changeset(User.t(), map()) :: Changeset.t()
+  @spec password_changeset(User.t(), map(), keyword()) :: Changeset.t()
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
@@ -141,10 +147,10 @@ defmodule Cannery.Accounts.User do
   @doc """
   Confirms the account by setting `confirmed_at`.
   """
-  @spec confirm_changeset(User.t()) :: Ecto.Changeset.t()
-  def confirm_changeset(user) do
+  @spec confirm_changeset(User.t() | Changeset.t()) :: Changeset.t()
+  def confirm_changeset(user_or_changeset) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
-    change(user, confirmed_at: now)
+    user_or_changeset |> change(confirmed_at: now)
   end
 
   @doc """
@@ -167,12 +173,10 @@ defmodule Cannery.Accounts.User do
   @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
-  @spec validate_current_password(Ecto.Changeset.t(), String.t()) :: Ecto.UUID.t()
+  @spec validate_current_password(Changeset.t(), String.t()) :: Changeset.t()
   def validate_current_password(changeset, password) do
-    if valid_password?(changeset.data, password) do
-      changeset
-    else
-      add_error(changeset, :current_password, "is not valid")
-    end
+    if valid_password?(changeset.data, password),
+      do: changeset,
+      else: changeset |> add_error(:current_password, "is not valid")
   end
 end

@@ -1,4 +1,8 @@
 defmodule CanneryWeb.AmmoTypeLive.FormComponent do
+  @moduledoc """
+  Livecomponent that can update or create an Cannery.Ammo.AmmoType
+  """
+
   use CanneryWeb, :live_component
 
   alias Cannery.Ammo

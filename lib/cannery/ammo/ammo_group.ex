@@ -1,4 +1,11 @@
 defmodule Cannery.Ammo.AmmoGroup do
+  @moduledoc """
+  A group of a certain ammunition type.
+
+  Can be placed in a container, and contains auxiliary information such as the
+  amount paid for that ammunition, or what condition it is in
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.{Accounts, Ammo, Containers, Tags}

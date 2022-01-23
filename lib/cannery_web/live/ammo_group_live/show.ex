@@ -1,4 +1,8 @@
 defmodule CanneryWeb.AmmoGroupLive.Show do
+  @moduledoc """
+  Liveview for showing and editing an Cannery.Ammo.AmmoGroup
+  """
+
   use CanneryWeb, :live_view
 
   alias Cannery.Ammo

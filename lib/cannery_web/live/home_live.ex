@@ -1,6 +1,10 @@
 defmodule CanneryWeb.HomeLive do
+  @moduledoc """
+  Liveview for the home page
+  """
+
   use CanneryWeb, :live_view
-  alias Cannery.{Accounts}
+  alias Cannery.Accounts
 
   @impl true
   def mount(_params, session, socket) do

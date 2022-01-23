@@ -1,4 +1,8 @@
 defmodule CanneryWeb.Telemetry do
+  @moduledoc """
+  Collects telemetry
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

@@ -4,7 +4,7 @@ defmodule Cannery.AccountsFixtures do
   entities via the `Cannery.Accounts` context.
   """
 
-  alias Cannery.{Accounts}
+  alias Cannery.Accounts
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "hello world!"

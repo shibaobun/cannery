@@ -4,8 +4,9 @@ defmodule Cannery.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Repo}
-  alias Cannery.Accounts.{User, UserToken, UserNotifier}
+  alias Cannery.Repo
+  alias Cannery.Accounts.{User, UserNotifier, UserToken}
+  alias Ecto.{Changeset, Multi}
 
   ## Database getters
 
@@ -89,10 +90,10 @@ defmodule Cannery.Accounts do
       {:ok, %User{}}
 
       iex> register_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec register_user(map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  @spec register_user(map()) :: {:ok, User.t()} | {:error, Changeset.t()}
   def register_user(attrs) do
     # if no registered users, make first user an admin
     attrs =
@@ -104,15 +105,16 @@ defmodule Cannery.Accounts do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user changes.
+  Returns an `%Changeset{}` for tracking user changes.
 
   ## Examples
 
       iex> change_user_registration(user)
-      %Ecto.Changeset{data: %User{}}
+      %Changeset{data: %User{}}
 
   """
-  @spec change_user_registration(User.t(), map()) :: Ecto.Changeset.t()
+  @spec change_user_registration(User.t() | User.new_user()) :: Changeset.t()
+  @spec change_user_registration(User.t() | User.new_user(), map()) :: Changeset.t()
   def change_user_registration(user, attrs \\ %{}) do
     User.registration_changeset(user, attrs, hash_password: false)
   end
@@ -120,29 +122,29 @@ defmodule Cannery.Accounts do
   ## Settings
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the user email.
+  Returns an `%Changeset{}` for changing the user email.
 
   ## Examples
 
       iex> change_user_email(user)
-      %Ecto.Changeset{data: %User{}}
+      %Changeset{data: %User{}}
 
   """
-  @spec change_user_email(User.t(), map()) :: Ecto.Changeset.t()
+  @spec change_user_email(User.t(), map()) :: Changeset.t()
   def change_user_email(user, attrs \\ %{}) do
     User.email_changeset(user, attrs)
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the user role.
+  Returns an `%Changeset{}` for changing the user role.
 
   ## Examples
 
       iex> change_user_role(user)
-      %Ecto.Changeset{data: %User{}}
+      %Changeset{data: %User{}}
 
   """
-  @spec change_user_role(User.t(), atom()) :: Ecto.Changeset.t()
+  @spec change_user_role(User.t(), atom()) :: Changeset.t()
   def change_user_role(user, role) do
     User.role_changeset(user, role)
   end
@@ -157,16 +159,16 @@ defmodule Cannery.Accounts do
       {:ok, %User{}}
 
       iex> apply_user_email(user, "invalid password", %{email: ...})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec apply_user_email(User.t(), String.t(), map()) ::
-          {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+          {:ok, User.t()} | {:error, Changeset.t()}
   def apply_user_email(user, password, attrs) do
     user
     |> User.email_changeset(attrs)
     |> User.validate_current_password(password)
-    |> Ecto.Changeset.apply_action(:update)
+    |> Changeset.apply_action(:update)
   end
 
   @doc """
@@ -175,7 +177,7 @@ defmodule Cannery.Accounts do
   If the token matches, the user email is updated and the token is deleted.
   The confirmed_at date is also updated to the current time.
   """
-  @spec update_user_email(User.t(), UserToken.t()) :: {:ok, any()} | :error
+  @spec update_user_email(User.t(), String.t()) :: :ok | :error
   def update_user_email(user, token) do
     context = "change:#{user.email}"
 
@@ -188,12 +190,13 @@ defmodule Cannery.Accounts do
     end
   end
 
+  @spec user_email_multi(User.t(), String.t(), String.t()) :: Multi.t()
   defp user_email_multi(user, email, context) do
     changeset = user |> User.email_changeset(%{email: email}) |> User.confirm_changeset()
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, [context]))
+    Multi.new()
+    |> Multi.update(:user, changeset)
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, [context]))
   end
 
   @doc """
@@ -216,15 +219,15 @@ defmodule Cannery.Accounts do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the user password.
+  Returns an `%Changeset{}` for changing the user password.
 
   ## Examples
 
       iex> change_user_password(user)
-      %Ecto.Changeset{data: %User{}}
+      %Changeset{data: %User{}}
 
   """
-  @spec change_user_password(User.t(), map()) :: Ecto.Changeset.t()
+  @spec change_user_password(User.t(), map()) :: Changeset.t()
   def change_user_password(user, attrs \\ %{}) do
     User.password_changeset(user, attrs, hash_password: false)
   end
@@ -238,20 +241,20 @@ defmodule Cannery.Accounts do
       {:ok, %User{}}
 
       iex> update_user_password(user, "invalid password", %{password: ...})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec update_user_password(User.t(), String.t(), map()) ::
-          {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+          {:ok, User.t()} | {:error, Changeset.t()}
   def update_user_password(user, password, attrs) do
     changeset =
       user
       |> User.password_changeset(attrs)
       |> User.validate_current_password(password)
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    Multi.new()
+    |> Multi.update(:user, changeset)
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
@@ -269,7 +272,7 @@ defmodule Cannery.Accounts do
   @doc """
   Generates a session token.
   """
-  @spec generate_user_session_token(User.t()) :: UserToken.t()
+  @spec generate_user_session_token(User.t()) :: String.t()
   def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user)
     Repo.insert!(user_token)
@@ -279,7 +282,7 @@ defmodule Cannery.Accounts do
   @doc """
   Gets the user with the given signed token.
   """
-  @spec get_user_by_session_token(UserToken.t()) :: User.t()
+  @spec get_user_by_session_token(String.t()) :: User.t()
   def get_user_by_session_token(token) do
     {:ok, query} = UserToken.verify_session_token_query(token)
     Repo.one(query)
@@ -288,7 +291,7 @@ defmodule Cannery.Accounts do
   @doc """
   Deletes the signed token with the given context.
   """
-  @spec delete_session_token(UserToken.t()) :: :ok
+  @spec delete_session_token(String.t()) :: :ok
   def delete_session_token(token) do
     Repo.delete_all(UserToken.token_and_context_query(token, "session"))
     :ok
@@ -298,7 +301,7 @@ defmodule Cannery.Accounts do
   Returns a boolean if registration is allowed or not
   """
   @spec allow_registration?() :: boolean()
-  def allow_registration?() do
+  def allow_registration? do
     Application.get_env(:cannery, CanneryWeb.Endpoint)[:registration] == "public" or
       list_users_by_role(:admin) |> Enum.empty?()
   end
@@ -336,7 +339,7 @@ defmodule Cannery.Accounts do
   If the token matches, the user account is marked as confirmed
   and the token is deleted.
   """
-  @spec confirm_user(UserToken.t()) :: {:ok, User.t()} | atom()
+  @spec confirm_user(String.t()) :: {:ok, User.t()} | atom()
   def confirm_user(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "confirm"),
          %User{} = user <- Repo.one(query),
@@ -348,9 +351,9 @@ defmodule Cannery.Accounts do
   end
 
   defp confirm_user_multi(user) do
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, User.confirm_changeset(user))
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, ["confirm"]))
+    Multi.new()
+    |> Multi.update(:user, User.confirm_changeset(user))
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, ["confirm"]))
   end
 
   ## Reset password
@@ -385,7 +388,7 @@ defmodule Cannery.Accounts do
       nil
 
   """
-  @spec get_user_by_reset_password_token(UserToken.t()) :: User.t() | nil
+  @spec get_user_by_reset_password_token(String.t()) :: User.t() | nil
   def get_user_by_reset_password_token(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "reset_password"),
          %User{} = user <- Repo.one(query) do
@@ -404,14 +407,14 @@ defmodule Cannery.Accounts do
       {:ok, %User{}}
 
       iex> reset_user_password(user, %{password: "valid", password_confirmation: "not the same"})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec reset_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  @spec reset_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, Changeset.t()}
   def reset_user_password(user, attrs) do
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, User.password_changeset(user, attrs))
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    Multi.new()
+    |> Multi.update(:user, User.password_changeset(user, attrs))
+    |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}

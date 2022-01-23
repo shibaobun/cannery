@@ -1,4 +1,8 @@
 defmodule CanneryWeb.InviteLive.FormComponent do
+  @moduledoc """
+  Livecomponent that can update or create an Cannery.Invites.Invite
+  """
+
   use CanneryWeb, :live_component
 
   alias Cannery.Invites

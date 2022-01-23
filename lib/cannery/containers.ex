@@ -4,9 +4,8 @@ defmodule Cannery.Containers do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Repo
-
-  alias Cannery.Containers.Container
+  alias Cannery.{Containers.Container, Repo}
+  alias Ecto.{Changeset, UUID}
 
   @doc """
   Returns the list of containers.
@@ -17,6 +16,7 @@ defmodule Cannery.Containers do
       [%Container{}, ...]
 
   """
+  @spec list_containers() :: [Container.t()]
   def list_containers do
     Repo.all(Container)
   end
@@ -35,6 +35,7 @@ defmodule Cannery.Containers do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_container!(container_id :: UUID.t()) :: Container.t()
   def get_container!(id), do: Repo.get!(Container, id)
 
   @doc """
@@ -49,10 +50,9 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_container(attrs \\ %{}) do
-    %Container{}
-    |> Container.changeset(attrs)
-    |> Repo.insert()
+  @spec create_container(attrs :: map()) :: {:ok, Container.t()} | {:error, Changeset.t()}
+  def create_container(attrs) do
+    %Container{} |> Container.changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -67,10 +67,10 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_container(%Container{} = container, attrs) do
-    container
-    |> Container.changeset(attrs)
-    |> Repo.update()
+  @spec update_container(Container.t() | Ecto.Changeset.t(), map()) ::
+          {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
+  def update_container(container, attrs) do
+    container |> Container.changeset(attrs) |> Repo.update()
   end
 
   @doc """
@@ -85,9 +85,9 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_container(%Container{} = container) do
-    Repo.delete(container)
-  end
+  @spec delete_container(Container.t() | Ecto.Changeset.t()) ::
+          {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
+  def delete_container(container), do: Repo.delete(container)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking container changes.
@@ -97,8 +97,11 @@ defmodule Cannery.Containers do
       iex> change_container(container)
       %Ecto.Changeset{data: %Container{}}
 
+      iex> change_container(%Ecto.Changeset{})
+      %Ecto.Changeset{data: %Container{}}
+
   """
-  def change_container(%Container{} = container, attrs \\ %{}) do
-    Container.changeset(container, attrs)
-  end
+  @spec change_container(Container.t()) :: Changeset.t()
+  @spec change_container(Container.t(), map()) :: Changeset.t()
+  def change_container(container, attrs \\ %{}), do: container |> Container.changeset(attrs)
 end

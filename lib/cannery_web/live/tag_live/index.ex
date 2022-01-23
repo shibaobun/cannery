@@ -1,4 +1,8 @@
 defmodule CanneryWeb.TagLive.Index do
+  @moduledoc """
+  Liveview to show a Cannery.Tags.Tag index
+  """
+
   use CanneryWeb, :live_view
 
   alias Cannery.Tags

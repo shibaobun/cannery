@@ -1,8 +1,12 @@
 defmodule CanneryWeb.InviteLive.Index do
+  @moduledoc """
+  Liveview to show a Cannery.Invites.Invite index
+  """
+
   use CanneryWeb, :live_view
 
-  alias Cannery.{Invites}
-  alias Cannery.Invites.{Invite}
+  alias Cannery.Invites
+  alias Cannery.Invites.Invite
 
   @impl true
   def mount(_params, session, socket) do

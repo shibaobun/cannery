@@ -1,7 +1,7 @@
 defmodule CanneryWeb.LayoutView do
   use CanneryWeb, :view
-  alias Cannery.{Accounts}
-  alias CanneryWeb.{HomeLive}
+  alias Cannery.Accounts
+  alias CanneryWeb.HomeLive
 
   # Phoenix LiveDashboard is available only in development by default,
   # so we instruct Elixir to not warn if the dashboard route is missing.

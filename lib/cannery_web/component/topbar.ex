@@ -1,8 +1,12 @@
 defmodule CanneryWeb.Component.Topbar do
+  @moduledoc """
+  Component that renders a topbar with user functions/links
+  """
+
   use CanneryWeb, :component
 
-  alias Cannery.{Accounts}
-  alias CanneryWeb.{HomeLive}
+  alias Cannery.Accounts
+  alias CanneryWeb.HomeLive
 
   def topbar(assigns) do
     assigns =

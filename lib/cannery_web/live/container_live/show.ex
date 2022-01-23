@@ -1,4 +1,8 @@
 defmodule CanneryWeb.ContainerLive.Show do
+  @moduledoc """
+  Liveview for showing and editing a Cannery.Containers.Container
+  """
+
   use CanneryWeb, :live_view
 
   alias Cannery.Containers

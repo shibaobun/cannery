@@ -1,7 +1,11 @@
 defmodule CanneryWeb.LiveHelpers do
+  @moduledoc """
+  Contains common helper functions for liveviews
+  """
+
   import Phoenix.LiveView.Helpers
   import Phoenix.LiveView, only: [assign_new: 3]
-  alias Cannery.{Accounts}
+  alias Cannery.Accounts
 
   @doc """
   Renders a component inside the `CanneryWeb.ModalComponent` component.

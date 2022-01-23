@@ -1,4 +1,10 @@
 defmodule Cannery.Release do
+  @moduledoc """
+  Contains tasks that will be included in the Mix release
+
+  Ex. `load_app/0` can be invoked with `mix load_app`.
+  """
+
   @app :cannery
 
   def rollback(repo, version) do

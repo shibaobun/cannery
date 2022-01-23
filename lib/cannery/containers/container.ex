@@ -1,7 +1,12 @@
 defmodule Cannery.Containers.Container do
+  @moduledoc """
+  A container that holds ammunition and belongs to a user.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
-  alias Cannery.{Accounts}
+  alias Ecto.{Changeset, UUID}
+  alias Cannery.{Accounts.User, Containers.Container}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -11,27 +16,30 @@ defmodule Cannery.Containers.Container do
     field :location, :string
     field :type, :string
 
-    belongs_to :user, Accounts.User
+    belongs_to :user, User
 
     timestamps()
   end
 
-  @type t :: %{
-          id: Ecto.UUID.t(),
+  @type t :: %Container{
+          id: UUID.t(),
           name: String.t(),
           desc: String.t(),
           location: String.t(),
           type: String.t(),
-          user: Accounts.User.t(),
-          user_id: Ecto.UUID.t(),
+          user: User.t(),
+          user_id: UUID.t(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
 
+  @type new_container :: %Container{}
+
   @doc false
+  @spec changeset(Container.t() | Container.new_container(), map()) :: Changeset.t()
   def changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location, :user_id])
-    |> validate_required([:name, :desc, :type, :location, :user_id])
+    |> validate_required([:name, :type, :user_id])
   end
 end

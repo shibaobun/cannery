@@ -1,9 +1,13 @@
 defmodule CanneryWeb.UserAuth do
+  @moduledoc """
+  Functions for user session and authentication
+  """
+
   import Plug.Conn
   import Phoenix.Controller
 
   alias Cannery.Accounts
-  alias CanneryWeb.{HomeLive}
+  alias CanneryWeb.HomeLive
   alias CanneryWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
@@ -37,6 +41,11 @@ defmodule CanneryWeb.UserAuth do
     |> redirect(to: user_return_to || signed_in_path(conn))
   end
 
+  @spec maybe_write_remember_me_cookie(
+          Plug.Conn.t(),
+          String.t() | any(),
+          %{required(String.t()) => String.t()} | any()
+        ) :: Plug.Conn.t()
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
     put_resp_cookie(conn, @remember_me_cookie, token, @remember_me_options)
   end

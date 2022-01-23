@@ -1,4 +1,10 @@
 defmodule Cannery.Ammo.AmmoType do
+  @moduledoc """
+  An ammunition type.
+
+  Contains statistical information about the ammunition.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

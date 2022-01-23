@@ -1,4 +1,8 @@
 defmodule Cannery.Repo.Migrator do
+  @moduledoc """
+  Genserver to automatically run migrations in prod env
+  """
+
   use GenServer
   require Logger
 

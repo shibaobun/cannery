@@ -1,4 +1,8 @@
 defmodule CanneryWeb.ContainerLive.Index do
+  @moduledoc """
+  Liveview for showing Cannery.Containers.Container index
+  """
+
   use CanneryWeb, :live_view
 
   alias Cannery.Containers

@@ -1,4 +1,8 @@
 defmodule CanneryWeb.ModalComponent do
+  @moduledoc """
+  Livecomponent that displays a floating modal window
+  """
+
   use CanneryWeb, :live_component
 
   @impl true

@@ -1,4 +1,8 @@
 defmodule CanneryWeb.AmmoTypeLive.Index do
+  @moduledoc """
+  Liveview for showing a Cannery.Ammo.AmmoType index
+  """
+
   use CanneryWeb, :live_view
 
   alias Cannery.Ammo

@@ -4,8 +4,8 @@ defmodule Cannery.Invites do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts, Repo}
-  alias Cannery.Invites.Invite
+  alias Ecto.{Changeset, UUID}
+  alias Cannery.{Accounts.User, Invites.Invite, Repo}
 
   @invite_token_length 20
 
@@ -49,7 +49,7 @@ defmodule Cannery.Invites do
       iex> get_invite_by_token("invalid_token")
       nil
   """
-  @spec get_invite_by_token(String.t()) :: Invite.t() | nil
+  @spec get_invite_by_token(String.t() | nil) :: Invite.t() | nil
   def get_invite_by_token(nil), do: nil
   def get_invite_by_token(""), do: nil
 
@@ -86,22 +86,22 @@ defmodule Cannery.Invites do
 
   ## Examples
 
-      iex> create_invite(%Accounts.User{id: "1"}, %{field: value})
+      iex> create_invite(%User{id: "1"}, %{field: value})
       {:ok, %Invite{}}
 
       iex> create_invite("1", %{field: value})
       {:ok, %Invite{}}
 
-      iex> create_invite(%Accounts.User{id: "1"}, %{field: bad_value})
+      iex> create_invite(%User{id: "1"}, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_invite(user_or_user_id :: Accounts.User.t() | Ecto.UUID.t(), attrs :: map()) ::
-          Invite.t()
-  def create_invite(%{id: user_id}, attrs) do
-    create_invite(user_id, attrs)
-  end
+  @spec create_invite(user :: User.t(), attrs :: map()) ::
+          {:ok, Invite.t()} | {:error, Changeset.t()}
+  def create_invite(%{id: user_id}, attrs), do: create_invite(user_id, attrs)
 
+  @spec create_invite(user_id :: UUID.t(), attrs :: map()) ::
+          {:ok, Invite.t()} | {:error, Changeset.t()}
   def create_invite(user_id, attrs) when not (user_id |> is_nil()) do
     attrs =
       attrs
