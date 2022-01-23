@@ -11,7 +11,7 @@ defmodule Cannery.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_deps: :transitive]
+      dialyzer: [plt_add_apps: [:ex_unit]]
     ]
   end
 
@@ -53,7 +53,7 @@ defmodule Cannery.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:ecto_psql_extras, "~> 0.6"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:heex_formatter, github: "feliperenan/heex_formatter"}
     ]
   end
@@ -70,6 +70,8 @@ defmodule Cannery.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [
+        "dialyzer",
+        "credo --strict",
         "format --check-formatted",
         "ecto.create --quiet",
         "ecto.migrate --quiet",
