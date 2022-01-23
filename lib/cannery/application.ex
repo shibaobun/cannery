@@ -15,12 +15,16 @@ defmodule Cannery.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Cannery.PubSub},
       # Start the Endpoint (http/https)
-      CanneryWeb.Endpoint,
+      CanneryWeb.Endpoint
       # Start a worker by calling: Cannery.Worker.start_link(arg)
-      # {Cannery.Worker, arg},
-      # Automatically migrate on start
-      Cannery.Repo.Migrator
+      # {Cannery.Worker, arg}
     ]
+
+    # Automatically migrate on start in prod
+    children =
+      if Application.get_env(:cannery, Cannery.Application, automigrate: false)[:automigrate],
+        do: children ++ [Cannery.Repo.Migrator],
+        else: children
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

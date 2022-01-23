@@ -15,6 +15,8 @@ config :cannery, Cannery.Repo,
   url: "ecto://postgres:postgres@localhost/cannery",
   pool_size: 10
 
+config :cannery, Cannery.Application, automigrate: true
+
 # Do not print debug messages in production
 config :logger, level: :info
 

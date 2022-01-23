@@ -21,6 +21,8 @@ config :cannery, CanneryWeb.Endpoint,
   live_view: [signing_salt: "zOLgd3lr"],
   registration: System.get_env("REGISTRATION") || "invite"
 
+config :cannery, Cannery.Application, automigrate: false
+
 config :cannery, :generators,
   migration: true,
   binary_id: true,
