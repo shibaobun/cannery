@@ -56,3 +56,8 @@ In `prod` mode (or in the Docker container), Cannery will listen for these envir
 - `SECRET_KEY_BASE`: Secret key base used to sign cookies. Must be generated
   with `mix phx.gen.secret` and set for server to start.
 - `REGISTRATION`: Controls if user sign-up should be invite only or set to public. Set to `public` to enable public registration. Defaults to `invite`.
+
+---
+
+[![Build
+Status](https://drone.bubbletea.dev/api/badges/shibao/cannery/status.svg?ref=refs/heads/dev)](https://drone.bubbletea.dev/shibao/cannery)
