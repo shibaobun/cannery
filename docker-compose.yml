@@ -5,28 +5,26 @@ services:
     build:
       context: .
     container_name: cannery
-    environment:
-      HOST: "your.domain.com"
-      DATABASE_URL: "ecto://postgres:postgres@cannery-db/cannery"
-      # generate a random base64 string 64 characters long, preferably not from a website
-      SECRET_KEY_BASE: "change-me-to-something-random-this-is-really-important-change-it"
-      # uncomment to enable sign ups, watch for spam!
-      # REGISTRATION: "public"
-    ports:
-      # do not expose this publically!
-      # always host from behind a reverse proxy with a properly configured certificate
-      - "80:80"
     restart: always
+    environment:
+      - HOST="your.domain.com"
+      - DATABASE_URL="ecto://postgres:postgres@cannery-db/cannery"
+      # generate a random base64 string 64 characters long, preferably not from a website
+      - SECRET_KEY_BASE="change-me-to-something-random-this-is-really-important-change-it"
+      # uncomment to enable sign ups, watch for spam!
+      - REGISTRATION="public"
+    expose:
+      - "80"
     depends_on:
       - cannery-db
 
   cannery-db:
-    image: postgres:9.6
+    image: postgres:13
     container_name: cannery-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: cannery
+      - POSTGRES_USER="postgres"
+      - POSTGRES_PASSWORD="postgres"
+      - POSTGRES_DB="cannery"
     restart: always
     volumes:
       - ./data:/var/lib/postgresql/data
