@@ -41,7 +41,6 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
       <.form
         let={f}
         for={@changeset}
-        ,
         id="ammo_group-form"
         phx-target={@myself}
         phx-change="validate"
