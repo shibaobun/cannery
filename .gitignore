@@ -33,7 +33,9 @@ npm-debug.log
 # this depending on your deployment strategy.
 /priv/static/
 
+# vs code
 .elixir_ls/
+.vscode/
 
 # direnv
 .envrc
