@@ -1,0 +1,63 @@
+<div class="flex flex-col space-y-8 justify-center items-center">
+  <h1 class="title text-2xl title-primary-500">
+    Listing Tags
+  </h1>
+  <p class="title text-md text-primary-500">
+    Tags can be added to your containers to help you organize
+  </p>
+  <%= if @tags |> Enum.empty?() do %>
+    <div class="flex flex-col space-y-4 justify-center items-center">
+      <h1 class="title text-xl text-primary-500">
+        No tags
+      </h1>
+      <%= live_patch("Create your first tag!",
+        to: Routes.tag_index_path(@socket, :new),
+        class: "btn btn-primary"
+      ) %>
+    </div>
+  <% else %>
+    <%= live_patch("New Tag",
+      to: Routes.tag_index_path(@socket, :new),
+      class: "btn btn-primary"
+    ) %>
+  <% end %>
+  <div class="flex flex-row flex-wrap">
+    <%= for tag <- @tags do %>
+      <div
+        id={"tag-#{tag.id}"}
+        class="mx-4 my-2 px-8 py-4 space-x-4 flex justify-center items-center
+        border border-gray-400 rounded-lg shadow-lg hover:shadow-md"
+      >
+        <h1
+          class="px-4 py-2 rounded-lg title text-xl"
+          style={"color: #{tag.text_color}; background-color: #{tag.bg_color}"}
+        >
+          <%= tag.name %>
+        </h1>
+        <%= live_patch to: Routes.tag_index_path(@socket, :edit, tag),
+                   class: "text-primary-500 link" do %>
+          <i class="fa-fw fa-lg fas fa-edit">
+          </i>
+        <% end %>
+        <%= link to: "#",
+             class: "text-primary-500 link",
+             phx_click: "delete",
+             phx_value_id: tag.id,
+             data: [confirm: "Are you sure you want to delete #{tag.name}?"] do %>
+          <i class="fa-fw fa-lg fas fa-trash">
+          </i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal(CanneryWeb.TagLive.FormComponent,
+    id: @tag.id || :new,
+    title: @page_title,
+    action: @live_action,
+    tag: @tag,
+    return_to: Routes.tag_index_path(@socket, :index),
+    current_user: @current_user
+  ) %>
+<% end %>

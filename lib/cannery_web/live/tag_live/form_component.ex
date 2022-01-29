@@ -38,7 +38,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h2 class="title text-xl text-primary-500">
+      <h2 class="text-center title text-xl text-primary-500">
         <%= @title %>
       </h2>
       <.form
@@ -48,23 +48,23 @@ defmodule CanneryWeb.TagLive.FormComponent do
         class="grid grid-cols-3 justify-center items-center space-y-4"
         phx-target={@myself}
         phx-change="validate"
-        phx-submit="save">
-
-        <%= label f, :name, class: "title text-lg text-primary-500" %>
-        <%= text_input f, :name, class: "input input-primary col-span-2" %>
+        phx-submit="save"
+      >
+        <%= label(f, :name, class: "title text-lg text-primary-500") %>
+        <%= text_input(f, :name, class: "input input-primary col-span-2") %>
         <span class="col-span-3">
           <%= error_tag(f, :name) %>
         </span>
         <%= label(f, :bg_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input(f, :bg_color, value: random_color()) %>
+          <%= color_input(f, :bg_color) %>
         </span>
         <span class="col-span-3">
           <%= error_tag(f, :bg_color) %>
         </span>
         <%= label(f, :text_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input(f, :text_color, value: "#ffffff") %>
+          <%= color_input(f, :text_color) %>
         </span>
         <span class="col-span-3">
           <%= error_tag(f, :text_color) %>
@@ -102,13 +102,5 @@ defmodule CanneryWeb.TagLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, socket |> assign(changeset: changeset)}
     end
-  end-
-  @doc """
-  Returns a random tag color in `#ffffff` hex format
-  """
-  @spec random_color() :: String.t()
-  def random_color do
-    ["#cc0066", "#ff6699", "#6666ff", "#0066cc", "#00cc66", "#669900", "#ff9900", "#996633"]
-    |> Enum.random()
   end
 end

@@ -27,7 +27,7 @@ defmodule CanneryWeb.TagLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Tag")
-    |> assign(:tag, %Tag{})
+    |> assign(:tag, %Tag{bg_color: Tags.random_bg_color(), text_color: "#ffffff"})
   end
 
   defp apply_action(socket, :index, _params) do
