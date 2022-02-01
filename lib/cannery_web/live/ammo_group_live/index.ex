@@ -10,7 +10,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> assign(:ammo_groups, list_ammo_groups())}
+    {:ok, socket |> assign_defaults(session) |> display_ammo_groups()}
   end
 
   @impl true
@@ -38,13 +38,12 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    ammo_group = Ammo.get_ammo_group!(id)
-    {:ok, _} = Ammo.delete_ammo_group(ammo_group)
-
-    {:noreply, socket |> assign(:ammo_groups, list_ammo_groups())}
+    Ammo.get_ammo_group!(id) |> Ammo.delete_ammo_group!()
+    {:noreply, socket |> display_ammo_groups()}
   end
 
-  defp list_ammo_groups do
-    Ammo.list_ammo_groups()
+  defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
+    ammo_groups = Ammo.list_ammo_groups(current_user)
+    socket |> assign(:ammo_groups, ammo_groups)
   end
 end
