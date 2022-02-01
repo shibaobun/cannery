@@ -25,16 +25,16 @@
     <%= for invite <- @invites do %>
       <div class="px-8 py-4 flex flex-col justify-center items-center space-y-4
         border border-gray-400 rounded-lg shadow-lg hover:shadow-md">
-        <h1 class="title text-xl text-primary-500">
+        <h1 class="title text-xl">
           <%= invite.name %>
         </h1>
 
         <%= if invite.disabled_at |> is_nil() do %>
-          <h2 class="title text-md text-primary-500">
+          <h2 class="title text-md">
             Uses Left: <%= invite.uses_left || "Unlimited" %>
           </h2>
         <% else %>
-          <h2 class="title text-md text-primary-500">
+          <h2 class="title text-md">
             Invite Disabled
           </h2>
         <% end %>
