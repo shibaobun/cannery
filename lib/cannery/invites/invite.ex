@@ -24,21 +24,21 @@ defmodule Cannery.Invites.Invite do
   end
 
   @type t :: %Invite{
-          id: UUID.t(),
+          id: id(),
           name: String.t(),
           token: String.t(),
           uses_left: integer() | nil,
           disabled_at: NaiveDateTime.t(),
           user: User.t(),
-          user_id: UUID.t(),
+          user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-
   @type new_invite :: %Invite{}
+  @type id :: UUID.t()
 
   @doc false
-  @spec changeset(Invite.t() | Invite.new_invite(), map()) :: Changeset.t()
+  @spec changeset(t() | new_invite(), attrs :: map()) :: Changeset.t()
   def changeset(invite, attrs) do
     invite
     |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])

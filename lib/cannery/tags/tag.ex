@@ -22,20 +22,20 @@ defmodule Cannery.Tags.Tag do
   end
 
   @type t :: %Tag{
-          id: UUID.t(),
+          id: id(),
           name: String.t(),
           bg_color: String.t(),
           text_color: String.t(),
           user: User.t(),
-          user_id: UUID.t(),
+          user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-
   @type new_tag() :: %Tag{}
+  @type id() :: UUID.t()
 
   @doc false
-  @spec changeset(Tag.t() | Tag.new_tag(), map()) :: Changeset.t()
+  @spec changeset(t() | new_tag(), attrs :: map()) :: Changeset.t()
   def changeset(tag, attrs) do
     tag
     |> cast(attrs, [:name, :bg_color, :text_color, :user_id])

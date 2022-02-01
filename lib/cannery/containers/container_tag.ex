@@ -7,6 +7,7 @@ defmodule Cannery.Containers.ContainerTag do
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.{Containers.Container, Containers.ContainerTag, Tags.Tag}
+  alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -18,17 +19,19 @@ defmodule Cannery.Containers.ContainerTag do
   end
 
   @type t :: %ContainerTag{
-          id: Ecto.UUID.t(),
+          id: id(),
           container: Container.t(),
-          container_id: Ecto.UUID.t(),
+          container_id: Container.id(),
           tag: Tag.t(),
-          tag_id: Ecto.UUID.t(),
+          tag_id: Tag.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
+  @type new_container_tag :: %ContainerTag{}
+  @type id :: UUID.t()
 
   @doc false
-  @spec changeset(ContainerTag.t(), map()) :: Ecto.Changeset.t()
+  @spec changeset(t() | new_container_tag(), attrs :: map()) :: Changeset.t()
   def changeset(container_tag, attrs) do
     container_tag
     |> cast(attrs, [:tag_id, :container_id])

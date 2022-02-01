@@ -24,7 +24,7 @@ defmodule Cannery.Accounts.User do
   end
 
   @type t :: %User{
-          id: UUID.t(),
+          id: id(),
           email: String.t(),
           password: String.t(),
           hashed_password: String.t(),
@@ -34,8 +34,8 @@ defmodule Cannery.Accounts.User do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-
   @type new_user :: %User{}
+  @type id :: UUID.t()
 
   @doc """
   A user changeset for registration.
@@ -54,8 +54,9 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec registration_changeset(User.t() | User.new_user(), map()) :: Changeset.t()
-  @spec registration_changeset(User.t() | User.new_user(), map(), keyword()) :: Changeset.t()
+  @spec registration_changeset(t() | new_user(), attrs :: map()) :: Changeset.t()
+  @spec registration_changeset(t() | new_user(), attrs :: map(), opts :: keyword()) ::
+          Changeset.t()
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :role])
@@ -67,7 +68,7 @@ defmodule Cannery.Accounts.User do
   A user changeset for role.
 
   """
-  @spec role_changeset(User.t(), atom()) :: Changeset.t()
+  @spec role_changeset(t(), role :: atom()) :: Changeset.t()
   def role_changeset(user, role) do
     user |> cast(%{"role" => role}, [:role])
   end
@@ -82,7 +83,7 @@ defmodule Cannery.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  @spec validate_password(Changeset.t(), keyword()) :: Changeset.t()
+  @spec validate_password(Changeset.t(), opts :: keyword()) :: Changeset.t()
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
@@ -93,7 +94,7 @@ defmodule Cannery.Accounts.User do
     |> maybe_hash_password(opts)
   end
 
-  @spec maybe_hash_password(Changeset.t(), keyword()) :: Changeset.t()
+  @spec maybe_hash_password(Changeset.t(), opts :: keyword()) :: Changeset.t()
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
     password = get_change(changeset, :password)
@@ -112,7 +113,7 @@ defmodule Cannery.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
-  @spec email_changeset(User.t(), map()) :: Changeset.t()
+  @spec email_changeset(t(), attrs :: map()) :: Changeset.t()
   def email_changeset(user, attrs) do
     user
     |> cast(attrs, [:email])
@@ -135,8 +136,8 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec password_changeset(User.t(), map()) :: Changeset.t()
-  @spec password_changeset(User.t(), map(), keyword()) :: Changeset.t()
+  @spec password_changeset(t(), attrs :: map()) :: Changeset.t()
+  @spec password_changeset(t(), attrs :: map(), opts :: keyword()) :: Changeset.t()
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
@@ -147,7 +148,7 @@ defmodule Cannery.Accounts.User do
   @doc """
   Confirms the account by setting `confirmed_at`.
   """
-  @spec confirm_changeset(User.t() | Changeset.t()) :: Changeset.t()
+  @spec confirm_changeset(t() | Changeset.t()) :: Changeset.t()
   def confirm_changeset(user_or_changeset) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
     user_or_changeset |> change(confirmed_at: now)
@@ -159,7 +160,7 @@ defmodule Cannery.Accounts.User do
   If there is no user or the user doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
-  @spec valid_password?(User.t(), String.t()) :: boolean()
+  @spec valid_password?(t(), String.t()) :: boolean()
   def valid_password?(%User{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)

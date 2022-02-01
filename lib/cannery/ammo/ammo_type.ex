@@ -7,6 +7,8 @@ defmodule Cannery.Ammo.AmmoType do
 
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.Ammo.AmmoType
+  alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -21,7 +23,22 @@ defmodule Cannery.Ammo.AmmoType do
     timestamps()
   end
 
+  @type t :: %AmmoType{
+          id: id(),
+          bullet_type: String.t(),
+          case_material: String.t(),
+          desc: String.t(),
+          manufacturer: String.t(),
+          name: String.t(),
+          weight: float(),
+          inserted_at: NaiveDateTime.t(),
+          updated_at: NaiveDateTime.t()
+        }
+  @type new_ammo_type :: %AmmoType{}
+  @type id :: UUID.t()
+
   @doc false
+  @spec changeset(t() | new_ammo_type(), attrs :: map()) :: Changeset.t()
   def changeset(ammo_type, attrs) do
     ammo_type
     |> cast(attrs, [:name, :desc, :case_material, :bullet_type, :weight, :manufacturer])

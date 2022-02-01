@@ -22,21 +22,21 @@ defmodule Cannery.Containers.Container do
   end
 
   @type t :: %Container{
-          id: UUID.t(),
+          id: id(),
           name: String.t(),
           desc: String.t(),
           location: String.t(),
           type: String.t(),
           user: User.t(),
-          user_id: UUID.t(),
+          user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-
   @type new_container :: %Container{}
+  @type id :: UUID.t()
 
   @doc false
-  @spec changeset(Container.t() | Container.new_container(), map()) :: Changeset.t()
+  @spec changeset(t() | new_container(), attrs :: map()) :: Changeset.t()
   def changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location, :user_id])
