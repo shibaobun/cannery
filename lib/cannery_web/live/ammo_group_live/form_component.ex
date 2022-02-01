@@ -44,21 +44,18 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
         id="ammo_group-form"
         phx-target={@myself}
         phx-change="validate"
-        phx-submit="save">
-
-        <%= label f, :count, class: "title text-lg text-primary-500" %>
-        <%= number_input f, :count %>
-        <%= error_tag f, :count %>
-
-        <%= label f, :price_paid, class: "title text-lg text-primary-500" %>
-        <%= number_input f, :price_paid, step: "any" %>
-        <%= error_tag f, :price_paid %>
-
-        <%= label f, :notes, class: "title text-lg text-primary-500" %>
-        <%= textarea f, :notes, class: "input" %>
-        <%= error_tag f, :notes %>
-
-        <%= submit "Save", phx_disable_with: "Saving..." %>
+        phx-submit="save"
+      >
+        <%= label(f, :count, class: "title text-lg text-primary-500") %>
+        <%= number_input(f, :count) %>
+        <%= error_tag(f, :count) %>
+        <%= label(f, :price_paid, class: "title text-lg text-primary-500") %>
+        <%= number_input(f, :price_paid, step: "any") %>
+        <%= error_tag(f, :price_paid) %>
+        <%= label(f, :notes, class: "title text-lg text-primary-500") %>
+        <%= textarea(f, :notes, class: "input") %>
+        <%= error_tag(f, :notes) %>
+        <%= submit("Save", phx_disable_with: "Saving...") %>
       </.form>
     </div>
     """

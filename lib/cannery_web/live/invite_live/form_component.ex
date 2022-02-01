@@ -45,10 +45,10 @@ defmodule CanneryWeb.InviteLive.FormComponent do
         class="grid grid-cols-3 justify-center items-center space-y-4"
         phx-target={@myself}
         phx-change="validate"
-        phx-submit="save">
-
-        <%= label f, :name, class: "title text-lg text-primary-500" %>
-        <%= text_input f, :name, class: "input input-primary col-span-2" %>
+        phx-submit="save"
+      >
+        <%= label(f, :name, class: "title text-lg text-primary-500") %>
+        <%= text_input(f, :name, class: "input input-primary col-span-2") %>
         <span class="col-span-3">
           <%= error_tag(f, :name) %>
         </span>
