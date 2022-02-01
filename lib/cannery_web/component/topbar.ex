@@ -13,7 +13,7 @@ defmodule CanneryWeb.Component.Topbar do
       %{results: [], title_content: nil, flash: nil, current_user: nil} |> Map.merge(assigns)
 
     ~H"""
-    <header class="mb-8 px-8 py-4 w-full bg-primary-400">
+    <header class="mb-8 px-8 py-4 w-full bg-primary-400 overflow-x-hidden">
       <nav role="navigation">
         <div class="flex flex-row justify-between items-center space-x-4">
           <div class="flex flex-row justify-start items-center space-x-2">
@@ -27,8 +27,9 @@ defmodule CanneryWeb.Component.Topbar do
               <%= @title_content %>
             <% end %>
           </div>
-          <ul class="flex flex-row flex-wrap justify-center items-center
-            space-x-4 text-lg text-white">
+
+          <ul class="flex flex-col sm:flex-row flex-wrap justify-center items-center
+            space-x-4 text-lg text-white text-ellipsis">
             <%= if @current_user do %>
               <li>
                 <%= link("Tags",
@@ -64,7 +65,7 @@ defmodule CanneryWeb.Component.Topbar do
               <% end %>
               <li>
                 <%= link(@current_user.email,
-                  class: "hover:underline",
+                  class: "hover:underline truncate",
                   to: Routes.user_settings_path(CanneryWeb.Endpoint, :edit)
                 ) %>
               </li>

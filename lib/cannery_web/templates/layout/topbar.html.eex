@@ -1,11 +1,11 @@
 <nav role="navigation">
-  <div class="flex flex-row justify-between items-center space-x-4">
+  <div class="flex flex-row justify-between items-center space-x-4 overflow-x-hidden">
     <%= link to: Routes.live_path(CanneryWeb.Endpoint, HomeLive) do %>
       <h1 class="leading-5 text-xl text-white hover:underline">Cannery</h1>
     <% end %>
 
-    <ul class="flex flex-row flex-wrap justify-center items-center
-      space-x-4 text-lg text-white">
+    <ul class="flex flex-col sm:flex-row flex-wrap justify-center items-center
+      space-x-4 text-lg text-white text-ellipsis">
       <%# user settings %>
       <%= if assigns |> Map.has_key?(:current_user) && @current_user do %>
         <li>
