@@ -23,9 +23,7 @@ defmodule Cannery.Accounts do
 
   """
   @spec get_user_by_email(String.t()) :: User.t() | nil
-  def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
-  end
+  def get_user_by_email(email) when is_binary(email), do: Repo.get_by(User, email: email)
 
   @doc """
   Gets a user by email and password.
@@ -61,13 +59,11 @@ defmodule Cannery.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_user!(Ecto.UUID.t()) :: User.t()
+  @spec get_user!(User.t()) :: User.t()
   def get_user!(id), do: Repo.get!(User, id)
 
   @spec list_users_by_role(atom()) :: [User.t()]
-  def list_users_by_role(role) do
-    Repo.all(from u in User, where: u.role == ^role)
-  end
+  def list_users_by_role(role), do: Repo.all(from u in User, where: u.role == ^role)
 
   @spec list_all_users(boolean()) :: [User.t()]
   def list_all_users(confirmed_users_only \\ true) do
@@ -115,9 +111,8 @@ defmodule Cannery.Accounts do
   """
   @spec change_user_registration(User.t() | User.new_user()) :: Changeset.t()
   @spec change_user_registration(User.t() | User.new_user(), map()) :: Changeset.t()
-  def change_user_registration(user, attrs \\ %{}) do
-    User.registration_changeset(user, attrs, hash_password: false)
-  end
+  def change_user_registration(user, attrs \\ %{}),
+    do: User.registration_changeset(user, attrs, hash_password: false)
 
   ## Settings
 
@@ -131,9 +126,7 @@ defmodule Cannery.Accounts do
 
   """
   @spec change_user_email(User.t(), map()) :: Changeset.t()
-  def change_user_email(user, attrs \\ %{}) do
-    User.email_changeset(user, attrs)
-  end
+  def change_user_email(user, attrs \\ %{}), do: User.email_changeset(user, attrs)
 
   @doc """
   Returns an `%Changeset{}` for changing the user role.
@@ -145,9 +138,7 @@ defmodule Cannery.Accounts do
 
   """
   @spec change_user_role(User.t(), atom()) :: Changeset.t()
-  def change_user_role(user, role) do
-    User.role_changeset(user, role)
-  end
+  def change_user_role(user, role), do: User.role_changeset(user, role)
 
   @doc """
   Emulates that the email will change without actually changing
@@ -228,9 +219,8 @@ defmodule Cannery.Accounts do
 
   """
   @spec change_user_password(User.t(), map()) :: Changeset.t()
-  def change_user_password(user, attrs \\ %{}) do
-    User.password_changeset(user, attrs, hash_password: false)
-  end
+  def change_user_password(user, attrs \\ %{}),
+    do: User.password_changeset(user, attrs, hash_password: false)
 
   @doc """
   Updates the user password.
@@ -263,9 +253,7 @@ defmodule Cannery.Accounts do
   end
 
   @spec delete_user!(User.t()) :: User.t()
-  def delete_user!(user) do
-    user |> Repo.delete!()
-  end
+  def delete_user!(user), do: user |> Repo.delete!()
 
   ## Session
 
@@ -350,6 +338,7 @@ defmodule Cannery.Accounts do
     end
   end
 
+  @spec confirm_user_multi(User.t()) :: Multi.t()
   defp confirm_user_multi(user) do
     Multi.new()
     |> Multi.update(:user, User.confirm_changeset(user))

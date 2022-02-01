@@ -4,7 +4,7 @@ defmodule Cannery.Invites do
   """
 
   import Ecto.Query, warn: false
-  alias Ecto.{Changeset, UUID}
+  alias Ecto.{Changeset}
   alias Cannery.{Accounts.User, Invites.Invite, Repo}
 
   @invite_token_length 20
@@ -35,7 +35,7 @@ defmodule Cannery.Invites do
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_invite!(Ecto.UUID.t()) :: Invite.t()
+  @spec get_invite!(Invite.id()) :: Invite.t()
   def get_invite!(id), do: Repo.get!(Invite, id)
 
   @doc """
@@ -49,7 +49,7 @@ defmodule Cannery.Invites do
       iex> get_invite_by_token("invalid_token")
       nil
   """
-  @spec get_invite_by_token(String.t() | nil) :: Invite.t() | nil
+  @spec get_invite_by_token(token :: String.t() | nil) :: Invite.t() | nil
   def get_invite_by_token(nil), do: nil
   def get_invite_by_token(""), do: nil
 
@@ -96,22 +96,17 @@ defmodule Cannery.Invites do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_invite(user :: User.t(), attrs :: map()) ::
+  @spec create_invite(User.t() | User.id(), attrs :: map()) ::
           {:ok, Invite.t()} | {:error, Changeset.t()}
   def create_invite(%{id: user_id}, attrs), do: create_invite(user_id, attrs)
 
-  @spec create_invite(user_id :: UUID.t(), attrs :: map()) ::
-          {:ok, Invite.t()} | {:error, Changeset.t()}
   def create_invite(user_id, attrs) when not (user_id |> is_nil()) do
-    attrs =
-      attrs
-      |> Map.merge(%{
-        "user_id" => user_id,
-        "token" =>
-          :crypto.strong_rand_bytes(@invite_token_length)
-          |> Base.url_encode64()
-          |> binary_part(0, @invite_token_length)
-      })
+    token =
+      :crypto.strong_rand_bytes(@invite_token_length)
+      |> Base.url_encode64()
+      |> binary_part(0, @invite_token_length)
+
+    attrs = attrs |> Map.merge(%{"user_id" => user_id, "token" => token})
 
     %Invite{} |> Invite.changeset(attrs) |> Repo.insert()
   end
@@ -128,10 +123,9 @@ defmodule Cannery.Invites do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_invite(Invite.t(), map()) :: {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
-  def update_invite(invite, attrs) do
-    invite |> Invite.changeset(attrs) |> Repo.update()
-  end
+  @spec update_invite(Invite.t(), attrs :: map()) ::
+          {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
+  def update_invite(invite, attrs), do: invite |> Invite.changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a invite.
@@ -146,9 +140,19 @@ defmodule Cannery.Invites do
 
   """
   @spec delete_invite(Invite.t()) :: {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
-  def delete_invite(invite) do
-    Repo.delete(invite)
-  end
+  def delete_invite(invite), do: invite |> Repo.delete()
+
+  @doc """
+  Deletes a invite.
+
+  ## Examples
+
+      iex> delete_invite(invite)
+      %Invite{}
+
+  """
+  @spec delete_invite!(Invite.t()) :: Invite.t()
+  def delete_invite!(invite), do: invite |> Repo.delete!()
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking invite changes.
@@ -159,9 +163,7 @@ defmodule Cannery.Invites do
       %Ecto.Changeset{data: %Invite{}}
 
   """
-  @spec change_invite(Invite.t()) :: Ecto.Changeset.t()
-  @spec change_invite(Invite.t(), map()) :: Ecto.Changeset.t()
-  def change_invite(invite, attrs \\ %{}) do
-    Invite.changeset(invite, attrs)
-  end
+  @spec change_invite(Invite.t() | Invite.new_invite()) :: Ecto.Changeset.t()
+  @spec change_invite(Invite.t() | Invite.new_invite(), attrs :: map()) :: Ecto.Changeset.t()
+  def change_invite(invite, attrs \\ %{}), do: invite |> Invite.changeset(attrs)
 end

@@ -4,9 +4,8 @@ defmodule Cannery.Tags do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts, Repo}
-
-  alias Cannery.Tags.Tag
+  alias Cannery.{Accounts.User, Repo, Tags.Tag}
+  alias Ecto.{Changeset}
 
   @doc """
   Returns the list of tags.
@@ -17,14 +16,9 @@ defmodule Cannery.Tags do
       [%Tag{}, ...]
 
   """
-  @spec list_tags(Accounts.User.t()) :: [Tag.t()]
-  def list_tags(%{id: user_id}) do
-    list_tags(user_id)
-  end
-
-  def list_tags(user_id) do
-    Repo.all(from t in Tag, where: t.user_id == ^user_id)
-  end
+  @spec list_tags(User.t() | User.id()) :: [Tag.t()]
+  def list_tags(%{id: user_id}), do: list_tags(user_id)
+  def list_tags(user_id), do: Repo.all(from t in Tag, where: t.user_id == ^user_id)
 
   @doc """
   Gets a single tag.
@@ -40,7 +34,7 @@ defmodule Cannery.Tags do
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_tag!(Ecto.UUID.t()) :: Tag.t()
+  @spec get_tag!(Tag.id()) :: Tag.t()
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
@@ -52,13 +46,11 @@ defmodule Cannery.Tags do
       {:ok, %Tag{}}
 
       iex> create_tag(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec create_tag(map()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
-  def create_tag(attrs) do
-    %Tag{} |> Tag.changeset(attrs) |> Repo.insert()
-  end
+  @spec create_tag(attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  def create_tag(attrs), do: %Tag{} |> Tag.changeset(attrs) |> Repo.insert()
 
   @doc """
   Updates a tag.
@@ -69,13 +61,11 @@ defmodule Cannery.Tags do
       {:ok, %Tag{}}
 
       iex> update_tag(tag, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec update_tag(Tag.t(), map()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
-  def update_tag(tag, attrs) do
-    tag |> Tag.changeset(attrs) |> Repo.update()
-  end
+  @spec update_tag(Tag.t(), attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  def update_tag(tag, attrs), do: tag |> Tag.changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a tag.
@@ -86,28 +76,36 @@ defmodule Cannery.Tags do
       {:ok, %Tag{}}
 
       iex> delete_tag(tag)
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
-  def delete_tag(tag) do
-    Repo.delete(tag)
-  end
+  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  def delete_tag(tag), do: tag |> Repo.delete()
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking tag changes.
+  Deletes a tag.
+
+  ## Examples
+
+      iex> delete_tag!(tag)
+      %Tag{}
+
+  """
+  @spec delete_tag!(Tag.t()) :: Tag.t()
+  def delete_tag!(tag), do: tag |> Repo.delete!()
+
+  @doc """
+  Returns an `%Changeset{}` for tracking tag changes.
 
   ## Examples
 
       iex> change_tag(tag)
-      %Ecto.Changeset{data: %Tag{}}
+      %Changeset{data: %Tag{}}
 
   """
-  @spec change_tag(Tag.t()) :: Ecto.Changeset.t()
-  @spec change_tag(Tag.t(), map()) :: Ecto.Changeset.t()
-  def change_tag(tag, attrs \\ %{}) do
-    Tag.changeset(tag, attrs)
-  end
+  @spec change_tag(Tag.t() | Tag.new_tag()) :: Changeset.t()
+  @spec change_tag(Tag.t() | Tag.new_tag(), attrs :: map()) :: Changeset.t()
+  def change_tag(tag, attrs \\ %{}), do: Tag.changeset(tag, attrs)
 
   @doc """
   Get a random tag bg_color in `#ffffff` hex format

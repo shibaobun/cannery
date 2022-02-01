@@ -4,8 +4,9 @@ defmodule Cannery.Containers do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Containers.Container, Repo}
-  alias Ecto.{Changeset, UUID}
+  alias Cannery.{Containers.Container, Repo, Tags.Tag}
+  alias Cannery.Containers.{Container, ContainerTag}
+  alias Ecto.{Changeset}
 
   @doc """
   Returns the list of containers.
@@ -16,10 +17,9 @@ defmodule Cannery.Containers do
       [%Container{}, ...]
 
   """
-  @spec list_containers() :: [Container.t()]
-  def list_containers do
-    Repo.all(Container)
-  end
+  @spec list_containers(user_or_user_id :: User.t() | User.id()) :: [Container.t()]
+  def list_containers(%{id: user_id}), do: list_containers(user_id)
+  def list_containers(user_id), do: Repo.all(from c in Container, where: c.user_id == ^user_id)
 
   @doc """
   Gets a single container.
@@ -35,7 +35,7 @@ defmodule Cannery.Containers do
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_container!(container_id :: UUID.t()) :: Container.t()
+  @spec get_container!(Container.id()) :: Container.t()
   def get_container!(id), do: Repo.get!(Container, id)
 
   @doc """
@@ -67,7 +67,7 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_container(Container.t() | Ecto.Changeset.t(), map()) ::
+  @spec update_container(Container.t() | Ecto.Changeset.t(), attrs :: map()) ::
           {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
   def update_container(container, attrs) do
     container |> Container.changeset(attrs) |> Repo.update()
@@ -101,7 +101,54 @@ defmodule Cannery.Containers do
       %Ecto.Changeset{data: %Container{}}
 
   """
-  @spec change_container(Container.t()) :: Changeset.t()
-  @spec change_container(Container.t(), map()) :: Changeset.t()
+  @spec change_container(Container.t() | Container.new_container()) :: Changeset.t()
+  @spec change_container(Container.t() | Container.new_container(), attrs :: map()) ::
+          Changeset.t()
   def change_container(container, attrs \\ %{}), do: container |> Container.changeset(attrs)
+
+  @doc """
+  Adds a tag to a container
+
+  ## Examples
+
+      iex> add_tag!(container, tag)
+      %Container{}
+
+      iex> add_tag!(container_id, tag_id)
+      %Container{}
+  """
+  @spec add_tag!(Container.t(), Tag.t()) :: Container.t()
+  def add_tag!(%{id: container_id}, %{id: tag_id}), do: add_tag!(container_id, tag_id)
+
+  @spec add_tag!(Container.id(), Tag.id()) :: Container.t()
+  def add_tag!(container_id, tag_id)
+      when not (container_id |> is_nil()) and not (tag_id |> is_nil()) do
+    %ContainerTag{}
+    |> ContainerTag.changeset(%{"container_id" => container_id, "tag_id" => tag_id})
+    |> Repo.insert!()
+  end
+
+  @doc """
+  Removes a tag from a container
+
+  ## Examples
+
+      iex> remove_tag!(container, tag)
+      %Container{}
+
+      iex> remove_tag!(container_id, tag_id)
+      %Container{}
+  """
+  @spec remove_tag!(Container.t(), Tag.t()) :: Container.t()
+  def remove_tag!(%{id: container_id}, %{id: tag_id}), do: remove_tag!(container_id, tag_id)
+
+  @spec remove_tag!(Container.id(), Tag.id()) :: Container.t()
+  def remove_tag!(container_id, tag_id)
+      when not (container_id |> is_nil()) and not (tag_id |> is_nil()) do
+    Repo.delete_all(
+      from ct in ContainerTag,
+        where: ct.container_id == ^container_id,
+        where: ct.tag_id == ^tag_id
+    )
+  end
 end
