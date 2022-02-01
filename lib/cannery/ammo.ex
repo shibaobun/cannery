@@ -4,9 +4,9 @@ defmodule Cannery.Ammo do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Repo
-
-  alias Cannery.Ammo.AmmoType
+  alias Cannery.{Accounts.User, Repo}
+  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Ecto.Changeset
 
   @doc """
   Returns the list of ammo_types.
@@ -17,9 +17,8 @@ defmodule Cannery.Ammo do
       [%AmmoType{}, ...]
 
   """
-  def list_ammo_types do
-    Repo.all(AmmoType)
-  end
+  @spec list_ammo_types() :: [AmmoType.t()]
+  def list_ammo_types, do: Repo.all(AmmoType)
 
   @doc """
   Gets a single ammo_type.
@@ -35,6 +34,7 @@ defmodule Cannery.Ammo do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_ammo_type!(AmmoType.id()) :: AmmoType.t()
   def get_ammo_type!(id), do: Repo.get!(AmmoType, id)
 
   @doc """
@@ -49,11 +49,9 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_ammo_type(attrs \\ %{}) do
-    %AmmoType{}
-    |> AmmoType.changeset(attrs)
-    |> Repo.insert()
-  end
+  @spec create_ammo_type(attrs :: map()) :: {:ok, AmmoType.t()} | {:error, Changeset.t()}
+  def create_ammo_type(attrs \\ %{}),
+    do: %AmmoType{} |> AmmoType.changeset(attrs) |> Repo.insert()
 
   @doc """
   Updates a ammo_type.
@@ -67,11 +65,10 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_ammo_type(%AmmoType{} = ammo_type, attrs) do
-    ammo_type
-    |> AmmoType.changeset(attrs)
-    |> Repo.update()
-  end
+  @spec update_ammo_type(AmmoType.t(), attrs :: map()) ::
+          {:ok, AmmoType.t()} | {:error, Changeset.t()}
+  def update_ammo_type(%AmmoType{} = ammo_type, attrs),
+    do: ammo_type |> AmmoType.changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a ammo_type.
@@ -85,9 +82,20 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_ammo_type(%AmmoType{} = ammo_type) do
-    Repo.delete(ammo_type)
-  end
+  @spec delete_ammo_type(AmmoType.t()) :: {:ok, AmmoType.t()} | {:error, Changeset.t()}
+  def delete_ammo_type(%AmmoType{} = ammo_type), do: ammo_type |> Repo.delete()
+
+  @doc """
+  Deletes a ammo_type.
+
+  ## Examples
+
+      iex> delete_ammo_type(ammo_type)
+      %AmmoType{}
+
+  """
+  @spec delete_ammo_type!(AmmoType.t()) :: AmmoType.t()
+  def delete_ammo_type!(%AmmoType{} = ammo_type), do: ammo_type |> Repo.delete!()
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking ammo_type changes.
@@ -98,23 +106,28 @@ defmodule Cannery.Ammo do
       %Ecto.Changeset{data: %AmmoType{}}
 
   """
-  def change_ammo_type(%AmmoType{} = ammo_type, attrs \\ %{}) do
-    AmmoType.changeset(ammo_type, attrs)
-  end
-
-  alias Cannery.Ammo.AmmoGroup
+  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type()) :: Changeset.t()
+  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type(), attrs :: map()) :: Changeset.t()
+  def change_ammo_type(%AmmoType{} = ammo_type, attrs \\ %{}),
+    do: AmmoType.changeset(ammo_type, attrs)
 
   @doc """
   Returns the list of ammo_groups.
 
   ## Examples
 
-      iex> list_ammo_groups()
+      iex> list_ammo_groups(%User{id: 123})
+      [%AmmoGroup{}, ...]
+
+      iex> list_ammo_groups(123)
       [%AmmoGroup{}, ...]
 
   """
-  def list_ammo_groups do
-    Repo.all(AmmoGroup)
+  @spec list_ammo_groups(User.t() | User.id()) :: [AmmoGroup.t()]
+  def list_ammo_groups(%{id: user_id}), do: list_ammo_groups(user_id)
+
+  def list_ammo_groups(user_id) do
+    Repo.all(from am in AmmoGroup, where: am.user_id == ^user_id)
   end
 
   @doc """
@@ -131,6 +144,7 @@ defmodule Cannery.Ammo do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_ammo_group!(AmmoGroup.id()) :: AmmoGroup.t()
   def get_ammo_group!(id), do: Repo.get!(AmmoGroup, id)
 
   @doc """
@@ -145,11 +159,9 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_ammo_group(attrs \\ %{}) do
-    %AmmoGroup{}
-    |> AmmoGroup.changeset(attrs)
-    |> Repo.insert()
-  end
+  @spec create_ammo_group(attrs :: map()) :: {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+  def create_ammo_group(attrs \\ %{}),
+    do: %AmmoGroup{} |> AmmoGroup.changeset(attrs) |> Repo.insert()
 
   @doc """
   Updates a ammo_group.
@@ -163,11 +175,10 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_ammo_group(%AmmoGroup{} = ammo_group, attrs) do
-    ammo_group
-    |> AmmoGroup.changeset(attrs)
-    |> Repo.update()
-  end
+  @spec update_ammo_group(AmmoGroup.t(), attrs :: map()) ::
+          {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+  def update_ammo_group(%AmmoGroup{} = ammo_group, attrs),
+    do: ammo_group |> AmmoGroup.changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a ammo_group.
@@ -181,9 +192,20 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_ammo_group(%AmmoGroup{} = ammo_group) do
-    Repo.delete(ammo_group)
-  end
+  @spec delete_ammo_group(AmmoGroup.t()) :: {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+  def delete_ammo_group(%AmmoGroup{} = ammo_group), do: ammo_group |> Repo.delete()
+
+  @doc """
+  Deletes a ammo_group.
+
+  ## Examples
+
+      iex> delete_ammo_group!(ammo_group)
+      %AmmoGroup{}
+
+  """
+  @spec delete_ammo_group!(AmmoGroup.t()) :: AmmoGroup.t()
+  def delete_ammo_group!(%AmmoGroup{} = ammo_group), do: ammo_group |> Repo.delete!()
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking ammo_group changes.
@@ -194,7 +216,8 @@ defmodule Cannery.Ammo do
       %Ecto.Changeset{data: %AmmoGroup{}}
 
   """
-  def change_ammo_group(%AmmoGroup{} = ammo_group, attrs \\ %{}) do
-    AmmoGroup.changeset(ammo_group, attrs)
-  end
+  @spec change_ammo_group(AmmoGroup.t()) :: Changeset.t(AmmoGroup.t())
+  @spec change_ammo_group(AmmoGroup.t(), attrs :: map()) :: Changeset.t(AmmoGroup.t())
+  def change_ammo_group(%AmmoGroup{} = ammo_group, attrs \\ %{}),
+    do: AmmoGroup.changeset(ammo_group, attrs)
 end
