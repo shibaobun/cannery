@@ -4,16 +4,14 @@
   </h1>
 
   <%= if @invites |> Enum.empty?() do %>
-    <div class="flex flex-col space-y-4 justify-center items-center">
-      <h1 class="title text-xl text-primary-500">
-        No invites 😔
-      </h1>
+    <h1 class="title text-xl text-primary-500">
+      No invites 😔
+    </h1>
 
-      <%= live_patch to: Routes.invite_index_path(@socket, :new),
-        class: "btn btn-primary" do %>
-        Invite someone new!
-      <% end %>
-    </div>
+    <%= live_patch to: Routes.invite_index_path(@socket, :new),
+      class: "btn btn-primary" do %>
+      Invite someone new!
+    <% end %>
   <% else %>
     <%= live_patch to: Routes.invite_index_path(@socket, :new),
       class: "btn btn-primary" do %>

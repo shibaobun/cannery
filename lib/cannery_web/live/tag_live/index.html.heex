@@ -6,15 +6,13 @@
     Tags can be added to your containers to help you organize
   </p>
   <%= if @tags |> Enum.empty?() do %>
-    <div class="flex flex-col space-y-4 justify-center items-center">
-      <h1 class="title text-xl text-primary-500">
-        No tags
-      </h1>
-      <%= live_patch("Create your first tag!",
-        to: Routes.tag_index_path(@socket, :new),
-        class: "btn btn-primary"
-      ) %>
-    </div>
+    <h2 class="title text-xl text-primary-500">
+      No tags 😔
+    </h2>
+
+    <%= live_patch "Make your first tag!",
+      to: Routes.tag_index_path(@socket, :new),
+      class: "btn btn-primary" %>
   <% else %>
     <%= live_patch("New Tag",
       to: Routes.tag_index_path(@socket, :new),
