@@ -4,7 +4,7 @@ defmodule Cannery.Containers do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Containers.Container, Repo, Tags.Tag}
+  alias Cannery.{Accounts.User, Repo, Tags.Tag}
   alias Cannery.Containers.{Container, ContainerTag}
   alias Ecto.{Changeset}
 
