@@ -2,6 +2,7 @@ defmodule Cannery.ContainersTest do
   use Cannery.DataCase
 
   alias Cannery.Containers
+  alias Ecto.Changeset
 
   describe "containers" do
     alias Cannery.Containers.Container
@@ -48,7 +49,7 @@ defmodule Cannery.ContainersTest do
     end
 
     test "create_container/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Containers.create_container(@invalid_attrs)
+      assert {:error, %Changeset{}} = Containers.create_container(@invalid_attrs)
     end
 
     test "update_container/2 with valid data updates the container" do
@@ -65,7 +66,7 @@ defmodule Cannery.ContainersTest do
 
     test "update_container/2 with invalid data returns error changeset" do
       container = container_fixture()
-      assert {:error, %Ecto.Changeset{}} = Containers.update_container(container, @invalid_attrs)
+      assert {:error, %Changeset{}} = Containers.update_container(container, @invalid_attrs)
       assert container == Containers.get_container!(container.id)
     end
 
@@ -77,7 +78,7 @@ defmodule Cannery.ContainersTest do
 
     test "change_container/1 returns a container changeset" do
       container = container_fixture()
-      assert %Ecto.Changeset{} = Containers.change_container(container)
+      assert %Changeset{} = Containers.change_container(container)
     end
   end
 end

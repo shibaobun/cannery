@@ -6,6 +6,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
   use CanneryWeb, :live_component
 
   alias Cannery.Containers
+  alias Ecto.Changeset
 
   @impl true
   def update(%{container: container} = assigns, socket) do
@@ -97,7 +98,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
          |> put_flash(:info, "Container updated successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(:changeset, changeset)}
     end
   end
@@ -110,7 +111,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
          |> put_flash(:info, "Container created successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(changeset: changeset)}
     end
   end

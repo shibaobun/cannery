@@ -2,6 +2,7 @@ defmodule Cannery.AmmoTest do
   use Cannery.DataCase
 
   alias Cannery.Ammo
+  alias Ecto.Changeset
 
   describe "ammo_types" do
     alias Cannery.Ammo.AmmoType
@@ -61,7 +62,7 @@ defmodule Cannery.AmmoTest do
     end
 
     test "create_ammo_type/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Ammo.create_ammo_type(@invalid_attrs)
+      assert {:error, %Changeset{}} = Ammo.create_ammo_type(@invalid_attrs)
     end
 
     test "update_ammo_type/2 with valid data updates the ammo_type" do
@@ -77,7 +78,7 @@ defmodule Cannery.AmmoTest do
 
     test "update_ammo_type/2 with invalid data returns error changeset" do
       ammo_type = ammo_type_fixture()
-      assert {:error, %Ecto.Changeset{}} = Ammo.update_ammo_type(ammo_type, @invalid_attrs)
+      assert {:error, %Changeset{}} = Ammo.update_ammo_type(ammo_type, @invalid_attrs)
       assert ammo_type == Ammo.get_ammo_type!(ammo_type.id)
     end
 
@@ -89,7 +90,7 @@ defmodule Cannery.AmmoTest do
 
     test "change_ammo_type/1 returns a ammo_type changeset" do
       ammo_type = ammo_type_fixture()
-      assert %Ecto.Changeset{} = Ammo.change_ammo_type(ammo_type)
+      assert %Changeset{} = Ammo.change_ammo_type(ammo_type)
     end
   end
 
@@ -127,7 +128,7 @@ defmodule Cannery.AmmoTest do
     end
 
     test "create_ammo_group/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Ammo.create_ammo_group(@invalid_attrs)
+      assert {:error, %Changeset{}} = Ammo.create_ammo_group(@invalid_attrs)
     end
 
     test "update_ammo_group/2 with valid data updates the ammo_group" do
@@ -140,7 +141,7 @@ defmodule Cannery.AmmoTest do
 
     test "update_ammo_group/2 with invalid data returns error changeset" do
       ammo_group = ammo_group_fixture()
-      assert {:error, %Ecto.Changeset{}} = Ammo.update_ammo_group(ammo_group, @invalid_attrs)
+      assert {:error, %Changeset{}} = Ammo.update_ammo_group(ammo_group, @invalid_attrs)
       assert ammo_group == Ammo.get_ammo_group!(ammo_group.id)
     end
 
@@ -152,7 +153,7 @@ defmodule Cannery.AmmoTest do
 
     test "change_ammo_group/1 returns a ammo_group changeset" do
       ammo_group = ammo_group_fixture()
-      assert %Ecto.Changeset{} = Ammo.change_ammo_group(ammo_group)
+      assert %Changeset{} = Ammo.change_ammo_group(ammo_group)
     end
   end
 end

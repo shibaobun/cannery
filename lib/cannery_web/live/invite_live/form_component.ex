@@ -6,6 +6,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
   use CanneryWeb, :live_component
 
   alias Cannery.Invites
+  alias Ecto.Changeset
 
   @impl true
   def update(%{invite: invite} = assigns, socket) do
@@ -74,7 +75,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
          |> put_flash(:info, "Invite updated successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end
@@ -87,7 +88,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
          |> put_flash(:info, "Invite created successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
   end

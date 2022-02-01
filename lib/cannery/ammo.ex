@@ -46,7 +46,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoType{}}
 
       iex> create_ammo_type(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec create_ammo_type(attrs :: map()) ::
@@ -63,7 +63,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoType{}}
 
       iex> update_ammo_type(ammo_type, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec update_ammo_type(AmmoType.t(), attrs :: map()) ::
@@ -80,7 +80,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoType{}}
 
       iex> delete_ammo_type(ammo_type)
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec delete_ammo_type(AmmoType.t()) ::
@@ -100,12 +100,12 @@ defmodule Cannery.Ammo do
   def delete_ammo_type!(%AmmoType{} = ammo_type), do: ammo_type |> Repo.delete!()
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking ammo_type changes.
+  Returns an `%Changeset{}` for tracking ammo_type changes.
 
   ## Examples
 
       iex> change_ammo_type(ammo_type)
-      %Ecto.Changeset{data: %AmmoType{}}
+      %Changeset{data: %AmmoType{}}
 
   """
   @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type()) ::
@@ -160,7 +160,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoGroup{}}
 
       iex> create_ammo_group(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec create_ammo_group(attrs :: map()) ::
@@ -177,7 +177,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoGroup{}}
 
       iex> update_ammo_group(ammo_group, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec update_ammo_group(AmmoGroup.t(), attrs :: map()) ::
@@ -194,7 +194,7 @@ defmodule Cannery.Ammo do
       {:ok, %AmmoGroup{}}
 
       iex> delete_ammo_group(ammo_group)
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec delete_ammo_group(AmmoGroup.t()) ::
@@ -214,12 +214,12 @@ defmodule Cannery.Ammo do
   def delete_ammo_group!(%AmmoGroup{} = ammo_group), do: ammo_group |> Repo.delete!()
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking ammo_group changes.
+  Returns an `%Changeset{}` for tracking ammo_group changes.
 
   ## Examples
 
       iex> change_ammo_group(ammo_group)
-      %Ecto.Changeset{data: %AmmoGroup{}}
+      %Changeset{data: %AmmoGroup{}}
 
   """
   @spec change_ammo_group(AmmoGroup.t()) :: Changeset.t(AmmoGroup.t())

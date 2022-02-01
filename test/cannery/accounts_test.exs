@@ -4,6 +4,7 @@ defmodule Cannery.AccountsTest do
   alias Cannery.Accounts
   import Cannery.AccountsFixtures
   alias Cannery.Accounts.{User, UserToken}
+  alias Ecto.Changeset
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do
@@ -95,7 +96,7 @@ defmodule Cannery.AccountsTest do
 
   describe "change_user_registration/2" do
     test "returns a changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_registration(%User{})
       assert changeset.required == [:password, :email]
     end
 
@@ -115,7 +116,7 @@ defmodule Cannery.AccountsTest do
 
   describe "change_user_email/2" do
     test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_email(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_email(%User{})
       assert changeset.required == [:email]
     end
   end
@@ -234,7 +235,7 @@ defmodule Cannery.AccountsTest do
 
   describe "change_user_password/2" do
     test "returns a user changeset" do
-      assert %Ecto.Changeset{} = changeset = Accounts.change_user_password(%User{})
+      assert %Changeset{} = changeset = Accounts.change_user_password(%User{})
       assert changeset.required == [:password]
     end
 

@@ -2,6 +2,7 @@ defmodule Cannery.InvitesTest do
   use Cannery.DataCase
 
   alias Cannery.{AccountsFixtures, Invites}
+  alias Ecto.Changeset
 
   describe "invites" do
     alias Cannery.Invites.Invite
@@ -44,7 +45,7 @@ defmodule Cannery.InvitesTest do
     end
 
     test "create_invite/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Invites.create_invite(@invalid_attrs)
+      assert {:error, %Changeset{}} = Invites.create_invite(@invalid_attrs)
     end
 
     test "update_invite/2 with valid data updates the invite" do
@@ -56,7 +57,7 @@ defmodule Cannery.InvitesTest do
 
     test "update_invite/2 with invalid data returns error changeset" do
       invite = invite_fixture()
-      assert {:error, %Ecto.Changeset{}} = Invites.update_invite(invite, @invalid_attrs)
+      assert {:error, %Changeset{}} = Invites.update_invite(invite, @invalid_attrs)
       assert invite == Invites.get_invite!(invite.id)
     end
 
@@ -68,7 +69,7 @@ defmodule Cannery.InvitesTest do
 
     test "change_invite/1 returns a invite changeset" do
       invite = invite_fixture()
-      assert %Ecto.Changeset{} = Invites.change_invite(invite)
+      assert %Changeset{} = Invites.change_invite(invite)
     end
   end
 end

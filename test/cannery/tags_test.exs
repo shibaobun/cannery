@@ -2,6 +2,7 @@ defmodule Cannery.TagsTest do
   use Cannery.DataCase
 
   alias Cannery.{AccountsFixtures, Tags}
+  alias Ecto.Changeset
 
   describe "tags" do
     alias Cannery.Tags.Tag
@@ -52,7 +53,7 @@ defmodule Cannery.TagsTest do
     end
 
     test "create_tag/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Tags.create_tag(@invalid_attrs)
+      assert {:error, %Changeset{}} = Tags.create_tag(@invalid_attrs)
     end
 
     test "update_tag/2 with valid data updates the tag" do
@@ -65,7 +66,7 @@ defmodule Cannery.TagsTest do
 
     test "update_tag/2 with invalid data returns error changeset" do
       tag = tag_fixture()
-      assert {:error, %Ecto.Changeset{}} = Tags.update_tag(tag, @invalid_attrs)
+      assert {:error, %Changeset{}} = Tags.update_tag(tag, @invalid_attrs)
       assert tag == Tags.get_tag!(tag.id)
     end
 
@@ -77,7 +78,7 @@ defmodule Cannery.TagsTest do
 
     test "change_tag/1 returns a tag changeset" do
       tag = tag_fixture()
-      assert %Ecto.Changeset{} = Tags.change_tag(tag)
+      assert %Changeset{} = Tags.change_tag(tag)
     end
   end
 end

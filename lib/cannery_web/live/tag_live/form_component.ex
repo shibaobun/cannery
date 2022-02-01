@@ -6,6 +6,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
   use CanneryWeb, :live_component
 
   alias Cannery.Tags
+  alias Ecto.Changeset
 
   @impl true
   def update(%{tag: tag} = assigns, socket) do
@@ -86,7 +87,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
          |> put_flash(:info, "Tag updated successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(:changeset, changeset)}
     end
   end
@@ -99,7 +100,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
          |> put_flash(:info, "Tag created successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(changeset: changeset)}
     end
   end

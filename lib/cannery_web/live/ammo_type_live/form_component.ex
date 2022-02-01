@@ -6,6 +6,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
   use CanneryWeb, :live_component
 
   alias Cannery.Ammo
+  alias Ecto.Changeset
 
   @impl true
   def update(%{ammo_type: ammo_type} = assigns, socket) do
@@ -104,7 +105,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
          |> put_flash(:info, "Ammo type updated successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(:changeset, changeset)}
     end
   end
@@ -117,7 +118,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
          |> put_flash(:info, "Ammo type created successfully")
          |> push_redirect(to: socket.assigns.return_to)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         {:noreply, socket |> assign(changeset: changeset)}
     end
   end

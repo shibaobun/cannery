@@ -6,7 +6,7 @@ defmodule Cannery.Containers do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Repo, Tags.Tag}
   alias Cannery.Containers.{Container, ContainerTag}
-  alias Ecto.{Changeset}
+  alias Ecto.Changeset
 
   @doc """
   Returns the list of containers.
@@ -47,7 +47,7 @@ defmodule Cannery.Containers do
       {:ok, %Container{}}
 
       iex> create_container(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec create_container(attrs :: map()) ::
@@ -65,7 +65,7 @@ defmodule Cannery.Containers do
       {:ok, %Container{}}
 
       iex> update_container(container, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec update_container(Container.t(), attrs :: map()) ::
@@ -83,7 +83,7 @@ defmodule Cannery.Containers do
       {:ok, %Container{}}
 
       iex> delete_container(container)
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec delete_container(Container.t()) ::
@@ -103,15 +103,15 @@ defmodule Cannery.Containers do
   def delete_container!(container), do: container |> Repo.delete!()
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking container changes.
+  Returns an `%Changeset{}` for tracking container changes.
 
   ## Examples
 
       iex> change_container(container)
-      %Ecto.Changeset{data: %Container{}}
+      %Changeset{data: %Container{}}
 
-      iex> change_container(%Ecto.Changeset{})
-      %Ecto.Changeset{data: %Container{}}
+      iex> change_container(%Changeset{})
+      %Changeset{data: %Container{}}
 
   """
   @spec change_container(Container.t() | Container.new_container()) ::
