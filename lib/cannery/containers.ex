@@ -87,7 +87,19 @@ defmodule Cannery.Containers do
   """
   @spec delete_container(Container.t() | Ecto.Changeset.t()) ::
           {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
-  def delete_container(container), do: Repo.delete(container)
+  def delete_container(container), do: container |> Repo.delete()
+
+  @doc """
+  Deletes a container.
+
+  ## Examples
+
+      iex> delete_container(container)
+      %Container{}
+
+  """
+  @spec delete_container!(Container.t() | Ecto.Changeset.t()) :: Container.t()
+  def delete_container!(container), do: container |> Repo.delete!()
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking container changes.

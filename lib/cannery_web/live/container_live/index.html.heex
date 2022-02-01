@@ -1,0 +1,82 @@
+<div class="flex flex-col space-y-8 justify-center items-center">
+  <h1 class="title text-2xl title-primary-500">
+    Listing Containers
+  </h1>
+
+  <%= if @containers |> Enum.empty?() do %>
+    <div class="flex flex-col space-y-4 justify-center items-center">
+      <h1 class="title text-xl text-primary-500">
+        No containers
+      </h1>
+
+      <%= live_patch to: Routes.container_index_path(@socket, :new),
+          class: "btn btn-primary" do %>
+        Create your first container!
+      <% end %>
+    </div>
+  <% else %>
+    <%= live_patch to: Routes.container_index_path(@socket, :new),
+        class: "btn btn-primary" do %>
+      New Container
+    <% end %>
+  <% end %>
+
+  <div class="flex flex-row flex-wrap">
+    <%= for container <- @containers do %>
+      <div id={"container-#{container.id}"}
+        class="px-8 py-4 flex flex-col justify-center items-center
+          border border-gray-400 rounded-lg shadow-lg hover:shadow-md">
+        <div class="mb-4 flex flex-col justify-center items-center">
+          <h1 class="px-4 py-2 rounded-lg title text-xl">
+            <%= container.name %>
+          </h1>
+
+          <%= if container.desc do %>
+            <span class="rounded-lg title text-lg">
+              Description: <%= container.desc %>
+            </span>
+          <% end %>
+
+          <span class="rounded-lg title text-lg">
+            Type: <%= container.type %>
+          </span>
+
+          <%= if container.location do %>
+            <span class="rounded-lg title text-lg">
+              Location: <%= container.location %>
+            </span>
+          <% end %>
+        </div>
+
+        <div class="flex space-x-4 justify-center items-center">
+          <%= live_redirect("Show",
+            to: Routes.container_show_path(@socket, :show, container),
+            class: "text-primary-500 link"
+          ) %>
+          <%= live_patch("Edit",
+            to: Routes.container_index_path(@socket, :edit, container),
+            class: "text-primary-500 link"
+          ) %>
+          <%= link("Delete",
+            to: "#",
+            class: "text-primary-500 link",
+            phx_click: "delete",
+            phx_value_id: container.id,
+            data: [confirm: "Are you sure you want to delete #{container.name}?"]
+          ) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
+    id: @container.id || :new,
+    title: @page_title,
+    action: @live_action,
+    container: @container,
+    return_to: Routes.container_index_path(@socket, :index),
+    current_user: @current_user
+  ) %>
+<% end %>

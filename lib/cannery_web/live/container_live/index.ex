@@ -10,7 +10,7 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> assign(:containers, list_containers())}
+    {:ok, socket |> assign_defaults(session) |> display_containers()}
   end
 
   @impl true
@@ -38,13 +38,12 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    container = Containers.get_container!(id)
-    {:ok, _} = Containers.delete_container(container)
-
-    {:noreply, socket |> assign(:containers, list_containers())}
+    Containers.get_container!(id) |> Containers.delete_container!()
+    {:noreply, socket |> display_containers()}
   end
 
-  defp list_containers do
-    Containers.list_containers()
+  defp display_containers(%{assigns: %{current_user: current_user}} = socket) do
+    containers = Containers.list_containers(current_user)
+    socket |> assign(containers: containers)
   end
 end
