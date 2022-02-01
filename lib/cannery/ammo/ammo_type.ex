@@ -18,7 +18,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :desc, :string
     field :manufacturer, :string
     field :name, :string
-    field :weight, :float
+    field :grain, :integer
 
     timestamps()
   end
@@ -30,7 +30,7 @@ defmodule Cannery.Ammo.AmmoType do
           desc: String.t(),
           manufacturer: String.t(),
           name: String.t(),
-          weight: float(),
+          grain: integer(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
@@ -41,7 +41,7 @@ defmodule Cannery.Ammo.AmmoType do
   @spec changeset(t() | new_ammo_type(), attrs :: map()) :: Changeset.t()
   def changeset(ammo_type, attrs) do
     ammo_type
-    |> cast(attrs, [:name, :desc, :case_material, :bullet_type, :weight, :manufacturer])
-    |> validate_required([:name, :desc, :case_material, :bullet_type, :weight, :manufacturer])
+    |> cast(attrs, [:name, :desc, :case_material, :bullet_type, :grain, :manufacturer])
+    |> validate_required([:name])
   end
 end
