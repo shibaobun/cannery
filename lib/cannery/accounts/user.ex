@@ -54,9 +54,9 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec registration_changeset(t() | new_user(), attrs :: map()) :: Changeset.t()
+  @spec registration_changeset(t() | new_user(), attrs :: map()) :: Changeset.t(t() | new_user())
   @spec registration_changeset(t() | new_user(), attrs :: map(), opts :: keyword()) ::
-          Changeset.t()
+          Changeset.t(t() | new_user())
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :role])
@@ -68,12 +68,12 @@ defmodule Cannery.Accounts.User do
   A user changeset for role.
 
   """
-  @spec role_changeset(t(), role :: atom()) :: Changeset.t()
+  @spec role_changeset(t(), role :: atom()) :: Changeset.t(t())
   def role_changeset(user, role) do
     user |> cast(%{"role" => role}, [:role])
   end
 
-  @spec validate_email(Changeset.t()) :: Changeset.t()
+  @spec validate_email(Changeset.t(t() | new_user())) :: Changeset.t(t() | new_user())
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
@@ -83,7 +83,8 @@ defmodule Cannery.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  @spec validate_password(Changeset.t(), opts :: keyword()) :: Changeset.t()
+  @spec validate_password(Changeset.t(t() | new_user()), opts :: keyword()) ::
+          Changeset.t(t() | new_user())
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
@@ -94,7 +95,8 @@ defmodule Cannery.Accounts.User do
     |> maybe_hash_password(opts)
   end
 
-  @spec maybe_hash_password(Changeset.t(), opts :: keyword()) :: Changeset.t()
+  @spec maybe_hash_password(Changeset.t(t() | new_user()), opts :: keyword()) ::
+          Changeset.t(t() | new_user())
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
     password = get_change(changeset, :password)
@@ -113,7 +115,7 @@ defmodule Cannery.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
-  @spec email_changeset(t(), attrs :: map()) :: Changeset.t()
+  @spec email_changeset(t(), attrs :: map()) :: Changeset.t(t())
   def email_changeset(user, attrs) do
     user
     |> cast(attrs, [:email])
@@ -136,8 +138,8 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec password_changeset(t(), attrs :: map()) :: Changeset.t()
-  @spec password_changeset(t(), attrs :: map(), opts :: keyword()) :: Changeset.t()
+  @spec password_changeset(t(), attrs :: map()) :: Changeset.t(t())
+  @spec password_changeset(t(), attrs :: map(), opts :: keyword()) :: Changeset.t(t())
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
@@ -148,7 +150,7 @@ defmodule Cannery.Accounts.User do
   @doc """
   Confirms the account by setting `confirmed_at`.
   """
-  @spec confirm_changeset(t() | Changeset.t()) :: Changeset.t()
+  @spec confirm_changeset(t() | Changeset.t(t())) :: Changeset.t(t())
   def confirm_changeset(user_or_changeset) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
     user_or_changeset |> change(confirmed_at: now)
@@ -174,7 +176,7 @@ defmodule Cannery.Accounts.User do
   @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
-  @spec validate_current_password(Changeset.t(), String.t()) :: Changeset.t()
+  @spec validate_current_password(Changeset.t(t()), String.t()) :: Changeset.t(t())
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password),
       do: changeset,

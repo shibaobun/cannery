@@ -49,7 +49,7 @@ defmodule Cannery.Tags do
       {:error, %Changeset{}}
 
   """
-  @spec create_tag(attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  @spec create_tag(attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.new_tag())}
   def create_tag(attrs), do: %Tag{} |> Tag.changeset(attrs) |> Repo.insert()
 
   @doc """
@@ -64,7 +64,7 @@ defmodule Cannery.Tags do
       {:error, %Changeset{}}
 
   """
-  @spec update_tag(Tag.t(), attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  @spec update_tag(Tag.t(), attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
   def update_tag(tag, attrs), do: tag |> Tag.changeset(attrs) |> Repo.update()
 
   @doc """
@@ -79,7 +79,7 @@ defmodule Cannery.Tags do
       {:error, %Changeset{}}
 
   """
-  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Changeset.t()}
+  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
   def delete_tag(tag), do: tag |> Repo.delete()
 
   @doc """
@@ -103,8 +103,9 @@ defmodule Cannery.Tags do
       %Changeset{data: %Tag{}}
 
   """
-  @spec change_tag(Tag.t() | Tag.new_tag()) :: Changeset.t()
-  @spec change_tag(Tag.t() | Tag.new_tag(), attrs :: map()) :: Changeset.t()
+  @spec change_tag(Tag.t() | Tag.new_tag()) :: Changeset.t(Tag.t() | Tag.new_tag())
+  @spec change_tag(Tag.t() | Tag.new_tag(), attrs :: map()) ::
+          Changeset.t(Tag.t() | Tag.new_tag())
   def change_tag(tag, attrs \\ %{}), do: Tag.changeset(tag, attrs)
 
   @doc """

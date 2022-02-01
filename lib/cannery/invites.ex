@@ -93,11 +93,11 @@ defmodule Cannery.Invites do
       {:ok, %Invite{}}
 
       iex> create_invite(%User{id: "1"}, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec create_invite(User.t() | User.id(), attrs :: map()) ::
-          {:ok, Invite.t()} | {:error, Changeset.t()}
+          {:ok, Invite.t()} | {:error, Changeset.t(Invite.new_invite())}
   def create_invite(%{id: user_id}, attrs), do: create_invite(user_id, attrs)
 
   def create_invite(user_id, attrs) when not (user_id |> is_nil()) do
@@ -120,11 +120,11 @@ defmodule Cannery.Invites do
       {:ok, %Invite{}}
 
       iex> update_invite(invite, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
   @spec update_invite(Invite.t(), attrs :: map()) ::
-          {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
+          {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
   def update_invite(invite, attrs), do: invite |> Invite.changeset(attrs) |> Repo.update()
 
   @doc """
@@ -136,10 +136,10 @@ defmodule Cannery.Invites do
       {:ok, %Invite{}}
 
       iex> delete_invite(invite)
-      {:error, %Ecto.Changeset{}}
+      {:error, %Changeset{}}
 
   """
-  @spec delete_invite(Invite.t()) :: {:ok, Invite.t()} | {:error, Ecto.Changeset.t()}
+  @spec delete_invite(Invite.t()) :: {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
   def delete_invite(invite), do: invite |> Repo.delete()
 
   @doc """
@@ -155,15 +155,17 @@ defmodule Cannery.Invites do
   def delete_invite!(invite), do: invite |> Repo.delete!()
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking invite changes.
+  Returns an `%Changeset{}` for tracking invite changes.
 
   ## Examples
 
       iex> change_invite(invite)
-      %Ecto.Changeset{data: %Invite{}}
+      %Changeset{data: %Invite{}}
 
   """
-  @spec change_invite(Invite.t() | Invite.new_invite()) :: Ecto.Changeset.t()
-  @spec change_invite(Invite.t() | Invite.new_invite(), attrs :: map()) :: Ecto.Changeset.t()
+  @spec change_invite(Invite.t() | Invite.new_invite()) ::
+          Changeset.t(Invite.t() | Invite.new_invite())
+  @spec change_invite(Invite.t() | Invite.new_invite(), attrs :: map()) ::
+          Changeset.t(Invite.t() | Invite.new_invite())
   def change_invite(invite, attrs \\ %{}), do: invite |> Invite.changeset(attrs)
 end

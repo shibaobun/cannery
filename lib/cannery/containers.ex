@@ -50,7 +50,8 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_container(attrs :: map()) :: {:ok, Container.t()} | {:error, Changeset.t()}
+  @spec create_container(attrs :: map()) ::
+          {:ok, Container.t()} | {:error, Changeset.t(Container.new_container())}
   def create_container(attrs) do
     %Container{} |> Container.changeset(attrs) |> Repo.insert()
   end
@@ -67,8 +68,8 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_container(Container.t() | Ecto.Changeset.t(), attrs :: map()) ::
-          {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
+  @spec update_container(Container.t(), attrs :: map()) ::
+          {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
   def update_container(container, attrs) do
     container |> Container.changeset(attrs) |> Repo.update()
   end
@@ -85,8 +86,8 @@ defmodule Cannery.Containers do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_container(Container.t() | Ecto.Changeset.t()) ::
-          {:ok, Container.t()} | {:error, Ecto.Changeset.t()}
+  @spec delete_container(Container.t()) ::
+          {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
   def delete_container(container), do: container |> Repo.delete()
 
   @doc """
@@ -98,7 +99,7 @@ defmodule Cannery.Containers do
       %Container{}
 
   """
-  @spec delete_container!(Container.t() | Ecto.Changeset.t()) :: Container.t()
+  @spec delete_container!(Container.t()) :: Container.t()
   def delete_container!(container), do: container |> Repo.delete!()
 
   @doc """
@@ -113,9 +114,10 @@ defmodule Cannery.Containers do
       %Ecto.Changeset{data: %Container{}}
 
   """
-  @spec change_container(Container.t() | Container.new_container()) :: Changeset.t()
+  @spec change_container(Container.t() | Container.new_container()) ::
+          Changeset.t(Container.t() | Container.new_container())
   @spec change_container(Container.t() | Container.new_container(), attrs :: map()) ::
-          Changeset.t()
+          Changeset.t(Container.t() | Container.new_container())
   def change_container(container, attrs \\ %{}), do: container |> Container.changeset(attrs)
 
   @doc """

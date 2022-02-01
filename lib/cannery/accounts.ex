@@ -89,7 +89,7 @@ defmodule Cannery.Accounts do
       {:error, %Changeset{}}
 
   """
-  @spec register_user(map()) :: {:ok, User.t()} | {:error, Changeset.t()}
+  @spec register_user(map()) :: {:ok, User.t()} | {:error, Changeset.t(User.new_user())}
   def register_user(attrs) do
     # if no registered users, make first user an admin
     attrs =
@@ -109,8 +109,10 @@ defmodule Cannery.Accounts do
       %Changeset{data: %User{}}
 
   """
-  @spec change_user_registration(User.t() | User.new_user()) :: Changeset.t()
-  @spec change_user_registration(User.t() | User.new_user(), map()) :: Changeset.t()
+  @spec change_user_registration(User.t() | User.new_user()) ::
+          Changeset.t(User.t() | User.new_user())
+  @spec change_user_registration(User.t() | User.new_user(), map()) ::
+          Changeset.t(User.t() | User.new_user())
   def change_user_registration(user, attrs \\ %{}),
     do: User.registration_changeset(user, attrs, hash_password: false)
 
@@ -125,7 +127,7 @@ defmodule Cannery.Accounts do
       %Changeset{data: %User{}}
 
   """
-  @spec change_user_email(User.t(), map()) :: Changeset.t()
+  @spec change_user_email(User.t(), map()) :: Changeset.t(User.t())
   def change_user_email(user, attrs \\ %{}), do: User.email_changeset(user, attrs)
 
   @doc """
@@ -137,7 +139,7 @@ defmodule Cannery.Accounts do
       %Changeset{data: %User{}}
 
   """
-  @spec change_user_role(User.t(), atom()) :: Changeset.t()
+  @spec change_user_role(User.t(), atom()) :: Changeset.t(User.t())
   def change_user_role(user, role), do: User.role_changeset(user, role)
 
   @doc """
@@ -154,7 +156,7 @@ defmodule Cannery.Accounts do
 
   """
   @spec apply_user_email(User.t(), String.t(), map()) ::
-          {:ok, User.t()} | {:error, Changeset.t()}
+          {:ok, User.t()} | {:error, Changeset.t(User.t())}
   def apply_user_email(user, password, attrs) do
     user
     |> User.email_changeset(attrs)
@@ -218,7 +220,7 @@ defmodule Cannery.Accounts do
       %Changeset{data: %User{}}
 
   """
-  @spec change_user_password(User.t(), map()) :: Changeset.t()
+  @spec change_user_password(User.t(), map()) :: Changeset.t(User.t())
   def change_user_password(user, attrs \\ %{}),
     do: User.password_changeset(user, attrs, hash_password: false)
 
@@ -235,7 +237,7 @@ defmodule Cannery.Accounts do
 
   """
   @spec update_user_password(User.t(), String.t(), map()) ::
-          {:ok, User.t()} | {:error, Changeset.t()}
+          {:ok, User.t()} | {:error, Changeset.t(User.t())}
   def update_user_password(user, password, attrs) do
     changeset =
       user
@@ -399,7 +401,7 @@ defmodule Cannery.Accounts do
       {:error, %Changeset{}}
 
   """
-  @spec reset_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, Changeset.t()}
+  @spec reset_user_password(User.t(), map()) :: {:ok, User.t()} | {:error, Changeset.t(User.t())}
   def reset_user_password(user, attrs) do
     Multi.new()
     |> Multi.update(:user, User.password_changeset(user, attrs))

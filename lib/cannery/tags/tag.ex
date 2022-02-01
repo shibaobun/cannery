@@ -35,7 +35,7 @@ defmodule Cannery.Tags.Tag do
   @type id() :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_tag(), attrs :: map()) :: Changeset.t()
+  @spec changeset(t() | new_tag(), attrs :: map()) :: Changeset.t(t() | new_tag())
   def changeset(tag, attrs) do
     tag
     |> cast(attrs, [:name, :bg_color, :text_color, :user_id])

@@ -36,7 +36,7 @@ defmodule Cannery.Containers.Container do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_container(), attrs :: map()) :: Changeset.t()
+  @spec changeset(t() | new_container(), attrs :: map()) :: Changeset.t(t() | new_container())
   def changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location, :user_id])

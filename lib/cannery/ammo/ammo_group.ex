@@ -47,7 +47,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_ammo_group(), attrs :: map()) :: Changeset.t()
+  @spec changeset(t() | new_ammo_group(), attrs :: map()) :: Changeset.t(t() | new_ammo_group())
   def changeset(ammo_group, attrs) do
     ammo_group
     |> cast(attrs, [:count, :price_paid, :notes, :tag_id, :ammo_type_id, :container_id, :user_id])

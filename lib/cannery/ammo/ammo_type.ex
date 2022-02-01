@@ -38,7 +38,7 @@ defmodule Cannery.Ammo.AmmoType do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_ammo_type(), attrs :: map()) :: Changeset.t()
+  @spec changeset(t() | new_ammo_type(), attrs :: map()) :: Changeset.t(t() | new_ammo_type())
   def changeset(ammo_type, attrs) do
     ammo_type
     |> cast(attrs, [:name, :desc, :case_material, :bullet_type, :grain, :manufacturer])

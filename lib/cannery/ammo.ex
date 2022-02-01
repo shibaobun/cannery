@@ -49,7 +49,8 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_ammo_type(attrs :: map()) :: {:ok, AmmoType.t()} | {:error, Changeset.t()}
+  @spec create_ammo_type(attrs :: map()) ::
+          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.new_ammo_type())}
   def create_ammo_type(attrs \\ %{}),
     do: %AmmoType{} |> AmmoType.changeset(attrs) |> Repo.insert()
 
@@ -66,7 +67,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec update_ammo_type(AmmoType.t(), attrs :: map()) ::
-          {:ok, AmmoType.t()} | {:error, Changeset.t()}
+          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.t())}
   def update_ammo_type(%AmmoType{} = ammo_type, attrs),
     do: ammo_type |> AmmoType.changeset(attrs) |> Repo.update()
 
@@ -82,7 +83,8 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_ammo_type(AmmoType.t()) :: {:ok, AmmoType.t()} | {:error, Changeset.t()}
+  @spec delete_ammo_type(AmmoType.t()) ::
+          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.t())}
   def delete_ammo_type(%AmmoType{} = ammo_type), do: ammo_type |> Repo.delete()
 
   @doc """
@@ -106,8 +108,10 @@ defmodule Cannery.Ammo do
       %Ecto.Changeset{data: %AmmoType{}}
 
   """
-  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type()) :: Changeset.t()
-  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type(), attrs :: map()) :: Changeset.t()
+  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type()) ::
+          Changeset.t(AmmoType.t() | AmmoType.new_ammo_type())
+  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type(), attrs :: map()) ::
+          Changeset.t(AmmoType.t() | AmmoType.new_ammo_type())
   def change_ammo_type(%AmmoType{} = ammo_type, attrs \\ %{}),
     do: AmmoType.changeset(ammo_type, attrs)
 
@@ -159,7 +163,8 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_ammo_group(attrs :: map()) :: {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+  @spec create_ammo_group(attrs :: map()) ::
+          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.new_ammo_group())}
   def create_ammo_group(attrs \\ %{}),
     do: %AmmoGroup{} |> AmmoGroup.changeset(attrs) |> Repo.insert()
 
@@ -176,7 +181,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec update_ammo_group(AmmoGroup.t(), attrs :: map()) ::
-          {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.t())}
   def update_ammo_group(%AmmoGroup{} = ammo_group, attrs),
     do: ammo_group |> AmmoGroup.changeset(attrs) |> Repo.update()
 
@@ -192,7 +197,8 @@ defmodule Cannery.Ammo do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_ammo_group(AmmoGroup.t()) :: {:ok, AmmoGroup.t()} | {:error, Changeset.t()}
+  @spec delete_ammo_group(AmmoGroup.t()) ::
+          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.t())}
   def delete_ammo_group(%AmmoGroup{} = ammo_group), do: ammo_group |> Repo.delete()
 
   @doc """

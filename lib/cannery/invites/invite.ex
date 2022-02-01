@@ -38,7 +38,7 @@ defmodule Cannery.Invites.Invite do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_invite(), attrs :: map()) :: Changeset.t()
+  @spec changeset(t() | new_invite(), attrs :: map()) :: Changeset.t(t() | new_invite())
   def changeset(invite, attrs) do
     invite
     |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])

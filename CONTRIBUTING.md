@@ -9,7 +9,7 @@ contributing to Cannery (hopefully) as great of an experience as you found it!
   inline `do:` blocks for short functions and make your aliases as short as
   possible without introducing ambiguity.
   - I.e. since there's only one `Changeset` in the app, please alias
-    `Changeset.t()` instead of using `Ecto.Changeset.t()`
+    `Changeset.t(Type.t())` instead of using `Ecto.Changeset.t(Long.Type.t())`
 - Use pipelines when possible. If a function only calls a single method, a
   pipeline isn't strictly necessary but still encouraged for future
   modification.
