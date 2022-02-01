@@ -1,0 +1,46 @@
+<div class="mx-auto space-y-4 max-w-3xl flex flex-col justify-center items-center">
+  <h1 class="title text-2xl title-primary-500">
+    <%= @container.name %>
+  </h1>
+
+  <%= if @container.desc do %>
+    <span class="rounded-lg title text-lg">
+      Description: <%= @container.desc %>
+    </span>
+  <% end %>
+
+  <span class="rounded-lg title text-lg">
+    Type: <%= @container.type %>
+  </span>
+
+  <%= if @container.location do %>
+    <span class="rounded-lg title text-lg">
+      Location: <%= @container.location %>
+    </span>
+  <% end %>
+
+  <div class="flex space-x-4 justify-center items-center text-primary-500">
+    <%= live_redirect("Back", to: Routes.container_index_path(@socket, :index), class: "link") %>
+    <%= live_patch("Edit", to: Routes.container_show_path(@socket, :edit, @container), class: "link") %>
+    <%= link("Delete",
+      to: "#",
+      class: "link",
+      phx_click: "delete",
+      data: [confirm: "Are you sure you want to delete #{@container.name}?"]
+    ) %>
+  </div>
+
+  <hr class="mb-4 w-full">
+
+  <p>No ammo groups in this container</p>
+
+  <%= if @live_action in [:edit] do %>
+    <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
+      id: @container.id,
+      title: @page_title,
+      action: @live_action,
+      container: @container,
+      return_to: Routes.container_show_path(@socket, :show, @container)
+    ) %>
+  <% end %>
+</div>
