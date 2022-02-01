@@ -35,7 +35,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h2>
+      <h2 class="title text-xl text-primary-500">
         <%= @title %>
       </h2>
       <.form
@@ -45,26 +45,52 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         phx-target={@myself}
         phx-change="validate"
         phx-submit="save"
+        class="grid grid-cols-3 justify-center items-center space-y-4"
       >
-        <%= label(f, :name, class: "title text-lg text-primary-500") %>
-        <%= text_input(f, :name, class: "input input-primary") %>
-        <%= error_tag(f, :name) %>
-        <%= label(f, :desc, class: "title text-lg text-primary-500") %>
-        <%= text_input(f, :desc, class: "input input-primary") %>
-        <%= error_tag(f, :desc) %>
-        <%= label(f, :case_material, class: "title text-lg text-primary-500") %>
-        <%= text_input(f, :case_material, class: "input input-primary") %>
-        <%= error_tag(f, :case_material) %>
-        <%= label(f, :bullet_type, class: "title text-lg text-primary-500") %>
-        <%= text_input(f, :bullet_type, class: "input input-primary") %>
-        <%= error_tag(f, :bullet_type) %>
-        <%= label(f, :weight, class: "title text-lg text-primary-500") %>
-        <%= number_input(f, :weight, step: "any") %>
-        <%= error_tag(f, :weight) %>
-        <%= label(f, :manufacturer, class: "title text-lg text-primary-500") %>
-        <%= text_input(f, :manufacturer, class: "input input-primary") %>
-        <%= error_tag(f, :manufacturer) %>
-        <%= submit("Save", phx_disable_with: "Saving...") %>
+        <%= label(f, :name, class: "mr-4 title text-lg text-primary-500") %>
+        <%= text_input(f, :name, class: "text-center col-span-2 input input-primary") %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :name) %>
+        </div>
+
+        <%= label(f, :desc, class: "mr-4 title text-lg text-primary-500") %>
+        <%= textarea(f, :desc,
+          class: "text-center col-span-2 input input-primary",
+          phx_hook: "MaintainAttrs") %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :desc) %>
+        </div>
+
+        <%= label(f, :case_material, class: "mr-4 title text-lg text-primary-500") %>
+        <%= text_input(f, :case_material, class: "text-center col-span-2 input input-primary") %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :case_material) %>
+        </div>
+
+        <%= label(f, :bullet_type, class: "mr-4 title text-lg text-primary-500") %>
+        <%= text_input(f, :bullet_type, class: "text-center col-span-2 input input-primary") %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :bullet_type) %>
+        </div>
+
+        <%= label(f, :grain, class: "mr-4 title text-lg text-primary-500") %>
+        <%= number_input(f, :grain,
+          step: "any",
+          class: "text-center col-span-2 input input-primary",
+          min: 0) %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :grain) %>
+        </div>
+
+        <%= label(f, :manufacturer, class: "mr-4 title text-lg text-primary-500") %>
+        <%= text_input(f, :manufacturer, class: "text-center col-span-2 input input-primary") %>
+        <div class="col-span-3 text-center">
+          <%= error_tag(f, :manufacturer) %>
+        </div>
+
+        <%= submit("Save",
+          phx_disable_with: "Saving...",
+          class: "mx-auto col-span-3 btn btn-primary") %>
       </.form>
     </div>
     """
