@@ -26,8 +26,7 @@ defmodule CanneryWeb.ModalComponent do
         <%= live_patch to: @return_to,
                    class:
                      "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out" do %>
-          <i class="fa-fw fa-lg fas fa-times">
-          </i>
+          <i class="fa-fw fa-lg fas fa-times"></i>
         <% end %>
         <div class="w-full flex flex-col space-y-4 justify-center items-center">
           <%= live_component(@component, @opts) %>

@@ -57,7 +57,8 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         <%= label(f, :desc, class: "mr-4 title text-lg text-primary-500") %>
         <%= textarea(f, :desc,
           class: "text-center col-span-2 input input-primary",
-          phx_hook: "MaintainAttrs") %>
+          phx_hook: "MaintainAttrs"
+        ) %>
         <div class="col-span-3 text-center">
           <%= error_tag(f, :desc) %>
         </div>
@@ -78,7 +79,8 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         <%= number_input(f, :grain,
           step: "any",
           class: "text-center col-span-2 input input-primary",
-          min: 0) %>
+          min: 0
+        ) %>
         <div class="col-span-3 text-center">
           <%= error_tag(f, :grain) %>
         </div>
@@ -91,7 +93,8 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
 
         <%= submit("Save",
           phx_disable_with: "Saving...",
-          class: "mx-auto col-span-3 btn btn-primary") %>
+          class: "mx-auto col-span-3 btn btn-primary"
+        ) %>
       </.form>
     </div>
     """

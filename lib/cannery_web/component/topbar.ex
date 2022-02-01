@@ -73,15 +73,13 @@ defmodule CanneryWeb.Component.Topbar do
                 <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete),
                      method: :delete,
                      data: [confirm: "Are you sure you want to log out?"] do %>
-                  <i class="fas fa-sign-out-alt">
-                  </i>
+                  <i class="fas fa-sign-out-alt"></i>
                 <% end %>
               </li>
               <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
                 <li>
                   <%= link to: Routes.live_dashboard_path(CanneryWeb.Endpoint, :home) do %>
-                    <i class="fas fa-tachometer-alt">
-                    </i>
+                    <i class="fas fa-tachometer-alt"></i>
                   <% end %>
                 </li>
               <% end %>

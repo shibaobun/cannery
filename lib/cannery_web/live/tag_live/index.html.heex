@@ -10,9 +10,10 @@
       No tags 😔
     </h2>
 
-    <%= live_patch "Make your first tag!",
+    <%= live_patch("Make your first tag!",
       to: Routes.tag_index_path(@socket, :new),
-      class: "btn btn-primary" %>
+      class: "btn btn-primary"
+    ) %>
   <% else %>
     <%= live_patch("New Tag",
       to: Routes.tag_index_path(@socket, :new),
@@ -34,16 +35,14 @@
         </h1>
         <%= live_patch to: Routes.tag_index_path(@socket, :edit, tag),
                    class: "text-primary-500 link" do %>
-          <i class="fa-fw fa-lg fas fa-edit">
-          </i>
+          <i class="fa-fw fa-lg fas fa-edit"></i>
         <% end %>
         <%= link to: "#",
              class: "text-primary-500 link",
              phx_click: "delete",
              phx_value_id: tag.id,
              data: [confirm: "Are you sure you want to delete #{tag.name}?"] do %>
-          <i class="fa-fw fa-lg fas fa-trash">
-          </i>
+          <i class="fa-fw fa-lg fas fa-trash"></i>
         <% end %>
       </div>
     <% end %>

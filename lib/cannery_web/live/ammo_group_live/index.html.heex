@@ -8,21 +8,29 @@
       No Ammo 😔
     </h2>
 
-    <%= live_patch "Add your first box!",
+    <%= live_patch("Add your first box!",
       to: Routes.ammo_group_index_path(@socket, :new),
-      class: "btn btn-primary" %>
+      class: "btn btn-primary"
+    ) %>
   <% else %>
-    <%= live_patch "New Ammo group",
+    <%= live_patch("New Ammo group",
       to: Routes.ammo_group_index_path(@socket, :new),
-      class: "btn btn-primary" %>
+      class: "btn btn-primary"
+    ) %>
 
     <div class="w-full overflow-x-auto border border-gray-600 rounded-lg shadow-lg bg-black">
       <table class="min-w-full table-auto text-center bg-white">
         <thead class="border-b border-primary-600">
           <tr>
-            <th class="p-2">Count</th>
-            <th class="p-2">Price paid</th>
-            <th class="p-2">Notes</th>
+            <th class="p-2">
+              Count
+            </th>
+            <th class="p-2">
+              Price paid
+            </th>
+            <th class="p-2">
+              Notes
+            </th>
 
             <th class="p-2"></th>
           </tr>
@@ -30,14 +38,31 @@
         <tbody id="ammo_groups">
           <%= for ammo_group <- @ammo_groups do %>
             <tr id={ammo_group-"#{ammo_group.id}"}>
-              <td class="p-2"><%= ammo_group.count %></td>
-              <td class="p-2"><%= ammo_group.price_paid %></td>
-              <td class="p-2"><%= ammo_group.notes %></td>
+              <td class="p-2">
+                <%= ammo_group.count %>
+              </td>
+              <td class="p-2">
+                <%= ammo_group.price_paid %>
+              </td>
+              <td class="p-2">
+                <%= ammo_group.notes %>
+              </td>
 
               <td class="p-2 w-full h-full space-y-2 flex flex-col justify-center items-center">
-                <span><%= live_redirect "Show", to: Routes.ammo_group_show_path(@socket, :show, ammo_group) %></span>
-                <span><%= live_patch "Edit", to: Routes.ammo_group_index_path(@socket, :edit, ammo_group) %></span>
-                <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: ammo_group.id, data: [confirm: "Are you sure?"] %></span>
+                <span>
+                  <%= live_redirect("Show", to: Routes.ammo_group_show_path(@socket, :show, ammo_group)) %>
+                </span>
+                <span>
+                  <%= live_patch("Edit", to: Routes.ammo_group_index_path(@socket, :edit, ammo_group)) %>
+                </span>
+                <span>
+                  <%= link("Delete",
+                    to: "#",
+                    phx_click: "delete",
+                    phx_value_id: ammo_group.id,
+                    data: [confirm: "Are you sure?"]
+                  ) %>
+                </span>
               </td>
             </tr>
           <% end %>
@@ -48,10 +73,11 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <%= live_modal CanneryWeb.AmmoGroupLive.FormComponent,
+  <%= live_modal(CanneryWeb.AmmoGroupLive.FormComponent,
     id: @ammo_group.id || :new,
     title: @page_title,
     action: @live_action,
     ammo_group: @ammo_group,
-    return_to: Routes.ammo_group_index_path(@socket, :index) %>
+    return_to: Routes.ammo_group_index_path(@socket, :index)
+  ) %>
 <% end %>
