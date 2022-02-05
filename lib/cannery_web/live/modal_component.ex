@@ -20,15 +20,15 @@ defmodule CanneryWeb.ModalComponent do
       phx-target={"#{@id}"}
       phx-page-loading
     >
-      <div class="w-full max-w-4xl relative
-        p-8 flex flex-col justify-start items-center
+      <div class="w-full max-w-3xl max-h-128 relative overflow-y-auto
+        flex flex-col justify-start items-center
         bg-white border-2 rounded-lg">
         <%= live_patch to: @return_to,
-                   class:
-                     "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out" do %>
+                   class: "absolute top-8 right-10 text-gray-500 hover:text-gray-800
+                                                              transition-all duration-500 ease-in-out" do %>
           <i class="fa-fw fa-lg fas fa-times"></i>
         <% end %>
-        <div class="w-full flex flex-col space-y-4 justify-center items-center">
+        <div class="p-8 flex flex-col space-y-4 justify-start items-center">
           <%= live_component(@component, @opts) %>
         </div>
       </div>

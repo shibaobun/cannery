@@ -1,39 +1,16 @@
-<div class="mx-auto space-y-4 max-w-3xl flex flex-col justify-center items-center">
+<div class="mx-auto px-4 sm:px-8 space-y-4 max-w-3xl
+  flex flex-col justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
     <%= @ammo_type.name %>
   </h1>
 
-  <div class="space-y-2 flex flex-col justify-center items-center">
-    <%= if @ammo_type.desc do %>
-      <span class="rounded-lg title text-lg">
-        Desc: <%= @ammo_type.desc %>
-      </span>
-    <% end %>
-
-    <%= if @ammo_type.case_material do %>
-      <span class="rounded-lg title text-lg">
-        Case material: <%= @ammo_type.case_material %>
-      </span>
-    <% end %>
-
-    <%= if @ammo_type.bullet_type do %>
-      <span class="rounded-lg title text-lg">
-        Bullet type: <%= @ammo_type.bullet_type %>
-      </span>
-    <% end %>
-
-    <%= if @ammo_type.grain do %>
-      <span class="rounded-lg title text-lg">
-        Grain: <%= @ammo_type.grain %>
-      </span>
-    <% end %>
-
-    <%= if @ammo_type.manufacturer do %>
-      <span class="rounded-lg title text-lg">
-        Manufacturer: <%= @ammo_type.manufacturer %>
-      </span>
-    <% end %>
-  </div>
+  <%= if @ammo_type.desc do %>
+    <span class="max-w-2xl w-full px-8 py-4 rounded-lg
+      text-center title text-lg
+      border border-primary-600">
+      <%= @ammo_type.desc %>
+    </span>
+  <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-500">
     <%= live_patch to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type),
@@ -49,9 +26,61 @@
     <% end %>
   </div>
 
-  <hr class="mb-4 w-full">
+  <hr class="hr">
 
-  <div class="mb-4">
+  <div class="grid sm:grid-cols-2 text-center justify-center items-center">
+    <%= for field <- [
+          :bullet_type,
+          :bullet_core,
+          :cartridge,
+          :caliber,
+          :case_material,
+          :grains,
+          :pressure
+        ] do %>
+      <%= if @ammo_type |> Map.get(field) do %>
+        <h3 class="mb-2 sm:mr-4 title text-lg">
+          <%= field |> humanize() %> :
+        </h3>
+
+        <span class="mb-4 sm:mb-2 text-primary-600">
+          <%= @ammo_type |> Map.get(field) %>
+        </span>
+      <% end %>
+    <% end %>
+
+    <%= for field <- [
+          :rimfire,
+          :tracer,
+          :incendiary,
+          :blank,
+          :corrosive
+        ] do %>
+      <h3 class="mb-2 sm:mr-4 title text-lg">
+        <%= field |> humanize() %> :
+      </h3>
+
+      <span class="mb-4 sm:mb-2 text-primary-600">
+        <%= @ammo_type |> Map.get(field) |> humanize() %>
+      </span>
+    <% end %>
+
+    <%= for field <- [:manufacturer, :sku] do %>
+      <%= if @ammo_type |> Map.get(field) do %>
+        <h3 class="mb-2 sm:mr-4 title text-lg">
+          <%= field |> humanize() %> :
+        </h3>
+
+        <span class="mb-4 sm:mb-2 text-primary-600">
+          <%= @ammo_type |> Map.get(field) %>
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr class="hr">
+
+  <div>
     <%= if @ammo_type.ammo_groups |> Enum.empty?() do %>
       No ammo for this type
     <% else %>
