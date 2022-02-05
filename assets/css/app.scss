@@ -10,6 +10,12 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 
 @import "components";
 
+/* fix firefox scrollbars */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(161, 161, 170, var(--tw-bg-opacity)) white;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;
