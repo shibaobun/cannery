@@ -91,15 +91,15 @@
                   <% end %>
 
                   <%= live_patch to: Routes.ammo_type_index_path(@socket, :edit, ammo_type),
-                            class: "text-primary-500 link" do %>
+                             class: "text-primary-500 link" do %>
                     <i class="fa-lg fas fa-edit"></i>
                   <% end %>
 
                   <%= link to: "#",
-                      class: "text-primary-500 link",
-                      phx_click: "delete",
-                      phx_value_id: ammo_type.id,
-                      data: [confirm: "Are you sure you want to delete this ammo?"] do %>
+                       class: "text-primary-500 link",
+                       phx_click: "delete",
+                       phx_value_id: ammo_type.id,
+                       data: [confirm: "Are you sure you want to delete this ammo?"] do %>
                     <i class="fa-lg fas fa-trash"></i>
                   <% end %>
                 </div>
