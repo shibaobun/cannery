@@ -53,9 +53,6 @@ defmodule Cannery.Ammo.AmmoGroup do
     |> cast(attrs, [:count, :price_paid, :notes, :tag_id, :ammo_type_id, :container_id, :user_id])
     |> validate_required([
       :count,
-      :price_paid,
-      :notes,
-      :tag_id,
       :ammo_type_id,
       :container_id,
       :user_id
