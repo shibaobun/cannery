@@ -6,7 +6,7 @@ defmodule Cannery.Containers.Container do
   use Ecto.Schema
   import Ecto.Changeset
   alias Ecto.{Changeset, UUID}
-  alias Cannery.{Accounts.User, Containers.Container}
+  alias Cannery.{Accounts.User, Ammo.AmmoGroup, Containers.Container}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -17,6 +17,8 @@ defmodule Cannery.Containers.Container do
     field :type, :string
 
     belongs_to :user, User
+
+    has_many :ammo_groups, AmmoGroup
 
     timestamps()
   end
@@ -29,6 +31,7 @@ defmodule Cannery.Containers.Container do
           type: String.t(),
           user: User.t(),
           user_id: User.id(),
+          ammo_groups: [AmmoGroup.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }

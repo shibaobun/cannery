@@ -7,7 +7,7 @@ defmodule Cannery.Ammo.AmmoType do
 
   use Ecto.Schema
   import Ecto.Changeset
-  alias Cannery.Ammo.AmmoType
+  alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -20,6 +20,8 @@ defmodule Cannery.Ammo.AmmoType do
     field :name, :string
     field :grain, :integer
 
+    has_many :ammo_groups, AmmoGroup
+
     timestamps()
   end
 
@@ -31,6 +33,7 @@ defmodule Cannery.Ammo.AmmoType do
           manufacturer: String.t(),
           name: String.t(),
           grain: integer(),
+          ammo_groups: [AmmoGroup.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
