@@ -15,7 +15,7 @@
   <% else %>
     <%= live_patch to: Routes.invite_index_path(@socket, :new),
       class: "btn btn-primary" do %>
-      Invite
+      Create Invite
     <% end %>
   <% end %>
 
@@ -42,29 +42,33 @@
         </code>
 
         <div class="flex space-x-4 justify-center items-center">
-          <%= live_patch "Edit", to: Routes.invite_index_path(@socket, :edit, invite),
-            class: "text-primary-500 link" %>
+          <%= live_patch to: Routes.invite_index_path(@socket, :edit, invite),
+                    class: "text-primary-500 link" do %>
+            <i class="fa-fw fa-lg fas fa-edit"></i>
+          <% end %>
 
-          <%= link "Delete", to: "#",
-            class: "text-primary-500 link",
-            phx_click: "delete",
+          <%= link to: "#",
+              class: "text-primary-500 link",
+              phx_click: "delete",
             phx_value_id: invite.id,
-            data: [confirm: "Are you sure?"] %>
+            data: [confirm: "Are you sure you want to delete the invite for #{invite.name}?"] do %>
+            <i class="fa-fw fa-lg fas fa-trash"></i>
+          <% end %>
 
           <%= if invite.disabled_at |> is_nil() do %>
-            <a href="#" class="text-primary-500 link"
+            <a href="#" class="btn btn-primary"
               phx-click="disable" phx-value-id="<%= invite.id %>">
               Disable
             </a>
           <% else %>
-            <a href="#" class="text-primary-500 link"
+            <a href="#" class="btn btn-primary"
               phx-click="enable" phx-value-id="<%= invite.id %>">
               Enable
             </a>
           <% end %>
 
           <%= if invite.disabled_at |> is_nil() and not(invite.uses_left |> is_nil()) do %>
-            <a href="#" class="text-primary-500 link"
+            <a href="#" class="btn btn-primary"
               phx-click="set_unlimited" phx-value-id="<%= invite.id %>"
               data-confirm="Are you sure you want to make this invite unlimited?">
               Set Unlimited

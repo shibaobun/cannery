@@ -20,19 +20,30 @@
   <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-500">
-    <%= live_redirect("Back", to: Routes.container_index_path(@socket, :index), class: "link") %>
-    <%= live_patch("Edit", to: Routes.container_show_path(@socket, :edit, @container), class: "link") %>
-    <%= link("Delete",
-      to: "#",
-      class: "link",
-      phx_click: "delete",
-      data: [confirm: "Are you sure you want to delete #{@container.name}?"]
-    ) %>
+    <%= live_patch to: Routes.container_show_path(@socket, :edit, @container),
+               class: "text-primary-500 link" do %>
+      <i class="fa-fw fa-lg fas fa-edit"></i>
+    <% end %>
+
+    <%= link to: "#",
+         class: "text-primary-500 link",
+         phx_click: "delete",
+         data: [confirm: "Are you sure you want to delete #{@container.name}?"] do %>
+      <i class="fa-fw fa-lg fas fa-trash"></i>
+    <% end %>
   </div>
 
   <hr class="mb-4 w-full">
 
-  <p>No ammo groups in this container</p>
+  <p>
+    <%= if @container.ammo_groups |> Enum.empty?() do %>
+      No ammo groups in this container
+    <% else %>
+      <%= for ammo_group <- @container.ammo_groups do %>
+        <.ammo_group_card ammo_group={ammo_group} />
+      <% end %>
+    <% end %>
+  </p>
 
   <%= if @live_action in [:edit] do %>
     <%= live_modal(CanneryWeb.ContainerLive.FormComponent,

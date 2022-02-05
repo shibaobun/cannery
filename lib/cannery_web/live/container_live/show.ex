@@ -4,8 +4,8 @@ defmodule CanneryWeb.ContainerLive.Show do
   """
 
   use CanneryWeb, :live_view
-
-  alias Cannery.Containers
+  import CanneryWeb.AmmoGroupLive.AmmoGroupCard
+  alias Cannery.{Containers, Repo}
 
   @impl true
   def mount(_params, session, socket) do
@@ -18,7 +18,7 @@ defmodule CanneryWeb.ContainerLive.Show do
       socket
       |> assign(
         page_title: page_title(socket.assigns.live_action),
-        container: Containers.get_container!(id)
+        container: Containers.get_container!(id) |> Repo.preload(:ammo_groups)
       )
 
     {:noreply, socket}

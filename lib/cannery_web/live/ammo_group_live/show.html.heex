@@ -1,0 +1,62 @@
+<div class="mx-auto space-y-4 max-w-3xl flex flex-col justify-center items-center">
+  <h1 class="title text-2xl title-primary-500">
+    <%= @ammo_group.ammo_type.name %>
+  </h1>
+
+  <div class="space-y-2 flex flex-col justify-center items-center">
+    <span class="rounded-lg title text-lg">
+      Count: <%= @ammo_group.count %>
+    </span>
+
+    <%= if @ammo_group.notes do %>
+      <span class="rounded-lg title text-lg">
+        Notes: <%= @ammo_group.notes %>
+      </span>
+    <% end %>
+
+    <%= if @ammo_group.price_paid do %>
+      <span class="rounded-lg title text-lg">
+        Price paid: $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
+      </span>
+    <% end %>
+  </div>
+
+  <div class="flex space-x-4 justify-center items-center text-primary-500">
+    <%= live_patch to: Routes.ammo_group_show_path(@socket, :edit, @ammo_group),
+               class: "text-primary-500 link" do %>
+      <i class="fa-fw fa-lg fas fa-edit"></i>
+    <% end %>
+
+    <%= link to: "#",
+         class: "text-primary-500 link",
+         phx_click: "delete",
+         data: [confirm: "Are you sure you want to delete this ammo?"] do %>
+      <i class="fa-fw fa-lg fas fa-trash"></i>
+    <% end %>
+  </div>
+
+  <hr class="mb-4 w-full">
+
+  <div>
+    <%= if @ammo_group.container do %>
+      <h1 class="mb-4 px-4 py-2 text-center rounded-lg title text-xl">
+        Stored in
+      </h1>
+
+      <.container_card container={@ammo_group.container} />
+    <% else %>
+      This ammo group is not in a container
+    <% end %>
+  </div>
+</div>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal(CanneryWeb.AmmoGroupLive.FormComponent,
+    id: @ammo_group.id,
+    title: @page_title,
+    action: @live_action,
+    ammo_group: @ammo_group,
+    return_to: Routes.ammo_group_show_path(@socket, :show, @ammo_group),
+    current_user: @current_user
+  ) %>
+<% end %>

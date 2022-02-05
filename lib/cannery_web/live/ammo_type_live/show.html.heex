@@ -3,45 +3,63 @@
     <%= @ammo_type.name %>
   </h1>
 
-  <div class="flex space-x-4 justify-center items-center text-primary-500">
-    <%= live_redirect("Back", to: Routes.ammo_type_index_path(@socket, :index), class: "link") %>
-    <%= live_patch("Edit", to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type), class: "button") %>
-    <%= link("Delete",
-      to: "#",
-      class: "link",
-      phx_click: "delete",
-      data: [confirm: "Are you sure you want to delete #{@ammo_type.name}?"]
-    ) %>
+  <div class="space-y-2 flex flex-col justify-center items-center">
+    <%= if @ammo_type.desc do %>
+      <span class="rounded-lg title text-lg">
+        Desc: <%= @ammo_type.desc %>
+      </span>
+    <% end %>
+
+    <%= if @ammo_type.case_material do %>
+      <span class="rounded-lg title text-lg">
+        Case material: <%= @ammo_type.case_material %>
+      </span>
+    <% end %>
+
+    <%= if @ammo_type.bullet_type do %>
+      <span class="rounded-lg title text-lg">
+        Bullet type: <%= @ammo_type.bullet_type %>
+      </span>
+    <% end %>
+
+    <%= if @ammo_type.grain do %>
+      <span class="rounded-lg title text-lg">
+        Grain: <%= @ammo_type.grain %>
+      </span>
+    <% end %>
+
+    <%= if @ammo_type.manufacturer do %>
+      <span class="rounded-lg title text-lg">
+        Manufacturer: <%= @ammo_type.manufacturer %>
+      </span>
+    <% end %>
   </div>
 
-  <hr class="w-full">
+  <div class="flex space-x-4 justify-center items-center text-primary-500">
+    <%= live_patch to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type),
+               class: "text-primary-500 link" do %>
+      <i class="fa-fw fa-lg fas fa-edit"></i>
+    <% end %>
 
-  <ul class="text-center">
-    <li>
-      <strong>Desc:</strong>
-      <%= @ammo_type.desc %>
-    </li>
+    <%= link to: "#",
+         class: "text-primary-500 link",
+         phx_click: "delete",
+         data: [confirm: "Are you sure you want to delete #{@ammo_type.name}?"] do %>
+      <i class="fa-fw fa-lg fas fa-trash"></i>
+    <% end %>
+  </div>
 
-    <li>
-      <strong>Case material:</strong>
-      <%= @ammo_type.case_material %>
-    </li>
+  <hr class="mb-4 w-full">
 
-    <li>
-      <strong>Bullet type:</strong>
-      <%= @ammo_type.bullet_type %>
-    </li>
-
-    <li>
-      <strong>Grain:</strong>
-      <%= @ammo_type.grain %>
-    </li>
-
-    <li>
-      <strong>Manufacturer:</strong>
-      <%= @ammo_type.manufacturer %>
-    </li>
-  </ul>
+  <div class="mb-4">
+    <%= if @ammo_type.ammo_groups |> Enum.empty?() do %>
+      No ammo for this type
+    <% else %>
+      <%= for ammo_group <- @ammo_type.ammo_groups do %>
+        <.ammo_group_card ammo_group={ammo_group} />
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <%= if @live_action in [:edit] do %>

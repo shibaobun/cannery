@@ -26,7 +26,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Ammo group")
+    |> assign(:page_title, "Add Ammo")
     |> assign(:ammo_group, %AmmoGroup{})
   end
 
