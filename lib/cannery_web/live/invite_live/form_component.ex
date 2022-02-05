@@ -36,7 +36,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h2 class="title text-xl text-primary-500">
+      <h2 class="text-center title text-xl text-primary-500">
         <%= @title %>
       </h2>
       <.form
