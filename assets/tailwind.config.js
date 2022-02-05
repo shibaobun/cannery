@@ -22,7 +22,13 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber
     },
-    extend: {}
+    extend: {
+      spacing: {
+        128: '32rem',
+        192: '48rem',
+        256: '64rem'
+      }
+    }
   },
   variants: {
     extend: {
