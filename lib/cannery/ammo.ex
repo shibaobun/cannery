@@ -38,6 +38,30 @@ defmodule Cannery.Ammo do
   def get_ammo_type!(id), do: Repo.get!(AmmoType, id)
 
   @doc """
+  Gets the average cost of a single ammo type
+
+  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+
+  ## Examples
+
+      iex> get_ammo_type!(123)
+      %AmmoType{}
+
+      iex> get_ammo_type!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  @spec get_average_cost_for_ammo_type!(AmmoType.t()) :: float()
+  def get_average_cost_for_ammo_type!(%{id: ammo_type_id}) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        where: ag.ammo_type_id == ^ammo_type_id,
+        where: not (ag.price_paid |> is_nil()),
+        select: sum(ag.price_paid) / sum(ag.count)
+    )
+  end
+
+  @doc """
   Creates a ammo_type.
 
   ## Examples

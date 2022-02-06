@@ -40,7 +40,7 @@
         ] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %> :
+          <%= field |> humanize() %>:
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -57,7 +57,7 @@
           :corrosive
         ] do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= field |> humanize() %> :
+        <%= field |> humanize() %>:
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
@@ -68,13 +68,23 @@
     <%= for field <- [:manufacturer, :sku] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %> :
+          <%= field |> humanize() %>:
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
           <%= @ammo_type |> Map.get(field) %>
         </span>
       <% end %>
+    <% end %>
+
+    <%= if @avg_cost_per_round do %>
+      <h3 class="mb-2 sm:mr-4 title text-lg">
+        Average Price paid:
+      </h3>
+
+      <span class="mb-4 sm:mb-2 text-primary-600">
+        <%= @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2) %>
+      </span>
     <% end %>
   </div>
 

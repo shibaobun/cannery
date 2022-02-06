@@ -14,11 +14,14 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    ammo_type = Ammo.get_ammo_type!(id) |> Repo.preload(:ammo_groups)
+
     socket =
       socket
       |> assign(
         page_title: page_title(socket.assigns.live_action),
-        ammo_type: Ammo.get_ammo_type!(id) |> Repo.preload(:ammo_groups)
+        ammo_type: ammo_type,
+        avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type!()
       )
 
     {:noreply, socket}
