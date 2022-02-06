@@ -20,11 +20,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"ammo_type" => ammo_type_params}, socket) do
-    changeset =
-      socket.assigns.ammo_type
-      |> Ammo.change_ammo_type(ammo_type_params)
-      |> Map.put(:action, :validate)
-
+    changeset = socket.assigns.ammo_type |> Ammo.change_ammo_type(ammo_type_params)
     {:noreply, socket |> assign(:changeset, changeset)}
   end
 
@@ -48,20 +44,22 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         phx-submit="save"
         class="grid grid-cols-3 justify-center items-center space-y-4"
       >
+        <%= if @changeset.action do %>
+          <div class="invalid-feedback col-span-3 text-center">
+            <%= changeset_errors(@changeset) %>
+          </div>
+        <% end %>
+
         <%= label(f, :name, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :name, class: "text-center col-span-2 input input-primary") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :name) %>
-        </div>
+        <%= error_tag(f, :name, "col-span-3 text-center") %>
 
         <%= label(f, :desc, class: "mr-4 title text-lg text-primary-500") %>
         <%= textarea(f, :desc,
           class: "text-center col-span-2 input input-primary",
           phx_hook: "MaintainAttrs"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :desc) %>
-        </div>
+        <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
         <a
           href="https://en.wikipedia.org/wiki/Bullet#Abbreviations"
@@ -74,45 +72,35 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
           class: "text-center col-span-2 input input-primary",
           placeholder: "FMJ"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :bullet_type) %>
-        </div>
+        <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
 
         <%= label(f, :bullet_core, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :bullet_core,
           class: "text-center col-span-2 input input-primary",
           placeholder: "Steel"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :bullet_core) %>
-        </div>
+        <%= error_tag(f, :bullet_core, "col-span-3 text-center") %>
 
         <%= label(f, :cartridge, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :cartridge,
           class: "text-center col-span-2 input input-primary",
           placeholder: "5.56x46mm NATO"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :cartridge) %>
-        </div>
+        <%= error_tag(f, :cartridge, "col-span-3 text-center") %>
 
         <%= label(f, :caliber, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :caliber,
           class: "text-center col-span-2 input input-primary",
           placeholder: ".223"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :caliber) %>
-        </div>
+        <%= error_tag(f, :caliber, "col-span-3 text-center") %>
 
         <%= label(f, :case_material, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :case_material,
           class: "text-center col-span-2 input input-primary",
           placeholder: "Brass"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :case_material) %>
-        </div>
+        <%= error_tag(f, :case_material, "col-span-3 text-center") %>
 
         <%= label(f, :grains, class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :grains,
@@ -120,60 +108,42 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
           class: "text-center col-span-2 input input-primary",
           min: 1
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :grains) %>
-        </div>
+        <%= error_tag(f, :grains, "col-span-3 text-center") %>
 
         <%= label(f, :pressure, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :pressure,
           class: "text-center col-span-2 input input-primary",
           placeholder: "+P"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :pressure) %>
-        </div>
+        <%= error_tag(f, :pressure, "col-span-3 text-center") %>
 
         <%= label(f, :rimfire, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :rimfire, class: "text-center col-span-2 checkbox") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :rimfire) %>
-        </div>
+        <%= error_tag(f, :rimfire, "col-span-3 text-center") %>
 
         <%= label(f, :tracer, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :tracer, class: "text-center col-span-2 checkbox") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :tracer) %>
-        </div>
+        <%= error_tag(f, :tracer, "col-span-3 text-center") %>
 
         <%= label(f, :incendiary, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :incendiary, class: "text-center col-span-2 checkbox") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :incendiary) %>
-        </div>
+        <%= error_tag(f, :incendiary, "col-span-3 text-center") %>
 
         <%= label(f, :blank, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :blank, class: "text-center col-span-2 checkbox") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :blank) %>
-        </div>
+        <%= error_tag(f, :blank, "col-span-3 text-center") %>
 
         <%= label(f, :corrosive, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :corrosive, class: "text-center col-span-2 checkbox") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :corrosive) %>
-        </div>
+        <%= error_tag(f, :corrosive, "col-span-3 text-center") %>
 
         <%= label(f, :manufacturer, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :manufacturer, class: "text-center col-span-2 input input-primary") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :manufacturer) %>
-        </div>
+        <%= error_tag(f, :manufacturer, "col-span-3 text-center") %>
 
         <%= label(f, :sku, class: "mr-4 title text-lg text-primary-500") %>
         <%= text_input(f, :sku, class: "text-center col-span-2 input input-primary") %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :sku) %>
-        </div>
+        <%= error_tag(f, :sku, "col-span-3 text-center") %>
 
         <%= submit("Save",
           phx_disable_with: "Saving...",

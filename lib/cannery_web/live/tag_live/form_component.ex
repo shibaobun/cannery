@@ -22,10 +22,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
   def handle_event("validate", %{"tag" => tag_params}, socket) do
     tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
 
-    changeset =
-      socket.assigns.tag
-      |> Tags.change_tag(tag_params)
-      |> Map.put(:action, :validate)
+    changeset = socket.assigns.tag |> Tags.change_tag(tag_params)
 
     {:noreply, socket |> assign(:changeset, changeset)}
   end
@@ -51,25 +48,28 @@ defmodule CanneryWeb.TagLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <%= if @changeset.action do %>
+          <div class="invalid-feedback col-span-3 text-center">
+            <%= changeset_errors(@changeset) %>
+          </div>
+        <% end %>
+
         <%= label(f, :name, class: "title text-lg text-primary-500") %>
         <%= text_input(f, :name, class: "input input-primary col-span-2") %>
-        <span class="col-span-3">
-          <%= error_tag(f, :name) %>
-        </span>
+        <%= error_tag(f, :name, "col-span-3") %>
+
         <%= label(f, :bg_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :bg_color) %>
         </span>
-        <span class="col-span-3">
-          <%= error_tag(f, :bg_color) %>
-        </span>
+        <%= error_tag(f, :bg_color, "col-span-3") %>
+
         <%= label(f, :text_color, class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :text_color) %>
         </span>
-        <span class="col-span-3">
-          <%= error_tag(f, :text_color) %>
-        </span>
+        <%= error_tag(f, :text_color, "col-span-3") %>
+
         <%= submit("Save",
           class: "mx-auto btn btn-primary col-span-3",
           phx_disable_with: "Saving..."

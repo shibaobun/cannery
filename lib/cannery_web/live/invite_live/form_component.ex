@@ -20,11 +20,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"invite" => invite_params}, socket) do
-    changeset =
-      socket.assigns.invite
-      |> Invites.change_invite(invite_params)
-      |> Map.put(:action, :validate)
-
+    changeset = socket.assigns.invite |> Invites.change_invite(invite_params)
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
@@ -48,16 +44,20 @@ defmodule CanneryWeb.InviteLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <%= if @changeset.action do %>
+          <div class="invalid-feedback col-span-3 text-center">
+            <%= changeset_errors(@changeset) %>
+          </div>
+        <% end %>
+
         <%= label(f, :name, class: "title text-lg text-primary-500") %>
         <%= text_input(f, :name, class: "input input-primary col-span-2") %>
-        <span class="col-span-3">
-          <%= error_tag(f, :name) %>
-        </span>
+        <%= error_tag(f, :name, "col-span-3") %>
+
         <%= label(f, :uses_left, class: "title text-lg text-primary-500") %>
         <%= number_input(f, :uses_left, min: 0, class: "input input-primary col-span-2") %>
-        <span class="col-span-3">
-          <%= error_tag(f, :uses_left) %>
-        </span>
+        <%= error_tag(f, :uses_left, "col-span-3") %>
+
         <%= submit("Save",
           class: "mx-auto btn btn-primary col-span-3",
           phx_disable_with: "Saving..."

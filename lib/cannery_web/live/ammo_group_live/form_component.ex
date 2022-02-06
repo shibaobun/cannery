@@ -23,12 +23,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   @impl true
   def handle_event("validate", %{"ammo_group" => ammo_group_params}, socket) do
     ammo_group_params = ammo_group_params |> Map.put("user_id", socket.assigns.current_user.id)
-
-    changeset =
-      socket.assigns.ammo_group
-      |> Ammo.change_ammo_group(ammo_group_params)
-      |> Map.put(:action, :validate)
-
+    changeset = socket.assigns.ammo_group |> Ammo.change_ammo_group(ammo_group_params)
     {:noreply, socket |> assign(:changeset, changeset)}
   end
 
@@ -53,48 +48,44 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
         phx-submit="save"
         class="grid grid-cols-3 justify-center items-center space-y-4"
       >
+        <%= if @changeset.action do %>
+          <div class="invalid-feedback col-span-3 text-center">
+            <%= changeset_errors(@changeset) %>
+          </div>
+        <% end %>
+
         <%= label(f, :count, class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :count,
           class: "text-center col-span-2 input input-primary",
           min: 1
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :count) %>
-        </div>
+        <%= error_tag(f, :count, "col-span-3 text-center") %>
 
         <%= label(f, :price_paid, class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :price_paid,
           step: "0.01",
           class: "text-center col-span-2 input input-primary"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :price_paid) %>
-        </div>
+        <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
 
         <%= label(f, :notes, class: "mr-4 title text-lg text-primary-500") %>
         <%= textarea(f, :notes,
           class: "text-center col-span-2 input input-primary",
           phx_hook: "MaintainAttrs"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :notes) %>
-        </div>
+        <%= error_tag(f, :notes, "col-span-3 text-center") %>
 
         <%= label(f, :ammo_type_id, class: "mr-4 title text-lg text-primary-500") %>
         <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
           class: "text-center col-span-2 input input-primary"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :ammo_type_id) %>
-        </div>
+        <%= error_tag(f, :ammo_type_id, "col-span-3 text-center") %>
 
         <%= label(f, :container, class: "mr-4 title text-lg text-primary-500") %>
         <%= select(f, :container_id, container_options(@containers),
           class: "text-center col-span-2 input input-primary"
         ) %>
-        <div class="col-span-3 text-center">
-          <%= error_tag(f, :container_id) %>
-        </div>
+        <%= error_tag(f, :container_id, "col-span-3 text-center") %>
 
         <%= submit("Save",
           phx_disable_with: "Saving...",
