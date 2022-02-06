@@ -54,6 +54,12 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
           </div>
         <% end %>
 
+        <%= label(f, :ammo_type_id, class: "mr-4 title text-lg text-primary-500") %>
+        <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
+          class: "text-center col-span-2 input input-primary"
+        ) %>
+        <%= error_tag(f, :ammo_type_id, "col-span-3 text-center") %>
+
         <%= label(f, :count, class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :count,
           class: "text-center col-span-2 input input-primary",
@@ -74,12 +80,6 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
           phx_hook: "MaintainAttrs"
         ) %>
         <%= error_tag(f, :notes, "col-span-3 text-center") %>
-
-        <%= label(f, :ammo_type_id, class: "mr-4 title text-lg text-primary-500") %>
-        <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
-          class: "text-center col-span-2 input input-primary"
-        ) %>
-        <%= error_tag(f, :ammo_type_id, "col-span-3 text-center") %>
 
         <%= label(f, :container, class: "mr-4 title text-lg text-primary-500") %>
         <%= select(f, :container_id, container_options(@containers),
