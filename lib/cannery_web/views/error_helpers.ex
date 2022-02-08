@@ -17,12 +17,11 @@ defmodule CanneryWeb.ErrorHelpers do
     assigns = %{extra_class: extra_class, form: form, field: field}
 
     ~H"""
-      <%= for error <- Keyword.get_values(@form.errors, @field) do %>
-        <span class={"invalid-feedback #{@extra_class}"}
-          phx-feedback-for={input_name(@form, @field)}>
-          <%= translate_error(error) %>
-        </span>
-      <% end %>
+    <%= for error <- Keyword.get_values(@form.errors, @field) do %>
+      <span class={"invalid-feedback #{@extra_class}"} phx-feedback-for={input_name(@form, @field)}>
+        <%= translate_error(error) %>
+      </span>
+    <% end %>
     """
   end
 
@@ -61,9 +60,18 @@ defmodule CanneryWeb.ErrorHelpers do
   @spec changeset_errors(Changeset.t()) :: String.t()
   def changeset_errors(changeset) do
     changeset
-    |> Changeset.traverse_errors(fn error -> error |> translate_error() end)
+    |> changeset_error_map()
     |> Enum.map_join(". ", fn {key, errors} ->
       "#{key |> humanize()}: #{errors |> Enum.join(", ")}"
     end)
+  end
+
+  @doc """
+  Displays all errors from a changeset in a key value map
+  """
+  @spec changeset_error_map(Changeset.t()) :: %{atom() => [String.t()]}
+  def changeset_error_map(changeset) do
+    changeset
+    |> Changeset.traverse_errors(fn error -> error |> translate_error() end)
   end
 end

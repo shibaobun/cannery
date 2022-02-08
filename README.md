@@ -52,6 +52,7 @@ You can use the following environment variables to configure Cannery in
 - `SECRET_KEY_BASE`: Secret key base used to sign cookies. Must be generated
   with `docker exec -it cannery mix phx.gen.secret` and set for server to start.
 - `REGISTRATION`: Controls if user sign-up should be invite only or set to public. Set to `public` to enable public registration. Defaults to `invite`.
+- `LOCALE`: Sets a custom locale. Defaults to `en_US`.
 
 # Contribution
 

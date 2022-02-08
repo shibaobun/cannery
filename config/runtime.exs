@@ -12,6 +12,9 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :cannery, CanneryWeb.Endpoint, server: true
 end
 
+# Set locale
+Gettext.put_locale(System.get_env("LOCALE") || "en_US")
+
 maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
 database_url =

@@ -69,7 +69,7 @@ defmodule Cannery.MixProject do
       setup: ["deps.get", "compile", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      format: ["cmd npm run format --prefix assets", "format"],
+      format: ["cmd npm run format --prefix assets", "format", "gettext.extract"],
       test: [
         "cmd npm run test --prefix assets",
         "dialyzer",
