@@ -1,67 +1,86 @@
 # Cannery is a personal ammo manager that adjusts to your own needs.
 
-* Easy to Use: Cannery lets you easily keep an eye on your ammo levels before and after range day
-* Secure: Self-host your own instance, or use an instance from someone you trust.
+* Easy to Use: Cannery lets you easily keep an eye on your ammo levels before
+  and after range day
+* Secure: Self-host your own instance, or use an instance from someone you
+  trust. Your data stays with you, period
 * Simple: Access from any internet-capable device
 
 # Features
 
 - Create containers to store your ammunition, and tag them with custom tags
-- Add ammunition types to Cannery, and then ammunition to your containers
-- Customizable invite tokens or public registration via the `REGISTRATION`
-  environment variable.
+- Add ammunition types to Cannery, and then ammunition groups to your containers
+- Invitations via invite tokens or public registration
 
 # Installation
 
 1. Install [Docker Compose](https://docs.docker.com/compose/install/) or alternatively [Docker Desktop](https://docs.docker.com/desktop/) on your machine.
 1. Copy the example `docker-compose.yml` into your local machine where you want.
    Bind mounts are created in the same directory by default.
-1. Use `docker-compose up` or `docker-compose up -d` to start the container.
+1. Set the configuration variables in `docker-compose.yml`. You'll need to run
+   `docker run -it shibaobun/cannery mix phx.gen.secret` to generate a new
+   secret key base.
+1. Use `docker-compose up` or `docker-compose up -d` to start the container!
+
+The first created user will be created as an admin.
 
 ## Reverse proxy
 
-Finally, reverse proxy to port `80` of the container. If you're using a reverse proxy in another docker container, you can reverse proxy to `http://cannery:80`. Otherwise, you'll need to modify the `docker-compose.yml` to bind the port to your local machine.
+Finally, reverse proxy to port `4000` of the container. If you're using a reverse proxy in another docker container, you can reverse proxy to `http://cannery:4000`. Otherwise, you'll need to modify the `docker-compose.yml` to bind the port to your local machine.
 
 For instance, instead of
 ```
 expose:
-  - "80"
+  - "4000"
 ```
 
 use
 ```
 ports:
-  - "127.0.0.1:80:80"
+  - "127.0.0.1:4000:4000"
 ```
-and reverse proxy to `http://localhost:80`.
+and reverse proxy to `http://localhost:4000`.
 
 # Configuration
 
 You can use the following environment variables to configure Cannery in
 `docker-compose.yml`.
 
-- `HOST`: External url to generate links with. Set these especially if you're
-  behind a reverse proxy. Defaults to `localhost`.
-- `PORT`: Internal port to bind to. Defaults to `80` and attempts to bind to
-  `0.0.0.0`. Must be reverse proxied!
+- `HOST`: External url to generate links with. Must be set with your hosted
+  domain name! I.e. `cannery.mywebsite.tld`
+- `PORT`: Internal port to bind to. Defaults to `4000`. Must be reverse proxied!
 - `DATABASE_URL`: Controls the database url to connect to. Defaults to
   `ecto://postgres:postgres@cannery-db/cannery`.
-- `ECTO_IPV6`: Controls if Ecto should use ipv6 to connect to PostgreSQL.
+- `ECTO_IPV6`: If set to `true`, Ecto should use ipv6 to connect to PostgreSQL.
   Defaults to `false`.
 - `POOL_SIZE`: Controls the pool size to use with PostgreSQL. Defaults to `10`.
 - `SECRET_KEY_BASE`: Secret key base used to sign cookies. Must be generated
-  with `docker exec -it cannery mix phx.gen.secret` and set for server to start.
-- `REGISTRATION`: Controls if user sign-up should be invite only or set to public. Set to `public` to enable public registration. Defaults to `invite`.
+  with `docker run -it shibaobun/cannery mix phx.gen.secret` and set for server to start.
+- `REGISTRATION`: Controls if user sign-up should be invite only or set to
+  public. Set to `public` to enable public registration. Defaults to `invite`.
 - `LOCALE`: Sets a custom locale. Defaults to `en_US`.
 
 # Contribution
 
-Contributions are greatly appreciated! You can browse the [Contribution Guide](CONTRIBUTING.md) to learn more.
+Contributions are greatly appreciated, no ability to code needed! You can browse
+the [Contribution
+Guide](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/CONTRIBUTING.md)
+to learn more.
 
 I can be contacted at [shibao@bubbletea.dev](mailto:shibao@bubbletea.dev), or on
-the fediverse at [@shibao@misskey.bubbletea.dev](https://misskey.bubbletea.dev/@shibao). Thank you!
+the fediverse at
+[@shibao@misskey.bubbletea.dev](https://misskey.bubbletea.dev/@shibao). Thank
+you!
 
---
+# License
+
+Cannery is licensed under AGPLv3 or later. A copy of the latest version of the
+license can be found at
+[LICENSE.md](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/LICENSE.md).
+
+---
 
 [![Build
 Status](https://drone.bubbletea.dev/api/badges/shibao/cannery/status.svg?ref=refs/heads/dev)](https://drone.bubbletea.dev/shibao/cannery)
+[![translation
+status](https://weblate.bubbletea.dev/widgets/cannery/-/svg-badge.svg)](https://weblate.bubbletea.dev/engage/cannery/)

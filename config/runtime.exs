@@ -15,7 +15,7 @@ end
 # Set locale
 Gettext.put_locale(System.get_env("LOCALE") || "en_US")
 
-maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
+maybe_ipv6 = if System.get_env("ECTO_IPV6") == "true", do: [:inet6], else: []
 
 database_url =
   if config_env() == :test do
@@ -26,22 +26,25 @@ database_url =
       "ecto://postgres:postgres@cannery-db/cannery"
   end
 
+host = System.get_env("HOST") || "localhost"
+
+interface =
+  if config_env() in [:dev, :test],
+    do: {0, 0, 0, 0},
+    else: {0, 0, 0, 0, 0, 0, 0, 0}
+
 config :cannery, Cannery.Repo,
   # ssl: true,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   socket_options: maybe_ipv6
 
-host = System.get_env("HOST") || "localhost"
-
 config :cannery, CanneryWeb.Endpoint,
   url: [scheme: "https", host: host, port: 443],
   http: [
-    # Enable IPv6 and bind on all interfaces.
-    # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
     # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
     # for details about using IPv6 vs IPv4 and loopback vs public addresses.
-    ip: {0, 0, 0, 0, 0, 0, 0, 0},
+    ip: interface,
     port: String.to_integer(System.get_env("PORT") || "4000")
   ],
   server: true,

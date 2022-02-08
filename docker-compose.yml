@@ -2,19 +2,18 @@ version: '3'
 
 services:
   cannery:
-    build:
-      context: .
+    image: shibaobun/cannery
     container_name: cannery
     restart: always
     environment:
       - HOST="your.domain.com"
       - DATABASE_URL="ecto://postgres:postgres@cannery-db/cannery"
-      # generate a random base64 string 64 characters long, preferably not from a website
-      - SECRET_KEY_BASE="change-me-to-something-random-this-is-really-important-change-it"
+      # Use `docker run -it shibaobun/cannery mix phx.gen.secret` to generate a secret key base
+      - SECRET_KEY_BASE="change-me-this-is-really-important-seriously-change-it"
       # uncomment to enable sign ups, watch for spam!
-      - REGISTRATION="public"
+      # - REGISTRATION="public"
     expose:
-      - "80"
+      - "4000"
     depends_on:
       - cannery-db
 
