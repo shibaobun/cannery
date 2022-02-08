@@ -24,6 +24,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :case_material, :string
     field :grains, :integer
     field :pressure, :string
+    field :primer_type, :string
     field :rimfire, :boolean, null: false, default: false
     field :tracer, :boolean, null: false, default: false
     field :incendiary, :boolean, null: false, default: false
@@ -41,21 +42,22 @@ defmodule Cannery.Ammo.AmmoType do
   @type t :: %AmmoType{
           id: id(),
           name: String.t(),
-          desc: String.t(),
-          bullet_type: String.t(),
-          bullet_core: String.t(),
-          cartridge: String.t(),
-          caliber: String.t(),
-          case_material: String.t(),
-          grains: integer(),
-          pressure: String.t(),
+          desc: String.t() | nil,
+          bullet_type: String.t() | nil,
+          bullet_core: String.t() | nil,
+          cartridge: String.t() | nil,
+          caliber: String.t() | nil,
+          case_material: String.t() | nil,
+          grains: integer() | nil,
+          pressure: String.t() | nil,
+          primer_type: String.t() | nil,
           rimfire: boolean(),
           tracer: boolean(),
           incendiary: boolean(),
           blank: boolean(),
           corrosive: boolean(),
-          manufacturer: String.t(),
-          sku: String.t(),
+          manufacturer: String.t() | nil,
+          sku: String.t() | nil,
           ammo_groups: [AmmoGroup.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
@@ -77,6 +79,7 @@ defmodule Cannery.Ammo.AmmoType do
       :case_material,
       :grains,
       :pressure,
+      :primer_type,
       :rimfire,
       :tracer,
       :incendiary,

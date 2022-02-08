@@ -15,6 +15,7 @@ defmodule Cannery.Repo.Migrations.CreateAmmoTypes do
       add :case_material, :string
       add :grains, :integer
       add :pressure, :string
+      add :primer_type, :string
       add :rimfire, :boolean, null: false, default: false
       add :tracer, :boolean, null: false, default: false
       add :incendiary, :boolean, null: false, default: false

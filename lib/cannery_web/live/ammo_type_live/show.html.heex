@@ -36,11 +36,12 @@
           :caliber,
           :case_material,
           :grains,
-          :pressure
+          :pressure,
+          :primer_type
         ] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %>:
+          <%= field |> humanize() %> :
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -57,7 +58,7 @@
           :corrosive
         ] do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= field |> humanize() %>:
+        <%= field |> humanize() %> :
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
@@ -68,7 +69,7 @@
     <%= for field <- [:manufacturer, :sku] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %>:
+          <%= field |> humanize() %> :
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">

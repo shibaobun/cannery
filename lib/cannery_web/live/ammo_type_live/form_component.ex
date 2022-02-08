@@ -117,6 +117,13 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         ) %>
         <%= error_tag(f, :pressure, "col-span-3 text-center") %>
 
+        <%= label(f, :primer_type, class: "mr-4 title text-lg text-primary-500") %>
+        <%= text_input(f, :primer_type,
+          class: "text-center col-span-2 input input-primary",
+          placeholder: "Boxer"
+        ) %>
+        <%= error_tag(f, :primer_type, "col-span-3 text-center") %>
+
         <%= label(f, :rimfire, class: "mr-4 title text-lg text-primary-500") %>
         <%= checkbox(f, :rimfire, class: "text-center col-span-2 checkbox") %>
         <%= error_tag(f, :rimfire, "col-span-3 text-center") %>

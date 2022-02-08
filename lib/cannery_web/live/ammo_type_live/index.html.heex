@@ -31,6 +31,7 @@
                   :case_material,
                   :grains,
                   :pressure,
+                  :primer_type,
                   :rimfire,
                   :tracer,
                   :incendiary,
@@ -58,7 +59,8 @@
                     :caliber,
                     :case_material,
                     :grains,
-                    :pressure
+                    :pressure,
+                    :primer_type
                   ] do %>
                 <td class="p-2">
                   <%= ammo_type |> Map.get(field) %>
