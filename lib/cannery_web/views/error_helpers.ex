@@ -55,15 +55,20 @@ defmodule CanneryWeb.ErrorHelpers do
   end
 
   @doc """
-  Displays all errors from a changeset
+  Displays all errors from a changeset, or just for a single key
   """
   @spec changeset_errors(Changeset.t()) :: String.t()
+  @spec changeset_errors(Changeset.t(), key :: atom()) :: [String.t()] | nil
   def changeset_errors(changeset) do
     changeset
     |> changeset_error_map()
     |> Enum.map_join(". ", fn {key, errors} ->
       "#{key |> humanize()}: #{errors |> Enum.join(", ")}"
     end)
+  end
+
+  def changeset_errors(changeset, key) do
+    changeset |> changeset_error_map() |> Map.get(key)
   end
 
   @doc """

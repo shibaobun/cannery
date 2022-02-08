@@ -27,6 +27,8 @@ If you're multilingual, this project can use your translations! Visit
   - Typespec arguments can be named like `@spec function(arg_name :: type()) ::
     return_type()`. Please use these for generic types, such as `map()` when the
     input data isn't immediately obvious.
+  - Please define all typespecs for a function together in one place, instead of
+    each function.
 - When making new models, please take inspiration from the existing models in
   regards to layout of sections, typespec design, and formatting.
 - With Elixir convention, for methods that raise on error please name them like

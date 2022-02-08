@@ -26,8 +26,24 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   @impl true
   def handle_event("delete", _, socket) do
-    socket.assigns.container |> Containers.delete_container!()
-    {:noreply, socket |> push_redirect(to: Routes.container_index_path(socket, :index))}
+    socket =
+      socket.assigns.container
+      |> Containers.delete_container()
+      |> case do
+        {:ok, container} ->
+          socket
+          |> put_flash(:info, "#{container.name} has been deleted")
+          |> push_redirect(to: Routes.container_index_path(socket, :index))
+
+        {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
+          ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
+          socket |> put_flash(:error, "Could not delete container: #{ammo_groups_error}")
+
+        {:error, changeset} ->
+          socket |> put_flash(:error, changeset |> changeset_errors())
+      end
+
+    {:noreply, socket}
   end
 
   defp page_title(:show), do: "Show Container"

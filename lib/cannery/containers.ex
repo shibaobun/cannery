@@ -3,8 +3,9 @@ defmodule Cannery.Containers do
   The Containers context.
   """
 
+  import CanneryWeb.Gettext
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts.User, Repo, Tags.Tag}
+  alias Cannery.{Accounts.User, Ammo.AmmoGroup, Repo, Tags.Tag}
   alias Cannery.Containers.{Container, ContainerTag}
   alias Ecto.Changeset
 
@@ -88,7 +89,36 @@ defmodule Cannery.Containers do
   """
   @spec delete_container(Container.t()) ::
           {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
-  def delete_container(container), do: container |> Repo.delete()
+  def delete_container(container) do
+    Repo.one(
+      from ag in AmmoGroup,
+        where: ag.container_id == ^container.id,
+        select: count(ag.id)
+    )
+    |> case do
+      0 ->
+        container |> Repo.delete()
+
+      amount ->
+        error_string =
+          dngettext(
+            "errors",
+            "There is still %{amount} ammo group in this container!",
+            "There are still %{amount} ammo groups in this container!",
+            amount
+          )
+
+        container
+        |> change_container()
+        |> Changeset.add_error(
+          :ammo_groups,
+          error_string,
+          amount: amount,
+          count: amount
+        )
+        |> Changeset.apply_action(:delete)
+    end
+  end
 
   @doc """
   Deletes a container.
@@ -100,7 +130,10 @@ defmodule Cannery.Containers do
 
   """
   @spec delete_container!(Container.t()) :: Container.t()
-  def delete_container!(container), do: container |> Repo.delete!()
+  def delete_container!(container) do
+    {:ok, container} = container |> delete_container()
+    container
+  end
 
   @doc """
   Returns an `%Changeset{}` for tracking container changes.

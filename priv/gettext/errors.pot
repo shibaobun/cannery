@@ -7,7 +7,6 @@
 ## Run `mix gettext.extract` to bring this file up to
 ## date. Leave `msgstr`s empty as changing them here has no
 ## effect: edit them in PO (`.po`) files instead.
-
 ## From Ecto.Changeset.cast/4
 msgid "can't be blank"
 msgstr ""
@@ -93,3 +92,10 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/containers.ex:104
+msgid "There is still %{amount} ammo group in this container!"
+msgid_plural "There are still %{amount} ammo groups in this container!"
+msgstr[0] ""
+msgstr[1] ""

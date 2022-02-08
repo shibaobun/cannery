@@ -5,8 +5,7 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   use CanneryWeb, :live_view
   import CanneryWeb.ContainerLive.ContainerCard
-  alias Cannery.Containers
-  alias Cannery.Containers.Container
+  alias Cannery.{Containers, Containers.Container}
 
   @impl true
   def mount(_params, session, socket) do
@@ -38,8 +37,32 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    Containers.get_container!(id) |> Containers.delete_container!()
-    {:noreply, socket |> display_containers()}
+    socket =
+      socket.assigns.containers
+      |> Enum.find(fn %{id: container_id} -> id == container_id end)
+      |> case do
+        nil ->
+          socket |> put_flash(:error, "Could not find that container")
+
+        container ->
+          container
+          |> Containers.delete_container()
+          |> case do
+            {:ok, container} ->
+              socket
+              |> put_flash(:info, "#{container.name} has been deleted")
+              |> display_containers()
+
+            {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
+              ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
+              socket |> put_flash(:error, "Could not delete container: #{ammo_groups_error}")
+
+            {:error, changeset} ->
+              socket |> put_flash(:error, changeset |> changeset_errors())
+          end
+      end
+
+    {:noreply, socket}
   end
 
   defp display_containers(%{assigns: %{current_user: current_user}} = socket) do
