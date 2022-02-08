@@ -92,10 +92,10 @@
   <hr class="hr">
 
   <div>
-    <%= if @ammo_type.ammo_groups |> Enum.empty?() do %>
+    <%= if @ammo_groups |> Enum.empty?() do %>
       No ammo for this type
     <% else %>
-      <%= for ammo_group <- @ammo_type.ammo_groups do %>
+      <%= for ammo_group <- @ammo_groups do %>
         <.ammo_group_card ammo_group={ammo_group} />
       <% end %>
     <% end %>

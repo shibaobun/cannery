@@ -52,7 +52,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec get_average_cost_for_ammo_type!(AmmoType.t()) :: float()
-  def get_average_cost_for_ammo_type!(%{id: ammo_type_id}) do
+  def get_average_cost_for_ammo_type!(%AmmoType{id: ammo_type_id}) do
     Repo.one!(
       from ag in AmmoGroup,
         where: ag.ammo_type_id == ^ammo_type_id,
@@ -140,21 +140,34 @@ defmodule Cannery.Ammo do
     do: AmmoType.changeset(ammo_type, attrs)
 
   @doc """
-  Returns the list of ammo_groups.
+  Returns the list of ammo_groups for a user and type.
+
+  ## Examples
+
+      iex> list_ammo_groups_for_type(%AmmoType{id: 123}, %User{id: 123})
+      [%AmmoGroup{}, ...]
+
+  """
+  @spec list_ammo_groups_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
+  def list_ammo_groups_for_type(%AmmoType{id: ammo_type_id}, %User{id: user_id}) do
+    Repo.all(
+      from am in AmmoGroup,
+        where: am.ammo_type_id == ^ammo_type_id,
+        where: am.user_id == ^user_id
+    )
+  end
+
+  @doc """
+  Returns the list of ammo_groups for a user.
 
   ## Examples
 
       iex> list_ammo_groups(%User{id: 123})
       [%AmmoGroup{}, ...]
 
-      iex> list_ammo_groups(123)
-      [%AmmoGroup{}, ...]
-
   """
-  @spec list_ammo_groups(User.t() | User.id()) :: [AmmoGroup.t()]
-  def list_ammo_groups(%{id: user_id}), do: list_ammo_groups(user_id)
-
-  def list_ammo_groups(user_id) do
+  @spec list_ammo_groups(User.t()) :: [AmmoGroup.t()]
+  def list_ammo_groups(%User{id: user_id}) do
     Repo.all(from am in AmmoGroup, where: am.user_id == ^user_id)
   end
 
