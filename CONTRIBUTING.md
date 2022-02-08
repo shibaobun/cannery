@@ -5,7 +5,8 @@ contributing to Cannery (hopefully) as great of an experience as you found it!
 
 ## Translations needed!
 
-![translation status](https://weblate.bubbletea.dev/widgets/cannery/-/svg-badge.svg)
+[![translation
+status](https://weblate.bubbletea.dev/widgets/cannery/-/287x66-black.png)](https://weblate.bubbletea.dev/engage/cannery)
 
 If you're multilingual, this project can use your translations! Visit
 [weblate](https://weblate.bubbletea.dev/engage/cannery/) for more information.
