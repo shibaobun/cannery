@@ -9,9 +9,6 @@ config :bcrypt_elixir, :log_rounds, 1
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :cannery, Cannery.Repo,
-  url:
-    System.get_env("TEST_DATABASE_URL") ||
-      "ecto://postgres:postgres@localhost/cannery_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
