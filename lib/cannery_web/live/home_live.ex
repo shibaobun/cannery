@@ -31,6 +31,89 @@ defmodule CanneryWeb.HomeLive do
     end
   end
 
+  @impl true
+  def render(assigns) do
+    ~H"""
+    <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
+      <h1 class="title text-primary-500 text-2xl">
+        Welcome to Cannery
+      </h1>
+
+      <h2 class="title  text-primary-500 text-lg">
+        The Self-hosted Ammo Tracker Website
+      </h2>
+
+      <hr class="hr" />
+
+      <ul class="flex flex-col space-y-4 text-center">
+        <li class="flex flex-col sm:flex-row justify-center items-center
+          space-y-2 sm:space-y-0 sm:space-x-2">
+          <b class="whitespace-nowrap">
+            Easy to Use:
+          </b>
+          <p>Cannery lets you easily keep an eye on your ammo levels before and after range day</p>
+        </li>
+        <li class="flex flex-col sm:flex-row justify-center items-center
+          space-y-2 sm:space-y-0 sm:space-x-2">
+          <b class="whitespace-nowrap">
+            Secure:
+          </b>
+          <p>
+            Self-host your own instance, or use an instance from someone you trust.
+            Your data stays with you, period
+          </p>
+        </li>
+        <li class="flex flex-col sm:flex-row justify-center items-center
+          space-y-2 sm:space-y-0 sm:space-x-2">
+          <b class="whitespace-nowrap">
+            Simple:
+          </b>
+          <p>Access from any internet-capable device</p>
+        </li>
+      </ul>
+
+      <hr class="hr" />
+
+      <ul class="flex flex-col space-y-2 text-center justify-center">
+        <h2 class="title  text-primary-500 text-lg">
+          Instance Information
+        </h2>
+
+        <li class="flex flex-col justify-center space-x-2">
+          <b>Admins:</b>
+          <p>
+            <%= if @admins |> Enum.empty?() do %>
+              <%= link("Sign up to setup Cannery!",
+                class: "hover:underline",
+                to: Routes.user_registration_path(CanneryWeb.Endpoint, :new)
+              ) %>
+            <% else %>
+              <div class="flex flex-wrap justify-center space-x-2">
+                <%= for admin <- @admins do %>
+                  <a class="hover:underline" href={"mailto:#{admin.email}"}>
+                    <%= admin.email %>
+                  </a>
+                <% end %>
+              </div>
+            <% end %>
+          </p>
+        </li>
+
+        <li class="flex flex-row justify-center space-x-2">
+          <b>Registration:</b>
+          <p>
+            <%= Application.get_env(:cannery, CanneryWeb.Endpoint)[:registration]
+            |> case do
+              "public" -> "Public Signups"
+              _ -> "Invite Only"
+            end %>
+          </p>
+        </li>
+      </ul>
+    </div>
+    """
+  end
+
   defp search(query) do
     if not CanneryWeb.Endpoint.config(:code_reloader) do
       raise "action disabled when not in development"
