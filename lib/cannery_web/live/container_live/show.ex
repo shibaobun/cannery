@@ -28,7 +28,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   def handle_event("delete", _, socket) do
     socket =
       socket.assigns.container
-      |> Containers.delete_container()
+      |> Containers.delete_container(socket.assigns.current_user)
       |> case do
         {:ok, container} ->
           socket

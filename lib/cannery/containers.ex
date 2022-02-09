@@ -44,17 +44,18 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> create_container(%{field: value})
+      iex> create_container(%{field: value}, user)
       {:ok, %Container{}}
 
-      iex> create_container(%{field: bad_value})
+      iex> create_container(%{field: bad_value}, user)
       {:error, %Changeset{}}
 
   """
-  @spec create_container(attrs :: map()) ::
+  @spec create_container(attrs :: map(), User.t()) ::
           {:ok, Container.t()} | {:error, Changeset.t(Container.new_container())}
-  def create_container(attrs) do
-    %Container{} |> Container.changeset(attrs) |> Repo.insert()
+  def create_container(attrs, %User{id: user_id}) do
+    attrs = attrs |> Map.put("user_id", user_id)
+    %Container{} |> Container.create_changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -62,17 +63,17 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> update_container(container, %{field: new_value})
+      iex> update_container(container, user, %{field: new_value})
       {:ok, %Container{}}
 
-      iex> update_container(container, %{field: bad_value})
+      iex> update_container(container, user, %{field: bad_value})
       {:error, %Changeset{}}
 
   """
-  @spec update_container(Container.t(), attrs :: map()) ::
+  @spec update_container(Container.t(), User.t(), attrs :: map()) ::
           {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
-  def update_container(container, attrs) do
-    container |> Container.changeset(attrs) |> Repo.update()
+  def update_container(%Container{user_id: user_id} = container, %User{id: user_id}, attrs) do
+    container |> Container.update_changeset(attrs) |> Repo.update()
   end
 
   @doc """
@@ -80,16 +81,16 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> delete_container(container)
+      iex> delete_container(container, user)
       {:ok, %Container{}}
 
-      iex> delete_container(container)
+      iex> delete_container(container, user)
       {:error, %Changeset{}}
 
   """
-  @spec delete_container(Container.t()) ::
+  @spec delete_container(Container.t(), User.t()) ::
           {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
-  def delete_container(container) do
+  def delete_container(%Container{user_id: user_id} = container, %User{id: user_id}) do
     Repo.one(
       from ag in AmmoGroup,
         where: ag.container_id == ^container.id,
@@ -125,13 +126,13 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> delete_container(container)
+      iex> delete_container(container, user)
       %Container{}
 
   """
-  @spec delete_container!(Container.t()) :: Container.t()
-  def delete_container!(container) do
-    {:ok, container} = container |> delete_container()
+  @spec delete_container!(Container.t(), User.t()) :: Container.t()
+  def delete_container!(container, user) do
+    {:ok, container} = container |> delete_container(user)
     container
   end
 
@@ -151,7 +152,8 @@ defmodule Cannery.Containers do
           Changeset.t(Container.t() | Container.new_container())
   @spec change_container(Container.t() | Container.new_container(), attrs :: map()) ::
           Changeset.t(Container.t() | Container.new_container())
-  def change_container(container, attrs \\ %{}), do: container |> Container.changeset(attrs)
+  def change_container(container, attrs \\ %{}),
+    do: container |> Container.update_changeset(attrs)
 
   @doc """
   Adds a tag to a container

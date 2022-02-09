@@ -22,7 +22,6 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
   end
 
   def handle_event("save", %{"container" => container_params}, socket) do
-    container_params = container_params |> Map.put("user_id", socket.assigns.current_user.id)
     save_container(socket, socket.assigns.action, container_params)
   end
 
@@ -88,7 +87,12 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
   end
 
   defp save_container(socket, :edit, container_params) do
-    case Containers.update_container(socket.assigns.container, container_params) do
+    Containers.update_container(
+      socket.assigns.container,
+      socket.assigns.current_user,
+      container_params
+    )
+    |> case do
       {:ok, _container} ->
         {:noreply,
          socket
@@ -101,7 +105,9 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
   end
 
   defp save_container(socket, :new, container_params) do
-    case Containers.create_container(container_params) do
+    container_params
+    |> Containers.create_container(socket.assigns.current_user)
+    |> case do
       {:ok, _container} ->
         {:noreply,
          socket

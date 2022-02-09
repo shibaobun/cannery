@@ -46,7 +46,7 @@ defmodule CanneryWeb.ContainerLive.Index do
 
         container ->
           container
-          |> Containers.delete_container()
+          |> Containers.delete_container(socket.assigns.current_user)
           |> case do
             {:ok, container} ->
               socket

@@ -15,8 +15,8 @@ defmodule Cannery.AccountsFixtures do
     {:ok, user} =
       attrs
       |> Enum.into(%{
-        email: unique_user_email(),
-        password: valid_user_password()
+        "email" => unique_user_email(),
+        "password" => valid_user_password()
       })
       |> Accounts.register_user()
 

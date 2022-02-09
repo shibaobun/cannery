@@ -1,9 +1,11 @@
 defmodule CanneryWeb.ContainerLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
+  import CanneryWeb.Gettext
   alias Cannery.Containers
+  alias Cannery.{Accounts.User, Containers.Container}
+
+  @moduletag :containers_live
 
   @create_attrs %{
     "desc" => "some desc",
@@ -19,13 +21,14 @@ defmodule CanneryWeb.ContainerLiveTest do
   }
   @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
-  defp fixture(:container) do
-    {:ok, container} = Containers.create_container(@create_attrs)
+  @spec fixture(:container, User.t()) :: Container.t()
+  defp fixture(:container, user) do
+    {:ok, container} = Containers.create_container(@create_attrs, user)
     container
   end
 
-  defp create_container(_) do
-    container = fixture(:container)
+  defp create_container(%{user: user}) do
+    container = fixture(:container, user)
     %{container: container}
   end
 
@@ -35,15 +38,15 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "lists all containers", %{conn: conn, container: container} do
       {:ok, _index_live, html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ "Listing Containers"
+      assert html =~ gettext("Listing Containers")
       assert html =~ container.desc
     end
 
     test "saves new container", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("a", "New Container") |> render_click() =~
-               "New Container"
+      assert index_live |> element("a", gettext("New Container")) |> render_click() =~
+               gettext("New Container")
 
       assert_patch(index_live, Routes.container_index_path(conn, :new))
 
@@ -57,7 +60,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ "Container created successfully"
+      assert html =~ gettext("Container created successfully")
       assert html =~ "some desc"
     end
 
@@ -65,7 +68,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("#container-#{container.id} a", "Edit") |> render_click() =~
-               "Edit Container"
+               gettext("Edit Container")
 
       assert_patch(index_live, Routes.container_index_path(conn, :edit, container))
 
@@ -79,7 +82,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ "Container updated successfully"
+      assert html =~ gettext("Container updated successfully")
       assert html =~ "some updated desc"
     end
 
@@ -97,7 +100,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "displays container", %{conn: conn, container: container} do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ "Show Container"
+      assert html =~ gettext("Show Container")
       assert html =~ container.desc
     end
 
@@ -105,7 +108,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
-               "Edit Container"
+               gettext("Edit Container")
 
       assert_patch(show_live, Routes.container_show_path(conn, :edit, container))
 
@@ -119,7 +122,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ "Container updated successfully"
+      assert html =~ gettext("Container updated successfully")
       assert html =~ "some updated desc"
     end
   end
