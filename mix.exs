@@ -11,7 +11,19 @@ defmodule Cannery.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      dialyzer: [plt_add_apps: [:ex_unit]]
+      dialyzer: [plt_add_apps: [:ex_unit]],
+
+      # ExDoc
+      name: "Cannery",
+      source_url: "https://gitea.bubbletea.dev/shibao/cannery",
+      homepage_url: "https://gitea.bubbletea.dev/shibao/cannery",
+      docs: [
+        # The main page in the docs
+        main: "README.md",
+        # logo: "path/to/logo.png",
+        extras: ["README.md"]
+      ],
+      authors: ["shibao"]
     ]
   end
 
@@ -46,6 +58,7 @@ defmodule Cannery.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6"},
       # {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:swoosh, "~> 1.3"},
       {:phoenix_swoosh, "~> 1.0"},
       {:oban, "~> 2.10"},
