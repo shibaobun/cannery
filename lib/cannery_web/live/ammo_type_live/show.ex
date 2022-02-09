@@ -5,7 +5,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   use CanneryWeb, :live_view
   import CanneryWeb.AmmoGroupLive.AmmoGroupCard
-  alias Cannery.{Ammo}
+  alias Cannery.Ammo
 
   @impl true
   def mount(_params, session, socket) do

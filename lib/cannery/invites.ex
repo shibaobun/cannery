@@ -4,7 +4,7 @@ defmodule Cannery.Invites do
   """
 
   import Ecto.Query, warn: false
-  alias Ecto.{Changeset}
+  alias Ecto.Changeset
   alias Cannery.{Accounts.User, Invites.Invite, Repo}
 
   @invite_token_length 20

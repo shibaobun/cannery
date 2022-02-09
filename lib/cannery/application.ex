@@ -42,7 +42,7 @@ defmodule Cannery.Application do
     :ok
   end
 
-  defp oban_config() do
+  defp oban_config do
     Application.fetch_env!(:cannery, Oban)
   end
 end

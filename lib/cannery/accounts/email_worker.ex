@@ -1,4 +1,8 @@
 defmodule Cannery.EmailWorker do
+  @moduledoc """
+  Oban worker that dispatches emails
+  """
+
   use Oban.Worker, queue: :mailers
   alias Cannery.Mailer
 

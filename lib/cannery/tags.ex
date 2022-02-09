@@ -5,7 +5,7 @@ defmodule Cannery.Tags do
 
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Repo, Tags.Tag}
-  alias Ecto.{Changeset}
+  alias Ecto.Changeset
 
   @doc """
   Returns the list of tags.
