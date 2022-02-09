@@ -94,6 +94,8 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:90
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:155
 #: lib/cannery_web/live/container_live/form_component.ex:79
+#: lib/cannery_web/live/invite_live/form_component.ex:61
+#: lib/cannery_web/live/tag_live/form_component.ex:70
 msgid "Save"
 msgstr ""
 
@@ -120,4 +122,24 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/index.html.heex:16
 msgid "New Container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:15
+msgid "Create Invite"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:11
+msgid "Invite someone new!"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.html.heex:18
+msgid "New Tag"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.html.heex:13
+msgid "Make your first tag!"
 msgstr ""

@@ -1,22 +1,20 @@
 <div class="flex flex-col space-y-8 justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
-    Listing Invites
+    <%= gettext("Listing Invites") %>
   </h1>
 
   <%= if @invites |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-500">
-      No invites 😔
+      <%= gettext("No invites") %> 😔
     </h1>
 
-    <%= live_patch to: Routes.invite_index_path(@socket, :new),
-      class: "btn btn-primary" do %>
-      Invite someone new!
-    <% end %>
+    <%= live_patch dgettext("actions", "Invite someone new!"),
+      to: Routes.invite_index_path(@socket, :new),
+      class: "btn btn-primary" %>
   <% else %>
-    <%= live_patch to: Routes.invite_index_path(@socket, :new),
-      class: "btn btn-primary" do %>
-      Create Invite
-    <% end %>
+    <%= live_patch dgettext("actions", "Create Invite"),
+      to: Routes.invite_index_path(@socket, :new),
+      class: "btn btn-primary" %>
   <% end %>
 
   <div class="flex flex-row flex-wrap space-x-4 space-y-4">
@@ -29,11 +27,12 @@
 
         <%= if invite.disabled_at |> is_nil() do %>
           <h2 class="title text-md">
-            Uses Left: <%= invite.uses_left || "Unlimited" %>
+            <%= gettext("Uses Left:") %>
+            <%= invite.uses_left || "Unlimited" %>
           </h2>
         <% else %>
           <h2 class="title text-md">
-            Invite Disabled
+            <%= gettext("Invite Disabled") %>
           </h2>
         <% end %>
 
@@ -51,27 +50,27 @@
               class: "text-primary-500 link",
               phx_click: "delete",
             phx_value_id: invite.id,
-            data: [confirm: "Are you sure you want to delete the invite for #{invite.name}?"] do %>
+            data: [confirm: dgettext("prompts", "Are you sure you want to delete the invite for %{name}?", name: invite.name)] do %>
             <i class="fa-fw fa-lg fas fa-trash"></i>
           <% end %>
 
           <%= if invite.disabled_at |> is_nil() do %>
             <a href="#" class="btn btn-primary"
               phx-click="disable" phx-value-id="<%= invite.id %>">
-              Disable
+              <%= gettext("Disable") %>
             </a>
           <% else %>
             <a href="#" class="btn btn-primary"
               phx-click="enable" phx-value-id="<%= invite.id %>">
-              Enable
+              <%= gettext("Enable") %>
             </a>
           <% end %>
 
           <%= if invite.disabled_at |> is_nil() and not(invite.uses_left |> is_nil()) do %>
             <a href="#" class="btn btn-primary"
               phx-click="set_unlimited" phx-value-id="<%= invite.id %>"
-              data-confirm="Are you sure you want to make this invite unlimited?">
-              Set Unlimited
+              data-confirm={dgettext("prompts", "Are you sure you want to make this invite unlimited?")}>
+              <%= gettext("Set Unlimited") %>
             </a>
           <% end %>
         </div>

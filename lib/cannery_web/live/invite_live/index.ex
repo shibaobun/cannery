@@ -20,17 +20,17 @@ defmodule CanneryWeb.InviteLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(page_title: "Edit Invite", invite: Invites.get_invite!(id))
+    |> assign(page_title: gettext("Edit Invite"), invite: Invites.get_invite!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(page_title: "New Invite", invite: %Invite{})
+    |> assign(page_title: gettext("New Invite"), invite: %Invite{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(page_title: "Listing Invites", invite: nil)
+    |> assign(page_title: gettext("Listing Invites"), invite: nil)
   end
 
   @impl true

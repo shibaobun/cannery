@@ -29,7 +29,9 @@ defmodule CanneryWeb.TagLive.TagCard do
            class: "text-primary-500 link",
            phx_click: "delete",
            phx_value_id: @tag.id,
-           data: [confirm: "Are you sure you want to delete #{@tag.name}?"] do %>
+           data: [
+             confirm: dgettext("prompts", "Are you sure you want to delete %{name}?", name: @tag.name)
+           ] do %>
         <i class="fa-fw fa-lg fas fa-trash"></i>
       <% end %>
     </div>

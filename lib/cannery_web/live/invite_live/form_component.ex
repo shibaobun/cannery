@@ -50,17 +50,17 @@ defmodule CanneryWeb.InviteLive.FormComponent do
           </div>
         <% end %>
 
-        <%= label(f, :name, class: "title text-lg text-primary-500") %>
+        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
         <%= text_input(f, :name, class: "input input-primary col-span-2") %>
         <%= error_tag(f, :name, "col-span-3") %>
 
-        <%= label(f, :uses_left, class: "title text-lg text-primary-500") %>
+        <%= label(f, :uses_left, gettext("Uses left"), class: "title text-lg text-primary-500") %>
         <%= number_input(f, :uses_left, min: 0, class: "input input-primary col-span-2") %>
         <%= error_tag(f, :uses_left, "col-span-3") %>
 
-        <%= submit("Save",
+        <%= submit(dgettext("actions", "Save"),
           class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: "Saving..."
+          phx_disable_with: dgettext("prompts", "Saving...")
         ) %>
       </.form>
     </div>
@@ -72,7 +72,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
       {:ok, _invite} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Invite updated successfully")
+         |> put_flash(:info, dgettext("prompts", "Invite updated successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->
@@ -85,7 +85,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
       {:ok, _invite} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Invite created successfully")
+         |> put_flash(:info, dgettext("prompts", "Invite created successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->

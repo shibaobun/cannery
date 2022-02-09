@@ -21,14 +21,11 @@ defmodule CanneryWeb.TagLive.FormComponent do
   @impl true
   def handle_event("validate", %{"tag" => tag_params}, socket) do
     tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
-
     changeset = socket.assigns.tag |> Tags.change_tag(tag_params)
-
     {:noreply, socket |> assign(:changeset, changeset)}
   end
 
   def handle_event("save", %{"tag" => tag_params}, socket) do
-    tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
     save_tag(socket, socket.assigns.action, tag_params)
   end
 
@@ -54,25 +51,25 @@ defmodule CanneryWeb.TagLive.FormComponent do
           </div>
         <% end %>
 
-        <%= label(f, :name, class: "title text-lg text-primary-500") %>
+        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
         <%= text_input(f, :name, class: "input input-primary col-span-2") %>
         <%= error_tag(f, :name, "col-span-3") %>
 
-        <%= label(f, :bg_color, class: "title text-lg text-primary-500") %>
+        <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :bg_color) %>
         </span>
         <%= error_tag(f, :bg_color, "col-span-3") %>
 
-        <%= label(f, :text_color, class: "title text-lg text-primary-500") %>
+        <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-500") %>
         <span class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :text_color) %>
         </span>
         <%= error_tag(f, :text_color, "col-span-3") %>
 
-        <%= submit("Save",
+        <%= submit(dgettext("actions", "Save"),
           class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: "Saving..."
+          phx_disable_with: dgettext("prompts", "Saving...")
         ) %>
       </.form>
     </div>
@@ -84,7 +81,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
       {:ok, _tag} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Tag updated successfully")
+         |> put_flash(:info, dgettext("prompts", "Tag updated successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->
@@ -93,11 +90,14 @@ defmodule CanneryWeb.TagLive.FormComponent do
   end
 
   defp save_tag(socket, :new, tag_params) do
-    case Tags.create_tag(tag_params) do
+    tag_params
+    |> Map.put("user_id", socket.assigns.current_user.id)
+    |> Tags.create_tag()
+    |> case do
       {:ok, _tag} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Tag created successfully")
+         |> put_flash(:info, dgettext("prompts", "Tag created successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->

@@ -304,6 +304,8 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:53
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:26
 #: lib/cannery_web/live/container_live/form_component.ex:49
+#: lib/cannery_web/live/invite_live/form_component.ex:53
+#: lib/cannery_web/live/tag_live/form_component.ex:54
 msgid "Name"
 msgstr ""
 
@@ -446,4 +448,91 @@ msgstr ""
 #: lib/cannery_web/live/container_live/container_card.ex:32
 #: lib/cannery_web/live/container_live/show.html.heex:14
 msgid "Type:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/form_component.ex:58
+msgid "Background color"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:60
+msgid "Disable"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.ex:23
+msgid "Edit Invite"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.ex:23
+msgid "Edit Tag"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:65
+msgid "Enable"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:35
+msgid "Invite Disabled"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.ex:33
+#: lib/cannery_web/live/invite_live/index.html.leex:3
+msgid "Listing Invites"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.ex:35
+#: lib/cannery_web/live/tag_live/index.html.heex:3
+msgid "Listing Tags"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.ex:28
+msgid "New Invite"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.ex:29
+msgid "New Tag"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:8
+msgid "No invites"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.html.heex:10
+msgid "No tags"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:73
+msgid "Set Unlimited"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.html.heex:6
+msgid "Tags can be added to your containers to help you organize"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/form_component.ex:64
+msgid "Text color"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:30
+msgid "Uses Left:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/form_component.ex:57
+msgid "Uses left"
 msgstr ""

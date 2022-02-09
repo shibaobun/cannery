@@ -97,6 +97,8 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:91
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:156
 #: lib/cannery_web/live/container_live/form_component.ex:81
+#: lib/cannery_web/live/invite_live/form_component.ex:63
+#: lib/cannery_web/live/tag_live/form_component.ex:72
 msgid "Saving..."
 msgstr ""
 
@@ -114,6 +116,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:26
 #: lib/cannery_web/live/container_live/index.html.heex:36
 #: lib/cannery_web/live/container_live/show.html.heex:36
+#: lib/cannery_web/live/tag_live/tag_card.ex:33
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
@@ -131,4 +134,34 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/form_component.ex:98
 msgid "Container updated successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.leex:53
+msgid "Are you sure you want to delete the invite for %{name}?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/form_component.ex:88
+msgid "Invite created successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/form_component.ex:75
+msgid "Invite updated successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/form_component.ex:100
+msgid "Tag created successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/index.ex:43
+msgid "Tag deleted succesfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/tag_live/form_component.ex:84
+msgid "Tag updated successfully"
 msgstr ""

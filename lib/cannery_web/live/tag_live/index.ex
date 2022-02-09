@@ -20,19 +20,19 @@ defmodule CanneryWeb.TagLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Tag")
+    |> assign(:page_title, gettext("Edit Tag"))
     |> assign(:tag, Tags.get_tag!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Tag")
+    |> assign(:page_title, gettext("New Tag"))
     |> assign(:tag, %Tag{bg_color: Tags.random_bg_color(), text_color: "#ffffff"})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Tags")
+    |> assign(:page_title, gettext("Listing Tags"))
     |> assign(:tag, nil)
   end
 
@@ -40,7 +40,7 @@ defmodule CanneryWeb.TagLive.Index do
   def handle_event("delete", %{"id" => id}, socket) do
     tag = Tags.get_tag!(id)
     {:ok, _} = Tags.delete_tag(tag)
-    socket = socket |> put_flash(:info, "Tag deleted succesfully")
+    socket = socket |> put_flash(:info, dgettext("prompts", "Tag deleted succesfully"))
     {:noreply, socket |> display_tags()}
   end
 
