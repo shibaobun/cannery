@@ -99,3 +99,13 @@ msgstr ""
 #: lib/cannery_web/component/topbar.ex:35
 msgid "Tags"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_session/new.html.heex:29
+msgid "Keep me logged in for 60 days"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_settings/edit.html.heex:3
+msgid "Settings"
+msgstr ""

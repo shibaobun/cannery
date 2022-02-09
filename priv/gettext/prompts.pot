@@ -20,3 +20,8 @@ msgstr ""
 #: lib/cannery_web/templates/layout/topbar.html.heex:21
 msgid "Are you sure you want to log out?"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_settings/edit.html.heex:104
+msgid "Are you sure you want to delete your account?"
+msgstr ""

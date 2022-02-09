@@ -13,11 +13,64 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/component/topbar.ex:96
 #: lib/cannery_web/templates/layout/topbar.html.heex:36
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:24
+#: lib/cannery_web/templates/user_registration/new.html.heex:39
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:39
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:25
+#: lib/cannery_web/templates/user_session/new.html.heex:3
+#: lib/cannery_web/templates/user_session/new.html.heex:35
 msgid "Log in"
 msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/component/topbar.ex:89
 #: lib/cannery_web/templates/layout/topbar.html.heex:28
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:20
+#: lib/cannery_web/templates/user_registration/new.html.heex:3
+#: lib/cannery_web/templates/user_registration/new.html.heex:34
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:35
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:21
+#: lib/cannery_web/templates/user_session/new.html.heex:40
 msgid "Register"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_settings/edit.html.heex:7
+#: lib/cannery_web/templates/user_settings/edit.html.heex:44
+msgid "Change email"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_settings/edit.html.heex:48
+#: lib/cannery_web/templates/user_settings/edit.html.heex:97
+msgid "Change password"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_settings/edit.html.heex:100
+msgid "Delete User"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_registration/new.html.heex:43
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:3
+#: lib/cannery_web/templates/user_session/new.html.heex:44
+msgid "Forgot your password?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:3
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:15
+msgid "Resend confirmation instructions"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:3
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:30
+msgid "Reset password"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:16
+msgid "Send instructions to reset password"
 msgstr ""
