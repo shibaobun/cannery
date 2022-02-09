@@ -25,7 +25,10 @@ defmodule CanneryWeb.UserSettingsController do
         conn
         |> put_flash(
           :info,
-          "A link to confirm your email change has been sent to the new address."
+          dgettext(
+            "prompts",
+            "A link to confirm your email change has been sent to the new address."
+          )
         )
         |> redirect(to: Routes.user_settings_path(conn, :edit))
 
@@ -41,7 +44,7 @@ defmodule CanneryWeb.UserSettingsController do
     case Accounts.update_user_password(user, password, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Password updated successfully.")
+        |> put_flash(:info, dgettext("prompts", "Password updated successfully."))
         |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
         |> UserAuth.log_in_user(user)
 
@@ -54,12 +57,15 @@ defmodule CanneryWeb.UserSettingsController do
     case Accounts.update_user_email(conn.assigns.current_user, token) do
       :ok ->
         conn
-        |> put_flash(:info, "Email changed successfully.")
+        |> put_flash(:info, dgettext("prompts", "Email changed successfully."))
         |> redirect(to: Routes.user_settings_path(conn, :edit))
 
       :error ->
         conn
-        |> put_flash(:error, "Email change link is invalid or it has expired.")
+        |> put_flash(
+          :error,
+          dgettext("errors", "Email change link is invalid or it has expired.")
+        )
         |> redirect(to: Routes.user_settings_path(conn, :edit))
     end
   end
@@ -69,11 +75,11 @@ defmodule CanneryWeb.UserSettingsController do
       Accounts.delete_user!(conn.assigns.current_user)
 
       conn
-      |> put_flash(:error, "Your account has been deleted")
+      |> put_flash(:error, dgettext("prompts", "Your account has been deleted"))
       |> redirect(to: Routes.live_path(conn, HomeLive))
     else
       conn
-      |> put_flash(:error, "Unable to delete user")
+      |> put_flash(:error, dgettext("errors", "Unable to delete user"))
       |> redirect(to: Routes.user_settings_path(conn, :edit))
     end
   end

@@ -1,6 +1,6 @@
 defmodule CanneryWeb.UserRegistrationController do
   use CanneryWeb, :controller
-
+  import CanneryWeb.Gettext
   alias Cannery.{Accounts, Invites}
   alias Cannery.Accounts.User
   alias CanneryWeb.{HomeLive, UserAuth}
@@ -12,7 +12,7 @@ defmodule CanneryWeb.UserRegistrationController do
       conn |> render_new(invite)
     else
       conn
-      |> put_flash(:error, "Sorry, this invite was not found or expired")
+      |> put_flash(:error, dgettext("errors", "Sorry, this invite was not found or expired"))
       |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
@@ -22,7 +22,7 @@ defmodule CanneryWeb.UserRegistrationController do
       conn |> render_new()
     else
       conn
-      |> put_flash(:error, "Sorry, public registration is disabled")
+      |> put_flash(:error, dgettext("errors", "Sorry, public registration is disabled"))
       |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
@@ -40,7 +40,7 @@ defmodule CanneryWeb.UserRegistrationController do
       conn |> create_user(attrs, invite)
     else
       conn
-      |> put_flash(:error, "Sorry, this invite was not found or expired")
+      |> put_flash(:error, dgettext("errors", "Sorry, this invite was not found or expired"))
       |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
@@ -50,7 +50,7 @@ defmodule CanneryWeb.UserRegistrationController do
       conn |> create_user(attrs)
     else
       conn
-      |> put_flash(:error, "Sorry, public registration is disabled")
+      |> put_flash(:error, dgettext("errors", "Sorry, public registration is disabled"))
       |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
     end
   end
@@ -69,7 +69,7 @@ defmodule CanneryWeb.UserRegistrationController do
           )
 
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, dgettext("prompts", "User created successfully."))
         |> UserAuth.log_in_user(user)
 
       {:error, %Ecto.Changeset{} = changeset} ->

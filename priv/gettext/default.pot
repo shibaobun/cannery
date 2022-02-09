@@ -109,8 +109,3 @@ msgstr ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:3
 msgid "Settings"
 msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery_web/controllers/user_session_controller.ex:23
-msgid "Logged out successfully."
-msgstr ""

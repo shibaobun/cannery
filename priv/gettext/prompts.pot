@@ -25,3 +25,53 @@ msgstr ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:104
 msgid "Are you sure you want to delete your account?"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:28
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:60
+msgid "Email changed successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:22
+msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:24
+msgid "If your email is in our system, you will receive instructions to reset your password shortly."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_session_controller.ex:23
+msgid "Logged out successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:43
+msgid "Password reset successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:47
+msgid "Password updated successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:37
+msgid "User confirmed successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_registration_controller.ex:72
+msgid "User created successfully."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:78
+msgid "Your account has been deleted"
+msgstr ""

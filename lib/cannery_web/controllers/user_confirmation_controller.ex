@@ -19,8 +19,11 @@ defmodule CanneryWeb.UserConfirmationController do
     conn
     |> put_flash(
       :info,
-      "If your email is in our system and it has not been confirmed yet, " <>
-        "you will receive an email with instructions shortly."
+      dgettext(
+        "prompts",
+        "If your email is in our system and it has not been confirmed yet, " <>
+          "you will receive an email with instructions shortly."
+      )
     )
     |> redirect(to: "/")
   end
@@ -31,7 +34,7 @@ defmodule CanneryWeb.UserConfirmationController do
     case Accounts.confirm_user(token) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "User confirmed successfully.")
+        |> put_flash(:info, dgettext("prompts", "User confirmed successfully."))
         |> redirect(to: "/")
 
       :error ->
@@ -45,7 +48,10 @@ defmodule CanneryWeb.UserConfirmationController do
 
           %{} ->
             conn
-            |> put_flash(:error, "User confirmation link is invalid or it has expired.")
+            |> put_flash(
+              :error,
+              dgettext("errors", "User confirmation link is invalid or it has expired.")
+            )
             |> redirect(to: "/")
         end
     end

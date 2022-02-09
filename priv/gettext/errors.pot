@@ -157,3 +157,45 @@ msgstr ""
 #: lib/cannery_web/controllers/user_session_controller.ex:17
 msgid "Invalid email or password"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:67
+msgid "Email change link is invalid or it has expired."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:60
+msgid "Reset password link is invalid or it has expired."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_registration_controller.ex:25
+#: lib/cannery_web/controllers/user_registration_controller.ex:53
+msgid "Sorry, public registration is disabled"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_registration_controller.ex:15
+#: lib/cannery_web/controllers/user_registration_controller.ex:43
+msgid "Sorry, this invite was not found or expired"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_settings_controller.ex:82
+msgid "Unable to delete user"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:53
+msgid "User confirmation link is invalid or it has expired."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_auth.ex:160
+msgid "You are not authorized to view this page."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_auth.ex:145
+msgid "You must log in to access this page."
+msgstr ""

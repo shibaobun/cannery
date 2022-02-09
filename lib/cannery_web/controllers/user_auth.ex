@@ -5,7 +5,7 @@ defmodule CanneryWeb.UserAuth do
 
   import Plug.Conn
   import Phoenix.Controller
-
+  import CanneryWeb.Gettext
   alias Cannery.Accounts
   alias CanneryWeb.HomeLive
   alias CanneryWeb.Router.Helpers, as: Routes
@@ -142,7 +142,7 @@ defmodule CanneryWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You must log in to access this page.")
+      |> put_flash(:error, dgettext("errors", "You must log in to access this page."))
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()
@@ -157,7 +157,7 @@ defmodule CanneryWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You are not authorized to view this page.")
+      |> put_flash(:error, dgettext("errors", "You are not authorized to view this page."))
       |> maybe_store_return_to()
       |> redirect(to: Routes.live_path(conn, HomeLive))
       |> halt()

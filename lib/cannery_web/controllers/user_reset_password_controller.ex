@@ -21,7 +21,11 @@ defmodule CanneryWeb.UserResetPasswordController do
     conn
     |> put_flash(
       :info,
-      "If your email is in our system, you will receive instructions to reset your password shortly."
+      dgettext(
+        "prompts",
+        "If your email is in our system, you will receive instructions to " <>
+          "reset your password shortly."
+      )
     )
     |> redirect(to: "/")
   end
@@ -36,7 +40,7 @@ defmodule CanneryWeb.UserResetPasswordController do
     case Accounts.reset_user_password(conn.assigns.user, user_params) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "Password reset successfully.")
+        |> put_flash(:info, dgettext("prompts", "Password reset successfully."))
         |> redirect(to: Routes.user_session_path(conn, :new))
 
       {:error, changeset} ->
@@ -51,7 +55,10 @@ defmodule CanneryWeb.UserResetPasswordController do
       conn |> assign(:user, user) |> assign(:token, token)
     else
       conn
-      |> put_flash(:error, "Reset password link is invalid or it has expired.")
+      |> put_flash(
+        :error,
+        dgettext("errors", "Reset password link is invalid or it has expired.")
+      )
       |> redirect(to: "/")
       |> halt()
     end
