@@ -35,6 +35,6 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     {:noreply, socket |> push_redirect(to: Routes.ammo_type_index_path(socket, :index))}
   end
 
-  defp page_title(:show), do: "Show Ammo type"
-  defp page_title(:edit), do: "Edit Ammo type"
+  defp page_title(:show), do: gettext("Show Ammo type")
+  defp page_title(:edit), do: gettext("Edit Ammo type")
 end

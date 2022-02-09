@@ -20,19 +20,19 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Ammo type")
+    |> assign(:page_title, gettext("Edit Ammo type"))
     |> assign(:ammo_type, Ammo.get_ammo_type!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Ammo type")
+    |> assign(:page_title, gettext("New Ammo type"))
     |> assign(:ammo_type, %AmmoType{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Ammo types")
+    |> assign(:page_title, gettext("Listing Ammo types"))
     |> assign(:ammo_type, nil)
   end
 

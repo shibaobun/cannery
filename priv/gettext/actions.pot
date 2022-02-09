@@ -92,10 +92,21 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:90
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:155
 msgid "Save"
 msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:56
 msgid "View"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:11
+msgid "Add your first type!"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:16
+msgid "New Ammo type"
 msgstr ""

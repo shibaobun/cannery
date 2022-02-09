@@ -21,7 +21,10 @@
     <%= link to: "#",
          class: "text-primary-500 link",
          phx_click: "delete",
-         data: [confirm: "Are you sure you want to delete #{@ammo_type.name}?"] do %>
+         data: [
+           confirm:
+             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @ammo_type.name)
+         ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
   </div>
@@ -29,19 +32,19 @@
   <hr class="hr">
 
   <div class="grid sm:grid-cols-2 text-center justify-center items-center">
-    <%= for field <- [
-          :bullet_type,
-          :bullet_core,
-          :cartridge,
-          :caliber,
-          :case_material,
-          :grains,
-          :pressure,
-          :primer_type
+    <%= for {field_name, field} <- [
+          {gettext("Bullet type"), :bullet_type},
+          {gettext("Bullet core"), :bullet_core},
+          {gettext("Cartridge"), :cartridge},
+          {gettext("Caliber"), :caliber},
+          {gettext("Case material"), :case_material},
+          {gettext("Grains"), :grains},
+          {gettext("Pressure"), :pressure},
+          {gettext("Primer type"), :primer_type}
         ] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %> :
+          <%= field_name %> :
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -50,15 +53,15 @@
       <% end %>
     <% end %>
 
-    <%= for field <- [
-          :rimfire,
-          :tracer,
-          :incendiary,
-          :blank,
-          :corrosive
+    <%= for {field_name, field} <- [
+          {"Rimfire", :rimfire},
+          {"Tracer", :tracer},
+          {"Incendiary", :incendiary},
+          {"Blank", :blank},
+          {"Corrosive", :corrosive}
         ] do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= field |> humanize() %> :
+        <%= field_name %> :
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
@@ -66,10 +69,10 @@
       </span>
     <% end %>
 
-    <%= for field <- [:manufacturer, :sku] do %>
+    <%= for {field_name, field} <- [{"Manufacturer", :manufacturer}, {"Sku", :sku}] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field |> humanize() %> :
+          <%= field_name %> :
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -80,7 +83,7 @@
 
     <%= if @avg_cost_per_round do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        Average Price paid:
+        <%= gettext("Average Price paid") %> :
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
@@ -93,7 +96,7 @@
 
   <div>
     <%= if @ammo_groups |> Enum.empty?() do %>
-      No ammo for this type
+      <%= gettext("No ammo for this type") %>
     <% else %>
       <%= for ammo_group <- @ammo_groups do %>
         <.ammo_group_card ammo_group={ammo_group} />
