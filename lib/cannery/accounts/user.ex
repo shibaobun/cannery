@@ -5,6 +5,7 @@ defmodule Cannery.Accounts.User do
 
   use Ecto.Schema
   import Ecto.Changeset
+  import CanneryWeb.Gettext
   alias Ecto.{Changeset, UUID}
   alias Cannery.{Accounts.User, Invites.Invite}
 
@@ -77,7 +78,9 @@ defmodule Cannery.Accounts.User do
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
-    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/,
+      message: dgettext("errors", "must have the @ sign and no spaces")
+    )
     |> validate_length(:email, max: 160)
     |> unsafe_validate_unique(:email, Cannery.Repo)
     |> unique_constraint(:email)
@@ -122,7 +125,7 @@ defmodule Cannery.Accounts.User do
     |> validate_email()
     |> case do
       %{changes: %{email: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email, "did not change")
+      %{} = changeset -> add_error(changeset, :email, dgettext("errors", "did not change"))
     end
   end
 
@@ -143,7 +146,7 @@ defmodule Cannery.Accounts.User do
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
-    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_confirmation(:password, message: dgettext("errors", "does not match password"))
     |> validate_password(opts)
   end
 
@@ -180,6 +183,6 @@ defmodule Cannery.Accounts.User do
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password),
       do: changeset,
-      else: changeset |> add_error(:current_password, "is not valid")
+      else: changeset |> add_error(:current_password, dgettext("errors", "is not valid"))
   end
 end
