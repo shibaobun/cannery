@@ -41,8 +41,9 @@ If you're multilingual, this project can use your translations! Visit
 - When adding text, please use `gettext` macros to enable things to be
   translated in the future. After adding `gettext` macros, run `mix format` in
   order to add your new text strings to the files in `priv/gettext`.
-  - Existing domains: `"default"` (for anything general), `"prompts"`,
-    `"emails"`, and `"errors"`
+  - Existing domains: `"default"` (for anything general), `"prompts"` (as a
+    result of the user doing an action), `"actions"` (actions that the user can
+    take), `"emails"`, and `"errors"`
 - Before submitting a PR, please make sure all tests are passing using `mix test`.
 
 And as always, thank you!

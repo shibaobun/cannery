@@ -11,12 +11,13 @@ msgid ""
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/home_live.ex:94
-msgid "Register to setup %{name}"
+#: lib/cannery_web/component/topbar.ex:96
+#: lib/cannery_web/templates/layout/topbar.html.heex:36
+msgid "Log in"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:75
-#: lib/cannery_web/templates/layout/topbar.html.heex:21
-msgid "Are you sure you want to log out?"
+#: lib/cannery_web/component/topbar.ex:89
+#: lib/cannery_web/templates/layout/topbar.html.heex:28
+msgid "Register"
 msgstr ""

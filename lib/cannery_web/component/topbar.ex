@@ -32,32 +32,32 @@ defmodule CanneryWeb.Component.Topbar do
             space-x-4 text-lg text-white text-ellipsis">
             <%= if @current_user do %>
               <li>
-                <%= link("Tags",
+                <%= link(gettext("Tags"),
                   class: "hover:underline",
                   to: Routes.tag_index_path(CanneryWeb.Endpoint, :index)
                 ) %>
               </li>
               <li>
-                <%= link("Containers",
+                <%= link(gettext("Containers"),
                   class: "hover:underline",
                   to: Routes.container_index_path(CanneryWeb.Endpoint, :index)
                 ) %>
               </li>
               <li>
-                <%= link("Ammo",
+                <%= link(gettext("Ammo"),
                   class: "hover:underline",
                   to: Routes.ammo_type_index_path(CanneryWeb.Endpoint, :index)
                 ) %>
               </li>
               <li>
-                <%= link("Manage",
+                <%= link(gettext("Manage"),
                   class: "hover:underline",
                   to: Routes.ammo_group_index_path(CanneryWeb.Endpoint, :index)
                 ) %>
               </li>
               <%= if @current_user.role == :admin do %>
                 <li>
-                  <%= link("Invites",
+                  <%= link(gettext("Invites"),
                     class: "hover:underline",
                     to: Routes.invite_index_path(CanneryWeb.Endpoint, :index)
                   ) %>
@@ -72,7 +72,7 @@ defmodule CanneryWeb.Component.Topbar do
               <li>
                 <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete),
                      method: :delete,
-                     data: [confirm: "Are you sure you want to log out?"] do %>
+                     data: [confirm: dgettext("prompts", "Are you sure you want to log out?")] do %>
                   <i class="fas fa-sign-out-alt"></i>
                 <% end %>
               </li>
@@ -86,14 +86,14 @@ defmodule CanneryWeb.Component.Topbar do
             <% else %>
               <%= if Accounts.allow_registration?() do %>
                 <li>
-                  <%= link("Register",
+                  <%= link(dgettext("actions", "Register"),
                     class: "hover:underline",
                     to: Routes.user_registration_path(CanneryWeb.Endpoint, :new)
                   ) %>
                 </li>
               <% end %>
               <li>
-                <%= link("Log in",
+                <%= link(dgettext("actions", "Log in"),
                   class: "hover:underline",
                   to: Routes.user_session_path(CanneryWeb.Endpoint, :new)
                 ) %>
@@ -102,16 +102,6 @@ defmodule CanneryWeb.Component.Topbar do
           </ul>
         </div>
       </nav>
-      <%= if @flash && @flash |> Map.has_key?(:info) do %>
-        <p class="alert alert-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
-          <%= live_flash(@flash, :info) %>
-        </p>
-      <% end %>
-      <%= if @flash && @flash |> Map.has_key?(:error) do %>
-        <p class="alert alert-danger" role="alert" phx-click="lv:clear-flash" phx-value-key="error">
-          <%= live_flash(@flash, :error) %>
-        </p>
-      <% end %>
     </header>
     """
   end
