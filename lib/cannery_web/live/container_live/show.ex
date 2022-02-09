@@ -32,12 +32,20 @@ defmodule CanneryWeb.ContainerLive.Show do
       |> case do
         {:ok, container} ->
           socket
-          |> put_flash(:info, "#{container.name} has been deleted")
+          |> put_flash(
+            :info,
+            dgettext("prompts", "%{name} has been deleted", name: container.name)
+          )
           |> push_redirect(to: Routes.container_index_path(socket, :index))
 
         {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
           ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
-          socket |> put_flash(:error, "Could not delete container: #{ammo_groups_error}")
+
+          socket
+          |> put_flash(
+            :error,
+            dgettext("errors", "Could not delete container: %{error}", error: ammo_groups_error)
+          )
 
         {:error, changeset} ->
           socket |> put_flash(:error, changeset |> changeset_errors())
@@ -46,6 +54,6 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket}
   end
 
-  defp page_title(:show), do: "Show Container"
-  defp page_title(:edit), do: "Edit Container"
+  defp page_title(:show), do: gettext("Show Container")
+  defp page_title(:edit), do: gettext("Edit Container")
 end

@@ -251,6 +251,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:57
+#: lib/cannery_web/live/container_live/form_component.ex:56
 msgid "Description"
 msgstr ""
 
@@ -302,6 +303,7 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:53
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:26
+#: lib/cannery_web/live/container_live/form_component.ex:49
 msgid "Name"
 msgstr ""
 
@@ -364,4 +366,84 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:131
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:36
 msgid "Tracer"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/container_card.ex:26
+#: lib/cannery_web/live/container_live/show.html.heex:8
+msgid "Description:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:22
+#: lib/cannery_web/live/container_live/show.ex:58
+msgid "Edit Container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:34
+#: lib/cannery_web/live/container_live/index.html.heex:3
+msgid "Listing Containers"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:71
+msgid "Location"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/container_card.ex:38
+#: lib/cannery_web/live/container_live/show.html.heex:20
+msgid "Location:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:67
+msgid "Magazine, Clip, Ammo Box, etc"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:60
+msgid "Metal ammo can with the anime girl sticker"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:52
+msgid "My cool ammo can"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:28
+msgid "New Container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.html.heex:46
+msgid "No ammo groups in this container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.html.heex:8
+msgid "No containers"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:75
+msgid "On the bookshelf"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.ex:57
+msgid "Show Container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/form_component.ex:64
+msgid "Type"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/container_card.ex:32
+#: lib/cannery_web/live/container_live/show.html.heex:14
+msgid "Type:"
 msgstr ""

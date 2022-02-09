@@ -16,7 +16,6 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"container" => container_params}, socket) do
-    container_params = container_params |> Map.put("user_id", socket.assigns.current_user.id)
     changeset = socket.assigns.container |> Containers.change_container(container_params)
     {:noreply, socket |> assign(:changeset, changeset)}
   end
@@ -47,39 +46,39 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
           </div>
         <% end %>
 
-        <%= label(f, :name, class: "title text-lg text-primary-500") %>
+        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
         <%= text_input(f, :name,
           class: "input input-primary col-span-2",
-          placeholder: "My cool ammo can"
+          placeholder: gettext("My cool ammo can")
         ) %>
         <%= error_tag(f, :name, "col-span-3 text-center") %>
 
-        <%= label(f, :desc, class: "title text-lg text-primary-500") %>
+        <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-500") %>
         <%= textarea(f, :desc,
           class: "input input-primary col-span-2",
           phx_hook: "MaintainAttrs",
-          placeholder: "Metal ammo can with the anime girl sticker"
+          placeholder: gettext("Metal ammo can with the anime girl sticker")
         ) %>
         <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
-        <%= label(f, :type, class: "title text-lg text-primary-500") %>
+        <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-500") %>
         <%= text_input(f, :type,
           class: "input input-primary col-span-2",
-          placeholder: "Magazine, Clip, Ammo Box, etc"
+          placeholder: gettext("Magazine, Clip, Ammo Box, etc")
         ) %>
         <%= error_tag(f, :type, "col-span-3 text-center") %>
 
-        <%= label(f, :location, class: "title text-lg text-primary-500") %>
+        <%= label(f, :location, gettext("Location"), class: "title text-lg text-primary-500") %>
         <%= textarea(f, :location,
           class: "input input-primary col-span-2",
           phx_hook: "MaintainAttrs",
-          placeholder: "On the bookshelf"
+          placeholder: gettext("On the bookshelf")
         ) %>
         <%= error_tag(f, :location, "col-span-3 text-center") %>
 
-        <%= submit("Save",
+        <%= submit(dgettext("actions", "Save"),
           class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: "Saving..."
+          phx_disable_with: dgettext("prompts", "Saving...")
         ) %>
       </.form>
     </div>
@@ -96,7 +95,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
       {:ok, _container} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Container updated successfully")
+         |> put_flash(:info, dgettext("prompts", "Container updated successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->
@@ -111,7 +110,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
       {:ok, _container} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Container created successfully")
+         |> put_flash(:info, dgettext("prompts", "Container created successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->

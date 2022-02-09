@@ -23,17 +23,20 @@ defmodule CanneryWeb.ContainerLive.ContainerCard do
 
         <%= if @container.desc do %>
           <span class="rounded-lg title text-lg">
-            Description: <%= @container.desc %>
+            <%= gettext("Description:") %>
+            <%= @container.desc %>
           </span>
         <% end %>
 
         <span class="rounded-lg title text-lg">
-          Type: <%= @container.type %>
+          <%= gettext("Type:") %>
+          <%= @container.type %>
         </span>
 
         <%= if @container.location do %>
           <span class="rounded-lg title text-lg">
-            Location: <%= @container.location %>
+            <%= gettext("Location:") %>
+            <%= @container.location %>
           </span>
         <% end %>
       </div>

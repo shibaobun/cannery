@@ -19,19 +19,19 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Container")
+    |> assign(:page_title, gettext("Edit Container"))
     |> assign(:container, Containers.get_container!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Container")
+    |> assign(:page_title, gettext("New Container"))
     |> assign(:container, %Container{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Containers")
+    |> assign(:page_title, gettext("Listing Containers"))
     |> assign(:container, nil)
   end
 
@@ -42,7 +42,7 @@ defmodule CanneryWeb.ContainerLive.Index do
       |> Enum.find(fn %{id: container_id} -> id == container_id end)
       |> case do
         nil ->
-          socket |> put_flash(:error, "Could not find that container")
+          socket |> put_flash(:error, dgettext("errors", "Could not find that container"))
 
         container ->
           container
@@ -50,12 +50,22 @@ defmodule CanneryWeb.ContainerLive.Index do
           |> case do
             {:ok, container} ->
               socket
-              |> put_flash(:info, "#{container.name} has been deleted")
+              |> put_flash(
+                :info,
+                dgettext("prompts", "%{name} has been deleted", name: container.name)
+              )
               |> display_containers()
 
             {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
               ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
-              socket |> put_flash(:error, "Could not delete container: #{ammo_groups_error}")
+
+              socket
+              |> put_flash(
+                :error,
+                dgettext("errors", "Could not delete container: %{error}",
+                  error: ammo_groups_error
+                )
+              )
 
             {:error, changeset} ->
               socket |> put_flash(:error, changeset |> changeset_errors())

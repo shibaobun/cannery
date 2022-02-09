@@ -5,17 +5,20 @@
 
   <%= if @container.desc do %>
     <span class="rounded-lg title text-lg">
-      Description: <%= @container.desc %>
+      <%= gettext("Description:") %>
+      <%= @container.desc %>
     </span>
   <% end %>
 
   <span class="rounded-lg title text-lg">
-    Type: <%= @container.type %>
+    <%= gettext("Type:") %>
+    <%= @container.type %>
   </span>
 
   <%= if @container.location do %>
     <span class="rounded-lg title text-lg">
-      Location: <%= @container.location %>
+      <%= gettext("Location:") %>
+      <%= @container.location %>
     </span>
   <% end %>
 
@@ -28,7 +31,10 @@
     <%= link to: "#",
          class: "text-primary-500 link",
          phx_click: "delete",
-         data: [confirm: "Are you sure you want to delete #{@container.name}?"] do %>
+         data: [
+           confirm:
+             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name)
+         ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
   </div>
@@ -37,7 +43,7 @@
 
   <p>
     <%= if @container.ammo_groups |> Enum.empty?() do %>
-      No ammo groups in this container
+      <%= gettext("No ammo groups in this container") %>
     <% else %>
       <%= for ammo_group <- @container.ammo_groups do %>
         <.ammo_group_card ammo_group={ammo_group} />

@@ -199,3 +199,14 @@ msgstr ""
 #: lib/cannery_web/controllers/user_auth.ex:145
 msgid "You must log in to access this page."
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:65
+#: lib/cannery_web/live/container_live/show.ex:47
+msgid "Could not delete container: %{error}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:45
+msgid "Could not find that container"
+msgstr ""
