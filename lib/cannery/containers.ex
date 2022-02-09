@@ -104,8 +104,8 @@ defmodule Cannery.Containers do
         error_string =
           dngettext(
             "errors",
-            "There is still %{amount} ammo group in this container!",
-            "There are still %{amount} ammo groups in this container!",
+            "There is still %{amount} ammo group in this container",
+            "There are still %{amount} ammo groups in this container",
             amount
           )
 

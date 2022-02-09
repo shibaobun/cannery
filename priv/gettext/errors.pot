@@ -94,13 +94,6 @@ msgid "must be equal to %{number}"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/containers.ex:105
-msgid "There is still %{amount} ammo group in this container!"
-msgid_plural "There are still %{amount} ammo groups in this container!"
-msgstr[0] ""
-msgstr[1] ""
-
-#, elixir-format, ex-autogen
 #: lib/cannery/accounts/user.ex:128
 msgid "did not change"
 msgstr ""
@@ -141,6 +134,13 @@ msgid "Unauthorized"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/templates/error/error.html.heex:25
+#: lib/cannery_web/templates/error/error.html.heex:28
 msgid "Go back home"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/containers.ex:105
+msgid "There is still %{amount} ammo group in this container"
+msgid_plural "There are still %{amount} ammo groups in this container"
+msgstr[0] ""
+msgstr[1] ""
