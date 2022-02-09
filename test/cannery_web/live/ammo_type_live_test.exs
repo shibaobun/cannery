@@ -1,8 +1,7 @@
 defmodule CanneryWeb.AmmoTypeLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
+  import CanneryWeb.Gettext
   alias Cannery.Ammo
 
   @create_attrs %{

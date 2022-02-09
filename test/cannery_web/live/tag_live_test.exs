@@ -1,8 +1,7 @@
 defmodule CanneryWeb.TagLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
+  import CanneryWeb.Gettext
   alias Cannery.Tags
 
   @create_attrs %{

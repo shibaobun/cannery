@@ -1,8 +1,7 @@
 defmodule CanneryWeb.AmmoGroupLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
+  import CanneryWeb.Gettext
   alias Cannery.Ammo
 
   @create_attrs %{count: 42, notes: "some notes", price_paid: 120.5}

@@ -1,8 +1,7 @@
 defmodule CanneryWeb.InviteLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
+  import CanneryWeb.Gettext
   alias Cannery.Invites
 
   @create_attrs %{name: "some name", token: "some token"}

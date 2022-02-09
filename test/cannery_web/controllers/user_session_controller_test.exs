@@ -1,7 +1,9 @@
 defmodule CanneryWeb.UserSessionControllerTest do
   use CanneryWeb.ConnCase, async: true
-
+  import CanneryWeb.Gettext
   import Cannery.AccountsFixtures
+
+  @moduletag :user_session_controller
 
   setup do
     %{user: user_fixture()}
@@ -11,9 +13,8 @@ defmodule CanneryWeb.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
+      assert response =~ dgettext("actions", "Log in")
+      assert response =~ dgettext("actions", "Register")
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -36,8 +37,7 @@ defmodule CanneryWeb.UserSessionControllerTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
+      assert response =~ dgettext("prompts", "Are you sure you want to log out?")
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user} do
@@ -75,8 +75,8 @@ defmodule CanneryWeb.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
-      assert response =~ "Invalid email or password"
+      assert response =~ dgettext("actions", "Log in")
+      assert response =~ dgettext("errors", "Invalid email or password")
     end
   end
 
@@ -85,14 +85,14 @@ defmodule CanneryWeb.UserSessionControllerTest do
       conn = conn |> log_in_user(user) |> delete(Routes.user_session_path(conn, :delete))
       assert redirected_to(conn) == "/"
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ "Logged out successfully"
+      assert get_flash(conn, :info) =~ gettext("Logged out successfully")
     end
 
     test "succeeds even if the user is not logged in", %{conn: conn} do
       conn = delete(conn, Routes.user_session_path(conn, :delete))
       assert redirected_to(conn) == "/"
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ "Logged out successfully"
+      assert get_flash(conn, :info) =~ gettext("Logged out successfully")
     end
   end
 end

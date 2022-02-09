@@ -1,7 +1,7 @@
 defmodule CanneryWeb.HomeLiveTest do
   use CanneryWeb.ConnCase
-
   import Phoenix.LiveViewTest
+  import CanneryWeb.Gettext
 
   test "disconnected and connected render", %{conn: conn} do
     {:ok, home_live, disconnected_html} = live(conn, "/")

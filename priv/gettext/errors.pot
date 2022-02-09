@@ -152,3 +152,8 @@ msgstr[1] ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:58
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/controllers/user_session_controller.ex:17
+msgid "Invalid email or password"
+msgstr ""
