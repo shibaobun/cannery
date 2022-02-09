@@ -9,3 +9,68 @@
 ## effect: edit them in PO (.po) files instead.
 msgid ""
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:55
+msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:76
+msgid "Access from any internet-capable device"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:85
+msgid "Instance Information"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:116
+msgid "Invite Only"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:115
+msgid "Public Signups"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:39
+msgid "Welcome to %{name}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:67
+msgid "Your data stays with you, period"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:43
+msgid "The self-hosted firearm tracker website"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:90
+msgid "Admins:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:52
+msgid "Easy to Use:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:63
+msgid "Secure:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:73
+msgid "Simple:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/home_live.ex:66
+msgid "Self-host your own instance, or use an instance from someone you trust."
+msgstr ""

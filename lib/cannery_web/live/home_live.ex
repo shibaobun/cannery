@@ -36,54 +36,62 @@ defmodule CanneryWeb.HomeLive do
     ~H"""
     <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
       <h1 class="title text-primary-500 text-2xl">
-        Welcome to Cannery
+        <%= gettext("Welcome to %{name}", name: "Cannery") %>
       </h1>
 
-      <h2 class="title  text-primary-500 text-lg">
-        The Self-hosted Ammo Tracker Website
+      <h2 class="title text-primary-500 text-lg">
+        <%= gettext("The self-hosted firearm tracker website") %>
       </h2>
 
       <hr class="hr" />
 
       <ul class="flex flex-col space-y-4 text-center">
-        <li class="flex flex-col sm:flex-row justify-center items-center
-          space-y-2 sm:space-y-0 sm:space-x-2">
+        <li class="flex flex-col justify-center items-center
+          space-y-2">
           <b class="whitespace-nowrap">
-            Easy to Use:
-          </b>
-          <p>Cannery lets you easily keep an eye on your ammo levels before and after range day</p>
-        </li>
-        <li class="flex flex-col sm:flex-row justify-center items-center
-          space-y-2 sm:space-y-0 sm:space-x-2">
-          <b class="whitespace-nowrap">
-            Secure:
+            <%= gettext("Easy to Use:") %>
           </b>
           <p>
-            Self-host your own instance, or use an instance from someone you trust.
-            Your data stays with you, period
+            <%= gettext("%{name} lets you easily keep an eye on your ammo levels before and after range day",
+              name: "Cannery"
+            ) %>
           </p>
         </li>
-        <li class="flex flex-col sm:flex-row justify-center items-center
-          space-y-2 sm:space-y-0 sm:space-x-2">
+        <li class="flex flex-col justify-center items-center
+          space-y-2">
           <b class="whitespace-nowrap">
-            Simple:
+            <%= gettext("Secure:") %>
           </b>
-          <p>Access from any internet-capable device</p>
+          <p>
+            <%= gettext("Self-host your own instance, or use an instance from someone you trust.") %>
+            <%= gettext("Your data stays with you, period") %>
+          </p>
+        </li>
+        <li class="flex flex-col justify-center items-center
+          space-y-2">
+          <b class="whitespace-nowrap">
+            <%= gettext("Simple:") %>
+          </b>
+          <p>
+            <%= gettext("Access from any internet-capable device") %>
+          </p>
         </li>
       </ul>
 
-      <hr class="hr" />
+      <hr class="hr">
 
       <ul class="flex flex-col space-y-2 text-center justify-center">
-        <h2 class="title  text-primary-500 text-lg">
-          Instance Information
+        <h2 class="title text-primary-500 text-lg">
+          <%= gettext("Instance Information") %>
         </h2>
 
         <li class="flex flex-col justify-center space-x-2">
-          <b>Admins:</b>
+          <b>
+            <%= gettext("Admins:") %>
+          </b>
           <p>
             <%= if @admins |> Enum.empty?() do %>
-              <%= link("Sign up to setup Cannery!",
+              <%= link(dgettext("prompts", "Register to setup %{name}", name: "Cannery"),
                 class: "hover:underline",
                 to: Routes.user_registration_path(CanneryWeb.Endpoint, :new)
               ) %>
@@ -104,8 +112,8 @@ defmodule CanneryWeb.HomeLive do
           <p>
             <%= Application.get_env(:cannery, CanneryWeb.Endpoint)[:registration]
             |> case do
-              "public" -> "Public Signups"
-              _ -> "Invite Only"
+              "public" -> gettext("Public Signups")
+              _ -> gettext("Invite Only")
             end %>
           </p>
         </li>
