@@ -25,18 +25,20 @@ defmodule CanneryWeb.AmmoGroupLive.AmmoGroupCard do
 
       <div class="flex flex-col justify-center items-center">
         <span class="rounded-lg title text-lg">
-          Count: <%= @ammo_group.count %>
+          <%= gettext("Count:") %>
+          <%= @ammo_group.count %>
         </span>
 
         <%= if @ammo_group.notes do %>
           <span class="rounded-lg title text-lg">
-            Notes: <%= @ammo_group.notes %>
+            <%= gettext("Notes:") %>
+            <%= @ammo_group.notes %>
           </span>
         <% end %>
 
         <%= if @ammo_group.price_paid do %>
           <span class="rounded-lg title text-lg">
-            Price paid: $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
+            <%= gettext("Price paid:") %> $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
           </span>
         <% end %>
       </div>

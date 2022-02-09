@@ -109,3 +109,72 @@ msgstr ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:3
 msgid "Settings"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:26
+msgid "Count"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:28
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:8
+msgid "Count:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.ex:23
+#: lib/cannery_web/live/ammo_group_live/show.ex:36
+msgid "Edit Ammo group"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:3
+msgid "Listing Ammo"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.ex:35
+msgid "Listing Ammo groups"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:8
+msgid "No Ammo"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:32
+msgid "Notes"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:34
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:14
+msgid "Notes:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:29
+msgid "Price paid"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:41
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:21
+msgid "Price paid:"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/show.ex:35
+msgid "Show Ammo group"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:45
+msgid "Stored in"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:50
+msgid "This ammo group is not in a container"
+msgstr ""

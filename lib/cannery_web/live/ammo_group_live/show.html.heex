@@ -5,18 +5,20 @@
 
   <div class="space-y-2 flex flex-col justify-center items-center">
     <span class="rounded-lg title text-lg">
-      Count: <%= @ammo_group.count %>
+      <%= gettext("Count:") %>
+      <%= @ammo_group.count %>
     </span>
 
     <%= if @ammo_group.notes do %>
       <span class="rounded-lg title text-lg">
-        Notes: <%= @ammo_group.notes %>
+        <%= gettext("Notes:") %>
+        <%= @ammo_group.notes %>
       </span>
     <% end %>
 
     <%= if @ammo_group.price_paid do %>
       <span class="rounded-lg title text-lg">
-        Price paid: $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
+        <%= gettext("Price paid:") %> $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
       </span>
     <% end %>
   </div>
@@ -30,7 +32,7 @@
     <%= link to: "#",
          class: "text-primary-500 link",
          phx_click: "delete",
-         data: [confirm: "Are you sure you want to delete this ammo?"] do %>
+         data: [confirm: dgettext("prompts", "Are you sure you want to delete this ammo?")] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
   </div>
@@ -40,12 +42,12 @@
   <div>
     <%= if @ammo_group.container do %>
       <h1 class="mb-4 px-4 py-2 text-center rounded-lg title text-xl">
-        Stored in
+        <%= gettext("Stored in") %>
       </h1>
 
       <.container_card container={@ammo_group.container} />
     <% else %>
-      This ammo group is not in a container
+      <%= gettext("This ammo group is not in a container") %>
     <% end %>
   </div>
 </div>

@@ -75,3 +75,24 @@ msgstr ""
 #: lib/cannery_web/controllers/user_settings_controller.ex:78
 msgid "Your account has been deleted"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:132
+msgid "Ammo group created successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:119
+msgid "Ammo group updated successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:69
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:35
+msgid "Are you sure you want to delete this ammo?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:91
+msgid "Saving..."
+msgstr ""

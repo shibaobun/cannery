@@ -32,6 +32,6 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     {:noreply, socket |> push_redirect(to: Routes.ammo_group_index_path(socket, :index))}
   end
 
-  defp page_title(:show), do: "Show Ammo group"
-  defp page_title(:edit), do: "Edit Ammo group"
+  defp page_title(:show), do: gettext("Show Ammo group")
+  defp page_title(:edit), do: gettext("Edit Ammo group")
 end

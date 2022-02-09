@@ -54,41 +54,41 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
           </div>
         <% end %>
 
-        <%= label(f, :ammo_type_id, class: "mr-4 title text-lg text-primary-500") %>
+        <%= label(f, :ammo_type_id, gettext("Ammo type"), class: "mr-4 title text-lg text-primary-500") %>
         <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
           class: "text-center col-span-2 input input-primary"
         ) %>
         <%= error_tag(f, :ammo_type_id, "col-span-3 text-center") %>
 
-        <%= label(f, :count, class: "mr-4 title text-lg text-primary-500") %>
+        <%= label(f, :count, gettext("Count"), class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :count,
           class: "text-center col-span-2 input input-primary",
           min: 1
         ) %>
         <%= error_tag(f, :count, "col-span-3 text-center") %>
 
-        <%= label(f, :price_paid, class: "mr-4 title text-lg text-primary-500") %>
+        <%= label(f, :price_paid, gettext("Price paid"), class: "mr-4 title text-lg text-primary-500") %>
         <%= number_input(f, :price_paid,
           step: "0.01",
           class: "text-center col-span-2 input input-primary"
         ) %>
         <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
 
-        <%= label(f, :notes, class: "mr-4 title text-lg text-primary-500") %>
+        <%= label(f, :notes, gettext("Notes"), class: "mr-4 title text-lg text-primary-500") %>
         <%= textarea(f, :notes,
           class: "text-center col-span-2 input input-primary",
           phx_hook: "MaintainAttrs"
         ) %>
         <%= error_tag(f, :notes, "col-span-3 text-center") %>
 
-        <%= label(f, :container, class: "mr-4 title text-lg text-primary-500") %>
+        <%= label(f, :container, gettext("Container"), class: "mr-4 title text-lg text-primary-500") %>
         <%= select(f, :container_id, container_options(@containers),
           class: "text-center col-span-2 input input-primary"
         ) %>
         <%= error_tag(f, :container_id, "col-span-3 text-center") %>
 
-        <%= submit("Save",
-          phx_disable_with: "Saving...",
+        <%= submit(dgettext("actions", "Save"),
+          phx_disable_with: dgettext("prompts", "Saving..."),
           class: "mx-auto col-span-3 btn btn-primary"
         ) %>
       </.form>
@@ -116,7 +116,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
       {:ok, _ammo_group} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Ammo group updated successfully")
+         |> put_flash(:info, dgettext("prompts", "Ammo group updated successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->
@@ -129,7 +129,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
       {:ok, _ammo_group} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Ammo group created successfully")
+         |> put_flash(:info, dgettext("prompts", "Ammo group created successfully"))
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Changeset{} = changeset} ->

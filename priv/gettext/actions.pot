@@ -74,3 +74,28 @@ msgstr ""
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:16
 msgid "Send instructions to reset password"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.ex:29
+msgid "Add Ammo"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:11
+msgid "Add your first box!"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:16
+msgid "New Ammo group"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:90
+msgid "Save"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:56
+msgid "View"
+msgstr ""
