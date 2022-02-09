@@ -119,3 +119,28 @@ msgstr ""
 #: lib/cannery/accounts/user.ex:82
 msgid "must have the @ sign and no spaces"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/error/error.html.heex:8
+msgid "Error"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/views/error_view.ex:10
+msgid "Internal Server Error"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/views/error_view.ex:8
+msgid "Not found"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/views/error_view.ex:9
+msgid "Unauthorized"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/error/error.html.heex:25
+msgid "Go back home"
+msgstr ""
