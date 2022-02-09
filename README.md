@@ -59,6 +59,14 @@ You can use the following environment variables to configure Cannery in
 - `REGISTRATION`: Controls if user sign-up should be invite only or set to
   public. Set to `public` to enable public registration. Defaults to `invite`.
 - `LOCALE`: Sets a custom locale. Defaults to `en_US`.
+- `SMTP_HOST`: The url for your SMTP email provider. Must be set
+- `SMTP_PORT`: The port for your SMTP relay. Defaults to `587`.
+- `SMTP_USERNAME`: The username for your SMTP relay. Must be set!
+- `SMTP_PASSWORD`: The password for your SMTP relay. Must be set!
+- `SMTP_SSL`: Set to `true` to enable SSL for emails. Defaults to `false`.
+- `EMAIL_FROM`: Sets the sender email in sent emails. Defaults to
+  `no-reply@HOST` where `HOST` was previously defined.
+- `EMAIL_NAME`: Sets the sender name in sent emails. Defaults to "Cannery".
 
 # Contribution
 

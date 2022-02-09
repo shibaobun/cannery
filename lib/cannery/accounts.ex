@@ -5,7 +5,8 @@ defmodule Cannery.Accounts do
 
   import Ecto.Query, warn: false
   alias Cannery.Repo
-  alias Cannery.Accounts.{User, UserNotifier, UserToken}
+  alias Cannery.Accounts.{User, UserToken}
+  alias Cannery.Mailer
   alias Ecto.{Changeset, Multi}
 
   ## Database getters
@@ -208,7 +209,7 @@ defmodule Cannery.Accounts do
     {encoded_token, user_token} = UserToken.build_email_token(user, "change:#{current_email}")
 
     Repo.insert!(user_token)
-    UserNotifier.deliver_update_email_instructions(user, update_email_url_fun.(encoded_token))
+    Mailer.deliver_update_email_instructions(user, update_email_url_fun.(encoded_token))
   end
 
   @doc """
@@ -319,7 +320,7 @@ defmodule Cannery.Accounts do
     else
       {encoded_token, user_token} = UserToken.build_email_token(user, "confirm")
       Repo.insert!(user_token)
-      UserNotifier.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
+      Mailer.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
     end
   end
 
@@ -364,7 +365,7 @@ defmodule Cannery.Accounts do
       when is_function(reset_password_url_fun, 1) do
     {encoded_token, user_token} = UserToken.build_email_token(user, "reset_password")
     Repo.insert!(user_token)
-    UserNotifier.deliver_reset_password_instructions(user, reset_password_url_fun.(encoded_token))
+    Mailer.deliver_reset_password_instructions(user, reset_password_url_fun.(encoded_token))
   end
 
   @doc """

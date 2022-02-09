@@ -15,7 +15,9 @@ defmodule Cannery.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Cannery.PubSub},
       # Start the Endpoint (http/https)
-      CanneryWeb.Endpoint
+      CanneryWeb.Endpoint,
+      # Add Oban
+      {Oban, oban_config()}
       # Start a worker by calling: Cannery.Worker.start_link(arg)
       # {Cannery.Worker, arg}
     ]
@@ -38,5 +40,9 @@ defmodule Cannery.Application do
   def config_change(changed, _new, removed) do
     CanneryWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp oban_config() do
+    Application.fetch_env!(:cannery, Oban)
   end
 end

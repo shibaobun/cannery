@@ -43,6 +43,12 @@ config :swoosh, :api_client, false
 # Gettext
 config :gettext, :default_locale, "en_US"
 
+# Configure Oban
+config :cannery, Oban,
+  repo: Cannery.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10, mailers: 20]
+
 # Configure esbuild (the version is required)
 # config :esbuild,
 #   version: "0.14.0",

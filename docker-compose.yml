@@ -10,8 +10,15 @@ services:
       - DATABASE_URL="ecto://postgres:postgres@cannery-db/cannery"
       # Use `docker run -it shibaobun/cannery mix phx.gen.secret` to generate a secret key base
       - SECRET_KEY_BASE="change-me-this-is-really-important-seriously-change-it"
-      # uncomment to enable sign ups, watch for spam!
+      # uncomment to enable public sign ups, not recommended
       # - REGISTRATION="public"
+      # - SMTP_HOST="cannery.example.tld" # must be set!
+      # - SMTP_PORT="587" # optional
+      # - SMTP_USERNAME="username"
+      # - SMTP_PASSWORD="password"
+      # - SMTP_SSL="false" # optional
+      # - EMAIL_FROM="no-reply@cannery.example.tld" # optional
+      # - EMAIL_NAME="Cannery" # optional
     expose:
       - "4000"
     depends_on:

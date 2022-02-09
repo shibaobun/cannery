@@ -107,3 +107,11 @@ In `prod` mode (or in the Docker container), Cannery will listen for the same en
 
 - `SECRET_KEY_BASE`: Secret key base used to sign cookies. Must be generated
   with `docker run -it shibaobun/cannery mix phx.gen.secret` and set for server to start.
+- `SMTP_HOST`: The url for your SMTP email provider. Must be set
+- `SMTP_PORT`: The port for your SMTP relay. Defaults to `587`.
+- `SMTP_USERNAME`: The username for your SMTP relay. Must be set!
+- `SMTP_PASSWORD`: The password for your SMTP relay. Must be set!
+- `SMTP_SSL`: Set to `true` to enable SSL for emails. Defaults to `false`.
+- `EMAIL_FROM`: Sets the sender email in sent emails. Defaults to
+  `no-reply@HOST` where `HOST` was previously defined.
+- `EMAIL_NAME`: Sets the sender name in sent emails. Defaults to "Cannery".

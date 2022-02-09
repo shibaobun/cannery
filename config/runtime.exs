@@ -26,7 +26,9 @@ database_url =
       "ecto://postgres:postgres@cannery-db/cannery"
   end
 
-host = System.get_env("HOST") || "localhost"
+host =
+  System.get_env("HOST") ||
+    raise "No hostname set! Must be the domain and tld like `cannery.bubbletea.dev`."
 
 interface =
   if config_env() in [:dev, :test],
@@ -64,6 +66,17 @@ if config_env() == :prod do
       """
 
   config :cannery, CanneryWeb.Endpoint, secret_key_base: secret_key_base
+
+  # Set up SMTP settings
+  config :cannery, Cannery.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: System.get_env("SMTP_HOST") || raise("No SMTP_HOST set!"),
+    port: System.get_env("SMTP_PORT") || 587,
+    username: System.get_env("SMTP_USERNAME") || raise("No SMTP_USERNAME set!"),
+    password: System.get_env("SMTP_PASSWORD") || raise("No SMTP_PASSWORD set!"),
+    ssl: System.get_env("SMTP_SSL") == "true",
+    email_from: System.get_env("EMAIL_FROM") || "no-reply@#{System.get_env("HOST")}",
+    email_name: System.get_env("EMAIL_NAME") || "Cannery"
 
   # ## Using releases
   #

@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>
+      <%= @email.subject %>
+    </title>
+  </head>
+  <body>
+    <%= @inner_content %>
+
+    <hr style="border-width: 1px; border-color: rgb(212, 212, 216); width: 100%; max-width: 42rem;">
+
+    <a href={Routes.live_url(Endpoint, HomeLive)}>
+      <%= dgettext("emails", "This email was sent from %{name}", name: "Cannery") %>
+    </a>
+  </body>
+</html>
