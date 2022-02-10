@@ -95,7 +95,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:155
 #: lib/cannery_web/live/container_live/form_component.ex:79
 #: lib/cannery_web/live/invite_live/form_component.ex:61
-#: lib/cannery_web/live/tag_live/form_component.ex:70
+#: lib/cannery_web/live/tag_live/form_component.ex:69
 msgid "Save"
 msgstr ""
 

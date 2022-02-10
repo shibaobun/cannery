@@ -305,7 +305,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:26
 #: lib/cannery_web/live/container_live/form_component.ex:49
 #: lib/cannery_web/live/invite_live/form_component.ex:53
-#: lib/cannery_web/live/tag_live/form_component.ex:54
+#: lib/cannery_web/live/tag_live/form_component.ex:53
 msgid "Name"
 msgstr ""
 
@@ -451,7 +451,7 @@ msgid "Type:"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:58
+#: lib/cannery_web/live/tag_live/form_component.ex:57
 msgid "Background color"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgid "Tags can be added to your containers to help you organize"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:64
+#: lib/cannery_web/live/tag_live/form_component.ex:63
 msgid "Text color"
 msgstr ""
 

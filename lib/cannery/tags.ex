@@ -12,13 +12,12 @@ defmodule Cannery.Tags do
 
   ## Examples
 
-      iex> list_tags()
+      iex> list_tags(%User{id: 123})
       [%Tag{}, ...]
 
   """
-  @spec list_tags(User.t() | User.id()) :: [Tag.t()]
-  def list_tags(%{id: user_id}), do: list_tags(user_id)
-  def list_tags(user_id), do: Repo.all(from t in Tag, where: t.user_id == ^user_id)
+  @spec list_tags(User.t()) :: [Tag.t()]
+  def list_tags(%{id: user_id}), do: Repo.all(from t in Tag, where: t.user_id == ^user_id)
 
   @doc """
   Gets a single tag.
@@ -27,72 +26,77 @@ defmodule Cannery.Tags do
 
   ## Examples
 
-      iex> get_tag!(123)
+      iex> get_tag!(123, %User{id: 123})
       %Tag{}
 
-      iex> get_tag!(456)
+      iex> get_tag!(456, %User{id: 123})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_tag!(Tag.id()) :: Tag.t()
-  def get_tag!(id), do: Repo.get!(Tag, id)
+  @spec get_tag!(Tag.id(), User.t()) :: Tag.t()
+  def get_tag!(id, %User{id: user_id}),
+    do: Repo.one!(from t in Tag, where: t.id == ^id and t.user_id == ^user_id)
 
   @doc """
   Creates a tag.
 
   ## Examples
 
-      iex> create_tag(%{field: value})
+      iex> create_tag(%{field: value}, %User{id: 123})
       {:ok, %Tag{}}
 
-      iex> create_tag(%{field: bad_value})
+      iex> create_tag(%{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec create_tag(attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.new_tag())}
-  def create_tag(attrs), do: %Tag{} |> Tag.changeset(attrs) |> Repo.insert()
+  @spec create_tag(attrs :: map(), User.t()) ::
+          {:ok, Tag.t()} | {:error, Changeset.t(Tag.new_tag())}
+  def create_tag(attrs, %User{id: user_id}),
+    do: %Tag{} |> Tag.create_changeset(attrs |> Map.put("user_id", user_id)) |> Repo.insert()
 
   @doc """
   Updates a tag.
 
   ## Examples
 
-      iex> update_tag(tag, %{field: new_value})
+      iex> update_tag(tag, %{field: new_value}, %User{id: 123})
       {:ok, %Tag{}}
 
-      iex> update_tag(tag, %{field: bad_value})
+      iex> update_tag(tag, %{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec update_tag(Tag.t(), attrs :: map()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
-  def update_tag(tag, attrs), do: tag |> Tag.changeset(attrs) |> Repo.update()
+  @spec update_tag(Tag.t(), attrs :: map(), User.t()) ::
+          {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
+  def update_tag(%Tag{user_id: user_id} = tag, attrs, %User{id: user_id}),
+    do: tag |> Tag.update_changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a tag.
 
   ## Examples
 
-      iex> delete_tag(tag)
+      iex> delete_tag(tag, %User{id: 123})
       {:ok, %Tag{}}
 
-      iex> delete_tag(tag)
+      iex> delete_tag(tag, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec delete_tag(Tag.t()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
-  def delete_tag(tag), do: tag |> Repo.delete()
+  @spec delete_tag(Tag.t(), User.t()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
+  def delete_tag(%Tag{user_id: user_id} = tag, %User{id: user_id}), do: tag |> Repo.delete()
 
   @doc """
   Deletes a tag.
 
   ## Examples
 
-      iex> delete_tag!(tag)
+      iex> delete_tag!(tag, %User{id: 123})
       %Tag{}
 
   """
-  @spec delete_tag!(Tag.t()) :: Tag.t()
-  def delete_tag!(tag), do: tag |> Repo.delete!()
+  @spec delete_tag!(Tag.t(), User.t()) :: Tag.t()
+  def delete_tag!(%Tag{user_id: user_id} = tag, %User{id: user_id}), do: tag |> Repo.delete!()
 
   @doc """
   Returns an `%Changeset{}` for tracking tag changes.
@@ -106,7 +110,7 @@ defmodule Cannery.Tags do
   @spec change_tag(Tag.t() | Tag.new_tag()) :: Changeset.t(Tag.t() | Tag.new_tag())
   @spec change_tag(Tag.t() | Tag.new_tag(), attrs :: map()) ::
           Changeset.t(Tag.t() | Tag.new_tag())
-  def change_tag(tag, attrs \\ %{}), do: Tag.changeset(tag, attrs)
+  def change_tag(tag, attrs \\ %{}), do: Tag.update_changeset(tag, attrs)
 
   @doc """
   Get a random tag bg_color in `#ffffff` hex format

@@ -4,29 +4,21 @@ defmodule CanneryWeb.TagLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-
   alias Cannery.Tags
   alias Ecto.Changeset
 
   @impl true
   def update(%{tag: tag} = assigns, socket) do
-    changeset = Tags.change_tag(tag)
-
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)}
+    {:ok, socket |> assign(assigns) |> assign(:changeset, Tags.change_tag(tag))}
   end
 
   @impl true
-  def handle_event("validate", %{"tag" => tag_params}, socket) do
-    tag_params = tag_params |> Map.put("user_id", socket.assigns.current_user.id)
-    changeset = socket.assigns.tag |> Tags.change_tag(tag_params)
-    {:noreply, socket |> assign(:changeset, changeset)}
+  def handle_event("validate", %{"tag" => tag_params}, %{assigns: %{tag: tag}} = socket) do
+    {:noreply, socket |> assign(:changeset, tag |> Tags.change_tag(tag_params))}
   end
 
-  def handle_event("save", %{"tag" => tag_params}, socket) do
-    save_tag(socket, socket.assigns.action, tag_params)
+  def handle_event("save", %{"tag" => tag_params}, %{assigns: %{action: action}} = socket) do
+    save_tag(socket, action, tag_params)
   end
 
   @impl true
@@ -76,32 +68,39 @@ defmodule CanneryWeb.TagLive.FormComponent do
     """
   end
 
-  defp save_tag(socket, :edit, tag_params) do
-    case Tags.update_tag(socket.assigns.tag, tag_params) do
-      {:ok, _tag} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Tag updated successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_tag(
+         %{assigns: %{tag: tag, current_user: current_user, return_to: return_to}} = socket,
+         :edit,
+         tag_params
+       ) do
+    socket =
+      case Tags.update_tag(tag, tag_params, current_user) do
+        {:ok, %{name: tag_name}} ->
+          prompt = dgettext("prompts", "%{name} updated successfully", name: tag_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(:changeset, changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(:changeset, changeset)
+      end
+
+    {:noreply, socket}
   end
 
-  defp save_tag(socket, :new, tag_params) do
-    tag_params
-    |> Map.put("user_id", socket.assigns.current_user.id)
-    |> Tags.create_tag()
-    |> case do
-      {:ok, _tag} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Tag created successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_tag(
+         %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
+         :new,
+         tag_params
+       ) do
+    socket =
+      case Tags.create_tag(tag_params, current_user) do
+        {:ok, %{name: tag_name}} ->
+          prompt = dgettext("prompts", "%{name} created successfully", name: tag_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(changeset: changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(changeset: changeset)
+      end
+
+    {:noreply, socket}
   end
 end

@@ -14,14 +14,14 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
+    {:noreply, apply_action(socket, live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, gettext("Edit Tag"))
-    |> assign(:tag, Tags.get_tag!(id))
+    |> assign(:tag, Tags.get_tag!(id, current_user))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -31,21 +31,19 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, gettext("Listing Tags"))
-    |> assign(:tag, nil)
+    socket |> assign(:page_title, gettext("Listing Tags")) |> assign(:tag, nil)
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    tag = Tags.get_tag!(id)
-    {:ok, _} = Tags.delete_tag(tag)
-    socket = socket |> put_flash(:info, dgettext("prompts", "Tag deleted succesfully"))
-    {:noreply, socket |> display_tags()}
+  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+    %{name: tag_name} = Tags.get_tag!(id, current_user) |> Tags.delete_tag!(current_user)
+
+    prompt = dgettext("prompts", "%{name} deleted succesfully", name: tag_name)
+
+    {:noreply, socket |> put_flash(:info, prompt) |> display_tags()}
   end
 
-  defp display_tags(socket) do
-    tags = Tags.list_tags(socket.assigns.current_user)
-    socket |> assign(tags: tags)
+  defp display_tags(%{assigns: %{current_user: current_user}} = socket) do
+    socket |> assign(tags: Tags.list_tags(current_user))
   end
 end

@@ -29,9 +29,7 @@ defmodule CanneryWeb.LiveHelpers do
 
   def assign_defaults(socket, %{"user_token" => user_token} = _session) do
     socket
-    |> assign_new(:current_user, fn ->
-      Accounts.get_user_by_session_token(user_token)
-    end)
+    |> assign_new(:current_user, fn -> Accounts.get_user_by_session_token(user_token) end)
   end
 
   def assign_defaults(socket, _session) do

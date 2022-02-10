@@ -98,7 +98,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:156
 #: lib/cannery_web/live/container_live/form_component.ex:81
 #: lib/cannery_web/live/invite_live/form_component.ex:63
-#: lib/cannery_web/live/tag_live/form_component.ex:72
+#: lib/cannery_web/live/tag_live/form_component.ex:71
 msgid "Saving..."
 msgstr ""
 
@@ -152,16 +152,16 @@ msgid "Invite updated successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:100
+#: lib/cannery_web/live/tag_live/form_component.ex:98
 msgid "Tag created successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/index.ex:43
+#: lib/cannery_web/live/tag_live/index.ex:45
 msgid "Tag deleted succesfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:84
+#: lib/cannery_web/live/tag_live/form_component.ex:83
 msgid "Tag updated successfully"
 msgstr ""

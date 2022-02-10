@@ -26,7 +26,7 @@ defmodule Cannery.Tags.Tag do
           name: String.t(),
           bg_color: String.t(),
           text_color: String.t(),
-          user: User.t(),
+          user: User.t() | nil,
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
@@ -35,10 +35,18 @@ defmodule Cannery.Tags.Tag do
   @type id() :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_tag(), attrs :: map()) :: Changeset.t(t() | new_tag())
-  def changeset(tag, attrs) do
+  @spec create_changeset(t() | new_tag(), attrs :: map()) :: Changeset.t(t() | new_tag())
+  def create_changeset(tag, attrs) do
     tag
     |> cast(attrs, [:name, :bg_color, :text_color, :user_id])
+    |> validate_required([:name, :bg_color, :text_color, :user_id])
+  end
+
+  @doc false
+  @spec update_changeset(t() | new_tag(), attrs :: map()) :: Changeset.t(t() | new_tag())
+  def update_changeset(tag, attrs) do
+    tag
+    |> cast(attrs, [:name, :bg_color, :text_color])
     |> validate_required([:name, :bg_color, :text_color, :user_id])
   end
 end
