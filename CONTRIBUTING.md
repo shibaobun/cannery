@@ -13,14 +13,14 @@ If you're multilingual, this project can use your translations! Visit
 
 ## Style Tips
 
-- In order to cut down on code verbosity and readability, please try to use
-  inline `do:` blocks for short functions and make your aliases as short as
-  possible without introducing ambiguity.
+- In order to keep code concise and improve readability, please try to make your
+  functions as short as possible while keeping variable names descriptive! For
+  instance, use inline `do:` blocks for short functions and make your aliases as
+  short as possible without introducing ambiguity.
   - I.e. since there's only one `Changeset` in the app, please alias
     `Changeset.t(Type.t())` instead of using `Ecto.Changeset.t(Long.Type.t())`
-- Use pipelines when possible. If a function only calls a single method, a
-  pipeline isn't strictly necessary but still encouraged for future
-  modification.
+- Use pipelines when possible. If only calling a single method, a pipeline isn't
+  strictly necessary but still encouraged for future modification.
 - Please add typespecs to your functions! Even your private functions may be
   used by others later down the line, and typespecs will be able to help
   document your code just a little bit better, and improve the debugging
@@ -29,7 +29,7 @@ If you're multilingual, this project can use your translations! Visit
     return_type()`. Please use these for generic types, such as `map()` when the
     input data isn't immediately obvious.
   - Please define all typespecs for a function together in one place, instead of
-    each function.
+    each function header.
 - When making new models, please take inspiration from the existing models in
   regards to layout of sections, typespec design, and formatting.
 - With Elixir convention, for methods that raise on error please name them like
@@ -38,6 +38,11 @@ If you're multilingual, this project can use your translations! Visit
   status tuples for other functions like `{:ok, result}` or `{:error,
   reason_or_changeset}` instead of just returning `result` or `nil` for easy
   pattern matching.
+- Instead of using the `.` operator, try to use pattern matching instead,
+  especially for function headers. `.` in templates is fine to keep things
+  concise.
+- Use `Enum` functions over comprehensions whenever possible for clarity.
+  However, comprehensions in templates are fine for legibility.
 - When adding text, please use `gettext` macros to enable things to be
   translated in the future. After adding `gettext` macros, run `mix format` in
   order to add your new text strings to the files in `priv/gettext`.
@@ -45,15 +50,17 @@ If you're multilingual, this project can use your translations! Visit
     (informational messages as a result of the user doing an action, i.e. in
     flashes), `"actions"` (actions that the user can take), `"emails"`, and
     `"errors"`. Using these domains accurately will let translators know which
-    messages are higher and lower priority. Thank you!
-- Before submitting a PR, please make sure all tests are passing using `mix test`.
+    translations are higher and lower priority. Thank you!
+- Before submitting a PR, please make sure all tests are passing using `mix
+  test`.
 
 And as always, thank you!
 
 # Technical Information
 
 - Created using the [Phoenix Framework](https://www.phoenixframework.org)
-- User Registration/Sign in via [`phx_gen_auth`](https://hexdocs.pm/phx_gen_auth/).
+- User Registration/Sign in via
+  [`phx_gen_auth`](https://hexdocs.pm/phx_gen_auth/).
 - `Dockerfile` and example `docker-compose.yml`
 - Automatic migrations in `MIX_ENV=prod` or Docker image
 - JS linting with [standard.js](https://standardjs.com), HEEx linting with
@@ -73,7 +80,9 @@ Check them out!
    which will use the `.tool-versions` file to install the correct versions of
    Erlang, Elixir and npm for this project!
 1. Run `mix deps.get` and `mix compile` to fetch all dependencies
-1. Run `mix setup` to initialize your database.
+1. Run `mix setup` to initialize your database. You can reset your database at
+   any time with `mix ecto.reset`.
+1. Run migrations with `mix ecto.migrate` or rollback with `mix ecto.rollback`.
 1. Run `mix phx.server` to start the development server.
 
 # Configuration
