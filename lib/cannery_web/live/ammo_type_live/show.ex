@@ -14,25 +14,32 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, %{assigns: %{current_user: current_user}} = socket) do
-    ammo_type = Ammo.get_ammo_type!(id)
-    ammo_groups = ammo_type |> Ammo.list_ammo_groups_for_type(current_user)
+    ammo_type = Ammo.get_ammo_type!(id, current_user)
 
     socket =
       socket
       |> assign(
         page_title: page_title(socket.assigns.live_action),
         ammo_type: ammo_type,
-        ammo_groups: ammo_groups,
-        avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type!()
+        ammo_groups: ammo_type |> Ammo.list_ammo_groups_for_type(current_user),
+        avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user)
       )
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("delete", _, socket) do
-    socket.assigns.ammo_type |> Ammo.delete_ammo_type!()
-    {:noreply, socket |> push_redirect(to: Routes.ammo_type_index_path(socket, :index))}
+  def handle_event(
+        "delete",
+        _,
+        %{assigns: %{ammo_type: ammo_type, current_user: current_user}} = socket
+      ) do
+    %{name: ammo_type_name} = ammo_type |> Ammo.delete_ammo_type!(current_user)
+
+    prompt = dgettext("prompts", "%{name} deleted succesfully", name: ammo_type_name)
+    redirect_to = Routes.ammo_type_index_path(socket, :index)
+
+    {:noreply, socket |> put_flash(:info, prompt) |> push_redirect(to: redirect_to)}
   end
 
   defp page_title(:show), do: gettext("Show Ammo type")

@@ -25,6 +25,8 @@ defmodule Cannery.Repo.Migrations.CreateAmmoTypes do
       add :manufacturer, :string
       add :sku, :string
 
+      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
+
       timestamps()
     end
   end

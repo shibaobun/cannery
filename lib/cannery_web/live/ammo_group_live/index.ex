@@ -4,7 +4,6 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   """
 
   use CanneryWeb, :live_view
-
   alias Cannery.Ammo
   alias Cannery.Ammo.AmmoGroup
 
@@ -14,14 +13,14 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
+    {:noreply, apply_action(socket, live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, gettext("Edit Ammo group"))
-    |> assign(:ammo_group, Ammo.get_ammo_group!(id))
+    |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -31,19 +30,19 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, gettext("Listing Ammo groups"))
-    |> assign(:ammo_group, nil)
+    socket |> assign(:page_title, gettext("Listing Ammo groups")) |> assign(:ammo_group, nil)
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    Ammo.get_ammo_group!(id) |> Ammo.delete_ammo_group!()
-    {:noreply, socket |> display_ammo_groups()}
+  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+    Ammo.get_ammo_group!(id, current_user) |> Ammo.delete_ammo_group!(current_user)
+
+    prompt = dgettext("prompts", "Ammo group deleted succesfully")
+
+    {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_groups()}
   end
 
   defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
-    ammo_groups = Ammo.list_ammo_groups(current_user)
-    socket |> assign(:ammo_groups, ammo_groups)
+    socket |> assign(:ammo_groups, Ammo.list_ammo_groups(current_user))
   end
 end

@@ -77,12 +77,12 @@ msgid "Your account has been deleted"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:132
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:145
 msgid "Ammo group created successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:119
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:127
 msgid "Ammo group updated successfully"
 msgstr ""
 
@@ -94,22 +94,12 @@ msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:91
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:156
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:97
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:157
 #: lib/cannery_web/live/container_live/form_component.ex:81
 #: lib/cannery_web/live/invite_live/form_component.ex:63
-#: lib/cannery_web/live/tag_live/form_component.ex:71
+#: lib/cannery_web/live/tag_live/form_component.ex:64
 msgid "Saving..."
-msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:182
-msgid "Ammo type created successfully"
-msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:169
-msgid "Ammo type updated successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
@@ -152,16 +142,26 @@ msgid "Invite updated successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:98
-msgid "Tag created successfully"
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:188
+#: lib/cannery_web/live/tag_live/form_component.ex:97
+msgid "%{name} created successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/index.ex:45
-msgid "Tag deleted succesfully"
+#: lib/cannery_web/live/ammo_type_live/index.ex:41
+#: lib/cannery_web/live/ammo_type_live/show.ex:39
+#: lib/cannery_web/live/tag_live/index.ex:41
+msgid "%{name} deleted succesfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/tag_live/form_component.ex:83
-msgid "Tag updated successfully"
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:174
+#: lib/cannery_web/live/tag_live/form_component.ex:79
+msgid "%{name} updated successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/index.ex:40
+#: lib/cannery_web/live/ammo_group_live/show.ex:33
+msgid "Ammo group deleted succesfully"
 msgstr ""

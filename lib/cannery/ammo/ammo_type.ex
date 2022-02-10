@@ -7,6 +7,7 @@ defmodule Cannery.Ammo.AmmoType do
 
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.Accounts.User
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.{Changeset, UUID}
 
@@ -34,6 +35,8 @@ defmodule Cannery.Ammo.AmmoType do
     field :manufacturer, :string
     field :sku, :string
 
+    belongs_to :user, User
+
     has_many :ammo_groups, AmmoGroup
 
     timestamps()
@@ -58,6 +61,8 @@ defmodule Cannery.Ammo.AmmoType do
           corrosive: boolean(),
           manufacturer: String.t() | nil,
           sku: String.t() | nil,
+          user_id: User.id(),
+          user: User.t() | nil,
           ammo_groups: [AmmoGroup.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
@@ -65,11 +70,9 @@ defmodule Cannery.Ammo.AmmoType do
   @type new_ammo_type :: %AmmoType{}
   @type id :: UUID.t()
 
-  @doc false
-  @spec changeset(t() | new_ammo_type(), attrs :: map()) :: Changeset.t(t() | new_ammo_type())
-  def changeset(ammo_type, attrs) do
-    ammo_type
-    |> cast(attrs, [
+  @spec changeset_fields() :: [atom()]
+  defp changeset_fields,
+    do: [
       :name,
       :desc,
       :bullet_type,
@@ -87,7 +90,23 @@ defmodule Cannery.Ammo.AmmoType do
       :corrosive,
       :manufacturer,
       :sku
-    ])
-    |> validate_required([:name])
+    ]
+
+  @doc false
+  @spec create_changeset(t() | new_ammo_type(), attrs :: map()) ::
+          Changeset.t(t() | new_ammo_type())
+  def create_changeset(ammo_type, attrs) do
+    ammo_type
+    |> cast(attrs, [:user_id | changeset_fields()])
+    |> validate_required([:name, :user_id])
+  end
+
+  @doc false
+  @spec update_changeset(t() | new_ammo_type(), attrs :: map()) ::
+          Changeset.t(t() | new_ammo_type())
+  def update_changeset(ammo_type, attrs) do
+    ammo_type
+    |> cast(attrs, changeset_fields())
+    |> validate_required([:name, :user_id])
   end
 end

@@ -4,28 +4,29 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-
   alias Cannery.Ammo
   alias Ecto.Changeset
 
   @impl true
   def update(%{ammo_type: ammo_type} = assigns, socket) do
-    changeset = Ammo.change_ammo_type(ammo_type)
-
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)}
+    {:ok, socket |> assign(assigns) |> assign(:changeset, Ammo.change_ammo_type(ammo_type))}
   end
 
   @impl true
-  def handle_event("validate", %{"ammo_type" => ammo_type_params}, socket) do
-    changeset = socket.assigns.ammo_type |> Ammo.change_ammo_type(ammo_type_params)
-    {:noreply, socket |> assign(:changeset, changeset)}
+  def handle_event(
+        "validate",
+        %{"ammo_type" => ammo_type_params},
+        %{assigns: %{ammo_type: ammo_type}} = socket
+      ) do
+    {:noreply, socket |> assign(:changeset, ammo_type |> Ammo.change_ammo_type(ammo_type_params))}
   end
 
-  def handle_event("save", %{"ammo_type" => ammo_type_params}, socket) do
-    save_ammo_type(socket, socket.assigns.action, ammo_type_params)
+  def handle_event(
+        "save",
+        %{"ammo_type" => ammo_type_params},
+        %{assigns: %{action: action}} = socket
+      ) do
+    save_ammo_type(socket, action, ammo_type_params)
   end
 
   @impl true
@@ -161,29 +162,36 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
     """
   end
 
-  defp save_ammo_type(socket, :edit, ammo_type_params) do
-    case Ammo.update_ammo_type(socket.assigns.ammo_type, ammo_type_params) do
-      {:ok, _ammo_type} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Ammo type updated successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_ammo_type(
+         %{assigns: %{ammo_type: ammo_type, current_user: current_user, return_to: return_to}} =
+           socket,
+         :edit,
+         ammo_type_params
+       ) do
+    socket =
+      case Ammo.update_ammo_type(ammo_type, ammo_type_params, current_user) do
+        {:ok, %{name: ammo_type_name}} ->
+          prompt = dgettext("prompts", "%{name} updated successfully", name: ammo_type_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(:changeset, changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(:changeset, changeset)
+      end
+
+    {:noreply, socket}
   end
 
-  defp save_ammo_type(socket, :new, ammo_type_params) do
-    case Ammo.create_ammo_type(ammo_type_params) do
-      {:ok, _ammo_type} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Ammo type created successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_ammo_type(%{assigns: %{return_to: return_to}} = socket, :new, ammo_type_params) do
+    socket =
+      case Ammo.create_ammo_type(ammo_type_params) do
+        {:ok, %{name: ammo_type_name}} ->
+          prompt = dgettext("prompts", "%{name} created successfully", name: ammo_type_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(changeset: changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(changeset: changeset)
+      end
+
+    {:noreply, socket}
   end
 end

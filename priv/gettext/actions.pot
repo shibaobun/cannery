@@ -76,7 +76,7 @@ msgid "Send instructions to reset password"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/index.ex:29
+#: lib/cannery_web/live/ammo_group_live/index.ex:28
 msgid "Add Ammo"
 msgstr ""
 
@@ -91,11 +91,11 @@ msgid "New Ammo group"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:90
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:155
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:96
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:156
 #: lib/cannery_web/live/container_live/form_component.ex:79
 #: lib/cannery_web/live/invite_live/form_component.ex:61
-#: lib/cannery_web/live/tag_live/form_component.ex:69
+#: lib/cannery_web/live/tag_live/form_component.ex:62
 msgid "Save"
 msgstr ""
 
