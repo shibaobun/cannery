@@ -9,7 +9,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Cannery.{Accounts.User, Containers.Container, Tags.Tag}
+  alias Cannery.{Accounts.User, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -19,7 +19,6 @@ defmodule Cannery.Ammo.AmmoGroup do
     field :notes, :string
     field :price_paid, :float
 
-    belongs_to :tag, Tag
     belongs_to :ammo_type, AmmoType
     belongs_to :container, Container
     belongs_to :user, User
@@ -30,15 +29,13 @@ defmodule Cannery.Ammo.AmmoGroup do
   @type t :: %AmmoGroup{
           id: id(),
           count: integer,
-          notes: String.t(),
-          price_paid: float(),
-          tag: Tag.t(),
-          tag_id: Tag.id(),
-          ammo_type: AmmoType.t(),
+          notes: String.t() | nil,
+          price_paid: float() | nil,
+          ammo_type: AmmoType.t() | nil,
           ammo_type_id: AmmoType.id(),
-          container: Container.t(),
+          container: Container.t() | nil,
           container_id: Container.id(),
-          user: User.t(),
+          user: User.t() | nil,
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
