@@ -296,6 +296,15 @@ defmodule Cannery.Accounts do
       list_users_by_role(:admin) |> Enum.empty?()
   end
 
+  @doc """
+  Checks if user is an admin
+  """
+  @spec is_admin?(User.t()) :: boolean()
+  def is_admin?(%User{id: user_id}) do
+    Repo.one(from u in User, where: u.id == ^user_id and u.role == :admin)
+    |> is_nil()
+  end
+
   ## Confirmation
 
   @doc """
