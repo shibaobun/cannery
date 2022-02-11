@@ -14,53 +14,87 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, socket |> apply_action(socket.assigns.live_action, params)}
+  def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
+    {:noreply, socket |> apply_action(live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
-    |> assign(page_title: gettext("Edit Invite"), invite: Invites.get_invite!(id))
+    |> assign(page_title: gettext("Edit Invite"), invite: Invites.get_invite!(id, current_user))
   end
 
   defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(page_title: gettext("New Invite"), invite: %Invite{})
+    socket |> assign(page_title: gettext("New Invite"), invite: %Invite{})
   end
 
   defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(page_title: gettext("Listing Invites"), invite: nil)
+    socket |> assign(page_title: gettext("Listing Invites"), invite: nil)
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    invite = Invites.get_invite!(id)
-    {:ok, _} = Invites.delete_invite(invite)
-    {:noreply, socket |> display_invites()}
+  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+    %{name: invite_name} =
+      id |> Invites.get_invite!(current_user) |> Invites.delete_invite!(current_user)
+
+    prompt = dgettext("prompts", "%{name} deleted succesfully", name: invite_name)
+    {:noreply, socket |> put_flash(:info, prompt) |> display_invites()}
   end
 
-  def handle_event("set_unlimited", %{"id" => id}, socket) do
-    id |> Invites.get_invite!() |> Invites.update_invite(%{"uses_left" => nil})
-    {:noreply, socket |> display_invites()}
+  def handle_event(
+        "set_unlimited",
+        %{"id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
+    socket =
+      Invites.get_invite!(id, current_user)
+      |> Invites.update_invite(%{"uses_left" => nil}, current_user)
+      |> case do
+        {:ok, %{name: invite_name}} ->
+          prompt = dgettext("prompts", "%{name} updated succesfully", name: invite_name)
+          socket |> put_flash(:info, prompt) |> display_invites()
+
+        {:error, changeset} ->
+          socket |> put_flash(:error, changeset |> changeset_errors())
+      end
+
+    {:noreply, socket}
   end
 
-  def handle_event("enable", %{"id" => id}, socket) do
-    attrs = %{"uses_left" => nil, "disabled_at" => nil}
-    id |> Invites.get_invite!() |> Invites.update_invite(attrs)
-    {:noreply, socket |> display_invites()}
+  def handle_event("enable", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+    socket =
+      Invites.get_invite!(id, current_user)
+      |> Invites.update_invite(%{"uses_left" => nil, "disabled_at" => nil}, current_user)
+      |> case do
+        {:ok, %{name: invite_name}} ->
+          prompt = dgettext("prompts", "%{name} enabled succesfully", name: invite_name)
+          socket |> put_flash(:info, prompt) |> display_invites()
+
+        {:error, changeset} ->
+          socket |> put_flash(:error, changeset |> changeset_errors())
+      end
+
+    {:noreply, socket}
   end
 
-  def handle_event("disable", %{"id" => id}, socket) do
+  def handle_event("disable", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
-    attrs = %{"uses_left" => 0, "disabled_at" => now}
-    id |> Invites.get_invite!() |> Invites.update_invite(attrs)
-    {:noreply, socket |> display_invites()}
+
+    socket =
+      Invites.get_invite!(id, current_user)
+      |> Invites.update_invite(%{"uses_left" => 0, "disabled_at" => now}, current_user)
+      |> case do
+        {:ok, %{name: invite_name}} ->
+          prompt = dgettext("prompts", "%{name} disabled succesfully", name: invite_name)
+          socket |> put_flash(:info, prompt) |> display_invites()
+
+        {:error, changeset} ->
+          socket |> put_flash(:error, changeset |> changeset_errors())
+      end
+
+    {:noreply, socket}
   end
 
-  # redisplays invites to socket
-  defp display_invites(socket) do
-    invites = Invites.list_invites()
-    socket |> assign(:invites, invites)
+  defp display_invites(%{assigns: %{current_user: current_user}} = socket) do
+    socket |> assign(:invites, Invites.list_invites(current_user))
   end
 end

@@ -139,13 +139,6 @@ msgid "Go back home"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/containers.ex:105
-msgid "There is still %{amount} ammo group in this container"
-msgid_plural "There are still %{amount} ammo groups in this container"
-msgstr[0] ""
-msgstr[1] ""
-
-#, elixir-format, ex-autogen
 #: lib/cannery_web/templates/user_registration/new.html.heex:13
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:13
 #: lib/cannery_web/templates/user_settings/edit.html.heex:17
@@ -201,12 +194,17 @@ msgid "You must log in to access this page."
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/index.ex:65
-#: lib/cannery_web/live/container_live/show.ex:47
-msgid "Could not delete container: %{error}"
+#: lib/cannery_web/live/container_live/index.ex:42
+msgid "Could not find that container"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/index.ex:45
-msgid "Could not find that container"
+#: lib/cannery/containers.ex:105
+msgid "Container must be empty before deleting"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/index.ex:54
+#: lib/cannery_web/live/container_live/show.ex:52
+msgid "Could not delete %{name}: %{error}"
 msgstr ""

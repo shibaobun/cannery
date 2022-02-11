@@ -4,8 +4,8 @@ defmodule Cannery.Invites do
   """
 
   import Ecto.Query, warn: false
-  alias Ecto.Changeset
   alias Cannery.{Accounts.User, Invites.Invite, Repo}
+  alias Ecto.Changeset
 
   @invite_token_length 20
 
@@ -14,12 +14,14 @@ defmodule Cannery.Invites do
 
   ## Examples
 
-      iex> list_invites()
+      iex> list_invites(%User{id: 123, role: :admin})
       [%Invite{}, ...]
 
   """
-  @spec list_invites() :: [Invite.t()]
-  def list_invites, do: Repo.all(Invite)
+  @spec list_invites(User.t()) :: [Invite.t()]
+  def list_invites(%User{role: :admin}) do
+    Repo.all(Invite)
+  end
 
   @doc """
   Gets a single invite.
@@ -28,15 +30,17 @@ defmodule Cannery.Invites do
 
   ## Examples
 
-      iex> get_invite!(123)
+      iex> get_invite!(123, %User{id: 123, role: :admin})
       %Invite{}
 
-      iex> get_invite!(456)
+      iex> get_invite!(456, %User{id: 123, role: :admin})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_invite!(Invite.id()) :: Invite.t()
-  def get_invite!(id), do: Repo.get!(Invite, id)
+  @spec get_invite!(Invite.id(), User.t()) :: Invite.t()
+  def get_invite!(id, %User{role: :admin}) do
+    Repo.get!(Invite, id)
+  end
 
   @doc """
   Returns a valid invite or nil based on the attempted token
@@ -55,8 +59,9 @@ defmodule Cannery.Invites do
 
   def get_invite_by_token(token) do
     Repo.one(
-      from i in Invite,
+      from(i in Invite,
         where: i.token == ^token and i.disabled_at |> is_nil()
+      )
     )
   end
 
@@ -86,21 +91,16 @@ defmodule Cannery.Invites do
 
   ## Examples
 
-      iex> create_invite(%User{id: "1"}, %{field: value})
+      iex> create_invite(%User{id: 123, role: :admin}, %{field: value})
       {:ok, %Invite{}}
 
-      iex> create_invite("1", %{field: value})
-      {:ok, %Invite{}}
-
-      iex> create_invite(%User{id: "1"}, %{field: bad_value})
+      iex> create_invite(%User{id: 123, role: :admin}, %{field: bad_value})
       {:error, %Changeset{}}
 
   """
-  @spec create_invite(User.t() | User.id(), attrs :: map()) ::
+  @spec create_invite(User.t(), attrs :: map()) ::
           {:ok, Invite.t()} | {:error, Changeset.t(Invite.new_invite())}
-  def create_invite(%{id: user_id}, attrs), do: create_invite(user_id, attrs)
-
-  def create_invite(user_id, attrs) when not (user_id |> is_nil()) do
+  def create_invite(%User{id: user_id, role: :admin}, attrs) do
     token =
       :crypto.strong_rand_bytes(@invite_token_length)
       |> Base.url_encode64()
@@ -116,43 +116,45 @@ defmodule Cannery.Invites do
 
   ## Examples
 
-      iex> update_invite(invite, %{field: new_value})
+      iex> update_invite(invite, %{field: new_value}, %User{id: 123, role: :admin})
       {:ok, %Invite{}}
 
-      iex> update_invite(invite, %{field: bad_value})
+      iex> update_invite(invite, %{field: bad_value}, %User{id: 123, role: :admin})
       {:error, %Changeset{}}
 
   """
-  @spec update_invite(Invite.t(), attrs :: map()) ::
+  @spec update_invite(Invite.t(), attrs :: map(), User.t()) ::
           {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
-  def update_invite(invite, attrs), do: invite |> Invite.changeset(attrs) |> Repo.update()
+  def update_invite(invite, attrs, %User{role: :admin}),
+    do: invite |> Invite.changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a invite.
 
   ## Examples
 
-      iex> delete_invite(invite)
+      iex> delete_invite(invite, %User{id: 123, role: :admin})
       {:ok, %Invite{}}
 
-      iex> delete_invite(invite)
+      iex> delete_invite(invite, %User{id: 123, role: :admin})
       {:error, %Changeset{}}
 
   """
-  @spec delete_invite(Invite.t()) :: {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
-  def delete_invite(invite), do: invite |> Repo.delete()
+  @spec delete_invite(Invite.t(), User.t()) ::
+          {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
+  def delete_invite(invite, %User{role: :admin}), do: invite |> Repo.delete()
 
   @doc """
   Deletes a invite.
 
   ## Examples
 
-      iex> delete_invite(invite)
+      iex> delete_invite(invite, %User{id: 123, role: :admin})
       %Invite{}
 
   """
-  @spec delete_invite!(Invite.t()) :: Invite.t()
-  def delete_invite!(invite), do: invite |> Repo.delete!()
+  @spec delete_invite!(Invite.t(), User.t()) :: Invite.t()
+  def delete_invite!(invite, %User{role: :admin}), do: invite |> Repo.delete!()
 
   @doc """
   Returns an `%Changeset{}` for tracking invite changes.

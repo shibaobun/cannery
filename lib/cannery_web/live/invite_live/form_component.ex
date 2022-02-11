@@ -14,22 +14,20 @@ defmodule CanneryWeb.InviteLive.FormComponent do
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(%{invite: invite} = assigns, socket) do
-    changeset = Invites.change_invite(invite)
-
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)}
+    {:ok, socket |> assign(assigns) |> assign(:changeset, Invites.change_invite(invite))}
   end
 
   @impl true
-  def handle_event("validate", %{"invite" => invite_params}, socket) do
-    changeset = socket.assigns.invite |> Invites.change_invite(invite_params)
-    {:noreply, assign(socket, :changeset, changeset)}
+  def handle_event(
+        "validate",
+        %{"invite" => invite_params},
+        %{assigns: %{invite: invite}} = socket
+      ) do
+    {:noreply, socket |> assign(:changeset, invite |> Invites.change_invite(invite_params))}
   end
 
-  def handle_event("save", %{"invite" => invite_params}, socket) do
-    save_invite(socket, socket.assigns.action, invite_params)
+  def handle_event("save", %{"invite" => invite_params}, %{assigns: %{action: action}} = socket) do
+    save_invite(socket, action, invite_params)
   end
 
   @impl true
@@ -71,29 +69,39 @@ defmodule CanneryWeb.InviteLive.FormComponent do
     """
   end
 
-  defp save_invite(socket, :edit, invite_params) do
-    case Invites.update_invite(socket.assigns.invite, invite_params) do
-      {:ok, _invite} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Invite updated successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_invite(
+         %{assigns: %{current_user: current_user, invite: invite, return_to: return_to}} = socket,
+         :edit,
+         invite_params
+       ) do
+    socket =
+      case invite |> Invites.update_invite(invite_params, current_user) do
+        {:ok, %{name: invite_name}} ->
+          prompt = dgettext("prompts", "%{name} updated successfully", name: invite_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(:changeset, changeset)
+      end
+
+    {:noreply, socket}
   end
 
-  defp save_invite(socket, :new, invite_params) do
-    case Invites.create_invite(socket.assigns.current_user, invite_params) do
-      {:ok, _invite} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Invite created successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_invite(
+         %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
+         :new,
+         invite_params
+       ) do
+    socket =
+      case current_user |> Invites.create_invite(invite_params) do
+        {:ok, %{name: invite_name}} ->
+          prompt = dgettext("prompts", "%{name} created successfully", name: invite_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(changeset: changeset)
+      end
+
+    {:noreply, socket}
   end
 end

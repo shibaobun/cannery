@@ -91,11 +91,11 @@ msgid "New Ammo group"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:96
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:156
-#: lib/cannery_web/live/container_live/form_component.ex:79
-#: lib/cannery_web/live/invite_live/form_component.ex:61
-#: lib/cannery_web/live/tag_live/form_component.ex:62
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:102
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:161
+#: lib/cannery_web/live/container_live/form_component.ex:90
+#: lib/cannery_web/live/invite_live/form_component.ex:63
+#: lib/cannery_web/live/tag_live/form_component.ex:66
 msgid "Save"
 msgstr ""
 

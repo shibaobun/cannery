@@ -4,8 +4,8 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Ammo, Accounts.User, Containers, Containers.Container}
-  alias Cannery.Ammo.{AmmoType, AmmoGroup}
+  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 

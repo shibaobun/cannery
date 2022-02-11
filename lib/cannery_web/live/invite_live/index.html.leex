@@ -69,7 +69,7 @@
           <%= if invite.disabled_at |> is_nil() and not(invite.uses_left |> is_nil()) do %>
             <a href="#" class="btn btn-primary"
               phx-click="set_unlimited" phx-value-id="<%= invite.id %>"
-              data-confirm={dgettext("prompts", "Are you sure you want to make this invite unlimited?")}>
+              data-confirm={dgettext("prompts", "Are you sure you want to make %{name} unlimited?", name: invite.name)}>
               <%= gettext("Set Unlimited") %>
             </a>
           <% end %>
