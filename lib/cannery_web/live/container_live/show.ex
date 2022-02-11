@@ -6,6 +6,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   use CanneryWeb, :live_view
   import CanneryWeb.AmmoGroupLive.AmmoGroupCard
   alias Cannery.{Containers, Repo}
+  alias Ecto.Changeset
 
   @impl true
   def mount(_params, session, socket) do
@@ -13,39 +14,47 @@ defmodule CanneryWeb.ContainerLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(
+        %{"id" => id},
+        _,
+        %{assigns: %{current_user: current_user, live_action: live_action}} = socket
+      ) do
     socket =
       socket
       |> assign(
-        page_title: page_title(socket.assigns.live_action),
-        container: Containers.get_container!(id) |> Repo.preload(:ammo_groups)
+        page_title: page_title(live_action),
+        container: Containers.get_container!(id, current_user) |> Repo.preload(:ammo_groups)
       )
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("delete", _, socket) do
+  def handle_event(
+        "delete",
+        _,
+        %{assigns: %{container: container, current_user: current_user}} = socket
+      ) do
     socket =
-      socket.assigns.container
-      |> Containers.delete_container(socket.assigns.current_user)
+      Containers.delete_container(container, current_user)
       |> case do
-        {:ok, container} ->
+        {:ok, %{name: container_name}} ->
+          prompt = dgettext("prompts", "%{name} has been deleted", name: container_name)
+
           socket
-          |> put_flash(
-            :info,
-            dgettext("prompts", "%{name} has been deleted", name: container.name)
-          )
+          |> put_flash(:info, prompt)
           |> push_redirect(to: Routes.container_index_path(socket, :index))
 
         {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
           ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
 
-          socket
-          |> put_flash(
-            :error,
-            dgettext("errors", "Could not delete container: %{error}", error: ammo_groups_error)
-          )
+          prompt =
+            dgettext("errors", "Could not delete %{name}: %{error}",
+              name: changeset |> Changeset.get_field(:name, "container"),
+              error: ammo_groups_error
+            )
+
+          socket |> put_flash(:error, prompt)
 
         {:error, changeset} ->
           socket |> put_flash(:error, changeset |> changeset_errors())

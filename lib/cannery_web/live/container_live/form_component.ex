@@ -14,18 +14,25 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(%{container: container} = assigns, socket) do
-    assigns = assigns |> Map.put(:changeset, container |> Containers.change_container())
-    {:ok, socket |> assign(assigns)}
+    {:ok, socket |> assign(assigns) |> assign(:changeset, Containers.change_container(container))}
   end
 
   @impl true
-  def handle_event("validate", %{"container" => container_params}, socket) do
-    changeset = socket.assigns.container |> Containers.change_container(container_params)
+  def handle_event(
+        "validate",
+        %{"container" => container_params},
+        %{assigns: %{container: container}} = socket
+      ) do
+    changeset = container |> Containers.change_container(container_params)
     {:noreply, socket |> assign(:changeset, changeset)}
   end
 
-  def handle_event("save", %{"container" => container_params}, socket) do
-    save_container(socket, socket.assigns.action, container_params)
+  def handle_event(
+        "save",
+        %{"container" => container_params},
+        %{assigns: %{action: action}} = socket
+      ) do
+    save_container(socket, action, container_params)
   end
 
   @impl true
@@ -89,36 +96,40 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
     """
   end
 
-  defp save_container(socket, :edit, container_params) do
-    Containers.update_container(
-      socket.assigns.container,
-      socket.assigns.current_user,
-      container_params
-    )
-    |> case do
-      {:ok, _container} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Container updated successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_container(
+         %{assigns: %{container: container, current_user: current_user, return_to: return_to}} =
+           socket,
+         :edit,
+         container_params
+       ) do
+    socket =
+      case Containers.update_container(container, current_user, container_params) do
+        {:ok, %{name: container_name}} ->
+          prompt = dgettext("prompts", "%{name} updated successfully", name: container_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(:changeset, changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(:changeset, changeset)
+      end
+
+    {:noreply, socket}
   end
 
-  defp save_container(socket, :new, container_params) do
-    container_params
-    |> Containers.create_container(socket.assigns.current_user)
-    |> case do
-      {:ok, _container} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, dgettext("prompts", "Container created successfully"))
-         |> push_redirect(to: socket.assigns.return_to)}
+  defp save_container(
+         %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
+         :new,
+         container_params
+       ) do
+    socket =
+      case Containers.create_container(container_params, current_user) do
+        {:ok, %{name: container_name}} ->
+          prompt = dgettext("prompts", "%{name} created successfully", name: container_name)
+          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
-      {:error, %Changeset{} = changeset} ->
-        {:noreply, socket |> assign(changeset: changeset)}
-    end
+        {:error, %Changeset{} = changeset} ->
+          socket |> assign(changeset: changeset)
+      end
+
+    {:noreply, socket}
   end
 end

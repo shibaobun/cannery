@@ -14,13 +14,13 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> list_containers()
+      iex> list_containers(%User{id: 123})
       [%Container{}, ...]
 
   """
-  @spec list_containers(user_or_user_id :: User.t() | User.id()) :: [Container.t()]
-  def list_containers(%{id: user_id}), do: list_containers(user_id)
-  def list_containers(user_id), do: Repo.all(from c in Container, where: c.user_id == ^user_id)
+  @spec list_containers(User.t()) :: [Container.t()]
+  def list_containers(%User{id: user_id}),
+    do: Repo.all(from c in Container, where: c.user_id == ^user_id)
 
   @doc """
   Gets a single container.
@@ -29,25 +29,26 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> get_container!(123)
+      iex> get_container!(123, %User{id: 123})
       %Container{}
 
-      iex> get_container!(456)
+      iex> get_container!(456, %User{id: 123})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_container!(Container.id()) :: Container.t()
-  def get_container!(id), do: Repo.get!(Container, id)
+  @spec get_container!(Container.id(), User.t()) :: Container.t()
+  def get_container!(id, %User{id: user_id}),
+    do: Repo.one!(from c in Container, where: c.id == ^id and c.user_id == ^user_id)
 
   @doc """
   Creates a container.
 
   ## Examples
 
-      iex> create_container(%{field: value}, user)
+      iex> create_container(%{field: value}, %User{id: 123})
       {:ok, %Container{}}
 
-      iex> create_container(%{field: bad_value}, user)
+      iex> create_container(%{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
@@ -63,10 +64,10 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> update_container(container, user, %{field: new_value})
+      iex> update_container(container, %User{id: 123}, %{field: new_value})
       {:ok, %Container{}}
 
-      iex> update_container(container, user, %{field: bad_value})
+      iex> update_container(container, %User{id: 123}, %{field: bad_value})
       {:error, %Changeset{}}
 
   """
@@ -81,10 +82,10 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> delete_container(container, user)
+      iex> delete_container(container, %User{id: 123})
       {:ok, %Container{}}
 
-      iex> delete_container(container, user)
+      iex> delete_container(container, %User{id: 123})
       {:error, %Changeset{}}
 
   """
@@ -100,23 +101,12 @@ defmodule Cannery.Containers do
       0 ->
         container |> Repo.delete()
 
-      amount ->
-        error_string =
-          dngettext(
-            "errors",
-            "There is still %{amount} ammo group in this container",
-            "There are still %{amount} ammo groups in this container",
-            amount
-          )
+      _amount ->
+        error = dgettext("errors", "Container must be empty before deleting")
 
         container
         |> change_container()
-        |> Changeset.add_error(
-          :ammo_groups,
-          error_string,
-          amount: amount,
-          count: amount
-        )
+        |> Changeset.add_error(:ammo_groups, error)
         |> Changeset.apply_action(:delete)
     end
   end
@@ -126,7 +116,7 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> delete_container(container, user)
+      iex> delete_container(container, %User{id: 123})
       %Container{}
 
   """
@@ -160,18 +150,16 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> add_tag!(container, tag)
+      iex> add_tag!(container, tag, %User{id: 123})
       %Container{}
 
-      iex> add_tag!(container_id, tag_id)
-      %Container{}
   """
-  @spec add_tag!(Container.t(), Tag.t()) :: Container.t()
-  def add_tag!(%{id: container_id}, %{id: tag_id}), do: add_tag!(container_id, tag_id)
-
-  @spec add_tag!(Container.id(), Tag.id()) :: Container.t()
-  def add_tag!(container_id, tag_id)
-      when not (container_id |> is_nil()) and not (tag_id |> is_nil()) do
+  @spec add_tag!(Container.t(), Tag.t(), User.t()) :: ContainerTag.t()
+  def add_tag!(
+        %Container{id: container_id, user_id: user_id},
+        %Tag{id: tag_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
     %ContainerTag{}
     |> ContainerTag.changeset(%{"container_id" => container_id, "tag_id" => tag_id})
     |> Repo.insert!()
@@ -182,22 +170,24 @@ defmodule Cannery.Containers do
 
   ## Examples
 
-      iex> remove_tag!(container, tag)
+      iex> remove_tag!(container, tag, %User{id: 123})
       %Container{}
 
-      iex> remove_tag!(container_id, tag_id)
-      %Container{}
   """
-  @spec remove_tag!(Container.t(), Tag.t()) :: Container.t()
-  def remove_tag!(%{id: container_id}, %{id: tag_id}), do: remove_tag!(container_id, tag_id)
+  @spec remove_tag!(Container.t(), Tag.t(), User.t()) :: non_neg_integer()
+  def remove_tag!(
+        %Container{id: container_id, user_id: user_id},
+        %Tag{id: tag_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
+    {count, _} =
+      Repo.delete_all(
+        from ct in ContainerTag,
+          where: ct.container_id == ^container_id,
+          where: ct.tag_id == ^tag_id,
+          where: ct.user_id == ^user_id
+      )
 
-  @spec remove_tag!(Container.id(), Tag.id()) :: Container.t()
-  def remove_tag!(container_id, tag_id)
-      when not (container_id |> is_nil()) and not (tag_id |> is_nil()) do
-    Repo.delete_all(
-      from ct in ContainerTag,
-        where: ct.container_id == ^container_id,
-        where: ct.tag_id == ^tag_id
-    )
+    if count == 0, do: raise("could not delete container tag"), else: count
   end
 end
