@@ -4,10 +4,15 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.Ammo
+  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoType}
   alias Ecto.Changeset
+  alias Phoenix.LiveView.Socket
 
   @impl true
+  @spec update(
+          %{:ammo_type => AmmoType.t(), :current_user => User.t(), optional(any) => any},
+          Socket.t()
+        ) :: {:ok, Socket.t()}
   def update(%{ammo_type: ammo_type} = assigns, socket) do
     {:ok, socket |> assign(assigns) |> assign(:changeset, Ammo.change_ammo_type(ammo_type))}
   end

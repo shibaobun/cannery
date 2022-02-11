@@ -4,15 +4,21 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Ammo, Containers}
-  alias Cannery.{Ammo.AmmoType, Containers.Container}
+  alias Cannery.{Ammo, Accounts.User, Containers, Containers.Container}
+  alias Cannery.Ammo.{AmmoType, AmmoGroup}
   alias Ecto.Changeset
+  alias Phoenix.LiveView.Socket
 
   @impl true
+  @spec update(
+          %{:ammo_group => AmmoGroup.t(), :current_user => User.t(), optional(any) => any},
+          Socket.t()
+        ) :: {:ok, Socket.t()}
   def update(%{ammo_group: _ammo_group} = assigns, socket) do
     socket |> assign(assigns) |> update()
   end
 
+  @spec update(Socket.t()) :: {:ok, Socket.t()}
   def update(%{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket) do
     changeset = Ammo.change_ammo_group(ammo_group)
     containers = Containers.list_containers(current_user)

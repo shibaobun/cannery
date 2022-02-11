@@ -4,11 +4,15 @@ defmodule CanneryWeb.InviteLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-
-  alias Cannery.Invites
+  alias Cannery.{Accounts.User, Invites, Invites.Invite}
   alias Ecto.Changeset
+  alias Phoenix.LiveView.Socket
 
   @impl true
+  @spec update(
+          %{:invite => Invite.t(), :current_user => User.t(), optional(any) => any},
+          Socket.t()
+        ) :: {:ok, Socket.t()}
   def update(%{invite: invite} = assigns, socket) do
     changeset = Invites.change_invite(invite)
 

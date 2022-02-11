@@ -4,11 +4,15 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-
-  alias Cannery.Containers
+  alias Cannery.{Accounts.User, Containers, Containers.Container}
   alias Ecto.Changeset
+  alias Phoenix.LiveView.Socket
 
   @impl true
+  @spec update(
+          %{:container => Container.t(), :current_user => User.t(), optional(any) => any},
+          Socket.t()
+        ) :: {:ok, Socket.t()}
   def update(%{container: container} = assigns, socket) do
     assigns = assigns |> Map.put(:changeset, container |> Containers.change_container())
     {:ok, socket |> assign(assigns)}

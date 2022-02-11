@@ -5,9 +5,13 @@ defmodule CanneryWeb.TagLive.FormComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.Tags
+  alias Cannery.{Accounts.User, Tags.Tag}
   alias Ecto.Changeset
+  alias Phoenix.LiveView.Socket
 
   @impl true
+  @spec update(%{:tag => Tag.t(), :current_user => User.t(), optional(any) => any}, Socket.t()) ::
+          {:ok, Socket.t()}
   def update(%{tag: tag} = assigns, socket) do
     {:ok, socket |> assign(assigns) |> assign(:changeset, Tags.change_tag(tag))}
   end
