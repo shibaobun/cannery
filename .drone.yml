@@ -19,6 +19,16 @@ steps:
   - npm install --prefix assets
   - mix test
 
+- name: build and publish
+  image: plugins/docker
+  settings:
+    repo: shibaobun/cannery
+    tags: latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
 services:
 - name: database
   image: postgres:13
@@ -26,3 +36,8 @@ services:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     POSTGRES_DB: postgres
+
+volumes:
+  - name: docker_sock
+    host:
+      path: /var/run/docker.sock
