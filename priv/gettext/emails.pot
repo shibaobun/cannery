@@ -11,28 +11,8 @@ msgid ""
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/templates/layout/email.html.heex:13
-msgid "This email was sent from %{name}"
-msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/layout/email.txt.eex:10
-msgid "This email was sent from %{name} at %{url}"
-msgstr ""
-
-#, elixir-format, ex-autogen
 #: lib/cannery/accounts/email.ex:30
 msgid "Confirm your %{name} account"
-msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery/accounts/email.ex:37
-msgid "Reset your %{name} password"
-msgstr ""
-
-#, elixir-format, ex-autogen
-#: lib/cannery/accounts/email.ex:44
-msgid "Update your %{name} email"
 msgstr ""
 
 #, elixir-format, ex-autogen
@@ -57,6 +37,26 @@ msgstr ""
 #: lib/cannery_web/templates/email/update_email.html.eex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:8
 msgid "If you didn't request this change from %{url}, please ignore this."
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/accounts/email.ex:37
+msgid "Reset your %{name} password"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/layout/email.html.heex:13
+msgid "This email was sent from %{name}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/templates/layout/email.txt.eex:10
+msgid "This email was sent from %{name} at %{url}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/accounts/email.ex:44
+msgid "Update your %{name} email"
 msgstr ""
 
 #, elixir-format, ex-autogen

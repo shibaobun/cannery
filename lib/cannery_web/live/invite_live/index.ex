@@ -4,9 +4,8 @@ defmodule CanneryWeb.InviteLive.Index do
   """
 
   use CanneryWeb, :live_view
-
-  alias Cannery.Invites
-  alias Cannery.Invites.Invite
+  import CanneryWeb.Components.{InviteCard, UserCard}
+  alias Cannery.{Accounts, Invites, Invites.Invite}
   alias CanneryWeb.{Endpoint, HomeLive}
 
   @impl true
@@ -44,7 +43,11 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+  def handle_event(
+        "delete_invite",
+        %{"id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
     %{name: invite_name} =
       id |> Invites.get_invite!(current_user) |> Invites.delete_invite!(current_user)
 
@@ -106,7 +109,30 @@ defmodule CanneryWeb.InviteLive.Index do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_event(
+        "delete_user",
+        %{"id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
+    %{email: user_email} = Accounts.get_user!(id) |> Accounts.delete_user!(current_user)
+
+    prompt = dgettext("prompts", "%{name} deleted succesfully", name: user_email)
+
+    {:noreply, socket |> put_flash(:info, prompt) |> display_invites()}
+  end
+
   defp display_invites(%{assigns: %{current_user: current_user}} = socket) do
-    socket |> assign(:invites, Invites.list_invites(current_user))
+    invites = Invites.list_invites(current_user)
+
+    all_users = Accounts.list_all_users_by_role(current_user)
+
+    admins =
+      all_users
+      |> Map.get(:admin, [])
+      |> Enum.reject(fn %{id: user_id} -> user_id == current_user.id end)
+
+    users = all_users |> Map.get(:user, [])
+    socket |> assign(invites: invites, admins: admins, users: users)
   end
 end

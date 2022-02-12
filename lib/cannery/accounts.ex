@@ -63,6 +63,19 @@ defmodule Cannery.Accounts do
   @spec get_user!(User.t()) :: User.t()
   def get_user!(id), do: Repo.get!(User, id)
 
+  @doc """
+  Returns all users grouped by role.
+
+  ## Examples
+
+      iex> list_users_by_role(%User{id: 123, role: :admin})
+      [admin: [%User{}], user: [%User{}, %User{}]]
+
+  """
+  @spec list_all_users_by_role(User.t()) :: %{String.t() => [User.t()]}
+  def list_all_users_by_role(%User{role: :admin}) do
+    Repo.all(User) |> Enum.group_by(fn user -> user.role end)
+  end
 
   @doc """
   Returns all users for a certain role.

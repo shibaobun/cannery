@@ -3,7 +3,7 @@ defmodule CanneryWeb.UserRegistrationController do
   import CanneryWeb.Gettext
   alias Cannery.{Accounts, Invites}
   alias Cannery.Accounts.User
-  alias CanneryWeb.{HomeLive, UserAuth}
+  alias CanneryWeb.{Endpoint, HomeLive}
 
   def new(conn, %{"invite" => invite_token}) do
     invite = Invites.get_invite_by_token(invite_token)
@@ -13,7 +13,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, dgettext("errors", "Sorry, this invite was not found or expired"))
-      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
+      |> redirect(to: Routes.live_path(Endpoint, HomeLive))
     end
   end
 
@@ -23,7 +23,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, dgettext("errors", "Sorry, public registration is disabled"))
-      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
+      |> redirect(to: Routes.live_path(Endpoint, HomeLive))
     end
   end
 
@@ -41,7 +41,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, dgettext("errors", "Sorry, this invite was not found or expired"))
-      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
+      |> redirect(to: Routes.live_path(Endpoint, HomeLive))
     end
   end
 
@@ -51,7 +51,7 @@ defmodule CanneryWeb.UserRegistrationController do
     else
       conn
       |> put_flash(:error, dgettext("errors", "Sorry, public registration is disabled"))
-      |> redirect(to: Routes.live_path(CanneryWeb.Endpoint, HomeLive))
+      |> redirect(to: Routes.live_path(Endpoint, HomeLive))
     end
   end
 
@@ -68,8 +68,8 @@ defmodule CanneryWeb.UserRegistrationController do
         )
 
         conn
-        |> put_flash(:info, dgettext("prompts", "User created successfully."))
-        |> UserAuth.log_in_user(user)
+        |> put_flash(:info, dgettext("prompts", "Please check your email to verify your account"))
+        |> redirect(to: Routes.user_session_path(Endpoint, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, invite: invite)
