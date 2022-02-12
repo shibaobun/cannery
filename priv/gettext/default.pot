@@ -76,27 +76,27 @@ msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:47
+#: lib/cannery_web/components/topbar.ex:47
 msgid "Ammo"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:41
+#: lib/cannery_web/components/topbar.ex:41
 msgid "Containers"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:60
+#: lib/cannery_web/components/topbar.ex:60
 msgid "Invites"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:53
+#: lib/cannery_web/components/topbar.ex:53
 msgid "Manage"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:35
+#: lib/cannery_web/components/topbar.ex:35
 msgid "Tags"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgid "Count"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:28
+#: lib/cannery_web/components/ammo_group_card.ex:28
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:8
 msgid "Count:"
 msgstr ""
@@ -150,7 +150,7 @@ msgid "Notes"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:34
+#: lib/cannery_web/components/ammo_group_card.ex:34
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:14
 msgid "Notes:"
 msgstr ""
@@ -162,7 +162,7 @@ msgid "Price paid"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/ammo_group_card.ex:41
+#: lib/cannery_web/components/ammo_group_card.ex:41
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:21
 msgid "Price paid:"
 msgstr ""
@@ -371,7 +371,7 @@ msgid "Tracer"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/container_card.ex:26
+#: lib/cannery_web/components/container_card.ex:26
 #: lib/cannery_web/live/container_live/show.html.heex:8
 msgid "Description:"
 msgstr ""
@@ -394,7 +394,7 @@ msgid "Location"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/container_card.ex:38
+#: lib/cannery_web/components/container_card.ex:38
 #: lib/cannery_web/live/container_live/show.html.heex:20
 msgid "Location:"
 msgstr ""
@@ -445,7 +445,7 @@ msgid "Type"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/container_card.ex:32
+#: lib/cannery_web/components/container_card.ex:32
 #: lib/cannery_web/live/container_live/show.html.heex:14
 msgid "Type:"
 msgstr ""
@@ -461,7 +461,7 @@ msgid "Disable"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:23
+#: lib/cannery_web/live/invite_live/index.ex:35
 msgid "Edit Invite"
 msgstr ""
 
@@ -481,7 +481,7 @@ msgid "Invite Disabled"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:31
+#: lib/cannery_web/live/invite_live/index.ex:43
 #: lib/cannery_web/live/invite_live/index.html.leex:3
 msgid "Listing Invites"
 msgstr ""
@@ -493,7 +493,7 @@ msgid "Listing Tags"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:27
+#: lib/cannery_web/live/invite_live/index.ex:39
 msgid "New Invite"
 msgstr ""
 

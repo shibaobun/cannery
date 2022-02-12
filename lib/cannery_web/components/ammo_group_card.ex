@@ -1,4 +1,4 @@
-defmodule CanneryWeb.AmmoGroupLive.AmmoGroupCard do
+defmodule CanneryWeb.Components.AmmoGroupCard do
   @moduledoc """
   Display card for an ammo group
   """

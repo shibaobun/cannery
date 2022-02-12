@@ -4,7 +4,7 @@ defmodule CanneryWeb.ContainerLive.Index do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.ContainerLive.ContainerCard
+  import CanneryWeb.Components.ContainerCard
   alias Cannery.{Containers, Containers.Container}
   alias Ecto.Changeset
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:96
+#: lib/cannery_web/components/topbar.ex:96
 #: lib/cannery_web/templates/layout/topbar.html.heex:36
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:26
 #: lib/cannery_web/templates/user_registration/new.html.heex:39
@@ -23,7 +23,7 @@ msgid "Log in"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/component/topbar.ex:89
+#: lib/cannery_web/components/topbar.ex:89
 #: lib/cannery_web/templates/layout/topbar.html.heex:28
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:21
 #: lib/cannery_web/templates/user_registration/new.html.heex:3

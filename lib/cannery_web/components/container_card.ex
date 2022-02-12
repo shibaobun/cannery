@@ -1,4 +1,4 @@
-defmodule CanneryWeb.ContainerLive.ContainerCard do
+defmodule CanneryWeb.Components.ContainerCard do
   @moduledoc """
   Display card for a container
   """

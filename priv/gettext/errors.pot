@@ -119,17 +119,17 @@ msgid "Error"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/views/error_view.ex:10
+#: lib/cannery_web/views/error_view.ex:11
 msgid "Internal Server Error"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/views/error_view.ex:8
+#: lib/cannery_web/views/error_view.ex:9
 msgid "Not found"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/views/error_view.ex:9
+#: lib/cannery_web/views/error_view.ex:10
 msgid "Unauthorized"
 msgstr ""
 
@@ -207,4 +207,9 @@ msgstr ""
 #: lib/cannery_web/live/container_live/index.ex:54
 #: lib/cannery_web/live/container_live/show.ex:52
 msgid "Could not delete %{name}: %{error}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.ex:20
+msgid "You are not authorized to view this page"
 msgstr ""

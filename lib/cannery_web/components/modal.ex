@@ -1,4 +1,4 @@
-defmodule CanneryWeb.ModalComponent do
+defmodule CanneryWeb.Components.Modal do
   @moduledoc """
   Livecomponent that displays a floating modal window
   """

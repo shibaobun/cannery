@@ -1,6 +1,6 @@
 <main class="mb-8 container min-w-full">
   <header>
-    <CanneryWeb.Component.Topbar.topbar current_user={assigns[:current_user]}></CanneryWeb.Component.Topbar.topbar>
+    <.topbar current_user={assigns[:current_user]}></.topbar>
 
     <div class="mx-8 my-2 flex flex-col space-y-4 text-center">
       <%= if @flash && @flash |> Map.has_key?("info") do %>

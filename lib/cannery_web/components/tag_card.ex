@@ -1,4 +1,4 @@
-defmodule CanneryWeb.TagLive.TagCard do
+defmodule CanneryWeb.Components.TagCard do
   @moduledoc """
   Display card for a tag
   """

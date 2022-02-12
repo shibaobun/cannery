@@ -1,4 +1,4 @@
-defmodule CanneryWeb.Component.Topbar do
+defmodule CanneryWeb.Components.Topbar do
   @moduledoc """
   Component that renders a topbar with user functions/links
   """

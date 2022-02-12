@@ -6,9 +6,10 @@ defmodule CanneryWeb.LiveHelpers do
   import Phoenix.LiveView.Helpers
   import Phoenix.LiveView, only: [assign_new: 3]
   alias Cannery.Accounts
+  alias CanneryWeb.Components.Modal
 
   @doc """
-  Renders a component inside the `CanneryWeb.ModalComponent` component.
+  Renders a component inside the `Modal` component.
 
   The rendered modal receives a `:return_to` option to properly update
   the URL when the modal is closed.
@@ -23,8 +24,7 @@ defmodule CanneryWeb.LiveHelpers do
   """
   def live_modal(component, opts) do
     path = Keyword.fetch!(opts, :return_to)
-    modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
-    live_component(CanneryWeb.ModalComponent, modal_opts)
+    live_component(Modal, id: :modal, return_to: path, component: component, opts: opts)
   end
 
   def assign_defaults(socket, %{"user_token" => user_token} = _session) do

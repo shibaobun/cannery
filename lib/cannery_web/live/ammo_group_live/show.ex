@@ -4,7 +4,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.ContainerLive.ContainerCard
+  import CanneryWeb.Components.ContainerCard
   alias Cannery.{Ammo, Repo}
 
   @impl true
