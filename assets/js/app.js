@@ -26,12 +26,22 @@ import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
 import topbar from '../vendor/topbar'
 import MaintainAttrs from './maintain_attrs'
+import Alpine from 'alpinejs'
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content')
 const liveSocket = new LiveSocket('/live', Socket, {
+  dom: {
+    onBeforeElUpdated (from, to) {
+      if (from._x_dataStack) { window.Alpine.clone(from, to) }
+    }
+  },
   params: { _csrf_token: csrfToken },
   hooks: { MaintainAttrs }
 })
+
+// alpine.js
+window.Alpine = Alpine
+Alpine.start()
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: '#29d' }, shadowColor: 'rgba(0, 0, 0, .3)' })
