@@ -4,7 +4,6 @@ defmodule CanneryWeb.Components.TagCard do
   """
 
   use CanneryWeb, :component
-  alias CanneryWeb.Endpoint
 
   def tag_card(assigns) do
     ~H"""
@@ -20,20 +19,7 @@ defmodule CanneryWeb.Components.TagCard do
         <%= @tag.name %>
       </h1>
 
-      <%= live_patch to: Routes.tag_index_path(Endpoint, :edit, @tag),
-                 class: "text-primary-500 link" do %>
-        <i class="fa-fw fa-lg fas fa-edit"></i>
-      <% end %>
-
-      <%= link to: "#",
-           class: "text-primary-500 link",
-           phx_click: "delete",
-           phx_value_id: @tag.id,
-           data: [
-             confirm: dgettext("prompts", "Are you sure you want to delete %{name}?", name: @tag.name)
-           ] do %>
-        <i class="fa-fw fa-lg fas fa-trash"></i>
-      <% end %>
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end
