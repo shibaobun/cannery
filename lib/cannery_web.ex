@@ -98,6 +98,7 @@ defmodule CanneryWeb do
 
       import CanneryWeb.ErrorHelpers
       import CanneryWeb.Gettext
+      import CanneryWeb.ViewHelpers
       alias CanneryWeb.Router.Helpers, as: Routes
     end
   end
