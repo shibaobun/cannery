@@ -70,9 +70,9 @@ defmodule CanneryWeb.UserSettingsController do
     end
   end
 
-  def delete(conn, %{"id" => user_id}) do
-    if user_id == conn.assigns.current_user.id do
-      Accounts.delete_user!(conn.assigns.current_user)
+  def delete(%{assigns: %{current_user: current_user}} = conn, %{"id" => user_id}) do
+    if user_id == current_user.id do
+      current_user |> Accounts.delete_user!(current_user)
 
       conn
       |> put_flash(:error, dgettext("prompts", "Your account has been deleted"))

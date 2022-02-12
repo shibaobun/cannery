@@ -63,17 +63,20 @@ defmodule Cannery.Accounts do
   @spec get_user!(User.t()) :: User.t()
   def get_user!(id), do: Repo.get!(User, id)
 
-  @spec list_users_by_role(atom()) :: [User.t()]
-  def list_users_by_role(role), do: Repo.all(from u in User, where: u.role == ^role)
 
-  @spec list_all_users(boolean()) :: [User.t()]
-  def list_all_users(confirmed_users_only \\ true) do
-    if confirmed_users_only do
-      from u in User, where: u.confirmed_at
-    else
-      User
-    end
-    |> Repo.all()
+  @doc """
+  Returns all users for a certain role.
+
+  ## Examples
+
+      iex> list_users_by_role(%User{id: 123, role: :admin})
+      [%User{}]
+
+  """
+  @spec list_users_by_role(:admin | :user) :: [User.t()]
+  def list_users_by_role(role) do
+    role = role |> to_string()
+    Repo.all(from u in User, where: u.role == ^role)
   end
 
   ## User registration
@@ -253,8 +256,21 @@ defmodule Cannery.Accounts do
     end
   end
 
-  @spec delete_user!(User.t()) :: User.t()
-  def delete_user!(user), do: user |> Repo.delete!()
+  @doc """
+  Deletes a user. must be performed by an admin or the same user!
+
+  ## Examples
+
+      iex> delete_user!(user_to_delete, %User{id: 123, role: :admin})
+      %User{}
+
+      iex> delete_user!(%User{id: 123}, %User{id: 123})
+      %User{}
+
+  """
+  @spec delete_user!(User.t(), User.t()) :: User.t()
+  def delete_user!(user, %User{role: :admin}), do: user |> Repo.delete!()
+  def delete_user!(%User{id: user_id} = user, %User{id: user_id}), do: user |> Repo.delete!()
 
   ## Session
 

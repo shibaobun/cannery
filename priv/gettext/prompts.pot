@@ -103,10 +103,10 @@ msgid "Saving..."
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/components/tag_card.ex:33
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:26
 #: lib/cannery_web/live/container_live/index.html.heex:36
 #: lib/cannery_web/live/container_live/show.html.heex:36
+#: lib/cannery_web/live/tag_live/index.html.heex:36
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
