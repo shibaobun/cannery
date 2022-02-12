@@ -17,10 +17,12 @@
     <hr class="hr">
 
     <div class="flex flex-row justify-center items-center space-x-4">
-      <%= link(dgettext("actions", "Register"),
-        to: Routes.user_registration_path(@conn, :new),
-        class: "btn btn-primary"
-      ) %>
+      <%= if Accounts.allow_registration?() do %>
+        <%= link(dgettext("actions", "Register"),
+          to: Routes.user_registration_path(@conn, :new),
+          class: "btn btn-primary"
+        ) %>
+      <% end %>
       <%= link(dgettext("actions", "Log in"),
         to: Routes.user_session_path(@conn, :new),
         class: "btn btn-primary"
