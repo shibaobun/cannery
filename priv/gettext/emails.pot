@@ -21,17 +21,17 @@ msgid "This email was sent from %{name} at %{url}"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/accounts/email.ex:34
+#: lib/cannery/accounts/email.ex:30
 msgid "Confirm your %{name} account"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/accounts/email.ex:42
+#: lib/cannery/accounts/email.ex:37
 msgid "Reset your %{name} password"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/accounts/email.ex:50
+#: lib/cannery/accounts/email.ex:44
 msgid "Update your %{name} email"
 msgstr ""
 

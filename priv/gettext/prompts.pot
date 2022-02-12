@@ -67,7 +67,7 @@ msgid "User confirmed successfully."
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/controllers/user_registration_controller.ex:72
+#: lib/cannery_web/controllers/user_registration_controller.ex:71
 msgid "User created successfully."
 msgstr ""
 

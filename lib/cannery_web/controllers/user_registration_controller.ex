@@ -62,11 +62,10 @@ defmodule CanneryWeb.UserRegistrationController do
           invite |> Invites.use_invite!()
         end
 
-        {:ok, _} =
-          Accounts.deliver_user_confirmation_instructions(
-            user,
-            &Routes.user_confirmation_url(conn, :confirm, &1)
-          )
+        Accounts.deliver_user_confirmation_instructions(
+          user,
+          &Routes.user_confirmation_url(conn, :confirm, &1)
+        )
 
         conn
         |> put_flash(:info, dgettext("prompts", "User created successfully."))

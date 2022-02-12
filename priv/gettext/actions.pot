@@ -13,10 +13,10 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/component/topbar.ex:96
 #: lib/cannery_web/templates/layout/topbar.html.heex:36
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:24
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:26
 #: lib/cannery_web/templates/user_registration/new.html.heex:39
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:39
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:25
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:41
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:27
 #: lib/cannery_web/templates/user_session/new.html.heex:3
 #: lib/cannery_web/templates/user_session/new.html.heex:35
 msgid "Log in"
@@ -25,12 +25,12 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/component/topbar.ex:89
 #: lib/cannery_web/templates/layout/topbar.html.heex:28
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:20
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:21
 #: lib/cannery_web/templates/user_registration/new.html.heex:3
 #: lib/cannery_web/templates/user_registration/new.html.heex:34
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:35
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:21
-#: lib/cannery_web/templates/user_session/new.html.heex:40
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:36
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:22
+#: lib/cannery_web/templates/user_session/new.html.heex:41
 msgid "Register"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/templates/user_registration/new.html.heex:43
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:3
-#: lib/cannery_web/templates/user_session/new.html.heex:44
+#: lib/cannery_web/templates/user_session/new.html.heex:46
 msgid "Forgot your password?"
 msgstr ""
 

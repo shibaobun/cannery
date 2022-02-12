@@ -4,10 +4,10 @@ defmodule Cannery.EmailWorker do
   """
 
   use Oban.Worker, queue: :mailers
-  alias Cannery.Mailer
+  alias Cannery.{Accounts, Mailer, Email}
 
   @impl Oban.Worker
-  def perform(%Oban.Job{args: email}) do
-    email |> Mailer.deliver()
+  def perform(%Oban.Job{args: %{"email" => email, "user_id" => user_id, "attrs" => attrs}}) do
+    Email.generate_email(email, user_id |> Accounts.get_user!(), attrs) |> Mailer.deliver()
   end
 end

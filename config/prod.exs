@@ -11,8 +11,6 @@ import Config
 # before starting your production server.
 config :cannery, CanneryWeb.Endpoint, cache_static_manifest: "priv/static/cache_manifest.json"
 
-config :cannery, Cannery.Application, automigrate: true
-
 # Do not print debug messages in production
 config :logger, level: :info
 

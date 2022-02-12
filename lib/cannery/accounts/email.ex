@@ -7,7 +7,7 @@ defmodule Cannery.Email do
   `lib/cannery_web/templates/layout/email.txt.heex` for text emails.
   """
 
-  use Phoenix.Swoosh, view: Cannery.EmailView, layout: {Cannery.LayoutView, :email}
+  use Phoenix.Swoosh, view: CanneryWeb.EmailView, layout: {CanneryWeb.LayoutView, :email}
   import CanneryWeb.Gettext
   alias Cannery.Accounts.User
   alias CanneryWeb.EmailView
@@ -19,33 +19,27 @@ defmodule Cannery.Email do
 
   @spec base_email(User.t(), String.t()) :: t()
   defp base_email(%User{email: email}, subject) do
-    new()
-    |> to(email)
-    |> from({
-      Application.get_env(:cannery, Cannery.Mailer)[:email_name],
-      Application.get_env(:cannery, Cannery.Mailer)[:email_from]
-    })
-    |> subject(subject)
+    from = Application.get_env(:cannery, Cannery.Mailer)[:email_from] || "noreply@localhost"
+    name = Application.get_env(:cannery, Cannery.Mailer)[:email_name]
+    new() |> to(email) |> from({name, from}) |> subject(subject)
   end
 
-  @spec welcome_email(User.t(), String.t()) :: t()
-  def welcome_email(user, url) do
+  @spec generate_email(String.t(), User.t(), attrs :: map()) :: t()
+  def generate_email("welcome", user, %{"url" => url}) do
     user
     |> base_email(dgettext("emails", "Confirm your %{name} account", name: "Cannery"))
     |> render_body("confirm_email.html", %{user: user, url: url})
     |> text_body(EmailView.render("confirm_email.txt", %{user: user, url: url}))
   end
 
-  @spec reset_password_email(User.t(), String.t()) :: t()
-  def reset_password_email(user, url) do
+  def generate_email("reset_password", user, %{"url" => url}) do
     user
     |> base_email(dgettext("emails", "Reset your %{name} password", name: "Cannery"))
     |> render_body("reset_password.html", %{user: user, url: url})
     |> text_body(EmailView.render("reset_password.txt", %{user: user, url: url}))
   end
 
-  @spec update_email(User.t(), String.t()) :: t()
-  def update_email(user, url) do
+  def generate_email("update_email", user, %{"url" => url}) do
     user
     |> base_email(dgettext("emails", "Update your %{name} email", name: "Cannery"))
     |> render_body("update_email.html", %{user: user, url: url})
