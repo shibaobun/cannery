@@ -13,7 +13,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
           %{:ammo_type => AmmoType.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{ammo_type: ammo_type} = assigns, socket) do
+  def update(%{ammo_type: ammo_type, current_user: _current_user} = assigns, socket) do
     {:ok, socket |> assign(assigns) |> assign(:changeset, Ammo.change_ammo_type(ammo_type))}
   end
 
@@ -186,9 +186,13 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
     {:noreply, socket}
   end
 
-  defp save_ammo_type(%{assigns: %{return_to: return_to}} = socket, :new, ammo_type_params) do
+  defp save_ammo_type(
+         %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
+         :new,
+         ammo_type_params
+       ) do
     socket =
-      case Ammo.create_ammo_type(ammo_type_params) do
+      case Ammo.create_ammo_type(ammo_type_params, current_user) do
         {:ok, %{name: ammo_type_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: ammo_type_name)
           socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)

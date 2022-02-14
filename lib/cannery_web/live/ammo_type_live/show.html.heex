@@ -106,11 +106,15 @@
 </div>
 
 <%= if @live_action in [:edit] do %>
-  <%= live_modal(CanneryWeb.AmmoTypeLive.FormComponent,
-    id: @ammo_type.id,
-    title: @page_title,
-    action: @live_action,
-    ammo_type: @ammo_type,
-    return_to: Routes.ammo_type_show_path(@socket, :show, @ammo_type)
-  ) %>
+  <.modal return_to={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}>
+    <.live_component
+      module={CanneryWeb.AmmoTypeLive.FormComponent}
+      id={@ammo_type.id}
+      title={@page_title}
+      action={@live_action}
+      ammo_type={@ammo_type}
+      return_to={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>

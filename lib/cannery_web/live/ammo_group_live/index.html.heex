@@ -79,12 +79,15 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <%= live_modal(CanneryWeb.AmmoGroupLive.FormComponent,
-    id: @ammo_group.id || :new,
-    title: @page_title,
-    action: @live_action,
-    ammo_group: @ammo_group,
-    return_to: Routes.ammo_group_index_path(@socket, :index),
-    current_user: @current_user
-  ) %>
+  <.modal return_to={Routes.ammo_group_index_path(@socket, :index)}>
+    <.live_component
+      module={CanneryWeb.AmmoGroupLive.FormComponent}
+      id={@ammo_group.id || :new}
+      title={@page_title}
+      action={@live_action}
+      ammo_group={@ammo_group}
+      return_to={Routes.ammo_group_index_path(@socket, :index)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>

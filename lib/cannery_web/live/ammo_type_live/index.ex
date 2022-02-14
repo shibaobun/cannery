@@ -5,8 +5,8 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   use CanneryWeb, :live_view
 
-  alias Cannery.Ammo
-  alias Cannery.Ammo.AmmoType
+  alias Cannery.{Ammo, Ammo.AmmoType}
+  alias CanneryWeb.Endpoint
 
   @impl true
   def mount(_params, session, socket) do

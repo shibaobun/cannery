@@ -92,23 +92,29 @@
 </div>
 
 <%= if @live_action in [:edit] do %>
-  <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
-    id: @container.id,
-    title: @page_title,
-    action: @live_action,
-    container: @container,
-    return_to: Routes.container_show_path(Endpoint, :show, @container),
-    current_user: @current_user
-  ) %>
+  <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+    <.live_component
+      module={CanneryWeb.ContainerLive.FormComponent}
+      id={@container.id}
+      title={@page_title}
+      action={@live_action}
+      container={@container}
+      return_to={Routes.container_show_path(Endpoint, :show, @container)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>
 
 <%= if @live_action == :add_tag do %>
-  <%= live_modal(CanneryWeb.ContainerLive.AddTagComponent,
-    id: @container.id,
-    title: @page_title,
-    action: @live_action,
-    container: @container,
-    return_to: Routes.container_show_path(Endpoint, :show, @container),
-    current_user: @current_user
-  ) %>
+  <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+    <.live_component
+      module={CanneryWeb.ContainerLive.AddTagComponent}
+      id={@container.id}
+      title={@page_title}
+      action={@live_action}
+      container={@container}
+      return_to={Routes.container_show_path(Endpoint, :show, @container)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>

@@ -154,7 +154,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/index.ex:23
-#: lib/cannery_web/live/ammo_type_live/show.ex:46
+#: lib/cannery_web/live/ammo_type_live/show.ex:47
 msgid "Edit Ammo type"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgid "Invite Only"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/components/topbar.ex:60
+#: lib/cannery_web/components/topbar.ex:66
 msgid "Invites"
 msgstr ""
 
@@ -451,7 +451,7 @@ msgid "Show Ammo group"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_type_live/show.ex:45
+#: lib/cannery_web/live/ammo_type_live/show.ex:46
 msgid "Show Ammo type"
 msgstr ""
 

@@ -43,12 +43,15 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
-    id: @container.id || :new,
-    title: @page_title,
-    action: @live_action,
-    container: @container,
-    return_to: Routes.container_index_path(@socket, :index),
-    current_user: @current_user
-  ) %>
+  <.modal return_to={Routes.container_index_path(@socket, :index)}>
+    <.live_component
+      module={CanneryWeb.ContainerLive.FormComponent}
+      id={@container.id || :new}
+      title={@page_title}
+      action={@live_action}
+      container={@container}
+      return_to={Routes.container_index_path(@socket, :index)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:193
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:197
 #: lib/cannery_web/live/container_live/form_component.ex:126
 #: lib/cannery_web/live/invite_live/form_component.ex:98
 #: lib/cannery_web/live/tag_live/form_component.ex:101
@@ -20,7 +20,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/index.ex:41
-#: lib/cannery_web/live/ammo_type_live/show.ex:39
+#: lib/cannery_web/live/ammo_type_live/show.ex:40
 #: lib/cannery_web/live/invite_live/index.ex:54
 #: lib/cannery_web/live/invite_live/index.ex:120
 #: lib/cannery_web/live/tag_live/index.ex:41
@@ -109,8 +109,7 @@ msgid "Are you sure you want to delete your account?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/components/topbar.ex:75
-#: lib/cannery_web/templates/layout/topbar.html.heex:21
+#: lib/cannery_web/components/topbar.ex:81
 msgid "Are you sure you want to log out?"
 msgstr ""
 

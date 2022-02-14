@@ -43,12 +43,15 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <%= live_modal(CanneryWeb.TagLive.FormComponent,
-    id: @tag.id || :new,
-    title: @page_title,
-    action: @live_action,
-    tag: @tag,
-    return_to: Routes.tag_index_path(@socket, :index),
-    current_user: @current_user
-  ) %>
+  <.modal return_to={Routes.tag_index_path(@socket, :index)}>
+    <.live_component
+      module={CanneryWeb.TagLive.FormComponent}
+      id={@tag.id || :new}
+      title={@page_title}
+      action={@live_action}
+      tag={@tag}
+      return_to={Routes.tag_index_path(@socket, :index)}
+      current_user={@current_user}
+    />
+  </.modal>
 <% end %>
