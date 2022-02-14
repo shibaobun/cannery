@@ -6,7 +6,7 @@ defmodule CanneryWeb.Components.Topbar do
   use CanneryWeb, :component
 
   alias Cannery.Accounts
-  alias CanneryWeb.HomeLive
+  alias CanneryWeb.{Endpoint, HomeLive}
 
   def topbar(assigns) do
     assigns =
@@ -17,7 +17,7 @@ defmodule CanneryWeb.Components.Topbar do
       <nav role="navigation">
         <div class="flex flex-row justify-between items-center space-x-4">
           <div class="flex flex-row justify-start items-center space-x-2">
-            <%= link to: Routes.live_path(CanneryWeb.Endpoint, HomeLive) do %>
+            <%= link to: Routes.live_path(Endpoint, HomeLive) do %>
               <h1 class="leading-5 text-xl text-white hover:underline">
                 Cannery
               </h1>
@@ -34,43 +34,43 @@ defmodule CanneryWeb.Components.Topbar do
               <li>
                 <%= link(gettext("Tags"),
                   class: "hover:underline",
-                  to: Routes.tag_index_path(CanneryWeb.Endpoint, :index)
+                  to: Routes.tag_index_path(Endpoint, :index)
                 ) %>
               </li>
               <li>
                 <%= link(gettext("Containers"),
                   class: "hover:underline",
-                  to: Routes.container_index_path(CanneryWeb.Endpoint, :index)
+                  to: Routes.container_index_path(Endpoint, :index)
                 ) %>
               </li>
               <li>
                 <%= link(gettext("Ammo"),
                   class: "hover:underline",
-                  to: Routes.ammo_type_index_path(CanneryWeb.Endpoint, :index)
+                  to: Routes.ammo_type_index_path(Endpoint, :index)
                 ) %>
               </li>
               <li>
                 <%= link(gettext("Manage"),
                   class: "hover:underline",
-                  to: Routes.ammo_group_index_path(CanneryWeb.Endpoint, :index)
+                  to: Routes.ammo_group_index_path(Endpoint, :index)
                 ) %>
               </li>
               <%= if @current_user.role == :admin do %>
                 <li>
                   <%= link(gettext("Invites"),
                     class: "hover:underline",
-                    to: Routes.invite_index_path(CanneryWeb.Endpoint, :index)
+                    to: Routes.invite_index_path(Endpoint, :index)
                   ) %>
                 </li>
               <% end %>
               <li>
                 <%= link(@current_user.email,
                   class: "hover:underline truncate",
-                  to: Routes.user_settings_path(CanneryWeb.Endpoint, :edit)
+                  to: Routes.user_settings_path(Endpoint, :edit)
                 ) %>
               </li>
               <li>
-                <%= link to: Routes.user_session_path(CanneryWeb.Endpoint, :delete),
+                <%= link to: Routes.user_session_path(Endpoint, :delete),
                      method: :delete,
                      data: [confirm: dgettext("prompts", "Are you sure you want to log out?")] do %>
                   <i class="fas fa-sign-out-alt"></i>
@@ -78,7 +78,7 @@ defmodule CanneryWeb.Components.Topbar do
               </li>
               <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
                 <li>
-                  <%= link to: Routes.live_dashboard_path(CanneryWeb.Endpoint, :home) do %>
+                  <%= link to: Routes.live_dashboard_path(Endpoint, :home) do %>
                     <i class="fas fa-tachometer-alt"></i>
                   <% end %>
                 </li>
@@ -88,14 +88,14 @@ defmodule CanneryWeb.Components.Topbar do
                 <li>
                   <%= link(dgettext("actions", "Register"),
                     class: "hover:underline",
-                    to: Routes.user_registration_path(CanneryWeb.Endpoint, :new)
+                    to: Routes.user_registration_path(Endpoint, :new)
                   ) %>
                 </li>
               <% end %>
               <li>
                 <%= link(dgettext("actions", "Log in"),
                   class: "hover:underline",
-                  to: Routes.user_session_path(CanneryWeb.Endpoint, :new)
+                  to: Routes.user_session_path(Endpoint, :new)
                 ) %>
               </li>
             <% end %>
