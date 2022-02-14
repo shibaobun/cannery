@@ -135,3 +135,9 @@ In `prod` mode (or in the Docker container), Cannery will listen for the same en
 - `EMAIL_FROM`: Sets the sender email in sent emails. Defaults to
   `no-reply@HOST` where `HOST` was previously defined.
 - `EMAIL_NAME`: Sets the sender name in sent emails. Defaults to "Cannery".
+
+# Contributers
+
+Thank you so much for your contributions!
+
+- shibao (https://misskey.bubbletea.dev/@shibao)
