@@ -143,3 +143,13 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:56
 msgid "View"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.html.heex:50
+msgid "Why not add one?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/add_tag_component.ex:66
+msgid "Add"
+msgstr ""

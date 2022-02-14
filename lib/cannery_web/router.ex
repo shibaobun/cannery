@@ -67,6 +67,7 @@ defmodule CanneryWeb.Router do
 
     live "/containers/:id", ContainerLive.Show, :show
     live "/containers/:id/show/edit", ContainerLive.Show, :edit
+    live "/containers/:id/show/add_tag", ContainerLive.Show, :add_tag
 
     live "/ammo_groups", AmmoGroupLive.Index, :index
     live "/ammo_groups/new", AmmoGroupLive.Index, :new

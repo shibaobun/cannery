@@ -4,6 +4,7 @@ defmodule Cannery.Tags do
   """
 
   import Ecto.Query, warn: false
+  import CanneryWeb.Gettext
   alias Cannery.{Accounts.User, Repo, Tags.Tag}
   alias Ecto.Changeset
 
@@ -18,6 +19,27 @@ defmodule Cannery.Tags do
   """
   @spec list_tags(User.t()) :: [Tag.t()]
   def list_tags(%{id: user_id}), do: Repo.all(from t in Tag, where: t.user_id == ^user_id)
+
+  @doc """
+  Gets a single tag.
+
+  ## Examples
+
+      iex> get_tag(123, %User{id: 123})
+      {:ok, %Tag{}}
+
+      iex> get_tag(456, %User{id: 123})
+      {:error, "tag not found"}
+
+  """
+  @spec get_tag(Tag.id(), User.t()) :: {:ok, Tag.t()} | {:error, String.t()}
+  def get_tag(id, %User{id: user_id}) do
+    Repo.one(from t in Tag, where: t.id == ^id and t.user_id == ^user_id)
+    |> case do
+      nil -> {:error, dgettext("errors", "Tag not found")}
+      tag -> {:ok, tag}
+    end
+  end
 
   @doc """
   Gets a single tag.

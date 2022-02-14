@@ -184,8 +184,7 @@ defmodule Cannery.Containers do
       Repo.delete_all(
         from ct in ContainerTag,
           where: ct.container_id == ^container_id,
-          where: ct.tag_id == ^tag_id,
-          where: ct.user_id == ^user_id
+          where: ct.tag_id == ^tag_id
       )
 
     if count == 0, do: raise("could not delete container tag"), else: count

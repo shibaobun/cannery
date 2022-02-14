@@ -39,7 +39,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/index.ex:47
-#: lib/cannery_web/live/container_live/show.ex:42
+#: lib/cannery_web/live/container_live/show.ex:64
 msgid "%{name} has been deleted"
 msgstr ""
 
@@ -176,4 +176,24 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/controllers/user_settings_controller.ex:78
 msgid "Your account has been deleted"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.html.heex:68
+msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name}?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/add_tag_component.ex:40
+msgid "%{name} added successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.ex:40
+msgid "%{tag_name} has been removed from %{container_name}"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/add_tag_component.ex:68
+msgid "Adding..."
 msgstr ""

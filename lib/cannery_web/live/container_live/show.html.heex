@@ -30,7 +30,7 @@
 
     <%= link to: "#",
          class: "text-primary-500 link",
-         phx_click: "delete",
+         phx_click: "delete_container",
          data: [
            confirm:
              dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name)
@@ -39,7 +39,46 @@
     <% end %>
   </div>
 
-  <hr class="mb-4 w-full">
+  <hr class="mb-4 hr">
+
+  <%= if @container.tags |> Enum.empty?() do %>
+    <div class="flex flex-row justify-center items-center space-x-4">
+      <h2 class="title text-lg text-primary-500">
+        <%= gettext("No tags for this container") %> 😔
+      </h2>
+
+      <%= live_patch(dgettext("actions", "Why not add one?"),
+        to: Routes.container_show_path(Endpoint, :add_tag, @container),
+        class: "btn btn-primary"
+      ) %>
+    </div>
+  <% else %>
+    <h2 class="mb-4 title text-xl text-primary-500">
+      <%= gettext("Tags") %>
+    </h2>
+
+    <%= for tag <- @container.tags do %>
+      <.tag_card tag={tag}>
+        <%= link to: "#",
+             class: "text-primary-500 link",
+             phx_click: "delete_tag",
+             phx_value_tag_id: tag.id,
+             data: [
+               confirm:
+                 dgettext(
+                   "prompts",
+                   "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
+                   tag_name: tag.name,
+                   container_name: @container.name
+                 )
+             ] do %>
+          <i class="fa-fw fa-lg fas fa-trash"></i>
+        <% end %>
+      </.tag_card>
+    <% end %>
+  <% end %>
+
+  <hr class="mb-4 hr">
 
   <p>
     <%= if @container.ammo_groups |> Enum.empty?() do %>
@@ -50,14 +89,26 @@
       <% end %>
     <% end %>
   </p>
-
-  <%= if @live_action in [:edit] do %>
-    <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
-      id: @container.id,
-      title: @page_title,
-      action: @live_action,
-      container: @container,
-      return_to: Routes.container_show_path(@socket, :show, @container)
-    ) %>
-  <% end %>
 </div>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal(CanneryWeb.ContainerLive.FormComponent,
+    id: @container.id,
+    title: @page_title,
+    action: @live_action,
+    container: @container,
+    return_to: Routes.container_show_path(Endpoint, :show, @container),
+    current_user: @current_user
+  ) %>
+<% end %>
+
+<%= if @live_action == :add_tag do %>
+  <%= live_modal(CanneryWeb.ContainerLive.AddTagComponent,
+    id: @container.id,
+    title: @page_title,
+    action: @live_action,
+    container: @container,
+    return_to: Routes.container_show_path(Endpoint, :show, @container),
+    current_user: @current_user
+  ) %>
+<% end %>

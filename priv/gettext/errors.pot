@@ -17,7 +17,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/index.ex:54
-#: lib/cannery_web/live/container_live/show.ex:52
+#: lib/cannery_web/live/container_live/show.ex:74
 msgid "Could not delete %{name}: %{error}"
 msgstr ""
 
@@ -129,4 +129,14 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery/accounts/user.ex:82
 msgid "must have the @ sign and no spaces"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/tags.ex:39
+msgid "Tag not found"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/add_tag_component.ex:35
+msgid "Tag could not be added"
 msgstr ""

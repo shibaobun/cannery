@@ -160,7 +160,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/index.ex:23
-#: lib/cannery_web/live/container_live/show.ex:67
+#: lib/cannery_web/live/container_live/show.ex:89
 msgid "Edit Container"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgid "No ammo for this type"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/show.html.heex:46
+#: lib/cannery_web/live/container_live/show.html.heex:85
 msgid "No ammo groups in this container"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgid "Show Ammo type"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/show.ex:66
+#: lib/cannery_web/live/container_live/show.ex:88
 msgid "Show Container"
 msgstr ""
 
@@ -482,6 +482,7 @@ msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/components/topbar.ex:35
+#: lib/cannery_web/live/container_live/show.html.heex:57
 msgid "Tags"
 msgstr ""
 
@@ -545,4 +546,14 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/home_live.ex:67
 msgid "Your data stays with you, period"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.ex:90
+msgid "Add Tag to Container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/container_live/show.html.heex:47
+msgid "No tags for this container"
 msgstr ""
