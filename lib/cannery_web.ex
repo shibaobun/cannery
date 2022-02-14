@@ -91,14 +91,11 @@ defmodule CanneryWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
-      import CanneryWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import CanneryWeb.ErrorHelpers
-      import CanneryWeb.Gettext
-      import CanneryWeb.ViewHelpers
+      import CanneryWeb.{ErrorHelpers, Gettext, LiveHelpers, ViewHelpers}
       alias CanneryWeb.Router.Helpers, as: Routes
     end
   end
