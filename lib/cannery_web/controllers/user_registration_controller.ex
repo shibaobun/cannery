@@ -72,7 +72,7 @@ defmodule CanneryWeb.UserRegistrationController do
         |> redirect(to: Routes.user_session_path(Endpoint, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, invite: invite)
+        conn |> render("new.html", changeset: changeset, invite: invite)
     end
   end
 end
