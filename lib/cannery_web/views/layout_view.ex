@@ -1,7 +1,6 @@
 defmodule CanneryWeb.LayoutView do
   use CanneryWeb, :view
   import CanneryWeb.Components.Topbar
-  alias Cannery.Accounts
   alias CanneryWeb.{Endpoint, HomeLive}
 
   # Phoenix LiveDashboard is available only in development by default,

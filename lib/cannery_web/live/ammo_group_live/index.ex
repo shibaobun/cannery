@@ -30,7 +30,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket |> assign(:page_title, gettext("Listing Ammo groups")) |> assign(:ammo_group, nil)
+    socket |> assign(:page_title, gettext("Ammo groups")) |> assign(:ammo_group, nil)
   end
 
   @impl true
