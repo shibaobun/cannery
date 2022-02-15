@@ -17,6 +17,12 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, apply_action(socket, live_action, params)}
   end
 
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :move, %{"id" => id}) do
+    socket
+    |> assign(:page_title, gettext("Move Ammo group"))
+    |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
+  end
+
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, gettext("Edit Ammo group"))

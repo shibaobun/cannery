@@ -14,26 +14,11 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   end
 
   @impl true
-  def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
-    socket |> assign(page_title: page_title(live_action)) |> apply_action(live_action, params)
-  end
-
-  defp apply_action(
-         %{assigns: %{current_user: current_user}} = socket,
-         :add_shot_group,
-         %{"id" => id}
-       ) do
-    socket
-    |> assign(:page_title, gettext("Add Shot group"))
-    |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
-  end
-
-  defp apply_action(
-         %{assigns: %{live_action: live_action, current_user: current_user}} = socket,
-         action,
-         %{"id" => id}
-       )
-       when action == :edit or action == :show do
+  def handle_params(
+        %{"id" => id},
+        _url,
+        %{assigns: %{live_action: live_action, current_user: current_user}} = socket
+      ) do
     ammo_group = Ammo.get_ammo_group!(id, current_user) |> Repo.preload([:container, :ammo_type])
     {:noreply, socket |> assign(page_title: page_title(live_action), ammo_group: ammo_group)}
   end
@@ -64,6 +49,8 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     {:noreply, socket |> assign(ammo_group: ammo_group)}
   end
 
+  defp page_title(:add_shot_group), do: gettext("Add Shot group")
+  defp page_title(:move), do: gettext("Move Ammo group")
   defp page_title(:show), do: gettext("Show Ammo group")
   defp page_title(:edit), do: gettext("Edit Ammo group")
 end

@@ -1,0 +1,69 @@
+<div class="w-full flex flex-col space-y-8 justify-center items-center">
+  <h2 class="text-center title text-xl text-primary-500">
+    <%= gettext("Move ammo") %>
+  </h2>
+
+  <%= if @containers |> Enum.empty?() do %>
+    <h2 class="title text-xl text-primary-500">
+      <%= gettext("No other containers") %> 😔
+    </h2>
+
+    <%= live_patch(dgettext("actions", "Add another container!"),
+      to: Routes.container_index_path(@socket, :new),
+      class: "btn btn-primary"
+    ) %>
+  <% else %>
+    <div class="w-full overflow-x-auto border border-gray-600 rounded-lg shadow-lg bg-black">
+      <table class="min-w-full table-auto text-center bg-white">
+        <thead class="border-b border-primary-600">
+          <tr>
+            <th class="p-2">
+              <%= gettext("Container") %>
+            </th>
+
+            <th class="p-2">
+              <%= gettext("Type") %>
+            </th>
+
+            <th class="p-2">
+              <%= gettext("Location") %>
+            </th>
+
+            <th class="p-2"></th>
+          </tr>
+        </thead>
+        <tbody id="containers">
+          <%= for container <- @containers do %>
+            <tr id={"container-#{container.id}"}>
+              <td class="p-2">
+                <%= container.name %>
+              </td>
+
+              <td class="p-2">
+                <%= container.type %>
+              </td>
+
+              <td class="p-2">
+                <%= container.location %>
+              </td>
+
+              <td class="p-2">
+                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    phx-click="move"
+                    phx-target={@myself}
+                    phx-value-container_id={container.id}
+                  >
+                    <%= dgettext("actions", "Select") %>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

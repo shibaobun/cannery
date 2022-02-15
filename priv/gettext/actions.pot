@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/index.ex:28
+#: lib/cannery_web/live/ammo_group_live/index.ex:34
 msgid "Add Ammo"
 msgstr ""
 
@@ -167,4 +167,19 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:27
 msgid "Ammo Details"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/components/move_ammo_group_component.html.heex:11
+msgid "Add another container!"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:48
+msgid "Move to different container"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/components/move_ammo_group_component.html.heex:59
+msgid "Select"
 msgstr ""
