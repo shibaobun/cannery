@@ -7,7 +7,7 @@
            Routes.user_registration_path(@conn, :create),
            [class: "flex flex-col justify-center items-center space-y-4"],
            fn f -> %>
-    <%= unless @changeset.valid? do %>
+    <%= if @changeset.action && not @changeset.valid? do %>
       <div class="alert alert-danger">
         <p>
           <%= dgettext("errors", "Oops, something went wrong! Please check the errors below.") %>

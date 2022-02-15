@@ -41,7 +41,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <%= unless @changeset.valid? do %>
+        <%= if @changeset.action && not @changeset.valid? do %>
           <div class="invalid-feedback col-span-3 text-center">
             <%= changeset_errors(@changeset) %>
           </div>
