@@ -55,6 +55,12 @@ defmodule CanneryWeb.Components.Topbar do
                   to: Routes.ammo_group_index_path(Endpoint, :index)
                 ) %>
               </li>
+              <li>
+                <%= link(gettext("Range"),
+                  class: "hover:underline",
+                  to: Routes.range_index_path(Endpoint, :index)
+                ) %>
+              </li>
               <%= if @current_user.role == :admin do %>
                 <li>
                   <%= link(gettext("Invites"),

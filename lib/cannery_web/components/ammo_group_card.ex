@@ -42,6 +42,12 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           </span>
         <% end %>
       </div>
+
+      <%= if assigns |> Map.has_key?(:inner_block) do %>
+        <div class="mt-4 flex space-x-4 justify-center items-center">
+          <%= render_slot(@inner_block) %>
+        </div>
+      <% end %>
     </div>
     """
   end

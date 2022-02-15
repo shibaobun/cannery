@@ -1,0 +1,47 @@
+<div>
+  <h2 class="text-center title text-xl text-primary-500">
+    <%= gettext("Record shots") %>
+  </h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="shot-group-form"
+    class="grid grid-cols-3 justify-center items-center space-y-4"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <%= unless @changeset.valid? do %>
+      <div class="invalid-feedback col-span-3 text-center">
+        <%= changeset_errors(@changeset) %>
+      </div>
+    <% end %>
+
+    <%= label(f, :ammo_left, gettext("Rounds left"), class: "title text-lg text-primary-500") %>
+    <%= number_input(f, :ammo_left,
+      min: 0,
+      max: @ammo_group.count - 1,
+      placeholder: 0,
+      class: "input input-primary col-span-2"
+    ) %>
+    <%= error_tag(f, :ammo_left, "col-span-3") %>
+
+    <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-500") %>
+    <%= textarea(f, :notes,
+      class: "input input-primary col-span-2",
+      placeholder: "Really great weather",
+      phx_hook: "MaintainAttrs"
+    ) %>
+    <%= error_tag(f, :notes, "col-span-3") %>
+
+    <%= label(f, :date, gettext("Date (UTC)"), class: "title text-lg text-primary-500") %>
+    <%= date_input(f, :date, class: "input input-primary col-span-2") %>
+    <%= error_tag(f, :notes, "col-span-3") %>
+
+    <%= submit(dgettext("actions", "Save"),
+      class: "mx-auto btn btn-primary col-span-3",
+      phx_disable_with: dgettext("prompts", "Saving...")
+    ) %>
+  </.form>
+</div>

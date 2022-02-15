@@ -24,7 +24,7 @@ defmodule CanneryWeb.InviteLiveTest do
     test "lists all invites", %{conn: conn, invite: invite} do
       {:ok, _index_live, html} = live(conn, Routes.invite_index_path(conn, :index))
 
-      assert html =~ "Listing Invites"
+      assert html =~ "Invites"
       assert html =~ invite.name
     end
 

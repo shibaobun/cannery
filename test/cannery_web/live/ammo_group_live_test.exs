@@ -24,7 +24,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
     test "lists all ammo_groups", %{conn: conn, ammo_group: ammo_group} do
       {:ok, _index_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert html =~ "Listing Ammo groups"
+      assert html =~ "Ammo groups"
       assert html =~ ammo_group.notes
     end
 

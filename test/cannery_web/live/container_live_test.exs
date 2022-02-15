@@ -38,7 +38,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "lists all containers", %{conn: conn, container: container} do
       {:ok, _index_live, html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ gettext("Listing Containers")
+      assert html =~ gettext("Containers")
       assert html =~ container.desc
     end
 

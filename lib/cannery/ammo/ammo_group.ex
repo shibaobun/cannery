@@ -18,6 +18,7 @@ defmodule Cannery.Ammo.AmmoGroup do
     field :count, :integer
     field :notes, :string
     field :price_paid, :float
+    field :staged, :boolean, default: false
 
     belongs_to :ammo_type, AmmoType
     belongs_to :container, Container
@@ -31,6 +32,7 @@ defmodule Cannery.Ammo.AmmoGroup do
           count: integer,
           notes: String.t() | nil,
           price_paid: float() | nil,
+          staged: boolean(),
           ammo_type: AmmoType.t() | nil,
           ammo_type_id: AmmoType.id(),
           container: Container.t() | nil,
@@ -47,9 +49,9 @@ defmodule Cannery.Ammo.AmmoGroup do
   @spec create_changeset(new_ammo_group(), attrs :: map()) :: Changeset.t(new_ammo_group())
   def create_changeset(ammo_group, attrs) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :ammo_type_id, :container_id, :user_id])
+    |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id, :user_id])
     |> validate_number(:count, greater_than: 0)
-    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
+    |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
   end
 
   @doc false
@@ -57,9 +59,9 @@ defmodule Cannery.Ammo.AmmoGroup do
           Changeset.t(t() | new_ammo_group())
   def update_changeset(ammo_group, attrs) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :ammo_type_id, :container_id])
+    |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id])
     |> validate_number(:count, greater_than: 0)
-    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
+    |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
   end
 
   @doc """
@@ -70,7 +72,7 @@ defmodule Cannery.Ammo.AmmoGroup do
           Changeset.t(t() | new_ammo_group())
   def range_changeset(ammo_group, attrs) do
     ammo_group
-    |> cast(attrs, [:count])
-    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
+    |> cast(attrs, [:count, :staged])
+    |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
   end
 end

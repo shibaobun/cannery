@@ -45,7 +45,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     test "lists all ammo_types", %{conn: conn, ammo_type: ammo_type} do
       {:ok, _index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      assert html =~ "Listing Ammo types"
+      assert html =~ "Ammo types"
       assert html =~ ammo_type.bullet_type
     end
 

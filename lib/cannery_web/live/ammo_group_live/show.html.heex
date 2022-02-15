@@ -24,6 +24,11 @@
   </div>
 
   <div class="flex space-x-4 justify-center items-center text-primary-500">
+    <%= live_patch(dgettext("actions", "Ammo Details"),
+      to: Routes.ammo_type_show_path(@socket, :show, @ammo_group.ammo_type),
+      class: "btn btn-primary"
+    ) %>
+
     <%= live_patch to: Routes.ammo_group_show_path(@socket, :edit, @ammo_group),
                class: "text-primary-500 link" do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
@@ -35,6 +40,10 @@
          data: [confirm: dgettext("prompts", "Are you sure you want to delete this ammo?")] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
+
+    <button type="button" class="btn btn-primary" phx-click="toggle_staged">
+      <%= if @ammo_group.staged, do: gettext("Unstage from range"), else: gettext("Stage for range") %>
+    </button>
   </div>
 
   <hr class="mb-4 w-full">
@@ -53,14 +62,28 @@
 </div>
 
 <%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.ammo_group_show_path(@socket, :show, @ammo_group)}>
+  <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
     <.live_component
       module={CanneryWeb.AmmoGroupLive.FormComponent}
       id={@ammo_group.id}
       title={@page_title}
       action={@live_action}
       ammo_group={@ammo_group}
-      return_to={Routes.ammo_group_show_path(@socket, :show, @ammo_group)}
+      return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+      current_user={@current_user}
+    />
+  </.modal>
+<% end %>
+
+<%= if @live_action in [:add_shot_group] do %>
+  <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+    <.live_component
+      module={CanneryWeb.Components.AddShotGroupComponent}
+      id={:new}
+      title={@page_title}
+      action={@live_action}
+      ammo_group={@ammo_group}
+      return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
       current_user={@current_user}
     />
   </.modal>

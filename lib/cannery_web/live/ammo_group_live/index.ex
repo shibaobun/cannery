@@ -4,8 +4,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.Ammo
-  alias Cannery.Ammo.AmmoGroup
+  alias Cannery.{Ammo, Ammo.AmmoGroup, Repo}
+  alias CanneryWeb.Endpoint
 
   @impl true
   def mount(_params, session, socket) do
@@ -42,7 +42,22 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_groups()}
   end
 
+  @impl true
+  def handle_event(
+        "toggle_staged",
+        %{"ammo_group_id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
+    ammo_group = Ammo.get_ammo_group!(id, current_user)
+
+    {:ok, _ammo_group} =
+      ammo_group |> Ammo.update_ammo_group(%{"staged" => !ammo_group.staged}, current_user)
+
+    {:noreply, socket |> display_ammo_groups()}
+  end
+
   defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
-    socket |> assign(:ammo_groups, Ammo.list_ammo_groups(current_user))
+    ammo_groups = Ammo.list_ammo_groups(current_user) |> Repo.preload([:ammo_type, :container])
+    socket |> assign(:ammo_groups, ammo_groups)
   end
 end

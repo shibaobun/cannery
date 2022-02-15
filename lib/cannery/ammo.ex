@@ -177,8 +177,28 @@ defmodule Cannery.Ammo do
 
   """
   @spec list_ammo_groups(User.t()) :: [AmmoGroup.t()]
-  def list_ammo_groups(%User{id: user_id}) do
-    Repo.all(from am in AmmoGroup, where: am.user_id == ^user_id)
+  @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
+  def list_ammo_groups(%User{id: user_id}, include_empty \\ false) do
+    if include_empty do
+      from am in AmmoGroup, where: am.user_id == ^user_id
+    else
+      from am in AmmoGroup, where: am.user_id == ^user_id, where: not (am.count == 0)
+    end
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of staged ammo_groups for a user.
+
+  ## Examples
+
+      iex> list_staged_ammo_groups(%User{id: 123})
+      [%AmmoGroup{}, ...]
+
+  """
+  @spec list_staged_ammo_groups(User.t()) :: [AmmoGroup.t()]
+  def list_staged_ammo_groups(%User{id: user_id}) do
+    Repo.all(from am in AmmoGroup, where: am.user_id == ^user_id, where: am.staged == true)
   end
 
   @doc """

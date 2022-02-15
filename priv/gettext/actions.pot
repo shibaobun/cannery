@@ -124,10 +124,12 @@ msgid "Reset password"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:102
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:161
-#: lib/cannery_web/live/container_live/form_component.ex:90
-#: lib/cannery_web/live/invite_live/form_component.ex:63
+#: lib/cannery_web/components/add_shot_group_component.html.heex:42
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:54
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:122
+#: lib/cannery_web/live/container_live/form_component.html.heex:50
+#: lib/cannery_web/live/invite_live/form_component.html.heex:28
+#: lib/cannery_web/live/range_live/form_component.html.heex:40
 #: lib/cannery_web/live/tag_live/form_component.ex:66
 msgid "Save"
 msgstr ""
@@ -138,16 +140,31 @@ msgid "Send instructions to reset password"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:56
-msgid "View"
-msgstr ""
-
-#, elixir-format, ex-autogen
 #: lib/cannery_web/live/container_live/show.html.heex:50
 msgid "Why not add one?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/add_tag_component.ex:66
+#: lib/cannery_web/live/container_live/add_tag_component.html.heex:17
 msgid "Add"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/range_live/index.html.heex:16
+msgid "Stage ammo"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/range_live/index.html.heex:11
+msgid "Why not get some ready to shoot?"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/range_live/index.html.heex:33
+msgid "Record shots"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:27
+msgid "Ammo Details"
 msgstr ""

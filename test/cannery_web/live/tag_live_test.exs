@@ -36,7 +36,7 @@ defmodule CanneryWeb.TagLiveTest do
     test "lists all tags", %{conn: conn, tag: tag} do
       {:ok, _index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
 
-      assert html =~ "Listing Tags"
+      assert html =~ "Tags"
       assert html =~ tag.bg_color
     end
 

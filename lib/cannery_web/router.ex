@@ -72,9 +72,15 @@ defmodule CanneryWeb.Router do
     live "/ammo_groups", AmmoGroupLive.Index, :index
     live "/ammo_groups/new", AmmoGroupLive.Index, :new
     live "/ammo_groups/:id/edit", AmmoGroupLive.Index, :edit
+    live "/ammo_groups/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
 
     live "/ammo_groups/:id", AmmoGroupLive.Show, :show
     live "/ammo_groups/:id/show/edit", AmmoGroupLive.Show, :edit
+    live "/ammo_groups/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
+
+    live "/range", RangeLive.Index, :index
+    live "/range/:id/edit", RangeLive.Index, :edit
+    live "/range/:id/add_shot_group", RangeLive.Index, :add_shot_group
   end
 
   scope "/", CanneryWeb do

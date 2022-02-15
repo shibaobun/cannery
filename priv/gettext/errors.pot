@@ -140,3 +140,14 @@ msgstr ""
 #: lib/cannery_web/live/container_live/add_tag_component.ex:35
 msgid "Tag could not be added"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/activity_log.ex:125
+msgid "Count must be at least 1"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery/activity_log.ex:73
+#: lib/cannery/activity_log.ex:120
+msgid "Count must be less than %{count}"
+msgstr ""
