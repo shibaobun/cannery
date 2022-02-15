@@ -10,7 +10,7 @@ defmodule CanneryWeb.Components.ContainerCard do
     ~H"""
     <div
       id={"container-#{@container.id}"}
-      class="px-8 py-4 flex flex-col justify-center items-center
+      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center
         border border-gray-400 rounded-lg shadow-lg hover:shadow-md"
     >
       <div class="mb-4 flex flex-col justify-center items-center">
