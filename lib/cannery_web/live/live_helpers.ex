@@ -56,10 +56,10 @@ defmodule CanneryWeb.LiveHelpers do
         phx-key="escape"
       >
         <%= live_patch to: @return_to,
-                    id: "close",
-                    class:
-                      "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out",
-                    phx_click: hide_modal() do %>
+                   id: "close",
+                   class:
+                     "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out",
+                   phx_click: hide_modal() do %>
           <i class="fa-fw fa-lg fas fa-times"></i>
         <% end %>
 

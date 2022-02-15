@@ -19,15 +19,37 @@ defmodule CanneryWeb.ViewHelpers do
 
     ~H"""
     <time
-      datetime={datetime}
+      datetime={@datetime}
       x-data={"{
         date:
           Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
-            .format(new Date(\"#{datetime}\"))
+            .format(new Date(\"#{@datetime}\"))
       }"}
       x-text="date"
     >
-      <%= datetime %>
+      <%= @datetime %>
+    </time>
+    """
+  end
+
+  @doc """
+  Returns a <date> element that renders the Date in the user's local
+  timezone with Alpine.js
+  """
+  @spec display_date(Date.t()) :: Phoenix.LiveView.Rendered.t()
+  def display_date(date) do
+    assigns = %{date: date |> Date.to_iso8601(:extended)}
+
+    ~H"""
+    <time
+      datetime={@date}
+      x-data={"{
+        date:
+          Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'}).format(new Date(\"#{@date}\"))
+      }"}
+      x-text="date"
+    >
+      <%= @date %>
     </time>
     """
   end
