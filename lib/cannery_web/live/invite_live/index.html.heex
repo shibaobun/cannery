@@ -1,4 +1,4 @@
-<div class="flex flex-col space-y-8 justify-center items-center">
+<div class="w-full flex flex-col space-y-8 justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
     <%= gettext("Invites") %>
   </h1>
@@ -19,7 +19,7 @@
     ) %>
   <% end %>
 
-  <div class="flex flex-row flex-wrap space-x-4 space-y-4">
+  <div class="w-full flex flex-row flex-wrap justify-center items-center">
     <%= for invite <- @invites do %>
       <.invite_card invite={invite}>
         <%= live_patch to: Routes.invite_index_path(Endpoint, :edit, invite),
@@ -68,11 +68,11 @@
   <%= unless @admins |> Enum.empty?() do %>
     <hr class="hr">
 
-    <div class="flex flex-col justify-center items-center space-y-4">
-      <h1 class="title text-xl text-primary-500">
-        <%= gettext("Admins") %>
-      </h1>
+    <h1 class="title text-2xl text-primary-500">
+      <%= gettext("Admins") %>
+    </h1>
 
+    <div class="w-full flex flex-row flex-wrap justify-center items-center">
       <%= for admin <- @admins do %>
         <.user_card user={admin}>
           <%= link to: "#",
@@ -97,11 +97,11 @@
   <%= unless @users |> Enum.empty?() do %>
     <hr class="hr">
 
-    <div class="flex flex-col justify-center items-center space-y-4">
-      <h1 class="title text-xl text-primary-500">
-        <%= gettext("Users") %>
-      </h1>
+    <h1 class="title text-2xl text-primary-500">
+      <%= gettext("Users") %>
+    </h1>
 
+    <div class="w-full flex flex-row flex-wrap justify-center items-center">
       <%= for user <- @users do %>
         <.user_card user={user}>
           <%= link to: "#",
