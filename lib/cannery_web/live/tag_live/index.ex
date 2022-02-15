@@ -37,9 +37,7 @@ defmodule CanneryWeb.TagLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
     %{name: tag_name} = Tags.get_tag!(id, current_user) |> Tags.delete_tag!(current_user)
-
     prompt = dgettext("prompts", "%{name} deleted succesfully", name: tag_name)
-
     {:noreply, socket |> put_flash(:info, prompt) |> display_tags()}
   end
 

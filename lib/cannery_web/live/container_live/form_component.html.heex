@@ -11,7 +11,7 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <%= if @changeset.action do %>
+    <%= unless @changeset.valid? do %>
       <div class="invalid-feedback col-span-3 text-center">
         <%= changeset_errors(@changeset) %>
       </div>

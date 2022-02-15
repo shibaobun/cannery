@@ -11,7 +11,7 @@
     phx-submit="save"
     class="grid grid-cols-3 justify-center items-center space-y-4"
   >
-    <%= if @changeset.action do %>
+    <%= unless @changeset.valid? do %>
       <div class="invalid-feedback col-span-3 text-center">
         <%= changeset_errors(@changeset) %>
       </div>
