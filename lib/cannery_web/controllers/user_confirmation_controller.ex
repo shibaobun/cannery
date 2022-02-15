@@ -32,9 +32,9 @@ defmodule CanneryWeb.UserConfirmationController do
   # leaked token giving the user access to the account.
   def confirm(conn, %{"token" => token}) do
     case Accounts.confirm_user(token) do
-      {:ok, _} ->
+      {:ok, %{email: email}} ->
         conn
-        |> put_flash(:info, dgettext("prompts", "User confirmed successfully."))
+        |> put_flash(:info, dgettext("prompts", "%{email} confirmed successfully.", email: email))
         |> redirect(to: "/")
 
       :error ->
