@@ -38,10 +38,19 @@ defmodule Cannery.Invites.Invite do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(t() | new_invite(), attrs :: map()) :: Changeset.t(t() | new_invite())
-  def changeset(invite, attrs) do
+  @spec create_changeset(new_invite(), attrs :: map()) :: Changeset.t(new_invite())
+  def create_changeset(invite, attrs) do
     invite
     |> cast(attrs, [:name, :token, :uses_left, :disabled_at, :user_id])
+    |> validate_required([:name, :token, :user_id])
+    |> validate_number(:uses_left, greater_than_or_equal_to: 0)
+  end
+
+  @doc false
+  @spec update_changeset(t() | new_invite(), attrs :: map()) :: Changeset.t(t() | new_invite())
+  def update_changeset(invite, attrs) do
+    invite
+    |> cast(attrs, [:name, :token, :uses_left, :disabled_at])
     |> validate_required([:name, :token, :user_id])
     |> validate_number(:uses_left, greater_than_or_equal_to: 0)
   end

@@ -44,17 +44,12 @@ defmodule Cannery.Ammo.AmmoGroup do
   @type id :: UUID.t()
 
   @doc false
-  @spec create_changeset(t() | new_ammo_group(), attrs :: map()) ::
-          Changeset.t(t() | new_ammo_group())
+  @spec create_changeset(new_ammo_group(), attrs :: map()) :: Changeset.t(new_ammo_group())
   def create_changeset(ammo_group, attrs) do
     ammo_group
     |> cast(attrs, [:count, :price_paid, :notes, :ammo_type_id, :container_id, :user_id])
-    |> validate_required([
-      :count,
-      :ammo_type_id,
-      :container_id,
-      :user_id
-    ])
+    |> validate_number(:count, greater_than: 0)
+    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
   end
 
   @doc false
@@ -62,11 +57,20 @@ defmodule Cannery.Ammo.AmmoGroup do
           Changeset.t(t() | new_ammo_group())
   def update_changeset(ammo_group, attrs) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :ammo_type_id, :container_id, :user_id])
-    |> validate_required([
-      :count,
-      :ammo_type_id,
-      :container_id
-    ])
+    |> cast(attrs, [:count, :price_paid, :notes, :ammo_type_id, :container_id])
+    |> validate_number(:count, greater_than: 0)
+    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
+  end
+
+  @doc """
+  This range changeset is used when "using up" ammo groups, and allows for
+  updating the count to 0
+  """
+  @spec range_changeset(t() | new_ammo_group(), attrs :: map()) ::
+          Changeset.t(t() | new_ammo_group())
+  def range_changeset(ammo_group, attrs) do
+    ammo_group
+    |> cast(attrs, [:count])
+    |> validate_required([:count, :ammo_type_id, :container_id, :user_id])
   end
 end

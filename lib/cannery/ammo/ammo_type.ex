@@ -93,8 +93,7 @@ defmodule Cannery.Ammo.AmmoType do
     ]
 
   @doc false
-  @spec create_changeset(t() | new_ammo_type(), attrs :: map()) ::
-          Changeset.t(t() | new_ammo_type())
+  @spec create_changeset(new_ammo_type(), attrs :: map()) :: Changeset.t(new_ammo_type())
   def create_changeset(ammo_type, attrs) do
     ammo_type
     |> cast(attrs, [:user_id | changeset_fields()])

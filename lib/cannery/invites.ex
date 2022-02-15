@@ -83,7 +83,7 @@ defmodule Cannery.Invites do
         %{"uses_left" => new_uses_left}
       end
 
-    invite |> Invite.changeset(attrs) |> Repo.update!()
+    invite |> Invite.update_changeset(attrs) |> Repo.update!()
   end
 
   @doc """
@@ -108,7 +108,7 @@ defmodule Cannery.Invites do
 
     attrs = attrs |> Map.merge(%{"user_id" => user_id, "token" => token})
 
-    %Invite{} |> Invite.changeset(attrs) |> Repo.insert()
+    %Invite{} |> Invite.create_changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -126,7 +126,7 @@ defmodule Cannery.Invites do
   @spec update_invite(Invite.t(), attrs :: map(), User.t()) ::
           {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
   def update_invite(invite, attrs, %User{role: :admin}),
-    do: invite |> Invite.changeset(attrs) |> Repo.update()
+    do: invite |> Invite.update_changeset(attrs) |> Repo.update()
 
   @doc """
   Deletes a invite.
@@ -169,5 +169,5 @@ defmodule Cannery.Invites do
           Changeset.t(Invite.t() | Invite.new_invite())
   @spec change_invite(Invite.t() | Invite.new_invite(), attrs :: map()) ::
           Changeset.t(Invite.t() | Invite.new_invite())
-  def change_invite(invite, attrs \\ %{}), do: invite |> Invite.changeset(attrs)
+  def change_invite(invite, attrs \\ %{}), do: invite |> Invite.update_changeset(attrs)
 end
