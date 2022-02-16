@@ -33,7 +33,7 @@ defmodule Cannery.MixProject do
   def application do
     [
       mod: {Cannery.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon, :swoosh, :gen_smtp],
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -59,7 +59,8 @@ defmodule Cannery.MixProject do
       {:phoenix_live_dashboard, "~> 0.6"},
       # {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:swoosh, "~> 1.3"},
+      {:swoosh, "~> 1.6"},
+      {:gen_smtp, "~> 1.0"},
       {:phoenix_swoosh, "~> 1.0"},
       {:oban, "~> 2.10"},
       {:telemetry_metrics, "~> 0.6"},
