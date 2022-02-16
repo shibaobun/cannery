@@ -60,7 +60,7 @@
 
               <td class="p-2">
                 <%= if ammo_group.price_paid do %>
-                  $ <%= ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
+                  <%= gettext("$%{amount}", amount: ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)) %>
                 <% end %>
               </td>
 

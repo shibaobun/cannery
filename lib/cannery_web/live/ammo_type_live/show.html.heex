@@ -87,7 +87,7 @@
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
-        <%= @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2) %>
+        <%= gettext("$%{amount}", amount: @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2)) %>
       </span>
     <% end %>
   </div>

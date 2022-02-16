@@ -18,7 +18,7 @@
 
     <%= if @ammo_group.price_paid do %>
       <span class="rounded-lg title text-lg">
-        <%= gettext("Price paid:") %> $ <%= @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2) %>
+        <%= gettext("Price paid:") %> <%= gettext("$%{amount}", amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)) %>
       </span>
     <% end %>
   </div>
