@@ -60,9 +60,10 @@ defmodule Cannery.Ammo do
       ) do
     Repo.one!(
       from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
         where: ag.ammo_type_id == ^ammo_type_id,
         where: not (ag.price_paid |> is_nil()),
-        select: sum(ag.price_paid) / sum(ag.count)
+        select: sum(ag.price_paid) / (sum(ag.count) + sum(sg.count))
     )
   end
 

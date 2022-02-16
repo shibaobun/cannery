@@ -9,7 +9,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Cannery.{Accounts.User, Containers.Container}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -23,6 +23,8 @@ defmodule Cannery.Ammo.AmmoGroup do
     belongs_to :ammo_type, AmmoType
     belongs_to :container, Container
     belongs_to :user, User
+
+    has_many :shot_groups, ShotGroup
 
     timestamps()
   end
