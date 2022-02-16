@@ -30,7 +30,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :grains, :integer
     field :pressure, :string
     field :primer_type, :string
-    field :rimfire, :boolean, null: false, default: false
+    field :firing_type, :string
     field :tracer, :boolean, null: false, default: false
     field :incendiary, :boolean, null: false, default: false
     field :blank, :boolean, null: false, default: false
@@ -62,7 +62,7 @@ defmodule Cannery.Ammo.AmmoType do
           grains: integer() | nil,
           pressure: String.t() | nil,
           primer_type: String.t() | nil,
-          rimfire: boolean(),
+          firing_type: String.t() | nil,
           tracer: boolean(),
           incendiary: boolean(),
           blank: boolean(),
@@ -95,7 +95,7 @@ defmodule Cannery.Ammo.AmmoType do
       :grains,
       :pressure,
       :primer_type,
-      :rimfire,
+      :firing_type,
       :tracer,
       :incendiary,
       :blank,

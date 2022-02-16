@@ -125,9 +125,12 @@
     ) %>
     <%= error_tag(f, :primer_type, "col-span-3 text-center") %>
 
-    <%= label(f, :rimfire, gettext("Rimfire"), class: "mr-4 title text-lg text-primary-500") %>
-    <%= checkbox(f, :rimfire, class: "text-center col-span-2 checkbox") %>
-    <%= error_tag(f, :rimfire, "col-span-3 text-center") %>
+    <%= label(f, :firing_type, gettext("Firing type"), class: "mr-4 title text-lg text-primary-500") %>
+    <%= text_input(f, :firing_type,
+      class: "text-center col-span-2 input input-primary",
+      placeholder: "Centerfire"
+    ) %>
+    <%= error_tag(f, :firing_type, "col-span-3 text-center") %>
 
     <%= label(f, :tracer, gettext("Tracer"), class: "mr-4 title text-lg text-primary-500") %>
     <%= checkbox(f, :tracer, class: "text-center col-span-2 checkbox") %>
