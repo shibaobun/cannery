@@ -44,7 +44,7 @@
   <%= if @container.tags |> Enum.empty?() do %>
     <div class="flex flex-row justify-center items-center space-x-4">
       <h2 class="title text-lg text-primary-500">
-        <%= gettext("No tags for this container") %> 😔
+        <%= gettext("No tags for this container") %> <%= display_emoji("😔") %>
       </h2>
 
       <%= live_patch(dgettext("actions", "Why not add one?"),

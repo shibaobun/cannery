@@ -53,4 +53,11 @@ defmodule CanneryWeb.ViewHelpers do
     </time>
     """
   end
+
+  @doc """
+  Displays emoji as text emoji if SHIBAO_MODE is set to true :)
+  """
+  @spec display_emoji(String.t()) :: String.t()
+  def display_emoji("😔"), do: if Application.get_env(:cannery, CanneryWeb.ViewHelpers)[:shibao_mode], do: "q_q", else: "😔"
+  def display_emoji(other_emoji), do: other_emoji
 end

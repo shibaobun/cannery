@@ -5,7 +5,7 @@
 
   <%= if @ammo_groups |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No Ammo") %> 😔
+      <%= gettext("No Ammo") %> <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first box!"),

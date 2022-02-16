@@ -5,7 +5,7 @@
 
   <%= if @containers |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No other containers") %> 😔
+      <%= gettext("No other containers") %> <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Add another container!"),

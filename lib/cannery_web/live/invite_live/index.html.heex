@@ -5,7 +5,7 @@
 
   <%= if @invites |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-500">
-      <%= gettext("No invites") %> 😔
+      <%= gettext("No invites") %> <%= display_emoji("😔") %>
     </h1>
 
     <%= live_patch(dgettext("actions", "Invite someone new!"),

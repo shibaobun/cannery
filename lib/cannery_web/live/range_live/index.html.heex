@@ -5,7 +5,7 @@
 
   <%= if @ammo_groups |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-500">
-      <%= gettext("No ammo staged") %> 😔
+      <%= gettext("No ammo staged") %> <%= display_emoji("😔") %>
     </h1>
 
     <%= live_patch(dgettext("actions", "Why not get some ready to shoot?"),
@@ -42,7 +42,7 @@
 
   <%= if @shot_groups |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-500">
-      <%= gettext("No shots recorded") %> 😔
+      <%= gettext("No shots recorded") %> <%= display_emoji("😔") %>
     </h1>
   <% else %>
     <h1 class="title text-2xl text-primary-500">

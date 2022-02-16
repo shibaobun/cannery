@@ -7,7 +7,7 @@
   </p>
   <%= if @tags |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No tags") %> 😔
+      <%= gettext("No tags") %> <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Make your first tag!"),
