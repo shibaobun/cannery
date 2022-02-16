@@ -5,8 +5,11 @@
 
   <%= form_for @changeset,
            Routes.user_registration_path(@conn, :create),
-           [class: "flex flex-col sm:grid sm:grid-cols-3
-                     justify-center items-center text-center space-y-4"],
+           [
+             class:
+               "flex flex-col sm:grid sm:grid-cols-3" <>
+                 "justify-center items-center text-center space-y-4"
+           ],
            fn f -> %>
     <%= if @changeset.action && not @changeset.valid? do %>
       <div class="alert alert-danger col-span-3">

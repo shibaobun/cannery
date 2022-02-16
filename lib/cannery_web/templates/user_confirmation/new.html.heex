@@ -5,8 +5,11 @@
 
   <%= form_for :user,
            Routes.user_confirmation_path(@conn, :create),
-           [class: "flex flex-col sm:grid sm:grid-cols-3
-                    justify-center items-center text-center space-y-4"],
+           [
+             class:
+               "flex flex-col sm:grid sm:grid-cols-3" <>
+                 "justify-center items-center text-center space-y-4"
+           ],
            fn f -> %>
     <%= label(f, :email, class: "title text-lg text-primary-500") %>
     <%= email_input(f, :email, required: true, class: "input input-primary col-span-2") %>

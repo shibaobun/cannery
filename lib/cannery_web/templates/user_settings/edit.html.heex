@@ -7,8 +7,11 @@
 
   <%= form_for @email_changeset,
            Routes.user_settings_path(@conn, :update),
-           [class: "pb-4 flex flex-col sm:grid sm:grid-cols-3
-                    justify-center items-center text-center space-y-4"],
+           [
+             class:
+               "pb-4 flex flex-col sm:grid sm:grid-cols-3" <>
+                 "justify-center items-center text-center space-y-4"
+           ],
            fn f -> %>
     <h3 class="title text-primary-500 text-lg col-span-3">
       <%= dgettext("actions", "Change email") %>

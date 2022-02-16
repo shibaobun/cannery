@@ -10,123 +10,123 @@
 msgid ""
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:34
 msgid "Add Ammo"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:12
 msgid "Add your first box!"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.html.heex:12
 msgid "Add your first container!"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:12
 msgid "Add your first type!"
 msgstr ""
 
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_settings/edit.html.heex:14
-#: lib/cannery_web/templates/user_settings/edit.html.heex:43
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:17
+#: lib/cannery_web/templates/user_settings/edit.html.heex:46
 msgid "Change email"
 msgstr ""
 
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_settings/edit.html.heex:56
-#: lib/cannery_web/templates/user_settings/edit.html.heex:97
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:59
+#: lib/cannery_web/templates/user_settings/edit.html.heex:100
 msgid "Change password"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:17
 msgid "Create Invite"
 msgstr ""
 
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_settings/edit.html.heex:102
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:105
 msgid "Delete User"
 msgstr ""
 
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_registration/new.html.heex:41
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_registration/new.html.heex:44
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:3
-#: lib/cannery_web/templates/user_session/new.html.heex:42
+#: lib/cannery_web/templates/user_session/new.html.heex:46
 msgid "Forgot your password?"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:12
 msgid "Invite someone new!"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:106
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:28
-#: lib/cannery_web/templates/user_registration/new.html.heex:37
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:39
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:29
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:31
+#: lib/cannery_web/templates/user_registration/new.html.heex:40
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:42
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:32
 #: lib/cannery_web/templates/user_session/new.html.heex:3
-#: lib/cannery_web/templates/user_session/new.html.heex:30
+#: lib/cannery_web/templates/user_session/new.html.heex:34
 msgid "Log in"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/tag_live/index.html.heex:14
 msgid "Make your first tag!"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:17
 msgid "New Ammo group"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:17
 msgid "New Ammo type"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.html.heex:17
 msgid "New Container"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/tag_live/index.html.heex:19
 msgid "New Tag"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:99
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:23
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:26
 #: lib/cannery_web/templates/user_registration/new.html.heex:3
-#: lib/cannery_web/templates/user_registration/new.html.heex:31
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:34
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:24
-#: lib/cannery_web/templates/user_session/new.html.heex:37
+#: lib/cannery_web/templates/user_registration/new.html.heex:34
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:37
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:27
+#: lib/cannery_web/templates/user_session/new.html.heex:41
 msgid "Register"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:3
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:14
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:17
 msgid "Resend confirmation instructions"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:3
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:27
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:30
 msgid "Reset password"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:42
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:54
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:156
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:159
 #: lib/cannery_web/live/container_live/form_component.html.heex:50
 #: lib/cannery_web/live/invite_live/form_component.html.heex:28
 #: lib/cannery_web/live/range_live/form_component.html.heex:40
@@ -134,57 +134,57 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:15
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:18
 msgid "Send instructions to reset password"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/show.html.heex:51
 msgid "Why not add one?"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/add_tag_component.html.heex:17
 msgid "Add"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/range_live/index.html.heex:17
 msgid "Stage ammo"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/range_live/index.html.heex:12
 msgid "Why not get some ready to shoot?"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/range_live/index.html.heex:34
 msgid "Record shots"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:28
 msgid "Ammo Details"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.html.heex:12
 msgid "Add another container!"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:49
 msgid "Move to different container"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.html.heex:60
 msgid "Select"
 msgstr ""
 
-#, elixir-format, ex-autogen
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:34
 msgid "Copy to clipboard"
 msgstr ""

@@ -5,8 +5,12 @@
 
   <%= form_for @conn,
            Routes.user_session_path(@conn, :create),
-           [as: :user, class: "flex flex-col sm:grid sm:grid-cols-3
-                     justify-center items-center text-center space-y-4"],
+           [
+             as: :user,
+             class:
+               "flex flex-col sm:grid sm:grid-cols-3" <>
+                 "justify-center items-center text-center space-y-4"
+           ],
            fn f -> %>
     <%= if @error_message do %>
       <div class="alert alert-danger col-span-3">

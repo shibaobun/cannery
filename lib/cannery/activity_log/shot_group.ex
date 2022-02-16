@@ -5,7 +5,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
 
   use Ecto.Schema
   import Ecto.Changeset
-  alias Cannery.{Accounts.User, Ammo.AmmoGroup, ActivityLog.ShotGroup}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup}
   alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
