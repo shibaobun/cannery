@@ -21,7 +21,7 @@ msgid "Access from any internet-capable device"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:73
+#: lib/cannery_web/live/invite_live/index.html.heex:84
 msgid "Admins"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgid "Description:"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:45
+#: lib/cannery_web/live/invite_live/index.html.heex:57
 msgid "Disable"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgid "Edit Container"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:34
+#: lib/cannery_web/live/invite_live/index.ex:35
 msgid "Edit Invite"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgid "Edit Tag"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:49
+#: lib/cannery_web/live/invite_live/index.html.heex:61
 msgid "Enable"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgid "Listing Containers"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:42
+#: lib/cannery_web/live/invite_live/index.ex:43
 msgid "Listing Invites"
 msgstr ""
 
@@ -312,7 +312,7 @@ msgid "New Container"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:38
+#: lib/cannery_web/live/invite_live/index.ex:39
 msgid "New Invite"
 msgstr ""
 
@@ -429,7 +429,7 @@ msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:61
+#: lib/cannery_web/live/invite_live/index.html.heex:73
 msgid "Set Unlimited"
 msgstr ""
 
@@ -519,7 +519,7 @@ msgid "Type:"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:102
+#: lib/cannery_web/live/invite_live/index.html.heex:113
 msgid "Users"
 msgstr ""
 

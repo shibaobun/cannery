@@ -183,3 +183,8 @@ msgstr ""
 #: lib/cannery_web/components/move_ammo_group_component.html.heex:59
 msgid "Select"
 msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.html.heex:33
+msgid "Copy to clipboard"
+msgstr ""

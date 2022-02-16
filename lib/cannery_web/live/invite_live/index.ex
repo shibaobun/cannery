@@ -7,6 +7,7 @@ defmodule CanneryWeb.InviteLive.Index do
   import CanneryWeb.Components.{InviteCard, UserCard}
   alias Cannery.{Accounts, Invites, Invites.Invite}
   alias CanneryWeb.{Endpoint, HomeLive}
+  alias Phoenix.LiveView.JS
 
   @impl true
   def mount(_params, session, socket) do
@@ -75,7 +76,11 @@ defmodule CanneryWeb.InviteLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("enable", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+  def handle_event(
+        "enable_invite",
+        %{"id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
     socket =
       Invites.get_invite!(id, current_user)
       |> Invites.update_invite(%{"uses_left" => nil, "disabled_at" => nil}, current_user)
@@ -91,7 +96,11 @@ defmodule CanneryWeb.InviteLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("disable", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
+  def handle_event(
+        "disable_invite",
+        %{"id" => id},
+        %{assigns: %{current_user: current_user}} = socket
+      ) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
     socket =
@@ -110,6 +119,12 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   @impl true
+  def handle_event("copy_to_clipboard", _, socket) do
+    prompt = dgettext("prompts", "Copied to clipboard")
+    {:noreply, socket |> put_flash(:info, prompt)}
+  end
+
+  @impl true
   def handle_event(
         "delete_user",
         %{"id" => id},
@@ -123,16 +138,16 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   defp display_invites(%{assigns: %{current_user: current_user}} = socket) do
-    invites = Invites.list_invites(current_user)
-
+    invites = Invites.list_invites(current_user) |> Enum.sort_by(fn %{name: name} -> name end)
     all_users = Accounts.list_all_users_by_role(current_user)
 
     admins =
       all_users
       |> Map.get(:admin, [])
       |> Enum.reject(fn %{id: user_id} -> user_id == current_user.id end)
+      |> Enum.sort_by(fn %{email: email} -> email end)
 
-    users = all_users |> Map.get(:user, [])
+    users = all_users |> Map.get(:user, []) |> Enum.sort_by(fn %{email: email} -> email end)
     socket |> assign(invites: invites, admins: admins, users: users)
   end
 end

@@ -21,19 +21,19 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/index.ex:41
 #: lib/cannery_web/live/ammo_type_live/show.ex:40
-#: lib/cannery_web/live/invite_live/index.ex:54
-#: lib/cannery_web/live/invite_live/index.ex:120
+#: lib/cannery_web/live/invite_live/index.ex:55
+#: lib/cannery_web/live/invite_live/index.ex:135
 #: lib/cannery_web/live/tag_live/index.ex:40
 msgid "%{name} deleted succesfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:102
+#: lib/cannery_web/live/invite_live/index.ex:111
 msgid "%{name} disabled succesfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:84
+#: lib/cannery_web/live/invite_live/index.ex:89
 msgid "%{name} enabled succesfully"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgid "%{name} has been deleted"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.ex:68
+#: lib/cannery_web/live/invite_live/index.ex:69
 msgid "%{name} updated succesfully"
 msgstr ""
 
@@ -78,8 +78,8 @@ msgid "Ammo group updated successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:84
-#: lib/cannery_web/live/invite_live/index.html.heex:113
+#: lib/cannery_web/live/invite_live/index.html.heex:96
+#: lib/cannery_web/live/invite_live/index.html.heex:125
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:36
+#: lib/cannery_web/live/invite_live/index.html.heex:48
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgid "Are you sure you want to log out?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:59
+#: lib/cannery_web/live/invite_live/index.html.heex:71
 msgid "Are you sure you want to make %{name} unlimited?"
 msgstr ""
 
@@ -232,4 +232,9 @@ msgstr ""
 #, elixir-format, ex-autogen
 #: lib/cannery_web/components/move_ammo_group_component.ex:47
 msgid "Ammo moved to %{name} successfully"
+msgstr ""
+
+#, elixir-format, ex-autogen
+#: lib/cannery_web/live/invite_live/index.ex:123
+msgid "Copied to clipboard"
 msgstr ""

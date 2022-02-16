@@ -22,6 +22,18 @@
   <div class="w-full flex flex-row flex-wrap justify-center items-center">
     <%= for invite <- @invites do %>
       <.invite_card invite={invite}>
+        <:code_actions>
+          <form phx-submit={JS.dispatch("cannery:clipcopy", to: "#code-#{invite.id}")}>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              phx-click="copy_to_clipboard"
+              phx-value-invite_id={"#code-#{invite.id}"}
+            >
+              <%= dgettext("actions", "Copy to clipboard") %>
+            </button>
+          </form>
+        </:code_actions>
         <%= live_patch to: Routes.invite_index_path(Endpoint, :edit, invite),
                    class: "text-primary-500 link" do %>
           <i class="fa-fw fa-lg fas fa-edit"></i>
