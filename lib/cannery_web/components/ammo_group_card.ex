@@ -14,7 +14,8 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
     <div
       id={"ammo_group-#{@ammo_group.id}"}
       class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center
-            border border-gray-400 rounded-lg shadow-lg hover:shadow-md"
+            border border-gray-400 rounded-lg shadow-lg hover:shadow-md
+            transition-all duration-300 ease-in-out"
     >
       <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, @ammo_group),
                     class: "mb-2 link" do %>
