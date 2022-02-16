@@ -23,6 +23,10 @@ defmodule Cannery.Ammo.AmmoType do
     field :cartridge, :string
     field :caliber, :string
     field :case_material, :string
+    field :jacket_type, :string
+    field :muzzle_velocity, :integer
+    field :powder_type, :string
+    field :powder_grains_per_charge, :integer
     field :grains, :integer
     field :pressure, :string
     field :primer_type, :string
@@ -33,7 +37,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :corrosive, :boolean, null: false, default: false
 
     field :manufacturer, :string
-    field :sku, :string
+    field :upc, :string
 
     belongs_to :user, User
 
@@ -51,6 +55,10 @@ defmodule Cannery.Ammo.AmmoType do
           cartridge: String.t() | nil,
           caliber: String.t() | nil,
           case_material: String.t() | nil,
+          jacket_type: String.t() | nil,
+          muzzle_velocity: integer() | nil,
+          powder_type: String.t() | nil,
+          powder_grains_per_charge: integer() | nil,
           grains: integer() | nil,
           pressure: String.t() | nil,
           primer_type: String.t() | nil,
@@ -60,7 +68,7 @@ defmodule Cannery.Ammo.AmmoType do
           blank: boolean(),
           corrosive: boolean(),
           manufacturer: String.t() | nil,
-          sku: String.t() | nil,
+          upc: String.t() | nil,
           user_id: User.id(),
           user: User.t() | nil,
           ammo_groups: [AmmoGroup.t()] | nil,
@@ -80,6 +88,10 @@ defmodule Cannery.Ammo.AmmoType do
       :cartridge,
       :caliber,
       :case_material,
+      :jacket_type,
+      :muzzle_velocity,
+      :powder_type,
+      :powder_grains_per_charge,
       :grains,
       :pressure,
       :primer_type,
@@ -89,7 +101,7 @@ defmodule Cannery.Ammo.AmmoType do
       :blank,
       :corrosive,
       :manufacturer,
-      :sku
+      :upc
     ]
 
   @doc false

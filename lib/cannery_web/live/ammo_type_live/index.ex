@@ -44,6 +44,36 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   end
 
   defp list_ammo_types(%{assigns: %{current_user: current_user}} = socket) do
-    socket |> assign(:ammo_types, Ammo.list_ammo_types(current_user))
+    ammo_types = Ammo.list_ammo_types(current_user)
+
+    columns_to_display =
+      [
+        {gettext("Name"), :name, :string},
+        {gettext("Bullet type"), :bullet_type, :string},
+        {gettext("Bullet core"), :bullet_core, :string},
+        {gettext("Cartridge"), :cartridge, :string},
+        {gettext("Caliber"), :caliber, :string},
+        {gettext("Case material"), :case_material, :string},
+        {gettext("Jacket type"), :jacket_type, :string},
+        {gettext("Muzzle velocity"), :muzzle_velocity, :string},
+        {gettext("Powder type"), :powder_type, :string},
+        {gettext("Powder grains per charge"), :powder_grains_per_charge, :string},
+        {gettext("Grains"), :grains, :string},
+        {gettext("Pressure"), :pressure, :string},
+        {gettext("Primer type"), :primer_type, :string},
+        {gettext("Rimfire"), :rimfire, :boolean},
+        {gettext("Tracer"), :tracer, :boolean},
+        {gettext("Incendiary"), :incendiary, :boolean},
+        {gettext("Blank"), :blank, :boolean},
+        {gettext("Corrosive"), :corrosive, :boolean},
+        {gettext("Manufacturer"), :manufacturer, :string},
+        {gettext("UPC"), :upc, :string}
+      ]
+      # filter columns to only used ones
+      |> Enum.filter(fn {_label, field, _type} ->
+        ammo_types |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) |> is_nil()) end)
+      end)
+
+    socket |> assign(ammo_types: ammo_types, columns_to_display: columns_to_display)
   end
 end

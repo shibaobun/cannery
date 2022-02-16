@@ -22,24 +22,7 @@
       <table class="min-w-full table-auto text-center bg-white">
         <thead class="border-b border-primary-600">
           <tr>
-            <%= for field_name <- [
-                  gettext("Name"),
-                  gettext("Bullet type"),
-                  gettext("Bullet core"),
-                  gettext("Cartridge"),
-                  gettext("Caliber"),
-                  gettext("Case material"),
-                  gettext("Grains"),
-                  gettext("Pressure"),
-                  gettext("Primer type"),
-                  gettext("Rimfire"),
-                  gettext("Tracer"),
-                  gettext("Incendiary"),
-                  gettext("Blank"),
-                  gettext("Corrosive"),
-                  gettext("Manufacturer"),
-                  gettext("Sku")
-                ] do %>
+            <%= for {field_name, _field, _type} <- @columns_to_display do %>
               <th class="p-2">
                 <%= field_name %>
               </th>
@@ -51,37 +34,14 @@
         <tbody>
           <%= for ammo_type <- @ammo_types do %>
             <tr id={"ammo_type-#{ammo_type.id}"}>
-              <%= for field <- [
-                    :name,
-                    :bullet_type,
-                    :bullet_core,
-                    :cartridge,
-                    :caliber,
-                    :case_material,
-                    :grains,
-                    :pressure,
-                    :primer_type
-                  ] do %>
+              <%= for {_label, field, type} <- @columns_to_display do %>
                 <td class="p-2">
-                  <%= ammo_type |> Map.get(field) %>
-                </td>
-              <% end %>
-
-              <%= for field <- [
-                    :rimfire,
-                    :tracer,
-                    :incendiary,
-                    :blank,
-                    :corrosive
-                  ] do %>
-                <td class="p-2">
-                  <%= ammo_type |> Map.get(field) |> humanize() %>
-                </td>
-              <% end %>
-
-              <%= for field <- [:manufacturer, :sku] do %>
-                <td class="p-2">
-                  <%= ammo_type |> Map.get(field) %>
+                  <%= case type do %>
+                    <% :boolean -> %>
+                      <%= ammo_type |> Map.get(field) |> humanize() %>
+                    <% _other -> %>
+                      <%= ammo_type |> Map.get(field) %>
+                  <% end %>
                 </td>
               <% end %>
 

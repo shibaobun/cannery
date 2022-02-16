@@ -13,6 +13,10 @@ defmodule Cannery.Repo.Migrations.CreateAmmoTypes do
       add :cartridge, :string
       add :caliber, :string
       add :case_material, :string
+      add :jacket_type, :string
+      add :muzzle_velocity, :integer
+      add :powder_type, :string
+      add :powder_grains_per_charge, :integer
       add :grains, :integer
       add :pressure, :string
       add :primer_type, :string
@@ -23,7 +27,7 @@ defmodule Cannery.Repo.Migrations.CreateAmmoTypes do
       add :corrosive, :boolean, null: false, default: false
 
       add :manufacturer, :string
-      add :sku, :string
+      add :upc, :string
 
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 

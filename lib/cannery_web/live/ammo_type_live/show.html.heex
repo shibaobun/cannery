@@ -38,6 +38,10 @@
           {gettext("Cartridge"), :cartridge},
           {gettext("Caliber"), :caliber},
           {gettext("Case material"), :case_material},
+          {gettext("Jacket type"), :jacket_type},
+          {gettext("Muzzle velocity"), :muzzle_velocity},
+          {gettext("Powder type"), :powder_type},
+          {gettext("Powder grains per charge"), :powder_grains_per_charge},
           {gettext("Grains"), :grains},
           {gettext("Pressure"), :pressure},
           {gettext("Primer type"), :primer_type}
@@ -69,7 +73,7 @@
       </span>
     <% end %>
 
-    <%= for {field_name, field} <- [{"Manufacturer", :manufacturer}, {"Sku", :sku}] do %>
+    <%= for {field_name, field} <- [{"Manufacturer", :manufacturer}, {"UPC", :upc}] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
           <%= field_name %> :
