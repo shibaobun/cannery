@@ -4,7 +4,7 @@ defmodule Cannery.Ammo do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts.User, Repo}
+  alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.Changeset
 
@@ -243,7 +243,14 @@ defmodule Cannery.Ammo do
   """
   @spec create_ammo_group(attrs :: map(), User.t()) ::
           {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.new_ammo_group())}
-  def create_ammo_group(attrs \\ %{}, %User{id: user_id}) do
+  def create_ammo_group(
+        %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+        %User{id: user_id} = user
+      ) do
+    # validate ammo type and container ids belong to user
+    _valid_ammo_type = get_ammo_type!(ammo_type_id, user)
+    _valid_container = Containers.get_container!(container_id, user)
+
     %AmmoGroup{}
     |> AmmoGroup.create_changeset(attrs |> Map.put("user_id", user_id))
     |> Repo.insert()
