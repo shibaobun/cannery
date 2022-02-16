@@ -132,7 +132,7 @@ msgid "must have the @ sign and no spaces"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery/tags.ex:39
+#: lib/cannery/tags.ex:40
 msgid "Tag not found"
 msgstr ""
 

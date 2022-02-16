@@ -138,16 +138,15 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   defp display_invites(%{assigns: %{current_user: current_user}} = socket) do
-    invites = Invites.list_invites(current_user) |> Enum.sort_by(fn %{name: name} -> name end)
+    invites = Invites.list_invites(current_user)
     all_users = Accounts.list_all_users_by_role(current_user)
 
     admins =
       all_users
       |> Map.get(:admin, [])
       |> Enum.reject(fn %{id: user_id} -> user_id == current_user.id end)
-      |> Enum.sort_by(fn %{email: email} -> email end)
 
-    users = all_users |> Map.get(:user, []) |> Enum.sort_by(fn %{email: email} -> email end)
+    users = all_users |> Map.get(:user, [])
     socket |> assign(invites: invites, admins: admins, users: users)
   end
 end

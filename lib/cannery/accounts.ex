@@ -74,7 +74,7 @@ defmodule Cannery.Accounts do
   """
   @spec list_all_users_by_role(User.t()) :: %{String.t() => [User.t()]}
   def list_all_users_by_role(%User{role: :admin}) do
-    Repo.all(User) |> Enum.group_by(fn user -> user.role end)
+    Repo.all(from u in User, order_by: u.email) |> Enum.group_by(fn user -> user.role end)
   end
 
   @doc """
@@ -89,7 +89,7 @@ defmodule Cannery.Accounts do
   @spec list_users_by_role(:admin | :user) :: [User.t()]
   def list_users_by_role(role) do
     role = role |> to_string()
-    Repo.all(from u in User, where: u.role == ^role)
+    Repo.all(from u in User, where: u.role == ^role, order_by: u.email)
   end
 
   ## User registration

@@ -20,7 +20,7 @@ defmodule Cannery.Containers do
   """
   @spec list_containers(User.t()) :: [Container.t()]
   def list_containers(%User{id: user_id}),
-    do: Repo.all(from c in Container, where: c.user_id == ^user_id)
+    do: Repo.all(from c in Container, where: c.user_id == ^user_id, order_by: c.name)
 
   @doc """
   Gets a single container.

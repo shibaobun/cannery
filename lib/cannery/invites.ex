@@ -20,7 +20,7 @@ defmodule Cannery.Invites do
   """
   @spec list_invites(User.t()) :: [Invite.t()]
   def list_invites(%User{role: :admin}) do
-    Repo.all(Invite)
+    Repo.all(from i in Invite, order_by: i.name)
   end
 
   @doc """

@@ -19,7 +19,7 @@ defmodule Cannery.Ammo do
   """
   @spec list_ammo_types(User.t()) :: [AmmoType.t()]
   def list_ammo_types(%User{id: user_id}),
-    do: Repo.all(from at in AmmoType, where: at.user_id == ^user_id)
+    do: Repo.all(from at in AmmoType, where: at.user_id == ^user_id, order_by: at.name)
 
   @doc """
   Gets a single ammo_type.
@@ -163,7 +163,8 @@ defmodule Cannery.Ammo do
     Repo.all(
       from am in AmmoGroup,
         where: am.ammo_type_id == ^ammo_type_id,
-        where: am.user_id == ^user_id
+        where: am.user_id == ^user_id,
+        order_by: am.id
     )
   end
 
@@ -180,9 +181,12 @@ defmodule Cannery.Ammo do
   @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
   def list_ammo_groups(%User{id: user_id}, include_empty \\ false) do
     if include_empty do
-      from am in AmmoGroup, where: am.user_id == ^user_id
+      from am in AmmoGroup, where: am.user_id == ^user_id, order_by: am.id
     else
-      from am in AmmoGroup, where: am.user_id == ^user_id, where: not (am.count == 0)
+      from am in AmmoGroup,
+        where: am.user_id == ^user_id,
+        where: not (am.count == 0),
+        order_by: am.id
     end
     |> Repo.all()
   end
@@ -198,7 +202,12 @@ defmodule Cannery.Ammo do
   """
   @spec list_staged_ammo_groups(User.t()) :: [AmmoGroup.t()]
   def list_staged_ammo_groups(%User{id: user_id}) do
-    Repo.all(from am in AmmoGroup, where: am.user_id == ^user_id, where: am.staged == true)
+    Repo.all(
+      from am in AmmoGroup,
+        where: am.user_id == ^user_id,
+        where: am.staged == true,
+        order_by: am.id
+    )
   end
 
   @doc """

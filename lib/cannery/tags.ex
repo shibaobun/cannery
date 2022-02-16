@@ -18,7 +18,8 @@ defmodule Cannery.Tags do
 
   """
   @spec list_tags(User.t()) :: [Tag.t()]
-  def list_tags(%{id: user_id}), do: Repo.all(from t in Tag, where: t.user_id == ^user_id)
+  def list_tags(%{id: user_id}),
+    do: Repo.all(from t in Tag, where: t.user_id == ^user_id, order_by: t.name)
 
   @doc """
   Gets a single tag.
