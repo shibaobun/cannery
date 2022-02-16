@@ -33,7 +33,7 @@ defmodule Cannery.MixProject do
   def application do
     [
       mod: {Cannery.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon],
+      extra_applications: [:logger, :runtime_tools, :os_mon, :swoosh, :gen_smtp],
     ]
   end
 
