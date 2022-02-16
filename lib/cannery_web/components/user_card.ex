@@ -13,7 +13,7 @@ defmodule CanneryWeb.Components.UserCard do
           border border-gray-400 rounded-lg shadow-lg hover:shadow-md
           transition-all duration-300 ease-in-out"
     >
-      <h1 class="px-4 py-2 rounded-lg title text-xl">
+      <h1 class="px-4 py-2 rounded-lg title text-xl break-all">
         <%= @user.email %>
       </h1>
 

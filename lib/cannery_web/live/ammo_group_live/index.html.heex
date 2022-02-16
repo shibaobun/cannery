@@ -1,11 +1,12 @@
-<div class="mx-8 flex flex-col space-y-8 justify-center items-center">
+<div class="flex flex-col space-y-8 justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
     <%= gettext("Ammo") %>
   </h1>
 
   <%= if @ammo_groups |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No Ammo") %> <%= display_emoji("😔") %>
+      <%= gettext("No Ammo") %>
+      <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first box!"),
@@ -35,7 +36,7 @@
               <%= gettext("Notes") %>
             </th>
             <th class="p-2">
-              <%= gettext("Staging") %>
+              <%= gettext("Staged for Range") %>
             </th>
             <th class="p-2">
               <%= gettext("Container") %>
@@ -75,7 +76,7 @@
                   phx-click="toggle_staged"
                   phx-value-ammo_group_id={ammo_group.id}
                 >
-                  <%= if ammo_group.staged, do: gettext("Unstage from range"), else: gettext("Stage for range") %>
+                  <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
                 </button>
               </td>
 
@@ -88,7 +89,7 @@
                 <% end %>
               </td>
 
-              <td class="p-2 w-full h-full space-x-2 flex justify-center items-center">
+              <td class="p-2">
                 <div class="px-4 py-2 space-x-4 flex justify-center items-center">
                   <%= live_redirect to: Routes.ammo_group_show_path(@socket, :show, ammo_group),
                                 class: "text-primary-500 link" do %>

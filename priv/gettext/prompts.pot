@@ -78,43 +78,43 @@ msgid "Ammo group updated successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:96
-#: lib/cannery_web/live/invite_live/index.html.heex:125
+#: lib/cannery_web/live/invite_live/index.html.heex:97
+#: lib/cannery_web/live/invite_live/index.html.heex:126
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
 #, elixir-format, ex-autogen
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:26
-#: lib/cannery_web/live/container_live/index.html.heex:36
+#: lib/cannery_web/live/container_live/index.html.heex:37
 #: lib/cannery_web/live/container_live/show.html.heex:36
-#: lib/cannery_web/live/tag_live/index.html.heex:36
+#: lib/cannery_web/live/tag_live/index.html.heex:37
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:48
+#: lib/cannery_web/live/invite_live/index.html.heex:49
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:107
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:108
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:41
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:64
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:65
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/templates/user_settings/edit.html.heex:104
+#: lib/cannery_web/templates/user_settings/edit.html.heex:106
 msgid "Are you sure you want to delete your account?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/components/topbar.ex:81
+#: lib/cannery_web/components/topbar.ex:85
 msgid "Are you sure you want to log out?"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/invite_live/index.html.heex:71
+#: lib/cannery_web/live/invite_live/index.html.heex:72
 msgid "Are you sure you want to make %{name} unlimited?"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgid "Your account has been deleted"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/container_live/show.html.heex:68
+#: lib/cannery_web/live/container_live/show.html.heex:69
 msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name}?"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgid "Shots recorded successfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/range_live/index.html.heex:28
+#: lib/cannery_web/live/range_live/index.html.heex:29
 msgid "Are you sure you want to unstage this ammo?"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgid "Ammo group unstaged succesfully"
 msgstr ""
 
 #, elixir-format, ex-autogen
-#: lib/cannery_web/live/range_live/index.html.heex:101
+#: lib/cannery_web/live/range_live/index.html.heex:104
 msgid "Are you sure you want to delete this shot record?"
 msgstr ""
 

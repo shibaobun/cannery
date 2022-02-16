@@ -1,11 +1,12 @@
-<div class="mx-8 flex flex-col space-y-8 justify-center items-center">
+<div class="flex flex-col space-y-8 justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
     <%= gettext("Ammo Types") %>
   </h1>
 
   <%= if @ammo_types |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No Ammo Types") %> <%= display_emoji("😔") %>
+      <%= gettext("No Ammo Types") %>
+      <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first type!"),

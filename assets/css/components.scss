@@ -17,6 +17,8 @@
     -o-transform: scale(1.5);
     transform: scale(1.5);
     padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .title {
@@ -43,6 +45,10 @@
 
   .hr {
     @apply border border-primary-300 w-full max-w-2xl;
+  }
+
+  .hr-light {
+    @apply border border-white w-full max-w-2xl;
   }
 
   .link {

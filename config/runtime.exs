@@ -12,8 +12,7 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :cannery, CanneryWeb.Endpoint, server: true
 end
 
-config :cannery, CanneryWeb.ViewHelpers,
-  shibao_mode: System.get_env("SHIBAO_MODE") == "true"
+config :cannery, CanneryWeb.ViewHelpers, shibao_mode: System.get_env("SHIBAO_MODE") == "true"
 
 # Set locale
 Gettext.put_locale(System.get_env("LOCALE") || "en_US")

@@ -7,7 +7,8 @@
   </p>
   <%= if @tags |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No tags") %> <%= display_emoji("😔") %>
+      <%= gettext("No tags") %>
+      <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Make your first tag!"),
@@ -20,7 +21,7 @@
       class: "btn btn-primary"
     ) %>
   <% end %>
-  <div class="flex flex-row flex-wrap">
+  <div class="flex flex-row flex-wrap justify-center items-center">
     <%= for tag <- @tags do %>
       <.tag_card tag={tag}>
         <%= live_patch to: Routes.tag_index_path(Endpoint, :edit, tag),

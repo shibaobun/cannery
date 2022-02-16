@@ -26,8 +26,11 @@ defmodule CanneryWeb.Components.InviteCard do
         </h2>
       <% end %>
 
-      <div class="flex flex-row justify-center items-center space-x-4">
-        <code id={"code-#{@invite.id}"} class="text-xs px-4 py-2 rounded-lg text-gray-100 bg-primary-800"><%= Routes.user_registration_url(Endpoint, :new, invite: @invite.token) %>
+      <div class="flex flex-row flex-wrap justify-center items-center">
+        <code
+          id={"code-#{@invite.id}"}
+          class="mx-2 my-1 text-xs px-4 py-2 rounded-lg text-center break-all text-gray-100 bg-primary-800"
+        ><%= Routes.user_registration_url(Endpoint, :new, invite: @invite.token) %>
         </code>
 
         <%= if @code_actions do %>

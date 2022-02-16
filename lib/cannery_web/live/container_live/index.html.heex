@@ -5,7 +5,8 @@
 
   <%= if @containers |> Enum.empty?() do %>
     <h2 class="title text-xl text-primary-500">
-      <%= gettext("No containers") %> <%= display_emoji("😔") %>
+      <%= gettext("No containers") %>
+      <%= display_emoji("😔") %>
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first container!"),
@@ -19,7 +20,7 @@
     ) %>
   <% end %>
 
-  <div class="flex flex-row flex-wrap">
+  <div class="flex flex-row flex-wrap justify-center items-center">
     <%= for container <- @containers do %>
       <.container_card container={container}>
         <%= live_patch to: Routes.container_index_path(@socket, :edit, container),

@@ -13,6 +13,7 @@ defmodule CanneryWeb.ViewHelpers do
   """
   @spec display_datetime(NaiveDateTime.t() | nil) :: Phoenix.LiveView.Rendered.t()
   def display_datetime(nil), do: ""
+
   def display_datetime(datetime) do
     assigns = %{
       datetime: datetime |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_iso8601(:extended)
@@ -39,8 +40,9 @@ defmodule CanneryWeb.ViewHelpers do
   """
   @spec display_date(Date.t() | nil) :: Phoenix.LiveView.Rendered.t()
   def display_date(nil), do: ""
+
   def display_date(date) do
-      assigns = %{date: date |> Date.to_iso8601(:extended)}
+    assigns = %{date: date |> Date.to_iso8601(:extended)}
 
     ~H"""
     <time
@@ -60,6 +62,9 @@ defmodule CanneryWeb.ViewHelpers do
   Displays emoji as text emoji if SHIBAO_MODE is set to true :)
   """
   @spec display_emoji(String.t()) :: String.t()
-  def display_emoji("😔"), do: if Application.get_env(:cannery, CanneryWeb.ViewHelpers)[:shibao_mode], do: "q_q", else: "😔"
+  def display_emoji("😔"),
+    do:
+      if(Application.get_env(:cannery, CanneryWeb.ViewHelpers)[:shibao_mode], do: "q_q", else: "😔")
+
   def display_emoji(other_emoji), do: other_emoji
 end

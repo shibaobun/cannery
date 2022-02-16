@@ -24,25 +24,25 @@
     <% end %>
   </div>
 
-  <div class="flex space-x-4 justify-center items-center text-primary-500">
+  <div class="flex flex-wrap justify-center items-center text-primary-500">
     <%= live_patch(dgettext("actions", "Ammo Details"),
       to: Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type),
-      class: "btn btn-primary"
+      class: "mx-4 my-2 btn btn-primary"
     ) %>
 
     <%= live_patch to: Routes.ammo_group_show_path(Endpoint, :edit, @ammo_group),
-               class: "text-primary-500 link" do %>
+               class: "mx-4 my-2 text-primary-500 link" do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
     <% end %>
 
     <%= link to: "#",
-         class: "text-primary-500 link",
+         class: "mx-4 my-2 text-primary-500 link",
          phx_click: "delete",
          data: [confirm: dgettext("prompts", "Are you sure you want to delete this ammo?")] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
 
-    <button type="button" class="btn btn-primary" phx-click="toggle_staged">
+    <button type="button" class="mx-4 my-2 btn btn-primary" phx-click="toggle_staged">
       <%= if @ammo_group.staged, do: gettext("Unstage from range"), else: gettext("Stage for range") %>
     </button>
 
