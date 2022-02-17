@@ -1,9 +1,12 @@
 defmodule CanneryWeb.UserSessionControllerTest do
+  @moduledoc """
+  Tests the user session controller
+  """
+
   use CanneryWeb.ConnCase, async: true
   import CanneryWeb.Gettext
-  import Cannery.AccountsFixtures
 
-  @moduletag :user_session_controller
+  @moduletag :user_session_controller_test
 
   setup do
     %{user: user_fixture()}
@@ -14,7 +17,6 @@ defmodule CanneryWeb.UserSessionControllerTest do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
       assert response =~ dgettext("actions", "Log in")
-      assert response =~ dgettext("actions", "Register")
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
