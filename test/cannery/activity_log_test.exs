@@ -9,8 +9,7 @@ defmodule Cannery.ActivityLogTest do
   alias Cannery.{
     ActivityLog,
     ActivityLog.ShotGroup,
-    Ammo,
-    Containers
+    Ammo
   }
 
   @moduletag :activity_log_test
@@ -87,13 +86,10 @@ defmodule Cannery.ActivityLogTest do
     end
 
     test "create_shot_group/1 does not remove more than ammo group amount",
-         %{
-           current_user: current_user,
-           ammo_group: %{id: ammo_group_id, count: org_count} = ammo_group
-         } do
+         %{current_user: current_user, ammo_group: %{id: ammo_group_id} = ammo_group} do
       valid_attrs = %{"count" => 20, "date" => ~D[2022-02-13], "notes" => "some notes"}
 
-      assert {:ok, %ShotGroup{} = shot_group} =
+      assert {:ok, %ShotGroup{}} =
                ActivityLog.create_shot_group(valid_attrs, current_user, ammo_group)
 
       ammo_group = ammo_group_id |> Ammo.get_ammo_group!(current_user)
@@ -115,7 +111,7 @@ defmodule Cannery.ActivityLogTest do
     test "update_shot_group/2 with valid data updates the shot_group and ammo_group",
          %{
            shot_group: shot_group,
-           ammo_group: %{id: ammo_group_id} = ammo_group,
+           ammo_group: %{id: ammo_group_id},
            current_user: current_user
          } do
       assert {:ok, %ShotGroup{} = shot_group} =

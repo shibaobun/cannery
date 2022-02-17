@@ -50,12 +50,12 @@
                 <div class="px-4 py-2 space-x-4 flex justify-center items-center">
                   <%= live_redirect to: Routes.ammo_type_show_path(@socket, :show, ammo_type),
                                 class: "text-primary-500 link" do %>
-                    <i class="fa-lg fas fa-eye"></i>
+                    <i class="fa-fw fa-lg fas fa-eye"></i>
                   <% end %>
 
                   <%= live_patch to: Routes.ammo_type_index_path(@socket, :edit, ammo_type),
                              class: "text-primary-500 link" do %>
-                    <i class="fa-lg fas fa-edit"></i>
+                    <i class="fa-fw fa-lg fas fa-edit"></i>
                   <% end %>
 
                   <%= link to: "#",

@@ -35,6 +35,8 @@ defmodule Cannery.Mailer do
   """
   @spec deliver_update_email_instructions(User.t(), String.t()) :: Job.t()
   def deliver_update_email_instructions(%User{id: user_id}, url) do
-    %{email: :update_email, user_id: user_id, attrs: %{url: url}} |> EmailWorker.new() |> Oban.insert!()
+    %{email: :update_email, user_id: user_id, attrs: %{url: url}}
+    |> EmailWorker.new()
+    |> Oban.insert!()
   end
 end

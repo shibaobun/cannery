@@ -5,7 +5,7 @@ defmodule Cannery.ContainersTest do
 
   use Cannery.DataCase
   alias Cannery.Containers
-  alias Cannery.{Accounts.User, Containers.Container}
+  alias Cannery.{Containers.Container}
   alias Ecto.Changeset
 
   @moduletag :containers_test
@@ -41,8 +41,7 @@ defmodule Cannery.ContainersTest do
       assert Containers.get_container!(container.id, current_user) == container
     end
 
-    test "create_container/1 with valid data creates a container",
-         %{current_user: current_user, container: container} do
+    test "create_container/1 with valid data creates a container", %{current_user: current_user} do
       assert {:ok, %Container{} = container} =
                @valid_attrs |> Containers.create_container(current_user)
 
