@@ -6,7 +6,7 @@ defmodule CanneryWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
   import CanneryWeb.Gettext
-  alias Cannery.Accounts
+  alias Cannery.{Accounts, Accounts.User}
   alias CanneryWeb.HomeLive
   alias CanneryWeb.Router.Helpers, as: Routes
 
@@ -29,7 +29,17 @@ defmodule CanneryWeb.UserAuth do
   disconnected on log out. The line can be safely removed
   if you are not using LiveView.
   """
-  def log_in_user(conn, user, params \\ %{}) do
+  def log_in_user(conn, user, params \\ %{})
+
+  def log_in_user(conn, %User{confirmed_at: nil}, params) do
+    conn
+      |> put_flash(:error, dgettext("errors", "You must confirm your account and log in to access this page."))
+      |> maybe_store_return_to()
+      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> halt()
+  end
+
+  def log_in_user(conn, user, params) do
     token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
@@ -142,7 +152,7 @@ defmodule CanneryWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, dgettext("errors", "You must log in to access this page."))
+      |> put_flash(:error, dgettext("errors", "You must confirm your account and log in to access this page."))
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()

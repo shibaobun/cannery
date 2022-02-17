@@ -111,7 +111,8 @@ defmodule Cannery.Accounts do
     # if no registered users, make first user an admin
     role =
       if Repo.one!(from u in User, select: count(u.id), distinct: true) == 0,
-        do: "admin", else: "user"
+        do: "admin",
+        else: "user"
 
     %User{} |> User.registration_changeset(attrs |> Map.put("role", role)) |> Repo.insert()
   end
@@ -376,7 +377,7 @@ defmodule Cannery.Accounts do
   end
 
   @spec confirm_user_multi(User.t()) :: Multi.t()
-  defp confirm_user_multi(user) do
+  def confirm_user_multi(user) do
     Multi.new()
     |> Multi.update(:user, User.confirm_changeset(user))
     |> Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, ["confirm"]))

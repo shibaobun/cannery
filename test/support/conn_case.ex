@@ -17,6 +17,7 @@ defmodule CanneryWeb.ConnCase do
 
   use ExUnit.CaseTemplate
   import Cannery.Fixtures
+  alias Cannery.{Accounts, Repo}
   alias Ecto.Adapters.SQL.Sandbox
 
   using do
@@ -49,8 +50,12 @@ defmodule CanneryWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = user_fixture()
-    %{conn: log_in_user(conn, user), user: user}
+    current_user = user_fixture()
+
+    {:ok, %{user: current_user}} =
+      current_user |> Accounts.confirm_user_multi() |> Repo.transaction()
+
+    %{conn: log_in_user(conn, current_user), current_user: current_user}
   end
 
   @doc """
