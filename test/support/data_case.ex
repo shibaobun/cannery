@@ -25,7 +25,7 @@ defmodule Cannery.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Cannery.DataCase
-      import Cannery.AccountsFixtures
+      import Cannery.Fixtures
     end
   end
 

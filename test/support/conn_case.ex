@@ -16,6 +16,7 @@ defmodule CanneryWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import Cannery.Fixtures
   alias Ecto.Adapters.SQL.Sandbox
 
   using do
@@ -23,6 +24,7 @@ defmodule CanneryWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import Cannery.Fixtures
       import CanneryWeb.ConnCase
 
       alias CanneryWeb.Router.Helpers, as: Routes
@@ -47,7 +49,7 @@ defmodule CanneryWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = Cannery.AccountsFixtures.user_fixture()
+    user = user_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
 
