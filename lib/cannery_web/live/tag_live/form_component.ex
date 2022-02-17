@@ -52,13 +52,13 @@ defmodule CanneryWeb.TagLive.FormComponent do
         <%= error_tag(f, :name, "col-span-3") %>
 
         <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-500") %>
-        <span class="mx-auto col-span-2" phx-update="ignore">
+        <span id="tag-bg-color-input" class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :bg_color) %>
         </span>
         <%= error_tag(f, :bg_color, "col-span-3") %>
 
         <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-500") %>
-        <span class="mx-auto col-span-2" phx-update="ignore">
+        <span id="tag-text-color-input" class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :text_color) %>
         </span>
         <%= error_tag(f, :text_color, "col-span-3") %>
