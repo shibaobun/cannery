@@ -1,19 +1,22 @@
 defmodule Cannery.AmmoTest do
-  use Cannery.DataCase
+  @moduledoc """
+  Tests the Ammo context
+  """
 
-  alias Cannery.Ammo
+  use Cannery.DataCase
+  alias Cannery.{Ammo, Ammo.AmmoType, Ammo.AmmoGroup}
   alias Ecto.Changeset
 
-  describe "ammo_types" do
-    alias Cannery.Ammo.AmmoType
+  @moduletag :ammo_test
 
+  describe "ammo_types" do
     @valid_attrs %{
       "bullet_type" => "some bullet_type",
       "case_material" => "some case_material",
       "desc" => "some desc",
       "manufacturer" => "some manufacturer",
       "name" => "some name",
-      "weight" => 120.5
+      "grains" => 120
     }
     @update_attrs %{
       "bullet_type" => "some updated bullet_type",
@@ -21,7 +24,7 @@ defmodule Cannery.AmmoTest do
       "desc" => "some updated desc",
       "manufacturer" => "some updated manufacturer",
       "name" => "some updated name",
-      "weight" => 456.7
+      "grains" => 456
     }
     @invalid_attrs %{
       "bullet_type" => nil,
@@ -29,130 +32,155 @@ defmodule Cannery.AmmoTest do
       "desc" => nil,
       "manufacturer" => nil,
       "name" => nil,
-      "weight" => nil
+      "grains" => nil
     }
 
-    def ammo_type_fixture(attrs \\ %{}) do
-      {:ok, ammo_type} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Ammo.create_ammo_type()
-
-      ammo_type
+    setup do
+      current_user = user_fixture()
+      [ammo_type: ammo_type_fixture(current_user), current_user: current_user]
     end
 
-    test "list_ammo_types/0 returns all ammo_types" do
-      ammo_type = ammo_type_fixture()
-      assert Ammo.list_ammo_types() == [ammo_type]
+    test "list_ammo_types/0 returns all ammo_types",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert Ammo.list_ammo_types(current_user) == [ammo_type]
     end
 
-    test "get_ammo_type!/1 returns the ammo_type with given id" do
-      ammo_type = ammo_type_fixture()
-      assert Ammo.get_ammo_type!(ammo_type.id) == ammo_type
+    test "get_ammo_type!/1 returns the ammo_type with given id",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert Ammo.get_ammo_type!(ammo_type.id, current_user) == ammo_type
     end
 
-    test "create_ammo_type/1 with valid data creates a ammo_type" do
-      assert {:ok, %AmmoType{} = ammo_type} = Ammo.create_ammo_type(@valid_attrs)
+    test "create_ammo_type/1 with valid data creates a ammo_type",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert {:ok, %AmmoType{} = ammo_type} = Ammo.create_ammo_type(@valid_attrs, current_user)
       assert ammo_type.bullet_type == "some bullet_type"
       assert ammo_type.case_material == "some case_material"
       assert ammo_type.desc == "some desc"
       assert ammo_type.manufacturer == "some manufacturer"
       assert ammo_type.name == "some name"
-      assert ammo_type.weight == 120.5
+      assert ammo_type.grains == 120
     end
 
-    test "create_ammo_type/1 with invalid data returns error changeset" do
-      assert {:error, %Changeset{}} = Ammo.create_ammo_type(@invalid_attrs)
+    test "create_ammo_type/1 with invalid data returns error changeset",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert {:error, %Changeset{}} = Ammo.create_ammo_type(@invalid_attrs, current_user)
     end
 
-    test "update_ammo_type/2 with valid data updates the ammo_type" do
-      ammo_type = ammo_type_fixture()
-      assert {:ok, %AmmoType{} = ammo_type} = Ammo.update_ammo_type(ammo_type, @update_attrs)
+    test "update_ammo_type/2 with valid data updates the ammo_type",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert {:ok, %AmmoType{} = ammo_type} =
+               Ammo.update_ammo_type(ammo_type, @update_attrs, current_user)
+
       assert ammo_type.bullet_type == "some updated bullet_type"
       assert ammo_type.case_material == "some updated case_material"
       assert ammo_type.desc == "some updated desc"
       assert ammo_type.manufacturer == "some updated manufacturer"
       assert ammo_type.name == "some updated name"
-      assert ammo_type.weight == 456.7
+      assert ammo_type.grains == 456
     end
 
-    test "update_ammo_type/2 with invalid data returns error changeset" do
-      ammo_type = ammo_type_fixture()
-      assert {:error, %Changeset{}} = Ammo.update_ammo_type(ammo_type, @invalid_attrs)
-      assert ammo_type == Ammo.get_ammo_type!(ammo_type.id)
+    test "update_ammo_type/2 with invalid data returns error changeset",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert {:error, %Changeset{}} =
+               Ammo.update_ammo_type(ammo_type, @invalid_attrs, current_user)
+
+      assert ammo_type == Ammo.get_ammo_type!(ammo_type.id, current_user)
     end
 
-    test "delete_ammo_type/1 deletes the ammo_type" do
-      ammo_type = ammo_type_fixture()
-      assert {:ok, %AmmoType{}} = Ammo.delete_ammo_type(ammo_type)
-      assert_raise Ecto.NoResultsError, fn -> Ammo.get_ammo_type!(ammo_type.id) end
+    test "delete_ammo_type/1 deletes the ammo_type",
+         %{ammo_type: ammo_type, current_user: current_user} do
+      assert {:ok, %AmmoType{}} = Ammo.delete_ammo_type(ammo_type, current_user)
+      assert_raise Ecto.NoResultsError, fn -> Ammo.get_ammo_type!(ammo_type.id, current_user) end
     end
 
-    test "change_ammo_type/1 returns a ammo_type changeset" do
-      ammo_type = ammo_type_fixture()
+    test "change_ammo_type/1 returns a ammo_type changeset",
+         %{ammo_type: ammo_type} do
       assert %Changeset{} = Ammo.change_ammo_type(ammo_type)
     end
   end
 
   describe "ammo_groups" do
-    alias Cannery.Ammo.AmmoGroup
+    @valid_attrs %{"count" => 42, "notes" => "some notes", "price_paid" => 120.5}
+    @update_attrs %{"count" => 43, "notes" => "some updated notes", "price_paid" => 456.7}
+    @invalid_attrs %{"count" => nil, "notes" => nil, "price_paid" => nil}
 
-    @valid_attrs %{count: 42, notes: "some notes", price_paid: 120.5}
-    @update_attrs %{count: 43, notes: "some updated notes", price_paid: 456.7}
-    @invalid_attrs %{count: nil, notes: nil, price_paid: nil}
+    setup do
+      current_user = user_fixture()
+      ammo_type = ammo_type_fixture(current_user)
+      container = container_fixture(current_user)
+      ammo_group = ammo_group_fixture(ammo_type, container, current_user)
 
-    def ammo_group_fixture(attrs \\ %{}) do
-      {:ok, ammo_group} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Ammo.create_ammo_group()
-
-      ammo_group
+      [
+        ammo_type: ammo_type,
+        ammo_group: ammo_group,
+        container: container,
+        current_user: current_user
+      ]
     end
 
-    test "list_ammo_groups/0 returns all ammo_groups" do
-      ammo_group = ammo_group_fixture()
-      assert Ammo.list_ammo_groups() == [ammo_group]
+    test "list_ammo_groups/0 returns all ammo_groups",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert Ammo.list_ammo_groups(current_user) == [ammo_group]
     end
 
-    test "get_ammo_group!/1 returns the ammo_group with given id" do
-      ammo_group = ammo_group_fixture()
-      assert Ammo.get_ammo_group!(ammo_group.id) == ammo_group
+    test "get_ammo_group!/1 returns the ammo_group with given id",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert Ammo.get_ammo_group!(ammo_group.id, current_user) == ammo_group
     end
 
-    test "create_ammo_group/1 with valid data creates a ammo_group" do
-      assert {:ok, %AmmoGroup{} = ammo_group} = Ammo.create_ammo_group(@valid_attrs)
+    test "create_ammo_group/1 with valid data creates a ammo_group",
+         %{
+           ammo_type: ammo_type,
+           ammo_group: ammo_group,
+           container: container,
+           current_user: current_user
+         } do
+      assert {:ok, %AmmoGroup{} = ammo_group} =
+               @valid_attrs
+               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Ammo.create_ammo_group(current_user)
+
       assert ammo_group.count == 42
       assert ammo_group.notes == "some notes"
       assert ammo_group.price_paid == 120.5
     end
 
-    test "create_ammo_group/1 with invalid data returns error changeset" do
-      assert {:error, %Changeset{}} = Ammo.create_ammo_group(@invalid_attrs)
+    test "create_ammo_group/1 with invalid data returns error changeset",
+         %{ammo_type: ammo_type, container: container, current_user: current_user} do
+      assert {:error, %Changeset{}} =
+               @invalid_attrs
+               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Ammo.create_ammo_group(current_user)
     end
 
-    test "update_ammo_group/2 with valid data updates the ammo_group" do
-      ammo_group = ammo_group_fixture()
-      assert {:ok, %AmmoGroup{} = ammo_group} = Ammo.update_ammo_group(ammo_group, @update_attrs)
+    test "update_ammo_group/2 with valid data updates the ammo_group",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert {:ok, %AmmoGroup{} = ammo_group} =
+               Ammo.update_ammo_group(ammo_group, @update_attrs, current_user)
+
       assert ammo_group.count == 43
       assert ammo_group.notes == "some updated notes"
       assert ammo_group.price_paid == 456.7
     end
 
-    test "update_ammo_group/2 with invalid data returns error changeset" do
-      ammo_group = ammo_group_fixture()
-      assert {:error, %Changeset{}} = Ammo.update_ammo_group(ammo_group, @invalid_attrs)
-      assert ammo_group == Ammo.get_ammo_group!(ammo_group.id)
+    test "update_ammo_group/2 with invalid data returns error changeset",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert {:error, %Changeset{}} =
+               Ammo.update_ammo_group(ammo_group, @invalid_attrs, current_user)
+
+      assert ammo_group == Ammo.get_ammo_group!(ammo_group.id, current_user)
     end
 
-    test "delete_ammo_group/1 deletes the ammo_group" do
-      ammo_group = ammo_group_fixture()
-      assert {:ok, %AmmoGroup{}} = Ammo.delete_ammo_group(ammo_group)
-      assert_raise Ecto.NoResultsError, fn -> Ammo.get_ammo_group!(ammo_group.id) end
+    test "delete_ammo_group/1 deletes the ammo_group",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert {:ok, %AmmoGroup{}} = Ammo.delete_ammo_group(ammo_group, current_user)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Ammo.get_ammo_group!(ammo_group.id, current_user)
+      end
     end
 
-    test "change_ammo_group/1 returns a ammo_group changeset" do
-      ammo_group = ammo_group_fixture()
+    test "change_ammo_group/1 returns a ammo_group changeset", %{ammo_group: ammo_group} do
       assert %Changeset{} = Ammo.change_ammo_group(ammo_group)
     end
   end

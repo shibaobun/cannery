@@ -11,7 +11,10 @@ defmodule Cannery.Fixtures do
     Ammo.AmmoGroup,
     Ammo.AmmoType,
     Containers,
-    Containers.Container
+    Containers.Container,
+    Email,
+    Tags,
+    Tags.Tag
   }
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -20,36 +23,42 @@ defmodule Cannery.Fixtures do
   @spec user_fixture() :: Accounts.User.t()
   @spec user_fixture(attrs :: map()) :: Accounts.User.t()
   def user_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(%{
-        "email" => unique_user_email(),
-        "password" => valid_user_password()
-      })
-      |> Accounts.register_user()
-
-    user
+    attrs
+    |> Enum.into(%{
+      "email" => unique_user_email(),
+      "password" => valid_user_password()
+    })
+    |> Accounts.register_user()
+    |> unwrap_ok_tuple()
   end
 
   @spec admin_fixture() :: Accounts.User.t()
   @spec admin_fixture(attrs :: map()) :: Accounts.User.t()
   def admin_fixture(attrs \\ %{}) do
-    {:ok, user} =
-      attrs
-      |> Enum.into(%{
-        "email" => unique_user_email(),
-        "password" => valid_user_password(),
-        "role" => "admin"
-      })
-      |> Accounts.register_user()
-
-    user
+    attrs
+    |> Enum.into(%{
+      "email" => unique_user_email(),
+      "password" => valid_user_password(),
+      "role" => "admin"
+    })
+    |> Accounts.register_user()
+    |> unwrap_ok_tuple()
   end
 
   def extract_user_token(fun) do
-    {:ok, captured} = fun.(&"[TOKEN]#{&1}[TOKEN]")
-    [_, token, _] = String.split(captured.body, "[TOKEN]")
-    token
+    %{args: %{attrs: attrs, email: email_key, user_id: user_id}} = fun.(&"[TOKEN]#{&1}[TOKEN]")
+
+    # convert atoms to string keys
+    attrs = attrs |> Map.new(fn {atom_key, value} -> {atom_key |> Atom.to_string(), value} end)
+
+    email =
+      email_key
+      |> Atom.to_string()
+      |> Email.generate_email(Accounts.get_user!(user_id), attrs)
+
+    [_, html_token, _] = email.html_body |> String.split("[TOKEN]")
+    [_, text_token, _] = email.text_body |> String.split("[TOKEN]")
+    text_token = html_token
   end
 
   def valid_user_attributes(attrs \\ %{}) do
@@ -65,16 +74,14 @@ defmodule Cannery.Fixtures do
   @spec shot_group_fixture(User.t(), AmmoGroup.t()) :: ShotGroup.t()
   @spec shot_group_fixture(attrs :: map(), User.t(), AmmoGroup.t()) :: ShotGroup.t()
   def shot_group_fixture(attrs \\ %{}, %User{} = user, %AmmoGroup{} = ammo_group) do
-    {:ok, shot_group} =
-      attrs
-      |> Enum.into(%{
-        "count" => 25,
-        "date" => ~N[2022-02-13 03:17:00],
-        "notes" => "some notes"
-      })
-      |> Cannery.ActivityLog.create_shot_group(user, ammo_group)
-
-    shot_group
+    attrs
+    |> Enum.into(%{
+      "count" => 25,
+      "date" => ~N[2022-02-13 03:17:00],
+      "notes" => "some notes"
+    })
+    |> Cannery.ActivityLog.create_shot_group(user, ammo_group)
+    |> unwrap_ok_tuple()
   end
 
   @doc """
@@ -83,12 +90,10 @@ defmodule Cannery.Fixtures do
   @spec container_fixture(User.t()) :: Container.t()
   @spec container_fixture(attrs :: map(), User.t()) :: Container.t()
   def container_fixture(attrs \\ %{}, %User{} = user) do
-    {:ok, container} =
-      attrs
-      |> Enum.into(%{"name" => "My container", "type" => "Ammo can"})
-      |> Containers.create_container(user)
-
-    container
+    attrs
+    |> Enum.into(%{"name" => "My container", "type" => "Ammo can"})
+    |> Containers.create_container(user)
+    |> unwrap_ok_tuple()
   end
 
   @doc """
@@ -97,12 +102,10 @@ defmodule Cannery.Fixtures do
   @spec ammo_type_fixture(User.t()) :: AmmoType.t()
   @spec ammo_type_fixture(attrs :: map(), User.t()) :: AmmoType.t()
   def ammo_type_fixture(attrs \\ %{}, %User{} = user) do
-    {:ok, ammo_type} =
-      attrs
-      |> Enum.into(%{"name" => "ammo_type"})
-      |> Ammo.create_ammo_type(user)
-
-    ammo_type
+    attrs
+    |> Enum.into(%{"name" => "ammo_type"})
+    |> Ammo.create_ammo_type(user)
+    |> unwrap_ok_tuple()
   end
 
   @doc """
@@ -116,15 +119,31 @@ defmodule Cannery.Fixtures do
         %Container{id: container_id},
         %User{} = user
       ) do
-    {:ok, ammo_group} =
-      attrs
-      |> Enum.into(%{
-        "ammo_type_id" => ammo_type_id,
-        "container_id" => container_id,
-        "count" => 20
-      })
-      |> Ammo.create_ammo_group(user)
-
-    ammo_group
+    attrs
+    |> Enum.into(%{
+      "ammo_type_id" => ammo_type_id,
+      "container_id" => container_id,
+      "count" => 20
+    })
+    |> Ammo.create_ammo_group(user)
+    |> unwrap_ok_tuple()
   end
+
+  @doc """
+  Generates a Tag
+  """
+  @spec tag_fixture(User.t()) :: Tag.t()
+  @spec tag_fixture(attrs :: map(), User.t()) :: Tag.t()
+  def tag_fixture(attrs \\ %{}, %User{} = user) do
+    attrs
+    |> Enum.into(%{
+      "bg_color" => "some bg-color",
+      "name" => "some name",
+      "text_color" => "some text-color"
+    })
+    |> Tags.create_tag(user)
+    |> unwrap_ok_tuple()
+  end
+
+  defp unwrap_ok_tuple({:ok, value}), do: value
 end
