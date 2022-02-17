@@ -32,7 +32,10 @@ defmodule CanneryWeb.UserRegistrationControllerTest do
           "user" => valid_user_attributes(email: email)
         })
 
-      assert get_session(conn, :phoenix_flash) == %{"info" => dgettext("prompts", "Please check your email to verify your account")}
+      assert get_session(conn, :phoenix_flash) == %{
+               "info" => dgettext("prompts", "Please check your email to verify your account")
+             }
+
       assert redirected_to(conn) =~ "/"
 
       # Now do a logged in request and assert on the menu

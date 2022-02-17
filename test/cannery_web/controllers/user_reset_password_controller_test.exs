@@ -30,7 +30,14 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ dgettext("prompts", "If your email is in our system")
+
+      assert get_flash(conn, :info) =~
+               dgettext(
+                 "prompts",
+                 "If your email is in our system and it has not been confirmed yet, " <>
+                   "you will receive an email with instructions shortly."
+               )
+
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "reset_password"
     end
 
@@ -41,7 +48,14 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ dgettext("prompts", "If your email is in our system")
+
+      assert get_flash(conn, :info) =~
+               dgettext(
+                 "prompts",
+                 "If your email is in our system and it has not been confirmed yet, " <>
+                   "you will receive an email with instructions shortly."
+               )
+
       assert Repo.all(Accounts.UserToken) == []
     end
   end
