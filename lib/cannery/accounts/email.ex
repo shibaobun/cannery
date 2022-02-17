@@ -24,7 +24,7 @@ defmodule Cannery.Email do
     new() |> to(email) |> from({name, from}) |> subject(subject)
   end
 
-  @spec generate_email(String.t(), User.t(), attrs :: map()) :: t()
+  @spec generate_email(key :: String.t(), User.t(), attrs :: map()) :: t()
   def generate_email("welcome", user, %{"url" => url}) do
     user
     |> base_email(dgettext("emails", "Confirm your %{name} account", name: "Cannery"))
