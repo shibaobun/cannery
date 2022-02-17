@@ -140,7 +140,7 @@ msgid "Send instructions to reset password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:51
+#: lib/cannery_web/live/container_live/show.html.heex:53
 msgid "Why not add one?"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgid "Add another container!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:49
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:54
 msgid "Move to different container"
 msgstr ""
 

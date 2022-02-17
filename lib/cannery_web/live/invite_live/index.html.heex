@@ -36,7 +36,8 @@
           </form>
         </:code_actions>
         <%= live_patch to: Routes.invite_index_path(Endpoint, :edit, invite),
-                   class: "text-primary-500 link" do %>
+                   class: "text-primary-500 link",
+                   data: [qa: "edit-#{invite.id}"] do %>
           <i class="fa-fw fa-lg fas fa-edit"></i>
         <% end %>
 
@@ -48,7 +49,8 @@
                confirm:
                  dgettext("prompts", "Are you sure you want to delete the invite for %{name}?",
                    name: invite.name
-                 )
+                 ),
+               qa: "delete-#{invite.id}"
              ] do %>
           <i class="fa-fw fa-lg fas fa-trash"></i>
         <% end %>

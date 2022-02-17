@@ -102,13 +102,8 @@ msgid "You are not authorized to view this page"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_auth.ex:160
+#: lib/cannery_web/controllers/user_auth.ex:176
 msgid "You are not authorized to view this page."
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_auth.ex:145
-msgid "You must log in to access this page."
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -150,4 +145,10 @@ msgstr ""
 #: lib/cannery/activity_log.ex:73
 #: lib/cannery/activity_log.ex:120
 msgid "Count must be less than %{count}"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_auth.ex:38
+#: lib/cannery_web/controllers/user_auth.ex:160
+msgid "You must confirm your account and log in to access this page."
 msgstr ""

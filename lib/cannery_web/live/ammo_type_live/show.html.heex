@@ -14,7 +14,8 @@
 
   <div class="flex space-x-4 justify-center items-center text-primary-500">
     <%= live_patch to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type),
-               class: "text-primary-500 link" do %>
+               class: "text-primary-500 link",
+               data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
     <% end %>
 
@@ -23,7 +24,8 @@
          phx_click: "delete",
          data: [
            confirm:
-             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @ammo_type.name)
+             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @ammo_type.name),
+           qa: "delete"
          ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>

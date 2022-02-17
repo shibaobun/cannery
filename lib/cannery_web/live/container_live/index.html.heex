@@ -24,7 +24,8 @@
     <%= for container <- @containers do %>
       <.container_card container={container}>
         <%= live_patch to: Routes.container_index_path(@socket, :edit, container),
-                   class: "text-primary-500 link" do %>
+                   class: "text-primary-500 link",
+                   data: [qa: "edit-#{container.id}"] do %>
           <i class="fa-fw fa-lg fas fa-edit"></i>
         <% end %>
 
@@ -34,7 +35,8 @@
              phx_value_id: container.id,
              data: [
                confirm:
-                 dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
+                 dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name),
+               qa: "delete-#{container.id}"
              ] do %>
           <i class="fa-fw fa-lg fas fa-trash"></i>
         <% end %>

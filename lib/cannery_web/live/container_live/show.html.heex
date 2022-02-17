@@ -24,7 +24,8 @@
 
   <div class="flex space-x-4 justify-center items-center text-primary-500">
     <%= live_patch to: Routes.container_show_path(@socket, :edit, @container),
-               class: "text-primary-500 link" do %>
+               class: "text-primary-500 link",
+               data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
     <% end %>
 
@@ -33,7 +34,8 @@
          phx_click: "delete_container",
          data: [
            confirm:
-             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name)
+             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name),
+           qa: "delete"
          ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>

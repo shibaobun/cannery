@@ -27,18 +27,23 @@
   <div class="flex flex-wrap justify-center items-center text-primary-500">
     <%= live_patch(dgettext("actions", "Ammo Details"),
       to: Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type),
-      class: "mx-4 my-2 btn btn-primary"
+      class: "mx-4 my-2 btn btn-primary",
+      data: [qa: "details"]
     ) %>
 
     <%= live_patch to: Routes.ammo_group_show_path(Endpoint, :edit, @ammo_group),
-               class: "mx-4 my-2 text-primary-500 link" do %>
+               class: "mx-4 my-2 text-primary-500 link",
+               data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
     <% end %>
 
     <%= link to: "#",
          class: "mx-4 my-2 text-primary-500 link",
          phx_click: "delete",
-         data: [confirm: dgettext("prompts", "Are you sure you want to delete this ammo?")] do %>
+         data: [
+           confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+           qa: "delete"
+         ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
     <% end %>
 
@@ -48,7 +53,8 @@
 
     <%= live_patch(dgettext("actions", "Move to different container"),
       to: Routes.ammo_group_show_path(Endpoint, :move, @ammo_group),
-      class: "btn btn-primary"
+      class: "btn btn-primary",
+      data: [qa: "move"]
     ) %>
   </div>
 

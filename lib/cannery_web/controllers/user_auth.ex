@@ -33,10 +33,13 @@ defmodule CanneryWeb.UserAuth do
 
   def log_in_user(conn, %User{confirmed_at: nil}, params) do
     conn
-      |> put_flash(:error, dgettext("errors", "You must confirm your account and log in to access this page."))
-      |> maybe_store_return_to()
-      |> redirect(to: Routes.user_session_path(conn, :new))
-      |> halt()
+    |> put_flash(
+      :error,
+      dgettext("errors", "You must confirm your account and log in to access this page.")
+    )
+    |> maybe_store_return_to()
+    |> redirect(to: Routes.user_session_path(conn, :new))
+    |> halt()
   end
 
   def log_in_user(conn, user, params) do
@@ -152,7 +155,10 @@ defmodule CanneryWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, dgettext("errors", "You must confirm your account and log in to access this page."))
+      |> put_flash(
+        :error,
+        dgettext("errors", "You must confirm your account and log in to access this page.")
+      )
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()
