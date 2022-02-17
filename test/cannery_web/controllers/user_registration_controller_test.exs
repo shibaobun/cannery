@@ -1,15 +1,19 @@
 defmodule CanneryWeb.UserRegistrationControllerTest do
-  use CanneryWeb.ConnCase, async: true
+  @moduledoc """
+  Tests user registration
+  """
 
-  import Cannery.AccountsFixtures
+  use CanneryWeb.ConnCase, async: true
+  import CanneryWeb.Gettext
+
+  @moduletag :user_registration_controller_test
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
+      assert response =~ dgettext("actions", "Register")
+      assert response =~ dgettext("actions", "Log in")
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -28,15 +32,14 @@ defmodule CanneryWeb.UserRegistrationControllerTest do
           "user" => valid_user_attributes(email: email)
         })
 
-      assert get_session(conn, :user_token)
+      assert get_session(conn, :phoenix_flash) == %{"info" => dgettext("prompts", "Please check your email to verify your account")}
       assert redirected_to(conn) =~ "/"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
+      # user's email is recorded as admin
       assert response =~ email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
     end
 
     test "render errors for invalid data", %{conn: conn} do
@@ -46,7 +49,7 @@ defmodule CanneryWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
+      assert response =~ gettext("Register")
       assert response =~ "must have the @ sign and no spaces"
       assert response =~ "should be at least 12 character"
     end
