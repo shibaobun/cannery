@@ -109,12 +109,11 @@ defmodule Cannery.Accounts do
   @spec register_user(map()) :: {:ok, User.t()} | {:error, Changeset.t(User.new_user())}
   def register_user(attrs) do
     # if no registered users, make first user an admin
-    attrs =
+    role =
       if Repo.one!(from u in User, select: count(u.id), distinct: true) == 0,
-        do: attrs |> Map.put("role", "admin"),
-        else: attrs
+        do: "admin", else: "user"
 
-    %User{} |> User.registration_changeset(attrs) |> Repo.insert()
+    %User{} |> User.registration_changeset(attrs |> Map.put("role", role)) |> Repo.insert()
   end
 
   @doc """
