@@ -51,7 +51,7 @@ defmodule Cannery.AmmoTest do
     end
 
     test "create_ammo_type/1 with valid data creates a ammo_type",
-         %{ammo_type: ammo_type, current_user: current_user} do
+         %{current_user: current_user} do
       assert {:ok, %AmmoType{} = ammo_type} = Ammo.create_ammo_type(@valid_attrs, current_user)
       assert ammo_type.bullet_type == "some bullet_type"
       assert ammo_type.case_material == "some case_material"
@@ -62,7 +62,7 @@ defmodule Cannery.AmmoTest do
     end
 
     test "create_ammo_type/1 with invalid data returns error changeset",
-         %{ammo_type: ammo_type, current_user: current_user} do
+         %{current_user: current_user} do
       assert {:error, %Changeset{}} = Ammo.create_ammo_type(@invalid_attrs, current_user)
     end
 
@@ -131,7 +131,6 @@ defmodule Cannery.AmmoTest do
     test "create_ammo_group/1 with valid data creates a ammo_group",
          %{
            ammo_type: ammo_type,
-           ammo_group: ammo_group,
            container: container,
            current_user: current_user
          } do

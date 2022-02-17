@@ -50,7 +50,7 @@ defmodule Cannery.ActivityLogTest do
     end
 
     test "get_shot_group!/1 does not return a shot_group of another user",
-         %{shot_group: shot_group, current_user: current_user} do
+         %{shot_group: shot_group} do
       another_user = user_fixture()
 
       assert_raise Ecto.NoResultsError, fn ->

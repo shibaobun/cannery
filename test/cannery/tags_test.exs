@@ -39,7 +39,7 @@ defmodule Cannery.TagsTest do
       assert Tags.get_tag!(tag.id, current_user) == tag
     end
 
-    test "create_tag/1 with valid data creates a tag", %{tag: tag, current_user: current_user} do
+    test "create_tag/1 with valid data creates a tag", %{current_user: current_user} do
       assert {:ok, %Tag{} = tag} = Tags.create_tag(@valid_attrs, current_user)
       assert tag.bg_color == "some bg-color"
       assert tag.name == "some name"
