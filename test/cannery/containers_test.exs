@@ -4,7 +4,6 @@ defmodule Cannery.ContainersTest do
   """
 
   use Cannery.DataCase
-
   alias Cannery.Containers
   alias Cannery.{Accounts.User, Containers.Container}
   alias Ecto.Changeset

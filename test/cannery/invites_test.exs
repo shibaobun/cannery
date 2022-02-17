@@ -4,7 +4,6 @@ defmodule Cannery.InvitesTest do
   """
 
   use Cannery.DataCase
-
   alias Cannery.{Invites, Invites.Invite}
   alias Ecto.Changeset
 
