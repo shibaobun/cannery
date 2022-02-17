@@ -1,9 +1,14 @@
 defmodule CanneryWeb.UserConfirmationControllerTest do
-  use CanneryWeb.ConnCase, async: true
+  @moduledoc """
+  Tests user confirmation
+  """
 
+  use CanneryWeb.ConnCase, async: true
+  import CanneryWeb.Gettext
   alias Cannery.Accounts
   alias Cannery.Repo
-  import Cannery.AccountsFixtures
+
+  @moduletag :user_confirmation_controller_test
 
   setup do
     %{user: user_fixture()}
@@ -13,7 +18,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
     test "renders the confirmation page", %{conn: conn} do
       conn = get(conn, Routes.user_confirmation_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Resend confirmation instructions</h1>"
+      assert response =~ dgettext("actions", "Resend confirmation instructions")
     end
   end
 
@@ -26,7 +31,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert get_flash(conn, :info) =~ dgettext("prompts", "If your email is in our system")
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "confirm"
     end
 
@@ -50,7 +55,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert get_flash(conn, :info) =~ dgettext("prompts", "If your email is in our system")
       assert Repo.all(Accounts.UserToken) == []
     end
   end
@@ -64,7 +69,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
 
       conn = get(conn, Routes.user_confirmation_path(conn, :confirm, token))
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "User confirmed successfully"
+      assert get_flash(conn, :info) =~ dgettext("prompts", "%{email} confirmed successfully", email: user.email)
       assert Accounts.get_user!(user.id).confirmed_at
       refute get_session(conn, :user_token)
       assert Repo.all(Accounts.UserToken) == []
@@ -72,7 +77,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
       # When not logged in
       conn = get(conn, Routes.user_confirmation_path(conn, :confirm, token))
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      assert get_flash(conn, :error) =~ dgettext("errors", "User confirmation link is invalid or it has expired")
 
       # When logged in
       conn =
@@ -87,7 +92,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
     test "does not confirm email with invalid token", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_confirmation_path(conn, :confirm, "oops"))
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      assert get_flash(conn, :error) =~ dgettext("errors", "User confirmation link is invalid or it has expired")
       refute Accounts.get_user!(user.id).confirmed_at
     end
   end
