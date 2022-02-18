@@ -9,6 +9,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
   alias Cannery.Repo
 
   @moduletag :ammo_group_live_test
+  @shot_group_create_attrs %{"ammo_left" => 5, "notes" => "some notes"}
   @create_attrs %{count: 42, notes: "some notes", price_paid: 120.5}
   @update_attrs %{count: 43, notes: "some updated notes", price_paid: 456.7}
   # @invalid_attrs %{count: -1, notes: nil, price_paid: nil}
@@ -50,6 +51,27 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Ammo group created successfully")
       assert html =~ "some notes"
+    end
+
+    test "saves new shot_group", %{conn: conn, ammo_group: ammo_group} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
+
+      assert index_live |> element("a", dgettext("actions", "Record shots")) |> render_click() =~
+               gettext("Record shots")
+
+      assert_patch(index_live, Routes.ammo_group_index_path(conn, :add_shot_group, ammo_group))
+
+      # assert index_live
+      #        |> form("#shot_group-form", shot_group: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "is invalid")
+
+      {:ok, _, html} =
+        index_live
+        |> form("#shot-group-form", shot_group: @shot_group_create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
+
+      assert html =~ dgettext("prompts", "Shots recorded successfully")
     end
 
     test "updates ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do
@@ -120,6 +142,27 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Ammo group updated successfully")
       assert html =~ "some updated notes"
+    end
+
+    test "saves new shot_group", %{conn: conn, ammo_group: ammo_group} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
+
+      assert index_live |> element("a", dgettext("actions", "Record shots")) |> render_click() =~
+               gettext("Record shots")
+
+      assert_patch(index_live, Routes.ammo_group_show_path(conn, :add_shot_group, ammo_group))
+
+      # assert index_live
+      #        |> form("#shot_group-form", shot_group: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "is invalid")
+
+      {:ok, _, html} =
+        index_live
+        |> form("#shot-group-form", shot_group: @shot_group_create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
+
+      assert html =~ dgettext("prompts", "Shots recorded successfully")
     end
   end
 end
