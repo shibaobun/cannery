@@ -166,7 +166,7 @@ msgid "Edit Ammo type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:23
+#: lib/cannery_web/live/container_live/index.ex:24
 #: lib/cannery_web/live/container_live/show.ex:89
 msgid "Edit Container"
 msgstr ""
@@ -241,7 +241,7 @@ msgid "Listing Ammo types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:32
+#: lib/cannery_web/live/container_live/index.ex:33
 msgid "Listing Containers"
 msgstr ""
 
@@ -308,7 +308,7 @@ msgid "New Ammo type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:28
+#: lib/cannery_web/live/container_live/index.ex:29
 msgid "New Container"
 msgstr ""
 

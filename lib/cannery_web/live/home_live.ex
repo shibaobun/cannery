@@ -124,7 +124,7 @@ defmodule CanneryWeb.HomeLive do
         <li class="flex flex-row justify-center space-x-2">
           <b>Version:</b>
           <p>
-            <%= Mix.Project.config[:version] %>
+            0.1.0
           </p>
         </li>
       </ul>

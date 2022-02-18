@@ -38,7 +38,7 @@ msgid "%{name} enabled succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:47
+#: lib/cannery_web/live/container_live/index.ex:48
 #: lib/cannery_web/live/container_live/show.ex:64
 msgid "%{name} has been deleted"
 msgstr ""
