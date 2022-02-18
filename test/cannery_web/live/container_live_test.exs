@@ -6,8 +6,9 @@ defmodule CanneryWeb.ContainerLiveTest do
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
   import CanneryWeb.Gettext
+  alias Cannery.Containers
 
-  @moduletag :containers_live
+  @moduletag :container_live_test
 
   @create_attrs %{
     "desc" => "some desc",
@@ -25,18 +26,18 @@ defmodule CanneryWeb.ContainerLiveTest do
   # @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
   defp create_container(%{current_user: current_user}) do
-    container = container_fixture(current_user)
+    container = container_fixture(@create_attrs, current_user)
     %{container: container}
   end
 
   describe "Index" do
-    setup [:create_container]
+    setup [:register_and_log_in_user, :create_container]
 
     test "lists all containers", %{conn: conn, container: container} do
       {:ok, _index_live, html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert html =~ gettext("Containers")
-      assert html =~ container.desc
+      assert html =~ container.location
     end
 
     test "saves new container", %{conn: conn, container: container} do
@@ -58,10 +59,14 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
-      assert html =~ "some desc"
+      assert html =~ "some location"
     end
 
-    test "updates container in listing", %{conn: conn, container: container} do
+    test "updates container in listing", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("[data-qa=\"edit-#{container.id}\"]") |> render_click() =~
@@ -79,8 +84,9 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
+      container = container.id |> Containers.get_container!(current_user)
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
-      assert html =~ "some updated desc"
+      assert html =~ "some updated location"
     end
 
     test "deletes container in listing", %{conn: conn, container: container} do
@@ -92,16 +98,20 @@ defmodule CanneryWeb.ContainerLiveTest do
   end
 
   describe "Show" do
-    setup [:create_container]
+    setup [:register_and_log_in_user, :create_container]
 
     test "displays container", %{conn: conn, container: container} do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert html =~ gettext("Show Container")
-      assert html =~ container.desc
+      assert html =~ container.location
     end
 
-    test "updates container within modal", %{conn: conn, container: container} do
+    test "updates container within modal", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert show_live |> element("[data-qa=\"edit\"]") |> render_click() =~
@@ -119,8 +129,9 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ dgettext("prompts", "Container updated successfully")
-      assert html =~ "some updated desc"
+      container = container.id |> Containers.get_container!(current_user)
+      assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
+      assert html =~ "some updated location"
     end
   end
 end
