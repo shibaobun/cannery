@@ -114,5 +114,9 @@ defmodule CanneryWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+
+    scope "/dev" do
+      get "/preview/:id", CanneryWeb.EmailController, :preview
+    end
   end
 end
