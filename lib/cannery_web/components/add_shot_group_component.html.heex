@@ -1,5 +1,5 @@
 <div>
-  <h2 class="text-center title text-xl text-primary-600">
+  <h2 class="mb-8 text-center title text-xl text-primary-600">
     <%= gettext("Record shots") %>
   </h2>
 
@@ -7,7 +7,7 @@
     let={f}
     for={@changeset}
     id="shot-group-form"
-    class="flex flex-col sm:grid sm:grid-cols-3 justify-center items-center space-y-4"
+    class="flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save"

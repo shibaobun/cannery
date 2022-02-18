@@ -1,4 +1,4 @@
-<div class="mb-8 flex flex-col justify-center items-center space-y-4">
+<div class="mx-auto mb-8 max-w-2xl flex flex-col justify-center items-center space-y-4">
   <h1 class="title text-primary-600 text-xl">
     <%= dgettext("actions", "Register") %>
   </h1>
@@ -7,8 +7,7 @@
            Routes.user_registration_path(@conn, :create),
            [
              class:
-               "flex flex-col sm:grid sm:grid-cols-3" <>
-                 "justify-center items-center text-center space-y-4"
+               "flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
            ],
            fn f -> %>
     <%= if @changeset.action && not @changeset.valid? do %>
@@ -31,7 +30,7 @@
     <%= password_input(f, :password, required: true, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :password, "col-span-3") %>
 
-    <%= submit(dgettext("actions", "Register"), class: "mx-auto my-4 btn btn-primary col-span-3") %>
+    <%= submit(dgettext("actions", "Register"), class: "mx-auto btn btn-primary col-span-3") %>
   <% end %>
 
   <hr class="hr" />
