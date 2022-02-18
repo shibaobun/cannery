@@ -11,7 +11,7 @@ defmodule CanneryWeb.RangeLiveTest do
   @moduletag :range_live_test
   @create_attrs %{"ammo_left" => 5, "notes" => "some notes"}
   @update_attrs %{"count" => 16, "notes" => "some updated notes"}
-  @invalid_attrs %{"count" => nil, "notes" => nil}
+  # @invalid_attrs %{"count" => nil, "notes" => nil}
 
   defp create_shot_group(%{current_user: current_user}) do
     container = container_fixture(%{"staged" => true}, current_user)
@@ -39,7 +39,7 @@ defmodule CanneryWeb.RangeLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
 
       assert index_live |> element("a", dgettext("actions", "Record shots")) |> render_click() =~
-              gettext("Record shots")
+               gettext("Record shots")
 
       assert_patch(index_live, Routes.range_index_path(conn, :add_shot_group, ammo_group))
 

@@ -11,7 +11,7 @@ defmodule CanneryWeb.InviteLiveTest do
   @moduletag :invite_live_test
   @create_attrs %{"name" => "some name"}
   @update_attrs %{"name" => "some updated name"}
-  @invalid_attrs %{"name" => nil}
+  # @invalid_attrs %{"name" => nil}
 
   describe "Index" do
     setup [:register_and_log_in_user]

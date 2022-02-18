@@ -19,13 +19,13 @@ defmodule CanneryWeb.TagLiveTest do
     "name" => "some updated name",
     "text_color" => "some updated text-color"
   }
-  @invalid_attrs %{
-    "bg_color" => nil,
-    "name" => nil,
-    "text_color" => nil
-  }
+  # @invalid_attrs %{
+  #   "bg_color" => nil,
+  #   "name" => nil,
+  #   "text_color" => nil
+  # }
 
-  def create_tag %{current_user: current_user} do
+  def create_tag(%{current_user: current_user}) do
     tag = tag_fixture(current_user)
     %{tag: tag, current_user: current_user}
   end
@@ -80,7 +80,9 @@ defmodule CanneryWeb.TagLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "%{name} updated successfully", name: "some updated name")
+      assert html =~
+               dgettext("prompts", "%{name} updated successfully", name: "some updated name")
+
       assert html =~ "some updated bg-color"
     end
 

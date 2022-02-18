@@ -31,7 +31,7 @@ defmodule CanneryWeb.UserAuth do
   """
   def log_in_user(conn, user, params \\ %{})
 
-  def log_in_user(conn, %User{confirmed_at: nil}, params) do
+  def log_in_user(conn, %User{confirmed_at: nil}, _params) do
     conn
     |> put_flash(
       :error,

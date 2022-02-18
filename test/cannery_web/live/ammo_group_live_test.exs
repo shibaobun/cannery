@@ -11,7 +11,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
   @moduletag :ammo_group_live_test
   @create_attrs %{count: 42, notes: "some notes", price_paid: 120.5}
   @update_attrs %{count: 43, notes: "some updated notes", price_paid: 456.7}
-  @invalid_attrs %{count: -1, notes: nil, price_paid: nil}
+  # @invalid_attrs %{count: -1, notes: nil, price_paid: nil}
 
   defp create_ammo_group(%{current_user: current_user}) do
     ammo_type = ammo_type_fixture(current_user)
