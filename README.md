@@ -1,4 +1,6 @@
-# Cannery is a personal ammo manager that adjusts to your own needs.
+# Cannery
+
+The self-hosted firearm tracker website.
 
 * Easy to Use: Cannery lets you easily keep an eye on your ammo levels before
   and after range day
@@ -10,12 +12,13 @@
 
 - Create containers to store your ammunition, and tag them with custom tags
 - Add ammunition types to Cannery, and then ammunition groups to your containers
+- Stage groups of ammo for range day and record your ammo usage
 - Invitations via invite tokens or public registration
 
 # Installation
 
 1. Install [Docker Compose](https://docs.docker.com/compose/install/) or alternatively [Docker Desktop](https://docs.docker.com/desktop/) on your machine.
-1. Copy the example `docker-compose.yml` into your local machine where you want.
+1. Copy the example [docker-compose.yml](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/docker-compose.yml). into your local machine where you want.
    Bind mounts are created in the same directory by default.
 1. Set the configuration variables in `docker-compose.yml`. You'll need to run
    `docker run -it shibaobun/cannery mix phx.gen.secret` to generate a new
@@ -44,7 +47,7 @@ and reverse proxy to `http://localhost:4000`.
 # Configuration
 
 You can use the following environment variables to configure Cannery in
-`docker-compose.yml`.
+[docker-compose.yml](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/docker-compose.yml).
 
 - `HOST`: External url to generate links with. Must be set with your hosted
   domain name! I.e. `cannery.mywebsite.tld`
