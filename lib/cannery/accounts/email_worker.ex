@@ -3,7 +3,7 @@ defmodule Cannery.EmailWorker do
   Oban worker that dispatches emails
   """
 
-  use Oban.Worker, queue: :mailers
+  use Oban.Worker, queue: :mailers, tags: ["email"]
   alias Cannery.{Accounts, Email, Mailer}
 
   @impl Oban.Worker
