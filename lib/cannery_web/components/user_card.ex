@@ -21,7 +21,7 @@ defmodule CanneryWeb.Components.UserCard do
         <%= if @user.confirmed_at |> is_nil() do %>
           Email unconfirmed
         <% else %>
-          User was confirmed at <%= @user.confirmed_at |> display_datetime() %>
+          User was confirmed at<%= @user.confirmed_at |> display_datetime() %>
         <% end %>
       </h3>
 

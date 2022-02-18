@@ -23,14 +23,21 @@
     <%= password_input(f, :password, required: true, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :password, "col-span-3") %>
 
-    <%= label(f, :password_confirmation, "Confirm new password", class: "title text-lg text-primary-500") %>
-    <%= password_input(f, :password_confirmation, required: true, class: "input input-primary col-span-2") %>
+    <%= label(f, :password_confirmation, "Confirm new password",
+      class: "title text-lg text-primary-500"
+    ) %>
+    <%= password_input(f, :password_confirmation,
+      required: true,
+      class: "input input-primary col-span-2"
+    ) %>
     <%= error_tag(f, :password_confirmation, "col-span-3") %>
 
-    <%= submit(dgettext("actions", "Reset password"), class: "mx-auto my-4 btn btn-primary col-span-3") %>
+    <%= submit(dgettext("actions", "Reset password"),
+      class: "mx-auto my-4 btn btn-primary col-span-3"
+    ) %>
   <% end %>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <div class="flex flex-row justify-center items-center space-x-4">
     <%= if Accounts.allow_registration?() do %>

@@ -78,13 +78,13 @@ msgid "Ammo group updated successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:99
-#: lib/cannery_web/live/invite_live/index.html.heex:128
+#: lib/cannery_web/live/invite_live/index.html.heex:103
+#: lib/cannery_web/live/invite_live/index.html.heex:132
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:27
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:29
 #: lib/cannery_web/live/container_live/index.html.heex:38
 #: lib/cannery_web/live/container_live/show.html.heex:37
 #: lib/cannery_web/live/tag_live/index.html.heex:38
@@ -97,24 +97,24 @@ msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:118
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:45
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:120
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:47
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:68
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:109
+#: lib/cannery_web/templates/user_settings/edit.html.heex:113
 msgid "Are you sure you want to delete your account?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:85
+#: lib/cannery_web/components/topbar.ex:87
 msgid "Are you sure you want to log out?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:74
+#: lib/cannery_web/live/invite_live/index.html.heex:75
 msgid "Are you sure you want to make %{name} unlimited?"
 msgstr ""
 
@@ -154,14 +154,14 @@ msgid "Please check your email to verify your account"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:94
+#: lib/cannery_web/live/home_live.ex:97
 msgid "Register to setup %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:44
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:55
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:160
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:176
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
 #: lib/cannery_web/live/invite_live/form_component.html.heex:30
 #: lib/cannery_web/live/range_live/form_component.html.heex:42
@@ -210,7 +210,7 @@ msgid "Ammo group unstaged succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/range_live/index.html.heex:106
+#: lib/cannery_web/live/range_live/index.html.heex:108
 msgid "Are you sure you want to delete this shot record?"
 msgstr ""
 

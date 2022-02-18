@@ -11,7 +11,6 @@
                  "justify-center items-center text-center space-y-4"
            ],
            fn f -> %>
-
     <%= label(f, :email, class: "title text-lg text-primary-500") %>
     <%= email_input(f, :email, required: true, class: "input input-primary col-span-2") %>
 
@@ -20,7 +19,7 @@
     ) %>
   <% end %>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <div class="flex flex-row justify-center items-center space-x-4">
     <%= if Accounts.allow_registration?() do %>

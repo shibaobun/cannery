@@ -71,7 +71,11 @@
             class="btn btn-primary"
             phx-click="set_unlimited"
             phx-value-id={invite.id}
-            data-confirm={dgettext("prompts", "Are you sure you want to make %{name} unlimited?", name: invite.name)}
+            data-confirm={
+              dgettext("prompts", "Are you sure you want to make %{name} unlimited?",
+                name: invite.name
+              )
+            }
           >
             <%= gettext("Set Unlimited") %>
           </a>
@@ -81,7 +85,7 @@
   </div>
 
   <%= unless @admins |> Enum.empty?() do %>
-    <hr class="hr">
+    <hr class="hr" />
 
     <h1 class="title text-2xl text-primary-500">
       <%= gettext("Admins") %>
@@ -110,7 +114,7 @@
   <% end %>
 
   <%= unless @users |> Enum.empty?() do %>
-    <hr class="hr">
+    <hr class="hr" />
 
     <h1 class="title text-2xl text-primary-500">
       <%= gettext("Users") %>

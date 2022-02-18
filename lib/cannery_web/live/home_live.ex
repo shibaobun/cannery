@@ -34,7 +34,9 @@ defmodule CanneryWeb.HomeLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
+    <div
+      class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl"
+    >
       <h1 class="title text-primary-500 text-2xl">
         <%= gettext("Welcome to %{name}", name: "Cannery") %>
       </h1>
@@ -52,7 +54,8 @@ defmodule CanneryWeb.HomeLive do
             <%= gettext("Easy to Use:") %>
           </b>
           <p>
-            <%= gettext("%{name} lets you easily keep an eye on your ammo levels before and after range day",
+            <%= gettext(
+              "%{name} lets you easily keep an eye on your ammo levels before and after range day",
               name: "Cannery"
             ) %>
           </p>
@@ -78,7 +81,7 @@ defmodule CanneryWeb.HomeLive do
         </li>
       </ul>
 
-      <hr class="hr">
+      <hr class="hr" />
 
       <ul class="flex flex-col space-y-2 text-center justify-center">
         <h2 class="title text-primary-500 text-lg">

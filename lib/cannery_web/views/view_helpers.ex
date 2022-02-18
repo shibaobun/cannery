@@ -20,15 +20,11 @@ defmodule CanneryWeb.ViewHelpers do
     }
 
     ~H"""
-    <time
-      datetime={@datetime}
-      x-data={"{
+    <time datetime={@datetime} x-data={"{
         date:
           Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
             .format(new Date(\"#{@datetime}\"))
-      }"}
-      x-text="date"
-    >
+      }"} x-text="date">
       <%= @datetime %>
     </time>
     """
@@ -45,14 +41,10 @@ defmodule CanneryWeb.ViewHelpers do
     assigns = %{date: date |> Date.to_iso8601(:extended)}
 
     ~H"""
-    <time
-      datetime={@date}
-      x-data={"{
+    <time datetime={@date} x-data={"{
         date:
           Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'}).format(new Date(\"#{@date}\"))
-      }"}
-      x-text="date"
-    >
+      }"} x-text="date">
       <%= @date %>
     </time>
     """

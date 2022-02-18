@@ -61,7 +61,9 @@
 
               <td class="p-2">
                 <%= if ammo_group.price_paid do %>
-                  <%= gettext("$%{amount}", amount: ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)) %>
+                  <%= gettext("$%{amount}",
+                    amount: ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
+                  ) %>
                 <% end %>
               </td>
 
@@ -143,7 +145,6 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% @live_action == :add_shot_group -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
@@ -156,7 +157,6 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% @live_action == :move -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
@@ -169,6 +169,5 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% true -> %>
-<% end %>
+  <% end %>

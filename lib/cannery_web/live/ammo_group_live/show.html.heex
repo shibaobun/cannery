@@ -19,7 +19,9 @@
     <%= if @ammo_group.price_paid do %>
       <span class="rounded-lg title text-lg">
         <%= gettext("Price paid:") %>
-        <%= gettext("$%{amount}", amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)) %>
+        <%= gettext("$%{amount}",
+          amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
+        ) %>
       </span>
     <% end %>
   </div>
@@ -51,7 +53,9 @@
 
     <div class="flex flex-wrap justify-center items-center text-primary-500">
       <button type="button" class="mx-4 my-2 btn btn-primary" phx-click="toggle_staged">
-        <%= if @ammo_group.staged, do: gettext("Unstage from range"), else: gettext("Stage for range") %>
+        <%= if @ammo_group.staged,
+          do: gettext("Unstage from range"),
+          else: gettext("Stage for range") %>
       </button>
 
       <%= live_patch(dgettext("actions", "Move containers"),
@@ -67,7 +71,7 @@
     </div>
   </div>
 
-  <hr class="mb-4 w-full">
+  <hr class="mb-4 w-full" />
 
   <div>
     <%= if @ammo_group.container do %>
@@ -95,7 +99,6 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% :add_shot_group -> %>
     <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
       <.live_component
@@ -108,7 +111,6 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% :move -> %>
     <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
       <.live_component
@@ -121,6 +123,5 @@
         current_user={@current_user}
       />
     </.modal>
-
   <% _show -> %>
-<% end %>
+  <% end %>

@@ -40,7 +40,9 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
         <%= if @ammo_group.price_paid do %>
           <span class="rounded-lg title text-lg">
             <%= gettext("Price paid:") %>
-            <%= gettext("$%{amount}", amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)) %>
+            <%= gettext("$%{amount}",
+              amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
+            ) %>
           </span>
         <% end %>
       </div>

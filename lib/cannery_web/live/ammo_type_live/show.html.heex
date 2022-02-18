@@ -5,9 +5,11 @@
   </h1>
 
   <%= if @ammo_type.desc do %>
-    <span class="max-w-2xl w-full px-8 py-4 rounded-lg
+    <span
+      class="max-w-2xl w-full px-8 py-4 rounded-lg
       text-center title text-lg
-      border border-primary-600">
+      border border-primary-600"
+    >
       <%= @ammo_type.desc %>
     </span>
   <% end %>
@@ -31,7 +33,7 @@
     <% end %>
   </div>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <div class="grid sm:grid-cols-2 text-center justify-center items-center">
     <%= for {field_name, field} <- [
@@ -50,7 +52,7 @@
         ] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field_name %> :
+          <%= field_name %>:
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -67,7 +69,7 @@
           {"Corrosive", :corrosive}
         ] do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= field_name %> :
+        <%= field_name %>:
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
@@ -78,7 +80,7 @@
     <%= for {field_name, field} <- [{"Manufacturer", :manufacturer}, {"UPC", :upc}] do %>
       <%= if @ammo_type |> Map.get(field) do %>
         <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field_name %> :
+          <%= field_name %>:
         </h3>
 
         <span class="mb-4 sm:mb-2 text-primary-600">
@@ -89,16 +91,18 @@
 
     <%= if @avg_cost_per_round do %>
       <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= gettext("Average Price paid") %> :
+        <%= gettext("Average Price paid") %>:
       </h3>
 
       <span class="mb-4 sm:mb-2 text-primary-600">
-        <%= gettext("$%{amount}", amount: @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2)) %>
+        <%= gettext("$%{amount}",
+          amount: @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2)
+        ) %>
       </span>
     <% end %>
   </div>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <div>
     <%= if @ammo_groups |> Enum.empty?() do %>

@@ -3,7 +3,7 @@
     <%= gettext("Settings") %>
   </h1>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <%= form_for @email_changeset,
            Routes.user_settings_path(@conn, :update),
@@ -43,10 +43,12 @@
     ) %>
     <%= error_tag(f, :current_password, "col-span-3") %>
 
-    <%= submit(dgettext("actions", "Change email"), class: "mx-auto my-4 btn btn-primary col-span-3") %>
+    <%= submit(dgettext("actions", "Change email"),
+      class: "mx-auto my-4 btn btn-primary col-span-3"
+    ) %>
   <% end %>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <%= form_for @password_changeset,
            Routes.user_settings_path(@conn, :update),
@@ -97,10 +99,12 @@
     ) %>
     <%= error_tag(f, :current_password, "col-span-3") %>
 
-    <%= submit(dgettext("actions", "Change password"), class: "mx-auto my-4 btn btn-primary col-span-3") %>
+    <%= submit(dgettext("actions", "Change password"),
+      class: "mx-auto my-4 btn btn-primary col-span-3"
+    ) %>
   <% end %>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <%= link(dgettext("actions", "Delete User"),
     to: Routes.user_settings_path(@conn, :delete, @current_user),

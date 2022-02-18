@@ -28,7 +28,9 @@
           phx-value-ammo_group_id={ammo_group.id}
           data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
         >
-          <%= if ammo_group.staged, do: gettext("Unstage from range"), else: gettext("Stage for range") %>
+          <%= if ammo_group.staged,
+            do: gettext("Unstage from range"),
+            else: gettext("Stage for range") %>
         </button>
 
         <%= live_patch(dgettext("actions", "Record shots"),
@@ -39,7 +41,7 @@
     <% end %>
   <% end %>
 
-  <hr class="hr">
+  <hr class="hr" />
 
   <%= if @shot_groups |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-500">

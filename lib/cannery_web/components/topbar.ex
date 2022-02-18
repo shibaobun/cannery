@@ -30,10 +30,12 @@ defmodule CanneryWeb.Components.Topbar do
           <% end %>
         </div>
 
-        <hr class="mb-2 sm:hidden hr-light">
+        <hr class="mb-2 sm:hidden hr-light" />
 
-        <ul class="flex flex-row flex-wrap justify-center items-center
-          text-lg text-white text-ellipsis">
+        <ul
+          class="flex flex-row flex-wrap justify-center items-center
+          text-lg text-white text-ellipsis"
+        >
           <%= if @current_user do %>
             <li class="mx-2 my-1">
               <%= link(gettext("Tags"),

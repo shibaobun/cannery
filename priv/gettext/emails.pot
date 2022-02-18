@@ -45,7 +45,7 @@ msgid "Reset your %{name} password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/layout/email.html.heex:13
+#: lib/cannery_web/templates/layout/email.html.heex:15
 msgid "This email was sent from %{name}"
 msgstr ""
 
