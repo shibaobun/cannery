@@ -49,13 +49,17 @@ defmodule CanneryWeb.ConnCase do
   It stores an updated connection and a registered user in the
   test context.
   """
+  @spec register_and_log_in_user(%{conn: Plug.Conn.t()}) ::
+          %{conn: Plug.Conn.t(), current_user: User.t()}
   def register_and_log_in_user(%{conn: conn}) do
-    current_user = user_fixture()
-
-    {:ok, %{user: current_user}} =
-      current_user |> Accounts.confirm_user_multi() |> Repo.transaction()
-
+    current_user = user_fixture() |> confirm_user()
     %{conn: log_in_user(conn, current_user), current_user: current_user}
+  end
+
+  @spec confirm_user(User.t()) :: User.t()
+  def confirm_user(user) do
+    {:ok, %{user: user}} = user |> Accounts.confirm_user_multi() |> Repo.transaction()
+    user
   end
 
   @doc """

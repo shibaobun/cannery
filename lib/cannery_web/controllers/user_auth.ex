@@ -33,6 +33,7 @@ defmodule CanneryWeb.UserAuth do
 
   def log_in_user(conn, %User{confirmed_at: nil}, _params) do
     conn
+    |> fetch_flash()
     |> put_flash(
       :error,
       dgettext("errors", "You must confirm your account and log in to access this page.")
