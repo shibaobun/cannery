@@ -21,7 +21,7 @@ The self-hosted firearm tracker website.
 1. Copy the example [docker-compose.yml](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/docker-compose.yml). into your local machine where you want.
    Bind mounts are created in the same directory by default.
 1. Set the configuration variables in `docker-compose.yml`. You'll need to run
-   `docker run -it shibaobun/cannery mix phx.gen.secret` to generate a new
+   `docker run -it shibaobun/cannery /app/priv/random.sh` to generate a new
    secret key base.
 1. Use `docker-compose up` or `docker-compose up -d` to start the container!
 

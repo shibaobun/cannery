@@ -2,13 +2,19 @@ kind: pipeline
 type: docker
 name: cannery
 
-cache:
-  mount:
-    - _build
-    - deps
-    - ~/.cache/dialyzer/plts/
-
 steps:
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  volumes:
+  - name: cache
+    path: /cache
+  settings:
+    restore: true
+    mount:
+      - _build
+      - deps
+      - ~/.cache/dialyzer/plts/
+
 - name: test
   image: bitwalker/alpine-elixir-phoenix:1.13
   environment:
@@ -31,9 +37,20 @@ steps:
     password:
       from_secret: docker_password
   when:
-  branch:
-    include:
+    branch:
     - stable
+
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  volumes:
+  - name: cache
+    path: /cache
+  settings:
+    rebuild: true
+    mount:
+      - _build
+      - deps
+      - ~/.cache/dialyzer/plts/
 
 services:
 - name: database
@@ -44,6 +61,9 @@ services:
     POSTGRES_DB: postgres
 
 volumes:
+  - name: cache
+    host:
+      path: /tmp/drone-cache
   - name: docker_sock
     host:
       path: /var/run/docker.sock

@@ -47,6 +47,7 @@ USER nobody:nobody
 
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/cannery ./
 COPY --from=build --chown=nobody:nobody /app/priv /app/priv
+RUN chmod +x /app/priv/random.sh
 
 ENV HOME=/app
 
