@@ -6,12 +6,14 @@ cache:
   mount:
     - _build
     - deps
+    - ~/.cache/dialyzer/plts/
 
 steps:
 - name: test
   image: bitwalker/alpine-elixir-phoenix:1.13
   environment:
     TEST_DATABASE_URL: ecto://postgres:postgres@database/cannery_test
+    HOST: testing.example.tld
   commands:
   - mix local.rebar --force
   - mix local.hex --force
