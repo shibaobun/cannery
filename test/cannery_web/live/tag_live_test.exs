@@ -19,6 +19,7 @@ defmodule CanneryWeb.TagLiveTest do
     "name" => "some updated name",
     "text_color" => "some updated text-color"
   }
+
   # @invalid_attrs %{
   #   "bg_color" => nil,
   #   "name" => nil,
