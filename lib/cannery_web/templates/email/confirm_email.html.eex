@@ -15,7 +15,7 @@
 
   <br/>
 
-  <a style="margin: 1em; color: rgb(31, 31, 31);" href="{@url}"><%= @url %></a>
+  <a style="margin: 1em; color: rgb(31, 31, 31);" href="<%= @url %>"><%= @url %></a>
 
   <br/>
 
