@@ -17,7 +17,7 @@ defmodule CanneryWeb.ConnCase do
 
   use ExUnit.CaseTemplate
   import Cannery.Fixtures
-  alias Cannery.{Accounts, Repo}
+  alias Cannery.{Accounts, Accounts.User, Repo}
   alias Ecto.Adapters.SQL.Sandbox
 
   using do

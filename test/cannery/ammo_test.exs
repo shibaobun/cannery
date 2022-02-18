@@ -4,7 +4,7 @@ defmodule Cannery.AmmoTest do
   """
 
   use Cannery.DataCase
-  alias Cannery.{Ammo, Ammo.AmmoType, Ammo.AmmoGroup}
+  alias Cannery.{Ammo, Ammo.AmmoGroup, Ammo.AmmoType}
   alias Ecto.Changeset
 
   @moduletag :ammo_test

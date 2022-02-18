@@ -58,7 +58,7 @@ defmodule Cannery.Fixtures do
 
     [_, html_token, _] = email.html_body |> String.split("[TOKEN]")
     [_, text_token, _] = email.text_body |> String.split("[TOKEN]")
-    text_token = html_token
+    ^text_token = html_token
   end
 
   def valid_user_attributes(attrs \\ %{}) do
