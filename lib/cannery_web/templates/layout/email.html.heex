@@ -4,15 +4,21 @@
       <%= @email.subject %>
     </title>
   </head>
-  <body>
+  <body
+    style="padding: 2em; color: rgb(31, 31, 31); background-color: rgb(220, 220, 228); font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; text-align: center;"
+  >
     <%= @inner_content %>
 
     <hr
-      style="border-width: 1px; border-color: rgb(212, 212, 216); width: 100%; max-width: 42rem;"
+      style="margin: 2em auto; border-width: 1px; border-color: rgb(212, 212, 216); width: 100%; max-width: 42rem;"
     />
 
-    <a href={Routes.live_url(Endpoint, HomeLive)}>
-      <%= dgettext("emails", "This email was sent from %{name}", name: "Cannery") %>
+    <a style="color: rgb(31, 31, 31);" href={Routes.live_url(Endpoint, HomeLive)}>
+      <%= dgettext(
+        "emails",
+        "This email was sent from %{name}, the self-hosted firearm tracker website.",
+        name: "Cannery"
+      ) %>
     </a>
   </body>
 </html>

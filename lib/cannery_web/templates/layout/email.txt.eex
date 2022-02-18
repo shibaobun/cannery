@@ -1,6 +1,5 @@
 <%= @email.subject %>
 
-
 ====================
 
 <%= @inner_content %>
@@ -8,6 +7,6 @@
 =====================
 
 <%= dgettext("emails",
-  "This email was sent from %{name} at %{url}",
+  "This email was sent from %{name} at %{url}, the self-hosted firearm tracker website.",
   name: "Cannery",
   url: Routes.live_url(Endpoint, HomeLive)) %>
