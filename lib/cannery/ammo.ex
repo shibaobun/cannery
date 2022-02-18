@@ -256,6 +256,12 @@ defmodule Cannery.Ammo do
     |> Repo.insert()
   end
 
+  def create_ammo_group(invalid_attrs, _user) do
+    %AmmoGroup{}
+    |> AmmoGroup.create_changeset(invalid_attrs |> Map.put("user_id", "-1"))
+    |> Repo.insert()
+  end
+
   @doc """
   Updates a ammo_group.
 
