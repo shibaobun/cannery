@@ -22,7 +22,7 @@ msgid "Access from any internet-capable device"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:91
+#: lib/cannery_web/live/invite_live/index.html.heex:90
 msgid "Admins"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgid "Admins:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:53
+#: lib/cannery_web/components/topbar.ex:52
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.html.heex:61
 msgid "Ammo"
@@ -109,7 +109,7 @@ msgid "Container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:47
+#: lib/cannery_web/components/topbar.ex:46
 #: lib/cannery_web/live/container_live/index.html.heex:3
 msgid "Containers"
 msgstr ""
@@ -145,7 +145,7 @@ msgid "Description:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:60
+#: lib/cannery_web/live/invite_live/index.html.heex:59
 msgid "Disable"
 msgstr ""
 
@@ -183,7 +183,7 @@ msgid "Edit Tag"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:64
+#: lib/cannery_web/live/invite_live/index.html.heex:63
 msgid "Enable"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgid "Invite Only"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:72
+#: lib/cannery_web/components/topbar.ex:71
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 msgid "Invites"
 msgstr ""
@@ -274,7 +274,7 @@ msgid "Magazine, Clip, Ammo Box, etc"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:59
+#: lib/cannery_web/components/topbar.ex:58
 msgid "Manage"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:80
+#: lib/cannery_web/live/invite_live/index.html.heex:79
 msgid "Set Unlimited"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgid "Stored in"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:41
+#: lib/cannery_web/components/topbar.ex:40
 #: lib/cannery_web/live/container_live/show.html.heex:60
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 msgid "Tags"
@@ -510,7 +510,7 @@ msgid "Type:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:120
+#: lib/cannery_web/live/invite_live/index.html.heex:119
 msgid "Users"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgid "No tags for this container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:65
+#: lib/cannery_web/components/topbar.ex:64
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:39
 msgid "Range"
 msgstr ""
@@ -737,4 +737,14 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:140
 msgid "Firing type"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/layout/live.html.heex:50
+msgid "Reconnecting..."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/layout/live.html.heex:37
+msgid "Loading..."
 msgstr ""

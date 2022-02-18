@@ -79,8 +79,8 @@ msgid "Ammo group updated successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:103
-#: lib/cannery_web/live/invite_live/index.html.heex:132
+#: lib/cannery_web/live/invite_live/index.html.heex:102
+#: lib/cannery_web/live/invite_live/index.html.heex:131
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
@@ -93,7 +93,7 @@ msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:50
+#: lib/cannery_web/live/invite_live/index.html.heex:49
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
@@ -110,12 +110,12 @@ msgid "Are you sure you want to delete your account?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:87
+#: lib/cannery_web/components/topbar.ex:86
 msgid "Are you sure you want to log out?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:75
+#: lib/cannery_web/live/invite_live/index.html.heex:74
 msgid "Are you sure you want to make %{name} unlimited?"
 msgstr ""
 

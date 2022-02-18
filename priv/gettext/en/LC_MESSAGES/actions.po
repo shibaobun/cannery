@@ -188,6 +188,6 @@ msgid "Select"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.html.heex:34
+#: lib/cannery_web/live/invite_live/index.html.heex:33
 msgid "Copy to clipboard"
 msgstr ""
