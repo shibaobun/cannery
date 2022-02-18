@@ -6,19 +6,26 @@ services:
     container_name: cannery
     restart: always
     environment:
-      - HOST="your.domain.com"
-      - DATABASE_URL="ecto://postgres:postgres@cannery-db/cannery"
+      # HOST must be set!
+      # - HOST=your.domain.com
+      - DATABASE_URL=ecto://postgres:postgres@cannery-db/cannery
       # Use `docker run -it shibaobun/cannery /app/priv/random.sh` to generate a secret key base
-      # - SECRET_KEY_BASE="change-me-this-is-really-important-seriously-change-it"
+      # - SECRET_KEY_BASE=change-me-this-is-really-important-seriously-change-it
       # uncomment to enable public sign ups, not recommended
-      # - REGISTRATION="public"
-      # - SMTP_HOST="cannery.example.tld" # must be set!
-      # - SMTP_PORT="587" # optional
-      # - SMTP_USERNAME="username"
-      # - SMTP_PASSWORD="password"
-      # - SMTP_SSL="false" # optional
-      # - EMAIL_FROM="no-reply@cannery.example.tld" # optional
-      # - EMAIL_NAME="Cannery" # optional
+      # - REGISTRATION=public
+      # SMTP host must be set!
+      # - SMTP_HOST=smtp.mailserver.tld
+      # optional, default is 587
+      # - SMTP_PORT=587
+      # SMTP username/passwords must be set!
+      # - SMTP_USERNAME=username
+      # - SMTP_PASSWORD=password
+      # optional, default is false
+      # - SMTP_SSL=false
+      # optional, default is format below
+      # - EMAIL_FROM=no-reply@cannery.example.tld
+      # optional, default is "Cannery"
+      # - EMAIL_NAME=Cannery
     expose:
       - "4000"
     depends_on:
