@@ -12,12 +12,12 @@
     </h2>
 
     <%= live_patch(dgettext("actions", "Make your first tag!"),
-      to: Routes.tag_index_path(@socket, :new),
+      to: Routes.tag_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% else %>
     <%= live_patch(dgettext("actions", "New Tag"),
-      to: Routes.tag_index_path(@socket, :new),
+      to: Routes.tag_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% end %>
@@ -46,14 +46,14 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.tag_index_path(@socket, :index)}>
+  <.modal return_to={Routes.tag_index_path(Endpoint, :index)}>
     <.live_component
       module={CanneryWeb.TagLive.FormComponent}
       id={@tag.id || :new}
       title={@page_title}
       action={@live_action}
       tag={@tag}
-      return_to={Routes.tag_index_path(@socket, :index)}
+      return_to={Routes.tag_index_path(Endpoint, :index)}
       current_user={@current_user}
     />
   </.modal>

@@ -15,7 +15,7 @@
   <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
-    <%= live_patch to: Routes.ammo_type_show_path(@socket, :edit, @ammo_type),
+    <%= live_patch to: Routes.ammo_type_show_path(Endpoint, :edit, @ammo_type),
                class: "text-primary-600 link",
                data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>

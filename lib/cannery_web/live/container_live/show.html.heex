@@ -23,7 +23,7 @@
   <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
-    <%= live_patch to: Routes.container_show_path(@socket, :edit, @container),
+    <%= live_patch to: Routes.container_show_path(Endpoint, :edit, @container),
                class: "text-primary-600 link",
                data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>

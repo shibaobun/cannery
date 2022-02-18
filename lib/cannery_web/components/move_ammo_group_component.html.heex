@@ -10,7 +10,7 @@
     </h2>
 
     <%= live_patch(dgettext("actions", "Add another container!"),
-      to: Routes.container_index_path(@socket, :new),
+      to: Routes.container_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% else %>

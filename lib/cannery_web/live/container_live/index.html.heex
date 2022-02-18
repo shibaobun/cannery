@@ -10,12 +10,12 @@
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first container!"),
-      to: Routes.container_index_path(@socket, :new),
+      to: Routes.container_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% else %>
     <%= live_patch(dgettext("actions", "New Container"),
-      to: Routes.container_index_path(@socket, :new),
+      to: Routes.container_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% end %>
@@ -23,7 +23,7 @@
   <div class="flex flex-row flex-wrap justify-center items-center">
     <%= for container <- @containers do %>
       <.container_card container={container}>
-        <%= live_patch to: Routes.container_index_path(@socket, :edit, container),
+        <%= live_patch to: Routes.container_index_path(Endpoint, :edit, container),
                    class: "text-primary-600 link",
                    data: [qa: "edit-#{container.id}"] do %>
           <i class="fa-fw fa-lg fas fa-edit"></i>
@@ -46,14 +46,14 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.container_index_path(@socket, :index)}>
+  <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
     <.live_component
       module={CanneryWeb.ContainerLive.FormComponent}
       id={@container.id || :new}
       title={@page_title}
       action={@live_action}
       container={@container}
-      return_to={Routes.container_index_path(@socket, :index)}
+      return_to={Routes.container_index_path(Endpoint, :index)}
       current_user={@current_user}
     />
   </.modal>

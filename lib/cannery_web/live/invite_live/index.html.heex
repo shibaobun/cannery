@@ -10,12 +10,12 @@
     </h1>
 
     <%= live_patch(dgettext("actions", "Invite someone new!"),
-      to: Routes.invite_index_path(@socket, :new),
+      to: Routes.invite_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% else %>
     <%= live_patch(dgettext("actions", "Create Invite"),
-      to: Routes.invite_index_path(@socket, :new),
+      to: Routes.invite_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% end %>
@@ -144,14 +144,14 @@
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.invite_index_path(@socket, :index)}>
+  <.modal return_to={Routes.invite_index_path(Endpoint, :index)}>
     <.live_component
       module={CanneryWeb.InviteLive.FormComponent}
       id={@invite.id || :new}
       title={@page_title}
       action={@live_action}
       invite={@invite}
-      return_to={Routes.invite_index_path(@socket, :index)}
+      return_to={Routes.invite_index_path(Endpoint, :index)}
       current_user={@current_user}
     />
   </.modal>

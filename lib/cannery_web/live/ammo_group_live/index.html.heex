@@ -10,12 +10,12 @@
     </h2>
 
     <%= live_patch(dgettext("actions", "Add your first box!"),
-      to: Routes.ammo_group_index_path(@socket, :new),
+      to: Routes.ammo_group_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
   <% else %>
     <%= live_patch(dgettext("actions", "New Ammo group"),
-      to: Routes.ammo_group_index_path(@socket, :new),
+      to: Routes.ammo_group_index_path(Endpoint, :new),
       class: "btn btn-primary"
     ) %>
 
@@ -92,7 +92,7 @@
               <td class="p-2">
                 <%= if ammo_group.container do %>
                   <%= live_patch(ammo_group.container.name,
-                    to: Routes.ammo_group_index_path(@socket, :move, ammo_group),
+                    to: Routes.ammo_group_index_path(Endpoint, :move, ammo_group),
                     class: "btn btn-primary"
                   ) %>
                 <% end %>
@@ -100,13 +100,13 @@
 
               <td class="p-2">
                 <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-                  <%= live_redirect to: Routes.ammo_group_show_path(@socket, :show, ammo_group),
+                  <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
                                 class: "text-primary-600 link",
                                 data: [qa: "view-#{ammo_group.id}"] do %>
                     <i class="fa-fw fa-lg fas fa-eye"></i>
                   <% end %>
 
-                  <%= live_patch to: Routes.ammo_group_index_path(@socket, :edit, ammo_group),
+                  <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
                              class: "text-primary-600 link",
                              data: [qa: "edit-#{ammo_group.id}"] do %>
                     <i class="fa-fw fa-lg fas fa-edit"></i>
