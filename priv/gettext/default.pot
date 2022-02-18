@@ -154,7 +154,7 @@ msgid "Easy to Use:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:28
+#: lib/cannery_web/live/ammo_group_live/index.ex:36
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 msgid "Edit Ammo group"
 msgstr ""
@@ -459,7 +459,7 @@ msgid "Steel"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:66
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 msgid "Stored in"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgid "The self-hosted firearm tracker website"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:71
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:80
 msgid "This ammo group is not in a container"
 msgstr ""
 
@@ -545,6 +545,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:63
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:39
 msgid "Range"
 msgstr ""
 
@@ -569,13 +570,13 @@ msgid "No ammo staged"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:51
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:54
 #: lib/cannery_web/live/range_live/index.html.heex:31
 msgid "Stage for range"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:51
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:54
 #: lib/cannery_web/live/range_live/index.html.heex:31
 msgid "Unstage from range"
 msgstr ""
@@ -587,6 +588,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:3
+#: lib/cannery_web/live/ammo_group_live/index.ex:24
 #: lib/cannery_web/live/range_live/index.ex:28
 msgid "Record shots"
 msgstr ""
@@ -597,7 +599,7 @@ msgid "Ammo Types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:39
+#: lib/cannery_web/live/ammo_group_live/index.ex:47
 msgid "Ammo groups"
 msgstr ""
 
@@ -638,7 +640,7 @@ msgid "Shot Records"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:22
+#: lib/cannery_web/live/ammo_group_live/index.ex:30
 #: lib/cannery_web/live/ammo_group_live/show.ex:53
 msgid "Move Ammo group"
 msgstr ""
@@ -722,17 +724,12 @@ msgid "New password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:79
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:80
 msgid "Stage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:39
-msgid "Staged for Range"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:79
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:80
 msgid "Unstage"
 msgstr ""
 

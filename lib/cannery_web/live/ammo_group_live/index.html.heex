@@ -36,7 +36,7 @@
               <%= gettext("Notes") %>
             </th>
             <th class="p-2">
-              <%= gettext("Staged for Range") %>
+              <%= gettext("Range") %>
             </th>
             <th class="p-2">
               <%= gettext("Container") %>
@@ -70,14 +70,21 @@
               </td>
 
               <td class="p-2">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  phx-click="toggle_staged"
-                  phx-value-ammo_group_id={ammo_group.id}
-                >
-                  <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
-                </button>
+                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    phx-click="toggle_staged"
+                    phx-value-ammo_group_id={ammo_group.id}
+                  >
+                    <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
+                  </button>
+
+                  <%= live_patch(dgettext("actions", "Record shots"),
+                    to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
+                    class: "btn btn-primary"
+                  ) %>
+                </div>
               </td>
 
               <td class="p-2">
