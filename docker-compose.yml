@@ -9,7 +9,7 @@ services:
       - HOST="your.domain.com"
       - DATABASE_URL="ecto://postgres:postgres@cannery-db/cannery"
       # Use `docker run -it shibaobun/cannery /app/priv/random.sh` to generate a secret key base
-      - SECRET_KEY_BASE="change-me-this-is-really-important-seriously-change-it"
+      # - SECRET_KEY_BASE="change-me-this-is-really-important-seriously-change-it"
       # uncomment to enable public sign ups, not recommended
       # - REGISTRATION="public"
       # - SMTP_HOST="cannery.example.tld" # must be set!
