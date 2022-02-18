@@ -120,6 +120,13 @@ defmodule CanneryWeb.HomeLive do
             end %>
           </p>
         </li>
+
+        <li class="flex flex-row justify-center space-x-2">
+          <b>Version:</b>
+          <p>
+            <%= Mix.Project.config[:version] %>
+          </p>
+        </li>
       </ul>
     </div>
     """
