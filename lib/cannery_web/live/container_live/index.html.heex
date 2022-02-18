@@ -4,7 +4,7 @@
   </h1>
 
   <%= if @containers |> Enum.empty?() do %>
-    <h2 class="title text-xl text-primary-500">
+    <h2 class="title text-xl text-primary-600">
       <%= gettext("No containers") %>
       <%= display_emoji("😔") %>
     </h2>
@@ -24,13 +24,13 @@
     <%= for container <- @containers do %>
       <.container_card container={container}>
         <%= live_patch to: Routes.container_index_path(@socket, :edit, container),
-                   class: "text-primary-500 link",
+                   class: "text-primary-600 link",
                    data: [qa: "edit-#{container.id}"] do %>
           <i class="fa-fw fa-lg fas fa-edit"></i>
         <% end %>
 
         <%= link to: "#",
-             class: "text-primary-500 link",
+             class: "text-primary-600 link",
              phx_click: "delete",
              phx_value_id: container.id,
              data: [

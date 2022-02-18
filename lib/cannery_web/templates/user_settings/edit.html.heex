@@ -1,5 +1,5 @@
 <div class="mb-8 flex flex-col justify-center items-center space-y-4">
-  <h1 class="pb-4 title text-primary-500 text-xl">
+  <h1 class="pb-4 title text-primary-600 text-xl">
     <%= gettext("Settings") %>
   </h1>
 
@@ -13,7 +13,7 @@
                  "justify-center items-center text-center space-y-4"
            ],
            fn f -> %>
-    <h3 class="title text-primary-500 text-lg col-span-3">
+    <h3 class="title text-primary-600 text-lg col-span-3">
       <%= dgettext("actions", "Change email") %>
     </h3>
 
@@ -27,13 +27,13 @@
 
     <%= hidden_input(f, :action, name: "action", value: "update_email") %>
 
-    <%= label(f, :email, class: "title text-lg text-primary-500") %>
+    <%= label(f, :email, class: "title text-lg text-primary-600") %>
     <%= email_input(f, :email, required: true, class: "mx-2 my-1 input input-primary col-span-2") %>
     <%= error_tag(f, :email, "col-span-3") %>
 
     <%= label(f, :current_password, gettext("Current password"),
       for: "current_password_for_email",
-      class: "mx-2 my-1 title text-lg text-primary-500"
+      class: "mx-2 my-1 title text-lg text-primary-600"
     ) %>
     <%= password_input(f, :current_password,
       required: true,
@@ -57,7 +57,7 @@
                "pb-4 flex flex-col sm:grid sm:grid-cols-3 justify-center items-center text-center space-y-4"
            ],
            fn f -> %>
-    <h3 class="title text-primary-500 text-lg col-span-3">
+    <h3 class="title text-primary-600 text-lg col-span-3">
       <%= dgettext("actions", "Change password") %>
     </h3>
 
@@ -71,7 +71,7 @@
 
     <%= hidden_input(f, :action, name: "action", value: "update_password") %>
 
-    <%= label(f, :password, gettext("New password"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :password, gettext("New password"), class: "title text-lg text-primary-600") %>
     <%= password_input(f, :password,
       required: true,
       class: "mx-2 my-1 input input-primary col-span-2"
@@ -79,7 +79,7 @@
     <%= error_tag(f, :password, "col-span-3") %>
 
     <%= label(f, :password_confirmation, gettext("Confirm new password"),
-      class: "title text-lg text-primary-500"
+      class: "title text-lg text-primary-600"
     ) %>
     <%= password_input(f, :password_confirmation,
       required: true,
@@ -89,7 +89,7 @@
 
     <%= label(f, :current_password, gettext("Current password"),
       for: "current_password_for_password",
-      class: "title text-lg text-primary-500"
+      class: "title text-lg text-primary-600"
     ) %>
     <%= password_input(f, :current_password,
       required: true,

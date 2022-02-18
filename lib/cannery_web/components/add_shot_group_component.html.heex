@@ -1,5 +1,5 @@
 <div>
-  <h2 class="text-center title text-xl text-primary-500">
+  <h2 class="text-center title text-xl text-primary-600">
     <%= gettext("Record shots") %>
   </h2>
 
@@ -18,7 +18,7 @@
       </div>
     <% end %>
 
-    <%= label(f, :ammo_left, gettext("Rounds left"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :ammo_left, gettext("Rounds left"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :ammo_left,
       min: 0,
       max: @ammo_group.count - 1,
@@ -27,7 +27,7 @@
     ) %>
     <%= error_tag(f, :ammo_left, "col-span-3") %>
 
-    <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :notes,
       class: "input input-primary col-span-2",
       placeholder: "Really great weather",
@@ -35,7 +35,7 @@
     ) %>
     <%= error_tag(f, :notes, "col-span-3") %>
 
-    <%= label(f, :date, gettext("Date (UTC)"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :date, gettext("Date (UTC)"), class: "title text-lg text-primary-600") %>
     <%= date_input(f, :date, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :notes, "col-span-3") %>
 

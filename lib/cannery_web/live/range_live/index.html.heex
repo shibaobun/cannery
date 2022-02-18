@@ -4,7 +4,7 @@
   </h1>
 
   <%= if @ammo_groups |> Enum.empty?() do %>
-    <h1 class="title text-xl text-primary-500">
+    <h1 class="title text-xl text-primary-600">
       <%= gettext("No ammo staged") %>
       <%= display_emoji("😔") %>
     </h1>
@@ -44,12 +44,12 @@
   <hr class="hr" />
 
   <%= if @shot_groups |> Enum.empty?() do %>
-    <h1 class="title text-xl text-primary-500">
+    <h1 class="title text-xl text-primary-600">
       <%= gettext("No shots recorded") %>
       <%= display_emoji("😔") %>
     </h1>
   <% else %>
-    <h1 class="title text-2xl text-primary-500">
+    <h1 class="title text-2xl text-primary-600">
       <%= gettext("Shot log") %>
     </h1>
 
@@ -95,13 +95,13 @@
               <td class="p-2 w-full h-full space-x-2 flex justify-center items-center">
                 <div class="px-4 py-2 space-x-4 flex justify-center items-center">
                   <%= live_patch to: Routes.range_index_path(Endpoint, :edit, shot_group),
-                             class: "text-primary-500 link",
+                             class: "text-primary-600 link",
                              data: [qa: "edit-#{shot_group.id}"] do %>
                     <i class="fa-fw fa-lg fas fa-edit"></i>
                   <% end %>
 
                   <%= link to: "#",
-                       class: "text-primary-500 link",
+                       class: "text-primary-600 link",
                        phx_click: "delete",
                        phx_value_id: shot_group.id,
                        data: [

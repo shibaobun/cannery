@@ -37,11 +37,11 @@ defmodule CanneryWeb.HomeLive do
     <div
       class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl"
     >
-      <h1 class="title text-primary-500 text-2xl">
+      <h1 class="title text-primary-600 text-2xl">
         <%= gettext("Welcome to %{name}", name: "Cannery") %>
       </h1>
 
-      <h2 class="title text-primary-500 text-lg">
+      <h2 class="title text-primary-600 text-lg">
         <%= gettext("The self-hosted firearm tracker website") %>
       </h2>
 
@@ -84,7 +84,7 @@ defmodule CanneryWeb.HomeLive do
       <hr class="hr" />
 
       <ul class="flex flex-col space-y-2 text-center justify-center">
-        <h2 class="title text-primary-500 text-lg">
+        <h2 class="title text-primary-600 text-lg">
           <%= gettext("Instance Information") %>
         </h2>
 

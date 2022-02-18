@@ -22,15 +22,15 @@
     </span>
   <% end %>
 
-  <div class="flex space-x-4 justify-center items-center text-primary-500">
+  <div class="flex space-x-4 justify-center items-center text-primary-600">
     <%= live_patch to: Routes.container_show_path(@socket, :edit, @container),
-               class: "text-primary-500 link",
+               class: "text-primary-600 link",
                data: [qa: "edit"] do %>
       <i class="fa-fw fa-lg fas fa-edit"></i>
     <% end %>
 
     <%= link to: "#",
-         class: "text-primary-500 link",
+         class: "text-primary-600 link",
          phx_click: "delete_container",
          data: [
            confirm:
@@ -45,7 +45,7 @@
 
   <%= if @container.tags |> Enum.empty?() do %>
     <div class="flex flex-row justify-center items-center space-x-4">
-      <h2 class="title text-lg text-primary-500">
+      <h2 class="title text-lg text-primary-600">
         <%= gettext("No tags for this container") %>
         <%= display_emoji("😔") %>
       </h2>
@@ -56,14 +56,14 @@
       ) %>
     </div>
   <% else %>
-    <h2 class="mb-4 title text-xl text-primary-500">
+    <h2 class="mb-4 title text-xl text-primary-600">
       <%= gettext("Tags") %>
     </h2>
 
     <%= for tag <- @container.tags do %>
       <.tag_card tag={tag}>
         <%= link to: "#",
-             class: "text-primary-500 link",
+             class: "text-primary-600 link",
              phx_click: "delete_tag",
              phx_value_tag_id: tag.id,
              data: [

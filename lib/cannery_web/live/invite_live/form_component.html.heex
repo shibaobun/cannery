@@ -1,5 +1,5 @@
 <div>
-  <h2 class="text-center title text-xl text-primary-500">
+  <h2 class="text-center title text-xl text-primary-600">
     <%= @title %>
   </h2>
   <.form
@@ -17,11 +17,11 @@
       </div>
     <% end %>
 
-    <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :name, "col-span-3") %>
 
-    <%= label(f, :uses_left, gettext("Uses left"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :uses_left, gettext("Uses left"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :uses_left, min: 0, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :uses_left, "col-span-3") %>
 

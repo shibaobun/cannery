@@ -1,10 +1,10 @@
 <div class="w-full flex flex-col space-y-8 justify-center items-center">
-  <h2 class="text-center title text-xl text-primary-500">
+  <h2 class="text-center title text-xl text-primary-600">
     <%= gettext("Move ammo") %>
   </h2>
 
   <%= if @containers |> Enum.empty?() do %>
-    <h2 class="title text-xl text-primary-500">
+    <h2 class="title text-xl text-primary-600">
       <%= gettext("No other containers") %>
       <%= display_emoji("😔") %>
     </h2>

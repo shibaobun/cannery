@@ -1,5 +1,5 @@
 <div>
-  <h2 class="text-center title text-xl text-primary-500">
+  <h2 class="text-center title text-xl text-primary-600">
     <%= @title %>
   </h2>
   <.form
@@ -17,14 +17,14 @@
       </div>
     <% end %>
 
-    <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name,
       class: "input input-primary col-span-2",
       placeholder: gettext("My cool ammo can")
     ) %>
     <%= error_tag(f, :name, "col-span-3 text-center") %>
 
-    <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :desc,
       class: "input input-primary col-span-2",
       phx_hook: "MaintainAttrs",
@@ -32,14 +32,14 @@
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
-    <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :type,
       class: "input input-primary col-span-2",
       placeholder: gettext("Magazine, Clip, Ammo Box, etc")
     ) %>
     <%= error_tag(f, :type, "col-span-3 text-center") %>
 
-    <%= label(f, :location, gettext("Location"), class: "title text-lg text-primary-500") %>
+    <%= label(f, :location, gettext("Location"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :location,
       class: "input input-primary col-span-2",
       phx_hook: "MaintainAttrs",

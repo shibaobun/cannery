@@ -29,7 +29,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <h2 class="text-center title text-xl text-primary-500">
+      <h2 class="text-center title text-xl text-primary-600">
         <%= @title %>
       </h2>
       <.form
@@ -47,17 +47,17 @@ defmodule CanneryWeb.TagLive.FormComponent do
           </div>
         <% end %>
 
-        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-500") %>
+        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
         <%= text_input(f, :name, class: "input input-primary col-span-2") %>
         <%= error_tag(f, :name, "col-span-3") %>
 
-        <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-500") %>
+        <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-600") %>
         <span id="tag-bg-color-input" class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :bg_color) %>
         </span>
         <%= error_tag(f, :bg_color, "col-span-3") %>
 
-        <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-500") %>
+        <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-600") %>
         <span id="tag-text-color-input" class="mx-auto col-span-2" phx-update="ignore">
           <%= color_input(f, :text_color) %>
         </span>
