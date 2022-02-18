@@ -56,8 +56,8 @@ defmodule Cannery.Fixtures do
       |> Atom.to_string()
       |> Email.generate_email(Accounts.get_user!(user_id), attrs)
 
-    [_, html_token, _] = email.html_body |> String.split("[TOKEN]")
-    [_, text_token, _] = email.text_body |> String.split("[TOKEN]")
+    [_, html_token | _] = email.html_body |> String.split("[TOKEN]")
+    [_, text_token | _] = email.text_body |> String.split("[TOKEN]")
     ^text_token = html_token
   end
 

@@ -231,7 +231,7 @@ msgid "Invites"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_session/new.html.heex:29
+#: lib/cannery_web/templates/user_session/new.html.heex:28
 msgid "Keep me logged in for 60 days"
 msgstr ""
 
@@ -708,18 +708,18 @@ msgid "UPC"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:81
+#: lib/cannery_web/templates/user_settings/edit.html.heex:80
 msgid "Confirm new password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:34
-#: lib/cannery_web/templates/user_settings/edit.html.heex:90
+#: lib/cannery_web/templates/user_settings/edit.html.heex:33
+#: lib/cannery_web/templates/user_settings/edit.html.heex:89
 msgid "Current password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:74
+#: lib/cannery_web/templates/user_settings/edit.html.heex:73
 msgid "New password"
 msgstr ""
 
