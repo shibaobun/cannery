@@ -73,6 +73,14 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
       |> Enum.filter(fn {_label, field, _type} ->
         ammo_types |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) |> is_nil()) end)
       end)
+      # if boolean, remove if all values are false
+      |> Enum.filter(fn {_label, field, type} ->
+        if type == :boolean do
+          ammo_types |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) == false) end)
+        else
+          true
+        end
+      end)
 
     socket |> assign(ammo_types: ammo_types, columns_to_display: columns_to_display)
   end

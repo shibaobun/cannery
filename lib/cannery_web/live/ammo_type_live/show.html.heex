@@ -108,9 +108,11 @@
     <%= if @ammo_groups |> Enum.empty?() do %>
       <%= gettext("No ammo for this type") %>
     <% else %>
-      <%= for ammo_group <- @ammo_groups do %>
-        <.ammo_group_card ammo_group={ammo_group} />
-      <% end %>
+      <div class="flex flex-wrap justify-center items-center">
+        <%= for ammo_group <- @ammo_groups do %>
+          <.ammo_group_card ammo_group={ammo_group} />
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
