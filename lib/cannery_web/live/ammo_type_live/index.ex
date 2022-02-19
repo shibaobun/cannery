@@ -61,7 +61,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         {gettext("Grains"), :grains, :string},
         {gettext("Pressure"), :pressure, :string},
         {gettext("Primer type"), :primer_type, :string},
-        {gettext("Rimfire"), :rimfire, :boolean},
+        {gettext("Firing type"), :firing_type, :string},
         {gettext("Tracer"), :tracer, :boolean},
         {gettext("Incendiary"), :incendiary, :boolean},
         {gettext("Blank"), :blank, :boolean},
@@ -69,17 +69,12 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         {gettext("Manufacturer"), :manufacturer, :string},
         {gettext("UPC"), :upc, :string}
       ]
-      # filter columns to only used ones
-      |> Enum.filter(fn {_label, field, _type} ->
-        ammo_types |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) |> is_nil()) end)
-      end)
-      # if boolean, remove if all values are false
       |> Enum.filter(fn {_label, field, type} ->
-        if type == :boolean do
-          ammo_types |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) == false) end)
-        else
-          true
-        end
+        # remove columns if all values match defaults
+        default_value = if type == :boolean, do: false, else: nil
+
+        ammo_types
+        |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) == default_value) end)
       end)
 
     socket |> assign(ammo_types: ammo_types, columns_to_display: columns_to_display)

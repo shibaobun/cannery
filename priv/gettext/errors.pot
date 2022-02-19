@@ -11,18 +11,18 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/containers.ex:105
+#: lib/cannery/containers.ex:122
 msgid "Container must be empty before deleting"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:55
-#: lib/cannery_web/live/container_live/show.ex:74
+#: lib/cannery_web/live/container_live/index.ex:71
+#: lib/cannery_web/live/container_live/show.ex:73
 msgid "Could not delete %{name}: %{error}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:43
+#: lib/cannery_web/live/container_live/index.ex:59
 msgid "Could not find that container"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgid "Tag not found"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/add_tag_component.ex:35
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 msgid "Tag could not be added"
 msgstr ""
 
@@ -151,4 +151,9 @@ msgstr ""
 #: lib/cannery_web/controllers/user_auth.ex:39
 #: lib/cannery_web/controllers/user_auth.ex:161
 msgid "You must confirm your account and log in to access this page."
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
+msgid "Tag could not be removed"
 msgstr ""

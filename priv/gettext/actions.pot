@@ -145,7 +145,7 @@ msgid "Why not add one?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/add_tag_component.html.heex:17
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:52
 msgid "Add"
 msgstr ""
 

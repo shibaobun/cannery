@@ -35,70 +35,59 @@
 
   <hr class="hr" />
 
-  <div class="grid sm:grid-cols-2 text-center justify-center items-center">
-    <%= for {field_name, field} <- [
-          {gettext("Bullet type"), :bullet_type},
-          {gettext("Bullet core"), :bullet_core},
-          {gettext("Cartridge"), :cartridge},
-          {gettext("Caliber"), :caliber},
-          {gettext("Case material"), :case_material},
-          {gettext("Jacket type"), :jacket_type},
-          {gettext("Muzzle velocity"), :muzzle_velocity},
-          {gettext("Powder type"), :powder_type},
-          {gettext("Powder grains per charge"), :powder_grains_per_charge},
-          {gettext("Grains"), :grains},
-          {gettext("Pressure"), :pressure},
-          {gettext("Primer type"), :primer_type}
+  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
+    <%= for {field_name, field, type} <- [
+          {gettext("Bullet type"), :bullet_type, :string},
+          {gettext("Bullet core"), :bullet_core, :string},
+          {gettext("Cartridge"), :cartridge, :string},
+          {gettext("Caliber"), :caliber, :string},
+          {gettext("Case material"), :case_material, :string},
+          {gettext("Jacket type"), :jacket_type, :string},
+          {gettext("Muzzle velocity"), :muzzle_velocity, :string},
+          {gettext("Powder type"), :powder_type, :string},
+          {gettext("Powder grains per charge"), :powder_grains_per_charge, :string},
+          {gettext("Grains"), :grains, :string},
+          {gettext("Pressure"), :pressure, :string},
+          {gettext("Primer type"), :primer_type, :string},
+          {gettext("Firing type"), :firing_type, :string},
+          {gettext("Tracer"), :tracer, :boolean},
+          {gettext("Incendiary"), :incendiary, :boolean},
+          {gettext("Blank"), :blank, :boolean},
+          {gettext("Corrosive"), :corrosive, :boolean},
+          {gettext("Manufacturer"), :manufacturer, :string},
+          {gettext("UPC"), :upc, :string}
         ] do %>
       <%= if @ammo_type |> Map.get(field) do %>
-        <h3 class="mb-2 sm:mr-4 title text-lg">
+        <h3 class="title text-lg">
           <%= field_name %>:
         </h3>
 
-        <span class="mb-4 sm:mb-2 text-primary-600">
-          <%= @ammo_type |> Map.get(field) %>
-        </span>
-      <% end %>
-    <% end %>
-
-    <%= for {field_name, field} <- [
-          {"Rimfire", :rimfire},
-          {"Tracer", :tracer},
-          {"Incendiary", :incendiary},
-          {"Blank", :blank},
-          {"Corrosive", :corrosive}
-        ] do %>
-      <h3 class="mb-2 sm:mr-4 title text-lg">
-        <%= field_name %>:
-      </h3>
-
-      <span class="mb-4 sm:mb-2 text-primary-600">
-        <%= @ammo_type |> Map.get(field) |> humanize() %>
-      </span>
-    <% end %>
-
-    <%= for {field_name, field} <- [{"Manufacturer", :manufacturer}, {"UPC", :upc}] do %>
-      <%= if @ammo_type |> Map.get(field) do %>
-        <h3 class="mb-2 sm:mr-4 title text-lg">
-          <%= field_name %>:
-        </h3>
-
-        <span class="mb-4 sm:mb-2 text-primary-600">
-          <%= @ammo_type |> Map.get(field) %>
+        <span class="text-primary-600">
+          <%= case type do %>
+            <% :boolean -> %>
+              <%= @ammo_type |> Map.get(field) |> humanize() %>
+            <% _ -> %>
+              <%= @ammo_type |> Map.get(field) %>
+          <% end %>
         </span>
       <% end %>
     <% end %>
 
     <%= if @avg_cost_per_round do %>
-      <h3 class="mb-2 sm:mr-4 title text-lg">
+      <h3 class="title text-lg">
         <%= gettext("Average Price paid") %>:
       </h3>
 
-      <span class="mb-4 sm:mb-2 text-primary-600">
+      <span class="text-primary-600">
         <%= gettext("$%{amount}",
           amount: @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2)
         ) %>
       </span>
+    <% else %>
+      <h3 class="title text-lg col-span-2">
+        <%= gettext("No cost information") %>
+        <%= display_emoji("😔") %>
+      </h3>
     <% end %>
   </div>
 
@@ -107,6 +96,7 @@
   <div>
     <%= if @ammo_groups |> Enum.empty?() do %>
       <%= gettext("No ammo for this type") %>
+      <%= display_emoji("😔") %>
     <% else %>
       <div class="flex flex-wrap justify-center items-center">
         <%= for ammo_group <- @ammo_groups do %>

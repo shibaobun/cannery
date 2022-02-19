@@ -3,6 +3,7 @@
 - Show tags on containers
 - Add "Cannery" to page titles
 - Don't show true/false column for ammo types if all values are false
+- Fix ammo type firing type display
 
 
 # 0.1.0

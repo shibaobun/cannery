@@ -38,8 +38,8 @@ msgid "%{name} enabled succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:48
-#: lib/cannery_web/live/container_live/show.ex:64
+#: lib/cannery_web/live/container_live/index.ex:64
+#: lib/cannery_web/live/container_live/show.ex:63
 msgid "%{name} has been deleted"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:29
-#: lib/cannery_web/live/container_live/index.html.heex:38
+#: lib/cannery_web/live/container_live/index.html.heex:46
 #: lib/cannery_web/live/container_live/show.html.heex:37
 #: lib/cannery_web/live/tag_live/index.html.heex:38
 msgid "Are you sure you want to delete %{name}?"
@@ -175,22 +175,22 @@ msgid "Your account has been deleted"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:71
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:16
 msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name}?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/add_tag_component.ex:40
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:36
 msgid "%{name} added successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.ex:40
+#: lib/cannery_web/live/container_live/show.ex:39
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/add_tag_component.html.heex:19
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:54
 msgid "Adding..."
 msgstr ""
 
@@ -237,4 +237,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.ex:123
 msgid "Copied to clipboard"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:58
+msgid "%{name} removed successfully"
 msgstr ""

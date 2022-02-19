@@ -20,8 +20,8 @@
                   container_name: @container.name
                 )
             ] do %>
-          <%= tag.name %>
-          <i class="fa-fw fa-sm fas fa-trash"></i>
+        <%= tag.name %>
+        <i class="fa-fw fa-sm fas fa-trash"></i>
       <% end %>
     <% end %>
 
@@ -34,7 +34,7 @@
   </div>
 
   <%= unless tag_options(@tags, @container) |> Enum.empty?() do %>
-    <hr class="hr">
+    <hr class="hr" />
 
     <.form
       let={f}
@@ -44,7 +44,9 @@
       phx-target={@myself}
       phx-submit="save"
     >
-      <%= select(f, :tag_id, tag_options(@tags, @container), class: "text-center col-span-2 input input-primary") %>
+      <%= select(f, :tag_id, tag_options(@tags, @container),
+        class: "text-center col-span-2 input input-primary"
+      ) %>
       <%= error_tag(f, :tag_id, "col-span-3 text-center") %>
 
       <%= submit(dgettext("actions", "Add"),

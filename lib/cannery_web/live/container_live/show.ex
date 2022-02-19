@@ -86,7 +86,8 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   @spec render_container(Socket.t(), Container.id(), User.t()) :: Socket.t()
   defp render_container(%{assigns: %{live_action: live_action}} = socket, id, current_user) do
-    %{name: container_name} = container =
+    %{name: container_name} =
+      container =
       Containers.get_container!(id, current_user)
       |> Repo.preload([:ammo_groups, :tags], force: true)
 
