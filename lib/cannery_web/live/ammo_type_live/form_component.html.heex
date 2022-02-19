@@ -97,9 +97,7 @@
     <%= label(f, :powder_type, gettext("Powder type"),
       class: "mr-4 title text-lg text-primary-600"
     ) %>
-    <%= text_input(f, :powder_type,
-      class: "text-center col-span-2 input input-primary"
-    ) %>
+    <%= text_input(f, :powder_type, class: "text-center col-span-2 input input-primary") %>
     <%= error_tag(f, :powder_type, "col-span-3 text-center") %>
 
     <%= label(f, :powder_grains_per_charge, gettext("Powder grains per charge"),

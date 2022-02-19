@@ -161,7 +161,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:44
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:55
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:176
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:173
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
 #: lib/cannery_web/live/invite_live/form_component.html.heex:30
 #: lib/cannery_web/live/range_live/form_component.html.heex:42
