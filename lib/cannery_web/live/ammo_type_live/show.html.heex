@@ -73,6 +73,22 @@
       <% end %>
     <% end %>
 
+    <h3 class="title text-lg">
+      <%= gettext("Current # of rounds:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_round_count_for_ammo_type(@current_user) %>
+    </span>
+
+    <h3 class="title text-lg">
+      <%= gettext("Total rounds shot:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_used_count_for_ammo_type(@current_user) %>
+    </span>
+
     <%= if @avg_cost_per_round do %>
       <h3 class="title text-lg">
         <%= gettext("Average Price paid") %>:

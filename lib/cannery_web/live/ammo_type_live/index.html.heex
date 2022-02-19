@@ -28,6 +28,9 @@
                 <%= field_name %>
               </th>
             <% end %>
+            <th class="p-2">
+              <%= gettext("Total # of rounds") %>
+            </th>
 
             <th class="p-2"></th>
           </tr>
@@ -45,6 +48,10 @@
                   <% end %>
                 </td>
               <% end %>
+
+              <td class="p-2">
+                <%= ammo_type |> Ammo.get_round_count_for_ammo_type(@current_user) %>
+              </td>
 
               <td class="p-2">
                 <div class="px-4 py-2 space-x-4 flex justify-center items-center">

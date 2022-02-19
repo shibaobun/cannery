@@ -68,6 +68,59 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
+  Gets the total number of rounds for an ammo type
+
+  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+
+  ## Examples
+
+      iex> get_round_count_for_ammo_type(123, %User{id: 123})
+      %AmmoType{}
+
+      iex> get_round_count_for_ammo_type(456, %User{id: 123})
+      ** (Ecto.NoResultsError)
+
+  """
+  @spec get_round_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  def get_round_count_for_ammo_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        where: ag.ammo_type_id == ^ammo_type_id,
+        select: sum(ag.count)
+    )
+  end
+
+  @doc """
+  Gets the total number of rounds shot for an ammo type
+
+  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+
+  ## Examples
+
+      iex> get_used_count_for_ammo_type(123, %User{id: 123})
+      %AmmoType{}
+
+      iex> get_used_count_for_ammo_type(456, %User{id: 123})
+      ** (Ecto.NoResultsError)
+
+  """
+  @spec get_used_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  def get_used_count_for_ammo_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.ammo_type_id == ^ammo_type_id,
+        select: sum(sg.count)
+    )
+  end
+
+  @doc """
   Creates a ammo_type.
 
   ## Examples

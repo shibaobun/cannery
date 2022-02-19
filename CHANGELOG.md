@@ -6,6 +6,7 @@
 - Fix ammo type firing type display
 - Show original count, current value, and percentage remaining for ammo groups
 - Show shot history for an ammo group
+- Show ammo round totals and total shot for ammo types
 
 # 0.1.0
 - Initial release!
