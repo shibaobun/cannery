@@ -7,7 +7,7 @@
            Routes.user_reset_password_path(@conn, :update, @token),
            [
              class:
-               "flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+               "flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
            ],
            fn f -> %>
     <%= if @changeset.action && not @changeset.valid? do %>

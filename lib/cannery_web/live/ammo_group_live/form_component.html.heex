@@ -10,7 +10,7 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save"
-    class="flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+    class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
   >
     <%= if @changeset.action && not @changeset.valid? do %>
       <div class="invalid-feedback col-span-3 text-center">

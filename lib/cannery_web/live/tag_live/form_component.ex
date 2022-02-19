@@ -36,7 +36,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
         let={f}
         for={@changeset}
         id="tag-form"
-        class="flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+        class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
         phx-target={@myself}
         phx-change="validate"
         phx-submit="save"
