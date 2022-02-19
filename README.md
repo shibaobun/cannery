@@ -1,5 +1,7 @@
 # Cannery
 
+![screenshot](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/home.png)
+
 The self-hosted firearm tracker website.
 
 * Easy to Use: Cannery lets you easily keep an eye on your ammo levels before

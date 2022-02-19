@@ -1,5 +1,8 @@
+# 0.3.0
+-
+
 # 0.2.0
-- Add or remove tags from Containers list and details page
+- Add or remove tags from containers list and details page
 - Show tags on containers
 - Add "Cannery" to page titles
 - Don't show true/false column for ammo types if all values are false
