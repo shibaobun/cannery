@@ -99,7 +99,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:120
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:66
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:68
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:75
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgid "Please check your email to verify your account"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:97
+#: lib/cannery_web/live/home_live.ex:103
 msgid "Register to setup %{name}"
 msgstr ""
 

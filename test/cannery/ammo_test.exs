@@ -120,12 +120,13 @@ defmodule Cannery.AmmoTest do
 
     test "list_ammo_groups/0 returns all ammo_groups",
          %{ammo_group: ammo_group, current_user: current_user} do
-      assert Ammo.list_ammo_groups(current_user) == [ammo_group]
+      assert Ammo.list_ammo_groups(current_user) == [ammo_group] |> Repo.preload(:shot_groups)
     end
 
     test "get_ammo_group!/1 returns the ammo_group with given id",
          %{ammo_group: ammo_group, current_user: current_user} do
-      assert Ammo.get_ammo_group!(ammo_group.id, current_user) == ammo_group
+      assert Ammo.get_ammo_group!(ammo_group.id, current_user) ==
+               ammo_group |> Repo.preload(:shot_groups)
     end
 
     test "create_ammo_group/1 with valid data creates a ammo_group",
@@ -167,7 +168,8 @@ defmodule Cannery.AmmoTest do
       assert {:error, %Changeset{}} =
                Ammo.update_ammo_group(ammo_group, @invalid_attrs, current_user)
 
-      assert ammo_group == Ammo.get_ammo_group!(ammo_group.id, current_user)
+      assert ammo_group |> Repo.preload(:shot_groups) ==
+               Ammo.get_ammo_group!(ammo_group.id, current_user)
     end
 
     test "delete_ammo_group/1 deletes the ammo_group",

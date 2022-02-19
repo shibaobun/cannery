@@ -50,7 +50,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo group created successfully")
-      assert html =~ "some notes"
+      assert html =~ "42"
     end
 
     test "saves new shot_group", %{conn: conn, ammo_group: ammo_group} do
@@ -95,7 +95,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo group updated successfully")
-      assert html =~ "some updated notes"
+      assert html =~ "43"
     end
 
     test "deletes ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do

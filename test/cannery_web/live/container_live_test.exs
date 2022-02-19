@@ -70,7 +70,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("[data-qa=\"edit-#{container.id}\"]") |> render_click() =~
-               gettext("Edit Container")
+               gettext("Edit %{name}", name: container.name)
 
       assert_patch(index_live, Routes.container_index_path(conn, :edit, container))
 
@@ -103,7 +103,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "displays container", %{conn: conn, container: container} do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ gettext("Show Container")
+      assert html =~ gettext("Show %{name}", name: container.name)
       assert html =~ container.location
     end
 
@@ -115,7 +115,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert show_live |> element("[data-qa=\"edit\"]") |> render_click() =~
-               gettext("Edit Container")
+               gettext("Edit %{name}", name: container.name)
 
       assert_patch(show_live, Routes.container_show_path(conn, :edit, container))
 

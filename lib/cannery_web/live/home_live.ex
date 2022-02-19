@@ -9,7 +9,13 @@ defmodule CanneryWeb.HomeLive do
   @impl true
   def mount(_params, session, socket) do
     admins = Accounts.list_users_by_role(:admin)
-    {:ok, socket |> assign_defaults(session) |> assign(query: "", results: %{}, admins: admins)}
+
+    socket =
+      socket
+      |> assign_defaults(session)
+      |> assign(page_title: "Home", query: "", results: %{}, admins: admins)
+
+    {:ok, socket}
   end
 
   @impl true

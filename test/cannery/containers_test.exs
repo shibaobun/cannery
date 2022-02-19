@@ -33,12 +33,14 @@ defmodule Cannery.ContainersTest do
 
     test "list_containers/1 returns all containers",
          %{current_user: current_user, container: container} do
-      assert Containers.list_containers(current_user) == [container]
+      assert Containers.list_containers(current_user) ==
+               [container |> Repo.preload([:ammo_groups, :tags])]
     end
 
     test "get_container!/1 returns the container with given id",
          %{current_user: current_user, container: container} do
-      assert Containers.get_container!(container.id, current_user) == container
+      assert Containers.get_container!(container.id, current_user) ==
+               container |> Repo.preload([:ammo_groups, :tags])
     end
 
     test "create_container/1 with valid data creates a container", %{current_user: current_user} do
@@ -73,7 +75,8 @@ defmodule Cannery.ContainersTest do
       assert {:error, %Changeset{}} =
                Containers.update_container(container, current_user, @invalid_attrs)
 
-      assert container == Containers.get_container!(container.id, current_user)
+      assert container |> Repo.preload([:ammo_groups, :tags]) ==
+               Containers.get_container!(container.id, current_user)
     end
 
     test "delete_container/1 deletes the container",

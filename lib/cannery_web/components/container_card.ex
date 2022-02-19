@@ -5,7 +5,7 @@ defmodule CanneryWeb.Components.ContainerCard do
 
   use CanneryWeb, :component
   import CanneryWeb.Components.TagCard
-  alias Cannery.{Repo, Containers}
+  alias Cannery.{Containers, Repo}
   alias CanneryWeb.Endpoint
 
   def container_card(%{container: container} = assigns) do

@@ -4,7 +4,7 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Containers, Containers.Container, Tags, Tags.Tag, Repo}
+  alias Cannery.{Accounts.User, Containers, Containers.Container, Repo, Tags, Tags.Tag}
   alias Phoenix.LiveView.Socket
 
   @impl true

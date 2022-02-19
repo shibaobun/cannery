@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:57
+#: lib/cannery_web/live/home_live.ex:63
 msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:79
+#: lib/cannery_web/live/home_live.ex:85
 msgid "Access from any internet-capable device"
 msgstr ""
 
@@ -26,7 +26,7 @@ msgid "Admins"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:93
+#: lib/cannery_web/live/home_live.ex:99
 msgid "Admins:"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgid "Ammo type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:78
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:94
 msgid "Average Price paid"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgid "Disable"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:54
+#: lib/cannery_web/live/home_live.ex:60
 msgid "Easy to Use:"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgid "Incendiary"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:88
+#: lib/cannery_web/live/home_live.ex:94
 msgid "Instance Information"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgid "Invite Disabled"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:119
+#: lib/cannery_web/live/home_live.ex:125
 msgid "Invite Only"
 msgstr ""
 
@@ -330,7 +330,7 @@ msgid "No Ammo Types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:98
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:114
 msgid "No ammo for this type"
 msgstr ""
 
@@ -401,17 +401,17 @@ msgid "Primer type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:118
+#: lib/cannery_web/live/home_live.ex:124
 msgid "Public Signups"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:66
+#: lib/cannery_web/live/home_live.ex:72
 msgid "Secure:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:69
+#: lib/cannery_web/live/home_live.ex:75
 msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
 
@@ -436,7 +436,7 @@ msgid "Show Ammo type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:76
+#: lib/cannery_web/live/home_live.ex:82
 msgid "Simple:"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgid "Text color"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:45
+#: lib/cannery_web/live/home_live.ex:51
 msgid "The self-hosted firearm tracker website"
 msgstr ""
 
@@ -511,12 +511,12 @@ msgid "Uses left"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:41
+#: lib/cannery_web/live/home_live.ex:47
 msgid "Welcome to %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:70
+#: lib/cannery_web/live/home_live.ex:76
 msgid "Your data stays with you, period"
 msgstr ""
 
@@ -649,7 +649,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:64
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:32
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:39
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:82
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:98
 msgid "$%{amount}"
 msgstr ""
 
@@ -759,7 +759,7 @@ msgid "Show %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:88
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:104
 msgid "No cost information"
 msgstr ""
 
@@ -791,4 +791,19 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:111
 msgid "Rounds used"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:77
+msgid "Current # of rounds:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:32
+msgid "Total # of rounds"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:85
+msgid "Total rounds shot:"
 msgstr ""
