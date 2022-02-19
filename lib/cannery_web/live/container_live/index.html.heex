@@ -23,6 +23,15 @@
   <div class="flex flex-row flex-wrap justify-center items-center">
     <%= for container <- @containers do %>
       <.container_card container={container}>
+        <:tag_actions>
+          <div class="mx-4 my-2">
+            <%= live_patch to: Routes.container_index_path(Endpoint, :edit_tags, container),
+              class: "text-primary-600 link" do %>
+              <i class="fa-fw fa-lg fas fa-tags"></i>
+            <% end %>
+          </div>
+        </:tag_actions>
+
         <%= live_patch to: Routes.container_index_path(Endpoint, :edit, container),
                    class: "text-primary-600 link",
                    data: [qa: "edit-#{container.id}"] do %>
@@ -54,6 +63,19 @@
       action={@live_action}
       container={@container}
       return_to={Routes.container_index_path(Endpoint, :index)}
+      current_user={@current_user}
+    />
+  </.modal>
+<% end %>
+
+<%= if @live_action == :edit_tags do %>
+  <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+    <.live_component
+      module={CanneryWeb.ContainerLive.EditTagsComponent}
+      id={@container.id}
+      title={@page_title}
+      action={@live_action}
+      container={@container}
       current_user={@current_user}
     />
   </.modal>

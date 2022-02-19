@@ -19,10 +19,9 @@ defmodule CanneryWeb.ContainerLive.Show do
   def handle_params(
         %{"id" => id},
         _,
-        %{assigns: %{current_user: current_user, live_action: live_action}} = socket
+        %{assigns: %{current_user: current_user}} = socket
       ) do
-    {:noreply,
-     socket |> assign(page_title: page_title(live_action)) |> render_container(id, current_user)}
+    {:noreply, socket |> render_container(id, current_user)}
   end
 
   @impl true
@@ -85,16 +84,19 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket}
   end
 
-  defp page_title(:show), do: gettext("Show Container")
-  defp page_title(:edit), do: gettext("Edit Container")
-  defp page_title(:add_tag), do: gettext("Add Tag to Container")
-
   @spec render_container(Socket.t(), Container.id(), User.t()) :: Socket.t()
-  defp render_container(socket, id, current_user) do
-    container =
+  defp render_container(%{assigns: %{live_action: live_action}} = socket, id, current_user) do
+    %{name: container_name} = container =
       Containers.get_container!(id, current_user)
       |> Repo.preload([:ammo_groups, :tags], force: true)
 
-    socket |> assign(container: container)
+    page_title =
+      case live_action do
+        :show -> gettext("Show %{name}", name: container_name)
+        :edit -> gettext("Edit %{name}", name: container_name)
+        :edit_tags -> gettext("Edit %{name} tags", name: container_name)
+      end
+
+    socket |> assign(container: container, page_title: page_title)
   end
 end

@@ -19,8 +19,16 @@ defmodule Cannery.Containers do
 
   """
   @spec list_containers(User.t()) :: [Container.t()]
-  def list_containers(%User{id: user_id}),
-    do: Repo.all(from c in Container, where: c.user_id == ^user_id, order_by: c.name)
+  def list_containers(%User{id: user_id}) do
+    Repo.all(
+      from c in Container,
+        left_join: t in assoc(c, :tags),
+        left_join: ag in assoc(c, :ammo_groups),
+        where: c.user_id == ^user_id,
+        order_by: c.name,
+        preload: [tags: t, ammo_groups: ag]
+    )
+  end
 
   @doc """
   Gets a single container.
@@ -37,8 +45,17 @@ defmodule Cannery.Containers do
 
   """
   @spec get_container!(Container.id(), User.t()) :: Container.t()
-  def get_container!(id, %User{id: user_id}),
-    do: Repo.one!(from c in Container, where: c.id == ^id and c.user_id == ^user_id)
+  def get_container!(id, %User{id: user_id}) do
+    Repo.one!(
+      from c in Container,
+        left_join: t in assoc(c, :tags),
+        left_join: ag in assoc(c, :ammo_groups),
+        where: c.user_id == ^user_id,
+        where: c.id == ^id,
+        order_by: c.name,
+        preload: [tags: t, ammo_groups: ag]
+    )
+  end
 
   @doc """
   Creates a container.
@@ -188,5 +205,18 @@ defmodule Cannery.Containers do
       )
 
     if count == 0, do: raise("could not delete container tag"), else: count
+  end
+
+  @doc """
+  Returns number of rounds in container. If data is already preloaded, then
+  there will be no db hit.
+  """
+  @spec get_container_rounds!(Container.t()) :: non_neg_integer()
+  def get_container_rounds!(%Container{} = container) do
+    container
+    |> Repo.preload(:ammo_groups)
+    |> Map.get(:ammo_groups)
+    |> Enum.map(fn %{count: count} -> count end)
+    |> Enum.sum()
   end
 end

@@ -1,0 +1,56 @@
+<div class="flex flex-col justify-center items-center text-center space-y-8">
+  <h2 class="title text-xl text-primary-600">
+    <%= @title %>
+  </h2>
+
+  <div class="flex flex-wrap justify-center items-center">
+    <%= for tag <- @container.tags do %>
+      <%= link to: "#",
+            class: "mx-2 my-1 px-4 py-2 rounded-lg title text-xl",
+            style: "color: #{tag.text_color}; background-color: #{tag.bg_color}",
+            phx_click: "delete",
+            phx_value_tag_id: tag.id,
+            phx_target: @myself,
+            data: [
+              confirm:
+                dgettext(
+                  "prompts",
+                  "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
+                  tag_name: tag.name,
+                  container_name: @container.name
+                )
+            ] do %>
+          <%= tag.name %>
+          <i class="fa-fw fa-sm fas fa-trash"></i>
+      <% end %>
+    <% end %>
+
+    <%= if @container.tags |> Enum.empty?() do %>
+      <h2 class="title text-xl text-primary-600">
+        <%= gettext("No tags") %>
+        <%= display_emoji("😔") %>
+      </h2>
+    <% end %>
+  </div>
+
+  <%= unless tag_options(@tags, @container) |> Enum.empty?() do %>
+    <hr class="hr">
+
+    <.form
+      let={f}
+      for={:tag}
+      id="add-tag-to-container-form"
+      class="flex flex-col sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+      phx-target={@myself}
+      phx-submit="save"
+    >
+      <%= select(f, :tag_id, tag_options(@tags, @container), class: "text-center col-span-2 input input-primary") %>
+      <%= error_tag(f, :tag_id, "col-span-3 text-center") %>
+
+      <%= submit(dgettext("actions", "Add"),
+        class: "mx-auto btn btn-primary",
+        phx_disable_with: dgettext("prompts", "Adding...")
+      ) %>
+    </.form>
+  <% end %>
+</div>

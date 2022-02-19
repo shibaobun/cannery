@@ -51,34 +51,23 @@
       </h2>
 
       <%= live_patch(dgettext("actions", "Why not add one?"),
-        to: Routes.container_show_path(Endpoint, :add_tag, @container),
+        to: Routes.container_show_path(Endpoint, :edit_tags, @container),
         class: "btn btn-primary"
       ) %>
     </div>
   <% else %>
-    <h2 class="mb-4 title text-xl text-primary-600">
-      <%= gettext("Tags") %>
-    </h2>
+    <div class="flex flex-wrap justify-center items-center">
+      <%= for tag <- @container.tags do %>
+        <.simple_tag_card tag={tag} />
+      <% end %>
 
-    <%= for tag <- @container.tags do %>
-      <.tag_card tag={tag}>
-        <%= link to: "#",
-             class: "text-primary-600 link",
-             phx_click: "delete_tag",
-             phx_value_tag_id: tag.id,
-             data: [
-               confirm:
-                 dgettext(
-                   "prompts",
-                   "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
-                   tag_name: tag.name,
-                   container_name: @container.name
-                 )
-             ] do %>
-          <i class="fa-fw fa-lg fas fa-trash"></i>
+      <div class="mx-4 my-2">
+        <%= live_patch to: Routes.container_show_path(Endpoint, :edit_tags, @container),
+          class: "text-primary-600 link" do %>
+          <i class="fa-fw fa-lg fas fa-tags"></i>
         <% end %>
-      </.tag_card>
-    <% end %>
+      </div>
+    </div>
   <% end %>
 
   <hr class="mb-4 hr" />
@@ -87,9 +76,11 @@
     <%= if @container.ammo_groups |> Enum.empty?() do %>
       <%= gettext("No ammo groups in this container") %>
     <% else %>
-      <%= for ammo_group <- @container.ammo_groups do %>
-        <.ammo_group_card ammo_group={ammo_group} />
-      <% end %>
+      <div class="flex flex-wrap justify-center items-center">
+        <%= for ammo_group <- @container.ammo_groups do %>
+          <.ammo_group_card ammo_group={ammo_group} />
+        <% end %>
+      </div>
     <% end %>
   </p>
 </div>
@@ -108,10 +99,10 @@
   </.modal>
 <% end %>
 
-<%= if @live_action == :add_tag do %>
+<%= if @live_action == :edit_tags do %>
   <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
     <.live_component
-      module={CanneryWeb.ContainerLive.AddTagComponent}
+      module={CanneryWeb.ContainerLive.EditTagsComponent}
       id={@container.id}
       title={@page_title}
       action={@live_action}

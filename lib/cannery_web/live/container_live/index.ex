@@ -5,13 +5,13 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   use CanneryWeb, :live_view
   import CanneryWeb.Components.ContainerCard
-  alias Cannery.{Containers, Containers.Container}
+  alias Cannery.{Containers, Containers.Container, Repo}
   alias CanneryWeb.Endpoint
   alias Ecto.Changeset
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> display_containers()}
+    {:ok, socket |> assign_defaults(session)}
   end
 
   @impl true
@@ -20,9 +20,13 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
+    %{name: container_name} =
+      container =
+      Containers.get_container!(id, current_user)
+      |> Repo.preload([:tags, :ammo_groups], force: true)
+
     socket
-    |> assign(:page_title, gettext("Edit Container"))
-    |> assign(:container, Containers.get_container!(id, current_user))
+    |> assign(page_title: gettext("Edit %{name}", name: container_name), container: container)
   end
 
   defp apply_action(socket, :new, _params) do
@@ -30,7 +34,19 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket |> assign(:page_title, gettext("Listing Containers")) |> assign(:container, nil)
+    socket
+    |> assign(:page_title, gettext("Listing Containers"))
+    |> assign(:container, nil)
+    |> display_containers()
+  end
+
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit_tags, %{"id" => id}) do
+    %{name: container_name} =
+      container =
+      Containers.get_container!(id, current_user) |> Repo.preload([:tags, :ammo_groups])
+
+    page_title = gettext("Edit %{name} tags", name: container_name)
+    socket |> assign(page_title: page_title, container: container)
   end
 
   @impl true
@@ -70,6 +86,9 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp display_containers(%{assigns: %{current_user: current_user}} = socket) do
-    socket |> assign(containers: Containers.list_containers(current_user))
+    containers =
+      Containers.list_containers(current_user) |> Repo.preload([:tags, :ammo_groups], force: true)
+
+    socket |> assign(containers: containers)
   end
 end

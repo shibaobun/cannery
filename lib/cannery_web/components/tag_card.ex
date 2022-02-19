@@ -13,15 +13,20 @@ defmodule CanneryWeb.Components.TagCard do
           border border-gray-400 rounded-lg shadow-lg hover:shadow-md
           transition-all duration-300 ease-in-out"
     >
-      <h1
-        class="px-4 py-2 rounded-lg title text-xl"
-        style={"color: #{@tag.text_color}; background-color: #{@tag.bg_color}"}
-      >
-        <%= @tag.name %>
-      </h1>
-
+      <.simple_tag_card tag={@tag} />
       <%= render_slot(@inner_block) %>
     </div>
+    """
+  end
+
+  def simple_tag_card(assigns) do
+    ~H"""
+    <h1
+      class="mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
+      style={"color: #{@tag.text_color}; background-color: #{@tag.bg_color}"}
+    >
+      <%= @tag.name %>
+    </h1>
     """
   end
 end

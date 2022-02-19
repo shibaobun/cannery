@@ -64,10 +64,11 @@ defmodule CanneryWeb.Router do
     live "/containers", ContainerLive.Index, :index
     live "/containers/new", ContainerLive.Index, :new
     live "/containers/:id/edit", ContainerLive.Index, :edit
+    live "/containers/:id/edit_tags", ContainerLive.Index, :edit_tags
 
     live "/containers/:id", ContainerLive.Show, :show
     live "/containers/:id/show/edit", ContainerLive.Show, :edit
-    live "/containers/:id/show/add_tag", ContainerLive.Show, :add_tag
+    live "/containers/:id/show/edit_tags", ContainerLive.Show, :edit_tags
 
     live "/ammo_groups", AmmoGroupLive.Index, :index
     live "/ammo_groups/new", AmmoGroupLive.Index, :new
