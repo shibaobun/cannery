@@ -161,13 +161,13 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:85
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:67
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:86
 #: lib/cannery_web/live/range_live/index.html.heex:36
 msgid "Record shots"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:31
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:50
 msgid "Ammo Details"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgid "Add another container!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:61
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:80
 msgid "Move containers"
 msgstr ""
 

@@ -33,7 +33,7 @@
               <%= gettext("Price paid") %>
             </th>
             <th class="p-2">
-              <%= gettext("Notes") %>
+              <%= gettext("% left") %>
             </th>
             <th class="p-2">
               <%= gettext("Range") %>
@@ -68,7 +68,7 @@
               </td>
 
               <td class="p-2">
-                <%= ammo_group.notes %>
+                <%= "#{ammo_group |> Ammo.get_percentage_remaining()}%" %>
               </td>
 
               <td class="p-2">

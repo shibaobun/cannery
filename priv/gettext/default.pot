@@ -358,7 +358,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:30
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:36
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:122
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
 #: lib/cannery_web/live/range_live/index.html.heex:67
 msgid "Notes"
@@ -366,7 +366,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/ammo_group_card.ex:35
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:14
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:24
 msgid "Notes:"
 msgstr ""
 
@@ -390,7 +390,6 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/ammo_group_card.ex:42
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:21
 msgid "Price paid:"
 msgstr ""
 
@@ -447,7 +446,7 @@ msgid "Steel"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:79
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:98
 msgid "Stored in"
 msgstr ""
 
@@ -473,7 +472,7 @@ msgid "The self-hosted firearm tracker website"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:84
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:103
 msgid "This ammo group is not in a container"
 msgstr ""
 
@@ -538,6 +537,7 @@ msgid "Range day"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:125
 #: lib/cannery_web/live/range_live/index.html.heex:70
 msgid "Date"
 msgstr ""
@@ -553,13 +553,13 @@ msgid "No ammo staged"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:58
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:77
 #: lib/cannery_web/live/range_live/index.html.heex:33
 msgid "Stage for range"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:57
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:76
 #: lib/cannery_web/live/range_live/index.html.heex:32
 msgid "Unstage from range"
 msgstr ""
@@ -613,6 +613,7 @@ msgid "Rounds left"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:119
 #: lib/cannery_web/live/range_live/index.html.heex:64
 msgid "Rounds shot"
 msgstr ""
@@ -646,7 +647,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/ammo_group_card.ex:43
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:64
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:22
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:32
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:39
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:82
 msgid "$%{amount}"
 msgstr ""
@@ -759,4 +761,34 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:88
 msgid "No cost information"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:36
+msgid "% left"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:38
+msgid "Current value:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:31
+msgid "Original cost:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:13
+msgid "Original count:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:18
+msgid "Percentage left:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:111
+msgid "Rounds used"
 msgstr ""

@@ -162,10 +162,12 @@ defmodule Cannery.Ammo do
   @spec list_ammo_groups_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
   def list_ammo_groups_for_type(%AmmoType{id: ammo_type_id, user_id: user_id}, %User{id: user_id}) do
     Repo.all(
-      from am in AmmoGroup,
-        where: am.ammo_type_id == ^ammo_type_id,
-        where: am.user_id == ^user_id,
-        order_by: am.id
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.ammo_type_id == ^ammo_type_id,
+        where: ag.user_id == ^user_id,
+        preload: [shot_groups: sg],
+        order_by: ag.id
     )
   end
 
@@ -182,12 +184,18 @@ defmodule Cannery.Ammo do
   @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
   def list_ammo_groups(%User{id: user_id}, include_empty \\ false) do
     if include_empty do
-      from am in AmmoGroup, where: am.user_id == ^user_id, order_by: am.id
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.user_id == ^user_id,
+        preload: [shot_groups: sg],
+        order_by: ag.id
     else
-      from am in AmmoGroup,
-        where: am.user_id == ^user_id,
-        where: not (am.count == 0),
-        order_by: am.id
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.user_id == ^user_id,
+        where: not (ag.count == 0),
+        preload: [shot_groups: sg],
+        order_by: ag.id
     end
     |> Repo.all()
   end
@@ -204,10 +212,12 @@ defmodule Cannery.Ammo do
   @spec list_staged_ammo_groups(User.t()) :: [AmmoGroup.t()]
   def list_staged_ammo_groups(%User{id: user_id}) do
     Repo.all(
-      from am in AmmoGroup,
-        where: am.user_id == ^user_id,
-        where: am.staged == true,
-        order_by: am.id
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.user_id == ^user_id,
+        where: ag.staged == true,
+        preload: [shot_groups: sg],
+        order_by: ag.id
     )
   end
 
@@ -226,8 +236,42 @@ defmodule Cannery.Ammo do
 
   """
   @spec get_ammo_group!(AmmoGroup.id(), User.t()) :: AmmoGroup.t()
-  def get_ammo_group!(id, %User{id: user_id}),
-    do: Repo.one!(from am in AmmoGroup, where: am.id == ^id and am.user_id == ^user_id)
+  def get_ammo_group!(id, %User{id: user_id}) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.id == ^id,
+        where: ag.user_id == ^user_id,
+        preload: [shot_groups: sg]
+    )
+  end
+
+  @doc """
+  Returns the number of shot rounds for an ammo group
+  """
+  @spec get_used_count(AmmoGroup.t()) :: non_neg_integer()
+  def get_used_count(%AmmoGroup{} = ammo_group) do
+    ammo_group
+    |> Repo.preload(:shot_groups)
+    |> Map.get(:shot_groups)
+    |> Enum.map(fn %{count: count} -> count end)
+    |> Enum.sum()
+  end
+
+  @doc """
+  Calculates the percentage remaining of an ammo group out of 100
+  """
+  @spec get_percentage_remaining(AmmoGroup.t()) :: non_neg_integer()
+  def get_percentage_remaining(%AmmoGroup{count: 0}), do: 0
+
+  def get_percentage_remaining(%AmmoGroup{count: count} = ammo_group) do
+    ammo_group = ammo_group |> Repo.preload(:shot_groups)
+
+    shot_group_sum =
+      ammo_group.shot_groups |> Enum.map(fn %{count: count} -> count end) |> Enum.sum()
+
+    round(count / (count + shot_group_sum) * 100)
+  end
 
   @doc """
   Creates a ammo_group.

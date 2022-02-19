@@ -9,6 +9,16 @@
       <%= @ammo_group.count %>
     </span>
 
+    <span class="rounded-lg title text-lg">
+      <%= gettext("Original count:") %>
+      <%= @ammo_group.count + Ammo.get_used_count(@ammo_group) %>
+    </span>
+
+    <span class="rounded-lg title text-lg">
+      <%= gettext("Percentage left:") %>
+      <%= "#{@ammo_group |> Ammo.get_percentage_remaining()}%" %>
+    </span>
+
     <%= if @ammo_group.notes do %>
       <span class="rounded-lg title text-lg">
         <%= gettext("Notes:") %>
@@ -18,9 +28,18 @@
 
     <%= if @ammo_group.price_paid do %>
       <span class="rounded-lg title text-lg">
-        <%= gettext("Price paid:") %>
+        <%= gettext("Original cost:") %>
         <%= gettext("$%{amount}",
           amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
+        ) %>
+      </span>
+
+      <span class="rounded-lg title text-lg">
+        <%= gettext("Current value:") %>
+        <%= gettext("$%{amount}",
+          amount:
+            (@ammo_group.price_paid * Ammo.get_percentage_remaining(@ammo_group) / 100)
+            |> :erlang.float_to_binary(decimals: 2)
         ) %>
       </span>
     <% end %>
@@ -84,6 +103,47 @@
       <%= gettext("This ammo group is not in a container") %>
     <% end %>
   </div>
+
+  <%= unless @ammo_group.shot_groups |> Enum.empty?() do %>
+    <hr class="mb-4 w-full" />
+
+    <h1 class="mb-4 px-4 py-2 text-center rounded-lg title text-xl">
+      <%= gettext("Rounds used") %>
+    </h1>
+
+    <div class="w-full overflow-x-auto border border-gray-600 rounded-lg shadow-lg bg-black">
+      <table class="min-w-full table-auto text-center bg-white">
+        <thead class="border-b border-primary-600">
+          <tr>
+            <th class="p-2">
+              <%= gettext("Rounds shot") %>
+            </th>
+            <th class="p-2">
+              <%= gettext("Notes") %>
+            </th>
+            <th class="p-2">
+              <%= gettext("Date") %>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="shot_groups">
+          <%= for shot_group <- @ammo_group.shot_groups do %>
+            <tr id={"shot_group-#{shot_group.id}"}>
+              <td class="p-2">
+                <%= shot_group.count %>
+              </td>
+              <td class="p-2">
+                <%= shot_group.notes %>
+              </td>
+              <td class="p-2">
+                <%= shot_group.date |> display_date() %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
 
 <%= case @live_action do %>
