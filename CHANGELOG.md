@@ -1,8 +1,8 @@
-# 0.2.1
+# v0.2.1
 - Fix checkbox spacing for mobile view
 - Fix spacing with form elements in mobile view
 
-# 0.2.0
+# v0.2.0
 - Add or remove tags from containers list and details page
 - Show tags on containers
 - Add "Cannery" to page titles
@@ -12,5 +12,5 @@
 - Show shot history for an ammo group
 - Show ammo round totals and total shot for ammo types
 
-# 0.1.0
+# v0.1.0
 - Initial release!
