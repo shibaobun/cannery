@@ -1,6 +1,6 @@
 # Cannery
 
-![screenshot](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/home.png)
+![screenshot](https://gitea.bubbletea.dev/shibao/cannery/raw/branch/stable/home.png)
 
 The self-hosted firearm tracker website.
 
