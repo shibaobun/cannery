@@ -15,7 +15,7 @@ defmodule CanneryWeb.TagLive.Index do
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
-    {:noreply, apply_action(socket, live_action, params)}
+    {:noreply, apply_action(socket, live_action, params) |> display_tags}
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
