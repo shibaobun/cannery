@@ -9,7 +9,7 @@ defmodule CanneryWeb.Components.UserCard do
     ~H"""
     <div
       id={"user-#{@user.id}"}
-      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center
+      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center text-center
           border border-gray-400 rounded-lg shadow-lg hover:shadow-md
           transition-all duration-300 ease-in-out"
     >
@@ -21,7 +21,8 @@ defmodule CanneryWeb.Components.UserCard do
         <%= if @user.confirmed_at |> is_nil() do %>
           Email unconfirmed
         <% else %>
-          User was confirmed at<%= @user.confirmed_at |> display_datetime() %>
+          <p>User was confirmed at</p>
+          <%= @user.confirmed_at |> display_datetime() %>
         <% end %>
       </h3>
 

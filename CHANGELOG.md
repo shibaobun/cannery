@@ -1,6 +1,7 @@
 # v0.2.1
 - Fix checkbox spacing for mobile view
 - Fix spacing with form elements in mobile view
+- Fix user card spacing
 
 # v0.2.0
 - Add or remove tags from containers list and details page
