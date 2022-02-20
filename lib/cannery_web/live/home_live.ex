@@ -130,7 +130,7 @@ defmodule CanneryWeb.HomeLive do
         <li class="flex flex-row justify-center space-x-2">
           <b>Version:</b>
           <p>
-            0.2.1
+            0.2.2
           </p>
         </li>
       </ul>
