@@ -1,3 +1,8 @@
+# v0.2.2
+- Fix loading and reconnecting pages not being fixed
+- Fix closing modal in some cases not triggering a page reload
+- Fix error when display container and tag edit routes from a fresh reload
+
 # v0.2.1
 - Fix checkbox spacing for mobile view
 - Fix spacing with form elements in mobile view
