@@ -44,22 +44,18 @@ defmodule CanneryWeb.LiveHelpers do
       w-full h-full overflow-hidden
       p-8 flex flex-col justify-center items-center"
       style="opacity: 1 !important; background-color: rgba(0,0,0,0.4);"
-      phx-remove={hide_modal()}
     >
       <div
         id="modal-content"
         class="fade-in-scale w-full max-w-3xl max-h-128 relative overflow-y-auto
         flex flex-col justify-start items-center
         bg-white border-2 rounded-lg"
-        phx-click-away={hide_modal()}
-        phx-window-keydown={hide_modal()}
-        phx-key="escape"
       >
         <%= live_patch to: @return_to,
                    id: "close",
                    class:
-                     "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out",
-                   phx_click: hide_modal() do %>
+                     "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out"
+                     do %>
           <i class="fa-fw fa-lg fas fa-times"></i>
         <% end %>
 
