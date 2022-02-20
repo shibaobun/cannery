@@ -38,24 +38,39 @@ defmodule CanneryWeb.LiveHelpers do
   """
   def modal(assigns) do
     ~H"""
+    <%= live_patch to: @return_to,
+      id: "modal-bg",
+      class:
+        "fade-in fixed z-10 left-0 top-0
+         w-full h-full overflow-hidden
+         p-8 flex flex-col justify-center items-center cursor-auto",
+      style: "background-color: rgba(0,0,0,0.4);",
+      phx_remove: hide_modal()
+    do %>
+      <span class="hidden"></span>
+    <% end %>
+
     <div
       id="modal"
-      class="fade-in fixed z-10 left-0 top-0
-      w-full h-full overflow-hidden
-      p-8 flex flex-col justify-center items-center"
-      style="opacity: 1 !important; background-color: rgba(0,0,0,0.4);"
+      class="fixed z-10 left-0 top-0 pointer-events-none
+        w-full h-full overflow-hidden
+        p-8 flex flex-col justify-center items-center"
     >
       <div
         id="modal-content"
-        class="fade-in-scale w-full max-w-3xl max-h-128 relative overflow-y-auto
+        class="fade-in-scale w-full max-w-3xl max-h-128 relative pointer-events-auto overflow-y-auto
+        p-8 flex flex-col justify-center items-center
         flex flex-col justify-start items-center
         bg-white border-2 rounded-lg"
       >
         <%= live_patch to: @return_to,
                    id: "close",
                    class:
-                     "absolute top-8 right-10 text-gray-500 hover:text-gray-800 transition-all duration-500 ease-in-out"
-                     do %>
+                     "absolute top-8 right-10
+                      text-gray-500 hover:text-gray-800
+                      transition-all duration-500 ease-in-out",
+      phx_remove: hide_modal()
+      do %>
           <i class="fa-fw fa-lg fas fa-times"></i>
         <% end %>
 
@@ -70,6 +85,7 @@ defmodule CanneryWeb.LiveHelpers do
   def hide_modal(js \\ %JS{}) do
     js
     |> JS.hide(to: "#modal", transition: "fade-out")
+    |> JS.hide(to: "#modal-bg", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
 end
