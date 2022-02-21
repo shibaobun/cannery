@@ -1,5 +1,6 @@
 # v0.2.3
 - Fix modals with overflowing forms
+- Fix grids having uneven margins in phone mode
 - Add page titles to registration and setting pages
 
 # v0.2.2
