@@ -34,18 +34,14 @@
     >
       <%= gettext("Example bullet type abbreviations") %>
     </a>
-    <%= label(f, :bullet_type, gettext("Bullet type"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :bullet_type, gettext("Bullet type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :bullet_type,
       class: "text-center col-span-2 input input-primary",
       placeholder: gettext("FMJ")
     ) %>
     <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
 
-    <%= label(f, :bullet_core, gettext("Bullet core"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :bullet_core, gettext("Bullet core"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :bullet_core,
       class: "text-center col-span-2 input input-primary",
       placeholder: gettext("Steel")
@@ -66,18 +62,14 @@
     ) %>
     <%= error_tag(f, :caliber, "col-span-3 text-center") %>
 
-    <%= label(f, :case_material, gettext("Case material"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :case_material, gettext("Case material"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :case_material,
       class: "text-center col-span-2 input input-primary",
       placeholder: gettext("Brass")
     ) %>
     <%= error_tag(f, :case_material, "col-span-3 text-center") %>
 
-    <%= label(f, :jacket_type, gettext("Jacket type"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :jacket_type, gettext("Jacket type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :jacket_type,
       class: "text-center col-span-2 input input-primary",
       placeholder: gettext("Bimetal")
@@ -94,9 +86,7 @@
     ) %>
     <%= error_tag(f, :muzzle_velocity, "col-span-3 text-center") %>
 
-    <%= label(f, :powder_type, gettext("Powder type"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :powder_type, gettext("Powder type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :powder_type, class: "text-center col-span-2 input input-primary") %>
     <%= error_tag(f, :powder_type, "col-span-3 text-center") %>
 
@@ -125,18 +115,14 @@
     ) %>
     <%= error_tag(f, :pressure, "col-span-3 text-center") %>
 
-    <%= label(f, :primer_type, gettext("Primer type"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :primer_type, gettext("Primer type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :primer_type,
       class: "text-center col-span-2 input input-primary",
       placeholder: "Boxer"
     ) %>
     <%= error_tag(f, :primer_type, "col-span-3 text-center") %>
 
-    <%= label(f, :firing_type, gettext("Firing type"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :firing_type, gettext("Firing type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :firing_type,
       class: "text-center col-span-2 input input-primary",
       placeholder: "Centerfire"
@@ -159,9 +145,7 @@
     <%= checkbox(f, :corrosive, class: "text-center col-span-2 checkbox") %>
     <%= error_tag(f, :corrosive, "col-span-3 text-center") %>
 
-    <%= label(f, :manufacturer, gettext("Manufacturer"),
-      class: "title text-lg text-primary-600"
-    ) %>
+    <%= label(f, :manufacturer, gettext("Manufacturer"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :manufacturer, class: "text-center col-span-2 input input-primary") %>
     <%= error_tag(f, :manufacturer, "col-span-3 text-center") %>
 

@@ -55,19 +55,19 @@ msgid "Background color"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:154
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:140
 #: lib/cannery_web/live/ammo_type_live/index.ex:67
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:55
 msgid "Blank"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:74
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:68
 msgid "Brass"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:46
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:53
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:41
 msgid "Bullet core"
@@ -81,21 +81,21 @@ msgid "Bullet type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:62
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:58
 #: lib/cannery_web/live/ammo_type_live/index.ex:55
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:43
 msgid "Caliber"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:55
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:51
 #: lib/cannery_web/live/ammo_type_live/index.ex:54
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:42
 msgid "Cartridge"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:69
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:65
 #: lib/cannery_web/live/ammo_type_live/index.ex:56
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:44
 msgid "Case material"
@@ -115,7 +115,7 @@ msgid "Containers"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:158
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:144
 #: lib/cannery_web/live/ammo_type_live/index.ex:68
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:56
 msgid "Corrosive"
@@ -188,19 +188,19 @@ msgid "Example bullet type abbreviations"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:42
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:40
 msgid "FMJ"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:113
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:103
 #: lib/cannery_web/live/ammo_type_live/index.ex:61
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:49
 msgid "Grains"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:150
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:136
 #: lib/cannery_web/live/ammo_type_live/index.ex:66
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:54
 msgid "Incendiary"
@@ -275,7 +275,7 @@ msgid "Manage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:162
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:148
 #: lib/cannery_web/live/ammo_type_live/index.ex:69
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:57
 msgid "Manufacturer"
@@ -377,7 +377,7 @@ msgid "On the bookshelf"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:121
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:111
 #: lib/cannery_web/live/ammo_type_live/index.ex:62
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:50
 msgid "Pressure"
@@ -395,7 +395,7 @@ msgid "Price paid:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:128
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:118
 #: lib/cannery_web/live/ammo_type_live/index.ex:63
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:51
 msgid "Primer type"
@@ -422,6 +422,7 @@ msgid "Set Unlimited"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_settings_controller.ex:10
 #: lib/cannery_web/templates/user_settings/edit.html.heex:3
 msgid "Settings"
 msgstr ""
@@ -442,7 +443,7 @@ msgid "Simple:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:51
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:47
 msgid "Steel"
 msgstr ""
 
@@ -478,7 +479,7 @@ msgid "This ammo group is not in a container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:146
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:132
 #: lib/cannery_web/live/ammo_type_live/index.ex:65
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:53
 msgid "Tracer"
@@ -655,40 +656,40 @@ msgid "$%{amount}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:83
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:75
 msgid "Bimetal"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:78
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:72
 #: lib/cannery_web/live/ammo_type_live/index.ex:57
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:45
 msgid "Jacket type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:87
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:79
 #: lib/cannery_web/live/ammo_type_live/index.ex:58
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:46
 msgid "Muzzle velocity"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:103
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:93
 #: lib/cannery_web/live/ammo_type_live/index.ex:60
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:48
 msgid "Powder grains per charge"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:97
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:89
 #: lib/cannery_web/live/ammo_type_live/index.ex:59
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:47
 msgid "Powder type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:168
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:152
 #: lib/cannery_web/live/ammo_type_live/index.ex:70
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:58
 msgid "UPC"
@@ -721,7 +722,7 @@ msgid "Unstage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:137
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:125
 #: lib/cannery_web/live/ammo_type_live/index.ex:64
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:52
 msgid "Firing type"
@@ -807,4 +808,29 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:85
 msgid "Total rounds shot:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:8
+msgid "Confirm your account"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:9
+msgid "Forgot your password?"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_session_controller.ex:8
+msgid "Log in"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_registration_controller.ex:35
+msgid "Register"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:36
+msgid "Reset your password"
 msgstr ""

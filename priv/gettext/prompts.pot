@@ -124,7 +124,7 @@ msgid "Email changed successfully."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_confirmation_controller.ex:22
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:23
 msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 msgstr ""
 
@@ -139,7 +139,7 @@ msgid "Logged out successfully."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_reset_password_controller.ex:43
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:46
 msgid "Password reset successfully."
 msgstr ""
 
@@ -149,7 +149,7 @@ msgid "Password updated successfully."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_registration_controller.ex:71
+#: lib/cannery_web/controllers/user_registration_controller.ex:74
 msgid "Please check your email to verify your account"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:44
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:55
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:173
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:157
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
 #: lib/cannery_web/live/invite_live/form_component.html.heex:30
 #: lib/cannery_web/live/range_live/form_component.html.heex:42
@@ -225,7 +225,7 @@ msgid "Shot records updated successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_confirmation_controller.ex:37
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:38
 msgid "%{email} confirmed successfully."
 msgstr ""
 
