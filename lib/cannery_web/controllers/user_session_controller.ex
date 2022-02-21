@@ -5,7 +5,7 @@ defmodule CanneryWeb.UserSessionController do
   alias CanneryWeb.UserAuth
 
   def new(conn, _params) do
-    render(conn, "new.html", error_message: nil)
+    render(conn, "new.html", error_message: nil, page_title: gettext("Log in"))
   end
 
   def create(conn, %{"user" => user_params}) do

@@ -1,3 +1,7 @@
+# v0.2.3
+- Fix modals with overflowing forms
+- Add page titles to registration and setting pages
+
 # v0.2.2
 - Fix loading and reconnecting pages not being fixed
 - Fix closing modal in some cases not triggering a page reload

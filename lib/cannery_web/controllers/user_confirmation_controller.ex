@@ -1,10 +1,11 @@
 defmodule CanneryWeb.UserConfirmationController do
   use CanneryWeb, :controller
 
+  import CanneryWeb.Gettext
   alias Cannery.Accounts
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    render(conn, "new.html", page_title: gettext("Confirm your account"))
   end
 
   def create(conn, %{"user" => %{"email" => email}}) do

@@ -29,8 +29,11 @@ defmodule CanneryWeb.UserRegistrationController do
 
   # renders new user registration page
   defp render_new(conn, invite \\ nil) do
-    changeset = Accounts.change_user_registration(%User{})
-    conn |> render("new.html", changeset: changeset, invite: invite)
+    render(conn, "new.html",
+      changeset: Accounts.change_user_registration(%User{}),
+      invite: invite,
+      page_title: gettext("Register")
+    )
   end
 
   def create(conn, %{"user" => %{"invite_token" => invite_token}} = attrs) do
