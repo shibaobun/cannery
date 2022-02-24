@@ -4,7 +4,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{Ammo, Ammo.AmmoGroup, Repo}
+  alias Cannery.{Ammo, Ammo.AmmoGroup, Containers, Repo}
   alias CanneryWeb.Endpoint
 
   @impl true
@@ -17,9 +17,11 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, apply_action(socket, live_action, params)}
   end
 
-  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :add_shot_group, %{
-         "id" => id
-       }) do
+  defp apply_action(
+         %{assigns: %{current_user: current_user}} = socket,
+         :add_shot_group,
+         %{"id" => id}
+       ) do
     socket
     |> assign(:page_title, gettext("Record shots"))
     |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
@@ -72,6 +74,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
     ammo_groups = Ammo.list_ammo_groups(current_user) |> Repo.preload([:ammo_type, :container])
-    socket |> assign(:ammo_groups, ammo_groups)
+    containers = Containers.list_containers(current_user)
+    socket |> assign(ammo_groups: ammo_groups, containers: containers)
   end
 end
