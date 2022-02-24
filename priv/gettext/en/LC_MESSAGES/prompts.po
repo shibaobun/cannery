@@ -63,18 +63,13 @@ msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:90
-msgid "Ammo group created successfully"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:56
 #: lib/cannery_web/live/ammo_group_live/show.ex:52
 msgid "Ammo group deleted succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:72
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:75
 msgid "Ammo group updated successfully"
 msgstr ""
 
@@ -160,8 +155,8 @@ msgid "Register to setup %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/add_shot_group_component.html.heex:44
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:55
+#: lib/cannery_web/components/add_shot_group_component.html.heex:48
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:74
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:157
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
 #: lib/cannery_web/live/invite_live/form_component.html.heex:30
@@ -252,3 +247,15 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:33
 msgid "You'll need to"
 msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:67
+msgid "Creating..."
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:134
+msgid "Ammo group created successfully"
+msgid_plural "Ammo groups created successfully"
+msgstr[0] ""
+msgstr[1] ""

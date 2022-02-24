@@ -835,3 +835,8 @@ msgstr ""
 #: lib/cannery_web/live/range_live/index.ex:28
 msgid "Record Shots"
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:58
+msgid "Copies"
+msgstr ""
