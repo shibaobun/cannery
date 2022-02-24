@@ -72,9 +72,11 @@
 
   <hr class="mb-4 hr" />
 
-  <p>
+  <div>
     <%= if @container.ammo_groups |> Enum.empty?() do %>
-      <%= gettext("No ammo groups in this container") %>
+      <h2 class="mx-8 my-4 title text-lg text-primary-600">
+        <%= gettext("No ammo groups in this container") %>
+      </h2>
     <% else %>
       <div class="flex flex-wrap justify-center items-center">
         <%= for ammo_group <- @container.ammo_groups do %>
@@ -82,7 +84,7 @@
         <% end %>
       </div>
     <% end %>
-  </p>
+  </div>
 </div>
 
 <%= if @live_action in [:edit] do %>
