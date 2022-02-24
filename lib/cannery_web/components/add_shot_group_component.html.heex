@@ -36,7 +36,11 @@
     <%= error_tag(f, :notes, "col-span-3") %>
 
     <%= label(f, :date, gettext("Date (UTC)"), class: "title text-lg text-primary-600") %>
-    <%= date_input(f, :date, class: "input input-primary col-span-2") %>
+    <%= date_input(f, :date,
+      class: "input input-primary col-span-2",
+      phx_update: "ignore",
+      value: Date.utc_today()
+    ) %>
     <%= error_tag(f, :notes, "col-span-3") %>
 
     <%= submit(dgettext("actions", "Save"),

@@ -124,7 +124,7 @@ msgid "Reset password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/add_shot_group_component.html.heex:42
+#: lib/cannery_web/components/add_shot_group_component.html.heex:46
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:54
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:156
 #: lib/cannery_web/live/container_live/form_component.html.heex:50

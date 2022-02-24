@@ -2,6 +2,7 @@
 - Fix ammo type counts not showing when count is 0
 - Add prompt to create first container before first ammo group
 - Edit and delete shot groups from ammo group show page
+- Use today's date when adding new shot groups
 
 # v0.2.3
 - Fix modals with overflowing forms
