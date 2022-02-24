@@ -90,7 +90,7 @@ defmodule Cannery.Ammo do
       from ag in AmmoGroup,
         where: ag.ammo_type_id == ^ammo_type_id,
         select: sum(ag.count)
-    )
+    ) || 0
   end
 
   @doc """
@@ -117,7 +117,7 @@ defmodule Cannery.Ammo do
         left_join: sg in assoc(ag, :shot_groups),
         where: ag.ammo_type_id == ^ammo_type_id,
         select: sum(sg.count)
-    )
+    ) || 0
   end
 
   @doc """

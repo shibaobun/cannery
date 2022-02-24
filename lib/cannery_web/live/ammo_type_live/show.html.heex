@@ -100,9 +100,8 @@
         ) %>
       </span>
     <% else %>
-      <h3 class="title text-lg col-span-2">
+      <h3 class="mx-8 my-4 title text-lg text-primary-600 col-span-2">
         <%= gettext("No cost information") %>
-        <%= display_emoji("😔") %>
       </h3>
     <% end %>
   </div>
@@ -111,8 +110,10 @@
 
   <div>
     <%= if @ammo_groups |> Enum.empty?() do %>
-      <%= gettext("No ammo for this type") %>
-      <%= display_emoji("😔") %>
+      <h2 class="mx-8 my-4 title text-lg text-primary-600">
+        <%= gettext("No ammo for this type") %>
+        <%= display_emoji("😔") %>
+      </h2>
     <% else %>
       <div class="flex flex-wrap justify-center items-center">
         <%= for ammo_group <- @ammo_groups do %>
