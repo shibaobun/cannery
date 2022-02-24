@@ -40,7 +40,7 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket |> assign(page_title: gettext("Listing Invites"), invite: nil)
+    socket |> assign(page_title: gettext("Invites"), invite: nil)
   end
 
   @impl true

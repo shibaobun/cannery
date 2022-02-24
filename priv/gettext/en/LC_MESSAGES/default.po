@@ -110,6 +110,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:46
+#: lib/cannery_web/live/container_live/index.ex:38
 #: lib/cannery_web/live/container_live/index.html.heex:3
 msgid "Containers"
 msgstr ""
@@ -223,6 +224,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:71
+#: lib/cannery_web/live/invite_live/index.ex:43
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 msgid "Invites"
 msgstr ""
@@ -230,26 +232,6 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_session/new.html.heex:28
 msgid "Keep me logged in for 60 days"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/index.ex:34
-msgid "Listing Ammo types"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:38
-msgid "Listing Containers"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.ex:43
-msgid "Listing Invites"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/tag_live/index.ex:34
-msgid "Listing Tags"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -454,6 +436,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:40
+#: lib/cannery_web/live/tag_live/index.ex:34
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 msgid "Tags"
 msgstr ""
@@ -839,4 +822,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:58
 msgid "Copies"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_type_live/index.ex:34
+msgid "Ammo types"
 msgstr ""

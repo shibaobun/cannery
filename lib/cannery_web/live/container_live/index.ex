@@ -35,7 +35,7 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, gettext("Listing Containers"))
+    |> assign(:page_title, gettext("Containers"))
     |> assign(:container, nil)
     |> display_containers()
   end

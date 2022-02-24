@@ -31,7 +31,7 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket |> assign(:page_title, gettext("Listing Tags")) |> assign(:tag, nil)
+    socket |> assign(:page_title, gettext("Tags")) |> assign(:tag, nil)
   end
 
   @impl true
