@@ -20,8 +20,8 @@ defmodule Cannery.ActivityLogTest do
       container = container_fixture(current_user)
       ammo_type = ammo_type_fixture(current_user)
 
-      %{id: ammo_group_id} =
-        ammo_group = ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
+      {1, [%{id: ammo_group_id} = ammo_group]} =
+        ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
 
       shot_group =
         %{"count" => 5, "date" => ~N[2022-02-13 03:17:00], "notes" => "some notes"}

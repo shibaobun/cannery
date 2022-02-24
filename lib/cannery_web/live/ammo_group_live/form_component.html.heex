@@ -33,7 +33,7 @@
 
     <%= label(f, :price_paid, gettext("Price paid"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :price_paid,
-      step: "0.01",
+      step: 0.01,
       class: "text-center col-span-2 input input-primary"
     ) %>
     <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
@@ -51,9 +51,29 @@
     ) %>
     <%= error_tag(f, :container_id, "col-span-3 text-center") %>
 
-    <%= submit(dgettext("actions", "Save"),
-      phx_disable_with: dgettext("prompts", "Saving..."),
-      class: "mx-auto col-span-3 btn btn-primary"
-    ) %>
+    <%= case @action do %>
+      <% :new -> %>
+        <hr class="hr col-span-3" />
+
+        <%= label(f, :multiplier, gettext("Copies"), class: "title text-lg text-primary-600") %>
+        <%= number_input(f, :multiplier,
+          max: @ammo_group_create_limit,
+          class: "text-center input input-primary",
+          value: 1,
+          phx_update: "ignore"
+        ) %>
+
+        <%= submit(dgettext("actions", "Create"),
+          phx_disable_with: dgettext("prompts", "Creating..."),
+          class: "mx-auto btn btn-primary"
+        ) %>
+
+        <%= error_tag(f, :multiplier, "col-span-3 text-center") %>
+      <% :edit -> %>
+        <%= submit(dgettext("actions", "Save"),
+          phx_disable_with: dgettext("prompts", "Saving..."),
+          class: "mx-auto col-span-3 btn btn-primary"
+        ) %>
+    <% end %>
   </.form>
 </div>

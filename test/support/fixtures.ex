@@ -111,10 +111,20 @@ defmodule Cannery.Fixtures do
   @doc """
   Generate a AmmoGroup
   """
-  @spec ammo_group_fixture(AmmoType.t(), Container.t(), User.t()) :: AmmoGroup.t()
-  @spec ammo_group_fixture(attrs :: map(), AmmoType.t(), Container.t(), User.t()) :: AmmoGroup.t()
+  @spec ammo_group_fixture(AmmoType.t(), Container.t(), User.t()) ::
+          {count :: non_neg_integer(), [AmmoGroup.t()]}
+  @spec ammo_group_fixture(attrs :: map(), AmmoType.t(), Container.t(), User.t()) ::
+          {count :: non_neg_integer(), [AmmoGroup.t()]}
+  @spec ammo_group_fixture(
+          attrs :: map(),
+          multiplier :: non_neg_integer(),
+          AmmoType.t(),
+          Container.t(),
+          User.t()
+        ) :: {count :: non_neg_integer(), [AmmoGroup.t()]}
   def ammo_group_fixture(
         attrs \\ %{},
+        multiplier \\ 1,
         %AmmoType{id: ammo_type_id},
         %Container{id: container_id},
         %User{} = user
@@ -125,7 +135,7 @@ defmodule Cannery.Fixtures do
       "container_id" => container_id,
       "count" => 20
     })
-    |> Ammo.create_ammo_group(user)
+    |> Ammo.create_ammo_groups(multiplier, user)
     |> unwrap_ok_tuple()
   end
 

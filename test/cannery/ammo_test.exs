@@ -108,7 +108,7 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       ammo_type = ammo_type_fixture(current_user)
       container = container_fixture(current_user)
-      ammo_group = ammo_group_fixture(ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
 
       [
         ammo_type: ammo_type,
@@ -129,28 +129,28 @@ defmodule Cannery.AmmoTest do
                ammo_group |> Repo.preload(:shot_groups)
     end
 
-    test "create_ammo_group/1 with valid data creates a ammo_group",
+    test "create_ammo_groups/3 with valid data creates a ammo_group",
          %{
            ammo_type: ammo_type,
            container: container,
            current_user: current_user
          } do
-      assert {:ok, %AmmoGroup{} = ammo_group} =
+      assert {:ok, {1, [%AmmoGroup{} = ammo_group]}} =
                @valid_attrs
                |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
-               |> Ammo.create_ammo_group(current_user)
+               |> Ammo.create_ammo_groups(1, current_user)
 
       assert ammo_group.count == 42
       assert ammo_group.notes == "some notes"
       assert ammo_group.price_paid == 120.5
     end
 
-    test "create_ammo_group/1 with invalid data returns error changeset",
+    test "create_ammo_groups/3 with invalid data returns error changeset",
          %{ammo_type: ammo_type, container: container, current_user: current_user} do
       assert {:error, %Changeset{}} =
                @invalid_attrs
                |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
-               |> Ammo.create_ammo_group(current_user)
+               |> Ammo.create_ammo_groups(1, current_user)
     end
 
     test "update_ammo_group/2 with valid data updates the ammo_group",

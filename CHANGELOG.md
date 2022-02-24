@@ -3,6 +3,7 @@
 - Add prompt to create first container before first ammo group
 - Edit and delete shot groups from ammo group show page
 - Use today's date when adding new shot groups
+- Create multiple ammo groups at one time
 
 # v0.2.3
 - Fix modals with overflowing forms

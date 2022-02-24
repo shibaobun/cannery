@@ -6,7 +6,9 @@ defmodule Cannery.Ammo do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Ecto.Changeset
+  alias Ecto.{Changeset, Multi}
+
+  @ammo_group_create_limit 10_000
 
   @doc """
   Returns the list of ammo_types.
@@ -327,36 +329,63 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Creates a ammo_group.
+  Creates multiple ammo_groups at once.
 
   ## Examples
 
-      iex> create_ammo_group(%{field: value}, %User{id: 123})
-      {:ok, %AmmoGroup{}}
+      iex> create_ammo_groups(%{field: value}, 3, %User{id: 123})
+      {:ok, {3, [%AmmoGroup{}]}}
 
-      iex> create_ammo_group(%{field: bad_value}, %User{id: 123})
+      iex> create_ammo_groups(%{field: bad_value}, 3, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec create_ammo_group(attrs :: map(), User.t()) ::
-          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.new_ammo_group())}
-  def create_ammo_group(
+  @spec create_ammo_groups(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
+          {:ok, {count :: non_neg_integer(), [AmmoGroup.t()] | nil}}
+          | {:error, Changeset.t(AmmoGroup.new_ammo_group()) | nil}
+  def create_ammo_groups(
         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+        multiplier,
         %User{id: user_id} = user
-      ) do
+      )
+      when multiplier >= 1 and multiplier <= @ammo_group_create_limit do
     # validate ammo type and container ids belong to user
     _valid_ammo_type = get_ammo_type!(ammo_type_id, user)
     _valid_container = Containers.get_container!(container_id, user)
 
-    %AmmoGroup{}
-    |> AmmoGroup.create_changeset(attrs |> Map.put("user_id", user_id))
-    |> Repo.insert()
+    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+
+    changesets =
+      Enum.map(1..multiplier, fn _count ->
+        %AmmoGroup{} |> AmmoGroup.create_changeset(attrs |> Map.put("user_id", user_id))
+      end)
+
+    if changesets |> Enum.all?(fn %{valid?: valid} -> valid end) do
+      Multi.new()
+      |> Multi.insert_all(
+        :create_ammo_groups,
+        AmmoGroup,
+        changesets
+        |> Enum.map(fn changeset ->
+          changeset
+          |> Map.get(:changes)
+          |> Map.merge(%{inserted_at: now, updated_at: now})
+        end),
+        returning: true
+      )
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{create_ammo_groups: {count, ammo_groups}}} -> {:ok, {count, ammo_groups}}
+        {:error, :create_ammo_groups, changeset, _changes_so_far} -> {:error, changeset}
+        {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
+      end
+    else
+      {:error, changesets |> List.first()}
+    end
   end
 
-  def create_ammo_group(invalid_attrs, _user) do
-    %AmmoGroup{}
-    |> AmmoGroup.create_changeset(invalid_attrs |> Map.put("user_id", "-1"))
-    |> Repo.insert()
+  def create_ammo_groups(invalid_attrs, _multiplier, _user) do
+    {:error, %AmmoGroup{} |> AmmoGroup.create_changeset(invalid_attrs)}
   end
 
   @doc """
