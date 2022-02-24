@@ -12,12 +12,12 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:42
+#: lib/cannery_web/live/ammo_group_live/index.ex:44
 msgid "Add Ammo"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:12
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:24
 msgid "Add your first box!"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgid "Make your first tag!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:17
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:42
 msgid "New Ammo group"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgid "Why not get some ready to shoot?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:85
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:111
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86
 #: lib/cannery_web/live/range_live/index.html.heex:36
 msgid "Record shots"
@@ -190,4 +190,10 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:33
 msgid "Copy to clipboard"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:18
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:36
+msgid "add a container first"
 msgstr ""

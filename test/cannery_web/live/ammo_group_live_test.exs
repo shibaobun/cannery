@@ -10,6 +10,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
   @moduletag :ammo_group_live_test
   @shot_group_create_attrs %{"ammo_left" => 5, "notes" => "some notes"}
+  @shot_group_update_attrs %{"count" => 5, "notes" => "some updated notes"}
   @create_attrs %{count: 42, notes: "some notes", price_paid: 120.5}
   @update_attrs %{count: 43, notes: "some updated notes", price_paid: 456.7}
   # @invalid_attrs %{count: -1, notes: nil, price_paid: nil}
@@ -17,7 +18,13 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
   defp create_ammo_group(%{current_user: current_user}) do
     ammo_type = ammo_type_fixture(current_user)
     container = container_fixture(current_user)
-    %{ammo_group: ammo_group_fixture(ammo_type, container, current_user)}
+    ammo_group = ammo_group_fixture(ammo_type, container, current_user)
+
+    shot_group =
+      %{"count" => 5, "date" => ~N[2022-02-13 03:17:00], "notes" => "some notes"}
+      |> shot_group_fixture(current_user, ammo_group)
+
+    %{ammo_group: ammo_group, shot_group: shot_group}
   end
 
   describe "Index" do
@@ -163,6 +170,41 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
 
       assert html =~ dgettext("prompts", "Shots recorded successfully")
+    end
+
+    test "updates shot_group in listing",
+         %{conn: conn, ammo_group: ammo_group, shot_group: shot_group} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_group_show_path(conn, :edit, ammo_group))
+
+      assert index_live |> element("[data-qa=\"edit-#{shot_group.id}\"]") |> render_click() =~
+               gettext("Edit Shot Records")
+
+      assert_patch(
+        index_live,
+        Routes.ammo_group_show_path(conn, :edit_shot_group, ammo_group, shot_group)
+      )
+
+      # assert index_live
+      #        |> form("#shot_group-form", shot_group: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "is invalid")
+
+      {:ok, _, html} =
+        index_live
+        |> form("#shot-group-form", shot_group: @shot_group_update_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
+
+      assert html =~ dgettext("actions", "Shot records updated successfully")
+      assert html =~ "some updated notes"
+    end
+
+    test "deletes shot_group in listing",
+         %{conn: conn, ammo_group: ammo_group, shot_group: shot_group} do
+      {:ok, index_live, _html} =
+        live(conn, Routes.ammo_group_show_path(conn, :edit_shot_group, ammo_group, shot_group))
+
+      assert index_live |> element("[data-qa=\"delete-#{shot_group.id}\"]") |> render_click()
+      refute has_element?(index_live, "#shot_group-#{shot_group.id}")
     end
   end
 end

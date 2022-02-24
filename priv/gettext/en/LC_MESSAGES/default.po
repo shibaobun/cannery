@@ -40,7 +40,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:27
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:53
 msgid "Ammo type"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.html.heex:22
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:42
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:68
 msgid "Container"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:30
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:56
 msgid "Count"
 msgstr ""
 
@@ -156,8 +156,8 @@ msgid "Easy to Use:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:36
-#: lib/cannery_web/live/ammo_group_live/show.ex:55
+#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#: lib/cannery_web/live/ammo_group_live/show.ex:42
 msgid "Edit Ammo group"
 msgstr ""
 
@@ -336,7 +336,7 @@ msgid "No ammo for this type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:77
+#: lib/cannery_web/live/container_live/show.html.heex:78
 msgid "No ammo groups in this container"
 msgstr ""
 
@@ -385,7 +385,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:34
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:33
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:59
 msgid "Price paid"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgid "Settings"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.ex:54
+#: lib/cannery_web/live/ammo_group_live/show.ex:41
 msgid "Show Ammo group"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:64
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:39
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:65
 msgid "Range"
 msgstr ""
 
@@ -567,14 +567,8 @@ msgid "Unstage from range"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.ex:52
-msgid "Add Shot group"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/add_shot_group_component.html.heex:3
-#: lib/cannery_web/live/ammo_group_live/index.ex:24
-#: lib/cannery_web/live/range_live/index.ex:28
+#: lib/cannery_web/live/ammo_group_live/index.ex:26
 msgid "Record shots"
 msgstr ""
 
@@ -584,7 +578,7 @@ msgid "Ammo Types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:47
+#: lib/cannery_web/live/ammo_group_live/index.ex:49
 msgid "Ammo groups"
 msgstr ""
 
@@ -595,6 +589,7 @@ msgid "Date (UTC)"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.ex:39
 #: lib/cannery_web/live/range_live/index.ex:34
 msgid "Edit Shot Records"
 msgstr ""
@@ -626,8 +621,8 @@ msgid "Shot Records"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:30
-#: lib/cannery_web/live/ammo_group_live/show.ex:53
+#: lib/cannery_web/live/ammo_group_live/index.ex:32
+#: lib/cannery_web/live/ammo_group_live/show.ex:40
 msgid "Move Ammo group"
 msgstr ""
 
@@ -648,7 +643,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/ammo_group_card.ex:43
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:64
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:90
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:32
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:39
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:98
@@ -712,12 +707,12 @@ msgid "New password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:82
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:108
 msgid "Stage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:82
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:108
 msgid "Unstage"
 msgstr ""
 
@@ -766,7 +761,7 @@ msgid "No cost information"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:36
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:62
 msgid "% left"
 msgstr ""
 
@@ -833,4 +828,10 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_reset_password_controller.ex:36
 msgid "Reset your password"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:38
+#: lib/cannery_web/live/range_live/index.ex:28
+msgid "Record Shots"
 msgstr ""

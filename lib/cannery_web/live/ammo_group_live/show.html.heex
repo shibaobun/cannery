@@ -124,6 +124,8 @@
             <th class="p-2">
               <%= gettext("Date") %>
             </th>
+
+            <th class="p-2"></th>
           </tr>
         </thead>
         <tbody id="shot_groups">
@@ -132,11 +134,34 @@
               <td class="p-2">
                 <%= shot_group.count %>
               </td>
+
               <td class="p-2">
                 <%= shot_group.notes %>
               </td>
+
               <td class="p-2">
                 <%= shot_group.date |> display_date() %>
+              </td>
+
+              <td class="p-2 w-full h-full space-x-2 flex justify-center items-center">
+                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+                  <%= live_patch to: Routes.ammo_group_show_path(Endpoint, :edit_shot_group, @ammo_group, shot_group),
+                              class: "text-primary-600 link",
+                              data: [qa: "edit-#{shot_group.id}"] do %>
+                    <i class="fa-fw fa-lg fas fa-edit"></i>
+                  <% end %>
+
+                  <%= link to: "#",
+                        class: "text-primary-600 link",
+                        phx_click: "delete_shot_group",
+                        phx_value_id: shot_group.id,
+                        data: [
+                          confirm: dgettext("prompts", "Are you sure you want to delete this shot record?"),
+                          qa: "delete-#{shot_group.id}"
+                        ] do %>
+                    <i class="fa-fw fa-lg fas fa-trash"></i>
+                  <% end %>
+                </div>
               </td>
             </tr>
           <% end %>
@@ -155,6 +180,18 @@
         title={@page_title}
         action={@live_action}
         ammo_group={@ammo_group}
+        return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        current_user={@current_user}
+      />
+    </.modal>
+  <% :edit_shot_group -> %>
+    <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+      <.live_component
+        module={CanneryWeb.RangeLive.FormComponent}
+        id={@shot_group.id}
+        title={@page_title}
+        action={@live_action}
+        shot_group={@shot_group}
         return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
         current_user={@current_user}
       />

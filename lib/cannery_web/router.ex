@@ -80,6 +80,7 @@ defmodule CanneryWeb.Router do
     live "/ammo_groups/:id/show/edit", AmmoGroupLive.Show, :edit
     live "/ammo_groups/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
     live "/ammo_groups/:id/show/move", AmmoGroupLive.Show, :move
+    live "/ammo_groups/:id/show/:shot_group_id/edit", AmmoGroupLive.Show, :edit_shot_group
 
     live "/range", RangeLive.Index, :index
     live "/range/:id/edit", RangeLive.Index, :edit

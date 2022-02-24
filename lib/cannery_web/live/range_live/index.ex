@@ -25,7 +25,7 @@ defmodule CanneryWeb.RangeLive.Index do
          %{"id" => id}
        ) do
     socket
-    |> assign(:page_title, gettext("Record shots"))
+    |> assign(:page_title, gettext("Record Shots"))
     |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
   end
 
