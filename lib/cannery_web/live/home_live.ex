@@ -127,11 +127,15 @@ defmodule CanneryWeb.HomeLive do
           </p>
         </li>
 
-        <li class="flex flex-row justify-center space-x-2">
+        <li class="flex flex-row justify-center items-center space-x-2">
           <b>Version:</b>
-          <p>
-            0.3.0
-          </p>
+          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
+                to: "https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/CHANGELOG.md",
+                target: "_blank",
+                rel: "noopener noreferrer" do %>
+            <p>0.3.0</p>
+            <i class="fas fa-md fa-info-circle"></i>
+          <% end %>
         </li>
       </ul>
     </div>

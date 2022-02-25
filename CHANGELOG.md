@@ -1,3 +1,6 @@
+# v0.3.1
+- Add link to changelog from version number
+
 # v0.3.0
 - Fix ammo type counts not showing when count is 0
 - Add prompt to create first container before first ammo group
