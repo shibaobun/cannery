@@ -46,37 +46,107 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   defp list_ammo_types(%{assigns: %{current_user: current_user}} = socket) do
     ammo_types = Ammo.list_ammo_types(current_user)
 
-    columns_to_display =
+    columns =
       [
-        {gettext("Name"), :name, :string},
-        {gettext("Bullet type"), :bullet_type, :string},
-        {gettext("Bullet core"), :bullet_core, :string},
-        {gettext("Cartridge"), :cartridge, :string},
-        {gettext("Caliber"), :caliber, :string},
-        {gettext("Case material"), :case_material, :string},
-        {gettext("Jacket type"), :jacket_type, :string},
-        {gettext("Muzzle velocity"), :muzzle_velocity, :string},
-        {gettext("Powder type"), :powder_type, :string},
-        {gettext("Powder grains per charge"), :powder_grains_per_charge, :string},
-        {gettext("Grains"), :grains, :string},
-        {gettext("Pressure"), :pressure, :string},
-        {gettext("Primer type"), :primer_type, :string},
-        {gettext("Firing type"), :firing_type, :string},
-        {gettext("Tracer"), :tracer, :boolean},
-        {gettext("Incendiary"), :incendiary, :boolean},
-        {gettext("Blank"), :blank, :boolean},
-        {gettext("Corrosive"), :corrosive, :boolean},
-        {gettext("Manufacturer"), :manufacturer, :string},
-        {gettext("UPC"), :upc, :string}
+        %{label: gettext("Name"), key: "name", type: :string},
+        %{label: gettext("Bullet type"), key: "bullet_type", type: :string},
+        %{label: gettext("Bullet core"), key: "bullet_core", type: :string},
+        %{label: gettext("Cartridge"), key: "cartridge", type: :string},
+        %{label: gettext("Caliber"), key: "caliber", type: :string},
+        %{label: gettext("Case material"), key: "case_material", type: :string},
+        %{label: gettext("Jacket type"), key: "jacket_type", type: :string},
+        %{label: gettext("Muzzle velocity"), key: "muzzle_velocity", type: :string},
+        %{label: gettext("Powder type"), key: "powder_type", type: :string},
+        %{
+          label: gettext("Powder grains per charge"),
+          key: "powder_grains_per_charge",
+          type: :string
+        },
+        %{label: gettext("Grains"), key: "grains", type: :string},
+        %{label: gettext("Pressure"), key: "pressure", type: :string},
+        %{label: gettext("Primer type"), key: "primer_type", type: :string},
+        %{label: gettext("Firing type"), key: "firing_type", type: :string},
+        %{label: gettext("Tracer"), key: "tracer", type: :boolean},
+        %{label: gettext("Incendiary"), key: "incendiary", type: :boolean},
+        %{label: gettext("Blank"), key: "blank", type: :boolean},
+        %{label: gettext("Corrosive"), key: "corrosive", type: :boolean},
+        %{label: gettext("Manufacturer"), key: "manufacturer", type: :string},
+        %{label: gettext("UPC"), key: "upc", type: :string}
       ]
-      |> Enum.filter(fn {_label, field, type} ->
+      |> Enum.filter(fn %{key: key, type: type} ->
         # remove columns if all values match defaults
         default_value = if type == :boolean, do: false, else: nil
 
         ammo_types
-        |> Enum.any?(fn ammo_type -> not (ammo_type |> Map.get(field) == default_value) end)
+        |> Enum.any?(fn ammo_type ->
+          not (ammo_type |> Map.get(key |> String.to_existing_atom()) == default_value)
+        end)
       end)
+      |> Kernel.++([
+        %{label: gettext("Total # of rounds"), key: "round_count", type: :round_count},
+        %{
+          label: nil,
+          key: "actions",
+          class: "px-4 py-2 space-x-4 flex justify-center items-center",
+          type: :actions,
+          sortable: false
+        }
+      ])
 
-    socket |> assign(ammo_types: ammo_types, columns_to_display: columns_to_display)
+    rows =
+      ammo_types
+      |> Enum.map(fn ammo_type -> ammo_type |> get_ammo_type_values(columns, current_user) end)
+
+    socket |> assign(columns: columns, rows: rows)
+  end
+
+  defp get_ammo_type_values(ammo_type, columns, current_user) do
+    assigns = %{ammo_type: ammo_type}
+
+    columns
+    |> Enum.into(%{}, fn %{key: key, type: type} ->
+      value =
+        case type do
+          :boolean ->
+            ammo_type |> Map.get(key |> String.to_existing_atom()) |> humanize()
+
+          :round_count ->
+            ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
+
+          :actions ->
+            ~H"""
+            <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
+                          class: "text-primary-600 link",
+                          data: [qa: "view-#{ammo_type.id}"] do %>
+              <i class="fa-fw fa-lg fas fa-eye"></i>
+            <% end %>
+
+            <%= live_patch to: Routes.ammo_type_index_path(Endpoint, :edit, ammo_type),
+                        class: "text-primary-600 link",
+                        data: [qa: "edit-#{ammo_type.id}"] do %>
+              <i class="fa-fw fa-lg fas fa-edit"></i>
+            <% end %>
+
+            <%= link to: "#",
+                  class: "text-primary-600 link",
+                  phx_click: "delete",
+                  phx_value_id: ammo_type.id,
+                  data: [
+                    confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+                    qa: "delete-#{ammo_type.id}"
+                  ] do %>
+              <i class="fa-lg fas fa-trash"></i>
+            <% end %>
+            """
+
+          nil ->
+            nil
+
+          _other ->
+            ammo_type |> Map.get(key |> String.to_existing_atom())
+        end
+
+      {key, value}
+    end)
   end
 end
