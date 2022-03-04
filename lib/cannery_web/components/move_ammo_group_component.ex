@@ -5,6 +5,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup, Containers}
+  alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
   @impl true
