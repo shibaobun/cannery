@@ -83,12 +83,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
       %{label: gettext("% left"), key: "remaining"},
       %{label: gettext("Range"), key: "range"},
       %{label: gettext("Container"), key: "container"},
-      %{
-        label: nil,
-        key: "actions",
-        sortable: false,
-        class: "px-4 py-2 space-x-4 flex justify-center items-center"
-      }
+      %{label: nil, key: "actions", sortable: false}
     ]
 
     rows =
@@ -150,28 +145,30 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
               "actions" ->
                 ~H"""
-                <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
+                <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
+                  <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
+                                class: "text-primary-600 link",
+                                data: [qa: "view-#{ammo_group.id}"] do %>
+                    <i class="fa-fw fa-lg fas fa-eye"></i>
+                  <% end %>
+
+                  <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
                               class: "text-primary-600 link",
-                              data: [qa: "view-#{ammo_group.id}"] do %>
-                  <i class="fa-fw fa-lg fas fa-eye"></i>
-                <% end %>
+                              data: [qa: "edit-#{ammo_group.id}"] do %>
+                    <i class="fa-fw fa-lg fas fa-edit"></i>
+                  <% end %>
 
-                <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
-                            class: "text-primary-600 link",
-                            data: [qa: "edit-#{ammo_group.id}"] do %>
-                  <i class="fa-fw fa-lg fas fa-edit"></i>
-                <% end %>
-
-                <%= link to: "#",
-                      class: "text-primary-600 link",
-                      phx_click: "delete",
-                      phx_value_id: ammo_group.id,
-                      data: [
-                        confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
-                        qa: "delete-#{ammo_group.id}"
-                      ] do %>
-                  <i class="fa-fw fa-lg fas fa-trash"></i>
-                <% end %>
+                  <%= link to: "#",
+                        class: "text-primary-600 link",
+                        phx_click: "delete",
+                        phx_value_id: ammo_group.id,
+                        data: [
+                          confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+                          qa: "delete-#{ammo_group.id}"
+                        ] do %>
+                    <i class="fa-fw fa-lg fas fa-trash"></i>
+                  <% end %>
+                </div>
                 """
 
               _ ->
