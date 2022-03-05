@@ -45,116 +45,13 @@
       ) %>
     <% end %>
 
-    <div class="w-full overflow-x-auto border border-gray-600 rounded-lg shadow-lg bg-black">
-      <table class="min-w-full table-auto text-center bg-white">
-        <thead class="border-b border-primary-600">
-          <tr>
-            <th class="p-2">
-              <%= gettext("Ammo type") %>
-            </th>
-            <th class="p-2">
-              <%= gettext("Count") %>
-            </th>
-            <th class="p-2">
-              <%= gettext("Price paid") %>
-            </th>
-            <th class="p-2">
-              <%= gettext("% left") %>
-            </th>
-            <th class="p-2">
-              <%= gettext("Range") %>
-            </th>
-            <th class="p-2">
-              <%= gettext("Container") %>
-            </th>
-
-            <th class="p-2"></th>
-          </tr>
-        </thead>
-        <tbody id="ammo_groups">
-          <%= for ammo_group <- @ammo_groups do %>
-            <tr id={"ammo_group-#{ammo_group.id}"}>
-              <td class="p-2">
-                <%= live_patch(ammo_group.ammo_type.name,
-                  to: Routes.ammo_type_show_path(Endpoint, :show, ammo_group.ammo_type),
-                  class: "link"
-                ) %>
-              </td>
-
-              <td class="p-2">
-                <%= ammo_group.count %>
-              </td>
-
-              <td class="p-2">
-                <%= if ammo_group.price_paid do %>
-                  <%= gettext("$%{amount}",
-                    amount: ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
-                  ) %>
-                <% end %>
-              </td>
-
-              <td class="p-2">
-                <%= "#{ammo_group |> Ammo.get_percentage_remaining()}%" %>
-              </td>
-
-              <td class="p-2">
-                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    phx-click="toggle_staged"
-                    phx-value-ammo_group_id={ammo_group.id}
-                  >
-                    <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
-                  </button>
-
-                  <%= live_patch(dgettext("actions", "Record shots"),
-                    to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
-                    class: "btn btn-primary"
-                  ) %>
-                </div>
-              </td>
-
-              <td class="p-2">
-                <%= if ammo_group.container do %>
-                  <%= live_patch(ammo_group.container.name,
-                    to: Routes.ammo_group_index_path(Endpoint, :move, ammo_group),
-                    class: "btn btn-primary"
-                  ) %>
-                <% end %>
-              </td>
-
-              <td class="p-2">
-                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-                  <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
-                                class: "text-primary-600 link",
-                                data: [qa: "view-#{ammo_group.id}"] do %>
-                    <i class="fa-fw fa-lg fas fa-eye"></i>
-                  <% end %>
-
-                  <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
-                             class: "text-primary-600 link",
-                             data: [qa: "edit-#{ammo_group.id}"] do %>
-                    <i class="fa-fw fa-lg fas fa-edit"></i>
-                  <% end %>
-
-                  <%= link to: "#",
-                       class: "text-primary-600 link",
-                       phx_click: "delete",
-                       phx_value_id: ammo_group.id,
-                       data: [
-                         confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
-                         qa: "delete-#{ammo_group.id}"
-                       ] do %>
-                    <i class="fa-fw fa-lg fas fa-trash"></i>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <.live_component
+      module={CanneryWeb.Components.TableComponent}
+      id="ammo_groups_index"
+      action={@live_action}
+      columns={@columns}
+      rows={@rows}
+    />
   <% end %>
 </div>
 
@@ -196,5 +93,5 @@
         current_user={@current_user}
       />
     </.modal>
-  <% true -> %>
-  <% end %>
+  <% true -> %> <%= nil %>
+<% end %>
