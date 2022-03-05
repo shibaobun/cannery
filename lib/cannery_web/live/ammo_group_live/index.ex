@@ -88,98 +88,99 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     rows =
       ammo_groups
-      |> Enum.map(fn ammo_group ->
-        assigns = %{ammo_group: ammo_group}
-
-        columns
-        |> Enum.into(%{}, fn %{key: key} ->
-          value =
-            case key do
-              "ammo_type" ->
-                {ammo_group.ammo_type.name,
-                 live_patch(ammo_group.ammo_type.name,
-                   to: Routes.ammo_type_show_path(Endpoint, :show, ammo_group.ammo_type),
-                   class: "link"
-                 )}
-
-              "price_paid" ->
-                if ammo_group.price_paid do
-                  gettext("$%{amount}",
-                    amount: ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
-                  )
-                else
-                  {"a", nil}
-                end
-
-              "remaining" ->
-                "#{ammo_group |> Ammo.get_percentage_remaining()}%"
-
-              "range" ->
-                {ammo_group.staged,
-                 ~H"""
-                 <button
-                   type="button"
-                   class="btn btn-primary"
-                   phx-click="toggle_staged"
-                   phx-value-ammo_group_id={ammo_group.id}
-                 >
-                   <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
-                 </button>
-
-                 <%= live_patch(dgettext("actions", "Record shots"),
-                   to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
-                   class: "btn btn-primary"
-                 ) %>
-                 """}
-
-              "container" ->
-                if ammo_group.container do
-                  {ammo_group.container.name,
-                   live_patch(ammo_group.container.name,
-                     to: Routes.ammo_group_index_path(Endpoint, :move, ammo_group),
-                     class: "btn btn-primary"
-                   )}
-                else
-                  {nil, nil}
-                end
-
-              "actions" ->
-                ~H"""
-                <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
-                  <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
-                                class: "text-primary-600 link",
-                                data: [qa: "view-#{ammo_group.id}"] do %>
-                    <i class="fa-fw fa-lg fas fa-eye"></i>
-                  <% end %>
-
-                  <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
-                              class: "text-primary-600 link",
-                              data: [qa: "edit-#{ammo_group.id}"] do %>
-                    <i class="fa-fw fa-lg fas fa-edit"></i>
-                  <% end %>
-
-                  <%= link to: "#",
-                        class: "text-primary-600 link",
-                        phx_click: "delete",
-                        phx_value_id: ammo_group.id,
-                        data: [
-                          confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
-                          qa: "delete-#{ammo_group.id}"
-                        ] do %>
-                    <i class="fa-fw fa-lg fas fa-trash"></i>
-                  <% end %>
-                </div>
-                """
-
-              _ ->
-                ammo_group |> Map.get(key |> String.to_existing_atom())
-            end
-
-          {key, value}
-        end)
-      end)
+      |> Enum.map(fn ammo_group -> ammo_group |> get_row_data_for_ammo_group(columns) end)
 
     socket
     |> assign(ammo_groups: ammo_groups, containers: containers, columns: columns, rows: rows)
   end
+
+  @spec get_row_data_for_ammo_group(AmmoGroup.t(), [map()]) :: [map()]
+  defp get_row_data_for_ammo_group(ammo_group, columns) do
+    ammo_group = ammo_group |> Repo.preload([:ammo_type, :container])
+
+    columns
+    |> Enum.into(%{}, fn %{key: key} -> {key, get_value_for_key(key, ammo_group)} end)
+  end
+
+  @spec get_value_for_key(String.t(), AmmoGroup.t()) :: any()
+  defp get_value_for_key("ammo_type", %{ammo_type: ammo_type}) do
+    {ammo_type.name,
+     live_patch(ammo_type.name,
+       to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
+       class: "link"
+     )}
+  end
+
+  defp get_value_for_key("price_paid", %{price_paid: nil}), do: {"a", nil}
+
+  defp get_value_for_key("price_paid", %{price_paid: price_paid}),
+    do: gettext("$%{amount}", amount: price_paid |> :erlang.float_to_binary(decimals: 2))
+
+  defp get_value_for_key("range", %{staged: staged} = ammo_group) do
+    assigns = %{ammo_group: ammo_group}
+
+    {staged,
+     ~H"""
+     <button
+       type="button"
+       class="btn btn-primary"
+       phx-click="toggle_staged"
+       phx-value-ammo_group_id={ammo_group.id}
+     >
+       <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
+     </button>
+
+     <%= live_patch(dgettext("actions", "Record shots"),
+       to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
+       class: "btn btn-primary"
+     ) %>
+     """}
+  end
+
+  defp get_value_for_key("remaining", ammo_group),
+    do: "#{ammo_group |> Ammo.get_percentage_remaining()}%"
+
+  defp get_value_for_key("actions", ammo_group) do
+    assigns = %{ammo_group: ammo_group}
+
+    ~H"""
+    <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
+      <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
+                    class: "text-primary-600 link",
+                    data: [qa: "view-#{ammo_group.id}"] do %>
+        <i class="fa-fw fa-lg fas fa-eye"></i>
+      <% end %>
+
+      <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
+                  class: "text-primary-600 link",
+                  data: [qa: "edit-#{ammo_group.id}"] do %>
+        <i class="fa-fw fa-lg fas fa-edit"></i>
+      <% end %>
+
+      <%= link to: "#",
+            class: "text-primary-600 link",
+            phx_click: "delete",
+            phx_value_id: ammo_group.id,
+            data: [
+              confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+              qa: "delete-#{ammo_group.id}"
+            ] do %>
+        <i class="fa-fw fa-lg fas fa-trash"></i>
+      <% end %>
+    </div>
+    """
+  end
+
+  defp get_value_for_key("container", %{container: nil}), do: {nil, nil}
+
+  defp get_value_for_key("container", %{container: %{name: container_name}} = ammo_group) do
+    {container_name,
+     live_patch(container_name,
+       to: Routes.ammo_group_index_path(Endpoint, :move, ammo_group),
+       class: "btn btn-primary"
+     )}
+  end
+
+  defp get_value_for_key(key, ammo_group),
+    do: ammo_group |> Map.get(key |> String.to_existing_atom())
 end

@@ -5,15 +5,19 @@
         <%= for %{key: key, label: label} = column <- @columns do %>
           <%= if column |> Map.get(:sortable, true) do %>
             <th class={"p-2 #{column[:class]}"}>
-              <span class="cursor-pointer"
+              <span
+                class="cursor-pointer"
                 phx-click="sort_by"
                 phx-value-sort-key={key}
-                phx-target={@myself}>
+                phx-target={@myself}
+              >
                 <span class="underline"><%= label %></span>
                 <%= if @last_sort_key == key do %>
                   <%= case @sort_mode do %>
-                    <% :asc -> %> <i class="fas fa-sm fa-chevron-down"></i>
-                    <% :desc -> %> <i class="fas fa-sm fa-chevron-up"></i>
+                    <% :asc -> %>
+                      <i class="fas fa-sm fa-chevron-down"></i>
+                    <% :desc -> %>
+                      <i class="fas fa-sm fa-chevron-up"></i>
                   <% end %>
                 <% else %>
                   <i class="fas fa-sm fa-chevron-up opacity-0"></i>
@@ -34,8 +38,10 @@
           <%= for %{key: key} = value <- @columns do %>
             <td class={"p-2 #{value[:class]}"}>
               <%= case values |> Map.get(key) do %>
-                <%= {_custom_sort_value, value} -> %> <%= value %>
-                <% value -> %> <%= value %>
+                <% {_custom_sort_value, value} -> %>
+                  <%= value %>
+                <% value -> %>
+                  <%= value %>
               <% end %>
             </td>
           <% end %>

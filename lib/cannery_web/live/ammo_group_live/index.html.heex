@@ -47,7 +47,7 @@
 
     <.live_component
       module={CanneryWeb.Components.TableComponent}
-      id="ammo_groups_index"
+      id="ammo_groups_index_table"
       action={@live_action}
       columns={@columns}
       rows={@rows}
@@ -93,5 +93,6 @@
         current_user={@current_user}
       />
     </.modal>
-  <% true -> %> <%= nil %>
+  <% true -> %>
+    <%= nil %>
 <% end %>

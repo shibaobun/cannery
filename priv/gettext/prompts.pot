@@ -92,9 +92,9 @@ msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:146
+#: lib/cannery_web/live/ammo_group_live/index.ex:165
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:66
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:75
+#: lib/cannery_web/live/ammo_type_live/index.ex:130
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
@@ -205,8 +205,8 @@ msgid "Ammo group unstaged succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:159
-#: lib/cannery_web/live/range_live/index.html.heex:108
+#: lib/cannery_web/live/ammo_group_live/show.ex:132
+#: lib/cannery_web/live/range_live/index.ex:130
 msgid "Are you sure you want to delete this shot record?"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgid "%{email} confirmed successfully."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/move_ammo_group_component.ex:47
+#: lib/cannery_web/components/move_ammo_group_component.ex:53
 msgid "Ammo moved to %{name} successfully"
 msgstr ""
 

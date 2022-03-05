@@ -1,4 +1,5 @@
 # v0.4.0
+- Make tables sortable
 - Add link to changelog from version number
 - Fix some elements flashing with black background
 - Fix bug with moving ammo group to new container

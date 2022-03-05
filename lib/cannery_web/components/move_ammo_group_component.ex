@@ -106,33 +106,30 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
   defp get_rows_for_containers(containers, assigns, columns) do
     containers
     |> Enum.map(fn container ->
-      assigns = assigns |> Map.put(:container, container)
-
       columns
-      |> Enum.into(%{}, fn %{key: key} ->
-        value =
-          case key do
-            "actions" ->
-              ~H"""
-              <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  phx-click="move"
-                  phx-target={@myself}
-                  phx-value-container_id={container.id}
-                >
-                  <%= dgettext("actions", "Select") %>
-                </button>
-              </div>
-              """
-
-            key ->
-              container |> Map.get(key |> String.to_existing_atom())
-          end
-
-        {key, value}
-      end)
+      |> Enum.into(%{}, fn %{key: key} -> {key, get_row_value_by_key(key, container, assigns)} end)
     end)
   end
+
+  @spec get_row_value_by_key(String.t(), Container.t(), map()) :: any()
+  defp get_row_value_by_key("actions", container, assigns) do
+    assigns = assigns |> Map.put(:container, container)
+
+    ~H"""
+    <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+      <button
+        type="button"
+        class="btn btn-primary"
+        phx-click="move"
+        phx-target={@myself}
+        phx-value-container_id={container.id}
+      >
+        <%= dgettext("actions", "Select") %>
+      </button>
+    </div>
+    """
+  end
+
+  defp get_row_value_by_key(key, container, _assigns),
+    do: container |> Map.get(key |> String.to_existing_atom())
 end
