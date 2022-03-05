@@ -67,12 +67,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
       %{label: gettext("Container"), key: "name"},
       %{label: gettext("Type"), key: "type"},
       %{label: gettext("Location"), key: "location"},
-      %{
-        label: nil,
-        key: "actions",
-        sortable: false,
-        class: "px-4 py-2 space-x-4 flex justify-center items-center"
-      }
+      %{label: nil, key: "actions", sortable: false}
     ]
 
     rows = containers |> get_rows_for_containers(assigns, columns)
@@ -119,15 +114,17 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
           case key do
             "actions" ->
               ~H"""
-              <button
-                type="button"
-                class="btn btn-primary"
-                phx-click="move"
-                phx-target={@myself}
-                phx-value-container_id={container.id}
-              >
-                <%= dgettext("actions", "Select") %>
-              </button>
+              <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  phx-click="move"
+                  phx-target={@myself}
+                  phx-value-container_id={container.id}
+                >
+                  <%= dgettext("actions", "Select") %>
+                </button>
+              </div>
               """
 
             key ->
