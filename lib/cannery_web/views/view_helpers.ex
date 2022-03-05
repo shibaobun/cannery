@@ -7,6 +7,8 @@ defmodule CanneryWeb.ViewHelpers do
 
   import Phoenix.LiveView.Helpers
 
+  @id_length 16
+
   @doc """
   Returns a <time> element that renders the naivedatetime in the user's local
   timezone with Alpine.js
@@ -16,11 +18,12 @@ defmodule CanneryWeb.ViewHelpers do
 
   def display_datetime(datetime) do
     assigns = %{
+      id: :crypto.strong_rand_bytes(@id_length) |> Base.url_encode64(),
       datetime: datetime |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_iso8601(:extended)
     }
 
     ~H"""
-    <time datetime={@datetime} x-data={"{
+    <time id={@id} datetime={@datetime} x-data={"{
         date:
           Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
             .format(new Date(\"#{@datetime}\"))
@@ -38,10 +41,13 @@ defmodule CanneryWeb.ViewHelpers do
   def display_date(nil), do: ""
 
   def display_date(date) do
-    assigns = %{date: date |> Date.to_iso8601(:extended)}
+    assigns = %{
+      id: :crypto.strong_rand_bytes(@id_length) |> Base.url_encode64(),
+      date: date |> Date.to_iso8601(:extended)
+    }
 
     ~H"""
-    <time datetime={@date} x-data={"{
+    <time id={@id} datetime={@date} x-data={"{
         date:
           Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'}).format(new Date(\"#{@date}\"))
       }"} x-text="date">
