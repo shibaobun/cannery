@@ -36,10 +36,23 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   def handle_event(
         "validate",
         %{"ammo_group" => ammo_group_params},
-        %{assigns: %{ammo_group: ammo_group}} = socket
+        %{assigns: %{action: action, ammo_group: ammo_group}} = socket
       ) do
-    socket = socket |> assign(:changeset, ammo_group |> Ammo.change_ammo_group(ammo_group_params))
-    {:noreply, socket}
+    changeset_action =
+      case action do
+        :new -> :insert
+        :edit -> :update
+      end
+
+    changeset = ammo_group |> Ammo.change_ammo_group(ammo_group_params)
+
+    changeset =
+      case changeset |> Changeset.apply_action(changeset_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    {:noreply, socket |> assign(:changeset, changeset)}
   end
 
   def handle_event(
@@ -142,9 +155,6 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
       {:error, %Changeset{} = changeset} ->
         socket |> assign(changeset: changeset)
-
-      {:error, nil} ->
-        socket
     end
   end
 end

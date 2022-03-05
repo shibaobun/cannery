@@ -342,7 +342,7 @@ defmodule Cannery.Ammo do
   """
   @spec create_ammo_groups(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
           {:ok, {count :: non_neg_integer(), [AmmoGroup.t()] | nil}}
-          | {:error, Changeset.t(AmmoGroup.new_ammo_group()) | nil}
+          | {:error, Changeset.t(AmmoGroup.new_ammo_group())}
   def create_ammo_groups(
         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
         multiplier,
@@ -361,26 +361,24 @@ defmodule Cannery.Ammo do
       end)
 
     if changesets |> Enum.all?(fn %{valid?: valid} -> valid end) do
-      Multi.new()
-      |> Multi.insert_all(
-        :create_ammo_groups,
-        AmmoGroup,
-        changesets
-        |> Enum.map(fn changeset ->
-          changeset
-          |> Map.get(:changes)
-          |> Map.merge(%{inserted_at: now, updated_at: now})
-        end),
-        returning: true
-      )
-      |> Repo.transaction()
-      |> case do
-        {:ok, %{create_ammo_groups: {count, ammo_groups}}} -> {:ok, {count, ammo_groups}}
-        {:error, :create_ammo_groups, changeset, _changes_so_far} -> {:error, changeset}
-        {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
-      end
+      {count, inserted_ammo_groups} =
+        Repo.insert_all(
+          AmmoGroup,
+          changesets
+          |> Enum.map(fn changeset ->
+            changeset
+            |> Map.get(:changes)
+            |> Map.merge(%{inserted_at: now, updated_at: now})
+          end),
+          returning: true
+        )
+
+      {:ok, {count, inserted_ammo_groups}}
     else
-      {:error, changesets |> List.first()}
+      changesets
+      |> Enum.reject(fn %{valid?: valid} -> valid end)
+      |> List.first()
+      |> Changeset.apply_action(:insert)
     end
   end
 

@@ -3,6 +3,7 @@
 - Add link to changelog from version number
 - Fix some elements flashing with black background
 - Fix bug with moving ammo group to new container
+- Fix bug with no error showing up for create ammo group form
 
 # v0.3.0
 - Fix ammo type counts not showing when count is 0
