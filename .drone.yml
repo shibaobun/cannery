@@ -77,7 +77,7 @@ services:
 volumes:
   - name: cache
     host:
-      path: /tmp/drone-cache
+      path: /run/media/default/ssdsrv/gitea/drone-cache
   - name: docker_sock
     host:
       path: /var/run/docker.sock
