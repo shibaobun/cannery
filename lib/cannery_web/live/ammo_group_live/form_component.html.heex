@@ -69,7 +69,6 @@
         ) %>
 
         <%= error_tag(f, :multiplier, "col-span-3 text-center") %>
-
       <% :edit -> %>
         <%= submit(dgettext("actions", "Save"),
           phx_disable_with: dgettext("prompts", "Saving..."),

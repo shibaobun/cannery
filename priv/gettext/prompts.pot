@@ -68,7 +68,7 @@ msgid "Ammo group deleted succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:75
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:88
 msgid "Ammo group updated successfully"
 msgstr ""
 
@@ -253,7 +253,7 @@ msgid "Creating..."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:134
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:147
 msgid "Ammo group created successfully"
 msgid_plural "Ammo groups created successfully"
 msgstr[0] ""

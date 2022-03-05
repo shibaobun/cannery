@@ -6,7 +6,7 @@ defmodule Cannery.Ammo do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Ecto.{Changeset, Multi}
+  alias Ecto.Changeset
 
   @ammo_group_create_limit 10_000
 
