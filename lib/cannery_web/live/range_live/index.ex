@@ -77,6 +77,65 @@ defmodule CanneryWeb.RangeLive.Index do
       ActivityLog.list_shot_groups(current_user) |> Repo.preload(ammo_group: :ammo_type)
 
     ammo_groups = Ammo.list_staged_ammo_groups(current_user)
-    socket |> assign(shot_groups: shot_groups, ammo_groups: ammo_groups)
+
+    columns = [
+      %{label: gettext("Ammo"), key: "name"},
+      %{label: gettext("Rounds shot"), key: "count"},
+      %{label: gettext("Notes"), key: "notes"},
+      %{label: gettext("Date"), key: "date"},
+      %{label: nil, key: "actions", sortable: false}
+    ]
+
+    rows =
+      shot_groups
+      |> Enum.map(fn %{date: date} = shot_group ->
+        assigns = %{shot_group: shot_group}
+
+        columns
+        |> Enum.into(%{}, fn %{key: key} ->
+          value =
+            case key do
+              "name" ->
+                {shot_group.ammo_group.ammo_type.name,
+                 live_patch(shot_group.ammo_group.ammo_type.name,
+                   to: Routes.ammo_group_show_path(Endpoint, :show, shot_group.ammo_group),
+                   class: "link"
+                 )}
+
+              "date" ->
+                date |> display_date()
+
+              "actions" ->
+                ~H"""
+                <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+                  <%= live_patch to: Routes.range_index_path(Endpoint, :edit, shot_group),
+                             class: "text-primary-600 link",
+                             data: [qa: "edit-#{shot_group.id}"] do %>
+                    <i class="fa-fw fa-lg fas fa-edit"></i>
+                  <% end %>
+
+                  <%= link to: "#",
+                       class: "text-primary-600 link",
+                       phx_click: "delete",
+                       phx_value_id: shot_group.id,
+                       data: [
+                         confirm: dgettext("prompts", "Are you sure you want to delete this shot record?"),
+                         qa: "delete-#{shot_group.id}"
+                       ] do %>
+                    <i class="fa-fw fa-lg fas fa-trash"></i>
+                  <% end %>
+                </div>
+                """
+
+              value ->
+                shot_group |> Map.get(key |> String.to_existing_atom())
+            end
+
+          {key, value}
+        end)
+      end)
+
+    socket
+    |> assign(ammo_groups: ammo_groups, columns: columns, rows: rows, shot_groups: shot_groups)
   end
 end
