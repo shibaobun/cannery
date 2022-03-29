@@ -51,7 +51,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#ammo_group-form", ammo_group: @create_attrs)
         |> render_submit()
@@ -75,7 +75,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#ammo_group-form",
           ammo_group: @create_attrs |> Map.put("multiplier", to_string(multiplier))
@@ -135,7 +135,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#shot_group-form", shot_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "is invalid")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#shot-group-form", shot_group: @shot_group_create_attrs)
         |> render_submit()
@@ -158,7 +158,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#ammo_group-form", ammo_group: @update_attrs)
         |> render_submit()
@@ -204,7 +204,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#ammo_group-form", ammo_group: @update_attrs)
         |> render_submit()
@@ -226,7 +226,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#shot_group-form", shot_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "is invalid")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#shot-group-form", shot_group: @shot_group_create_attrs)
         |> render_submit()
@@ -251,7 +251,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       #        |> form("#shot_group-form", shot_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "is invalid")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#shot-group-form", shot_group: @shot_group_update_attrs)
         |> render_submit()

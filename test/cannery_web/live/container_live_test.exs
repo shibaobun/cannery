@@ -52,7 +52,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       #        |> form("#container-form", container: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#container-form", container: @create_attrs)
         |> render_submit()
@@ -78,7 +78,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       #        |> form("#container-form", container: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#container-form", container: @update_attrs)
         |> render_submit()
@@ -123,7 +123,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       #        |> form("#container-form", container: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#container-form", container: @update_attrs)
         |> render_submit()

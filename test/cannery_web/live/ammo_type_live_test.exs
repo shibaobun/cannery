@@ -62,7 +62,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       #        |> form("#ammo_type-form", ammo_type: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#ammo_type-form", ammo_type: @create_attrs)
         |> render_submit()
@@ -86,7 +86,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       #        |> form("#ammo_type-form", ammo_type: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#ammo_type-form", ammo_type: @update_attrs)
         |> render_submit()
@@ -128,7 +128,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       #        |> form("#ammo_type-form", ammo_type: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         show_live
         |> form("#ammo_type-form", ammo_type: @update_attrs)
         |> render_submit()

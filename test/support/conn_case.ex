@@ -25,6 +25,7 @@ defmodule CanneryWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import Cannery.Fixtures
       import CanneryWeb.ConnCase
 

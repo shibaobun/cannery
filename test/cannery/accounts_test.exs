@@ -304,9 +304,9 @@ defmodule Cannery.AccountsTest do
     end
 
     test "deletes all tokens for the given user", %{user: user} do
-      _ = Accounts.generate_user_session_token(user)
+      _token = Accounts.generate_user_session_token(user)
 
-      {:ok, _} =
+      {:ok, _user} =
         Accounts.update_user_password(user, valid_user_password(), %{
           "password" => "new valid password"
         })
@@ -501,8 +501,8 @@ defmodule Cannery.AccountsTest do
     end
 
     test "deletes all tokens for the given user", %{user: user} do
-      _ = Accounts.generate_user_session_token(user)
-      {:ok, _} = Accounts.reset_user_password(user, %{"password" => "new valid password"})
+      _token = Accounts.generate_user_session_token(user)
+      {:ok, _user} = Accounts.reset_user_password(user, %{"password" => "new valid password"})
       refute Repo.get_by(UserToken, user_id: user.id)
     end
   end

@@ -196,7 +196,7 @@ defmodule Cannery.Accounts do
          {:ok, _} <- Repo.transaction(user_email_multi(user, email, context)) do
       :ok
     else
-      _ -> :error
+      _error_tuple -> :error
     end
   end
 
@@ -265,7 +265,7 @@ defmodule Cannery.Accounts do
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
+      {:error, :user, changeset, _changes_so_far} -> {:error, changeset}
     end
   end
 
@@ -372,7 +372,7 @@ defmodule Cannery.Accounts do
          {:ok, %{user: user}} <- Repo.transaction(confirm_user_multi(user)) do
       {:ok, user}
     else
-      _ -> :error
+      _error_tuple -> :error
     end
   end
 
@@ -420,7 +420,7 @@ defmodule Cannery.Accounts do
          %User{} = user <- Repo.one(query) do
       user
     else
-      _ -> nil
+      _error_tuple -> nil
     end
   end
 
@@ -444,7 +444,7 @@ defmodule Cannery.Accounts do
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
+      {:error, :user, changeset, _changes_so_far} -> {:error, changeset}
     end
   end
 end

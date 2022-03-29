@@ -14,7 +14,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, %{assigns: %{current_user: current_user}} = socket) do
+  def handle_params(%{"id" => id}, _params, %{assigns: %{current_user: current_user}} = socket) do
     ammo_type = Ammo.get_ammo_type!(id, current_user)
 
     socket =
@@ -32,7 +32,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   @impl true
   def handle_event(
         "delete",
-        _,
+        _params,
         %{assigns: %{ammo_type: ammo_type, current_user: current_user}} = socket
       ) do
     %{name: ammo_type_name} = ammo_type |> Ammo.delete_ammo_type!(current_user)

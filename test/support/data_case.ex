@@ -22,10 +22,8 @@ defmodule Cannery.DataCase do
       alias Cannery.Repo
 
       import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-      import Cannery.DataCase
-      import Cannery.Fixtures
+      import Ecto.{Changeset, Query}
+      import Cannery.{DataCase, Fixtures}
     end
   end
 
@@ -45,7 +43,7 @@ defmodule Cannery.DataCase do
   """
   def errors_on(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
-      Regex.replace(~r"%{(\w+)}", message, fn _, key ->
+      Regex.replace(~r"%{(\w+)}", message, fn _content, key ->
         opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
       end)
     end)

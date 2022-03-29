@@ -40,7 +40,7 @@ defmodule CanneryWeb.InviteLiveTest do
       #        |> form("#invite-form", invite: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#invite-form", invite: @create_attrs)
         |> render_submit()
@@ -63,7 +63,7 @@ defmodule CanneryWeb.InviteLiveTest do
       #        |> form("#invite-form", invite: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#invite-form", invite: @update_attrs)
         |> render_submit()

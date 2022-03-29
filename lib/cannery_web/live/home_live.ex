@@ -29,7 +29,7 @@ defmodule CanneryWeb.HomeLive do
       %{^query => vsn} ->
         {:noreply, redirect(socket, external: "https://hexdocs.pm/#{query}/#{vsn}")}
 
-      _ ->
+      _no_query ->
         {:noreply,
          socket
          |> put_flash(:error, "No dependencies found matching \"#{query}\"")

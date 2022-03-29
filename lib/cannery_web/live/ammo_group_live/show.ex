@@ -44,7 +44,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   @impl true
   def handle_event(
         "delete",
-        _,
+        _params,
         %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
       ) do
     ammo_group |> Ammo.delete_ammo_group!(current_user)
@@ -58,7 +58,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   @impl true
   def handle_event(
         "toggle_staged",
-        _,
+        _params,
         %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
       ) do
     {:ok, ammo_group} =

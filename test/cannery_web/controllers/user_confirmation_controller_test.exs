@@ -5,8 +5,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
 
   use CanneryWeb.ConnCase, async: true
   import CanneryWeb.Gettext
-  alias Cannery.Accounts
-  alias Cannery.Repo
+  alias Cannery.{Accounts, Repo}
 
   @moduletag :user_confirmation_controller_test
 

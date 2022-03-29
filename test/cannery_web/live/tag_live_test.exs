@@ -53,7 +53,7 @@ defmodule CanneryWeb.TagLiveTest do
       #        |> form("#tag-form", tag: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#tag-form", tag: @create_attrs)
         |> render_submit()
@@ -75,7 +75,7 @@ defmodule CanneryWeb.TagLiveTest do
       #        |> form("#tag-form", tag: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#tag-form", tag: @update_attrs)
         |> render_submit()

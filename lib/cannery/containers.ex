@@ -215,7 +215,7 @@ defmodule Cannery.Containers do
   def get_container_rounds!(%Container{} = container) do
     container
     |> Repo.preload(:ammo_groups)
-    |> Map.get(:ammo_groups)
+    |> Map.fetch!(:ammo_groups)
     |> Enum.map(fn %{count: count} -> count end)
     |> Enum.sum()
   end

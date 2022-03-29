@@ -49,7 +49,7 @@ defmodule CanneryWeb.RangeLiveTest do
       #        |> form("#shot_group-form", shot_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "is invalid")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#shot-group-form", shot_group: @create_attrs)
         |> render_submit()
@@ -71,7 +71,7 @@ defmodule CanneryWeb.RangeLiveTest do
       #        |> form("#shot_group-form", shot_group: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "is invalid")
 
-      {:ok, _, html} =
+      {:ok, _view, html} =
         index_live
         |> form("#shot-group-form", shot_group: @update_attrs)
         |> render_submit()

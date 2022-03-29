@@ -308,7 +308,7 @@ defmodule Cannery.Ammo do
   def get_used_count(%AmmoGroup{} = ammo_group) do
     ammo_group
     |> Repo.preload(:shot_groups)
-    |> Map.get(:shot_groups)
+    |> Map.fetch!(:shot_groups)
     |> Enum.map(fn %{count: count} -> count end)
     |> Enum.sum()
   end

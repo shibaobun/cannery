@@ -18,7 +18,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   @impl true
   def handle_params(
         %{"id" => id},
-        _,
+        _session,
         %{assigns: %{current_user: current_user}} = socket
       ) do
     {:noreply, socket |> render_container(id, current_user)}
@@ -53,7 +53,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   @impl true
   def handle_event(
         "delete_container",
-        _,
+        _params,
         %{assigns: %{container: container, current_user: current_user}} = socket
       ) do
     socket =

@@ -71,6 +71,7 @@ defmodule CanneryWeb do
     quote do
       use Phoenix.Router
 
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
@@ -79,7 +80,9 @@ defmodule CanneryWeb do
 
   def channel do
     quote do
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       use Phoenix.Channel
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import CanneryWeb.Gettext
     end
   end
@@ -87,14 +90,18 @@ defmodule CanneryWeb do
   defp view_helpers do
     quote do
       # Use all HTML functionality (forms, tags, etc)
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       use Phoenix.HTML
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import Phoenix.LiveView.Helpers
 
       # Import basic rendering functionality (render, render_layout, etc)
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import Phoenix.View
 
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import CanneryWeb.{ErrorHelpers, Gettext, LiveHelpers, ViewHelpers}
       alias CanneryWeb.Router.Helpers, as: Routes
     end
