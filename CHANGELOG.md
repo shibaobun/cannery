@@ -1,3 +1,7 @@
+# v0.4.1
+- Fix button and tag text wrapping
+- Code quality fixes
+
 # v0.4.0
 - Make tables sortable
 - Add link to changelog from version number
