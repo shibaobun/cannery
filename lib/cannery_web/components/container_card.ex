@@ -14,11 +14,11 @@ defmodule CanneryWeb.Components.ContainerCard do
     ~H"""
     <div
       id={"container-#{@container.id}"}
-      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
+      class="overflow-hidden max-w-full mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
         border border-gray-400 rounded-lg shadow-lg hover:shadow-md
         transition-all duration-300 ease-in-out"
     >
-      <div class="mb-4 flex flex-col justify-center items-center space-y-2">
+      <div class="max-w-full mb-4 flex flex-col justify-center items-center space-y-2">
         <%= live_redirect to: Routes.container_show_path(Endpoint, :show, @container),
                       class: "link" do %>
           <h1 class="px-4 py-2 rounded-lg title text-xl">

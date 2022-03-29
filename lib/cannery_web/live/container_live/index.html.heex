@@ -20,7 +20,7 @@
     ) %>
   <% end %>
 
-  <div class="flex flex-row flex-wrap justify-center items-center">
+  <div class="max-w-full flex flex-row flex-wrap justify-center items-center">
     <%= for container <- @containers do %>
       <.container_card container={container}>
         <:tag_actions>

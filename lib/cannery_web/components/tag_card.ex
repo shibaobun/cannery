@@ -22,7 +22,7 @@ defmodule CanneryWeb.Components.TagCard do
   def simple_tag_card(assigns) do
     ~H"""
     <h1
-      class="mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
+      class="inline-block break-all mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
       style={"color: #{@tag.text_color}; background-color: #{@tag.bg_color}"}
     >
       <%= @tag.name %>
