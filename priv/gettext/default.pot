@@ -689,12 +689,12 @@ msgid "New password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:130
+#: lib/cannery_web/live/ammo_group_live/index.ex:131
 msgid "Stage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:130
+#: lib/cannery_web/live/ammo_group_live/index.ex:131
 msgid "Unstage"
 msgstr ""
 
