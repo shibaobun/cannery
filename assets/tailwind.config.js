@@ -28,6 +28,20 @@ module.exports = {
         128: '32rem',
         192: '48rem',
         256: '64rem'
+      },
+      minWidth: {
+        4: '1rem',
+        8: '2rem',
+        12: '3rem',
+        16: '4rem',
+        20: '8rem'
+      },
+      maxWidth: {
+        4: '1rem',
+        8: '2rem',
+        12: '3rem',
+        16: '4rem',
+        20: '8rem'
       }
     }
   },
