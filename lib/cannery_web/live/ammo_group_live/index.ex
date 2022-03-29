@@ -121,19 +121,21 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     {staged,
      ~H"""
-     <button
-       type="button"
-       class="btn btn-primary"
-       phx-click="toggle_staged"
-       phx-value-ammo_group_id={ammo_group.id}
-     >
-       <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
-     </button>
+     <div class="min-w-20 py-2 px-4 h-full flex flex-col justify-center items-center">
+       <button
+         type="button"
+         class="mx-2 my-1 btn btn-primary"
+         phx-click="toggle_staged"
+         phx-value-ammo_group_id={ammo_group.id}
+       >
+         <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
+       </button>
 
-     <%= live_patch(dgettext("actions", "Record shots"),
-       to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
-       class: "btn btn-primary"
-     ) %>
+       <%= live_patch(dgettext("actions", "Record shots"),
+         to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
+         class: "mx-2 my-1 btn btn-primary"
+       ) %>
+     </div>
      """}
   end
 
@@ -174,11 +176,17 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   defp get_value_for_key("container", %{container: nil}), do: {nil, nil}
 
   defp get_value_for_key("container", %{container: %{name: container_name}} = ammo_group) do
+    assigns = %{ammo_group: ammo_group}
+
     {container_name,
-     live_patch(container_name,
-       to: Routes.ammo_group_index_path(Endpoint, :move, ammo_group),
-       class: "btn btn-primary"
-     )}
+     ~H"""
+     <div class="min-w-20 py-2 px-4 h-full space-x-4 flex justify-center items-center">
+       <%= live_patch(@ammo_group.container.name,
+         to: Routes.ammo_group_index_path(Endpoint, :move, @ammo_group),
+         class: "btn btn-primary"
+       ) %>
+     </div>
+     """}
   end
 
   defp get_value_for_key(key, ammo_group),
