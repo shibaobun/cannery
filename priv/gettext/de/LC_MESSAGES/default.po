@@ -1,0 +1,841 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-19 19:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 3.6.0\n"
+
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+
+#: lib/cannery_web/live/home_live.ex:63
+#, elixir-autogen, elixir-format
+msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:85
+#, elixir-autogen, elixir-format
+msgid "Access from any internet-capable device"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "Admins"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:99
+#, elixir-autogen, elixir-format
+msgid "Admins:"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:52
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:3
+#: lib/cannery_web/live/range_live/index.ex:82
+#, elixir-autogen, elixir-format
+msgid "Ammo"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
+#: lib/cannery_web/live/ammo_group_live/index.ex:80
+#, elixir-autogen, elixir-format
+msgid "Ammo type"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:94
+#, elixir-autogen, elixir-format
+msgid "Average Price paid"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/form_component.ex:54
+#, elixir-autogen, elixir-format
+msgid "Background color"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:140
+#: lib/cannery_web/live/ammo_type_live/index.ex:71
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "Blank"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:68
+#, elixir-autogen, elixir-format
+msgid "Brass"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:44
+#: lib/cannery_web/live/ammo_type_live/index.ex:53
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "Bullet core"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:37
+#: lib/cannery_web/live/ammo_type_live/index.ex:52
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:40
+#, elixir-autogen, elixir-format
+msgid "Bullet type"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:58
+#: lib/cannery_web/live/ammo_type_live/index.ex:55
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "Caliber"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:51
+#: lib/cannery_web/live/ammo_type_live/index.ex:54
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Cartridge"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:65
+#: lib/cannery_web/live/ammo_type_live/index.ex:56
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "Case material"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:67
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
+#: lib/cannery_web/live/ammo_group_live/index.ex:85
+#, elixir-autogen, elixir-format
+msgid "Container"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:46
+#: lib/cannery_web/live/container_live/index.ex:38
+#: lib/cannery_web/live/container_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Containers"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:144
+#: lib/cannery_web/live/ammo_type_live/index.ex:72
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Corrosive"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
+#: lib/cannery_web/live/ammo_group_live/index.ex:81
+#, elixir-autogen, elixir-format
+msgid "Count"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_card.ex:29
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Count:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:24
+#: lib/cannery_web/live/container_live/form_component.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr ""
+
+#: lib/cannery_web/components/container_card.ex:31
+#: lib/cannery_web/live/container_live/show.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Description:"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:59
+#, elixir-autogen, elixir-format
+msgid "Disable"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "Easy to Use:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#: lib/cannery_web/live/ammo_group_live/show.ex:42
+#, elixir-autogen, elixir-format
+msgid "Edit Ammo group"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.ex:23
+#: lib/cannery_web/live/ammo_type_live/show.ex:47
+#, elixir-autogen, elixir-format
+msgid "Edit Ammo type"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:35
+#, elixir-autogen, elixir-format
+msgid "Edit Invite"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/index.ex:23
+#, elixir-autogen, elixir-format
+msgid "Edit Tag"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:63
+#, elixir-autogen, elixir-format
+msgid "Enable"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Example bullet type abbreviations"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:40
+#, elixir-autogen, elixir-format
+msgid "FMJ"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:103
+#: lib/cannery_web/live/ammo_type_live/index.ex:65
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "Grains"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:136
+#: lib/cannery_web/live/ammo_type_live/index.ex:70
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:54
+#, elixir-autogen, elixir-format
+msgid "Incendiary"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:94
+#, elixir-autogen, elixir-format
+msgid "Instance Information"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:27
+#, elixir-autogen, elixir-format
+msgid "Invite Disabled"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:125
+#, elixir-autogen, elixir-format
+msgid "Invite Only"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:71
+#: lib/cannery_web/live/invite_live/index.ex:43
+#: lib/cannery_web/live/invite_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Invites"
+msgstr ""
+
+#: lib/cannery_web/templates/user_session/new.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in for 60 days"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:69
+#: lib/cannery_web/live/container_live/form_component.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Location"
+msgstr ""
+
+#: lib/cannery_web/components/container_card.ex:43
+#: lib/cannery_web/live/container_live/show.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Location:"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/form_component.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Magazine, Clip, Ammo Box, etc"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:58
+#, elixir-autogen, elixir-format
+msgid "Manage"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:148
+#: lib/cannery_web/live/ammo_type_live/index.ex:73
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:57
+#, elixir-autogen, elixir-format
+msgid "Manufacturer"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/form_component.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Metal ammo can with the anime girl sticker"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/form_component.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "My cool ammo can"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:20
+#: lib/cannery_web/live/ammo_type_live/index.ex:51
+#: lib/cannery_web/live/container_live/form_component.html.heex:20
+#: lib/cannery_web/live/invite_live/form_component.html.heex:20
+#: lib/cannery_web/live/tag_live/form_component.ex:50
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.ex:29
+#, elixir-autogen, elixir-format
+msgid "New Ammo type"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/index.ex:33
+#, elixir-autogen, elixir-format
+msgid "New Container"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:39
+#, elixir-autogen, elixir-format
+msgid "New Invite"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/index.ex:29
+#, elixir-autogen, elixir-format
+msgid "New Tag"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "No Ammo"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "No Ammo Types"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:114
+#, elixir-autogen, elixir-format
+msgid "No ammo for this type"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.html.heex:78
+#, elixir-autogen, elixir-format
+msgid "No ammo groups in this container"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "No containers"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "No invites"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:30
+#: lib/cannery_web/live/tag_live/index.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "No tags"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:30
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
+#: lib/cannery_web/live/ammo_group_live/show.ex:90
+#: lib/cannery_web/live/range_live/form_component.html.heex:29
+#: lib/cannery_web/live/range_live/index.ex:84
+#, elixir-autogen, elixir-format
+msgid "Notes"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_card.ex:35
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "Notes:"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/form_component.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "On the bookshelf"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:111
+#: lib/cannery_web/live/ammo_type_live/index.ex:66
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:50
+#, elixir-autogen, elixir-format
+msgid "Pressure"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:34
+#: lib/cannery_web/live/ammo_group_live/index.ex:82
+#, elixir-autogen, elixir-format
+msgid "Price paid"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_card.ex:42
+#, elixir-autogen, elixir-format
+msgid "Price paid:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:118
+#: lib/cannery_web/live/ammo_type_live/index.ex:67
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Primer type"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:124
+#, elixir-autogen, elixir-format
+msgid "Public Signups"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:72
+#, elixir-autogen, elixir-format
+msgid "Secure:"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:75
+#, elixir-autogen, elixir-format
+msgid "Self-host your own instance, or use an instance from someone you trust."
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:79
+#, elixir-autogen, elixir-format
+msgid "Set Unlimited"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_settings_controller.ex:10
+#: lib/cannery_web/templates/user_settings/edit.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.ex:41
+#, elixir-autogen, elixir-format
+msgid "Show Ammo group"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.ex:46
+#, elixir-autogen, elixir-format
+msgid "Show Ammo type"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:82
+#, elixir-autogen, elixir-format
+msgid "Simple:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Steel"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:98
+#, elixir-autogen, elixir-format
+msgid "Stored in"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:40
+#: lib/cannery_web/live/tag_live/index.ex:34
+#: lib/cannery_web/live/tag_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Tags"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/index.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Tags can be added to your containers to help you organize"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/form_component.ex:60
+#, elixir-autogen, elixir-format
+msgid "Text color"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:51
+#, elixir-autogen, elixir-format
+msgid "The self-hosted firearm tracker website"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:103
+#, elixir-autogen, elixir-format
+msgid "This ammo group is not in a container"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:132
+#: lib/cannery_web/live/ammo_type_live/index.ex:69
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "Tracer"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:68
+#: lib/cannery_web/live/container_live/form_component.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Type"
+msgstr ""
+
+#: lib/cannery_web/components/container_card.ex:37
+#: lib/cannery_web/live/container_live/show.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Type:"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:119
+#, elixir-autogen, elixir-format
+msgid "Users"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:22
+#, elixir-autogen, elixir-format
+msgid "Uses Left:"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/form_component.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "Uses left"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:47
+#, elixir-autogen, elixir-format
+msgid "Welcome to %{name}"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:76
+#, elixir-autogen, elixir-format
+msgid "Your data stays with you, period"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "No tags for this container"
+msgstr ""
+
+#: lib/cannery_web/components/topbar.ex:64
+#: lib/cannery_web/live/ammo_group_live/index.ex:84
+#, elixir-autogen, elixir-format
+msgid "Range"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Range day"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.ex:91
+#: lib/cannery_web/live/range_live/index.ex:85
+#, elixir-autogen, elixir-format
+msgid "Date"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/form_component.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "Shots fired"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "No ammo staged"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:77
+#: lib/cannery_web/live/range_live/index.html.heex:33
+#, elixir-autogen, elixir-format
+msgid "Stage for range"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:76
+#: lib/cannery_web/live/range_live/index.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Unstage from range"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:3
+#: lib/cannery_web/live/ammo_group_live/index.ex:26
+#, elixir-autogen, elixir-format
+msgid "Record shots"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "Ammo Types"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:49
+#, elixir-autogen, elixir-format
+msgid "Ammo groups"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:38
+#: lib/cannery_web/live/range_live/form_component.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "Date (UTC)"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.ex:39
+#: lib/cannery_web/live/range_live/index.ex:34
+#, elixir-autogen, elixir-format
+msgid "Edit Shot Records"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.ex:40
+#, elixir-autogen, elixir-format
+msgid "New Shot Records"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "No shots recorded"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "Rounds left"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.ex:89
+#: lib/cannery_web/live/range_live/index.ex:83
+#, elixir-autogen, elixir-format
+msgid "Rounds shot"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.ex:46
+#, elixir-autogen, elixir-format
+msgid "Shot Records"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:32
+#: lib/cannery_web/live/ammo_group_live/show.ex:40
+#, elixir-autogen, elixir-format
+msgid "Move Ammo group"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:80
+#, elixir-autogen, elixir-format
+msgid "Move ammo"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:85
+#, elixir-autogen, elixir-format
+msgid "No other containers"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "Shot log"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_card.ex:43
+#: lib/cannery_web/live/ammo_group_live/index.ex:117
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:32
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:39
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:98
+#, elixir-autogen, elixir-format
+msgid "$%{amount}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:75
+#, elixir-autogen, elixir-format
+msgid "Bimetal"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:72
+#: lib/cannery_web/live/ammo_type_live/index.ex:57
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Jacket type"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:79
+#: lib/cannery_web/live/ammo_type_live/index.ex:58
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Muzzle velocity"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:93
+#: lib/cannery_web/live/ammo_type_live/index.ex:61
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "Powder grains per charge"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:89
+#: lib/cannery_web/live/ammo_type_live/index.ex:59
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Powder type"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:152
+#: lib/cannery_web/live/ammo_type_live/index.ex:74
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:58
+#, elixir-autogen, elixir-format
+msgid "UPC"
+msgstr ""
+
+#: lib/cannery_web/templates/user_settings/edit.html.heex:80
+#, elixir-autogen, elixir-format
+msgid "Confirm new password"
+msgstr ""
+
+#: lib/cannery_web/templates/user_settings/edit.html.heex:33
+#: lib/cannery_web/templates/user_settings/edit.html.heex:89
+#, elixir-autogen, elixir-format
+msgid "Current password"
+msgstr ""
+
+#: lib/cannery_web/templates/user_settings/edit.html.heex:73
+#, elixir-autogen, elixir-format
+msgid "New password"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:131
+#, elixir-autogen, elixir-format
+msgid "Stage"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:131
+#, elixir-autogen, elixir-format
+msgid "Unstage"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:125
+#: lib/cannery_web/live/ammo_type_live/index.ex:68
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:52
+#, elixir-autogen, elixir-format
+msgid "Firing type"
+msgstr ""
+
+#: lib/cannery_web/templates/layout/live.html.heex:50
+#, elixir-autogen, elixir-format
+msgid "Reconnecting..."
+msgstr ""
+
+#: lib/cannery_web/templates/layout/live.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Loading..."
+msgstr ""
+
+#: lib/cannery_web/live/container_live/index.ex:29
+#: lib/cannery_web/live/container_live/show.ex:97
+#, elixir-autogen, elixir-format
+msgid "Edit %{name}"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/index.ex:48
+#: lib/cannery_web/live/container_live/show.ex:98
+#, elixir-autogen, elixir-format
+msgid "Edit %{name} tags"
+msgstr ""
+
+#: lib/cannery_web/components/container_card.ex:50
+#, elixir-autogen, elixir-format
+msgid "Rounds:"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.ex:96
+#, elixir-autogen, elixir-format
+msgid "Show %{name}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:104
+#, elixir-autogen, elixir-format
+msgid "No cost information"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:83
+#, elixir-autogen, elixir-format
+msgid "% left"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Current value:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Original cost:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Original count:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Percentage left:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:111
+#, elixir-autogen, elixir-format
+msgid "Rounds used"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:77
+#, elixir-autogen, elixir-format
+msgid "Current # of rounds:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.ex:86
+#, elixir-autogen, elixir-format
+msgid "Total # of rounds"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:85
+#, elixir-autogen, elixir-format
+msgid "Total rounds shot:"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:8
+#, elixir-autogen, elixir-format
+msgid "Confirm your account"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:9
+#, elixir-autogen, elixir-format
+msgid "Forgot your password?"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_session_controller.ex:8
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_registration_controller.ex:35
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr ""
+
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:36
+#, elixir-autogen, elixir-format
+msgid "Reset your password"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.ex:38
+#: lib/cannery_web/live/range_live/index.ex:28
+#, elixir-autogen, elixir-format
+msgid "Record Shots"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:58
+#, elixir-autogen, elixir-format
+msgid "Copies"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.ex:34
+#, elixir-autogen, elixir-format
+msgid "Ammo types"
+msgstr ""
