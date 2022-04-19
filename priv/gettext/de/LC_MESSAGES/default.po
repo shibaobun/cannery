@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:32+0000\n"
-"PO-Revision-Date: 2022-04-19 21:30+0000\n"
-"Last-Translator: Kaia Estra <kaia@fedora.email>\n"
+"PO-Revision-Date: 2022-04-19 21:32+0000\n"
+"Last-Translator: shibao <shibao@bubbletea.dev>\n"
 "Language-Team: German <https://weblate.bubbletea.dev/projects/cannery/"
 "default/de/>\n"
 "Language: de\n"
@@ -706,12 +706,12 @@ msgid "New password"
 msgstr "Neues Passwort"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:131
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Stage"
 msgstr "Markiert"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:131
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr "Demarkiert"
 
