@@ -6,6 +6,7 @@ defmodule Cannery.Ammo do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.ActivityLog.ShotGroup
   alias Ecto.Changeset
 
   @ammo_group_create_limit 10_000
@@ -48,24 +49,29 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_ammo_type!(123, %User{id: 123})
-      %AmmoType{}
-
-      iex> get_ammo_type!(456, %User{id: 123})
-      ** (Ecto.NoResultsError)
+      iex> get_average_cost_for_ammo_type!(%AmmoType{id: 123}, %User{id: 123})
+      1.50
 
   """
-  @spec get_average_cost_for_ammo_type!(AmmoType.t(), User.t()) :: float()
+  @spec get_average_cost_for_ammo_type!(AmmoType.t(), User.t()) :: float() | nil
   def get_average_cost_for_ammo_type!(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id}
       ) do
+    sg_total_query =
+      from sg in ShotGroup,
+        where: not (sg.count |> is_nil()),
+        group_by: sg.ammo_group_id,
+        select: %{ammo_group_id: sg.ammo_group_id, total: sum(sg.count)}
+
     Repo.one!(
       from ag in AmmoGroup,
-        left_join: sg in assoc(ag, :shot_groups),
+        as: :ammo_group,
+        left_join: sg_query in subquery(sg_total_query),
+        on: ag.id == sg_query.ammo_group_id,
         where: ag.ammo_type_id == ^ammo_type_id,
         where: not (ag.price_paid |> is_nil()),
-        select: sum(ag.price_paid) / (sum(ag.count) + sum(sg.count))
+        select: sum(ag.price_paid) / sum(ag.count + coalesce(sg_query.total, 0))
     )
   end
 
