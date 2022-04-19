@@ -62,7 +62,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   def update_changeset(ammo_group, attrs) do
     ammo_group
     |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id])
-    |> validate_number(:count, greater_than: 0)
+    |> validate_number(:count, greater_than_or_equal_to: 0)
     |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
   end
 

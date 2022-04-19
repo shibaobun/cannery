@@ -1,5 +1,6 @@
 # v0.5.0
 - Add German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
+- Fix not being able to edit ammo group when fully used up
 
 # v0.4.1
 - Fix button and tag text wrapping

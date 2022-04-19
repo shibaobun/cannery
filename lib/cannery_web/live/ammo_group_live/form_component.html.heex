@@ -27,7 +27,7 @@
     <%= label(f, :count, gettext("Count"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :count,
       class: "text-center col-span-2 input input-primary",
-      min: 1
+      min: 0
     ) %>
     <%= error_tag(f, :count, "col-span-3 text-center") %>
 
