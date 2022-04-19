@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:32+0000\n"
-"PO-Revision-Date: 2022-04-19 21:18+0000\n"
+"PO-Revision-Date: 2022-04-19 21:32+0000\n"
 "Last-Translator: Kaia Estra <kaia@fedora.email>\n"
 "Language-Team: German <https://weblate.bubbletea.dev/projects/cannery/errors/"
 "de/>\n"
@@ -57,7 +57,7 @@ msgstr "Zur Hauptseite zurückkehren"
 #: lib/cannery_web/views/error_view.ex:11
 #, elixir-autogen, elixir-format
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Interner Serverfehler"
 
 #: lib/cannery_web/controllers/user_session_controller.ex:17
 #, elixir-autogen, elixir-format
@@ -86,7 +86,7 @@ msgstr "Link zum Passwort zurücksetzen ist ungültig oder abgelaufen."
 #: lib/cannery_web/controllers/user_registration_controller.ex:56
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
-msgstr "Entschuldigung, aber öffentliche Registrierung ist deaktiviert."
+msgstr "Entschuldigung, aber öffentliche Registrierung ist deaktiviert"
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:15
 #: lib/cannery_web/controllers/user_registration_controller.ex:46
@@ -166,18 +166,22 @@ msgstr "Anzahl muss weniger als %{count} betragen"
 #, elixir-autogen, elixir-format
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
+"Sie müssen ihr Nutzerkonto bestätigen und einloggen, um diese Seite "
+"anzuzeigen."
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
-msgstr ""
+msgstr "Tag konnte nicht gelöscht werden"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:126
-#, elixir-autogen, elixir-format
+#, elixir-autogen, elixir-format, fuzzy
 msgid "Could not parse number of copies"
-msgstr ""
+msgstr "Konnte die Anzahl der Kopien nicht verstehen"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr ""
+"Ungültige Nummer an Kopien. Muss zwischen 1 and %{max} liegen. War "
+"%{multiplier}"
