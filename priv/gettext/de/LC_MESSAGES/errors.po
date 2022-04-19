@@ -175,7 +175,7 @@ msgid "Tag could not be removed"
 msgstr "Tag konnte nicht gelöscht werden"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:126
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "Konnte die Anzahl der Kopien nicht verstehen"
 
