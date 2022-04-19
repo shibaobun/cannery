@@ -14,8 +14,8 @@ end
 
 config :cannery, CanneryWeb.ViewHelpers, shibao_mode: System.get_env("SHIBAO_MODE") == "true"
 
-# Set locale
-Gettext.put_locale(System.get_env("LOCALE") || "en_US")
+# Set default locale
+config :gettext, :default_locale, System.get_env("LOCALE") || "en_US"
 
 maybe_ipv6 = if System.get_env("ECTO_IPV6") == "true", do: [:inet6], else: []
 

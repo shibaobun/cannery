@@ -11,6 +11,8 @@ defmodule CanneryWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+
+    Gettext.put_locale(Application.get_env(:gettext, :default_locale, "en_US"))
   end
 
   pipeline :require_admin do

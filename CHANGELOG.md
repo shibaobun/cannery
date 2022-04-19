@@ -1,3 +1,6 @@
+# v0.5.0
+- Add German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
+
 # v0.4.1
 - Fix button and tag text wrapping
 - Code quality fixes

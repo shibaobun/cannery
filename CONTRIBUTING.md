@@ -141,3 +141,4 @@ In `prod` mode (or in the Docker container), Cannery will listen for the same en
 Thank you so much for your contributions!
 
 - shibao (https://misskey.bubbletea.dev/@shibao)
+- kaia (https://shitposter.club/users/kaia)
