@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:32+0000\n"
 "PO-Revision-Date: 2022-04-19 21:32+0000\n"
-"Last-Translator: Kaia Estra <kaia@fedora.email>\n"
+"Last-Translator: shibao <shibao@bubbletea.dev>\n"
 "Language-Team: German <https://weblate.bubbletea.dev/projects/cannery/errors/"
 "de/>\n"
 "Language: de\n"
@@ -42,7 +42,7 @@ msgstr "Konnte Behälter nicht finden"
 #: lib/cannery_web/controllers/user_settings_controller.ex:67
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
-msgstr "Mailadressenänderungs-Link ist ungültig oder abgelaufen"
+msgstr "Mailadressenänderungs-Link ist ungültig oder abgelaufen."
 
 #: lib/cannery_web/templates/error/error.html.heex:8
 #, elixir-autogen, elixir-format
