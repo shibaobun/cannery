@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-04-19 21:29+0000\n"
+"Last-Translator: Kaia Estra <kaia@fedora.email>\n"
+"Language-Team: German <https://weblate.bubbletea.dev/projects/cannery/"
+"actions/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -21,60 +23,59 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery_web/live/ammo_group_live/index.ex:44
 #, elixir-autogen, elixir-format
 msgid "Add Ammo"
-msgstr ""
+msgstr "Munition hinzufügen"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Add your first box!"
-msgstr ""
+msgstr "Fügen Sie ihre erste Box hinzu!"
 
 #: lib/cannery_web/live/container_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Add your first container!"
-msgstr ""
+msgstr "Fügen Sie ihren ersten Behälter hinzu!"
 
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Add your first type!"
-msgstr ""
+msgstr "Fügen Sie ihre erste Munitionsart hinzu!"
 
 #: lib/cannery_web/templates/user_settings/edit.html.heex:16
 #: lib/cannery_web/templates/user_settings/edit.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Change email"
-msgstr ""
+msgstr "Mailadresse ändern"
 
 #: lib/cannery_web/templates/user_settings/edit.html.heex:60
 #: lib/cannery_web/templates/user_settings/edit.html.heex:101
 #, elixir-autogen, elixir-format
 msgid "Change password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Create Invite"
-msgstr ""
+msgstr "Einladung erstellen"
 
 #: lib/cannery_web/templates/user_settings/edit.html.heex:108
 #, elixir-autogen, elixir-format
 msgid "Delete User"
-msgstr ""
+msgstr "Benutzer löschen"
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:43
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:3
 #: lib/cannery_web/templates/user_session/new.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Passwort vergessen?"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Invite someone new!"
-msgstr ""
+msgstr "Laden Sie jemanden ein!"
 
 #: lib/cannery_web/components/topbar.ex:108
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:30
@@ -85,32 +86,32 @@ msgstr ""
 #: lib/cannery_web/templates/user_session/new.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Log in"
-msgstr ""
+msgstr "Einloggen"
 
 #: lib/cannery_web/live/tag_live/index.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Make your first tag!"
-msgstr ""
+msgstr "Erstellen Sie ihren ersten Tag!"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "New Ammo group"
-msgstr ""
+msgstr "Neue Munitionsgruppe"
 
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "New Ammo type"
-msgstr ""
+msgstr "Neue Munitionsart"
 
 #: lib/cannery_web/live/container_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "New Container"
-msgstr ""
+msgstr "Neuer Behälter"
 
 #: lib/cannery_web/live/tag_live/index.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "New Tag"
-msgstr ""
+msgstr "Neuer Tag"
 
 #: lib/cannery_web/components/topbar.ex:101
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:25
@@ -121,19 +122,19 @@ msgstr ""
 #: lib/cannery_web/templates/user_session/new.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Register"
-msgstr ""
+msgstr "Registrieren"
 
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:3
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Resend confirmation instructions"
-msgstr ""
+msgstr "Bestätigungsmail erneut senden"
 
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:3
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Reset password"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:46
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:73
@@ -144,72 +145,72 @@ msgstr ""
 #: lib/cannery_web/live/tag_live/form_component.ex:66
 #, elixir-autogen, elixir-format
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Send instructions to reset password"
-msgstr ""
+msgstr "Anleitung zum Passwort zurücksetzen zusenden"
 
 #: lib/cannery_web/live/container_live/show.html.heex:53
-#, elixir-autogen, elixir-format
+#, elixir-autogen, elixir-format, fuzzy
 msgid "Why not add one?"
-msgstr ""
+msgstr "Warum fügen Sie keine hinzu?"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: lib/cannery_web/live/range_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Stage ammo"
-msgstr ""
+msgstr "Munition markieren"
 
 #: lib/cannery_web/live/range_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Why not get some ready to shoot?"
-msgstr ""
+msgstr "Warum nicht einige für den Schießstand auswählen?"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:134
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86
 #: lib/cannery_web/live/range_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Record shots"
-msgstr ""
+msgstr "Schüsse dokumentieren"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Ammo Details"
-msgstr ""
+msgstr "Munitionsdetails"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Add another container!"
-msgstr ""
+msgstr "Einen weiteren Behälter hinzufügen!"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Move containers"
-msgstr ""
+msgstr "Behälter verschieben"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:127
 #, elixir-autogen, elixir-format
 msgid "Select"
-msgstr ""
+msgstr "Markieren"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "In die Zwischenablage kopieren"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:18
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "add a container first"
-msgstr ""
+msgstr "Zuerst einen Behälter hinzufügen"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
