@@ -2,6 +2,7 @@
 - Add German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
 - Fix not being able to edit ammo group when fully used up
 - Fix bug with average price per round calculation
+- Show average price per round on ammo type table
 
 # v0.4.1
 - Fix button and tag text wrapping

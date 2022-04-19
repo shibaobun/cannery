@@ -44,6 +44,7 @@ msgid "Ammo type"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/index.ex:87
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:94
 msgid "Average Price paid"
 msgstr ""
@@ -628,6 +629,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.ex:117
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:32
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:39
+#: lib/cannery_web/live/ammo_type_live/index.ex:117
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:98
 msgid "$%{amount}"
 msgstr ""
@@ -738,6 +740,7 @@ msgid "Show %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/index.ex:114
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:104
 msgid "No cost information"
 msgstr ""

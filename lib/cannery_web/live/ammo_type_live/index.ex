@@ -84,6 +84,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
       end)
       |> Kernel.++([
         %{label: gettext("Total # of rounds"), key: "round_count", type: :round_count},
+        %{label: gettext("Average Price paid"), key: "avg_price_paid", type: :avg_price_paid},
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
 
@@ -106,6 +107,13 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
           :round_count ->
             ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
+
+          :avg_price_paid ->
+
+            case ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user) do
+              nil -> gettext("No cost information")
+              count -> gettext("$%{amount}", amount: count |> :erlang.float_to_binary(decimals: 2))
+            end
 
           :actions ->
             ~H"""

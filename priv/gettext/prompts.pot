@@ -94,7 +94,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:167
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:66
-#: lib/cannery_web/live/ammo_type_live/index.ex:130
+#: lib/cannery_web/live/ammo_type_live/index.ex:140
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
