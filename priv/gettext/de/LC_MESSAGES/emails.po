@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-19 19:32+0000\n"
-"PO-Revision-Date: 2022-04-19 21:32+0000\n"
+"PO-Revision-Date: 2022-04-19 21:44+0000\n"
 "Last-Translator: Kaia Estra <kaia@fedora.email>\n"
 "Language-Team: German <https://weblate.bubbletea.dev/projects/cannery/emails/"
 "de/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: lib/cannery/accounts/email.ex:30
 #, elixir-autogen, elixir-format
 msgid "Confirm your %{name} account"
-msgstr "Bestätigen Sie ihr Nutzerkonto %{name}"
+msgstr "Bestätigen Sie ihr %{name} Nutzerkonto"
 
 #: lib/cannery_web/templates/email/confirm_email.html.eex:3
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:2
