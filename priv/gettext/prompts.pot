@@ -79,7 +79,7 @@ msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:29
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:27
 #: lib/cannery_web/live/container_live/index.html.heex:46
 #: lib/cannery_web/live/container_live/show.html.heex:37
 #: lib/cannery_web/live/tag_live/index.html.heex:38
@@ -104,7 +104,7 @@ msgid "Are you sure you want to delete your account?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:86
+#: lib/cannery_web/components/topbar.ex:84
 msgid "Are you sure you want to log out?"
 msgstr ""
 
@@ -149,7 +149,7 @@ msgid "Please check your email to verify your account"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:103
+#: lib/cannery_web/live/home_live.ex:101
 msgid "Register to setup %{name}"
 msgstr ""
 

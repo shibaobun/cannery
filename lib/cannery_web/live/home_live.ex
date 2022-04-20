@@ -40,9 +40,7 @@ defmodule CanneryWeb.HomeLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div
-      class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl"
-    >
+    <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
       <h1 class="title text-primary-600 text-2xl">
         <%= gettext("Welcome to %{name}", name: "Cannery") %>
       </h1>

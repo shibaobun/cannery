@@ -37,7 +37,7 @@ msgid "Error"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/error/error.html.heex:29
+#: lib/cannery_web/templates/error/error.html.heex:28
 msgid "Go back home"
 msgstr ""
 
