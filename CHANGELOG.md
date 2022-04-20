@@ -3,6 +3,7 @@
 - Fix not being able to edit ammo group when fully used up
 - Fix bug with average price per round calculation
 - Show average price per round on ammo type table
+- Use Elixir v1.13.4
 
 # v0.4.1
 - Fix button and tag text wrapping

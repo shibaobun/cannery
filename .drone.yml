@@ -16,15 +16,19 @@ steps:
       - assets/node_modules/
 
 - name: test
-  image: bitwalker/alpine-elixir-phoenix:1.13
+  image: elixir:1.13.4-alpine
   environment:
     TEST_DATABASE_URL: ecto://postgres:postgres@database/cannery_test
     HOST: testing.example.tld
   commands:
+  - apk add --no-cache build-base npm git python3
   - mix local.rebar --force
   - mix local.hex --force
   - mix deps.get
-  - npm install --prefix assets
+  - mix deps.compile
+  - npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+  - npm run --prefix ./assets deploy
+  - mix do phx.digest, gettext.extract
   - mix test
 
 - name: build and publish stable
