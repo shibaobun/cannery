@@ -96,61 +96,58 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   end
 
   defp get_ammo_type_values(ammo_type, columns, current_user) do
-    assigns = %{ammo_type: ammo_type}
-
     columns
     |> Enum.into(%{}, fn %{key: key, type: type} ->
-      value =
-        case type do
-          :boolean ->
-            ammo_type |> Map.get(key |> String.to_existing_atom()) |> humanize()
-
-          :round_count ->
-            ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
-
-          :avg_price_paid ->
-
-            case ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user) do
-              nil -> gettext("No cost information")
-              count -> gettext("$%{amount}", amount: count |> :erlang.float_to_binary(decimals: 2))
-            end
-
-          :actions ->
-            ~H"""
-            <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-              <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
-                            class: "text-primary-600 link",
-                            data: [qa: "view-#{ammo_type.id}"] do %>
-                <i class="fa-fw fa-lg fas fa-eye"></i>
-              <% end %>
-
-              <%= live_patch to: Routes.ammo_type_index_path(Endpoint, :edit, ammo_type),
-                          class: "text-primary-600 link",
-                          data: [qa: "edit-#{ammo_type.id}"] do %>
-                <i class="fa-fw fa-lg fas fa-edit"></i>
-              <% end %>
-
-              <%= link to: "#",
-                    class: "text-primary-600 link",
-                    phx_click: "delete",
-                    phx_value_id: ammo_type.id,
-                    data: [
-                      confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
-                      qa: "delete-#{ammo_type.id}"
-                    ] do %>
-                <i class="fa-lg fas fa-trash"></i>
-              <% end %>
-            </div>
-            """
-
-          nil ->
-            nil
-
-          _other ->
-            ammo_type |> Map.get(key |> String.to_existing_atom())
-        end
-
-      {key, value}
+      {key, get_ammo_type_value(type, key, ammo_type, current_user)}
     end)
   end
+
+  defp get_ammo_type_value(:boolean, key, ammo_type, _current_user),
+    do: ammo_type |> Map.get(key |> String.to_existing_atom()) |> humanize()
+
+  defp get_ammo_type_value(:round_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
+
+  defp get_ammo_type_value(:avg_price_paid, _key, ammo_type, current_user) do
+    case ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user) do
+      nil -> gettext("No cost information")
+      count -> gettext("$%{amount}", amount: count |> :erlang.float_to_binary(decimals: 2))
+    end
+  end
+
+  defp get_ammo_type_value(:actions, _key, ammo_type, _current_user) do
+    assigns = %{ammo_type: ammo_type}
+
+    ~H"""
+    <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+      <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
+                    class: "text-primary-600 link",
+                    data: [qa: "view-#{ammo_type.id}"] do %>
+        <i class="fa-fw fa-lg fas fa-eye"></i>
+      <% end %>
+
+      <%= live_patch to: Routes.ammo_type_index_path(Endpoint, :edit, ammo_type),
+                  class: "text-primary-600 link",
+                  data: [qa: "edit-#{ammo_type.id}"] do %>
+        <i class="fa-fw fa-lg fas fa-edit"></i>
+      <% end %>
+
+      <%= link to: "#",
+            class: "text-primary-600 link",
+            phx_click: "delete",
+            phx_value_id: ammo_type.id,
+            data: [
+              confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+              qa: "delete-#{ammo_type.id}"
+            ] do %>
+        <i class="fa-lg fas fa-trash"></i>
+      <% end %>
+    </div>
+    """
+  end
+
+  defp get_ammo_type_value(nil, _key, _ammo_type, _current_user), do: nil
+
+  defp get_ammo_type_value(_other, key, ammo_type, _current_user),
+    do: ammo_type |> Map.get(key |> String.to_existing_atom())
 end

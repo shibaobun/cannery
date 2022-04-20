@@ -5,8 +5,8 @@ defmodule Cannery.Ammo do
 
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Cannery.ActivityLog.ShotGroup
+  alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.Changeset
 
   @ammo_group_create_limit 10_000
@@ -44,8 +44,6 @@ defmodule Cannery.Ammo do
 
   @doc """
   Gets the average cost of a single ammo type
-
-  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
 
   ## Examples
 
