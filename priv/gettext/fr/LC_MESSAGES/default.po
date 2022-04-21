@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-04-22 18:37+0000\n"
+"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
+"Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/"
+"default/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -21,152 +23,153 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery_web/live/home_live.ex:61
 #, elixir-autogen, elixir-format
 msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
 msgstr ""
+"vous permet de facilement garder un œil sur votre niveau de munition avant "
+"et après une journée de stand"
 
 #: lib/cannery_web/live/home_live.ex:83
 #, elixir-autogen, elixir-format
 msgid "Access from any internet-capable device"
-msgstr ""
+msgstr "Accédez depuis n’importe quel appareil connecté à internet"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "Admins"
-msgstr ""
+msgstr "Administrateur·ices"
 
 #: lib/cannery_web/live/home_live.ex:97
 #, elixir-autogen, elixir-format
 msgid "Admins:"
-msgstr ""
+msgstr "Administrateur·ices :"
 
 #: lib/cannery_web/components/topbar.ex:50
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:82
 #, elixir-autogen, elixir-format
 msgid "Ammo"
-msgstr ""
+msgstr "Munition"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
 #: lib/cannery_web/live/ammo_group_live/index.ex:80
 #, elixir-autogen, elixir-format
 msgid "Ammo type"
-msgstr ""
+msgstr "Type de munition"
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:87
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:92
 #, elixir-autogen, elixir-format
 msgid "Average Price paid"
-msgstr ""
+msgstr "Prix acheté moyen"
 
 #: lib/cannery_web/live/tag_live/form_component.ex:54
 #, elixir-autogen, elixir-format
 msgid "Background color"
-msgstr ""
+msgstr "Couleur de fond"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:140
 #: lib/cannery_web/live/ammo_type_live/index.ex:71
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "Blank"
-msgstr ""
+msgstr "Vide"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:68
 #, elixir-autogen, elixir-format
 msgid "Brass"
-msgstr ""
+msgstr "Cuivre"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:53
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Bullet core"
-msgstr ""
+msgstr "Noyau de la balle"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:37
 #: lib/cannery_web/live/ammo_type_live/index.ex:52
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Bullet type"
-msgstr ""
+msgstr "Type de balle"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:58
 #: lib/cannery_web/live/ammo_type_live/index.ex:55
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Caliber"
-msgstr ""
+msgstr "Calibre"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:51
 #: lib/cannery_web/live/ammo_type_live/index.ex:54
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Cartridge"
-msgstr ""
+msgstr "Cartouche"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:65
 #: lib/cannery_web/live/ammo_type_live/index.ex:56
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Case material"
-msgstr ""
+msgstr "Matériau de la caisse"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:67
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
 #: lib/cannery_web/live/ammo_group_live/index.ex:85
 #, elixir-autogen, elixir-format
 msgid "Container"
-msgstr ""
+msgstr "Conteneur"
 
 #: lib/cannery_web/components/topbar.ex:44
 #: lib/cannery_web/live/container_live/index.ex:38
 #: lib/cannery_web/live/container_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Containers"
-msgstr ""
+msgstr "Conteneurs"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:144
 #: lib/cannery_web/live/ammo_type_live/index.ex:72
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:54
 #, elixir-autogen, elixir-format
 msgid "Corrosive"
-msgstr ""
+msgstr "Corrosif"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
 #: lib/cannery_web/live/ammo_group_live/index.ex:81
 #, elixir-autogen, elixir-format
 msgid "Count"
-msgstr ""
+msgstr "Quantité"
 
 #: lib/cannery_web/components/ammo_group_card.ex:29
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Count:"
-msgstr ""
+msgstr "Quantité :"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:24
 #: lib/cannery_web/live/container_live/form_component.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: lib/cannery_web/components/container_card.ex:31
 #: lib/cannery_web/live/container_live/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Description:"
-msgstr ""
+msgstr "Description :"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "Disable"
-msgstr ""
+msgstr "Désactiver"
 
 #: lib/cannery_web/live/home_live.ex:58
 #, elixir-autogen, elixir-format
 msgid "Easy to Use:"
-msgstr ""
+msgstr "Simple à utiliser :"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:38
 #: lib/cannery_web/live/ammo_group_live/show.ex:42
