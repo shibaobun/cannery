@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-04-22 18:37+0000\n"
+"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
+"Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/errors/"
+"fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -21,52 +23,51 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery/containers.ex:122
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
-msgstr ""
+msgstr "Le conteneur doit être vide pour être supprimé"
 
 #: lib/cannery_web/live/container_live/index.ex:71
 #: lib/cannery_web/live/container_live/show.ex:73
 #, elixir-autogen, elixir-format
 msgid "Could not delete %{name}: %{error}"
-msgstr ""
+msgstr "Impossible de supprimer %{name} : %{error}"
 
 #: lib/cannery_web/live/container_live/index.ex:59
 #, elixir-autogen, elixir-format
 msgid "Could not find that container"
-msgstr ""
+msgstr "Impossible de trouver ce conteneur"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:67
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
-msgstr ""
+msgstr "Le lien de changement de mél est invalide ou a expiré."
 
 #: lib/cannery_web/templates/error/error.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: lib/cannery_web/templates/error/error.html.heex:28
-#, elixir-autogen, elixir-format
+#, elixir-autogen, elixir-format, fuzzy
 msgid "Go back home"
-msgstr ""
+msgstr "Retour au menu"
 
 #: lib/cannery_web/views/error_view.ex:11
 #, elixir-autogen, elixir-format
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Erreur interne du serveur"
 
 #: lib/cannery_web/controllers/user_session_controller.ex:17
 #, elixir-autogen, elixir-format
 msgid "Invalid email or password"
-msgstr ""
+msgstr "Mél ou mot de passe invalide"
 
 #: lib/cannery_web/views/error_view.ex:9
 #, elixir-autogen, elixir-format
 msgid "Not found"
-msgstr ""
+msgstr "Pas trouvé"
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:16
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:16
@@ -75,78 +76,80 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
+"Oups, quelque chose s’est mal passé ! Veuillez vérifier les erreurs en "
+"dessous."
 
 #: lib/cannery_web/controllers/user_reset_password_controller.ex:63
 #, elixir-autogen, elixir-format
 msgid "Reset password link is invalid or it has expired."
-msgstr ""
+msgstr "Le lien de réinitialisation de mot de passe est invalide ou expiré."
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:25
 #: lib/cannery_web/controllers/user_registration_controller.ex:56
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
-msgstr ""
+msgstr "Désolé, l’enregistrement public est désactivé"
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:15
 #: lib/cannery_web/controllers/user_registration_controller.ex:46
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
-msgstr ""
+msgstr "Désolé, cette invitation n’est pas trouvée ou est expirée"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:82
 #, elixir-autogen, elixir-format
 msgid "Unable to delete user"
-msgstr ""
+msgstr "Impossible de supprimer l’utilisateur·ice"
 
 #: lib/cannery_web/views/error_view.ex:10
 #, elixir-autogen, elixir-format
 msgid "Unauthorized"
-msgstr ""
+msgstr "Non autorisé·e"
 
 #: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
-msgstr ""
+msgstr "Le lien de confirmation d’utilisateur·ice est invalide ou a expiré."
 
 #: lib/cannery_web/live/invite_live/index.ex:20
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page"
-msgstr ""
+msgstr "Vous n’êtes pas autorisé·e à voir cette page"
 
 #: lib/cannery_web/controllers/user_auth.ex:177
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page."
-msgstr ""
+msgstr "Vous n’êtes pas autorisé·e à voir cette page."
 
 #: lib/cannery/accounts/user.ex:128
 #, elixir-autogen, elixir-format
 msgid "did not change"
-msgstr ""
+msgstr "est inchangé"
 
 #: lib/cannery/accounts/user.ex:149
 #, elixir-autogen, elixir-format
 msgid "does not match password"
-msgstr ""
+msgstr "le mot de passe ne correspond pas"
 
 #: lib/cannery/accounts/user.ex:186
 #, elixir-autogen, elixir-format
 msgid "is not valid"
-msgstr ""
+msgstr "n’est pas valide"
 
 #: lib/cannery/accounts/user.ex:82
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
-msgstr ""
+msgstr "doit contenir le symbole @ et aucune espace"
 
 #: lib/cannery/tags.ex:40
 #, elixir-autogen, elixir-format
 msgid "Tag not found"
-msgstr ""
+msgstr "Tag pas trouvé"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
-msgstr ""
+msgstr "Le tag n’a pas pu être ajouté"
 
 #: lib/cannery/activity_log.ex:125
 #, elixir-autogen, elixir-format
