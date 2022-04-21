@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-04-22 18:37+0000\n"
+"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
+"Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/emails/"
+"fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.11.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -21,11 +23,10 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery/accounts/email.ex:30
 #, elixir-autogen, elixir-format
 msgid "Confirm your %{name} account"
-msgstr ""
+msgstr "Confirmer votre compte %{name}"
 
 #: lib/cannery_web/templates/email/confirm_email.html.eex:3
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:2
@@ -35,74 +36,81 @@ msgstr ""
 #: lib/cannery_web/templates/email/update_email.txt.eex:2
 #, elixir-autogen, elixir-format
 msgid "Hi %{email},"
-msgstr ""
+msgstr "Salut %{email},"
 
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:10
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{url}, please ignore this."
-msgstr ""
+msgstr "Si vous n’avez créé un compte à %{url}, veuillez ignorer ceci."
 
 #: lib/cannery_web/templates/email/reset_password.txt.eex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:8
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{url}, please ignore this."
 msgstr ""
+"Si vous n’avez pas demandé ce changement depuis %{url}, veuillez ignorer "
+"ceci."
 
 #: lib/cannery/accounts/email.ex:37
 #, elixir-autogen, elixir-format
 msgid "Reset your %{name} password"
-msgstr ""
+msgstr "Réinitialiser votre mot de passe %{name}"
 
 #: lib/cannery/accounts/email.ex:44
 #, elixir-autogen, elixir-format
 msgid "Update your %{name} email"
-msgstr ""
+msgstr "Mettre à jour votre mél %{name}"
 
 #: lib/cannery_web/templates/email/confirm_email.html.eex:9
 #, elixir-autogen, elixir-format
 msgid "Welcome to %{name}!"
-msgstr ""
+msgstr "Bienvenue à %{name} !"
 
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "Welcome to %{name}%!"
-msgstr ""
+msgstr "Bienvenue à %{name}% !"
 
 #: lib/cannery_web/templates/email/update_email.html.eex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can change your email by visiting the URL below:"
-msgstr ""
+msgstr "Vous pouvez changer votre mél en consultant l’URL ci-dessous :"
 
 #: lib/cannery_web/templates/email/confirm_email.html.eex:14
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:6
 #, elixir-autogen, elixir-format
 msgid "You can confirm your account by visiting the URL below:"
-msgstr ""
+msgstr "Vous pouvez confirmer votre compte en consultant l’URL ci-dessous :"
 
 #: lib/cannery_web/templates/email/reset_password.html.eex:8
 #: lib/cannery_web/templates/email/reset_password.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can reset your password by visiting the URL below:"
 msgstr ""
+"Vous pouvez réinitialiser votre mot de passe en visitant l’URL ci-dessous :"
 
 #: lib/cannery_web/templates/email/confirm_email.html.eex:22
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{name}, please ignore this."
-msgstr ""
+msgstr "Si vous n’avez pas créé de compte à %{name}, veuillez ignorer ceci."
 
 #: lib/cannery_web/templates/email/reset_password.html.eex:16
 #: lib/cannery_web/templates/email/update_email.html.eex:16
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{name}, please ignore this."
 msgstr ""
+"Si vous n’avez pas demandé ce changement depuis %{name}, veuillez ignorer "
+"ceci."
 
 #: lib/cannery_web/templates/layout/email.txt.eex:9
 #, elixir-autogen, elixir-format
 msgid "This email was sent from %{name} at %{url}, the self-hosted firearm tracker website."
 msgstr ""
+"Ce mél a été envoyé depuis %{name} à %{url}, le site web de suivi d’arme à "
+"feux."
 
 #: lib/cannery_web/templates/layout/email.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "This email was sent from %{name}, the self-hosted firearm tracker website."
-msgstr ""
+msgstr "Ce mél a été envoyé depuis %{name}, le site web de suivi d’arme à feu."
