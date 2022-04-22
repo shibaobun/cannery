@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-22 18:37+0000\n"
-"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
+"PO-Revision-Date: 2022-04-23 07:52+0000\n"
+"Last-Translator: Kaia Estra <kaia@fedora.email>\n"
 "Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/errors/"
 "fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12\n"
 
 ## This file is a PO Template file.
 ##
@@ -154,13 +154,13 @@ msgstr "Le tag n’a pas pu être ajouté"
 #: lib/cannery/activity_log.ex:125
 #, elixir-autogen, elixir-format
 msgid "Count must be at least 1"
-msgstr ""
+msgstr "Le nombre doit être au moins égal à 1"
 
 #: lib/cannery/activity_log.ex:73
 #: lib/cannery/activity_log.ex:120
 #, elixir-autogen, elixir-format
 msgid "Count must be less than %{count}"
-msgstr ""
+msgstr "Le nombre doit être inférieur à %{count}"
 
 #: lib/cannery_web/controllers/user_auth.ex:39
 #: lib/cannery_web/controllers/user_auth.ex:161
@@ -176,7 +176,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:126
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
-msgstr ""
+msgstr "Impossible d'analyser le nombre de copies"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 #, elixir-autogen, elixir-format
