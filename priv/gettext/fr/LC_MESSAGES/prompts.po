@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-22 18:37+0000\n"
+"PO-Revision-Date: 2022-04-24 08:27+0000\n"
 "Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
 "Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/"
 "prompts/fr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12\n"
 
 ## This file is a PO Template file.
 ##
@@ -171,7 +171,7 @@ msgstr "Veuillez vérifier votre mél pour confirmer votre compte"
 #: lib/cannery_web/live/home_live.ex:101
 #, elixir-autogen, elixir-format
 msgid "Register to setup %{name}"
-msgstr ""
+msgstr "S’enregistrer pour mettre en place %{name}"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:48
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:74
@@ -182,99 +182,101 @@ msgstr ""
 #: lib/cannery_web/live/tag_live/form_component.ex:68
 #, elixir-autogen, elixir-format
 msgid "Saving..."
-msgstr ""
+msgstr "Sauvegarde en cours…"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:78
 #, elixir-autogen, elixir-format
 msgid "Your account has been deleted"
-msgstr ""
+msgstr "Votre compte a été supprimé"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name}?"
 msgstr ""
+"Êtes-vous certain·e de vouloir retirer le tag %{tag_name} de "
+"%{container_name} ?"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:36
 #, elixir-autogen, elixir-format
 msgid "%{name} added successfully"
-msgstr ""
+msgstr "%{name} a été ajouté avec succès"
 
 #: lib/cannery_web/live/container_live/show.ex:39
 #, elixir-autogen, elixir-format
 msgid "%{tag_name} has been removed from %{container_name}"
-msgstr ""
+msgstr "%{tag_name} a été retiré de %{container_name}"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:54
 #, elixir-autogen, elixir-format
 msgid "Adding..."
-msgstr ""
+msgstr "Ajout en cours…"
 
 #: lib/cannery_web/components/add_shot_group_component.ex:68
 #, elixir-autogen, elixir-format
 msgid "Shots recorded successfully"
-msgstr ""
+msgstr "Tirs enregistré avec succès"
 
 #: lib/cannery_web/live/range_live/index.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to unstage this ammo?"
-msgstr ""
+msgstr "Êtes-vous certain·e de vouloir désélectionner cette munition ?"
 
 #: lib/cannery_web/live/range_live/index.ex:70
 #, elixir-autogen, elixir-format
 msgid "Ammo group unstaged succesfully"
-msgstr ""
+msgstr "Groupe de munition désélectionner avec succès"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:132
 #: lib/cannery_web/live/range_live/index.ex:130
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
-msgstr ""
+msgstr "Êtes-vous certain·e de vouloir supprimer cet enregistrement de tir ?"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:80
 #: lib/cannery_web/live/range_live/index.ex:56
 #, elixir-autogen, elixir-format
 msgid "Shot records deleted succesfully"
-msgstr ""
+msgstr "Enregistrements de tir supprimés avec succès"
 
 #: lib/cannery_web/live/range_live/form_component.ex:55
 #, elixir-autogen, elixir-format
 msgid "Shot records updated successfully"
-msgstr ""
+msgstr "Enregistrements de tir mis à jour avec succès"
 
 #: lib/cannery_web/controllers/user_confirmation_controller.ex:38
 #, elixir-autogen, elixir-format
 msgid "%{email} confirmed successfully."
-msgstr ""
+msgstr "%{email} confirmé avec succès."
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:53
 #, elixir-autogen, elixir-format
 msgid "Ammo moved to %{name} successfully"
-msgstr ""
+msgstr "Munition déplacée à %{name} avec succès"
 
 #: lib/cannery_web/live/invite_live/index.ex:123
 #, elixir-autogen, elixir-format
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "Copié dans le presse-papier"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:58
 #, elixir-autogen, elixir-format
 msgid "%{name} removed successfully"
-msgstr ""
+msgstr "%{name} retiré avec succès"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:15
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "You'll need to"
-msgstr ""
+msgstr "Vous aurez besoin de"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:67
 #, elixir-autogen, elixir-format
 msgid "Creating..."
-msgstr ""
+msgstr "Création en cours…"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:147
 #, elixir-autogen, elixir-format
 msgid "Ammo group created successfully"
 msgid_plural "Ammo groups created successfully"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Groupe de munition créé avec succès"
+msgstr[1] "Groupes de munitions créé avec succès"
