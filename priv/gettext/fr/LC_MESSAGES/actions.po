@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-22 18:37+0000\n"
+"PO-Revision-Date: 2022-04-24 08:27+0000\n"
 "Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
 "Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/"
 "actions/fr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.12\n"
 
 ## This file is a PO Template file.
 ##
@@ -165,52 +165,52 @@ msgstr "Ajouter"
 #: lib/cannery_web/live/range_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Stage ammo"
-msgstr ""
+msgstr "Munition préparée"
 
 #: lib/cannery_web/live/range_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Why not get some ready to shoot?"
-msgstr ""
+msgstr "Pourquoi pas en préparer pour tirer ?"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:134
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86
 #: lib/cannery_web/live/range_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Record shots"
-msgstr ""
+msgstr "Enregistrer des tirs"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Ammo Details"
-msgstr ""
+msgstr "Détails de la munition"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Add another container!"
-msgstr ""
+msgstr "Ajoutez un autre conteneur !"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Move containers"
-msgstr ""
+msgstr "Déplacer les conteneurs"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:127
 #, elixir-autogen, elixir-format
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: lib/cannery_web/live/invite_live/index.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Copier dans le presse-papier"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:18
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "add a container first"
-msgstr ""
+msgstr "ajouter un conteneur en premier"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Create"
-msgstr ""
+msgstr "Créer"
