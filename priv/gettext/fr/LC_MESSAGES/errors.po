@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-23 07:52+0000\n"
-"Last-Translator: Kaia Estra <kaia@fedora.email>\n"
+"PO-Revision-Date: 2022-04-24 08:27+0000\n"
+"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
 "Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/errors/"
 "fr/>\n"
 "Language: fr\n"
@@ -50,9 +50,9 @@ msgid "Error"
 msgstr "Erreur"
 
 #: lib/cannery_web/templates/error/error.html.heex:28
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Go back home"
-msgstr "Retour au menu"
+msgstr "Retour au menu principal"
 
 #: lib/cannery_web/views/error_view.ex:11
 #, elixir-autogen, elixir-format
@@ -160,18 +160,20 @@ msgstr "Le nombre doit être au moins égal à 1"
 #: lib/cannery/activity_log.ex:120
 #, elixir-autogen, elixir-format
 msgid "Count must be less than %{count}"
-msgstr "Le nombre doit être inférieur à %{count}"
+msgstr "La quantité doit être inférieur à %{count}"
 
 #: lib/cannery_web/controllers/user_auth.ex:39
 #: lib/cannery_web/controllers/user_auth.ex:161
 #, elixir-autogen, elixir-format
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
+"Vous devez d’abord confirmer votre compte et vous connecter pour accéder à "
+"cette page."
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
-msgstr ""
+msgstr "Le tag n’a pas pu être retiré"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:126
 #, elixir-autogen, elixir-format
@@ -181,4 +183,4 @@ msgstr "Impossible d'analyser le nombre de copies"
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
-msgstr ""
+msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
