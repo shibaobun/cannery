@@ -1,3 +1,6 @@
+# v0.5.1
+- Add French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
+
 # v0.5.0
 - Add German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
 - Fix not being able to edit ammo group when fully used up

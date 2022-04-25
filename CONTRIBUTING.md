@@ -142,3 +142,4 @@ Thank you so much for your contributions!
 
 - shibao (https://misskey.bubbletea.dev/@shibao)
 - kaia (https://shitposter.club/users/kaia)
+- duponin (https://udongein.xyz/users/duponin)
