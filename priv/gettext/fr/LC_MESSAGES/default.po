@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-24 08:27+0000\n"
-"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
+"PO-Revision-Date: 2022-04-25 00:12+0000\n"
+"Last-Translator: shibao <shibao@bubbletea.dev>\n"
 "Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/"
 "default/fr/>\n"
 "Language: fr\n"
@@ -204,14 +204,14 @@ msgid "Example bullet type abbreviations"
 msgstr "Exemple d’abréviations de type de balle"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:40
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "FMJ"
 msgstr "FMJ"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:103
 #: lib/cannery_web/live/ammo_type_live/index.ex:65
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:47
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Grains"
 msgstr "Graines"
 
