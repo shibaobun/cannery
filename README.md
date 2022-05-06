@@ -63,7 +63,7 @@ You can use the following environment variables to configure Cannery in
   with `docker run -it shibaobun/cannery mix phx.gen.secret` and set for server to start.
 - `REGISTRATION`: Controls if user sign-up should be invite only or set to
   public. Set to `public` to enable public registration. Defaults to `invite`.
-- `LOCALE`: Sets a custom locale. Defaults to `en_US`
+- `LOCALE`: Sets a custom default locale. Defaults to `en_US`
   - Available options: `en_US`, `de`, and `fr`
 - `SMTP_HOST`: The url for your SMTP email provider. Must be set
 - `SMTP_PORT`: The port for your SMTP relay. Defaults to `587`.

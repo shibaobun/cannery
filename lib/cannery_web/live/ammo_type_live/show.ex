@@ -9,9 +9,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   alias CanneryWeb.Endpoint
 
   @impl true
-  def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session)}
-  end
+  def mount(_params, _session, socket), do: {:ok, socket}
 
   @impl true
   def handle_params(%{"id" => id}, _params, %{assigns: %{current_user: current_user}} = socket) do

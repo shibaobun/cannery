@@ -3,19 +3,8 @@ defmodule CanneryWeb.LiveHelpers do
   Contains common helper functions for liveviews
   """
 
-  import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
-  alias Cannery.Accounts
   alias Phoenix.LiveView.JS
-
-  def assign_defaults(socket, %{"user_token" => user_token} = _session) do
-    socket
-    |> assign_new(:current_user, fn -> Accounts.get_user_by_session_token(user_token) end)
-  end
-
-  def assign_defaults(socket, _session) do
-    socket
-  end
 
   @doc """
   Renders a live component inside a modal.

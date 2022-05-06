@@ -31,14 +31,14 @@ msgid "Add your first type!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:16
-#: lib/cannery_web/templates/user_settings/edit.html.heex:45
+#: lib/cannery_web/templates/user_settings/edit.html.heex:15
+#: lib/cannery_web/templates/user_settings/edit.html.heex:44
 msgid "Change email"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:60
-#: lib/cannery_web/templates/user_settings/edit.html.heex:101
+#: lib/cannery_web/templates/user_settings/edit.html.heex:58
+#: lib/cannery_web/templates/user_settings/edit.html.heex:99
 msgid "Change password"
 msgstr ""
 
@@ -48,12 +48,12 @@ msgid "Create Invite"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_settings/edit.html.heex:108
+#: lib/cannery_web/templates/user_settings/edit.html.heex:142
 msgid "Delete User"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/user_registration/new.html.heex:43
+#: lib/cannery_web/templates/user_registration/new.html.heex:52
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:3
 #: lib/cannery_web/templates/user_session/new.html.heex:45
 msgid "Forgot your password?"
@@ -67,7 +67,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/topbar.ex:106
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:30
-#: lib/cannery_web/templates/user_registration/new.html.heex:39
+#: lib/cannery_web/templates/user_registration/new.html.heex:48
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:48
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:30
 #: lib/cannery_web/templates/user_session/new.html.heex:3
@@ -104,7 +104,7 @@ msgstr ""
 #: lib/cannery_web/components/topbar.ex:99
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:25
 #: lib/cannery_web/templates/user_registration/new.html.heex:3
-#: lib/cannery_web/templates/user_registration/new.html.heex:33
+#: lib/cannery_web/templates/user_registration/new.html.heex:42
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:43
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:25
 #: lib/cannery_web/templates/user_session/new.html.heex:40
@@ -200,4 +200,14 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:66
 msgid "Create"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:113
+msgid "Change Language"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:134
+msgid "Change language"
 msgstr ""

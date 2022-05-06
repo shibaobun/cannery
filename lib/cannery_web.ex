@@ -47,6 +47,7 @@ defmodule CanneryWeb do
       use Phoenix.LiveView,
         layout: {CanneryWeb.LayoutView, "live.html"}
 
+      on_mount CanneryWeb.InitAssigns
       unquote(view_helpers())
     end
   end

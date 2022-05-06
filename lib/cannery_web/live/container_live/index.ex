@@ -10,9 +10,7 @@ defmodule CanneryWeb.ContainerLive.Index do
   alias Ecto.Changeset
 
   @impl true
-  def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session)}
-  end
+  def mount(_params, _session, socket), do: {:ok, socket}
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do

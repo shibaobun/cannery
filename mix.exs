@@ -13,6 +13,7 @@ defmodule Cannery.MixProject do
       deps: deps(),
       dialyzer: [plt_add_apps: [:ex_unit]],
       consolidate_protocols: Mix.env() not in [:dev, :test],
+      preferred_cli_env: [test: :test],
       # ExDoc
       name: "Cannery",
       source_url: "https://gitea.bubbletea.dev/shibao/cannery",
@@ -91,6 +92,7 @@ defmodule Cannery.MixProject do
         "dialyzer",
         "credo --strict",
         "format --check-formatted",
+        "ecto.drop --quiet",
         "ecto.create --quiet",
         "ecto.migrate --quiet",
         "test"

@@ -10,9 +10,7 @@ defmodule CanneryWeb.RangeLive.Index do
   alias Phoenix.LiveView.Socket
 
   @impl true
-  def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> display_shot_groups()}
-  end
+  def mount(_params, _session, socket), do: {:ok, socket |> display_shot_groups()}
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do

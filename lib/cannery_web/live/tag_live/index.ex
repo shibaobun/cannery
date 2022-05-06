@@ -9,9 +9,7 @@ defmodule CanneryWeb.TagLive.Index do
   alias CanneryWeb.Endpoint
 
   @impl true
-  def mount(_params, session, socket) do
-    {:ok, socket |> assign_defaults(session) |> display_tags()}
-  end
+  def mount(_params, _session, socket), do: {:ok, socket |> display_tags()}
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
