@@ -131,6 +131,42 @@ defmodule CanneryWeb.HomeLive do
           <% end %>
         </li>
       </ul>
+
+      <hr class="hr" />
+
+      <ul class="flex flex-col space-y-2 text-center justify-center">
+        <h2 class="title text-primary-600 text-lg">
+          <%= gettext("Get involved!") %>
+        </h2>
+
+        <li class="flex flex-col justify-center space-x-2">
+          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
+                to: "https://gitea.bubbletea.dev/shibao/cannery",
+                target: "_blank",
+                rel: "noopener noreferrer" do %>
+            <p><%= gettext("View the source code") %></p>
+            <i class="fas fa-md fa-code"></i>
+          <% end %>
+        </li>
+        <li class="flex flex-col justify-center space-x-2">
+          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
+              to: "https://weblate.bubbletea.dev/engage/cannery",
+              target: "_blank",
+              rel: "noopener noreferrer" do %>
+            <p><%= gettext("Help translate") %></p>
+            <i class="fas fa-md fa-language"></i>
+          <% end %>
+        </li>
+        <li class="flex flex-col justify-center space-x-2">
+          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
+              to: "https://gitea.bubbletea.dev/shibao/cannery/issues/new",
+              target: "_blank",
+              rel: "noopener noreferrer" do %>
+            <p><%= gettext("Report bugs or request features") %></p>
+            <i class="fas fa-md fa-spider"></i>
+          <% end %>
+        </li>
+      </ul>
     </div>
     """
   end

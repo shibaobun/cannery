@@ -870,3 +870,23 @@ msgstr ""
 #: lib/cannery_web/templates/user_registration/new.html.heex:33
 msgid "Language"
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/home_live.ex:139
+msgid "Get involved!"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/home_live.ex:156
+msgid "Help translate"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/home_live.ex:165
+msgid "Report bugs or request features"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/home_live.ex:147
+msgid "View the source code"
+msgstr ""

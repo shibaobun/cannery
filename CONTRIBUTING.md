@@ -63,8 +63,7 @@ And as always, thank you!
   [`phx_gen_auth`](https://hexdocs.pm/phx_gen_auth/).
 - `Dockerfile` and example `docker-compose.yml`
 - Automatic migrations in `MIX_ENV=prod` or Docker image
-- JS linting with [standard.js](https://standardjs.com), HEEx linting with
-  [heex_formatter](https://github.com/feliperenan/heex_formatter)
+- JS linting with [standard.js](https://standardjs.com)
 
 ## Docs
 
