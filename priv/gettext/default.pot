@@ -45,7 +45,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.ex:87
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:92
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:100
 msgid "Average Price paid"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgid "No Ammo Types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:112
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:120
 msgid "No ammo for this type"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgid "Price paid"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:42
+#: lib/cannery_web/components/ammo_group_card.ex:47
 msgid "Price paid:"
 msgstr ""
 
@@ -430,7 +430,7 @@ msgid "Steel"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:98
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:103
 msgid "Stored in"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgid "The self-hosted firearm tracker website"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:103
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:108
 msgid "This ammo group is not in a container"
 msgstr ""
 
@@ -538,13 +538,13 @@ msgid "No ammo staged"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:77
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:82
 #: lib/cannery_web/live/range_live/index.html.heex:33
 msgid "Stage for range"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:76
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:81
 #: lib/cannery_web/live/range_live/index.html.heex:32
 msgid "Unstage from range"
 msgstr ""
@@ -625,12 +625,12 @@ msgid "Shot log"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:43
-#: lib/cannery_web/live/ammo_group_live/index.ex:117
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:32
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:39
+#: lib/cannery_web/components/ammo_group_card.ex:48
+#: lib/cannery_web/live/ammo_group_live/index.ex:118
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:37
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:114
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:96
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:104
 msgid "$%{amount}"
 msgstr ""
 
@@ -691,12 +691,12 @@ msgid "New password"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:131
+#: lib/cannery_web/live/ammo_group_live/index.ex:141
 msgid "Stage"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:131
+#: lib/cannery_web/live/ammo_group_live/index.ex:141
 msgid "Unstage"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.ex:113
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:102
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:110
 msgid "No cost information"
 msgstr ""
 
@@ -751,12 +751,12 @@ msgid "% left"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:38
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:43
 msgid "Current value:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:31
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:36
 msgid "Original cost:"
 msgstr ""
 
@@ -771,7 +771,7 @@ msgid "Percentage left:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:111
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:116
 msgid "Rounds used"
 msgstr ""
 
@@ -829,4 +829,21 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.ex:34
 msgid "Ammo types"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/index.ex:86
+msgid "Added on"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/ammo_group_card.ex:41
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:30
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:91
+msgid "Added on:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/user_card.ex:30
+msgid "User registered on"
 msgstr ""
