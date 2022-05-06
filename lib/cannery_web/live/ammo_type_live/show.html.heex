@@ -87,6 +87,14 @@
       <%= @ammo_type |> Ammo.get_used_count_for_ammo_type(@current_user) %>
     </span>
 
+    <h3 class="title text-lg">
+      <%= gettext("Added on:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type.inserted_at |> display_datetime() %>
+    </span>
+
     <%= if @avg_cost_per_round do %>
       <h3 class="title text-lg">
         <%= gettext("Average Price paid") %>:
