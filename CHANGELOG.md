@@ -1,3 +1,10 @@
+# v0.5.2
+- Add "Added on" date to ammo groups
+- Add "Added on" date to ammo types
+- Add "Registered on" date to user information
+- Add language in user settings. The `LOCALE` environment variable will continue
+  to set the default locale for the application.
+
 # v0.5.1
 - Add French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
 
