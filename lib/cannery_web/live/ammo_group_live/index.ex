@@ -83,6 +83,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
       %{label: gettext("% left"), key: "remaining"},
       %{label: gettext("Range"), key: "range"},
       %{label: gettext("Container"), key: "container"},
+      %{label: gettext("Added on"), key: "added_on"},
       %{label: nil, key: "actions", sortable: false}
     ]
 
@@ -115,6 +116,15 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp get_value_for_key("price_paid", %{price_paid: price_paid}),
     do: gettext("$%{amount}", amount: price_paid |> :erlang.float_to_binary(decimals: 2))
+
+  defp get_value_for_key("added_on", %{inserted_at: inserted_at}) do
+    assigns = %{inserted_at: inserted_at}
+
+    {inserted_at,
+     ~H"""
+     <%= @inserted_at |> display_datetime() %>
+     """}
+  end
 
   defp get_value_for_key("range", %{staged: staged} = ammo_group) do
     assigns = %{ammo_group: ammo_group}

@@ -37,6 +37,11 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           </span>
         <% end %>
 
+        <span class="rounded-lg title text-lg">
+          <%= gettext("Added on:") %>
+          <%= @ammo_group.inserted_at |> display_datetime() %>
+        </span>
+
         <%= if @ammo_group.price_paid do %>
           <span class="rounded-lg title text-lg">
             <%= gettext("Price paid:") %>
