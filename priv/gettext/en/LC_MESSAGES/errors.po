@@ -16,18 +16,18 @@ msgid "Container must be empty before deleting"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:71
-#: lib/cannery_web/live/container_live/show.ex:73
+#: lib/cannery_web/live/container_live/index.ex:69
+#: lib/cannery_web/live/container_live/show.ex:71
 msgid "Could not delete %{name}: %{error}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/index.ex:59
+#: lib/cannery_web/live/container_live/index.ex:57
 msgid "Could not find that container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_settings_controller.ex:67
+#: lib/cannery_web/controllers/user_settings_controller.ex:84
 msgid "Email change link is invalid or it has expired."
 msgstr ""
 
@@ -37,7 +37,7 @@ msgid "Error"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/templates/error/error.html.heex:29
+#: lib/cannery_web/templates/error/error.html.heex:28
 msgid "Go back home"
 msgstr ""
 
@@ -59,8 +59,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_registration/new.html.heex:16
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:16
-#: lib/cannery_web/templates/user_settings/edit.html.heex:22
-#: lib/cannery_web/templates/user_settings/edit.html.heex:66
+#: lib/cannery_web/templates/user_settings/edit.html.heex:21
+#: lib/cannery_web/templates/user_settings/edit.html.heex:64
+#: lib/cannery_web/templates/user_settings/edit.html.heex:119
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
@@ -82,7 +83,7 @@ msgid "Sorry, this invite was not found or expired"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/controllers/user_settings_controller.ex:82
+#: lib/cannery_web/controllers/user_settings_controller.ex:99
 msgid "Unable to delete user"
 msgstr ""
 
@@ -97,7 +98,7 @@ msgid "User confirmation link is invalid or it has expired."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/invite_live/index.ex:20
+#: lib/cannery_web/live/invite_live/index.ex:18
 msgid "You are not authorized to view this page"
 msgstr ""
 
@@ -107,23 +108,23 @@ msgid "You are not authorized to view this page."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/accounts/user.ex:128
+#: lib/cannery/accounts/user.ex:130
 msgid "did not change"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/accounts/user.ex:149
+#: lib/cannery/accounts/user.ex:151
 msgid "does not match password"
 msgstr ""
 
 ## From Ecto.Changeset.put_change/3
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery/accounts/user.ex:186
+#: lib/cannery/accounts/user.ex:188
 msgid "is not valid"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/accounts/user.ex:82
+#: lib/cannery/accounts/user.ex:84
 msgid "must have the @ sign and no spaces"
 msgstr ""
 
@@ -160,11 +161,11 @@ msgid "Tag could not be removed"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:113
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:126
 msgid "Could not parse number of copies"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:98
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr ""

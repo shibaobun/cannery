@@ -23,164 +23,165 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery/containers.ex:122
 #, elixir-autogen, elixir-format
+#: lib/cannery/containers.ex:122
 msgid "Container must be empty before deleting"
 msgstr "Le conteneur doit être vide pour être supprimé"
 
-#: lib/cannery_web/live/container_live/index.ex:71
-#: lib/cannery_web/live/container_live/show.ex:73
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/index.ex:69
+#: lib/cannery_web/live/container_live/show.ex:71
 msgid "Could not delete %{name}: %{error}"
 msgstr "Impossible de supprimer %{name} : %{error}"
 
-#: lib/cannery_web/live/container_live/index.ex:59
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/index.ex:57
 msgid "Could not find that container"
 msgstr "Impossible de trouver ce conteneur"
 
-#: lib/cannery_web/controllers/user_settings_controller.ex:67
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_settings_controller.ex:84
 msgid "Email change link is invalid or it has expired."
 msgstr "Le lien de changement de mél est invalide ou a expiré."
 
-#: lib/cannery_web/templates/error/error.html.heex:8
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/error/error.html.heex:8
 msgid "Error"
 msgstr "Erreur"
 
-#: lib/cannery_web/templates/error/error.html.heex:28
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/error/error.html.heex:28
 msgid "Go back home"
 msgstr "Retour au menu principal"
 
-#: lib/cannery_web/views/error_view.ex:11
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/views/error_view.ex:11
 msgid "Internal Server Error"
 msgstr "Erreur interne du serveur"
 
-#: lib/cannery_web/controllers/user_session_controller.ex:17
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_session_controller.ex:17
 msgid "Invalid email or password"
 msgstr "Mél ou mot de passe invalide"
 
-#: lib/cannery_web/views/error_view.ex:9
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/views/error_view.ex:9
 msgid "Not found"
 msgstr "Pas trouvé"
 
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_registration/new.html.heex:16
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:16
-#: lib/cannery_web/templates/user_settings/edit.html.heex:22
-#: lib/cannery_web/templates/user_settings/edit.html.heex:66
-#, elixir-autogen, elixir-format
+#: lib/cannery_web/templates/user_settings/edit.html.heex:21
+#: lib/cannery_web/templates/user_settings/edit.html.heex:64
+#: lib/cannery_web/templates/user_settings/edit.html.heex:119
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 "Oups, quelque chose s’est mal passé ! Veuillez vérifier les erreurs en "
 "dessous."
 
-#: lib/cannery_web/controllers/user_reset_password_controller.ex:63
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:63
 msgid "Reset password link is invalid or it has expired."
 msgstr "Le lien de réinitialisation de mot de passe est invalide ou expiré."
 
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_registration_controller.ex:25
 #: lib/cannery_web/controllers/user_registration_controller.ex:56
-#, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
 msgstr "Désolé, l’enregistrement public est désactivé"
 
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_registration_controller.ex:15
 #: lib/cannery_web/controllers/user_registration_controller.ex:46
-#, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
 msgstr "Désolé, cette invitation n’est pas trouvée ou est expirée"
 
-#: lib/cannery_web/controllers/user_settings_controller.ex:82
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_settings_controller.ex:99
 msgid "Unable to delete user"
 msgstr "Impossible de supprimer l’utilisateur·ice"
 
-#: lib/cannery_web/views/error_view.ex:10
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/views/error_view.ex:10
 msgid "Unauthorized"
 msgstr "Non autorisé·e"
 
-#: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Le lien de confirmation d’utilisateur·ice est invalide ou a expiré."
 
-#: lib/cannery_web/live/invite_live/index.ex:20
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/invite_live/index.ex:18
 msgid "You are not authorized to view this page"
 msgstr "Vous n’êtes pas autorisé·e à voir cette page"
 
-#: lib/cannery_web/controllers/user_auth.ex:177
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/controllers/user_auth.ex:177
 msgid "You are not authorized to view this page."
 msgstr "Vous n’êtes pas autorisé·e à voir cette page."
 
-#: lib/cannery/accounts/user.ex:128
 #, elixir-autogen, elixir-format
+#: lib/cannery/accounts/user.ex:130
 msgid "did not change"
 msgstr "est inchangé"
 
-#: lib/cannery/accounts/user.ex:149
 #, elixir-autogen, elixir-format
+#: lib/cannery/accounts/user.ex:151
 msgid "does not match password"
 msgstr "le mot de passe ne correspond pas"
 
-#: lib/cannery/accounts/user.ex:186
 #, elixir-autogen, elixir-format
+#: lib/cannery/accounts/user.ex:188
 msgid "is not valid"
 msgstr "n’est pas valide"
 
-#: lib/cannery/accounts/user.ex:82
 #, elixir-autogen, elixir-format
+#: lib/cannery/accounts/user.ex:84
 msgid "must have the @ sign and no spaces"
 msgstr "doit contenir le symbole @ et aucune espace"
 
-#: lib/cannery/tags.ex:40
 #, elixir-autogen, elixir-format
+#: lib/cannery/tags.ex:40
 msgid "Tag not found"
 msgstr "Tag pas trouvé"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 msgid "Tag could not be added"
 msgstr "Le tag n’a pas pu être ajouté"
 
-#: lib/cannery/activity_log.ex:125
 #, elixir-autogen, elixir-format
+#: lib/cannery/activity_log.ex:125
 msgid "Count must be at least 1"
 msgstr "Le nombre doit être au moins égal à 1"
 
+#, elixir-autogen, elixir-format
 #: lib/cannery/activity_log.ex:73
 #: lib/cannery/activity_log.ex:120
-#, elixir-autogen, elixir-format
 msgid "Count must be less than %{count}"
 msgstr "La quantité doit être inférieur à %{count}"
 
+#, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_auth.ex:39
 #: lib/cannery_web/controllers/user_auth.ex:161
-#, elixir-autogen, elixir-format
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
 "Vous devez d’abord confirmer votre compte et vous connecter pour accéder à "
 "cette page."
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
 msgid "Tag could not be removed"
 msgstr "Le tag n’a pas pu être retiré"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:126
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:126
 msgid "Could not parse number of copies"
 msgstr "Impossible d'analyser le nombre de copies"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 #, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:111
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
