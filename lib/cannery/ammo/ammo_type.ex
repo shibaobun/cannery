@@ -31,10 +31,10 @@ defmodule Cannery.Ammo.AmmoType do
     field :pressure, :string
     field :primer_type, :string
     field :firing_type, :string
-    field :tracer, :boolean, null: false, default: false
-    field :incendiary, :boolean, null: false, default: false
-    field :blank, :boolean, null: false, default: false
-    field :corrosive, :boolean, null: false, default: false
+    field :tracer, :boolean, default: false
+    field :incendiary, :boolean, default: false
+    field :blank, :boolean, default: false
+    field :corrosive, :boolean, default: false
 
     field :manufacturer, :string
     field :upc, :string
