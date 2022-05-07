@@ -1,24 +1,18 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [
-    '../lib/**/*.ex',
-    '../lib/**/*.heex',
-    '../lib/**/*.leex',
-    '../lib/**/*.eex',
+  content: [
+    '../lib/**/*.{ex,heex,leex,eex}',
     './js/**/*.js'
   ],
-  darkMode: 'media',
   theme: {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-
       primary: colors.gray,
-
       black: colors.black,
       white: colors.white,
-      gray: colors.trueGray,
+      gray: colors.neutral,
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber
@@ -43,12 +37,6 @@ module.exports = {
         16: '4rem',
         20: '8rem'
       }
-    }
-  },
-  variants: {
-    extend: {
-      backgroundColor: ['active'],
-      borderColor: ['active']
     }
   },
   plugins: []
