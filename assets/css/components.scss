@@ -25,7 +25,7 @@
   }
 
   .btn {
-    @apply inline-block break-all min-w-4;
+    @apply inline-block break-words min-w-4;
     @apply focus:outline-none px-4 py-2 rounded-lg;
     @apply shadow-sm focus:shadow-lg;
     @apply transition-all duration-300 ease-in-out;
