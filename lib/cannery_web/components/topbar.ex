@@ -89,7 +89,7 @@ defmodule CanneryWeb.Components.Topbar do
               <li class="mx-2 my-1">
                 <%= live_redirect to: Routes.live_dashboard_path(Endpoint, :home),
                   class: "text-primary-600 text-white hover:underline" do %>
-                  <i class="fas fa-tachometer-alt"></i>
+                  <i class="fas fa-gauge"></i>
                 <% end %>
               </li>
             <% end %>
