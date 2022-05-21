@@ -1,3 +1,7 @@
+# v0.5.3
+- Update French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
+- Update German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
+
 # v0.5.2
 - Add "Added on" date to ammo groups
 - Add "Added on" date to ammo types
