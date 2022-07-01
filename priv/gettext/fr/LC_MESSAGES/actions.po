@@ -176,11 +176,6 @@ msgid "Record shots"
 msgstr "Enregistrer des tirs"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:55
-msgid "Ammo Details"
-msgstr "Détails de la munition"
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.ex:89
 msgid "Add another container!"
 msgstr "Ajoutez un autre conteneur !"
@@ -220,3 +215,8 @@ msgstr "Changer la langue"
 #: lib/cannery_web/templates/user_settings/edit.html.heex:134
 msgid "Change language"
 msgstr "Changer la langue"
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:55
+msgid "View in Catalog"
+msgstr ""

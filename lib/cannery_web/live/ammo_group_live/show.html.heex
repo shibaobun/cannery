@@ -52,7 +52,7 @@
 
   <div class="flex flex-col justify-center items-center">
     <div class="flex flex-wrap justify-center items-center text-primary-600">
-      <%= live_patch(dgettext("actions", "Ammo Details"),
+      <%= live_patch(dgettext("actions", "View in Catalog"),
         to: Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type),
         class: "mx-4 my-2 btn btn-primary",
         data: [qa: "details"]
