@@ -211,6 +211,18 @@ defmodule Cannery.Containers do
   Returns number of rounds in container. If data is already preloaded, then
   there will be no db hit.
   """
+  @spec get_container_ammo_group_count!(Container.t()) :: non_neg_integer()
+  def get_container_ammo_group_count!(%Container{} = container) do
+    container
+    |> Repo.preload(:ammo_groups)
+    |> Map.fetch!(:ammo_groups)
+    |> Enum.count()
+  end
+
+  @doc """
+  Returns number of rounds in container. If data is already preloaded, then
+  there will be no db hit.
+  """
   @spec get_container_rounds!(Container.t()) :: non_neg_integer()
   def get_container_rounds!(%Container{} = container) do
     container

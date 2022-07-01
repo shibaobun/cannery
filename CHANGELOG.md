@@ -1,7 +1,8 @@
 # v0.5.4
 - Rename "Ammo" tab to "Catalog", and "Manage" tab is now "Ammo"
-- Ammo groups are now just referred to as Ammo
+- Ammo groups are now just referred to as Ammo or "Packs"
 - URL paths now reflect new names
+- Add pack and round count to container information
 
 # v0.5.3
 - Update French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!

@@ -45,7 +45,12 @@ defmodule CanneryWeb.Components.ContainerCard do
           </span>
         <% end %>
 
-        <%= if @container.ammo_groups do %>
+        <%= unless @container.ammo_groups |> Enum.empty?() do %>
+          <span class="rounded-lg title text-lg">
+            <%= gettext("Packs:") %>
+            <%= @container |> Containers.get_container_ammo_group_count!() %>
+          </span>
+
           <span class="rounded-lg title text-lg">
             <%= gettext("Rounds:") %>
             <%= @container |> Containers.get_container_rounds!() %>
