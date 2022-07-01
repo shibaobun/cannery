@@ -1,3 +1,7 @@
+# v0.5.4
+- Rename "Ammo" tab to "Catalog", and "Manage" tab is now "Ammo"
+- Ammo groups are now just referred to as Ammo
+
 # v0.5.3
 - Update French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
 - Update German translation: Thank you [Kaia](https://shitposter.club/users/kaia)!
