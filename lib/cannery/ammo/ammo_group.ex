@@ -63,7 +63,7 @@ defmodule Cannery.Ammo.AmmoGroup do
     ammo_group
     |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id])
     |> validate_number(:count, greater_than_or_equal_to: 0)
-    |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
+    |> validate_required([:count, :staged, :ammo_type_id, :container_id])
   end
 
   @doc """
@@ -75,6 +75,6 @@ defmodule Cannery.Ammo.AmmoGroup do
   def range_changeset(ammo_group, attrs) do
     ammo_group
     |> cast(attrs, [:count, :staged])
-    |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
+    |> validate_required([:count, :staged])
   end
 end

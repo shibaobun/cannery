@@ -55,6 +55,6 @@ defmodule Cannery.Containers.Container do
   def update_changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location])
-    |> validate_required([:name, :type, :user_id])
+    |> validate_required([:name, :type])
   end
 end

@@ -118,6 +118,6 @@ defmodule Cannery.Ammo.AmmoType do
   def update_changeset(ammo_type, attrs) do
     ammo_type
     |> cast(attrs, changeset_fields())
-    |> validate_required([:name, :user_id])
+    |> validate_required(:name)
   end
 end
