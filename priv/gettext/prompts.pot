@@ -63,13 +63,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:56
-#: lib/cannery_web/live/ammo_group_live/show.ex:50
 msgid "Ammo group deleted succesfully"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:88
-msgid "Ammo group updated successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -200,11 +194,6 @@ msgid "Are you sure you want to unstage this ammo?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/range_live/index.ex:68
-msgid "Ammo group unstaged succesfully"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/show.ex:130
 #: lib/cannery_web/live/range_live/index.ex:128
 msgid "Are you sure you want to delete this shot record?"
@@ -253,13 +242,6 @@ msgid "Creating..."
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:147
-msgid "Ammo group created successfully"
-msgid_plural "Ammo groups created successfully"
-msgstr[0] ""
-msgstr[1] ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_settings/edit.html.heex:136
 msgid "Are you sure you want to change your language?"
 msgstr ""
@@ -268,3 +250,25 @@ msgstr ""
 #: lib/cannery_web/controllers/user_settings_controller.ex:65
 msgid "Language updated successfully."
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/show.ex:50
+msgid "Ammo deleted succesfully"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/range_live/index.ex:68
+msgid "Ammo unstaged succesfully"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:88
+msgid "Ammo updated successfully"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:147
+msgid "Ammo added successfully"
+msgid_plural "Ammo added successfully"
+msgstr[0] ""
+msgstr[1] ""

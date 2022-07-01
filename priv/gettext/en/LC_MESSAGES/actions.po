@@ -13,6 +13,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:44
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:42
 msgid "Add Ammo"
 msgstr ""
 
@@ -79,11 +80,6 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/tag_live/index.html.heex:14
 msgid "Make your first tag!"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:42
-msgid "New Ammo group"
 msgstr ""
 
 #, elixir-autogen, elixir-format

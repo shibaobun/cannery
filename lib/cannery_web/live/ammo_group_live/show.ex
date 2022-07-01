@@ -35,9 +35,9 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
 
   defp page_title(:add_shot_group), do: gettext("Record Shots")
   defp page_title(:edit_shot_group), do: gettext("Edit Shot Records")
-  defp page_title(:move), do: gettext("Move Ammo group")
-  defp page_title(:show), do: gettext("Show Ammo group")
-  defp page_title(:edit), do: gettext("Edit Ammo group")
+  defp page_title(:move), do: gettext("Move Ammo")
+  defp page_title(:show), do: gettext("Show Ammo")
+  defp page_title(:edit), do: gettext("Edit Ammo")
 
   @impl true
   def handle_event(
@@ -47,7 +47,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
       ) do
     ammo_group |> Ammo.delete_ammo_group!(current_user)
 
-    prompt = dgettext("prompts", "Ammo group deleted succesfully")
+    prompt = dgettext("prompts", "Ammo deleted succesfully")
     redirect_to = Routes.ammo_group_index_path(socket, :index)
 
     {:noreply, socket |> put_flash(:info, prompt) |> push_redirect(to: redirect_to)}

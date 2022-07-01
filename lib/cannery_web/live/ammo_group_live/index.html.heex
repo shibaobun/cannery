@@ -39,7 +39,7 @@
         ) %>
       </div>
     <% else %>
-      <%= live_patch(dgettext("actions", "New Ammo group"),
+      <%= live_patch(dgettext("actions", "Add Ammo"),
         to: Routes.ammo_group_index_path(Endpoint, :new),
         class: "btn btn-primary"
       ) %>

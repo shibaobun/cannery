@@ -35,15 +35,15 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, _index_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       ammo_group = ammo_group |> Repo.preload(:ammo_type)
-      assert html =~ gettext("Ammo groups")
+      assert html =~ gettext("Ammo")
       assert html =~ ammo_group.ammo_type.name
     end
 
     test "saves a single new ammo_group", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Ammo group")) |> render_click() =~
-               gettext("New Ammo group")
+      assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
+               gettext("Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -57,7 +57,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "Ammo group created successfully")
+      assert html =~ dgettext("prompts", "Ammo added successfully")
       assert html =~ "42"
     end
 
@@ -66,8 +66,8 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Ammo group")) |> render_click() =~
-               gettext("New Ammo group")
+      assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
+               gettext("Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -83,15 +83,15 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "Ammo groups created successfully")
+      assert html =~ dgettext("prompts", "Ammo added successfully")
       assert Ammo.list_ammo_groups(current_user) |> Enum.count() == multiplier + 1
     end
 
     test "does not save invalid number of new ammo_groups", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Ammo group")) |> render_click() =~
-               gettext("New Ammo group")
+      assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
+               gettext("Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -150,7 +150,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert index_live
              |> element("[data-qa=\"edit-#{ammo_group.id}\"]")
              |> render_click() =~
-               gettext("Edit Ammo group")
+               gettext("Edit Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :edit, ammo_group))
 
@@ -164,7 +164,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "Ammo group updated successfully")
+      assert html =~ dgettext("prompts", "Ammo updated successfully")
       assert html =~ "43"
     end
 
@@ -186,7 +186,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, _show_live, html} = live(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
 
       ammo_group = ammo_group |> Repo.preload(:ammo_type)
-      assert html =~ gettext("Show Ammo group")
+      assert html =~ gettext("Show Ammo")
       assert html =~ ammo_group.ammo_type.name
     end
 
@@ -196,7 +196,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert show_live
              |> element("[data-qa=\"edit\"]")
              |> render_click() =~
-               gettext("Edit Ammo group")
+               gettext("Edit Ammo")
 
       assert_patch(show_live, Routes.ammo_group_show_path(conn, :edit, ammo_group))
 
@@ -210,7 +210,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
 
-      assert html =~ dgettext("prompts", "Ammo group updated successfully")
+      assert html =~ dgettext("prompts", "Ammo updated successfully")
       assert html =~ "some updated notes"
     end
 

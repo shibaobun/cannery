@@ -65,7 +65,7 @@ defmodule CanneryWeb.RangeLive.Index do
     {:ok, _ammo_group} =
       ammo_group |> Ammo.update_ammo_group(%{"staged" => !ammo_group.staged}, current_user)
 
-    prompt = dgettext("prompts", "Ammo group unstaged succesfully")
+    prompt = dgettext("prompts", "Ammo unstaged succesfully")
     {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
   end
 

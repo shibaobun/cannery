@@ -42,7 +42,7 @@ msgid "Admins:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:50
+#: lib/cannery_web/components/topbar.ex:56
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 msgid "Ammo"
@@ -169,7 +169,6 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:38
-#: lib/cannery_web/live/ammo_group_live/show.ex:40
 msgid "Edit Ammo group"
 msgstr ""
 
@@ -263,11 +262,6 @@ msgid "Magazine, Clip, Ammo Box, etc"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:56
-msgid "Manage"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:148
 #: lib/cannery_web/live/ammo_type_live/index.ex:73
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:55
@@ -326,11 +320,6 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:120
 msgid "No ammo for this type"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:78
-msgid "No ammo groups in this container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -421,11 +410,6 @@ msgid "Settings"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.ex:39
-msgid "Show Ammo group"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.ex:44
 msgid "Show Ammo type"
 msgstr ""
@@ -465,11 +449,6 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/home_live.ex:44
 msgid "The self-hosted firearm tracker website"
-msgstr ""
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:108
-msgid "This ammo group is not in a container"
 msgstr ""
 
 #, elixir-autogen, elixir-format
@@ -567,11 +546,6 @@ msgid "Record shots"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:3
-msgid "Ammo Types"
-msgstr ""
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:49
 msgid "Ammo groups"
 msgstr ""
@@ -616,7 +590,6 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:32
-#: lib/cannery_web/live/ammo_group_live/show.ex:38
 msgid "Move Ammo group"
 msgstr ""
 
@@ -900,4 +873,35 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/home_live.ex:147
 msgid "View the source code"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/topbar.ex:50
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:3
+msgid "Catalog"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:40
+msgid "Edit Ammo"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:38
+msgid "Move Ammo"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/container_live/show.html.heex:78
+msgid "No ammo in this container"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:39
+msgid "Show Ammo"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:108
+msgid "This ammo is not in a container"
 msgstr ""

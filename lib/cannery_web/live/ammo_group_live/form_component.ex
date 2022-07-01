@@ -85,7 +85,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     socket =
       case Ammo.update_ammo_group(ammo_group, ammo_group_params, current_user) do
         {:ok, _ammo_group} ->
-          prompt = dgettext("prompts", "Ammo group updated successfully")
+          prompt = dgettext("prompts", "Ammo updated successfully")
           socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
@@ -146,8 +146,8 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
         prompt =
           dngettext(
             "prompts",
-            "Ammo group created successfully",
-            "Ammo groups created successfully",
+            "Ammo added successfully",
+            "Ammo added successfully",
             count
           )
 

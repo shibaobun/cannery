@@ -46,7 +46,7 @@ msgid "Admins:"
 msgstr "Admins:"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:50
+#: lib/cannery_web/components/topbar.ex:56
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 msgid "Ammo"
@@ -173,7 +173,6 @@ msgstr "Einfache Anwendung:"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:38
-#: lib/cannery_web/live/ammo_group_live/show.ex:40
 msgid "Edit Ammo group"
 msgstr "Munitionsgruppe bearbeiten"
 
@@ -267,11 +266,6 @@ msgid "Magazine, Clip, Ammo Box, etc"
 msgstr "Magazin, Ladestreifen, Munitionskiste usw."
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:56
-msgid "Manage"
-msgstr "Verwalten"
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:148
 #: lib/cannery_web/live/ammo_type_live/index.ex:73
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:55
@@ -331,11 +325,6 @@ msgstr "Keine Munitionsarten"
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:120
 msgid "No ammo for this type"
 msgstr "Keine Munition dieser Art"
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:78
-msgid "No ammo groups in this container"
-msgstr "Keine Munitionsgruppe in diesem Behälter"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.html.heex:8
@@ -427,11 +416,6 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.ex:39
-msgid "Show Ammo group"
-msgstr "Munitionsgruppen anzeigen"
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.ex:44
 msgid "Show Ammo type"
 msgstr "Zeige Munitionsarten"
@@ -472,11 +456,6 @@ msgstr "Textfarbe"
 #: lib/cannery_web/live/home_live.ex:44
 msgid "The self-hosted firearm tracker website"
 msgstr "Die selbst-gehostete Website zur Verwaltung von Schusswaffen"
-
-#, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:108
-msgid "This ammo group is not in a container"
-msgstr "Diese Munitionsgruppe ist nicht in einem Behälter"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:132
@@ -573,11 +552,6 @@ msgid "Record shots"
 msgstr "Schüsse dokumentieren"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:3
-msgid "Ammo Types"
-msgstr "Munitionsarten"
-
-#, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:49
 msgid "Ammo groups"
 msgstr "Munitionsgruppen"
@@ -622,7 +596,6 @@ msgstr "Schießkladde"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.ex:32
-#: lib/cannery_web/live/ammo_group_live/show.ex:38
 msgid "Move Ammo group"
 msgstr "Munitionsgruppe verschieben"
 
@@ -907,3 +880,34 @@ msgstr "Sende Bugs oder Erweiterungsvorschläge"
 #: lib/cannery_web/live/home_live.ex:147
 msgid "View the source code"
 msgstr "Quellcode ansehen"
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/topbar.ex:50
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:3
+msgid "Catalog"
+msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:40
+msgid "Edit Ammo"
+msgstr "Munitionstyp bearbeiten"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:38
+msgid "Move Ammo"
+msgstr "Munition verschieben"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/container_live/show.html.heex:78
+msgid "No ammo in this container"
+msgstr "Keine Munitionsgruppe in diesem Behälter"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.ex:39
+msgid "Show Ammo"
+msgstr "Zeige Munitionsarten"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:108
+msgid "This ammo is not in a container"
+msgstr "Diese Munitionsgruppe ist nicht in einem Behälter"
