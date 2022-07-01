@@ -504,7 +504,7 @@ msgid "Your data stays with you, period"
 msgstr "Vos données restent avec vous, point final"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.html.heex:49
+#: lib/cannery_web/live/container_live/show.html.heex:61
 msgid "No tags for this container"
 msgstr "Aucun tag pour ce conteneur"
 
@@ -722,7 +722,8 @@ msgid "Edit %{name} tags"
 msgstr "Éditer les tags de %{name}"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/container_card.ex:50
+#: lib/cannery_web/components/container_card.ex:55
+#: lib/cannery_web/live/container_live/show.html.heex:32
 msgid "Rounds:"
 msgstr "Cartouches :"
 
@@ -900,7 +901,7 @@ msgid "Move Ammo"
 msgstr "Déplacer munition"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/container_live/show.html.heex:78
+#: lib/cannery_web/live/container_live/show.html.heex:90
 msgid "No ammo in this container"
 msgstr "Aucun groupe de munition pour ce conteneur"
 
@@ -913,3 +914,9 @@ msgstr "Montrer le type de munition"
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:108
 msgid "This ammo is not in a container"
 msgstr "Ce groupe de munition n’est pas dans un conteneur"
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/container_card.ex:50
+#: lib/cannery_web/live/container_live/show.html.heex:27
+msgid "Packs:"
+msgstr ""

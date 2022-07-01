@@ -90,7 +90,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:27
 #: lib/cannery_web/live/container_live/index.html.heex:46
-#: lib/cannery_web/live/container_live/show.html.heex:37
+#: lib/cannery_web/live/container_live/show.html.heex:49
 #: lib/cannery_web/live/tag_live/index.html.heex:38
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Sind Sie sicher, dass sie %{name} löschen möchten?"
