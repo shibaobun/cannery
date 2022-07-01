@@ -65,12 +65,12 @@ defmodule CanneryWeb.Router do
     live "/tags/new", TagLive.Index, :new
     live "/tags/:id/edit", TagLive.Index, :edit
 
-    live "/ammo_types", AmmoTypeLive.Index, :index
-    live "/ammo_types/new", AmmoTypeLive.Index, :new
-    live "/ammo_types/:id/edit", AmmoTypeLive.Index, :edit
+    live "/catalog", AmmoTypeLive.Index, :index
+    live "/catalog/new", AmmoTypeLive.Index, :new
+    live "/catalog/:id/edit", AmmoTypeLive.Index, :edit
 
-    live "/ammo_types/:id", AmmoTypeLive.Show, :show
-    live "/ammo_types/:id/show/edit", AmmoTypeLive.Show, :edit
+    live "/catalog/:id", AmmoTypeLive.Show, :show
+    live "/catalog/:id/show/edit", AmmoTypeLive.Show, :edit
 
     live "/containers", ContainerLive.Index, :index
     live "/containers/new", ContainerLive.Index, :new
@@ -81,17 +81,17 @@ defmodule CanneryWeb.Router do
     live "/containers/:id/show/edit", ContainerLive.Show, :edit
     live "/containers/:id/show/edit_tags", ContainerLive.Show, :edit_tags
 
-    live "/ammo_groups", AmmoGroupLive.Index, :index
-    live "/ammo_groups/new", AmmoGroupLive.Index, :new
-    live "/ammo_groups/:id/edit", AmmoGroupLive.Index, :edit
-    live "/ammo_groups/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
-    live "/ammo_groups/:id/move", AmmoGroupLive.Index, :move
+    live "/ammo", AmmoGroupLive.Index, :index
+    live "/ammo/new", AmmoGroupLive.Index, :new
+    live "/ammo/:id/edit", AmmoGroupLive.Index, :edit
+    live "/ammo/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
+    live "/ammo/:id/move", AmmoGroupLive.Index, :move
 
-    live "/ammo_groups/:id", AmmoGroupLive.Show, :show
-    live "/ammo_groups/:id/show/edit", AmmoGroupLive.Show, :edit
-    live "/ammo_groups/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
-    live "/ammo_groups/:id/show/move", AmmoGroupLive.Show, :move
-    live "/ammo_groups/:id/show/:shot_group_id/edit", AmmoGroupLive.Show, :edit_shot_group
+    live "/ammo/:id", AmmoGroupLive.Show, :show
+    live "/ammo/:id/show/edit", AmmoGroupLive.Show, :edit
+    live "/ammo/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
+    live "/ammo/:id/show/move", AmmoGroupLive.Show, :move
+    live "/ammo/:id/show/:shot_group_id/edit", AmmoGroupLive.Show, :edit_shot_group
 
     live "/range", RangeLive.Index, :index
     live "/range/:id/edit", RangeLive.Index, :edit
