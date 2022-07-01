@@ -47,13 +47,13 @@ defmodule CanneryWeb.Components.Topbar do
               ) %>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Ammo"),
+              <%= live_redirect(gettext("Catalog"),
                 to: Routes.ammo_type_index_path(Endpoint, :index),
                 class: "text-primary-600 text-white hover:underline"
               ) %>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Manage"),
+              <%= live_redirect(gettext("Ammo"),
                 to: Routes.ammo_group_index_path(Endpoint, :index),
                 class: "text-primary-600 text-white hover:underline"
               ) %>
