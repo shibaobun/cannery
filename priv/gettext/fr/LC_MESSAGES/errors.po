@@ -153,13 +153,13 @@ msgid "Tag could not be added"
 msgstr "Le tag n’a pas pu être ajouté"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/activity_log.ex:125
+#: lib/cannery/activity_log/shot_group.ex:102
 msgid "Count must be at least 1"
 msgstr "Le nombre doit être au moins égal à 1"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/activity_log.ex:73
-#: lib/cannery/activity_log.ex:120
+#: lib/cannery/activity_log/shot_group.ex:61
+#: lib/cannery/activity_log/shot_group.ex:98
 msgid "Count must be less than %{count}"
 msgstr "La quantité doit être inférieur à %{count}"
 

@@ -1,6 +1,6 @@
 defmodule CanneryWeb.RangeLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update or create a ShotGroup
+  Livecomponent that can update a ShotGroup
   """
 
   use CanneryWeb, :live_component
@@ -24,7 +24,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
         } = assigns,
         socket
       ) do
-    changeset = shot_group |> ActivityLog.change_shot_group()
+    changeset = shot_group |> ShotGroup.update_changeset(current_user, %{})
     ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
     {:ok, socket |> assign(assigns) |> assign(ammo_group: ammo_group, changeset: changeset)}
   end
@@ -33,11 +33,11 @@ defmodule CanneryWeb.RangeLive.FormComponent do
   def handle_event(
         "validate",
         %{"shot_group" => shot_group_params},
-        %{assigns: %{shot_group: shot_group}} = socket
+        %{assigns: %{current_user: current_user, shot_group: shot_group}} = socket
       ) do
     changeset =
       shot_group
-      |> ActivityLog.change_shot_group(shot_group_params)
+      |> ShotGroup.update_changeset(current_user, shot_group_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}

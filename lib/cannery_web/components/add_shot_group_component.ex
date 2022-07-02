@@ -16,9 +16,10 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{ammo_group: _ammo_group, current_user: _current_user} = assigns, socket) do
+  def update(%{ammo_group: ammo_group, current_user: current_user} = assigns, socket) do
     changeset =
-      %ShotGroup{date: NaiveDateTime.utc_now(), count: 1} |> ActivityLog.change_shot_group()
+      %ShotGroup{date: NaiveDateTime.utc_now(), count: 1}
+      |> ShotGroup.create_changeset(current_user, ammo_group, %{})
 
     {:ok, socket |> assign(assigns) |> assign(:changeset, changeset)}
   end
@@ -27,21 +28,13 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
   def handle_event(
         "validate",
         %{"shot_group" => shot_group_params},
-        %{
-          assigns: %{
-            ammo_group: %AmmoGroup{id: ammo_group_id} = ammo_group,
-            current_user: %User{id: user_id}
-          }
-        } = socket
+        %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
       ) do
-    shot_group_params =
-      shot_group_params
-      |> process_params(ammo_group)
-      |> Map.merge(%{"ammo_group_id" => ammo_group_id, "user_id" => user_id})
+    params = shot_group_params |> process_params(ammo_group)
 
     changeset =
       %ShotGroup{}
-      |> ActivityLog.change_shot_group(shot_group_params)
+      |> ShotGroup.create_changeset(current_user, ammo_group, params)
       |> Map.put(:action, :validate)
 
     {:noreply, socket |> assign(:changeset, changeset)}
@@ -51,17 +44,12 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
         "save",
         %{"shot_group" => shot_group_params},
         %{
-          assigns: %{
-            ammo_group: %{id: ammo_group_id} = ammo_group,
-            current_user: %{id: user_id} = current_user,
-            return_to: return_to
-          }
+          assigns: %{ammo_group: ammo_group, current_user: current_user, return_to: return_to}
         } = socket
       ) do
     socket =
       shot_group_params
       |> process_params(ammo_group)
-      |> Map.merge(%{"ammo_group_id" => ammo_group_id, "user_id" => user_id})
       |> ActivityLog.create_shot_group(current_user, ammo_group)
       |> case do
         {:ok, _shot_group} ->

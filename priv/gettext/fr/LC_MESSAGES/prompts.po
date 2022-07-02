@@ -206,7 +206,7 @@ msgid "Adding..."
 msgstr "Ajout en cours…"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/add_shot_group_component.ex:68
+#: lib/cannery_web/components/add_shot_group_component.ex:56
 msgid "Shots recorded successfully"
 msgstr "Tirs enregistré avec succès"
 

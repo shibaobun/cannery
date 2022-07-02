@@ -178,10 +178,5 @@ defmodule Cannery.ActivityLogTest do
         ActivityLog.get_shot_group!(shot_group.id, current_user)
       end
     end
-
-    test "change_shot_group/1 returns a shot_group changeset",
-         %{shot_group: shot_group} do
-      assert %Ecto.Changeset{} = ActivityLog.change_shot_group(shot_group)
-    end
   end
 end

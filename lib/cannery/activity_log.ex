@@ -4,8 +4,7 @@ defmodule Cannery.ActivityLog do
   """
 
   import Ecto.Query, warn: false
-  import CanneryWeb.Gettext
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo, Ammo.AmmoGroup, Repo}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup, Repo}
   alias Ecto.{Changeset, Multi}
 
   @doc """
@@ -60,32 +59,30 @@ defmodule Cannery.ActivityLog do
   """
   @spec create_shot_group(attrs :: map(), User.t(), AmmoGroup.t()) ::
           {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t()) | nil}
-  def create_shot_group(
-        attrs,
-        %User{id: user_id},
-        %AmmoGroup{id: ammo_group_id, count: ammo_group_count, user_id: user_id} = ammo_group
-      ) do
-    attrs = attrs |> Map.merge(%{"user_id" => user_id, "ammo_group_id" => ammo_group_id})
-    changeset = %ShotGroup{} |> ShotGroup.create_changeset(attrs)
-    shot_group_count = changeset |> Changeset.get_field(:count)
-
-    if shot_group_count > ammo_group_count do
-      error = dgettext("errors", "Count must be less than %{count}", count: ammo_group_count)
-      changeset = changeset |> Changeset.add_error(:count, error)
-      {:error, changeset}
-    else
-      Multi.new()
-      |> Multi.insert(:create_shot_group, changeset)
-      |> Multi.update(
-        :update_ammo_group,
-        ammo_group |> AmmoGroup.range_changeset(%{"count" => ammo_group_count - shot_group_count})
-      )
-      |> Repo.transaction()
-      |> case do
-        {:ok, %{create_shot_group: shot_group}} -> {:ok, shot_group}
-        {:error, :create_shot_group, changeset, _changes_so_far} -> {:error, changeset}
-        {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
+  def create_shot_group(attrs, user, ammo_group) do
+    Multi.new()
+    |> Multi.insert(
+      :create_shot_group,
+      %ShotGroup{} |> ShotGroup.create_changeset(user, ammo_group, attrs)
+    )
+    |> Multi.run(
+      :ammo_group,
+      fn repo, %{create_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
+        {:ok,
+         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
       end
+    )
+    |> Multi.update(
+      :update_ammo_group,
+      fn %{create_shot_group: %{count: shot_group_count}, ammo_group: %{count: ammo_group_count}} ->
+        ammo_group |> AmmoGroup.range_changeset(%{"count" => ammo_group_count - shot_group_count})
+      end
+    )
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{create_shot_group: shot_group}} -> {:ok, shot_group}
+      {:error, :create_shot_group, changeset, _changes_so_far} -> {:error, changeset}
+      {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
   end
 
@@ -104,42 +101,38 @@ defmodule Cannery.ActivityLog do
   @spec update_shot_group(ShotGroup.t(), attrs :: map(), User.t()) ::
           {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t()) | nil}
   def update_shot_group(
-        %ShotGroup{count: count, user_id: user_id, ammo_group_id: ammo_group_id} = shot_group,
+        %ShotGroup{count: count, user_id: user_id} = shot_group,
         attrs,
         %User{id: user_id} = user
       ) do
-    %{count: ammo_group_count, user_id: ^user_id} =
-      ammo_group = ammo_group_id |> Ammo.get_ammo_group!(user)
-
-    changeset = shot_group |> ShotGroup.update_changeset(attrs)
-    new_shot_group_count = changeset |> Changeset.get_field(:count)
-    shot_diff_to_add = new_shot_group_count - count
-
-    cond do
-      shot_diff_to_add > ammo_group_count ->
-        error = dgettext("errors", "Count must be less than %{count}", count: ammo_group_count)
-        changeset = changeset |> Changeset.add_error(:count, error)
-        {:error, changeset}
-
-      new_shot_group_count <= 0 ->
-        error = dgettext("errors", "Count must be at least 1")
-        changeset = changeset |> Changeset.add_error(:count, error)
-        {:error, changeset}
-
-      true ->
-        Multi.new()
-        |> Multi.update(:update_shot_group, changeset)
-        |> Multi.update(
-          :update_ammo_group,
-          ammo_group
-          |> AmmoGroup.range_changeset(%{"count" => ammo_group_count - shot_diff_to_add})
-        )
-        |> Repo.transaction()
-        |> case do
-          {:ok, %{update_shot_group: shot_group}} -> {:ok, shot_group}
-          {:error, :update_shot_group, changeset, _changes_so_far} -> {:error, changeset}
-          {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
-        end
+    Multi.new()
+    |> Multi.update(
+      :update_shot_group,
+      shot_group |> ShotGroup.update_changeset(user, attrs)
+    )
+    |> Multi.run(
+      :ammo_group,
+      fn repo, %{update_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
+        {:ok,
+         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
+      end
+    )
+    |> Multi.update(
+      :update_ammo_group,
+      fn %{
+           update_shot_group: %{count: new_count},
+           ammo_group: %{count: ammo_group_count} = ammo_group
+         } ->
+        shot_diff_to_add = new_count - count
+        new_ammo_group_count = ammo_group_count - shot_diff_to_add
+        ammo_group |> AmmoGroup.range_changeset(%{"count" => new_ammo_group_count})
+      end
+    )
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{update_shot_group: shot_group}} -> {:ok, shot_group}
+      {:error, :update_shot_group, changeset, _changes_so_far} -> {:error, changeset}
+      {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
   end
 
@@ -158,18 +151,27 @@ defmodule Cannery.ActivityLog do
   @spec delete_shot_group(ShotGroup.t(), User.t()) ::
           {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t())}
   def delete_shot_group(
-        %ShotGroup{count: count, user_id: user_id, ammo_group_id: ammo_group_id} = shot_group,
-        %User{id: user_id} = user
+        %ShotGroup{user_id: user_id} = shot_group,
+        %User{id: user_id}
       ) do
-    %{count: ammo_group_count, user_id: ^user_id} =
-      ammo_group = ammo_group_id |> Ammo.get_ammo_group!(user)
-
     Multi.new()
     |> Multi.delete(:delete_shot_group, shot_group)
+    |> Multi.run(
+      :ammo_group,
+      fn repo, %{delete_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
+        {:ok,
+         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
+      end
+    )
     |> Multi.update(
       :update_ammo_group,
-      ammo_group
-      |> AmmoGroup.range_changeset(%{"count" => ammo_group_count + count})
+      fn %{
+           delete_shot_group: %{count: count},
+           ammo_group: %{count: ammo_group_count} = ammo_group
+         } ->
+        new_ammo_group_count = ammo_group_count + count
+        ammo_group |> AmmoGroup.range_changeset(%{"count" => new_ammo_group_count})
+      end
     )
     |> Repo.transaction()
     |> case do
@@ -177,22 +179,5 @@ defmodule Cannery.ActivityLog do
       {:error, :delete_shot_group, changeset, _changes_so_far} -> {:error, changeset}
       {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking shot_group changes.
-
-  ## Examples
-
-      iex> change_shot_group(shot_group)
-      %Ecto.Changeset{data: %ShotGroup{}}
-
-  """
-  @spec change_shot_group(ShotGroup.t() | ShotGroup.new_shot_group()) ::
-          Changeset.t(ShotGroup.t() | ShotGroup.new_shot_group())
-  @spec change_shot_group(ShotGroup.t() | ShotGroup.new_shot_group(), attrs :: map()) ::
-          Changeset.t(ShotGroup.t() | ShotGroup.new_shot_group())
-  def change_shot_group(%ShotGroup{} = shot_group, attrs \\ %{}) do
-    shot_group |> ShotGroup.update_changeset(attrs)
   end
 end
