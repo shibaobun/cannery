@@ -106,8 +106,7 @@ defmodule Cannery.Invites do
       |> Base.url_encode64()
       |> binary_part(0, @invite_token_length)
 
-    attrs = attrs |> Map.put("token", token)
-    %Invite{} |> Invite.create_changeset(user, attrs) |> Repo.insert()
+    %Invite{} |> Invite.create_changeset(user, token, attrs) |> Repo.insert()
   end
 
   @doc """

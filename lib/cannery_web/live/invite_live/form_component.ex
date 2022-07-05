@@ -38,7 +38,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
 
     changeset =
       case action do
-        :new -> invite |> Invite.create_changeset(user, invite_params)
+        :new -> invite |> Invite.create_changeset(user, "example_token", invite_params)
         :edit -> invite |> Invite.update_changeset(invite_params)
       end
 
