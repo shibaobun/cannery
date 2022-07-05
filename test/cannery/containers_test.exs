@@ -87,9 +87,5 @@ defmodule Cannery.ContainersTest do
         Containers.get_container!(container.id, current_user)
       end
     end
-
-    test "change_container/1 returns a container changeset", %{container: container} do
-      assert %Changeset{} = Containers.change_container(container)
-    end
   end
 end

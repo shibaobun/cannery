@@ -22,7 +22,7 @@ msgstr ""
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
 #, elixir-autogen, elixir-format
-#: lib/cannery/containers.ex:122
+#: lib/cannery/containers.ex:121
 msgid "Container must be empty before deleting"
 msgstr ""
 

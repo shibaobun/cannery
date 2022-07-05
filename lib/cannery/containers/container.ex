@@ -42,10 +42,12 @@ defmodule Cannery.Containers.Container do
   @type id :: UUID.t()
 
   @doc false
-  @spec create_changeset(new_container(), attrs :: map()) :: Changeset.t(new_container())
-  def create_changeset(container, attrs) do
+  @spec create_changeset(new_container(), User.t(), attrs :: map()) ::
+          Changeset.t(new_container())
+  def create_changeset(container, %User{id: user_id}, attrs) do
     container
-    |> cast(attrs, [:name, :desc, :type, :location, :user_id])
+    |> change(user_id: user_id)
+    |> cast(attrs, [:name, :desc, :type, :location])
     |> validate_required([:name, :type, :user_id])
   end
 

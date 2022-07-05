@@ -71,9 +71,8 @@ defmodule Cannery.Containers do
   """
   @spec create_container(attrs :: map(), User.t()) ::
           {:ok, Container.t()} | {:error, Changeset.t(Container.new_container())}
-  def create_container(attrs, %User{id: user_id}) do
-    attrs = attrs |> Map.put("user_id", user_id)
-    %Container{} |> Container.create_changeset(attrs) |> Repo.insert()
+  def create_container(attrs, %User{} = user) do
+    %Container{} |> Container.create_changeset(user, attrs) |> Repo.insert()
   end
 
   @doc """
@@ -122,7 +121,7 @@ defmodule Cannery.Containers do
         error = dgettext("errors", "Container must be empty before deleting")
 
         container
-        |> change_container()
+        |> Container.update_changeset(%{})
         |> Changeset.add_error(:ammo_groups, error)
         |> Changeset.apply_action(:delete)
     end
@@ -142,25 +141,6 @@ defmodule Cannery.Containers do
     {:ok, container} = container |> delete_container(user)
     container
   end
-
-  @doc """
-  Returns an `%Changeset{}` for tracking container changes.
-
-  ## Examples
-
-      iex> change_container(container)
-      %Changeset{data: %Container{}}
-
-      iex> change_container(%Changeset{})
-      %Changeset{data: %Container{}}
-
-  """
-  @spec change_container(Container.t() | Container.new_container()) ::
-          Changeset.t(Container.t() | Container.new_container())
-  @spec change_container(Container.t() | Container.new_container(), attrs :: map()) ::
-          Changeset.t(Container.t() | Container.new_container())
-  def change_container(container, attrs \\ %{}),
-    do: container |> Container.update_changeset(attrs)
 
   @doc """
   Adds a tag to a container

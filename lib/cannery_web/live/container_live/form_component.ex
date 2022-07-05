@@ -14,7 +14,8 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(%{container: container} = assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign(:changeset, Containers.change_container(container))}
+    changeset = container |> Container.update_changeset(%{})
+    {:ok, socket |> assign(assigns) |> assign(:changeset, changeset)}
   end
 
   @impl true
@@ -23,7 +24,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
         %{"container" => container_params},
         %{assigns: %{container: container}} = socket
       ) do
-    changeset = container |> Containers.change_container(container_params)
+    changeset = container |> Container.update_changeset(container_params)
     {:noreply, socket |> assign(:changeset, changeset)}
   end
 
