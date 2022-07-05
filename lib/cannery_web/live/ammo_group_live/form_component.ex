@@ -21,11 +21,11 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   end
 
   @spec update(Socket.t()) :: {:ok, Socket.t()}
-  def update(%{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket) do
+  def update(%{assigns: %{current_user: current_user}} = socket) do
     socket =
       socket
       |> assign(:ammo_group_create_limit, @ammo_group_create_limit)
-      |> assign(:changeset, ammo_group |> AmmoGroup.update_changeset(%{}))
+      |> assign_changeset(%{})
       |> assign(:ammo_types, Ammo.list_ammo_types(current_user))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
@@ -33,11 +33,35 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   end
 
   @impl true
+  def handle_event("validate", %{"ammo_group" => ammo_group_params}, socket) do
+    {:noreply, socket |> assign_changeset(ammo_group_params)}
+  end
+
   def handle_event(
-        "validate",
+        "save",
         %{"ammo_group" => ammo_group_params},
-        %{assigns: %{action: action, ammo_group: ammo_group, current_user: user}} = socket
+        %{assigns: %{action: action}} = socket
       ) do
+    save_ammo_group(socket, action, ammo_group_params)
+  end
+
+  # HTML Helpers
+  @spec container_options([Container.t()]) :: [{String.t(), Container.id()}]
+  defp container_options(containers) do
+    containers |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
+  end
+
+  @spec ammo_type_options([AmmoType.t()]) :: [{String.t(), AmmoType.id()}]
+  defp ammo_type_options(ammo_types) do
+    ammo_types |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
+  end
+
+  # Save Helpers
+
+  defp assign_changeset(
+         %{assigns: %{action: action, ammo_group: ammo_group, current_user: user}} = socket,
+         ammo_group_params
+       ) do
     changeset_action =
       case action do
         :new -> :insert
@@ -69,29 +93,8 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
         {:error, changeset} -> changeset
       end
 
-    {:noreply, socket |> assign(:changeset, changeset)}
+    socket |> assign(:changeset, changeset)
   end
-
-  def handle_event(
-        "save",
-        %{"ammo_group" => ammo_group_params},
-        %{assigns: %{action: action}} = socket
-      ) do
-    save_ammo_group(socket, action, ammo_group_params)
-  end
-
-  # HTML Helpers
-  @spec container_options([Container.t()]) :: [{String.t(), Container.id()}]
-  defp container_options(containers) do
-    containers |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
-  end
-
-  @spec ammo_type_options([AmmoType.t()]) :: [{String.t(), AmmoType.id()}]
-  defp ammo_type_options(ammo_types) do
-    ammo_types |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
-  end
-
-  # Save Helpers
 
   defp save_ammo_group(
          %{assigns: %{ammo_group: ammo_group, current_user: current_user, return_to: return_to}} =

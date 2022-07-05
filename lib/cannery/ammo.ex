@@ -192,22 +192,6 @@ defmodule Cannery.Ammo do
     do: ammo_type |> Repo.delete!()
 
   @doc """
-  Returns an `%Changeset{}` for tracking ammo_type changes.
-
-  ## Examples
-
-      iex> change_ammo_type(ammo_type)
-      %Changeset{data: %AmmoType{}}
-
-  """
-  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type()) ::
-          Changeset.t(AmmoType.t() | AmmoType.new_ammo_type())
-  @spec change_ammo_type(AmmoType.t() | AmmoType.new_ammo_type(), attrs :: map()) ::
-          Changeset.t(AmmoType.t() | AmmoType.new_ammo_type())
-  def change_ammo_type(%AmmoType{} = ammo_type, attrs \\ %{}),
-    do: AmmoType.update_changeset(ammo_type, attrs)
-
-  @doc """
   Returns the list of ammo_groups for a user and type.
 
   ## Examples

@@ -92,11 +92,6 @@ defmodule Cannery.AmmoTest do
       assert {:ok, %AmmoType{}} = Ammo.delete_ammo_type(ammo_type, current_user)
       assert_raise Ecto.NoResultsError, fn -> Ammo.get_ammo_type!(ammo_type.id, current_user) end
     end
-
-    test "change_ammo_type/1 returns a ammo_type changeset",
-         %{ammo_type: ammo_type} do
-      assert %Changeset{} = Ammo.change_ammo_type(ammo_type)
-    end
   end
 
   describe "ammo_groups" do

@@ -13,17 +13,13 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
           %{:ammo_type => AmmoType.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{ammo_type: ammo_type, current_user: _current_user} = assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign(:changeset, Ammo.change_ammo_type(ammo_type))}
+  def update(%{current_user: _current_user} = assigns, socket) do
+    {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event(
-        "validate",
-        %{"ammo_type" => ammo_type_params},
-        %{assigns: %{ammo_type: ammo_type}} = socket
-      ) do
-    {:noreply, socket |> assign(:changeset, ammo_type |> Ammo.change_ammo_type(ammo_type_params))}
+  def handle_event("validate", %{"ammo_type" => ammo_type_params}, socket) do
+    {:noreply, socket |> assign_changeset(ammo_type_params)}
   end
 
   def handle_event(
@@ -32,6 +28,31 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
         %{assigns: %{action: action}} = socket
       ) do
     save_ammo_type(socket, action, ammo_type_params)
+  end
+
+  defp assign_changeset(
+         %{assigns: %{action: action, ammo_type: ammo_type, current_user: user}} = socket,
+         ammo_type_params
+       ) do
+    changeset_action =
+      case action do
+        :new -> :insert
+        :edit -> :update
+      end
+
+    changeset =
+      case action do
+        :new -> ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
+        :edit -> ammo_type |> AmmoType.update_changeset(ammo_type_params)
+      end
+
+    changeset =
+      case changeset |> Changeset.apply_action(changeset_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    socket |> assign(changeset: changeset)
   end
 
   defp save_ammo_type(

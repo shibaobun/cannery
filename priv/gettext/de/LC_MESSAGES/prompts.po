@@ -24,7 +24,7 @@ msgstr ""
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:64
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:85
 #: lib/cannery_web/live/container_live/form_component.ex:66
 #: lib/cannery_web/live/invite_live/form_component.ex:59
 #: lib/cannery_web/live/tag_live/form_component.ex:101
@@ -62,7 +62,7 @@ msgid "%{name} updated succesfully"
 msgstr "%{name} erfolgreich aktualisiert"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:46
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:67
 #: lib/cannery_web/live/container_live/form_component.ex:48
 #: lib/cannery_web/live/invite_live/form_component.ex:41
 #: lib/cannery_web/live/tag_live/form_component.ex:83
@@ -283,12 +283,12 @@ msgid "Ammo unstaged succesfully"
 msgstr "Munition erfolgreich demarkiert"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:105
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:108
 msgid "Ammo updated successfully"
 msgstr "Munitionsgruppe erfolgreich aktualisiert"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:164
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:167
 msgid "Ammo added successfully"
 msgid_plural "Ammo added successfully"
 msgstr[0] "Munitionsgruppe erfolgreich aktualisiert"
