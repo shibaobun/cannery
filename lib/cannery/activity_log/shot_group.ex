@@ -38,7 +38,12 @@ defmodule Cannery.ActivityLog.ShotGroup do
   @type id :: UUID.t()
 
   @doc false
-  @spec create_changeset(new_shot_group(), User.t(), AmmoGroup.t(), attrs :: map()) ::
+  @spec create_changeset(
+          new_shot_group(),
+          User.t() | any(),
+          AmmoGroup.t() | any(),
+          attrs :: map()
+        ) ::
           Changeset.t(new_shot_group())
   def create_changeset(
         shot_group,
@@ -54,6 +59,14 @@ defmodule Cannery.ActivityLog.ShotGroup do
     |> validate_number(:count, greater_than: 0)
     |> validate_create_shot_group_count(ammo_group)
     |> validate_required([:count, :ammo_group_id, :user_id])
+  end
+
+  def create_changeset(shot_group, _invalid_user, _invalid_ammo_group, attrs) do
+    shot_group
+    |> cast(attrs, [:count, :notes, :date])
+    |> validate_number(:count, greater_than: 0)
+    |> validate_required([:count, :ammo_group_id, :user_id])
+    |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo group"))
   end
 
   defp validate_create_shot_group_count(changeset, %AmmoGroup{count: ammo_group_count}) do
