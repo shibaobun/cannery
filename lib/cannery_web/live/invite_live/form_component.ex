@@ -13,21 +13,42 @@ defmodule CanneryWeb.InviteLive.FormComponent do
           %{:invite => Invite.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{invite: invite} = assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign(:changeset, Invites.change_invite(invite))}
+  def update(%{invite: _invite} = assigns, socket) do
+    {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event(
-        "validate",
-        %{"invite" => invite_params},
-        %{assigns: %{invite: invite}} = socket
-      ) do
-    {:noreply, socket |> assign(:changeset, invite |> Invites.change_invite(invite_params))}
+  def handle_event("validate", %{"invite" => invite_params}, socket) do
+    {:noreply, socket |> assign_changeset(invite_params)}
   end
 
   def handle_event("save", %{"invite" => invite_params}, %{assigns: %{action: action}} = socket) do
     save_invite(socket, action, invite_params)
+  end
+
+  defp assign_changeset(
+         %{assigns: %{action: action, current_user: user, invite: invite}} = socket,
+         invite_params
+       ) do
+    changeset_action =
+      case action do
+        :new -> :insert
+        :edit -> :update
+      end
+
+    changeset =
+      case action do
+        :new -> invite |> Invite.create_changeset(user, invite_params)
+        :edit -> invite |> Invite.update_changeset(invite_params)
+      end
+
+    changeset =
+      case changeset |> Changeset.apply_action(changeset_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    socket |> assign(:changeset, changeset)
   end
 
   defp save_invite(

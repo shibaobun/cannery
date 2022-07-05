@@ -26,7 +26,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:85
 #: lib/cannery_web/live/container_live/form_component.ex:85
-#: lib/cannery_web/live/invite_live/form_component.ex:59
+#: lib/cannery_web/live/invite_live/form_component.ex:80
 #: lib/cannery_web/live/tag_live/form_component.ex:126
 msgid "%{name} created successfully"
 msgstr "%{name} erfolgreich erstellt"
@@ -64,7 +64,7 @@ msgstr "%{name} erfolgreich aktualisiert"
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
 #: lib/cannery_web/live/container_live/form_component.ex:67
-#: lib/cannery_web/live/invite_live/form_component.ex:41
+#: lib/cannery_web/live/invite_live/form_component.ex:62
 #: lib/cannery_web/live/tag_live/form_component.ex:108
 msgid "%{name} updated successfully"
 msgstr "%{name} erfolgreich aktualisiert"

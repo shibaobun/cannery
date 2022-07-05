@@ -68,9 +68,5 @@ defmodule Cannery.InvitesTest do
       assert {:ok, %Invite{}} = Invites.delete_invite(invite, current_user)
       assert_raise Ecto.NoResultsError, fn -> Invites.get_invite!(invite.id, current_user) end
     end
-
-    test "change_invite/1 returns a invite changeset", %{invite: invite} do
-      assert %Changeset{} = Invites.change_invite(invite)
-    end
   end
 end

@@ -100,15 +100,14 @@ defmodule Cannery.Invites do
   """
   @spec create_invite(User.t(), attrs :: map()) ::
           {:ok, Invite.t()} | {:error, Changeset.t(Invite.new_invite())}
-  def create_invite(%User{id: user_id, role: :admin}, attrs) do
+  def create_invite(%User{role: :admin} = user, attrs) do
     token =
       :crypto.strong_rand_bytes(@invite_token_length)
       |> Base.url_encode64()
       |> binary_part(0, @invite_token_length)
 
-    attrs = attrs |> Map.merge(%{"user_id" => user_id, "token" => token})
-
-    %Invite{} |> Invite.create_changeset(attrs) |> Repo.insert()
+    attrs = attrs |> Map.put("token", token)
+    %Invite{} |> Invite.create_changeset(user, attrs) |> Repo.insert()
   end
 
   @doc """
@@ -155,19 +154,4 @@ defmodule Cannery.Invites do
   """
   @spec delete_invite!(Invite.t(), User.t()) :: Invite.t()
   def delete_invite!(invite, %User{role: :admin}), do: invite |> Repo.delete!()
-
-  @doc """
-  Returns an `%Changeset{}` for tracking invite changes.
-
-  ## Examples
-
-      iex> change_invite(invite)
-      %Changeset{data: %Invite{}}
-
-  """
-  @spec change_invite(Invite.t() | Invite.new_invite()) ::
-          Changeset.t(Invite.t() | Invite.new_invite())
-  @spec change_invite(Invite.t() | Invite.new_invite(), attrs :: map()) ::
-          Changeset.t(Invite.t() | Invite.new_invite())
-  def change_invite(invite, attrs \\ %{}), do: invite |> Invite.update_changeset(attrs)
 end
