@@ -8,8 +8,10 @@
       <%= gettext("No Ammo") %>
       <%= display_emoji("😔") %>
     </h2>
+  <% end %>
 
-    <%= if @containers |> Enum.empty?() do %>
+  <%= cond do %>
+    <% @containers_count == 0 -> %>
       <div class="flex justify-center items-center">
         <h2 class="m-2 title text-md text-primary-600">
           <%= dgettext("prompts", "You'll need to") %>
@@ -20,31 +22,30 @@
           class: "btn btn-primary"
         ) %>
       </div>
-    <% else %>
+    <% @ammo_types_count == 0 -> %>
+      <div class="flex justify-center items-center">
+        <h2 class="m-2 title text-md text-primary-600">
+          <%= dgettext("prompts", "You'll need to") %>
+        </h2>
+
+        <%= live_patch(dgettext("actions", "add an ammo type first"),
+          to: Routes.ammo_type_index_path(Endpoint, :new),
+          class: "btn btn-primary"
+        ) %>
+      </div>
+    <% @ammo_groups |> Enum.empty?() -> %>
       <%= live_patch(dgettext("actions", "Add your first box!"),
         to: Routes.ammo_group_index_path(Endpoint, :new),
         class: "btn btn-primary"
       ) %>
-    <% end %>
-  <% else %>
-    <%= if @containers |> Enum.empty?() do %>
-      <div class="flex justify-center items-center">
-        <h2 class="m-2 title text-md text-primary-600">
-          <%= dgettext("prompts", "You'll need to") %>
-        </h2>
-
-        <%= live_patch(dgettext("actions", "add a container first"),
-          to: Routes.container_index_path(Endpoint, :new),
-          class: "btn btn-primary"
-        ) %>
-      </div>
-    <% else %>
+    <% true -> %>
       <%= live_patch(dgettext("actions", "Add Ammo"),
         to: Routes.ammo_group_index_path(Endpoint, :new),
         class: "btn btn-primary"
       ) %>
-    <% end %>
+  <% end %>
 
+  <%= unless @ammo_groups |> Enum.empty?() do %>
     <.live_component
       module={CanneryWeb.Components.TableComponent}
       id="ammo_groups_index_table"
@@ -66,7 +67,6 @@
         ammo_group={@ammo_group}
         return_to={Routes.ammo_group_index_path(Endpoint, :index)}
         current_user={@current_user}
-        containers={@containers}
       />
     </.modal>
   <% @live_action == :add_shot_group -> %>

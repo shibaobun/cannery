@@ -22,7 +22,8 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   @spec update(Socket.t()) :: {:ok, Socket.t()}
   def update(%{assigns: %{current_user: current_user}} = socket) do
-    %{assigns: %{ammo_types: ammo_types, containers: containers}} = socket =
+    %{assigns: %{ammo_types: ammo_types, containers: containers}} =
+      socket =
       socket
       |> assign(:ammo_group_create_limit, @ammo_group_create_limit)
       |> assign(:ammo_types, Ammo.list_ammo_types(current_user))

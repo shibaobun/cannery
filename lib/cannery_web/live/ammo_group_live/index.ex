@@ -74,7 +74,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
     ammo_groups = Ammo.list_ammo_groups(current_user) |> Repo.preload([:ammo_type, :container])
-    containers = Containers.list_containers(current_user)
+    ammo_types_count = Ammo.get_ammo_types_count!(current_user)
+    containers_count = Containers.get_containers_count!(current_user)
 
     columns = [
       %{label: gettext("Ammo type"), key: "ammo_type"},
@@ -92,7 +93,13 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
       |> Enum.map(fn ammo_group -> ammo_group |> get_row_data_for_ammo_group(columns) end)
 
     socket
-    |> assign(ammo_groups: ammo_groups, containers: containers, columns: columns, rows: rows)
+    |> assign(
+      ammo_groups: ammo_groups,
+      ammo_types_count: ammo_types_count,
+      containers_count: containers_count,
+      columns: columns,
+      rows: rows
+    )
   end
 
   @spec get_row_data_for_ammo_group(AmmoGroup.t(), [map()]) :: [map()]

@@ -17,7 +17,7 @@ msgid "Add Ammo"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:24
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:37
 msgid "Add your first box!"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgid "Why not get some ready to shoot?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:144
+#: lib/cannery_web/live/ammo_group_live/index.ex:151
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:91
 #: lib/cannery_web/live/range_live/index.html.heex:36
 msgid "Record shots"
@@ -183,8 +183,7 @@ msgid "Copy to clipboard"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:18
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:36
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:20
 msgid "add a container first"
 msgstr ""
 
@@ -206,4 +205,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:55
 msgid "View in Catalog"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:31
+msgid "add an ammo type first"
 msgstr ""

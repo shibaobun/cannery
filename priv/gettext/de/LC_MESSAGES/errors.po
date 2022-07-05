@@ -24,7 +24,7 @@ msgstr ""
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
 #, elixir-autogen, elixir-format
-#: lib/cannery/containers.ex:121
+#: lib/cannery/containers.ex:140
 msgid "Container must be empty before deleting"
 msgstr "Behälter muss vor dem Löschen leer sein"
 
@@ -176,19 +176,19 @@ msgid "Tag could not be removed"
 msgstr "Tag konnte nicht gelöscht werden"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:146
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:156
 msgid "Could not parse number of copies"
 msgstr "Konnte die Anzahl der Kopien nicht verstehen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:131
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:141
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr ""
 "Ungültige Nummer an Kopien. Muss zwischen 1 and %{max} liegen. War "
 "%{multiplier}"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/ammo.ex:388
+#: lib/cannery/ammo.ex:407
 msgid "Invalid multiplier"
 msgstr ""
 

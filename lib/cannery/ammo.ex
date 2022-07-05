@@ -26,6 +26,25 @@ defmodule Cannery.Ammo do
     do: Repo.all(from at in AmmoType, where: at.user_id == ^user_id, order_by: at.name)
 
   @doc """
+  Returns a count of ammo_types.
+
+  ## Examples
+
+      iex> get_ammo_types_count!(%User{id: 123})
+      3
+
+  """
+  @spec get_ammo_types_count!(User.t()) :: integer()
+  def get_ammo_types_count!(%User{id: user_id}) do
+    Repo.one(
+      from at in AmmoType,
+        where: at.user_id == ^user_id,
+        select: count(at.id),
+        distinct: true
+    )
+  end
+
+  @doc """
   Gets a single ammo_type.
 
   Raises `Ecto.NoResultsError` if the Ammo type does not exist.

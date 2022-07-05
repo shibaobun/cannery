@@ -73,7 +73,6 @@ msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:27
 #: lib/cannery_web/live/container_live/index.html.heex:46
 #: lib/cannery_web/live/container_live/show.html.heex:49
 #: lib/cannery_web/live/tag_live/index.html.heex:38
@@ -86,9 +85,8 @@ msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:177
+#: lib/cannery_web/live/ammo_group_live/index.ex:184
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:71
-#: lib/cannery_web/live/ammo_type_live/index.ex:140
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
@@ -231,8 +229,8 @@ msgid "%{name} removed successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:15
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:33
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:17
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:28
 msgid "You'll need to"
 msgstr ""
 
@@ -262,13 +260,19 @@ msgid "Ammo unstaged succesfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:108
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:118
 msgid "Ammo updated successfully"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:167
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:177
 msgid "Ammo added successfully"
 msgid_plural "Ammo added successfully"
 msgstr[0] ""
 msgstr[1] ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/index.ex:140
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:27
+msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
+msgstr ""

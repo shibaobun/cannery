@@ -31,6 +31,25 @@ defmodule Cannery.Containers do
   end
 
   @doc """
+  Returns a count of containers.
+
+  ## Examples
+
+      iex> get_containers_count!(%User{id: 123})
+      3
+
+  """
+  @spec get_containers_count!(User.t()) :: integer()
+  def get_containers_count!(%User{id: user_id}) do
+    Repo.one(
+      from c in Container,
+        where: c.user_id == ^user_id,
+        select: count(c.id),
+        distinct: true
+    )
+  end
+
+  @doc """
   Gets a single container.
 
   Raises `Ecto.NoResultsError` if the Container does not exist.
