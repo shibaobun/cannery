@@ -173,14 +173,11 @@ defmodule Cannery.Containers do
   """
   @spec add_tag!(Container.t(), Tag.t(), User.t()) :: ContainerTag.t()
   def add_tag!(
-        %Container{id: container_id, user_id: user_id},
-        %Tag{id: tag_id, user_id: user_id},
+        %Container{user_id: user_id} = container,
+        %Tag{user_id: user_id} = tag,
         %User{id: user_id}
-      ) do
-    %ContainerTag{}
-    |> ContainerTag.changeset(%{"container_id" => container_id, "tag_id" => tag_id})
-    |> Repo.insert!()
-  end
+      ),
+      do: %ContainerTag{} |> ContainerTag.create_changeset(tag, container) |> Repo.insert!()
 
   @doc """
   Removes a tag from a container

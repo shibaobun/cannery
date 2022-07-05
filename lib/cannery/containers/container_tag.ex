@@ -31,10 +31,16 @@ defmodule Cannery.Containers.ContainerTag do
   @type id :: UUID.t()
 
   @doc false
-  @spec changeset(new_container_tag(), attrs :: map()) :: Changeset.t(new_container_tag())
-  def changeset(container_tag, attrs) do
+  @spec create_changeset(new_container_tag(), Tag.t(), Container.t()) ::
+          Changeset.t(new_container_tag())
+  def create_changeset(
+        container_tag,
+        %Tag{id: tag_id, user_id: user_id},
+        %Container{id: container_id, user_id: user_id}
+      ) do
     container_tag
-    |> cast(attrs, [:tag_id, :container_id])
+    |> change(tag_id: tag_id)
+    |> change(container_id: container_id)
     |> validate_required([:tag_id, :container_id])
   end
 end
