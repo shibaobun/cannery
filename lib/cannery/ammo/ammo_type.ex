@@ -105,10 +105,12 @@ defmodule Cannery.Ammo.AmmoType do
     ]
 
   @doc false
-  @spec create_changeset(new_ammo_type(), attrs :: map()) :: Changeset.t(new_ammo_type())
-  def create_changeset(ammo_type, attrs) do
+  @spec create_changeset(new_ammo_type(), User.t(), attrs :: map()) ::
+          Changeset.t(new_ammo_type())
+  def create_changeset(ammo_type, %User{id: user_id}, attrs) do
     ammo_type
-    |> cast(attrs, [:user_id | changeset_fields()])
+    |> change(user_id: user_id)
+    |> cast(attrs, changeset_fields())
     |> validate_required([:name, :user_id])
   end
 

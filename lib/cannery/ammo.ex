@@ -141,11 +141,8 @@ defmodule Cannery.Ammo do
   """
   @spec create_ammo_type(attrs :: map(), User.t()) ::
           {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.new_ammo_type())}
-  def create_ammo_type(attrs \\ %{}, %User{id: user_id}) do
-    %AmmoType{}
-    |> AmmoType.create_changeset(attrs |> Map.put("user_id", user_id))
-    |> Repo.insert()
-  end
+  def create_ammo_type(attrs \\ %{}, %User{} = user),
+    do: %AmmoType{} |> AmmoType.create_changeset(user, attrs) |> Repo.insert()
 
   @doc """
   Updates a ammo_type.
