@@ -27,7 +27,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:85
 #: lib/cannery_web/live/container_live/form_component.ex:85
 #: lib/cannery_web/live/invite_live/form_component.ex:59
-#: lib/cannery_web/live/tag_live/form_component.ex:101
+#: lib/cannery_web/live/tag_live/form_component.ex:126
 msgid "%{name} created successfully"
 msgstr "%{name} créé· avec succès"
 
@@ -65,7 +65,7 @@ msgstr "%{name} mis à jour avec succès"
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
 #: lib/cannery_web/live/container_live/form_component.ex:67
 #: lib/cannery_web/live/invite_live/form_component.ex:41
-#: lib/cannery_web/live/tag_live/form_component.ex:83
+#: lib/cannery_web/live/tag_live/form_component.ex:108
 msgid "%{name} updated successfully"
 msgstr "%{name} mis à jour avec succès"
 
@@ -174,7 +174,7 @@ msgstr "S’enregistrer pour mettre en place %{name}"
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
 #: lib/cannery_web/live/invite_live/form_component.html.heex:30
 #: lib/cannery_web/live/range_live/form_component.html.heex:42
-#: lib/cannery_web/live/tag_live/form_component.ex:68
+#: lib/cannery_web/live/tag_live/form_component.ex:93
 msgid "Saving..."
 msgstr "Sauvegarde en cours…"
 

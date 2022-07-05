@@ -65,7 +65,7 @@ msgid "Average Price paid"
 msgstr "Prix acheté moyen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/tag_live/form_component.ex:54
+#: lib/cannery_web/live/tag_live/form_component.ex:79
 msgid "Background color"
 msgstr "Couleur de fond"
 
@@ -287,7 +287,7 @@ msgstr "Ma superbe boite de munition"
 #: lib/cannery_web/live/ammo_type_live/index.ex:51
 #: lib/cannery_web/live/container_live/form_component.html.heex:20
 #: lib/cannery_web/live/invite_live/form_component.html.heex:20
-#: lib/cannery_web/live/tag_live/form_component.ex:50
+#: lib/cannery_web/live/tag_live/form_component.ex:75
 msgid "Name"
 msgstr "Nom"
 
@@ -450,7 +450,7 @@ msgstr ""
 "organiser"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/tag_live/form_component.ex:60
+#: lib/cannery_web/live/tag_live/form_component.ex:85
 msgid "Text color"
 msgstr "Couleur du texte"
 

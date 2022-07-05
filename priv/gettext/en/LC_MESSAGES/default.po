@@ -51,7 +51,7 @@ msgid "Average Price paid"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/tag_live/form_component.ex:54
+#: lib/cannery_web/live/tag_live/form_component.ex:79
 msgid "Background color"
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/index.ex:51
 #: lib/cannery_web/live/container_live/form_component.html.heex:20
 #: lib/cannery_web/live/invite_live/form_component.html.heex:20
-#: lib/cannery_web/live/tag_live/form_component.ex:50
+#: lib/cannery_web/live/tag_live/form_component.ex:75
 msgid "Name"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgid "Tags can be added to your containers to help you organize"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/tag_live/form_component.ex:60
+#: lib/cannery_web/live/tag_live/form_component.ex:85
 msgid "Text color"
 msgstr ""
 

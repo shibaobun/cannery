@@ -127,7 +127,7 @@ msgstr ""
 #: lib/cannery_web/live/container_live/form_component.html.heex:50
 #: lib/cannery_web/live/invite_live/form_component.html.heex:28
 #: lib/cannery_web/live/range_live/form_component.html.heex:40
-#: lib/cannery_web/live/tag_live/form_component.ex:66
+#: lib/cannery_web/live/tag_live/form_component.ex:91
 msgid "Save"
 msgstr ""
 

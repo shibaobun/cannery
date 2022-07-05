@@ -35,10 +35,11 @@ defmodule Cannery.Tags.Tag do
   @type id() :: UUID.t()
 
   @doc false
-  @spec create_changeset(new_tag(), attrs :: map()) :: Changeset.t(new_tag())
-  def create_changeset(tag, attrs) do
+  @spec create_changeset(new_tag(), User.t(), attrs :: map()) :: Changeset.t(new_tag())
+  def create_changeset(tag, %User{id: user_id}, attrs) do
     tag
-    |> cast(attrs, [:name, :bg_color, :text_color, :user_id])
+    |> change(user_id: user_id)
+    |> cast(attrs, [:name, :bg_color, :text_color])
     |> validate_required([:name, :bg_color, :text_color, :user_id])
   end
 

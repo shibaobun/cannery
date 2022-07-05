@@ -12,17 +12,42 @@ defmodule CanneryWeb.TagLive.FormComponent do
   @impl true
   @spec update(%{:tag => Tag.t(), :current_user => User.t(), optional(any) => any}, Socket.t()) ::
           {:ok, Socket.t()}
-  def update(%{tag: tag} = assigns, socket) do
-    {:ok, socket |> assign(assigns) |> assign(:changeset, Tags.change_tag(tag))}
+  def update(%{tag: _tag} = assigns, socket) do
+    {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event("validate", %{"tag" => tag_params}, %{assigns: %{tag: tag}} = socket) do
-    {:noreply, socket |> assign(:changeset, tag |> Tags.change_tag(tag_params))}
+  def handle_event("validate", %{"tag" => tag_params}, socket) do
+    {:noreply, socket |> assign_changeset(tag_params)}
   end
 
   def handle_event("save", %{"tag" => tag_params}, %{assigns: %{action: action}} = socket) do
     save_tag(socket, action, tag_params)
+  end
+
+  defp assign_changeset(
+         %{assigns: %{action: action, current_user: user, tag: tag}} = socket,
+         tag_params
+       ) do
+    changeset_action =
+      case action do
+        :new -> :insert
+        :edit -> :update
+      end
+
+    changeset =
+      case action do
+        :new -> tag |> Tag.create_changeset(user, tag_params)
+        :edit -> tag |> Tag.update_changeset(tag_params)
+      end
+
+    changeset =
+      case changeset |> Changeset.apply_action(changeset_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    socket |> assign(:changeset, changeset)
   end
 
   @impl true

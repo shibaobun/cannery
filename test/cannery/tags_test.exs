@@ -68,9 +68,5 @@ defmodule Cannery.TagsTest do
       assert {:ok, %Tag{}} = Tags.delete_tag(tag, current_user)
       assert_raise Ecto.NoResultsError, fn -> Tags.get_tag!(tag.id, current_user) end
     end
-
-    test "change_tag/1 returns a tag changeset", %{tag: tag} do
-      assert %Changeset{} = Tags.change_tag(tag)
-    end
   end
 end

@@ -74,8 +74,8 @@ defmodule Cannery.Tags do
   """
   @spec create_tag(attrs :: map(), User.t()) ::
           {:ok, Tag.t()} | {:error, Changeset.t(Tag.new_tag())}
-  def create_tag(attrs, %User{id: user_id}),
-    do: %Tag{} |> Tag.create_changeset(attrs |> Map.put("user_id", user_id)) |> Repo.insert()
+  def create_tag(attrs, %User{} = user),
+    do: %Tag{} |> Tag.create_changeset(user, attrs) |> Repo.insert()
 
   @doc """
   Updates a tag.
@@ -120,20 +120,6 @@ defmodule Cannery.Tags do
   """
   @spec delete_tag!(Tag.t(), User.t()) :: Tag.t()
   def delete_tag!(%Tag{user_id: user_id} = tag, %User{id: user_id}), do: tag |> Repo.delete!()
-
-  @doc """
-  Returns an `%Changeset{}` for tracking tag changes.
-
-  ## Examples
-
-      iex> change_tag(tag)
-      %Changeset{data: %Tag{}}
-
-  """
-  @spec change_tag(Tag.t() | Tag.new_tag()) :: Changeset.t(Tag.t() | Tag.new_tag())
-  @spec change_tag(Tag.t() | Tag.new_tag(), attrs :: map()) ::
-          Changeset.t(Tag.t() | Tag.new_tag())
-  def change_tag(tag, attrs \\ %{}), do: Tag.update_changeset(tag, attrs)
 
   @doc """
   Get a random tag bg_color in `#ffffff` hex format
