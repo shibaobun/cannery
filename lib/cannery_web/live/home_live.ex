@@ -134,7 +134,7 @@ defmodule CanneryWeb.HomeLive do
                 to: "https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/CHANGELOG.md",
                 target: "_blank",
                 rel: "noopener noreferrer" do %>
-            <p>0.5.4</p>
+            <p>0.5.5</p>
             <i class="fas fa-md fa-info-circle"></i>
           <% end %>
         </li>

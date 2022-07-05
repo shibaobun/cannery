@@ -1,3 +1,6 @@
+# v0.5.5
+- Forgot to add the logo as the favicon whoops
+
 # v0.5.4
 - Rename "Ammo" tab to "Catalog", and "Manage" tab is now "Ammo"
 - Ammo groups are now just referred to as Ammo or "Packs"
