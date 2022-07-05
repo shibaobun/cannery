@@ -7,6 +7,7 @@
 - Add note about deleting an ammo type deleting all ammo of that type as well
 - Prompt to create first ammo type before trying to create first ammo
 - Add note about creating unlimited invites
+- Update screenshot lol
 
 # v0.5.3
 - Update French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
