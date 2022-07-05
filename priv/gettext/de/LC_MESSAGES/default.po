@@ -24,14 +24,14 @@ msgstr ""
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:56
+#: lib/cannery_web/live/home_live.ex:64
 msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
 msgstr ""
 "Mit %{name} können Sie ihren Munitionsbestand vor und nach dem Schießen "
 "leicht im Auge behalten"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:78
+#: lib/cannery_web/live/home_live.ex:86
 msgid "Access from any internet-capable device"
 msgstr "Zugriff von jedem Internet-fähigen Gerät"
 
@@ -41,12 +41,12 @@ msgid "Admins"
 msgstr "Admins"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:92
+#: lib/cannery_web/live/home_live.ex:100
 msgid "Admins:"
 msgstr "Admins:"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:56
+#: lib/cannery_web/components/topbar.ex:62
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 msgid "Ammo"
@@ -124,7 +124,7 @@ msgid "Container"
 msgstr "Behälter"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:44
+#: lib/cannery_web/components/topbar.ex:50
 #: lib/cannery_web/live/container_live/index.ex:36
 #: lib/cannery_web/live/container_live/index.html.heex:3
 msgid "Containers"
@@ -167,7 +167,7 @@ msgid "Disable"
 msgstr "Deaktivieren"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:53
+#: lib/cannery_web/live/home_live.ex:61
 msgid "Easy to Use:"
 msgstr "Einfache Anwendung:"
 
@@ -222,7 +222,7 @@ msgid "Incendiary"
 msgstr "Brandmunition"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:87
+#: lib/cannery_web/live/home_live.ex:95
 msgid "Instance Information"
 msgstr "Instanzinformationen"
 
@@ -232,12 +232,12 @@ msgid "Invite Disabled"
 msgstr "Einladung deaktiviert"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:118
+#: lib/cannery_web/live/home_live.ex:126
 msgid "Invite Only"
 msgstr "Nur mit Einladung"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:69
+#: lib/cannery_web/components/topbar.ex:75
 #: lib/cannery_web/live/invite_live/index.ex:41
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 msgid "Invites"
@@ -388,17 +388,17 @@ msgid "Primer type"
 msgstr "Zündertyp"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:117
+#: lib/cannery_web/live/home_live.ex:125
 msgid "Public Signups"
 msgstr "Öffentliche Registrierung"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:65
+#: lib/cannery_web/live/home_live.ex:73
 msgid "Secure:"
 msgstr "Sicher:"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:68
+#: lib/cannery_web/live/home_live.ex:76
 msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
 "Hosten Sie Ihre eigene Instanz oder verwenden Sie eine Instanz, der Sie "
@@ -421,7 +421,7 @@ msgid "Show Ammo type"
 msgstr "Zeige Munitionsarten"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:75
+#: lib/cannery_web/live/home_live.ex:83
 msgid "Simple:"
 msgstr "Einfach:"
 
@@ -436,7 +436,7 @@ msgid "Stored in"
 msgstr "Gelagert in"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:38
+#: lib/cannery_web/components/topbar.ex:44
 #: lib/cannery_web/live/tag_live/index.ex:32
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 msgid "Tags"
@@ -453,7 +453,7 @@ msgid "Text color"
 msgstr "Textfarbe"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:44
+#: lib/cannery_web/live/home_live.ex:52
 msgid "The self-hosted firearm tracker website"
 msgstr "Die selbst-gehostete Website zur Verwaltung von Schusswaffen"
 
@@ -492,12 +492,12 @@ msgid "Uses left"
 msgstr "Verbleibende Nutzung"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:40
+#: lib/cannery_web/live/home_live.ex:48
 msgid "Welcome to %{name}"
 msgstr "Willkommen %{name}"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:69
+#: lib/cannery_web/live/home_live.ex:77
 msgid "Your data stays with you, period"
 msgstr "Ihre Daten bleiben bei Ihnen, Punkt"
 
@@ -507,7 +507,7 @@ msgid "No tags for this container"
 msgstr "Keine Tags für diesen Behälter"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:62
+#: lib/cannery_web/components/topbar.ex:68
 #: lib/cannery_web/live/ammo_group_live/index.ex:84
 msgid "Range"
 msgstr "Schießplatz"
@@ -863,27 +863,27 @@ msgid "Language"
 msgstr "Sprache"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:139
+#: lib/cannery_web/live/home_live.ex:147
 msgid "Get involved!"
 msgstr "Mach mit!"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:156
+#: lib/cannery_web/live/home_live.ex:164
 msgid "Help translate"
 msgstr "Hilf beim Übersetzen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:165
+#: lib/cannery_web/live/home_live.ex:173
 msgid "Report bugs or request features"
 msgstr "Sende Bugs oder Erweiterungsvorschläge"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:147
+#: lib/cannery_web/live/home_live.ex:155
 msgid "View the source code"
 msgstr "Quellcode ansehen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:50
+#: lib/cannery_web/components/topbar.ex:56
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:3
 msgid "Catalog"
 msgstr ""
@@ -917,4 +917,15 @@ msgstr "Diese Munitionsgruppe ist nicht in einem Behälter"
 #: lib/cannery_web/components/container_card.ex:50
 #: lib/cannery_web/live/container_live/show.html.heex:27
 msgid "Packs:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/topbar.ex:24
+#: lib/cannery_web/live/home_live.ex:42
+msgid "Cannery logo"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/home_live.ex:44
+msgid "isn't he cute >:3"
 msgstr ""

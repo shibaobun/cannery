@@ -16,10 +16,16 @@ defmodule CanneryWeb.Components.Topbar do
     <nav role="navigation" class="mb-8 px-8 py-4 w-full bg-primary-400">
       <div class="flex flex-col sm:flex-row justify-between items-center">
         <div class="mb-4 sm:mb-0 sm:mr-8 flex flex-row justify-start items-center space-x-2">
-          <%= live_redirect("Cannery",
-            to: Routes.live_path(Endpoint, HomeLive),
-            class: "mx-2 my-1 leading-5 text-xl text-white hover:underline"
-          ) %>
+          <%= live_redirect to: Routes.live_path(Endpoint, HomeLive),
+            class: "inline mx-2 my-1 leading-5 text-xl text-white"
+            do %>
+            <img
+              src={Routes.static_path(Endpoint, "/images/cannery.svg")}
+              alt={gettext("Cannery logo")}
+              class="inline-block h-8 mx-1"
+            />
+            <h1 class="inline hover:underline">Cannery</h1>
+          <% end %>
 
           <%= if @title_content do %>
             <span class="mx-2 my-1">

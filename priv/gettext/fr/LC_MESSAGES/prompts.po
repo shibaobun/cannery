@@ -114,7 +114,7 @@ msgid "Are you sure you want to delete your account?"
 msgstr "Êtes-vous certain·e de supprimer votre compte ?"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/topbar.ex:84
+#: lib/cannery_web/components/topbar.ex:90
 msgid "Are you sure you want to log out?"
 msgstr "Êtes-vous certain·e de vouloir vous déconnecter ?"
 
@@ -163,7 +163,7 @@ msgid "Please check your email to verify your account"
 msgstr "Veuillez vérifier votre mél pour confirmer votre compte"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/home_live.ex:96
+#: lib/cannery_web/live/home_live.ex:104
 msgid "Register to setup %{name}"
 msgstr "S’enregistrer pour mettre en place %{name}"
 

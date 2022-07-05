@@ -5,6 +5,7 @@ defmodule CanneryWeb.HomeLive do
 
   use CanneryWeb, :live_view
   alias Cannery.Accounts
+  alias CanneryWeb.Endpoint
 
   @impl true
   def mount(_params, _session, socket) do
@@ -36,6 +37,13 @@ defmodule CanneryWeb.HomeLive do
   def render(assigns) do
     ~H"""
     <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
+      <img
+        src={Routes.static_path(Endpoint, "/images/cannery.svg")}
+        alt={gettext("Cannery logo")}
+        class="inline-block w-32 hover:-mt-2 hover:mb-2 transition-all duration-500 ease-in-out"
+        title={gettext("isn't he cute >:3")}
+      />
+
       <h1 class="title text-primary-600 text-2xl">
         <%= gettext("Welcome to %{name}", name: "Cannery") %>
       </h1>
