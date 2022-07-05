@@ -137,7 +137,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
             phx_click: "delete",
             phx_value_id: ammo_type.id,
             data: [
-              confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
+              confirm: dgettext("prompts", "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!", name: ammo_type.name),
               qa: "delete-#{ammo_type.id}"
             ] do %>
         <i class="fa-lg fas fa-trash"></i>

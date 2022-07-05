@@ -24,7 +24,7 @@
          phx_click: "delete",
          data: [
            confirm:
-             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @ammo_type.name),
+             dgettext("prompts", "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!", name: @ammo_type.name),
            qa: "delete"
          ] do %>
       <i class="fa-fw fa-lg fas fa-trash"></i>
