@@ -931,3 +931,8 @@ msgstr ""
 #: lib/cannery_web/live/home_live.ex:44
 msgid "isn't he cute >:3"
 msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/invite_live/form_component.html.heex:28
+msgid "Leave \"Uses left\" blank to make invite unlimited"
+msgstr ""

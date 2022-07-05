@@ -161,7 +161,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:74
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:157
 #: lib/cannery_web/live/container_live/form_component.html.heex:52
-#: lib/cannery_web/live/invite_live/form_component.html.heex:30
+#: lib/cannery_web/live/invite_live/form_component.html.heex:33
 #: lib/cannery_web/live/range_live/form_component.html.heex:42
 #: lib/cannery_web/live/tag_live/form_component.ex:93
 msgid "Saving..."

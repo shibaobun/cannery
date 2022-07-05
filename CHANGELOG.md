@@ -6,6 +6,7 @@
 - Add cute logo >:3 Thank you [kalli](https://twitter.com/t0kkuro)!
 - Add note about deleting an ammo type deleting all ammo of that type as well
 - Prompt to create first ammo type before trying to create first ammo
+- Add note about creating unlimited invites
 
 # v0.5.3
 - Update French translation: Thank you [duponin](https://udongein.xyz/users/duponin)!
