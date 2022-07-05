@@ -7,6 +7,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   """
 
   use Ecto.Schema
+  import CanneryWeb.Gettext
   import Ecto.Changeset
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers.Container}
@@ -48,12 +49,39 @@ defmodule Cannery.Ammo.AmmoGroup do
   @type id :: UUID.t()
 
   @doc false
-  @spec create_changeset(new_ammo_group(), attrs :: map()) :: Changeset.t(new_ammo_group())
-  def create_changeset(ammo_group, attrs) do
+  @spec create_changeset(
+          new_ammo_group(),
+          AmmoType.t() | nil,
+          Container.t() | nil,
+          User.t(),
+          attrs :: map()
+        ) :: Changeset.t(new_ammo_group())
+  def create_changeset(
+        ammo_group,
+        %AmmoType{id: ammo_type_id},
+        %Container{id: container_id, user_id: user_id},
+        %User{id: user_id},
+        attrs
+      )
+      when not (ammo_type_id |> is_nil()) and not (container_id |> is_nil()) and
+             not (user_id |> is_nil()) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id, :user_id])
+    |> change(ammo_type_id: ammo_type_id)
+    |> change(user_id: user_id)
+    |> change(container_id: container_id)
+    |> cast(attrs, [:count, :price_paid, :notes, :staged])
     |> validate_number(:count, greater_than: 0)
     |> validate_required([:count, :staged, :ammo_type_id, :container_id, :user_id])
+  end
+
+  @doc """
+  Invalid changeset, used to prompt user to select ammo type and container
+  """
+  def create_changeset(ammo_group, _invalid_ammo_type, _invalid_container, _invalid_user, attrs) do
+    ammo_group
+    |> cast(attrs, [:ammo_type_id, :container_id])
+    |> validate_required([:ammo_type_id, :container_id])
+    |> add_error(:invalid, dgettext("errors", "Please select an ammo type and container"))
   end
 
   @doc false
@@ -61,9 +89,9 @@ defmodule Cannery.Ammo.AmmoGroup do
           Changeset.t(t() | new_ammo_group())
   def update_changeset(ammo_group, attrs) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :staged, :ammo_type_id, :container_id])
+    |> cast(attrs, [:count, :price_paid, :notes, :staged])
     |> validate_number(:count, greater_than_or_equal_to: 0)
-    |> validate_required([:count, :staged, :ammo_type_id, :container_id])
+    |> validate_required([:count, :staged])
   end
 
   @doc """

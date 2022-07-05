@@ -180,9 +180,5 @@ defmodule Cannery.AmmoTest do
         Ammo.get_ammo_group!(ammo_group.id, current_user)
       end
     end
-
-    test "change_ammo_group/1 returns a ammo_group changeset", %{ammo_group: ammo_group} do
-      assert %Changeset{} = Ammo.change_ammo_group(ammo_group)
-    end
   end
 end

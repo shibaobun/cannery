@@ -3,6 +3,7 @@ defmodule Cannery.Ammo do
   The Ammo context.
   """
 
+  import CanneryWeb.Gettext
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.ActivityLog.ShotGroup
@@ -350,18 +351,21 @@ defmodule Cannery.Ammo do
   def create_ammo_groups(
         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
         multiplier,
-        %User{id: user_id} = user
+        %User{} = user
       )
-      when multiplier >= 1 and multiplier <= @ammo_group_create_limit do
-    # validate ammo type and container ids belong to user
-    _valid_ammo_type = get_ammo_type!(ammo_type_id, user)
-    _valid_container = Containers.get_container!(container_id, user)
-
+      when multiplier >= 1 and multiplier <= @ammo_group_create_limit and
+             not (ammo_type_id |> is_nil()) and not (container_id |> is_nil()) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
     changesets =
       Enum.map(1..multiplier, fn _count ->
-        %AmmoGroup{} |> AmmoGroup.create_changeset(attrs |> Map.put("user_id", user_id))
+        %AmmoGroup{}
+        |> AmmoGroup.create_changeset(
+          get_ammo_type!(ammo_type_id, user),
+          Containers.get_container!(container_id, user),
+          user,
+          attrs
+        )
       end)
 
     if changesets |> Enum.all?(fn %{valid?: valid} -> valid end) do
@@ -386,8 +390,27 @@ defmodule Cannery.Ammo do
     end
   end
 
-  def create_ammo_groups(invalid_attrs, _multiplier, _user) do
-    {:error, %AmmoGroup{} |> AmmoGroup.create_changeset(invalid_attrs)}
+  def create_ammo_groups(
+        %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+        _multiplier,
+        user
+      )
+      when not (ammo_type_id |> is_nil()) and not (container_id |> is_nil()) do
+    changeset =
+      %AmmoGroup{}
+      |> AmmoGroup.create_changeset(
+        get_ammo_type!(ammo_type_id, user),
+        Containers.get_container!(container_id, user),
+        user,
+        attrs
+      )
+      |> Changeset.add_error(:multiplier, dgettext("errors", "Invalid multiplier"))
+
+    {:error, changeset}
+  end
+
+  def create_ammo_groups(invalid_attrs, _multiplier, user) do
+    {:error, %AmmoGroup{} |> AmmoGroup.create_changeset(nil, nil, user, invalid_attrs)}
   end
 
   @doc """
@@ -436,18 +459,4 @@ defmodule Cannery.Ammo do
   @spec delete_ammo_group!(AmmoGroup.t(), User.t()) :: AmmoGroup.t()
   def delete_ammo_group!(%AmmoGroup{user_id: user_id} = ammo_group, %User{id: user_id}),
     do: ammo_group |> Repo.delete!()
-
-  @doc """
-  Returns an `%Changeset{}` for tracking ammo_group changes.
-
-  ## Examples
-
-      iex> change_ammo_group(ammo_group)
-      %Changeset{data: %AmmoGroup{}}
-
-  """
-  @spec change_ammo_group(AmmoGroup.t()) :: Changeset.t(AmmoGroup.t())
-  @spec change_ammo_group(AmmoGroup.t(), attrs :: map()) :: Changeset.t(AmmoGroup.t())
-  def change_ammo_group(%AmmoGroup{} = ammo_group, attrs \\ %{}),
-    do: AmmoGroup.update_changeset(ammo_group, attrs)
 end

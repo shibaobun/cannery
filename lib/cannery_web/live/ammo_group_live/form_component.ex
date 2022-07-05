@@ -25,7 +25,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     socket =
       socket
       |> assign(:ammo_group_create_limit, @ammo_group_create_limit)
-      |> assign(:changeset, Ammo.change_ammo_group(ammo_group))
+      |> assign(:changeset, ammo_group |> AmmoGroup.update_changeset(%{}))
       |> assign(:ammo_types, Ammo.list_ammo_types(current_user))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
@@ -36,7 +36,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   def handle_event(
         "validate",
         %{"ammo_group" => ammo_group_params},
-        %{assigns: %{action: action, ammo_group: ammo_group}} = socket
+        %{assigns: %{action: action, ammo_group: ammo_group, current_user: user}} = socket
       ) do
     changeset_action =
       case action do
@@ -44,7 +44,24 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
         :edit -> :update
       end
 
-    changeset = ammo_group |> Ammo.change_ammo_group(ammo_group_params)
+    changeset =
+      case action do
+        :new ->
+          ammo_type =
+            if ammo_group_params |> Map.has_key?("ammo_type_id"),
+              do: ammo_group_params |> Map.get("ammo_type_id") |> Ammo.get_ammo_type!(user),
+              else: nil
+
+          container =
+            if ammo_group_params |> Map.has_key?("container_id"),
+              do: ammo_group_params |> Map.get("container_id") |> Containers.get_container!(user),
+              else: nil
+
+          ammo_group |> AmmoGroup.create_changeset(ammo_type, container, user, ammo_group_params)
+
+        :edit ->
+          ammo_group |> AmmoGroup.update_changeset(ammo_group_params)
+      end
 
     changeset =
       case changeset |> Changeset.apply_action(changeset_action) do

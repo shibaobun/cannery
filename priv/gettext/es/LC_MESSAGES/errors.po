@@ -149,13 +149,13 @@ msgid "Tag could not be added"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/activity_log/shot_group.ex:102
+#: lib/cannery/activity_log/shot_group.ex:115
 msgid "Count must be at least 1"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/activity_log/shot_group.ex:61
-#: lib/cannery/activity_log/shot_group.ex:98
+#: lib/cannery/activity_log/shot_group.ex:74
+#: lib/cannery/activity_log/shot_group.ex:111
 msgid "Count must be less than %{count}"
 msgstr ""
 
@@ -171,11 +171,26 @@ msgid "Tag could not be removed"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:126
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:143
 msgid "Could not parse number of copies"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:111
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:128
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery/ammo.ex:407
+msgid "Invalid multiplier"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery/ammo/ammo_group.ex:84
+msgid "Please select an ammo type and container"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery/activity_log/shot_group.ex:69
+msgid "Please select a valid user and ammo group"
 msgstr ""

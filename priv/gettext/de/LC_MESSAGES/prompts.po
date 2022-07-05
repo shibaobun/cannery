@@ -283,12 +283,12 @@ msgid "Ammo unstaged succesfully"
 msgstr "Munition erfolgreich demarkiert"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:88
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:105
 msgid "Ammo updated successfully"
 msgstr "Munitionsgruppe erfolgreich aktualisiert"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:147
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:164
 msgid "Ammo added successfully"
 msgid_plural "Ammo added successfully"
 msgstr[0] "Munitionsgruppe erfolgreich aktualisiert"
