@@ -25,7 +25,7 @@ msgstr ""
 ## effect: edit them in PO (.po) files instead.
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:85
-#: lib/cannery_web/live/container_live/form_component.ex:66
+#: lib/cannery_web/live/container_live/form_component.ex:85
 #: lib/cannery_web/live/invite_live/form_component.ex:59
 #: lib/cannery_web/live/tag_live/form_component.ex:101
 msgid "%{name} created successfully"
@@ -63,7 +63,7 @@ msgstr "%{name} mis à jour avec succès"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
-#: lib/cannery_web/live/container_live/form_component.ex:48
+#: lib/cannery_web/live/container_live/form_component.ex:67
 #: lib/cannery_web/live/invite_live/form_component.ex:41
 #: lib/cannery_web/live/tag_live/form_component.ex:83
 msgid "%{name} updated successfully"

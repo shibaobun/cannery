@@ -13,19 +13,13 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
           %{:container => Container.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{container: container} = assigns, socket) do
-    changeset = container |> Container.update_changeset(%{})
-    {:ok, socket |> assign(assigns) |> assign(:changeset, changeset)}
+  def update(%{container: _container} = assigns, socket) do
+    {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event(
-        "validate",
-        %{"container" => container_params},
-        %{assigns: %{container: container}} = socket
-      ) do
-    changeset = container |> Container.update_changeset(container_params)
-    {:noreply, socket |> assign(:changeset, changeset)}
+  def handle_event("validate", %{"container" => container_params}, socket) do
+    {:noreply, socket |> assign_changeset(container_params)}
   end
 
   def handle_event(
@@ -34,6 +28,31 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
         %{assigns: %{action: action}} = socket
       ) do
     save_container(socket, action, container_params)
+  end
+
+  defp assign_changeset(
+         %{assigns: %{action: action, container: container, current_user: user}} = socket,
+         container_params
+       ) do
+    changeset_action =
+      case action do
+        :new -> :insert
+        :edit -> :update
+      end
+
+    changeset =
+      case action do
+        :new -> container |> Container.create_changeset(user, container_params)
+        :edit -> container |> Container.update_changeset(container_params)
+      end
+
+    changeset =
+      case changeset |> Changeset.apply_action(changeset_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    socket |> assign(:changeset, changeset)
   end
 
   defp save_container(
