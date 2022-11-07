@@ -293,7 +293,7 @@ msgstr[0] "Munitionsgruppe erfolgreich aktualisiert"
 msgstr[1] "Munitionsgruppe erfolgreich aktualisiert"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_type_live/index.ex:140
+#: lib/cannery_web/live/ammo_type_live/index.ex:156
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:27
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
 msgstr "Sind Sie sicher, dass sie %{name} löschen möchten?"

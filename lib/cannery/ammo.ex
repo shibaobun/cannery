@@ -232,6 +232,49 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
+  Returns the count of ammo_groups for an ammo type.
+
+  ## Examples
+
+      iex> get_ammo_groups_count_for_type(%User{id: 123})
+      3
+
+  """
+  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
+  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t(), include_empty :: boolean()) ::
+          [AmmoGroup.t()]
+  def get_ammo_groups_count_for_type(ammo_type, user, include_empty \\ false)
+
+  def get_ammo_groups_count_for_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = true
+      ) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        where: ag.user_id == ^user_id,
+        where: ag.ammo_type_id == ^ammo_type_id,
+        distinct: true,
+        select: count(ag.id)
+    ) || 0
+  end
+
+  def get_ammo_groups_count_for_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = false
+      ) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        where: ag.user_id == ^user_id,
+        where: ag.ammo_type_id == ^ammo_type_id,
+        where: not (ag.count == 0),
+        distinct: true,
+        select: count(ag.id)
+    ) || 0
+  end
+
+  @doc """
   Returns the list of ammo_groups for a user.
 
   ## Examples

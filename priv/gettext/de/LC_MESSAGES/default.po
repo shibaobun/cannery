@@ -59,7 +59,7 @@ msgid "Ammo type"
 msgstr "Munitionsarten"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/index.ex:87
+#: lib/cannery_web/live/ammo_type_live/index.ex:88
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:100
 msgid "Average Price paid"
 msgstr "Durchschnittlicher Kaufpreis"
@@ -620,7 +620,7 @@ msgstr "Schießkladde"
 #: lib/cannery_web/live/ammo_group_live/index.ex:125
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
-#: lib/cannery_web/live/ammo_type_live/index.ex:114
+#: lib/cannery_web/live/ammo_type_live/index.ex:118
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:104
 msgid "$%{amount}"
 msgstr "$%{amount}"
@@ -732,7 +732,7 @@ msgid "Show %{name}"
 msgstr "Zeige %{name}"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/index.ex:113
+#: lib/cannery_web/live/ammo_type_live/index.ex:117
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:110
 msgid "No cost information"
 msgstr "Keine Preisinformationen"
@@ -935,3 +935,8 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/form_component.html.heex:28
 msgid "Leave \"Uses left\" blank to make invite unlimited"
 msgstr ""
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/live/ammo_type_live/index.ex:87
+msgid "Total # of ammo"
+msgstr "Summe aller Patronen"

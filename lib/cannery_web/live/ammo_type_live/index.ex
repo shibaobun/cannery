@@ -48,7 +48,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
     columns =
       [
-        %{label: gettext("Name"), key: "name", type: :string},
+        %{label: gettext("Name"), key: "name", type: :name},
         %{label: gettext("Bullet type"), key: "bullet_type", type: :string},
         %{label: gettext("Bullet core"), key: "bullet_core", type: :string},
         %{label: gettext("Cartridge"), key: "cartridge", type: :string},
@@ -84,6 +84,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
       end)
       |> Kernel.++([
         %{label: gettext("Total # of rounds"), key: "round_count", type: :round_count},
+        %{label: gettext("Total # of ammo"), key: "ammo_count", type: :ammo_count},
         %{label: gettext("Average Price paid"), key: "avg_price_paid", type: :avg_price_paid},
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
@@ -108,11 +109,26 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   defp get_ammo_type_value(:round_count, _key, ammo_type, current_user),
     do: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
 
+  defp get_ammo_type_value(:ammo_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user)
+
   defp get_ammo_type_value(:avg_price_paid, _key, ammo_type, current_user) do
     case ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user) do
       nil -> gettext("No cost information")
       count -> gettext("$%{amount}", amount: count |> :erlang.float_to_binary(decimals: 2))
     end
+  end
+
+  defp get_ammo_type_value(:name, _key, ammo_type, _current_user) do
+    assigns = %{ammo_type: ammo_type}
+
+    ~H"""
+    <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
+      class: "link",
+      data: [qa: "view-name-#{ammo_type.id}"] do %>
+      <%= ammo_type.name %>
+    <% end %>
+    """
   end
 
   defp get_ammo_type_value(:actions, _key, ammo_type, _current_user) do

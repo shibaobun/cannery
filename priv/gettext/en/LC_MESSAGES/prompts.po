@@ -273,7 +273,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/ammo_type_live/index.ex:140
+#: lib/cannery_web/live/ammo_type_live/index.ex:156
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:27
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
 msgstr ""

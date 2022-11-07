@@ -170,7 +170,7 @@ msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/ammo.ex:407
+#: lib/cannery/ammo.ex:442
 msgid "Invalid multiplier"
 msgstr ""
 
