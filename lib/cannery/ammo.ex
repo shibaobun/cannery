@@ -227,7 +227,7 @@ defmodule Cannery.Ammo do
   def list_ammo_groups_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = true
+        true = _include_empty
       ) do
     Repo.all(
       from ag in AmmoGroup,
@@ -242,7 +242,7 @@ defmodule Cannery.Ammo do
   def list_ammo_groups_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = false
+        false = _include_empty
       ) do
     Repo.all(
       from ag in AmmoGroup,
@@ -272,7 +272,7 @@ defmodule Cannery.Ammo do
   def list_ammo_groups_for_container(
         %Container{id: container_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = true
+        true = _include_empty
       ) do
     Repo.all(
       from ag in AmmoGroup,
@@ -287,7 +287,7 @@ defmodule Cannery.Ammo do
   def list_ammo_groups_for_container(
         %Container{id: container_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = false
+        false = _include_empty
       ) do
     Repo.all(
       from ag in AmmoGroup,
@@ -317,7 +317,7 @@ defmodule Cannery.Ammo do
   def get_ammo_groups_count_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = true
+        true = _include_empty
       ) do
     Repo.one!(
       from ag in AmmoGroup,
@@ -331,7 +331,7 @@ defmodule Cannery.Ammo do
   def get_ammo_groups_count_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
-        _include_empty = false
+        false = _include_empty
       ) do
     Repo.one!(
       from ag in AmmoGroup,
@@ -356,7 +356,7 @@ defmodule Cannery.Ammo do
   @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
   def list_ammo_groups(user, include_empty \\ false)
 
-  def list_ammo_groups(%User{id: user_id}, _include_empty = true) do
+  def list_ammo_groups(%User{id: user_id}, true = _include_empty) do
     Repo.all(
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
@@ -366,7 +366,7 @@ defmodule Cannery.Ammo do
     )
   end
 
-  def list_ammo_groups(%User{id: user_id}, _include_empty = false) do
+  def list_ammo_groups(%User{id: user_id}, false = _include_empty) do
     Repo.all(
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
@@ -433,6 +433,17 @@ defmodule Cannery.Ammo do
     |> Map.fetch!(:shot_groups)
     |> Enum.map(fn %{count: count} -> count end)
     |> Enum.sum()
+  end
+
+  @doc """
+  Returns the last entered shot group for an ammo group
+  """
+  @spec get_last_used_shot_group(AmmoGroup.t()) :: ShotGroup.t() | nil
+  def get_last_used_shot_group(%AmmoGroup{} = ammo_group) do
+    ammo_group
+    |> Repo.preload(:shot_groups)
+    |> Map.fetch!(:shot_groups)
+    |> Enum.max_by(fn %{date: date} -> date end, Date, fn -> nil end)
   end
 
   @doc """

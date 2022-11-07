@@ -73,7 +73,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   @impl true
-  def handle_event("toggle_show_used", _, %{assigns: %{show_used: show_used}} = socket) do
+  def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_groups()}
   end
 
@@ -87,15 +87,23 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     containers_count = Containers.get_containers_count!(current_user)
 
     columns = [
-      %{label: gettext("Ammo type"), key: "ammo_type"},
-      %{label: gettext("Count"), key: "count"},
-      %{label: gettext("Price paid"), key: "price_paid"},
-      %{label: gettext("% left"), key: "remaining"},
-      %{label: gettext("Range"), key: "range"},
-      %{label: gettext("Container"), key: "container"},
-      %{label: gettext("Added on"), key: "added_on"},
-      %{label: nil, key: "actions", sortable: false}
+      %{label: gettext("Ammo type"), key: :ammo_type},
+      %{label: gettext("Count"), key: :count},
+      %{label: gettext("Price paid"), key: :price_paid},
+      %{label: gettext("% left"), key: :remaining},
+      %{label: gettext("Range"), key: :range},
+      %{label: gettext("Container"), key: :container},
+      %{label: gettext("Added on"), key: :added_on}
     ]
+
+    columns =
+      if show_used do
+        columns ++ [%{label: gettext("Used up on"), key: :used_up_on}]
+      else
+        columns
+      end
+
+    columns = columns ++ [%{label: nil, key: :actions, sortable: false}]
 
     rows =
       ammo_groups
@@ -119,8 +127,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     |> Enum.into(%{}, fn %{key: key} -> {key, get_value_for_key(key, ammo_group)} end)
   end
 
-  @spec get_value_for_key(String.t(), AmmoGroup.t()) :: any()
-  defp get_value_for_key("ammo_type", %{ammo_type: ammo_type}) do
+  @spec get_value_for_key(atom(), AmmoGroup.t()) :: any()
+  defp get_value_for_key(:ammo_type, %{ammo_type: ammo_type}) do
     {ammo_type.name,
      live_patch(ammo_type.name,
        to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
@@ -128,12 +136,12 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
      )}
   end
 
-  defp get_value_for_key("price_paid", %{price_paid: nil}), do: {"a", nil}
+  defp get_value_for_key(:price_paid, %{price_paid: nil}), do: {"a", nil}
 
-  defp get_value_for_key("price_paid", %{price_paid: price_paid}),
+  defp get_value_for_key(:price_paid, %{price_paid: price_paid}),
     do: gettext("$%{amount}", amount: price_paid |> :erlang.float_to_binary(decimals: 2))
 
-  defp get_value_for_key("added_on", %{inserted_at: inserted_at}) do
+  defp get_value_for_key(:added_on, %{inserted_at: inserted_at}) do
     assigns = %{inserted_at: inserted_at}
 
     {inserted_at,
@@ -142,7 +150,22 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
      """}
   end
 
-  defp get_value_for_key("range", %{staged: staged} = ammo_group) do
+  defp get_value_for_key(:used_up_on, ammo_group) do
+    last_shot_group_date =
+      case ammo_group |> Ammo.get_last_used_shot_group() do
+        %{date: last_shot_group_date} -> last_shot_group_date
+        _no_shot_groups -> nil
+      end
+
+    assigns = %{last_shot_group_date: last_shot_group_date}
+
+    {last_shot_group_date,
+     ~H"""
+     <%= @last_shot_group_date |> display_date() %>
+     """}
+  end
+
+  defp get_value_for_key(:range, %{staged: staged} = ammo_group) do
     assigns = %{ammo_group: ammo_group}
 
     {staged,
@@ -165,10 +188,10 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
      """}
   end
 
-  defp get_value_for_key("remaining", ammo_group),
+  defp get_value_for_key(:remaining, ammo_group),
     do: "#{ammo_group |> Ammo.get_percentage_remaining()}%"
 
-  defp get_value_for_key("actions", ammo_group) do
+  defp get_value_for_key(:actions, ammo_group) do
     assigns = %{ammo_group: ammo_group}
 
     ~H"""
@@ -199,9 +222,9 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     """
   end
 
-  defp get_value_for_key("container", %{container: nil}), do: {nil, nil}
+  defp get_value_for_key(:container, %{container: nil}), do: {nil, nil}
 
-  defp get_value_for_key("container", %{container: %{name: container_name}} = ammo_group) do
+  defp get_value_for_key(:container, %{container: %{name: container_name}} = ammo_group) do
     assigns = %{ammo_group: ammo_group}
 
     {container_name,
@@ -222,6 +245,5 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
      """}
   end
 
-  defp get_value_for_key(key, ammo_group),
-    do: ammo_group |> Map.get(key |> String.to_existing_atom())
+  defp get_value_for_key(key, ammo_group), do: ammo_group |> Map.get(key)
 end

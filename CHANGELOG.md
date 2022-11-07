@@ -1,5 +1,6 @@
 # v0.5.5
 - Update translations
+- Display used-up date on used-up ammo
 - Make ammo index page a bit more compact
 - Make ammo index page filter used-up ammo
 - Make ammo catalog page include ammo count

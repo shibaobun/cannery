@@ -100,7 +100,7 @@ msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr "Está seguro que quiere eliminar la invitación para %{name}?"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:193
+#: lib/cannery_web/live/ammo_group_live/index.ex:216
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:71
 msgid "Are you sure you want to delete this ammo?"
 msgstr "Está seguro que desea eliminar esta munición?"

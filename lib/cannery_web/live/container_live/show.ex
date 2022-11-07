@@ -5,7 +5,7 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   use CanneryWeb, :live_view
   import CanneryWeb.Components.{AmmoGroupCard, TagCard}
-  alias Cannery.{Ammo, Accounts.User, Containers, Containers.Container, Repo, Tags}
+  alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container, Repo, Tags}
   alias CanneryWeb.Endpoint
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
@@ -83,7 +83,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   end
 
   @impl true
-  def handle_event("toggle_show_used", _, %{assigns: %{show_used: show_used}} = socket) do
+  def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> render_container()}
   end
 

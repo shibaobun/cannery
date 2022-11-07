@@ -169,7 +169,7 @@ msgid "Why not get some ready to shoot?"
 msgstr "Pourquoi pas en préparer pour tirer ?"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:160
+#: lib/cannery_web/live/ammo_group_live/index.ex:183
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:91
 #: lib/cannery_web/live/range_live/index.html.heex:36
 msgid "Record shots"

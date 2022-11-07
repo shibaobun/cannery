@@ -48,29 +48,29 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
     columns =
       [
-        %{label: gettext("Name"), key: "name", type: :name},
-        %{label: gettext("Bullet type"), key: "bullet_type", type: :string},
-        %{label: gettext("Bullet core"), key: "bullet_core", type: :string},
-        %{label: gettext("Cartridge"), key: "cartridge", type: :string},
-        %{label: gettext("Caliber"), key: "caliber", type: :string},
-        %{label: gettext("Case material"), key: "case_material", type: :string},
-        %{label: gettext("Jacket type"), key: "jacket_type", type: :string},
-        %{label: gettext("Muzzle velocity"), key: "muzzle_velocity", type: :string},
-        %{label: gettext("Powder type"), key: "powder_type", type: :string},
+        %{label: gettext("Name"), key: :name, type: :name},
+        %{label: gettext("Bullet type"), key: :bullet_type, type: :string},
+        %{label: gettext("Bullet core"), key: :bullet_core, type: :string},
+        %{label: gettext("Cartridge"), key: :cartridge, type: :string},
+        %{label: gettext("Caliber"), key: :caliber, type: :string},
+        %{label: gettext("Case material"), key: :case_material, type: :string},
+        %{label: gettext("Jacket type"), key: :jacket_type, type: :string},
+        %{label: gettext("Muzzle velocity"), key: :muzzle_velocity, type: :string},
+        %{label: gettext("Powder type"), key: :powder_type, type: :string},
         %{
           label: gettext("Powder grains per charge"),
-          key: "powder_grains_per_charge",
+          key: :powder_grains_per_charge,
           type: :string
         },
-        %{label: gettext("Grains"), key: "grains", type: :string},
-        %{label: gettext("Pressure"), key: "pressure", type: :string},
-        %{label: gettext("Primer type"), key: "primer_type", type: :string},
-        %{label: gettext("Firing type"), key: "firing_type", type: :string},
-        %{label: gettext("Tracer"), key: "tracer", type: :boolean},
-        %{label: gettext("Incendiary"), key: "incendiary", type: :boolean},
-        %{label: gettext("Blank"), key: "blank", type: :boolean},
-        %{label: gettext("Corrosive"), key: "corrosive", type: :boolean},
-        %{label: gettext("Manufacturer"), key: "manufacturer", type: :string},
+        %{label: gettext("Grains"), key: :grains, type: :string},
+        %{label: gettext("Pressure"), key: :pressure, type: :string},
+        %{label: gettext("Primer type"), key: :primer_type, type: :string},
+        %{label: gettext("Firing type"), key: :firing_type, type: :string},
+        %{label: gettext("Tracer"), key: :tracer, type: :boolean},
+        %{label: gettext("Incendiary"), key: :incendiary, type: :boolean},
+        %{label: gettext("Blank"), key: :blank, type: :boolean},
+        %{label: gettext("Corrosive"), key: :corrosive, type: :boolean},
+        %{label: gettext("Manufacturer"), key: :manufacturer, type: :string},
         %{label: gettext("UPC"), key: "upc", type: :string}
       ]
       |> Enum.filter(fn %{key: key, type: type} ->
@@ -79,13 +79,13 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
         ammo_types
         |> Enum.any?(fn ammo_type ->
-          not (ammo_type |> Map.get(key |> String.to_existing_atom()) == default_value)
+          not (ammo_type |> Map.get(key) == default_value)
         end)
       end)
       |> Kernel.++([
-        %{label: gettext("Total # of rounds"), key: "round_count", type: :round_count},
-        %{label: gettext("Total # of ammo"), key: "ammo_count", type: :ammo_count},
-        %{label: gettext("Average Price paid"), key: "avg_price_paid", type: :avg_price_paid},
+        %{label: gettext("Total # of rounds"), key: :round_count, type: :round_count},
+        %{label: gettext("Total # of ammo"), key: :ammo_count, type: :ammo_count},
+        %{label: gettext("Average Price paid"), key: :avg_price_paid, type: :avg_price_paid},
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
 
@@ -104,7 +104,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   end
 
   defp get_ammo_type_value(:boolean, key, ammo_type, _current_user),
-    do: ammo_type |> Map.get(key |> String.to_existing_atom()) |> humanize()
+    do: ammo_type |> Map.get(key) |> humanize()
 
   defp get_ammo_type_value(:round_count, _key, ammo_type, current_user),
     do: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
@@ -164,6 +164,5 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   defp get_ammo_type_value(nil, _key, _ammo_type, _current_user), do: nil
 
-  defp get_ammo_type_value(_other, key, ammo_type, _current_user),
-    do: ammo_type |> Map.get(key |> String.to_existing_atom())
+  defp get_ammo_type_value(_other, key, ammo_type, _current_user), do: ammo_type |> Map.get(key)
 end

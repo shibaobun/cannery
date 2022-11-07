@@ -77,11 +77,11 @@ defmodule CanneryWeb.RangeLive.Index do
     ammo_groups = Ammo.list_staged_ammo_groups(current_user)
 
     columns = [
-      %{label: gettext("Ammo"), key: "name"},
-      %{label: gettext("Rounds shot"), key: "count"},
-      %{label: gettext("Notes"), key: "notes"},
-      %{label: gettext("Date"), key: "date"},
-      %{label: nil, key: "actions", sortable: false}
+      %{label: gettext("Ammo"), key: :name},
+      %{label: gettext("Rounds shot"), key: :count},
+      %{label: gettext("Notes"), key: :notes},
+      %{label: gettext("Date"), key: :date},
+      %{label: nil, key: :actions, sortable: false}
     ]
 
     rows =
@@ -101,17 +101,17 @@ defmodule CanneryWeb.RangeLive.Index do
     |> Enum.into(%{}, fn %{key: key} ->
       value =
         case key do
-          "name" ->
+          :name ->
             {shot_group.ammo_group.ammo_type.name,
              live_patch(shot_group.ammo_group.ammo_type.name,
                to: Routes.ammo_group_show_path(Endpoint, :show, shot_group.ammo_group),
                class: "link"
              )}
 
-          "date" ->
+          :date ->
             date |> display_date()
 
-          "actions" ->
+          :actions ->
             ~H"""
             <div class="px-4 py-2 space-x-4 flex justify-center items-center">
               <%= live_patch to: Routes.range_index_path(Endpoint, :edit, shot_group),
@@ -134,7 +134,7 @@ defmodule CanneryWeb.RangeLive.Index do
             """
 
           key ->
-            shot_group |> Map.get(key |> String.to_existing_atom())
+            shot_group |> Map.get(key)
         end
 
       {key, value}

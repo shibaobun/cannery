@@ -4,7 +4,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
   """
 
   use CanneryWeb, :component
-  alias Cannery.Repo
+  alias Cannery.{Ammo, Repo}
   alias CanneryWeb.Endpoint
 
   def ammo_group_card(%{ammo_group: ammo_group} = assigns) do
@@ -46,6 +46,13 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           <%= gettext("Added on:") %>
           <%= @ammo_group.inserted_at |> display_datetime() %>
         </span>
+
+        <%= if @ammo_group.count == 0 do %>
+          <span class="rounded-lg title text-lg">
+            <%= gettext("Used up on:") %>
+            <%= @ammo_group |> Ammo.get_last_used_shot_group() |> Map.get(:date) |> display_date() %>
+          </span>
+        <% end %>
 
         <%= if @ammo_group.price_paid do %>
           <span class="rounded-lg title text-lg">

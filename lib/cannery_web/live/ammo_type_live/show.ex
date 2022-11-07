@@ -32,7 +32,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   end
 
   @impl true
-  def handle_event("toggle_show_used", _, %{assigns: %{show_used: show_used}} = socket) do
+  def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_type()}
   end
 

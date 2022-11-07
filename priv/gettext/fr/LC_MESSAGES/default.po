@@ -376,7 +376,7 @@ msgid "Price paid"
 msgstr "Prix payé"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:52
+#: lib/cannery_web/components/ammo_group_card.ex:59
 msgid "Price paid:"
 msgstr "Prix payé :"
 
@@ -603,7 +603,7 @@ msgstr "Déplacer le groupe de munition"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.ex:80
-#: lib/cannery_web/live/ammo_group_live/index.ex:217
+#: lib/cannery_web/live/ammo_group_live/index.ex:240
 msgid "Move ammo"
 msgstr "Déplacer munition"
 
@@ -618,8 +618,8 @@ msgid "Shot log"
 msgstr "Évènements de tir"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:53
-#: lib/cannery_web/live/ammo_group_live/index.ex:134
+#: lib/cannery_web/components/ammo_group_card.ex:60
+#: lib/cannery_web/live/ammo_group_live/index.ex:142
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:118
@@ -684,12 +684,12 @@ msgid "New password"
 msgstr "Nouveau mot de passe"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:157
+#: lib/cannery_web/live/ammo_group_live/index.ex:180
 msgid "Stage"
 msgstr "Sélectionné"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_group_live/index.ex:157
+#: lib/cannery_web/live/ammo_group_live/index.ex:180
 msgid "Unstage"
 msgstr "Désélectionner"
 
@@ -944,7 +944,7 @@ msgid "Total # of ammo"
 msgstr "Quantité de cartouches"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/components/ammo_group_card.ex:61
+#: lib/cannery_web/components/ammo_group_card.ex:68
 msgid "Container:"
 msgstr "Conteneur"
 
@@ -953,4 +953,14 @@ msgstr "Conteneur"
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:119
 #: lib/cannery_web/live/container_live/show.html.heex:90
 msgid "Show used"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_group_live/index.ex:101
+msgid "Used up on"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/components/ammo_group_card.ex:52
+msgid "Used up on:"
 msgstr ""
