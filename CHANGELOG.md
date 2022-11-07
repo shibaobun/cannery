@@ -3,6 +3,7 @@
 - Make ammo index page a bit more compact
 - Add ammo count to ammo type index page
 - Make ammo type show page a bit more compact
+- Make container show page a bit more compact
 - Forgot to add the logo as the favicon whoops
 
 # v0.5.4
