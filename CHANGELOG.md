@@ -1,5 +1,6 @@
 # v0.5.5
 - Update translations
+- Make ammo index page a bit more compact
 - Forgot to add the logo as the favicon whoops
 
 # v0.5.4

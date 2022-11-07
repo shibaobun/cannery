@@ -138,10 +138,10 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     {staged,
      ~H"""
-     <div class="min-w-20 py-2 px-4 h-full flex flex-col justify-center items-center">
+     <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
        <button
          type="button"
-         class="mx-2 my-1 btn btn-primary"
+         class="mx-2 my-1 text-sm btn btn-primary"
          phx-click="toggle_staged"
          phx-value-ammo_group_id={ammo_group.id}
        >
@@ -150,7 +150,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
        <%= live_patch(dgettext("actions", "Record shots"),
          to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
-         class: "mx-2 my-1 btn btn-primary"
+         class: "mx-2 my-1 text-sm btn btn-primary"
        ) %>
      </div>
      """}
@@ -197,10 +197,17 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     {container_name,
      ~H"""
-     <div class="min-w-20 py-2 px-4 h-full space-x-4 flex justify-center items-center">
-       <%= live_patch(@ammo_group.container.name,
+     <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
+       <%= live_patch(
+         @ammo_group.container.name,
+         to: Routes.container_show_path(Endpoint, :show, @ammo_group.container),
+         class: "mx-2 my-1 link"
+       ) %>
+
+       <%= live_patch(
+         gettext("Move ammo"),
          to: Routes.ammo_group_index_path(Endpoint, :move, @ammo_group),
-         class: "btn btn-primary"
+         class: "mx-2 my-1 text-sm btn btn-primary"
        ) %>
      </div>
      """}

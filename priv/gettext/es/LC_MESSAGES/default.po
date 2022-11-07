@@ -599,6 +599,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/components/move_ammo_group_component.ex:80
+#: lib/cannery_web/live/ammo_group_live/index.ex:208
 msgid "Move ammo"
 msgstr ""
 
