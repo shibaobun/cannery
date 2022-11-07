@@ -220,12 +220,36 @@ defmodule Cannery.Ammo do
 
   """
   @spec list_ammo_groups_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
-  def list_ammo_groups_for_type(%AmmoType{id: ammo_type_id, user_id: user_id}, %User{id: user_id}) do
+  @spec list_ammo_groups_for_type(AmmoType.t(), User.t(), include_empty :: boolean()) ::
+          [AmmoGroup.t()]
+  def list_ammo_groups_for_type(ammo_type, user, include_empty \\ false)
+
+  def list_ammo_groups_for_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = true
+      ) do
     Repo.all(
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
         where: ag.ammo_type_id == ^ammo_type_id,
         where: ag.user_id == ^user_id,
+        preload: [shot_groups: sg],
+        order_by: ag.id
+    )
+  end
+
+  def list_ammo_groups_for_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = false
+      ) do
+    Repo.all(
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.ammo_type_id == ^ammo_type_id,
+        where: ag.user_id == ^user_id,
+        where: not (ag.count == 0),
         preload: [shot_groups: sg],
         order_by: ag.id
     )
@@ -285,22 +309,27 @@ defmodule Cannery.Ammo do
   """
   @spec list_ammo_groups(User.t()) :: [AmmoGroup.t()]
   @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
-  def list_ammo_groups(%User{id: user_id}, include_empty \\ false) do
-    if include_empty do
+  def list_ammo_groups(user, include_empty \\ false)
+
+  def list_ammo_groups(%User{id: user_id}, _include_empty = true) do
+    Repo.all(
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
         where: ag.user_id == ^user_id,
         preload: [shot_groups: sg],
         order_by: ag.id
-    else
+    )
+  end
+
+  def list_ammo_groups(%User{id: user_id}, _include_empty = false) do
+    Repo.all(
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
         where: ag.user_id == ^user_id,
         where: not (ag.count == 0),
         preload: [shot_groups: sg],
         order_by: ag.id
-    end
-    |> Repo.all()
+    )
   end
 
   @doc """

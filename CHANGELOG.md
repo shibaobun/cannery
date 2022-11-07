@@ -4,6 +4,7 @@
 - Make ammo catalog page include ammo count
 - Make ammo type show page a bit more compact
 - Make ammo type show page include container names for each ammo
+- Make ammo type show page filter used-up ammo
 - Make container show page a bit more compact
 - Forgot to add the logo as the favicon whoops
 

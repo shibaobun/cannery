@@ -21,7 +21,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.ex:41
-#: lib/cannery_web/live/ammo_type_live/show.ex:38
+#: lib/cannery_web/live/ammo_type_live/show.ex:28
 #: lib/cannery_web/live/invite_live/index.ex:53
 #: lib/cannery_web/live/invite_live/index.ex:133
 #: lib/cannery_web/live/tag_live/index.ex:38

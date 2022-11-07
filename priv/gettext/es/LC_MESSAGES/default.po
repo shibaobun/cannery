@@ -178,7 +178,7 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/index.ex:23
-#: lib/cannery_web/live/ammo_type_live/show.ex:45
+#: lib/cannery_web/live/ammo_type_live/show.ex:63
 msgid "Edit Ammo type"
 msgstr ""
 
@@ -322,7 +322,7 @@ msgid "No Ammo Types"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:119
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:127
 msgid "No ammo for this type"
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid "Settings"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/ammo_type_live/show.ex:44
+#: lib/cannery_web/live/ammo_type_live/show.ex:62
 msgid "Show Ammo type"
 msgstr ""
 
@@ -942,4 +942,9 @@ msgstr ""
 #, elixir-autogen, elixir-format, fuzzy
 #: lib/cannery_web/components/ammo_group_card.ex:61
 msgid "Container:"
+msgstr ""
+
+#, elixir-autogen, elixir-format
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:119
+msgid "Show used"
 msgstr ""

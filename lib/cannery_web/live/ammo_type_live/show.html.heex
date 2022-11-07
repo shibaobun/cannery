@@ -113,6 +113,14 @@
 
   <hr class="hr" />
 
+  <div class="flex flex-col justify-center items-center">
+    <.toggle_button action="toggle_show_used" value={@show_used}>
+      <span class="title text-lg text-primary-600">
+        <%= gettext("Show used") %>
+      </span>
+    </.toggle_button>
+  </div>
+
   <div>
     <%= if @ammo_groups |> Enum.empty?() do %>
       <h2 class="mx-8 my-4 title text-lg text-primary-600">
