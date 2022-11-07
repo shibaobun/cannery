@@ -5,7 +5,7 @@ defmodule Cannery.Ammo do
 
   import CanneryWeb.Gettext
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts.User, Containers, Repo}
+  alias Cannery.{Accounts.User, Containers, Containers.Container, Repo}
   alias Cannery.ActivityLog.ShotGroup
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.Changeset
@@ -248,6 +248,51 @@ defmodule Cannery.Ammo do
       from ag in AmmoGroup,
         left_join: sg in assoc(ag, :shot_groups),
         where: ag.ammo_type_id == ^ammo_type_id,
+        where: ag.user_id == ^user_id,
+        where: not (ag.count == 0),
+        preload: [shot_groups: sg],
+        order_by: ag.id
+    )
+  end
+
+  @doc """
+  Returns the list of ammo_groups for a user and container.
+
+  ## Examples
+
+      iex> list_ammo_groups_for_container(%AmmoType{id: 123}, %User{id: 123})
+      [%AmmoGroup{}, ...]
+
+  """
+  @spec list_ammo_groups_for_container(Container.t(), User.t()) :: [AmmoGroup.t()]
+  @spec list_ammo_groups_for_container(Container.t(), User.t(), include_empty :: boolean()) ::
+          [AmmoGroup.t()]
+  def list_ammo_groups_for_container(container, user, include_empty \\ false)
+
+  def list_ammo_groups_for_container(
+        %Container{id: container_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = true
+      ) do
+    Repo.all(
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.container_id == ^container_id,
+        where: ag.user_id == ^user_id,
+        preload: [shot_groups: sg],
+        order_by: ag.id
+    )
+  end
+
+  def list_ammo_groups_for_container(
+        %Container{id: container_id, user_id: user_id},
+        %User{id: user_id},
+        _include_empty = false
+      ) do
+    Repo.all(
+      from ag in AmmoGroup,
+        left_join: sg in assoc(ag, :shot_groups),
+        where: ag.container_id == ^container_id,
         where: ag.user_id == ^user_id,
         where: not (ag.count == 0),
         preload: [shot_groups: sg],

@@ -6,6 +6,7 @@
 - Make ammo type show page include container names for each ammo
 - Make ammo type show page filter used-up ammo
 - Make container show page a bit more compact
+- Make container show page filter used-up ammo
 - Forgot to add the logo as the favicon whoops
 
 # v0.5.4

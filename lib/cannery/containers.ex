@@ -212,6 +212,7 @@ defmodule Cannery.Containers do
     container
     |> Repo.preload(:ammo_groups)
     |> Map.fetch!(:ammo_groups)
+    |> Enum.reject(fn %{count: count} -> count == 0 end)
     |> Enum.count()
   end
 

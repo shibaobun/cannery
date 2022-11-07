@@ -712,13 +712,13 @@ msgstr "Chargement en cours…"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:27
-#: lib/cannery_web/live/container_live/show.ex:95
+#: lib/cannery_web/live/container_live/show.ex:106
 msgid "Edit %{name}"
 msgstr "Éditer %{name}"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:46
-#: lib/cannery_web/live/container_live/show.ex:96
+#: lib/cannery_web/live/container_live/show.ex:107
 msgid "Edit %{name} tags"
 msgstr "Éditer les tags de %{name}"
 
@@ -729,7 +729,7 @@ msgid "Rounds:"
 msgstr "Cartouches :"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.ex:94
+#: lib/cannery_web/live/container_live/show.ex:105
 msgid "Show %{name}"
 msgstr "Montrer %{name}"
 
@@ -902,7 +902,7 @@ msgid "Move Ammo"
 msgstr "Déplacer munition"
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/container_live/show.html.heex:90
+#: lib/cannery_web/live/container_live/show.html.heex:98
 msgid "No ammo in this container"
 msgstr "Aucun groupe de munition pour ce conteneur"
 
@@ -950,5 +950,6 @@ msgstr "Conteneur"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:119
+#: lib/cannery_web/live/container_live/show.html.heex:90
 msgid "Show used"
 msgstr ""

@@ -188,7 +188,7 @@ msgstr ""
 "%{multiplier}"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery/ammo.ex:479
+#: lib/cannery/ammo.ex:524
 msgid "Invalid multiplier"
 msgstr ""
 

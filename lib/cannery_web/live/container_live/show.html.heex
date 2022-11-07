@@ -22,10 +22,10 @@
     </span>
   <% end %>
 
-  <%= unless @container.ammo_groups |> Enum.empty?() do %>
+  <%= unless @ammo_groups |> Enum.empty?() do %>
     <span class="rounded-lg title text-lg">
       <%= gettext("Packs:") %>
-      <%= @container |> Containers.get_container_ammo_group_count!() %>
+      <%= Enum.count(@ammo_groups) %>
     </span>
 
     <span class="rounded-lg title text-lg">
@@ -84,14 +84,22 @@
 
   <hr class="mb-4 hr" />
 
+  <div class="flex flex-col justify-center items-center">
+    <.toggle_button action="toggle_show_used" value={@show_used}>
+      <span class="title text-lg text-primary-600">
+        <%= gettext("Show used") %>
+      </span>
+    </.toggle_button>
+  </div>
+
   <div>
-    <%= if @container.ammo_groups |> Enum.empty?() do %>
+    <%= if @ammo_groups |> Enum.empty?() do %>
       <h2 class="mx-8 my-4 title text-lg text-primary-600">
         <%= gettext("No ammo in this container") %>
       </h2>
     <% else %>
       <div class="flex flex-wrap justify-center items-center">
-        <%= for ammo_group <- @container.ammo_groups do %>
+        <%= for ammo_group <- @ammo_groups do %>
           <.ammo_group_card ammo_group={ammo_group} />
         <% end %>
       </div>

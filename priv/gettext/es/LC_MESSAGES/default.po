@@ -708,13 +708,13 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:27
-#: lib/cannery_web/live/container_live/show.ex:95
+#: lib/cannery_web/live/container_live/show.ex:106
 msgid "Edit %{name}"
 msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:46
-#: lib/cannery_web/live/container_live/show.ex:96
+#: lib/cannery_web/live/container_live/show.ex:107
 msgid "Edit %{name} tags"
 msgstr ""
 
@@ -725,7 +725,7 @@ msgid "Rounds:"
 msgstr ""
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/live/container_live/show.ex:94
+#: lib/cannery_web/live/container_live/show.ex:105
 msgid "Show %{name}"
 msgstr ""
 
@@ -898,7 +898,7 @@ msgid "Move Ammo"
 msgstr ""
 
 #, elixir-autogen, elixir-format, fuzzy
-#: lib/cannery_web/live/container_live/show.html.heex:90
+#: lib/cannery_web/live/container_live/show.html.heex:98
 msgid "No ammo in this container"
 msgstr ""
 
@@ -946,5 +946,6 @@ msgstr ""
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:119
+#: lib/cannery_web/live/container_live/show.html.heex:90
 msgid "Show used"
 msgstr ""
