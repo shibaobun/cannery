@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-05-22 22:52+0000\n"
+"Last-Translator: Ed <ed.ylles1997@gmail.com>\n"
+"Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
+"emails/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -24,7 +26,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery/accounts/email.ex:30
 msgid "Confirm your %{name} account"
-msgstr ""
+msgstr "Confirma el %{name} de la cuenta"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.html.eex:3
@@ -34,7 +36,7 @@ msgstr ""
 #: lib/cannery_web/templates/email/update_email.html.eex:3
 #: lib/cannery_web/templates/email/update_email.txt.eex:2
 msgid "Hi %{email},"
-msgstr ""
+msgstr "Hola %{email},"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:10
@@ -60,30 +62,35 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.html.eex:9
 msgid "Welcome to %{name}!"
-msgstr ""
+msgstr "¡Bienvenide a %{name}!"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:4
 msgid "Welcome to %{name}%!"
-msgstr ""
+msgstr "¡Bienvenide a %{name}%!"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/update_email.html.eex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:4
 msgid "You can change your email by visiting the URL below:"
 msgstr ""
+"Puede cambiar su correo electrónico visitando el enlace que se muestra a "
+"continuación:"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.html.eex:14
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:6
 msgid "You can confirm your account by visiting the URL below:"
 msgstr ""
+"Puede confirmar su cuenta visitando el enlace que se muestra a continuación:"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/reset_password.html.eex:8
 #: lib/cannery_web/templates/email/reset_password.txt.eex:4
 msgid "You can reset your password by visiting the URL below:"
 msgstr ""
+"Puede reestablecer su contraseña visitando el enlace que se muestra a "
+"continuación:"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/email/confirm_email.html.eex:22

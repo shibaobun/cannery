@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-05-22 22:52+0000\n"
+"Last-Translator: Ed <ed.ylles1997@gmail.com>\n"
+"Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
+"errors/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -24,13 +26,13 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery/containers.ex:140
 msgid "Container must be empty before deleting"
-msgstr ""
+msgstr "el Contenedor debe estar vació antes de borrarlo"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:69
 #: lib/cannery_web/live/container_live/show.ex:71
 msgid "Could not delete %{name}: %{error}"
-msgstr ""
+msgstr "No se pudo eliminar %{name}: %{error}"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/index.ex:57
@@ -45,7 +47,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/error/error.html.heex:8
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/error/error.html.heex:28
@@ -75,11 +77,14 @@ msgstr ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:119
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
+"¡Ups, algo ha ido mal! Por favor, compruebe los errores que se muestran a "
+"continuación."
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_reset_password_controller.ex:63
 msgid "Reset password link is invalid or it has expired."
 msgstr ""
+"El enlace de reestablecimiento de la contraseña es inválido o ha caducado."
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/controllers/user_registration_controller.ex:25

@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:45+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-05-22 22:52+0000\n"
+"Last-Translator: Hannah Winter <konhat@hotmail.es>\n"
+"Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
+"actions/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -25,7 +27,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.ex:44
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:42
 msgid "Add Ammo"
-msgstr ""
+msgstr "Añadir Munición"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:37
@@ -46,30 +48,30 @@ msgstr ""
 #: lib/cannery_web/templates/user_settings/edit.html.heex:15
 #: lib/cannery_web/templates/user_settings/edit.html.heex:44
 msgid "Change email"
-msgstr ""
+msgstr "Cambiar correo electrónico"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_settings/edit.html.heex:58
 #: lib/cannery_web/templates/user_settings/edit.html.heex:99
 msgid "Change password"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:17
 msgid "Create Invite"
-msgstr ""
+msgstr "Crear Invitación"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_settings/edit.html.heex:142
 msgid "Delete User"
-msgstr ""
+msgstr "Eliminar cuenta de Usuario"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_registration/new.html.heex:52
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:3
 #: lib/cannery_web/templates/user_session/new.html.heex:45
 msgid "Forgot your password?"
-msgstr ""
+msgstr "¿Has olvidado tu contraseña?"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/invite_live/index.html.heex:12
@@ -144,7 +146,7 @@ msgstr ""
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/templates/user_reset_password/new.html.heex:16
 msgid "Send instructions to reset password"
-msgstr ""
+msgstr "Enviar instrucciones para reestablecer contraseña"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/container_live/show.html.heex:65

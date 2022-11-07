@@ -3,14 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-05-22 22:52+0000\n"
+"Last-Translator: Ed <ed.ylles1997@gmail.com>\n"
+"Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
+"default/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12.2\n"
 
 ## This file is a PO Template file.
 ##
@@ -25,6 +27,8 @@ msgstr ""
 #: lib/cannery_web/live/home_live.ex:64
 msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
 msgstr ""
+"%{name} te permite mantener un ojo en tus niveles de munición antes y "
+"después de un día en el campo de tiro"
 
 #, elixir-autogen, elixir-format
 #: lib/cannery_web/live/home_live.ex:86
