@@ -122,7 +122,7 @@
     <% else %>
       <div class="flex flex-wrap justify-center items-center">
         <%= for ammo_group <- @ammo_groups do %>
-          <.ammo_group_card ammo_group={ammo_group} />
+          <.ammo_group_card ammo_group={ammo_group} show_container={true} />
         <% end %>
       </div>
     <% end %>

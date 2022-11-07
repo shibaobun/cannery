@@ -144,7 +144,7 @@ msgid "Count"
 msgstr "Anzahl"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:29
+#: lib/cannery_web/components/ammo_group_card.ex:34
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:8
 msgid "Count:"
 msgstr "Anzahl:"
@@ -352,7 +352,7 @@ msgid "Notes"
 msgstr "Bemerkungen"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:35
+#: lib/cannery_web/components/ammo_group_card.ex:40
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:24
 msgid "Notes:"
 msgstr "Bemerkungen:"
@@ -376,7 +376,7 @@ msgid "Price paid"
 msgstr "Kaufpreis"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:47
+#: lib/cannery_web/components/ammo_group_card.ex:52
 msgid "Price paid:"
 msgstr "Kaufpreis:"
 
@@ -616,7 +616,7 @@ msgid "Shot log"
 msgstr "Schießkladde"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:48
+#: lib/cannery_web/components/ammo_group_card.ex:53
 #: lib/cannery_web/live/ammo_group_live/index.ex:125
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
@@ -829,7 +829,7 @@ msgid "Added on"
 msgstr "Hinzugefügt am"
 
 #, elixir-autogen, elixir-format
-#: lib/cannery_web/components/ammo_group_card.ex:41
+#: lib/cannery_web/components/ammo_group_card.ex:46
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:30
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:90
 msgid "Added on:"
@@ -940,3 +940,8 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/index.ex:87
 msgid "Total # of ammo"
 msgstr "Summe aller Patronen"
+
+#, elixir-autogen, elixir-format, fuzzy
+#: lib/cannery_web/components/ammo_group_card.ex:61
+msgid "Container:"
+msgstr "Behälter"

@@ -7,8 +7,13 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
   alias Cannery.Repo
   alias CanneryWeb.Endpoint
 
-  def ammo_group_card(assigns) do
-    assigns = assigns |> assign(:ammo_group, assigns.ammo_group |> Repo.preload(:ammo_type))
+  def ammo_group_card(%{ammo_group: ammo_group} = assigns) do
+    assigns =
+      %{show_container: show_container} = assigns |> assign_new(:show_container, fn -> false end)
+
+    preloads = if show_container, do: [:ammo_type, :container], else: [:ammo_type]
+    ammo_group = ammo_group |> Repo.preload(preloads)
+    assigns = assigns |> assign(:ammo_group, ammo_group)
 
     ~H"""
     <div
@@ -17,7 +22,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
             border border-gray-400 rounded-lg shadow-lg hover:shadow-md
             transition-all duration-300 ease-in-out"
     >
-      <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, @ammo_group),
+      <%= live_patch to: Routes.ammo_group_show_path(Endpoint, :show, @ammo_group),
                     class: "mb-2 link" do %>
         <h1 class="title text-xl title-primary-500">
           <%= @ammo_group.ammo_type.name %>
@@ -48,6 +53,17 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
             <%= gettext("$%{amount}",
               amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
             ) %>
+          </span>
+        <% end %>
+
+        <%= if @show_container and @ammo_group.container do %>
+          <span class="rounded-lg title text-lg">
+            <%= gettext("Container:") %>
+
+            <%= live_patch to: Routes.container_show_path(Endpoint, :show, @ammo_group.container),
+              class: "link" do %>
+              <%= @ammo_group.container.name %>
+            <% end %>
           </span>
         <% end %>
       </div>
