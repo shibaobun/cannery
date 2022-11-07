@@ -1,6 +1,7 @@
 # v0.5.5
 - Update translations
 - Make ammo index page a bit more compact
+- Make ammo index page filter used-up ammo
 - Make ammo catalog page include ammo count
 - Make ammo type show page a bit more compact
 - Make ammo type show page include container names for each ammo

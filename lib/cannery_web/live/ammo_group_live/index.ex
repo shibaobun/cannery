@@ -9,7 +9,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> display_ammo_groups()}
+    {:ok, socket |> assign(show_used: false) |> display_ammo_groups()}
   end
 
   @impl true
@@ -72,8 +72,17 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket |> display_ammo_groups()}
   end
 
-  defp display_ammo_groups(%{assigns: %{current_user: current_user}} = socket) do
-    ammo_groups = Ammo.list_ammo_groups(current_user) |> Repo.preload([:ammo_type, :container])
+  @impl true
+  def handle_event("toggle_show_used", _, %{assigns: %{show_used: show_used}} = socket) do
+    {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_groups()}
+  end
+
+  defp display_ammo_groups(
+         %{assigns: %{current_user: current_user, show_used: show_used}} = socket
+       ) do
+    ammo_groups =
+      Ammo.list_ammo_groups(current_user, show_used) |> Repo.preload([:ammo_type, :container])
+
     ammo_types_count = Ammo.get_ammo_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)
 
