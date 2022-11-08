@@ -2,72 +2,73 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-20 18:02+0000\n"
-"PO-Revision-Date: 2022-04-24 08:27+0000\n"
-"Last-Translator: Antonin Dupont <pwet@dupon.in>\n"
-"Language-Team: French <https://weblate.bubbletea.dev/projects/cannery/errors/"
-"fr/>\n"
-"Language: fr\n"
+"POT-Creation-Date: 2022-11-06 23:51+0000\n"
+"PO-Revision-Date: 2022-11-07 00:18+0000\n"
+"Last-Translator: pehoulihan <pehoulihan@gmail.com>\n"
+"Language-Team: Irish <https://weblate.bubbletea.dev/projects/cannery/errors/"
+"ga/>\n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.12\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 4.14.1\n"
 
-# # This file is a PO Template file.
-# #
-# # "msgid"s here are often extracted from source code.
-# # Add new translations manually only if they're dynamic
-# # translations that can't be statically extracted.
-# #
-# # Run "mix gettext.extract" to bring this file up to
-# # date. Leave "msgstr"s empty as changing them here has no
-# # effect: edit them in PO (.po) files instead.
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
 #: lib/cannery/containers.ex:140
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
-msgstr "Le conteneur doit être vide pour être supprimé"
+msgstr "Caithfidh an coimeádán a bheidh follamh roimh scriosadh"
 
 #: lib/cannery_web/live/container_live/index.ex:69
 #: lib/cannery_web/live/container_live/show.ex:71
 #, elixir-autogen, elixir-format
 msgid "Could not delete %{name}: %{error}"
-msgstr "Impossible de supprimer %{name} : %{error}"
+msgstr "Ní feidir %{name} a scriosadh: %{error}"
 
 #: lib/cannery_web/live/container_live/index.ex:57
 #, elixir-autogen, elixir-format
 msgid "Could not find that container"
-msgstr "Impossible de trouver ce conteneur"
+msgstr "Ní feidir an coimeádán sin a fáil"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:84
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
-msgstr "Le lien de changement de mél est invalide ou a expiré."
+msgstr "Tá an nasc chun an seoladh email a athrú neamhbhailí nó as dáta."
 
 #: lib/cannery_web/templates/error/error.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Error"
-msgstr "Erreur"
+msgstr "Fadhb"
 
 #: lib/cannery_web/templates/error/error.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Go back home"
-msgstr "Retour au menu principal"
+msgstr "Dul abhaile"
 
 #: lib/cannery_web/views/error_view.ex:11
 #, elixir-autogen, elixir-format
 msgid "Internal Server Error"
-msgstr "Erreur interne du serveur"
+msgstr "Fadhb freastalaí inmhéanach"
 
 #: lib/cannery_web/controllers/user_session_controller.ex:17
 #, elixir-autogen, elixir-format
 msgid "Invalid email or password"
-msgstr "Mél ou mot de passe invalide"
+msgstr "Seoladh email nó pasfhocal neamhbhailí"
 
 #: lib/cannery_web/views/error_view.ex:9
 #, elixir-autogen, elixir-format
 msgid "Not found"
-msgstr "Pas trouvé"
+msgstr "Ní feidir é a fáil"
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:16
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:16
@@ -77,126 +78,124 @@ msgstr "Pas trouvé"
 #, elixir-autogen, elixir-format
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
-"Oups, quelque chose s’est mal passé ! Veuillez vérifier les erreurs en "
-"dessous."
+"Ta brón orainn, tá fadbh againn! Le bhur dtoil feach ar na botún seo a "
+"leanais."
 
 #: lib/cannery_web/controllers/user_reset_password_controller.ex:63
 #, elixir-autogen, elixir-format
 msgid "Reset password link is invalid or it has expired."
-msgstr "Le lien de réinitialisation de mot de passe est invalide ou expiré."
+msgstr "Tá nasc an pasfhocail a athrú neamhbailí nó as dáta."
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:25
 #: lib/cannery_web/controllers/user_registration_controller.ex:56
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
-msgstr "Désolé, l’enregistrement public est désactivé"
+msgstr "Tá brón orainn, tá clarú póiblí bactha"
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:15
 #: lib/cannery_web/controllers/user_registration_controller.ex:46
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
-msgstr "Désolé, cette invitation n’est pas trouvée ou est expirée"
+msgstr "Tá brón orainn, ní feidir an cuireadh seo a fáil nó tá sé as dáta"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:99
 #, elixir-autogen, elixir-format
 msgid "Unable to delete user"
-msgstr "Impossible de supprimer l’utilisateur·ice"
+msgstr "Ní feidir an úsáideoir a scriosadh"
 
 #: lib/cannery_web/views/error_view.ex:10
 #, elixir-autogen, elixir-format
 msgid "Unauthorized"
-msgstr "Non autorisé·e"
+msgstr "Níl cead agaibh"
 
 #: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
-msgstr "Le lien de confirmation d’utilisateur·ice est invalide ou a expiré."
+msgstr "Tá nasc an úsáideoir a deimhnigh neamhbailí nó as dáta."
 
 #: lib/cannery_web/live/invite_live/index.ex:18
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page"
-msgstr "Vous n’êtes pas autorisé·e à voir cette page"
+msgstr "Níl cead agaibh féachaint ar an leathanach seo"
 
 #: lib/cannery_web/controllers/user_auth.ex:177
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page."
-msgstr "Vous n’êtes pas autorisé·e à voir cette page."
+msgstr "Níl cead agaibh féachaint ar an leathanach seo."
 
 #: lib/cannery/accounts/user.ex:130
 #, elixir-autogen, elixir-format
 msgid "did not change"
-msgstr "est inchangé"
+msgstr "Níor athraigh sé"
 
 #: lib/cannery/accounts/user.ex:151
 #, elixir-autogen, elixir-format
 msgid "does not match password"
-msgstr "le mot de passe ne correspond pas"
+msgstr ""
 
 #: lib/cannery/accounts/user.ex:188
 #, elixir-autogen, elixir-format
 msgid "is not valid"
-msgstr "n’est pas valide"
+msgstr ""
 
 #: lib/cannery/accounts/user.ex:84
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
-msgstr "doit contenir le symbole @ et aucune espace"
+msgstr ""
 
 #: lib/cannery/tags.ex:40
 #, elixir-autogen, elixir-format
 msgid "Tag not found"
-msgstr "Tag pas trouvé"
+msgstr ""
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
-msgstr "Le tag n’a pas pu être ajouté"
+msgstr ""
 
 #: lib/cannery/activity_log/shot_group.ex:115
 #, elixir-autogen, elixir-format
 msgid "Count must be at least 1"
-msgstr "Le nombre doit être au moins égal à 1"
+msgstr ""
 
 #: lib/cannery/activity_log/shot_group.ex:74
 #: lib/cannery/activity_log/shot_group.ex:111
 #, elixir-autogen, elixir-format
 msgid "Count must be less than %{count}"
-msgstr "La quantité doit être inférieur à %{count}"
+msgstr ""
 
 #: lib/cannery_web/controllers/user_auth.ex:39
 #: lib/cannery_web/controllers/user_auth.ex:161
 #, elixir-autogen, elixir-format
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
-"Vous devez d’abord confirmer votre compte et vous connecter pour accéder à "
-"cette page."
 
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
-msgstr "Le tag n’a pas pu être retiré"
+msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:156
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
-msgstr "Impossible d'analyser le nombre de copies"
+msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:141
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
-msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
+msgstr ""
 
 #: lib/cannery/ammo.ex:535
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
-msgstr "Multiplicateur invalide"
+msgstr ""
 
 #: lib/cannery/ammo/ammo_group.ex:84
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
-msgstr "Veuillez choisir un type de munitions et un conteneur"
+msgstr ""
 
 #: lib/cannery/activity_log/shot_group.ex:69
 #, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo group"
-msgstr "Veuillez choisir un utilisateur valide et un groupe de munitions"
+msgstr ""
