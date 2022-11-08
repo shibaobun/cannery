@@ -54,7 +54,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
       |> case do
         {:ok, _shot_group} ->
           prompt = dgettext("prompts", "Shots recorded successfully")
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Ecto.Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)

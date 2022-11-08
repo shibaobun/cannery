@@ -4,10 +4,10 @@ defmodule Cannery.MixProject do
   def project do
     [
       app: :cannery,
-      version: "0.5.5",
-      elixir: "1.13.4",
+      version: "0.6.0",
+      elixir: "1.14.1",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -48,11 +48,11 @@ defmodule Cannery.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
-      {:phoenix, "~> 1.6"},
+      {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17"},
+      {:phoenix_live_view, "~> 0.18.0"},
       {:phoenix_view, "~> 1.1"},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:ecto_sql, "~> 3.6"},

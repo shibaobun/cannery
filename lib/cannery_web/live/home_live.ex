@@ -101,10 +101,12 @@ defmodule CanneryWeb.HomeLive do
           </b>
           <p>
             <%= if @admins |> Enum.empty?() do %>
-              <%= link(dgettext("prompts", "Register to setup %{name}", name: "Cannery"),
-                class: "hover:underline",
-                to: Routes.user_registration_path(CanneryWeb.Endpoint, :new)
-              ) %>
+              <.link
+                href={Routes.user_registration_path(CanneryWeb.Endpoint, :new)}
+                class="hover:underline"
+              >
+                <%= dgettext("prompts", "Register to setup %{name}", name: "Cannery") %>
+              </.link>
             <% else %>
               <div class="flex flex-wrap justify-center space-x-2">
                 <%= for admin <- @admins do %>
@@ -130,13 +132,15 @@ defmodule CanneryWeb.HomeLive do
 
         <li class="flex flex-row justify-center items-center space-x-2">
           <b>Version:</b>
-          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
-                to: "https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/CHANGELOG.md",
-                target: "_blank",
-                rel: "noopener noreferrer" do %>
+          <.link
+            href="https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/CHANGELOG.md"
+            class="flex flex-row justify-center items-center space-x-2 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <p>0.5.5</p>
             <i class="fas fa-md fa-info-circle"></i>
-          <% end %>
+          </.link>
         </li>
       </ul>
 
@@ -148,31 +152,37 @@ defmodule CanneryWeb.HomeLive do
         </h2>
 
         <li class="flex flex-col justify-center space-x-2">
-          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
-                to: "https://gitea.bubbletea.dev/shibao/cannery",
-                target: "_blank",
-                rel: "noopener noreferrer" do %>
+          <.link
+            class="flex flex-row justify-center items-center space-x-2 hover:underline"
+            href="https://gitea.bubbletea.dev/shibao/cannery"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <p><%= gettext("View the source code") %></p>
             <i class="fas fa-md fa-code"></i>
-          <% end %>
+          </.link>
         </li>
         <li class="flex flex-col justify-center space-x-2">
-          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
-              to: "https://weblate.bubbletea.dev/engage/cannery",
-              target: "_blank",
-              rel: "noopener noreferrer" do %>
+          <.link
+            class="flex flex-row justify-center items-center space-x-2 hover:underline"
+            href="https://weblate.bubbletea.dev/engage/cannery"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <p><%= gettext("Help translate") %></p>
             <i class="fas fa-md fa-language"></i>
-          <% end %>
+          </.link>
         </li>
         <li class="flex flex-col justify-center space-x-2">
-          <%= link class: "flex flex-row justify-center items-center space-x-2 hover:underline",
-              to: "https://gitea.bubbletea.dev/shibao/cannery/issues/new",
-              target: "_blank",
-              rel: "noopener noreferrer" do %>
+          <.link
+            class="flex flex-row justify-center items-center space-x-2 hover:underline"
+            href="https://gitea.bubbletea.dev/shibao/cannery/issues/new"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <p><%= gettext("Report bugs or request features") %></p>
             <i class="fas fa-md fa-spider"></i>
-          <% end %>
+          </.link>
         </li>
       </ul>
     </div>

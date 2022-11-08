@@ -9,15 +9,13 @@
       <%= display_emoji("😔") %>
     </h1>
 
-    <%= live_patch(dgettext("actions", "Why not get some ready to shoot?"),
-      to: Routes.ammo_group_index_path(Endpoint, :index),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+      <%= dgettext("actions", "Why not get some ready to shoot?") %>
+    </.link>
   <% else %>
-    <%= live_patch(dgettext("actions", "Stage ammo"),
-      to: Routes.ammo_group_index_path(Endpoint, :index),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+      <%= dgettext("actions", "Stage ammo") %>
+    </.link>
 
     <%= for ammo_group <- @ammo_groups do %>
       <.ammo_group_card ammo_group={ammo_group}>
@@ -33,10 +31,12 @@
             else: gettext("Stage for range") %>
         </button>
 
-        <%= live_patch(dgettext("actions", "Record shots"),
-          to: Routes.range_index_path(Endpoint, :add_shot_group, ammo_group),
-          class: "btn btn-primary"
-        ) %>
+        <.link
+          patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
+          class="btn btn-primary"
+        >
+          <%= dgettext("actions", "Record shots") %>
+        </.link>
       </.ammo_group_card>
     <% end %>
   <% end %>

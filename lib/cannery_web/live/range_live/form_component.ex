@@ -53,7 +53,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
       case ActivityLog.update_shot_group(shot_group, shot_group_params, current_user) do
         {:ok, _shot_group} ->
           prompt = dgettext("prompts", "Shot records updated successfully")
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Ecto.Changeset{} = changeset} ->
           socket |> assign(:changeset, changeset)

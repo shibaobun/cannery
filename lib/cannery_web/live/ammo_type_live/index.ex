@@ -123,11 +123,13 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     assigns = %{ammo_type: ammo_type}
 
     ~H"""
-    <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
-      class: "link",
-      data: [qa: "view-name-#{ammo_type.id}"] do %>
-      <%= ammo_type.name %>
-    <% end %>
+    <.link
+      patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+      class="link"
+      data-qa={"view-name-#{@ammo_type.id}"}
+    >
+      <%= @ammo_type.name %>
+    </.link>
     """
   end
 
@@ -136,28 +138,38 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
     ~H"""
     <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-      <%= live_redirect to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
-                    class: "text-primary-600 link",
-                    data: [qa: "view-#{ammo_type.id}"] do %>
+      <.link
+        patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+        class="text-primary-600 link"
+        data-qa={"view-#{@ammo_type.id}"}
+      >
         <i class="fa-fw fa-lg fas fa-eye"></i>
-      <% end %>
+      </.link>
 
-      <%= live_patch to: Routes.ammo_type_index_path(Endpoint, :edit, ammo_type),
-                  class: "text-primary-600 link",
-                  data: [qa: "edit-#{ammo_type.id}"] do %>
+      <.link
+        patch={Routes.ammo_type_index_path(Endpoint, :edit, @ammo_type)}
+        class="text-primary-600 link"
+        data-qa={"edit-#{@ammo_type.id}"}
+      >
         <i class="fa-fw fa-lg fas fa-edit"></i>
-      <% end %>
+      </.link>
 
-      <%= link to: "#",
-            class: "text-primary-600 link",
-            phx_click: "delete",
-            phx_value_id: ammo_type.id,
-            data: [
-              confirm: dgettext("prompts", "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!", name: ammo_type.name),
-              qa: "delete-#{ammo_type.id}"
-            ] do %>
+      <.link
+        href="#"
+        class="text-primary-600 link"
+        phx-click="delete"
+        phx-value-id={@ammo_type.id}
+        data-confirm={
+          dgettext(
+            "prompts",
+            "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!",
+            name: @ammo_type.name
+          )
+        }
+        data-qa={"delete-#{@ammo_type.id}"}
+      >
         <i class="fa-lg fas fa-trash"></i>
-      <% end %>
+      </.link>
     </div>
     """
   end

@@ -11,35 +11,37 @@
       <%= display_emoji("😔") %>
     </h2>
 
-    <%= live_patch(dgettext("actions", "Make your first tag!"),
-      to: Routes.tag_index_path(Endpoint, :new),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.tag_index_path(Endpoint, :new)} class="btn btn-primary">
+      <%= dgettext("actions", "Make your first tag!") %>
+    </.link>
   <% else %>
-    <%= live_patch(dgettext("actions", "New Tag"),
-      to: Routes.tag_index_path(Endpoint, :new),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.tag_index_path(Endpoint, :new)} class="btn btn-primary">
+      <%= dgettext("actions", "New Tag") %>
+    </.link>
   <% end %>
   <div class="flex flex-row flex-wrap justify-center items-center">
     <%= for tag <- @tags do %>
       <.tag_card tag={tag}>
-        <%= live_patch to: Routes.tag_index_path(Endpoint, :edit, tag),
-                   class: "text-primary-600 link",
-                   data: [qa: "edit-#{tag.id}"] do %>
+        <.link
+          patch={Routes.tag_index_path(Endpoint, :edit, tag)}
+          class="text-primary-600 link"
+          data-qa={"edit-#{tag.id}"}
+        >
           <i class="fa-fw fa-lg fas fa-edit"></i>
-        <% end %>
+        </.link>
 
-        <%= link to: "#",
-             class: "text-primary-600 link",
-             phx_click: "delete",
-             phx_value_id: tag.id,
-             data: [
-               confirm: dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name),
-               qa: "delete-#{tag.id}"
-             ] do %>
+        <.link
+          href="#"
+          class="text-primary-600 link"
+          phx-click="delete"
+          phx-value-id={tag.id}
+          data-confirm={
+            dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
+          }
+          data-qa={"delete-#{tag.id}"}
+        >
           <i class="fa-fw fa-lg fas fa-trash"></i>
-        <% end %>
+        </.link>
       </.tag_card>
     <% end %>
   </div>

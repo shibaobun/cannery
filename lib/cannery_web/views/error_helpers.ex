@@ -4,7 +4,7 @@ defmodule CanneryWeb.ErrorHelpers do
   """
 
   use Phoenix.HTML
-  import Phoenix.LiveView.Helpers
+  import Phoenix.Component
   alias Ecto.Changeset
   alias Phoenix.{HTML.Form, LiveView.Rendered}
 

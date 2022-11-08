@@ -35,22 +35,25 @@
   <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
-    <%= live_patch to: Routes.container_show_path(Endpoint, :edit, @container),
-               class: "text-primary-600 link",
-               data: [qa: "edit"] do %>
+    <.link
+      patch={Routes.container_show_path(Endpoint, :edit, @container)}
+      class="text-primary-600 link"
+      data-qa="edit"
+    >
       <i class="fa-fw fa-lg fas fa-edit"></i>
-    <% end %>
+    </.link>
 
-    <%= link to: "#",
-         class: "text-primary-600 link",
-         phx_click: "delete_container",
-         data: [
-           confirm:
-             dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name),
-           qa: "delete"
-         ] do %>
+    <.link
+      href="#"
+      class="text-primary-600 link"
+      phx-click="delete_container"
+      data-confirm={
+        dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name)
+      }
+      data-qa="delete"
+    >
       <i class="fa-fw fa-lg fas fa-trash"></i>
-    <% end %>
+    </.link>
   </div>
 
   <hr class="mb-4 hr" />
@@ -62,10 +65,12 @@
         <%= display_emoji("😔") %>
       </h2>
 
-      <%= live_patch(dgettext("actions", "Why not add one?"),
-        to: Routes.container_show_path(Endpoint, :edit_tags, @container),
-        class: "btn btn-primary"
-      ) %>
+      <.link
+        patch={Routes.container_show_path(Endpoint, :edit_tags, @container)}
+        class="btn btn-primary"
+      >
+        <%= dgettext("actions", "Why not add one?") %>
+      </.link>
     </div>
   <% else %>
     <div class="flex flex-wrap justify-center items-center">
@@ -74,10 +79,12 @@
       <% end %>
 
       <div class="mx-4 my-2">
-        <%= live_patch to: Routes.container_show_path(Endpoint, :edit_tags, @container),
-          class: "text-primary-600 link" do %>
+        <.link
+          patch={Routes.container_show_path(Endpoint, :edit_tags, @container)}
+          class="text-primary-600 link"
+        >
           <i class="fa-fw fa-lg fas fa-tags"></i>
-        <% end %>
+        </.link>
       </div>
     </div>
   <% end %>

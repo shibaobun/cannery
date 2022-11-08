@@ -129,11 +129,14 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @spec get_value_for_key(atom(), AmmoGroup.t()) :: any()
   defp get_value_for_key(:ammo_type, %{ammo_type: ammo_type}) do
+    assigns = %{ammo_type: ammo_type}
+
     {ammo_type.name,
-     live_patch(ammo_type.name,
-       to: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
-       class: "link"
-     )}
+     ~H"""
+     <.link patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
+       <%= @ammo_type.name %>
+     </.link>
+     """}
   end
 
   defp get_value_for_key(:price_paid, %{price_paid: nil}), do: {"a", nil}
@@ -175,15 +178,17 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
          type="button"
          class="mx-2 my-1 text-sm btn btn-primary"
          phx-click="toggle_staged"
-         phx-value-ammo_group_id={ammo_group.id}
+         phx-value-ammo_group_id={@ammo_group.id}
        >
-         <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
+         <%= if @ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
        </button>
 
-       <%= live_patch(dgettext("actions", "Record shots"),
-         to: Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group),
-         class: "mx-2 my-1 text-sm btn btn-primary"
-       ) %>
+       <.link
+         patch={Routes.ammo_group_index_path(Endpoint, :add_shot_group, @ammo_group)}
+         class="mx-2 my-1 text-sm btn btn-primary"
+       >
+         <%= dgettext("actions", "Record shots") %>
+       </.link>
      </div>
      """}
   end
@@ -196,28 +201,32 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     ~H"""
     <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
-      <%= live_redirect to: Routes.ammo_group_show_path(Endpoint, :show, ammo_group),
-                    class: "text-primary-600 link",
-                    data: [qa: "view-#{ammo_group.id}"] do %>
+      <.link
+        patch={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        class="text-primary-600 link"
+        data-qa={"view-#{@ammo_group.id}"}
+      >
         <i class="fa-fw fa-lg fas fa-eye"></i>
-      <% end %>
+      </.link>
 
-      <%= live_patch to: Routes.ammo_group_index_path(Endpoint, :edit, ammo_group),
-                  class: "text-primary-600 link",
-                  data: [qa: "edit-#{ammo_group.id}"] do %>
+      <.link
+        patch={Routes.ammo_group_index_path(Endpoint, :edit, @ammo_group)}
+        class="text-primary-600 link"
+        data-qa={"edit-#{@ammo_group.id}"}
+      >
         <i class="fa-fw fa-lg fas fa-edit"></i>
-      <% end %>
+      </.link>
 
-      <%= link to: "#",
-            class: "text-primary-600 link",
-            phx_click: "delete",
-            phx_value_id: ammo_group.id,
-            data: [
-              confirm: dgettext("prompts", "Are you sure you want to delete this ammo?"),
-              qa: "delete-#{ammo_group.id}"
-            ] do %>
+      <.link
+        href="#"
+        class="text-primary-600 link"
+        phx-click="delete"
+        phx-value-id={@ammo_group.id}
+        data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
+        data-qa={"delete-#{@ammo_group.id}"}
+      >
         <i class="fa-fw fa-lg fas fa-trash"></i>
-      <% end %>
+      </.link>
     </div>
     """
   end
@@ -230,17 +239,19 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {container_name,
      ~H"""
      <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
-       <%= live_patch(
-         @ammo_group.container.name,
-         to: Routes.container_show_path(Endpoint, :show, @ammo_group.container),
-         class: "mx-2 my-1 link"
-       ) %>
+       <.link
+         patch={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
+         class="mx-2 my-1 link"
+       >
+         <%= @ammo_group.container.name %>
+       </.link>
 
-       <%= live_patch(
-         gettext("Move ammo"),
-         to: Routes.ammo_group_index_path(Endpoint, :move, @ammo_group),
-         class: "mx-2 my-1 text-sm btn btn-primary"
-       ) %>
+       <.link
+         patch={Routes.ammo_group_index_path(Endpoint, :move, @ammo_group)}
+         class="mx-2 my-1 text-sm btn btn-primary"
+       >
+         <%= gettext("Move ammo") %>
+       </.link>
      </div>
      """}
   end

@@ -28,7 +28,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     prompt = dgettext("prompts", "%{name} deleted succesfully", name: ammo_type_name)
     redirect_to = Routes.ammo_type_index_path(socket, :index)
 
-    {:noreply, socket |> put_flash(:info, prompt) |> push_redirect(to: redirect_to)}
+    {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
 
   @impl true

@@ -12,22 +12,29 @@
   <% end %>
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
-    <%= live_patch to: Routes.ammo_type_show_path(Endpoint, :edit, @ammo_type),
-               class: "text-primary-600 link",
-               data: [qa: "edit"] do %>
+    <.link
+      patch={Routes.ammo_type_show_path(Endpoint, :edit, @ammo_type)}
+      class="text-primary-600 link"
+      data-qa="edit"
+    >
       <i class="fa-fw fa-lg fas fa-edit"></i>
-    <% end %>
+    </.link>
 
-    <%= link to: "#",
-         class: "text-primary-600 link",
-         phx_click: "delete",
-         data: [
-           confirm:
-             dgettext("prompts", "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!", name: @ammo_type.name),
-           qa: "delete"
-         ] do %>
+    <.link
+      href="#"
+      class="text-primary-600 link"
+      phx-click="delete"
+      data-confirm={
+        dgettext(
+          "prompts",
+          "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!",
+          name: @ammo_type.name
+        )
+      }
+      data-qa="delete"
+    >
       <i class="fa-fw fa-lg fas fa-trash"></i>
-    <% end %>
+    </.link>
   </div>
 
   <hr class="hr" />

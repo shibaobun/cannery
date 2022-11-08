@@ -52,7 +52,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
         {:ok, _ammo_group} ->
           prompt = dgettext("prompts", "Ammo moved to %{name} successfully", name: container_name)
 
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Ecto.Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)
@@ -86,10 +86,9 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
           <%= display_emoji("😔") %>
         </h2>
 
-        <%= live_patch(dgettext("actions", "Add another container!"),
-          to: Routes.container_index_path(Endpoint, :new),
-          class: "btn btn-primary"
-        ) %>
+        <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+          <%= dgettext("actions", "Add another container!") %>
+        </.link>
       <% else %>
         <.live_component
           module={CanneryWeb.Components.TableComponent}
@@ -122,7 +121,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
         class="btn btn-primary"
         phx-click="move"
         phx-target={@myself}
-        phx-value-container_id={container.id}
+        phx-value-container_id={@container.id}
       >
         <%= dgettext("actions", "Select") %>
       </button>

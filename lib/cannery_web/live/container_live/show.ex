@@ -62,7 +62,7 @@ defmodule CanneryWeb.ContainerLive.Show do
 
           socket
           |> put_flash(:info, prompt)
-          |> push_redirect(to: Routes.container_index_path(socket, :index))
+          |> push_navigate(to: Routes.container_index_path(socket, :index))
 
         {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
           ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")

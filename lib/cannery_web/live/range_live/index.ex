@@ -103,10 +103,11 @@ defmodule CanneryWeb.RangeLive.Index do
         case key do
           :name ->
             {shot_group.ammo_group.ammo_type.name,
-             live_patch(shot_group.ammo_group.ammo_type.name,
-               to: Routes.ammo_group_show_path(Endpoint, :show, shot_group.ammo_group),
-               class: "link"
-             )}
+             ~H"""
+             <.link patch={Routes.ammo_group_show_path(Endpoint, :show, @shot_group.ammo_group)} class="link">
+               <%= @shot_group.ammo_group.ammo_type.name %>
+             </.link>
+             """}
 
           :date ->
             date |> display_date()
@@ -114,22 +115,24 @@ defmodule CanneryWeb.RangeLive.Index do
           :actions ->
             ~H"""
             <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-              <%= live_patch to: Routes.range_index_path(Endpoint, :edit, shot_group),
-                          class: "text-primary-600 link",
-                          data: [qa: "edit-#{shot_group.id}"] do %>
+              <.link
+                patch={Routes.range_index_path(Endpoint, :edit, @shot_group)}
+                class="text-primary-600 link"
+                data-qa={"edit-#{@shot_group.id}"}
+              >
                 <i class="fa-fw fa-lg fas fa-edit"></i>
-              <% end %>
+              </.link>
 
-              <%= link to: "#",
-                    class: "text-primary-600 link",
-                    phx_click: "delete",
-                    phx_value_id: shot_group.id,
-                    data: [
-                      confirm: dgettext("prompts", "Are you sure you want to delete this shot record?"),
-                      qa: "delete-#{shot_group.id}"
-                    ] do %>
+              <.link
+                href="#"
+                class="text-primary-600 link"
+                phx-click="delete"
+                phx-value-id={@shot_group.id}
+                data-confirm={dgettext("prompts", "Are you sure you want to delete this shot record?")}
+                data-qa={"delete-#{@shot_group.id}"}
+              >
                 <i class="fa-fw fa-lg fas fa-trash"></i>
-              <% end %>
+              </.link>
             </div>
             """
 

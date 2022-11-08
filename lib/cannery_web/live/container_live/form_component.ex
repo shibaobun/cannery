@@ -65,7 +65,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
       case Containers.update_container(container, current_user, container_params) do
         {:ok, %{name: container_name}} ->
           prompt = dgettext("prompts", "%{name} updated successfully", name: container_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(:changeset, changeset)
@@ -83,7 +83,7 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
       case Containers.create_container(container_params, current_user) do
         {:ok, %{name: container_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: container_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)

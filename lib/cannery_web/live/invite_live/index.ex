@@ -17,7 +17,7 @@ defmodule CanneryWeb.InviteLive.Index do
       else
         prompt = dgettext("errors", "You are not authorized to view this page")
         return_to = Routes.live_path(Endpoint, HomeLive)
-        socket |> put_flash(:error, prompt) |> push_redirect(to: return_to)
+        socket |> put_flash(:error, prompt) |> push_navigate(to: return_to)
       end
 
     {:ok, socket}

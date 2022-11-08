@@ -19,12 +19,11 @@ defmodule CanneryWeb.Components.ContainerCard do
         transition-all duration-300 ease-in-out"
     >
       <div class="max-w-full mb-4 flex flex-col justify-center items-center space-y-2">
-        <%= live_redirect to: Routes.container_show_path(Endpoint, :show, @container),
-                      class: "link" do %>
+        <.link navigate={Routes.container_show_path(Endpoint, :show, @container)} class="link">
           <h1 class="px-4 py-2 rounded-lg title text-xl">
             <%= @container.name %>
           </h1>
-        <% end %>
+        </.link>
 
         <%= if @container.desc do %>
           <span class="rounded-lg title text-lg">

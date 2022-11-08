@@ -5,8 +5,7 @@ defmodule CanneryWeb.ViewHelpers do
   :view`
   """
 
-  import Phoenix.LiveView
-  import Phoenix.LiveView.Helpers
+  import Phoenix.Component
 
   @id_length 16
 
@@ -24,11 +23,16 @@ defmodule CanneryWeb.ViewHelpers do
     }
 
     ~H"""
-    <time id={@id} datetime={@datetime} x-data={"{
+    <time
+      id={@id}
+      datetime={@datetime}
+      x-data={"{
         date:
           Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
             .format(new Date(\"#{@datetime}\"))
-      }"} x-text="date">
+      }"}
+      x-text="date"
+    >
       <%= @datetime %>
     </time>
     """
@@ -48,10 +52,15 @@ defmodule CanneryWeb.ViewHelpers do
     }
 
     ~H"""
-    <time id={@id} datetime={@date} x-data={"{
+    <time
+      id={@id}
+      datetime={@date}
+      x-data={"{
         date:
           Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'}).format(new Date(\"#{@date}\"))
-      }"} x-text="date">
+      }"}
+      x-text="date"
+    >
       <%= @date %>
     </time>
     """

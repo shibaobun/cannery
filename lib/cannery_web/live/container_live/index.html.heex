@@ -9,15 +9,13 @@
       <%= display_emoji("😔") %>
     </h2>
 
-    <%= live_patch(dgettext("actions", "Add your first container!"),
-      to: Routes.container_index_path(Endpoint, :new),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+      <%= dgettext("actions", "Add your first container!") %>
+    </.link>
   <% else %>
-    <%= live_patch(dgettext("actions", "New Container"),
-      to: Routes.container_index_path(Endpoint, :new),
-      class: "btn btn-primary"
-    ) %>
+    <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+      <%= dgettext("actions", "New Container") %>
+    </.link>
   <% end %>
 
   <div class="max-w-full flex flex-row flex-wrap justify-center items-center">
@@ -25,29 +23,34 @@
       <.container_card container={container}>
         <:tag_actions>
           <div class="mx-4 my-2">
-            <%= live_patch to: Routes.container_index_path(Endpoint, :edit_tags, container),
-              class: "text-primary-600 link" do %>
+            <.link
+              patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+              class="text-primary-600 link"
+            >
               <i class="fa-fw fa-lg fas fa-tags"></i>
-            <% end %>
+            </.link>
           </div>
         </:tag_actions>
-        <%= live_patch to: Routes.container_index_path(Endpoint, :edit, container),
-                   class: "text-primary-600 link",
-                   data: [qa: "edit-#{container.id}"] do %>
+        <.link
+          patch={Routes.container_index_path(Endpoint, :edit, container)}
+          class="text-primary-600 link"
+          data-qa={"edit-#{container.id}"}
+        >
           <i class="fa-fw fa-lg fas fa-edit"></i>
-        <% end %>
+        </.link>
 
-        <%= link to: "#",
-             class: "text-primary-600 link",
-             phx_click: "delete",
-             phx_value_id: container.id,
-             data: [
-               confirm:
-                 dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name),
-               qa: "delete-#{container.id}"
-             ] do %>
+        <.link
+          href="#"
+          class="text-primary-600 link"
+          phx-click="delete"
+          phx-value-id={container.id}
+          data-confirm={
+            dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
+          }
+          data-qa={"delete-#{container.id}"}
+        >
           <i class="fa-fw fa-lg fas fa-trash"></i>
-        <% end %>
+        </.link>
       </.container_card>
     <% end %>
   </div>

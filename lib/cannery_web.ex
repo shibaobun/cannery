@@ -96,7 +96,7 @@ defmodule CanneryWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
-      import Phoenix.LiveView.Helpers
+      import Phoenix.Component
 
       # Import basic rendering functionality (render, render_layout, etc)
       # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse

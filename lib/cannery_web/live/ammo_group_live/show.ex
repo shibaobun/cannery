@@ -50,7 +50,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     prompt = dgettext("prompts", "Ammo deleted succesfully")
     redirect_to = Routes.ammo_group_index_path(socket, :index)
 
-    {:noreply, socket |> put_flash(:info, prompt) |> push_redirect(to: redirect_to)}
+    {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
 
   @impl true
@@ -116,22 +116,24 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
           :actions ->
             ~H"""
             <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-              <%= live_patch to: Routes.ammo_group_show_path(Endpoint, :edit_shot_group, @ammo_group, shot_group),
-                          class: "text-primary-600 link",
-                          data: [qa: "edit-#{shot_group.id}"] do %>
+              <.link
+                patch={Routes.ammo_group_show_path(Endpoint, :edit_shot_group, @ammo_group, @shot_group)}
+                class="text-primary-600 link"
+                data-qa={"edit-#{@shot_group.id}"}
+              >
                 <i class="fa-fw fa-lg fas fa-edit"></i>
-              <% end %>
+              </.link>
 
-              <%= link to: "#",
-                    class: "text-primary-600 link",
-                    phx_click: "delete_shot_group",
-                    phx_value_id: shot_group.id,
-                    data: [
-                      confirm: dgettext("prompts", "Are you sure you want to delete this shot record?"),
-                      qa: "delete-#{shot_group.id}"
-                    ] do %>
+              <.link
+                href="#"
+                class="text-primary-600 link"
+                phx-click="delete_shot_group"
+                phx-value-id={@shot_group.id}
+                data-confirm={dgettext("prompts", "Are you sure you want to delete this shot record?")}
+                data-qa={"delete-#{@shot_group.id}"}
+              >
                 <i class="fa-fw fa-lg fas fa-trash"></i>
-              <% end %>
+              </.link>
             </div>
             """
 

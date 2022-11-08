@@ -65,7 +65,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
       case Ammo.update_ammo_type(ammo_type, ammo_type_params, current_user) do
         {:ok, %{name: ammo_type_name}} ->
           prompt = dgettext("prompts", "%{name} updated successfully", name: ammo_type_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(:changeset, changeset)
@@ -83,7 +83,7 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
       case Ammo.create_ammo_type(ammo_type_params, current_user) do
         {:ok, %{name: ammo_type_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: ammo_type_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)

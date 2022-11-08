@@ -5,24 +5,25 @@
 
   <div class="flex flex-wrap justify-center items-center">
     <%= for tag <- @container.tags do %>
-      <%= link to: "#",
-            class: "mx-2 my-1 px-4 py-2 rounded-lg title text-xl",
-            style: "color: #{tag.text_color}; background-color: #{tag.bg_color}",
-            phx_click: "delete",
-            phx_value_tag_id: tag.id,
-            phx_target: @myself,
-            data: [
-              confirm:
-                dgettext(
-                  "prompts",
-                  "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
-                  tag_name: tag.name,
-                  container_name: @container.name
-                )
-            ] do %>
+      <.link
+        href="#"
+        class="mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
+        style={"color: #{tag.text_color}; background-color: #{tag.bg_color}"}
+        phx-click="delete"
+        phx-value-tag-id={tag.id}
+        phx-target={@myself}
+        data-confirm={
+          dgettext(
+            "prompts",
+            "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
+            tag_name: tag.name,
+            container_name: @container.name
+          )
+        }
+      >
         <%= tag.name %>
         <i class="fa-fw fa-sm fas fa-trash"></i>
-      <% end %>
+      </.link>
     <% end %>
 
     <%= if @container.tags |> Enum.empty?() do %>
@@ -37,7 +38,7 @@
     <hr class="hr" />
 
     <.form
-      let={f}
+      :let={f}
       for={:tag}
       id="add-tag-to-container-form"
       class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"

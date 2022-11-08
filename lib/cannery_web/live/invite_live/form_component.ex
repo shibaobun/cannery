@@ -60,7 +60,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
       case invite |> Invites.update_invite(invite_params, current_user) do
         {:ok, %{name: invite_name}} ->
           prompt = dgettext("prompts", "%{name} updated successfully", name: invite_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(:changeset, changeset)
@@ -78,7 +78,7 @@ defmodule CanneryWeb.InviteLive.FormComponent do
       case current_user |> Invites.create_invite(invite_params) do
         {:ok, %{name: invite_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: invite_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)

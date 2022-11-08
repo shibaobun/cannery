@@ -58,7 +58,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
         <%= @title %>
       </h2>
       <.form
-        let={f}
+        :let={f}
         for={@changeset}
         id="tag-form"
         class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
@@ -106,7 +106,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
       case Tags.update_tag(tag, tag_params, current_user) do
         {:ok, %{name: tag_name}} ->
           prompt = dgettext("prompts", "%{name} updated successfully", name: tag_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(:changeset, changeset)
@@ -124,7 +124,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
       case Tags.create_tag(tag_params, current_user) do
         {:ok, %{name: tag_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: tag_name)
-          socket |> put_flash(:info, prompt) |> push_redirect(to: return_to)
+          socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)

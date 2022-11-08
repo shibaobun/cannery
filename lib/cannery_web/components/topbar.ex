@@ -16,16 +16,17 @@ defmodule CanneryWeb.Components.Topbar do
     <nav role="navigation" class="mb-8 px-8 py-4 w-full bg-primary-400">
       <div class="flex flex-col sm:flex-row justify-between items-center">
         <div class="mb-4 sm:mb-0 sm:mr-8 flex flex-row justify-start items-center space-x-2">
-          <%= live_redirect to: Routes.live_path(Endpoint, HomeLive),
-            class: "inline mx-2 my-1 leading-5 text-xl text-white"
-            do %>
+          <.link
+            patch={Routes.live_path(Endpoint, HomeLive)}
+            class="inline mx-2 my-1 leading-5 text-xl text-white"
+          >
             <img
               src={Routes.static_path(Endpoint, "/images/cannery.svg")}
               alt={gettext("Cannery logo")}
               class="inline-block h-8 mx-1"
             />
             <h1 class="inline hover:underline">Cannery</h1>
-          <% end %>
+          </.link>
 
           <%= if @title_content do %>
             <span class="mx-2 my-1">
@@ -41,78 +42,100 @@ defmodule CanneryWeb.Components.Topbar do
           text-lg text-white text-ellipsis">
           <%= if @current_user do %>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Tags"),
-                to: Routes.tag_index_path(Endpoint, :index),
-                class: "text-primary-600 text-white hover:underline"
-              ) %>
+              <.link
+                patch={Routes.tag_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Tags") %>
+              </.link>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Containers"),
-                to: Routes.container_index_path(Endpoint, :index),
-                class: "text-primary-600 text-white hover:underline"
-              ) %>
+              <.link
+                patch={Routes.container_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Containers") %>
+              </.link>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Catalog"),
-                to: Routes.ammo_type_index_path(Endpoint, :index),
-                class: "text-primary-600 text-white hover:underline"
-              ) %>
+              <.link
+                patch={Routes.ammo_type_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Catalog") %>
+              </.link>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Ammo"),
-                to: Routes.ammo_group_index_path(Endpoint, :index),
-                class: "text-primary-600 text-white hover:underline"
-              ) %>
+              <.link
+                patch={Routes.ammo_group_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Ammo") %>
+              </.link>
             </li>
             <li class="mx-2 my-1">
-              <%= live_redirect(gettext("Range"),
-                to: Routes.range_index_path(Endpoint, :index),
-                class: "text-primary-600 text-white hover:underline"
-              ) %>
+              <.link
+                patch={Routes.range_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Range") %>
+              </.link>
             </li>
             <%= if @current_user.role == :admin do %>
               <li class="mx-2 my-1">
-                <%= live_redirect(gettext("Invites"),
-                  to: Routes.invite_index_path(Endpoint, :index),
-                  class: "text-primary-600 text-white hover:underline"
-                ) %>
+                <.link
+                  patch={Routes.invite_index_path(Endpoint, :index)}
+                  class="text-primary-600 text-white hover:underline"
+                >
+                  <%= gettext("Invites") %>
+                </.link>
               </li>
             <% end %>
             <li class="mx-2 my-1">
-              <%= live_redirect(@current_user.email,
-                to: Routes.user_settings_path(Endpoint, :edit),
-                class: "text-primary-600 text-white hover:underline truncate"
-              ) %>
+              <.link
+                patch={Routes.user_settings_path(Endpoint, :edit)}
+                class="text-primary-600 text-white hover:underline truncate"
+              >
+                <%= @current_user.email %>
+              </.link>
             </li>
             <li class="mx-2 my-1">
-              <%= link to: Routes.user_session_path(Endpoint, :delete),
-                   method: :delete,
-                   data: [confirm: dgettext("prompts", "Are you sure you want to log out?")] do %>
+              <.link
+                href={Routes.user_session_path(Endpoint, :delete)}
+                method="delete"
+                data-confirm={dgettext("prompts", "Are you sure you want to log out?")}
+              >
                 <i class="fas fa-sign-out-alt"></i>
-              <% end %>
+              </.link>
             </li>
             <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li class="mx-2 my-1">
-                <%= live_redirect to: Routes.live_dashboard_path(Endpoint, :home),
-                  class: "text-primary-600 text-white hover:underline" do %>
+                <.link
+                  patch={Routes.live_dashboard_path(Endpoint, :home)}
+                  class="text-primary-600 text-white hover:underline"
+                >
                   <i class="fas fa-gauge"></i>
-                <% end %>
+                </.link>
               </li>
             <% end %>
           <% else %>
             <%= if Accounts.allow_registration?() do %>
               <li class="mx-2 my-1">
-                <%= live_redirect(dgettext("actions", "Register"),
-                  to: Routes.user_registration_path(Endpoint, :new),
-                  class: "text-primary-600 text-white hover:underline truncate"
-                ) %>
+                <.link
+                  patch={Routes.user_registration_path(Endpoint, :new)}
+                  class="text-primary-600 text-white hover:underline truncate"
+                >
+                  <%= dgettext("actions", "Register") %>
+                </.link>
               </li>
             <% end %>
             <li class="mx-2 my-1">
-              <%= live_redirect(dgettext("actions", "Log in"),
-                to: Routes.user_session_path(Endpoint, :new),
-                class: "text-primary-600 text-white hover:underline truncate"
-              ) %>
+              <.link
+                patch={Routes.user_session_path(Endpoint, :new)}
+                class="text-primary-600 text-white hover:underline truncate"
+              >
+                <%= dgettext("actions", "Log in") %>
+              </.link>
             </li>
           <% end %>
         </ul>

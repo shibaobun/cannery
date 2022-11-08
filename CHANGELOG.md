@@ -10,6 +10,7 @@
 - Make container show page a bit more compact
 - Make container show page filter used-up ammo
 - Forgot to add the logo as the favicon whoops
+- Update project dependencies, use Elixir v1.14.1
 
 # v0.5.4
 - Rename "Ammo" tab to "Catalog", and "Manage" tab is now "Ammo"

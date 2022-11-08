@@ -10,8 +10,9 @@
       type="image/jpg"
       href={Routes.static_path(@conn, "/images/cannery.svg")}
     />
-    <%= if(assigns |> Map.has_key?(:page_title), do: @page_title, else: "Cannery")
-    |> live_title_tag(suffix: " | Cannery") %>
+    <.live_title suffix=" | Cannery">
+      <%= assigns[:page_title] || "Cannery" %>
+    </.live_title>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/app.css")} />
     <script
       defer
