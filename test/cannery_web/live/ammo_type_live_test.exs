@@ -6,7 +6,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
   import CanneryWeb.Gettext
-  alias Cannery.Ammo
+  alias Cannery.{Ammo, Repo}
 
   @moduletag :ammo_type_live_test
 
@@ -26,6 +26,14 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     "name" => "some updated name",
     "grains" => 456
   }
+  @ammo_group_attrs %{
+    "notes" => "some ammo group",
+    "count" => 20
+  }
+  @shot_group_attrs %{
+    "notes" => "some shot group",
+    "count" => 20
+  }
 
   # @invalid_attrs %{
   #   "bullet_type" => nil,
@@ -38,6 +46,15 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
   defp create_ammo_type(%{current_user: current_user}) do
     %{ammo_type: ammo_type_fixture(@create_attrs, current_user)}
+  end
+
+  defp create_empty_ammo_group(%{ammo_type: ammo_type, current_user: current_user}) do
+    container = container_fixture(current_user)
+    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
+    shot_group = shot_group_fixture(@shot_group_attrs, current_user, ammo_group)
+    ammo_group = ammo_group |> Repo.reload!()
+
+    %{ammo_group: ammo_group, shot_group: shot_group}
   end
 
   describe "Index" do
@@ -105,7 +122,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     end
   end
 
-  describe "Show" do
+  describe "Show ammo type" do
     setup [:register_and_log_in_user, :create_ammo_type]
 
     test "displays ammo_type", %{conn: conn, ammo_type: ammo_type} do
@@ -137,6 +154,23 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: ammo_type.name)
       assert html =~ "some updated bullet_type"
+    end
+  end
+
+  describe "Show ammo type with empty ammo group" do
+    setup [:register_and_log_in_user, :create_ammo_type, :create_empty_ammo_group]
+
+    test "hides empty ammo groups by default",
+         %{conn: conn, ammo_type: ammo_type} do
+      {:ok, show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
+
+      assert html =~ gettext("Show used")
+      refute html =~ "some ammo group"
+
+      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+
+      assert html =~ "some ammo group"
+      assert html =~ "Empty"
     end
   end
 end

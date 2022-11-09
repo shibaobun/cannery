@@ -95,11 +95,12 @@ defmodule CanneryWeb.ViewHelpers do
     ~H"""
     <label for={@id} class="inline-flex relative items-center cursor-pointer">
       <input
+        id={@id}
         type="checkbox"
         value={@value}
         checked={@value}
-        id={@id}
         class="sr-only peer"
+        data-qa={@id}
         {
           if assigns |> Map.has_key?(:target),
             do: %{"phx-click" => @action, "phx-value-value" => @value, "phx-target" => @target},

@@ -76,7 +76,7 @@ defmodule Cannery.Fixtures do
   def shot_group_fixture(attrs \\ %{}, %User{} = user, %AmmoGroup{} = ammo_group) do
     attrs
     |> Enum.into(%{
-      "count" => 25,
+      "count" => 20,
       "date" => ~N[2022-02-13 03:17:00],
       "notes" => "some notes"
     })
