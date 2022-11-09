@@ -48,13 +48,20 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     %{ammo_type: ammo_type_fixture(@create_attrs, current_user)}
   end
 
+  defp create_ammo_group(%{ammo_type: ammo_type, current_user: current_user}) do
+    container = container_fixture(current_user)
+    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
+
+    %{ammo_group: ammo_group, container: container}
+  end
+
   defp create_empty_ammo_group(%{ammo_type: ammo_type, current_user: current_user}) do
     container = container_fixture(current_user)
     {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
     shot_group = shot_group_fixture(@shot_group_attrs, current_user, ammo_group)
     ammo_group = ammo_group |> Repo.reload!()
 
-    %{ammo_group: ammo_group, shot_group: shot_group}
+    %{ammo_group: ammo_group, container: container, shot_group: shot_group}
   end
 
   describe "Index" do
@@ -154,6 +161,18 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: ammo_type.name)
       assert html =~ "some updated bullet_type"
+    end
+  end
+
+  describe "Show ammo type with ammo group" do
+    setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
+
+    test "displays ammo group", %{conn: conn, ammo_type: ammo_type, container: container} do
+      {:ok, _show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
+
+      assert html =~ gettext("Show Ammo type")
+      assert html =~ "some ammo group"
+      assert html =~ container.name
     end
   end
 
