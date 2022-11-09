@@ -183,7 +183,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, ammo_type: ammo_type} do
       {:ok, show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      assert html =~ gettext("Show used")
+      assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
       html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()

@@ -212,3 +212,40 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "add an ammo type first"
 msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:60
+#, elixir-autogen, elixir-format
+msgid "Disable"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "Enable"
+msgstr ""
+
+#: lib/cannery_web/components/move_ammo_group_component.ex:80
+#, elixir-autogen, elixir-format
+msgid "Move ammo"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:80
+#, elixir-autogen, elixir-format
+msgid "Set Unlimited"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.html.heex:97
+#, elixir-autogen, elixir-format
+msgid "Show used"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:86
+#: lib/cannery_web/live/range_live/index.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Stage for range"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:85
+#: lib/cannery_web/live/range_live/index.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Unstage from range"
+msgstr ""

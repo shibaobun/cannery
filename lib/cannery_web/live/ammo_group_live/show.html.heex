@@ -82,8 +82,8 @@
     <div class="flex flex-wrap justify-center items-center text-primary-600">
       <button type="button" class="mx-4 my-2 btn btn-primary" phx-click="toggle_staged">
         <%= if @ammo_group.staged,
-          do: gettext("Unstage from range"),
-          else: gettext("Stage for range") %>
+          do: dgettext("actions", "Unstage from range"),
+          else: dgettext("actions", "Stage for range") %>
       </button>
 
       <.link

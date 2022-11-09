@@ -77,7 +77,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
     ~H"""
     <div class="w-full flex flex-col space-y-8 justify-center items-center">
       <h2 class="mb-8 text-center title text-xl text-primary-600">
-        <%= gettext("Move ammo") %>
+        <%= dgettext("actions", "Move ammo") %>
       </h2>
 
       <%= if @containers |> Enum.empty?() do %>

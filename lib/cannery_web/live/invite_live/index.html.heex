@@ -57,11 +57,11 @@
 
         <%= if invite.disabled_at |> is_nil() do %>
           <a href="#" class="btn btn-primary" phx-click="disable_invite" phx-value-id={invite.id}>
-            <%= gettext("Disable") %>
+            <%= dgettext("actions", "Disable") %>
           </a>
         <% else %>
           <a href="#" class="btn btn-primary" phx-click="enable_invite" phx-value-id={invite.id}>
-            <%= gettext("Enable") %>
+            <%= dgettext("actions", "Enable") %>
           </a>
         <% end %>
 
@@ -77,7 +77,7 @@
               )
             }
           >
-            <%= gettext("Set Unlimited") %>
+            <%= dgettext("actions", "Set Unlimited") %>
           </a>
         <% end %>
       </.invite_card>

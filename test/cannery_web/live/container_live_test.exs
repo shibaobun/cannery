@@ -167,7 +167,7 @@ defmodule CanneryWeb.ContainerLiveTest do
          %{conn: conn, container: container} do
       {:ok, show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ gettext("Show used")
+      assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
       html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()

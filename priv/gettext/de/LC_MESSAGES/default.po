@@ -161,11 +161,6 @@ msgstr "Beschreibung"
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:60
-#, elixir-autogen, elixir-format
-msgid "Disable"
-msgstr "Deaktivieren"
-
 #: lib/cannery_web/live/home_live.ex:61
 #, elixir-autogen, elixir-format
 msgid "Easy to Use:"
@@ -191,11 +186,6 @@ msgstr "Einladung bearbeiten"
 #, elixir-autogen, elixir-format
 msgid "Edit Tag"
 msgstr "Tag bearbeiten"
-
-#: lib/cannery_web/live/invite_live/index.html.heex:64
-#, elixir-autogen, elixir-format
-msgid "Enable"
-msgstr "Aktivieren"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:35
 #, elixir-autogen, elixir-format
@@ -404,11 +394,6 @@ msgstr ""
 "Hosten Sie Ihre eigene Instanz oder verwenden Sie eine Instanz, der Sie "
 "vertrauen."
 
-#: lib/cannery_web/live/invite_live/index.html.heex:80
-#, elixir-autogen, elixir-format
-msgid "Set Unlimited"
-msgstr "Unbegrenzt setzen"
-
 #: lib/cannery_web/controllers/user_settings_controller.ex:10
 #: lib/cannery_web/templates/user_settings/edit.html.heex:3
 #, elixir-autogen, elixir-format
@@ -533,18 +518,6 @@ msgstr "Schüsse abgegeben"
 msgid "No ammo staged"
 msgstr "Keine Munition selektiert"
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:86
-#: lib/cannery_web/live/range_live/index.html.heex:31
-#, elixir-autogen, elixir-format
-msgid "Stage for range"
-msgstr "Für Schießplatz selektieren"
-
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:85
-#: lib/cannery_web/live/range_live/index.html.heex:30
-#, elixir-autogen, elixir-format
-msgid "Unstage from range"
-msgstr "Für Schießplatz deselektieren"
-
 #: lib/cannery_web/components/add_shot_group_component.html.heex:3
 #: lib/cannery_web/live/ammo_group_live/index.ex:26
 #, elixir-autogen, elixir-format
@@ -599,7 +572,6 @@ msgstr "Schießkladde"
 msgid "Move Ammo group"
 msgstr "Munitionsgruppe verschieben"
 
-#: lib/cannery_web/components/move_ammo_group_component.ex:80
 #: lib/cannery_web/live/ammo_group_live/index.ex:253
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
@@ -948,7 +920,6 @@ msgstr "Behälter"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:48
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:126
-#: lib/cannery_web/live/container_live/show.html.heex:97
 #, elixir-autogen, elixir-format
 msgid "Show used"
 msgstr ""

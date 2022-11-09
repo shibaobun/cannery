@@ -212,7 +212,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
     test "hides empty ammo groups by default", %{conn: conn, empty_ammo_group: ammo_group} do
       {:ok, show_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
-      assert html =~ gettext("Show used")
+      assert html =~ dgettext("actions", "Show used")
       refute html =~ gettext("$%{amount}", amount: 50.00 |> :erlang.float_to_binary(decimals: 2))
 
       refute html =~
