@@ -16,7 +16,7 @@
 
     <span class="rounded-lg title text-lg">
       <%= gettext("Percentage left:") %>
-      <%= "#{@ammo_group |> Ammo.get_percentage_remaining()}%" %>
+      <%= gettext("%{percentage}%", percentage: @ammo_group |> Ammo.get_percentage_remaining()) %>
     </span>
 
     <%= if @ammo_group.notes do %>

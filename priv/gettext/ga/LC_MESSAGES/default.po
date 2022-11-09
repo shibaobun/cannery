@@ -956,3 +956,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Used up on:"
 msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:197
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "%{percentage}%"
+msgstr ""

@@ -194,7 +194,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   defp get_value_for_key(:remaining, ammo_group),
-    do: "#{ammo_group |> Ammo.get_percentage_remaining()}%"
+    do: gettext("%{percentage}%", percentage: ammo_group |> Ammo.get_percentage_remaining())
 
   defp get_value_for_key(:actions, ammo_group) do
     assigns = %{ammo_group: ammo_group}
