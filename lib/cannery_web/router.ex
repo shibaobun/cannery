@@ -60,6 +60,7 @@ defmodule CanneryWeb.Router do
     put "/users/settings", UserSettingsController, :update
     delete "/users/settings/:id", UserSettingsController, :delete
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    get "/export/:mode", ExportController, :export
 
     live "/tags", TagLive.Index, :index
     live "/tags/new", TagLive.Index, :new

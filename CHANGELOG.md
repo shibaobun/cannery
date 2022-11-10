@@ -11,6 +11,7 @@
 - Make container show page filter used-up ammo
 - Forgot to add the logo as the favicon whoops
 - Add graph to range page
+- Add JSON export of data
 - Update project dependencies
 
 # v0.5.4

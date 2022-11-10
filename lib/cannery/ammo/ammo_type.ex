@@ -11,6 +11,31 @@ defmodule Cannery.Ammo.AmmoType do
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Ecto.{Changeset, UUID}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :name,
+             :desc,
+             :bullet_type,
+             :bullet_core,
+             :cartridge,
+             :caliber,
+             :case_material,
+             :jacket_type,
+             :muzzle_velocity,
+             :powder_type,
+             :powder_grains_per_charge,
+             :grains,
+             :pressure,
+             :primer_type,
+             :firing_type,
+             :tracer,
+             :incendiary,
+             :blank,
+             :corrosive,
+             :manufacturer,
+             :upc
+           ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "ammo_types" do

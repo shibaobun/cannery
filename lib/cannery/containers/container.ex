@@ -9,6 +9,15 @@ defmodule Cannery.Containers.Container do
   alias Cannery.Containers.{Container, ContainerTag}
   alias Cannery.{Accounts.User, Ammo.AmmoGroup, Tags.Tag}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :name,
+             :desc,
+             :location,
+             :type,
+             :tags
+           ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "containers" do

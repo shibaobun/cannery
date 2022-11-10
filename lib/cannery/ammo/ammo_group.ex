@@ -13,6 +13,16 @@ defmodule Cannery.Ammo.AmmoGroup do
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :count,
+             :notes,
+             :price_paid,
+             :staged,
+             :ammo_type_id,
+             :container_id
+           ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "ammo_groups" do

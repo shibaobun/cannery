@@ -138,7 +138,7 @@ defmodule CanneryWeb.HomeLive do
             target="_blank"
             rel="noopener noreferrer"
           >
-            <p>0.5.5</p>
+            <p>0.6.0</p>
             <i class="fas fa-md fa-info-circle"></i>
           </.link>
         </li>

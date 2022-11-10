@@ -9,6 +9,13 @@ defmodule Cannery.Tags.Tag do
   alias Ecto.{Changeset, UUID}
   alias Cannery.{Accounts.User, Tags.Tag}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :name,
+             :bg_color,
+             :text_color
+           ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tags" do

@@ -61,7 +61,7 @@ msgstr "Passwort ändern"
 msgid "Create Invite"
 msgstr "Einladung erstellen"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:148
+#: lib/cannery_web/templates/user_settings/edit.html.heex:157
 #, elixir-autogen, elixir-format
 msgid "Delete User"
 msgstr "Benutzer löschen"
@@ -260,4 +260,9 @@ msgstr ""
 #: lib/cannery_web/live/range_live/index.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"
+msgstr ""
+
+#: lib/cannery_web/templates/user_settings/edit.html.heex:148
+#, elixir-autogen, elixir-format
+msgid "Export Data as JSON"
 msgstr ""

@@ -9,6 +9,14 @@ defmodule Cannery.ActivityLog.ShotGroup do
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup, Repo}
   alias Ecto.{Changeset, UUID}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :count,
+             :date,
+             :notes,
+             :ammo_group_id
+           ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "shot_groups" do

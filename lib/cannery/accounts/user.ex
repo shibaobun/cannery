@@ -9,6 +9,14 @@ defmodule Cannery.Accounts.User do
   alias Ecto.{Changeset, UUID}
   alias Cannery.{Accounts.User, Invites.Invite}
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :email,
+             :confirmed_at,
+             :role,
+             :locale
+           ]}
   @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

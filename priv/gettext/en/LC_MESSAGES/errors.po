@@ -107,23 +107,23 @@ msgstr ""
 msgid "You are not authorized to view this page."
 msgstr ""
 
-#: lib/cannery/accounts/user.ex:130
+#: lib/cannery/accounts/user.ex:138
 #, elixir-autogen, elixir-format
 msgid "did not change"
 msgstr ""
 
-#: lib/cannery/accounts/user.ex:151
+#: lib/cannery/accounts/user.ex:159
 #, elixir-autogen, elixir-format
 msgid "does not match password"
 msgstr ""
 
 ## From Ecto.Changeset.put_change/3
-#: lib/cannery/accounts/user.ex:188
+#: lib/cannery/accounts/user.ex:196
 #, elixir-autogen, elixir-format, fuzzy
 msgid "is not valid"
 msgstr ""
 
-#: lib/cannery/accounts/user.ex:84
+#: lib/cannery/accounts/user.ex:92
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
 msgstr ""
@@ -138,13 +138,13 @@ msgstr ""
 msgid "Tag could not be added"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:115
+#: lib/cannery/activity_log/shot_group.ex:123
 #, elixir-autogen, elixir-format
 msgid "Count must be at least 1"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:74
-#: lib/cannery/activity_log/shot_group.ex:111
+#: lib/cannery/activity_log/shot_group.ex:82
+#: lib/cannery/activity_log/shot_group.ex:119
 #, elixir-autogen, elixir-format
 msgid "Count must be less than %{count}"
 msgstr ""
@@ -175,12 +175,12 @@ msgstr ""
 msgid "Invalid multiplier"
 msgstr ""
 
-#: lib/cannery/ammo/ammo_group.ex:84
+#: lib/cannery/ammo/ammo_group.ex:94
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:69
+#: lib/cannery/activity_log/shot_group.ex:77
 #, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo group"
 msgstr ""
