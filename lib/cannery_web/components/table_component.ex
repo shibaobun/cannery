@@ -36,18 +36,38 @@ defmodule CanneryWeb.Components.TableComponent do
               list(%{
                 (key :: atom()) => any() | {custom_sort_value :: String.t(), value :: any()}
               }),
+            optional(:inital_key) => atom(),
+            optional(:initial_sort_mode) => atom(),
             optional(any()) => any()
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(%{columns: columns, rows: rows} = assigns, socket) do
-    initial_key = columns |> List.first() |> Map.get(:key)
-    rows = rows |> Enum.sort_by(fn row -> row |> Map.get(initial_key) end, :asc)
+    initial_key =
+      if assigns |> Map.has_key?(:initial_key) do
+        assigns.initial_key
+      else
+        columns |> List.first() |> Map.get(:key)
+      end
+
+    initial_sort_mode =
+      if assigns |> Map.has_key?(:initial_sort_mode) do
+        assigns.initial_sort_mode
+      else
+        :asc
+      end
+
+    rows = rows |> Enum.sort_by(fn row -> row |> Map.get(initial_key) end, initial_sort_mode)
 
     socket =
       socket
       |> assign(assigns)
-      |> assign(columns: columns, rows: rows, last_sort_key: initial_key, sort_mode: :asc)
+      |> assign(
+        columns: columns,
+        rows: rows,
+        last_sort_key: initial_key,
+        sort_mode: initial_sort_mode
+      )
 
     {:ok, socket}
   end
