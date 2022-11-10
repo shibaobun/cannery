@@ -216,7 +216,7 @@ msgstr "Brandmunition"
 msgid "Instance Information"
 msgstr "Instanzinformationen"
 
-#: lib/cannery_web/components/invite_card.ex:25
+#: lib/cannery_web/components/invite_card.ex:32
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr "Einladung deaktiviert"
@@ -466,7 +466,7 @@ msgstr "Art:"
 msgid "Users"
 msgstr "Benutzer"
 
-#: lib/cannery_web/components/invite_card.ex:20
+#: lib/cannery_web/components/invite_card.ex:27
 #, elixir-autogen, elixir-format
 msgid "Uses Left:"
 msgstr "Verbleibende Nutzung:"

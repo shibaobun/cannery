@@ -201,7 +201,7 @@ msgstr ""
 msgid "Instance Information"
 msgstr ""
 
-#: lib/cannery_web/components/invite_card.ex:25
+#: lib/cannery_web/components/invite_card.ex:32
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr ""
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: lib/cannery_web/components/invite_card.ex:20
+#: lib/cannery_web/components/invite_card.ex:27
 #, elixir-autogen, elixir-format
 msgid "Uses Left:"
 msgstr ""

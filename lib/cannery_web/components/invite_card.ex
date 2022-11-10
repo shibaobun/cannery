@@ -4,9 +4,16 @@ defmodule CanneryWeb.Components.InviteCard do
   """
 
   use CanneryWeb, :component
+  alias Cannery.Invites.Invite
   alias CanneryWeb.Endpoint
 
+  attr :invite, Invite, required: true
+  slot(:inner_block)
+  slot(:code_actions)
+
   def invite_card(assigns) do
+    assigns = assigns |> assign_new(:code_actions, fn -> [] end)
+
     ~H"""
     <div class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
       border border-gray-400 rounded-lg shadow-lg hover:shadow-md
@@ -34,9 +41,7 @@ defmodule CanneryWeb.Components.InviteCard do
           <%= Routes.user_registration_url(Endpoint, :new, invite: @invite.token) %>
         </code>
 
-        <%= if @code_actions do %>
-          <%= render_slot(@code_actions) %>
-        <% end %>
+        <%= render_slot(@code_actions) %>
       </div>
 
       <%= if @inner_block do %>

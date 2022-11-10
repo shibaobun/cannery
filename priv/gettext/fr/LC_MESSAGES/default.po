@@ -216,7 +216,7 @@ msgstr "Incendiaire"
 msgid "Instance Information"
 msgstr "Information de l’instance"
 
-#: lib/cannery_web/components/invite_card.ex:25
+#: lib/cannery_web/components/invite_card.ex:32
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr "Invitation désactivée"
@@ -468,7 +468,7 @@ msgstr "Type :"
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: lib/cannery_web/components/invite_card.ex:20
+#: lib/cannery_web/components/invite_card.ex:27
 #, elixir-autogen, elixir-format
 msgid "Uses Left:"
 msgstr "Utilisations restantes :"
