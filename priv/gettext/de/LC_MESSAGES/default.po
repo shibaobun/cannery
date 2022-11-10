@@ -155,7 +155,7 @@ msgstr "Anzahl:"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: lib/cannery_web/components/container_card.ex:30
+#: lib/cannery_web/components/container_card.ex:39
 #: lib/cannery_web/live/container_live/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Description:"
@@ -244,7 +244,7 @@ msgstr "Für 60 Tage eingeloggt bleiben"
 msgid "Location"
 msgstr "Standort"
 
-#: lib/cannery_web/components/container_card.ex:42
+#: lib/cannery_web/components/container_card.ex:51
 #: lib/cannery_web/live/container_live/show.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Location:"
@@ -455,7 +455,7 @@ msgstr "Leuchtspur"
 msgid "Type"
 msgstr "Art"
 
-#: lib/cannery_web/components/container_card.ex:36
+#: lib/cannery_web/components/container_card.ex:45
 #: lib/cannery_web/live/container_live/show.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Type:"
@@ -692,7 +692,7 @@ msgstr "%{name} bearbeiten"
 msgid "Edit %{name} tags"
 msgstr "Editiere %{name} Tags"
 
-#: lib/cannery_web/components/container_card.ex:54
+#: lib/cannery_web/components/container_card.ex:63
 #: lib/cannery_web/live/container_live/show.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Rounds:"
@@ -886,7 +886,7 @@ msgstr "Zeige Munitionsarten"
 msgid "This ammo is not in a container"
 msgstr "Diese Munitionsgruppe ist nicht in einem Behälter"
 
-#: lib/cannery_web/components/container_card.ex:49
+#: lib/cannery_web/components/container_card.ex:58
 #: lib/cannery_web/live/container_live/show.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Packs:"

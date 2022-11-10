@@ -5,11 +5,20 @@ defmodule CanneryWeb.Components.ContainerCard do
 
   use CanneryWeb, :component
   import CanneryWeb.Components.TagCard
-  alias Cannery.{Containers, Repo}
+  alias Cannery.{Containers, Containers.Container, Repo}
   alias CanneryWeb.Endpoint
+  alias Phoenix.LiveView.Rendered
 
+  attr :container, Container, required: true
+  slot(:tag_actions)
+  slot(:inner_block)
+
+  @spec container_card(assigns :: map()) :: Rendered.t()
   def container_card(%{container: container} = assigns) do
-    assigns = assigns |> Map.put(:container, container |> Repo.preload([:tags, :ammo_groups]))
+    assigns =
+      assigns
+      |> assign(container: container |> Repo.preload([:tags, :ammo_groups]))
+      |> assign_new(:tag_actions, fn -> [] end)
 
     ~H"""
     <div
@@ -63,9 +72,7 @@ defmodule CanneryWeb.Components.ContainerCard do
             <% end %>
           <% end %>
 
-          <%= if assigns |> Map.has_key?(:tag_actions) do %>
-            <%= render_slot(@tag_actions) %>
-          <% end %>
+          <%= render_slot(@tag_actions) %>
         </div>
       </div>
 
