@@ -124,7 +124,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
     ~H"""
     <.link
-      patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+      navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
       class="link"
       data-qa={"view-name-#{@ammo_type.id}"}
     >
@@ -139,7 +139,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     ~H"""
     <div class="px-4 py-2 space-x-4 flex justify-center items-center">
       <.link
-        patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+        navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
         class="text-primary-600 link"
         data-qa={"view-#{@ammo_type.id}"}
       >

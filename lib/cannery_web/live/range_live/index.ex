@@ -154,7 +154,10 @@ defmodule CanneryWeb.RangeLive.Index do
           :name ->
             {shot_group.ammo_group.ammo_type.name,
              ~H"""
-             <.link patch={Routes.ammo_group_show_path(Endpoint, :show, @shot_group.ammo_group)} class="link">
+             <.link
+               navigate={Routes.ammo_group_show_path(Endpoint, :show, @shot_group.ammo_group)}
+               class="link"
+             >
                <%= @shot_group.ammo_group.ammo_type.name %>
              </.link>
              """}

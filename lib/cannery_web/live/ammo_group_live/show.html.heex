@@ -53,7 +53,7 @@
   <div class="flex flex-col justify-center items-center">
     <div class="flex flex-wrap justify-center items-center text-primary-600">
       <.link
-        patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type)}
+        navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type)}
         class="mx-4 my-2 btn btn-primary"
         data-qa="details"
       >

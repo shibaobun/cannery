@@ -17,7 +17,7 @@ defmodule CanneryWeb.Components.Topbar do
       <div class="flex flex-col sm:flex-row justify-between items-center">
         <div class="mb-4 sm:mb-0 sm:mr-8 flex flex-row justify-start items-center space-x-2">
           <.link
-            patch={Routes.live_path(Endpoint, HomeLive)}
+            navigate={Routes.live_path(Endpoint, HomeLive)}
             class="inline mx-2 my-1 leading-5 text-xl text-white"
           >
             <img
@@ -43,7 +43,7 @@ defmodule CanneryWeb.Components.Topbar do
           <%= if @current_user do %>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.tag_index_path(Endpoint, :index)}
+                navigate={Routes.tag_index_path(Endpoint, :index)}
                 class="text-primary-600 text-white hover:underline"
               >
                 <%= gettext("Tags") %>
@@ -51,7 +51,7 @@ defmodule CanneryWeb.Components.Topbar do
             </li>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.container_index_path(Endpoint, :index)}
+                navigate={Routes.container_index_path(Endpoint, :index)}
                 class="text-primary-600 text-white hover:underline"
               >
                 <%= gettext("Containers") %>
@@ -59,7 +59,7 @@ defmodule CanneryWeb.Components.Topbar do
             </li>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.ammo_type_index_path(Endpoint, :index)}
+                navigate={Routes.ammo_type_index_path(Endpoint, :index)}
                 class="text-primary-600 text-white hover:underline"
               >
                 <%= gettext("Catalog") %>
@@ -67,7 +67,7 @@ defmodule CanneryWeb.Components.Topbar do
             </li>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.ammo_group_index_path(Endpoint, :index)}
+                navigate={Routes.ammo_group_index_path(Endpoint, :index)}
                 class="text-primary-600 text-white hover:underline"
               >
                 <%= gettext("Ammo") %>
@@ -75,7 +75,7 @@ defmodule CanneryWeb.Components.Topbar do
             </li>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.range_index_path(Endpoint, :index)}
+                navigate={Routes.range_index_path(Endpoint, :index)}
                 class="text-primary-600 text-white hover:underline"
               >
                 <%= gettext("Range") %>
@@ -84,7 +84,7 @@ defmodule CanneryWeb.Components.Topbar do
             <%= if @current_user.role == :admin do %>
               <li class="mx-2 my-1">
                 <.link
-                  patch={Routes.invite_index_path(Endpoint, :index)}
+                  navigate={Routes.invite_index_path(Endpoint, :index)}
                   class="text-primary-600 text-white hover:underline"
                 >
                   <%= gettext("Invites") %>
@@ -93,7 +93,7 @@ defmodule CanneryWeb.Components.Topbar do
             <% end %>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.user_settings_path(Endpoint, :edit)}
+                navigate={Routes.user_settings_path(Endpoint, :edit)}
                 class="text-primary-600 text-white hover:underline truncate"
               >
                 <%= @current_user.email %>
@@ -111,7 +111,7 @@ defmodule CanneryWeb.Components.Topbar do
             <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li class="mx-2 my-1">
                 <.link
-                  patch={Routes.live_dashboard_path(Endpoint, :home)}
+                  navigate={Routes.live_dashboard_path(Endpoint, :home)}
                   class="text-primary-600 text-white hover:underline"
                 >
                   <i class="fas fa-gauge"></i>
@@ -122,7 +122,7 @@ defmodule CanneryWeb.Components.Topbar do
             <%= if Accounts.allow_registration?() do %>
               <li class="mx-2 my-1">
                 <.link
-                  patch={Routes.user_registration_path(Endpoint, :new)}
+                  navigate={Routes.user_registration_path(Endpoint, :new)}
                   class="text-primary-600 text-white hover:underline truncate"
                 >
                   <%= dgettext("actions", "Register") %>
@@ -131,7 +131,7 @@ defmodule CanneryWeb.Components.Topbar do
             <% end %>
             <li class="mx-2 my-1">
               <.link
-                patch={Routes.user_session_path(Endpoint, :new)}
+                navigate={Routes.user_session_path(Endpoint, :new)}
                 class="text-primary-600 text-white hover:underline truncate"
               >
                 <%= dgettext("actions", "Log in") %>

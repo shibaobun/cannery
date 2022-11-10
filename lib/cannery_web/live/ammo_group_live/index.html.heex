@@ -17,7 +17,7 @@
           <%= dgettext("prompts", "You'll need to") %>
         </h2>
 
-        <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+        <.link navigate={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
           <%= dgettext("actions", "add a container first") %>
         </.link>
       </div>
@@ -27,7 +27,7 @@
           <%= dgettext("prompts", "You'll need to") %>
         </h2>
 
-        <.link patch={Routes.ammo_type_index_path(Endpoint, :new)} class="btn btn-primary">
+        <.link navigate={Routes.ammo_type_index_path(Endpoint, :new)} class="btn btn-primary">
           <%= dgettext("actions", "add an ammo type first") %>
         </.link>
       </div>

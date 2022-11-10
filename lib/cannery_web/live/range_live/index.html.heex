@@ -9,11 +9,11 @@
       <%= display_emoji("😔") %>
     </h1>
 
-    <.link patch={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
       <%= dgettext("actions", "Why not get some ready to shoot?") %>
     </.link>
   <% else %>
-    <.link patch={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
       <%= dgettext("actions", "Stage ammo") %>
     </.link>
 

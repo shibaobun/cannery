@@ -26,7 +26,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
             border border-gray-400 rounded-lg shadow-lg hover:shadow-md
             transition-all duration-300 ease-in-out"
     >
-      <.link patch={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="mb-2 link">
+      <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="mb-2 link">
         <h1 class="title text-xl title-primary-500">
           <%= @ammo_group.ammo_type.name %>
         </h1>
@@ -71,7 +71,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
             <%= gettext("Container:") %>
 
             <.link
-              patch={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
+              navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
               class="link"
             >
               <%= @ammo_group.container.name %>

@@ -133,7 +133,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
     {ammo_type.name,
      ~H"""
-     <.link patch={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
+     <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
        <%= @ammo_type.name %>
      </.link>
      """}
@@ -202,7 +202,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     ~H"""
     <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
       <.link
-        patch={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
         class="text-primary-600 link"
         data-qa={"view-#{@ammo_group.id}"}
       >
@@ -240,7 +240,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
      ~H"""
      <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
        <.link
-         patch={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
+         navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
          class="mx-2 my-1 link"
        >
          <%= @ammo_group.container.name %>
