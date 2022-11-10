@@ -73,14 +73,14 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
          ammo_group_params
        ) do
     changeset_action =
-      case action do
-        :new -> :insert
-        :edit -> :update
+      cond do
+        action in [:new, :clone] -> :insert
+        action == :edit -> :update
       end
 
     changeset =
-      case action do
-        :new ->
+      cond do
+        action in [:new, :clone] ->
           ammo_type =
             if ammo_group_params |> Map.has_key?("ammo_type_id"),
               do: ammo_group_params |> Map.get("ammo_type_id") |> Ammo.get_ammo_type!(user),
@@ -93,7 +93,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
           ammo_group |> AmmoGroup.create_changeset(ammo_type, container, user, ammo_group_params)
 
-        :edit ->
+        action == :edit ->
           ammo_group |> AmmoGroup.update_changeset(ammo_group_params)
       end
 
@@ -127,9 +127,10 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   defp save_ammo_group(
          %{assigns: %{changeset: changeset}} = socket,
-         :new,
+         action,
          %{"multiplier" => multiplier_str} = ammo_group_params
-       ) do
+       )
+       when action in [:new, :clone] do
     socket =
       case multiplier_str |> Integer.parse() do
         {multiplier, _remainder}

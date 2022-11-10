@@ -53,7 +53,7 @@ msgid "Ammo"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
-#: lib/cannery_web/live/ammo_group_live/index.ex:90
+#: lib/cannery_web/live/ammo_group_live/index.ex:96
 #, elixir-autogen, elixir-format
 msgid "Ammo type"
 msgstr ""
@@ -118,7 +118,7 @@ msgstr ""
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:67
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
-#: lib/cannery_web/live/ammo_group_live/index.ex:95
+#: lib/cannery_web/live/ammo_group_live/index.ex:101
 #, elixir-autogen, elixir-format
 msgid "Container"
 msgstr ""
@@ -138,7 +138,7 @@ msgid "Corrosive"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
-#: lib/cannery_web/live/ammo_group_live/index.ex:91
+#: lib/cannery_web/live/ammo_group_live/index.ex:97
 #, elixir-autogen, elixir-format
 msgid "Count"
 msgstr ""
@@ -360,7 +360,7 @@ msgid "Pressure"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:34
-#: lib/cannery_web/live/ammo_group_live/index.ex:92
+#: lib/cannery_web/live/ammo_group_live/index.ex:98
 #, elixir-autogen, elixir-format
 msgid "Price paid"
 msgstr ""
@@ -490,7 +490,7 @@ msgid "No tags for this container"
 msgstr ""
 
 #: lib/cannery_web/components/topbar.ex:81
-#: lib/cannery_web/live/ammo_group_live/index.ex:94
+#: lib/cannery_web/live/ammo_group_live/index.ex:100
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr ""
@@ -522,7 +522,7 @@ msgstr ""
 msgid "Record shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:49
+#: lib/cannery_web/live/ammo_group_live/index.ex:55
 #, elixir-autogen, elixir-format
 msgid "Ammo groups"
 msgstr ""
@@ -570,7 +570,7 @@ msgstr ""
 msgid "Move Ammo group"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:253
+#: lib/cannery_web/live/ammo_group_live/index.ex:267
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr ""
@@ -586,7 +586,7 @@ msgid "Shot log"
 msgstr ""
 
 #: lib/cannery_web/components/ammo_group_card.ex:63
-#: lib/cannery_web/live/ammo_group_live/index.ex:145
+#: lib/cannery_web/live/ammo_group_live/index.ex:151
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:118
@@ -651,12 +651,12 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:183
+#: lib/cannery_web/live/ammo_group_live/index.ex:189
 #, elixir-autogen, elixir-format
 msgid "Stage"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:183
+#: lib/cannery_web/live/ammo_group_live/index.ex:189
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr ""
@@ -707,7 +707,7 @@ msgstr ""
 msgid "No cost information"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:93
+#: lib/cannery_web/live/ammo_group_live/index.ex:99
 #, elixir-autogen, elixir-format
 msgid "% left"
 msgstr ""
@@ -793,7 +793,7 @@ msgstr ""
 msgid "Ammo types"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:96
+#: lib/cannery_web/live/ammo_group_live/index.ex:102
 #, elixir-autogen, elixir-format
 msgid "Added on"
 msgstr ""
@@ -922,7 +922,7 @@ msgstr ""
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:101
+#: lib/cannery_web/live/ammo_group_live/index.ex:107
 #, elixir-autogen, elixir-format
 msgid "Used up on"
 msgstr ""
@@ -932,7 +932,7 @@ msgstr ""
 msgid "Used up on:"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:197
+#: lib/cannery_web/live/ammo_group_live/index.ex:203
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"

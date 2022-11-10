@@ -53,7 +53,7 @@ msgid "Ammo"
 msgstr "Munition"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
-#: lib/cannery_web/live/ammo_group_live/index.ex:90
+#: lib/cannery_web/live/ammo_group_live/index.ex:96
 #, elixir-autogen, elixir-format
 msgid "Ammo type"
 msgstr "Munitionsarten"
@@ -118,7 +118,7 @@ msgstr "Gehäusematerial"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:67
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
-#: lib/cannery_web/live/ammo_group_live/index.ex:95
+#: lib/cannery_web/live/ammo_group_live/index.ex:101
 #, elixir-autogen, elixir-format
 msgid "Container"
 msgstr "Behälter"
@@ -138,7 +138,7 @@ msgid "Corrosive"
 msgstr "Korrosiv"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
-#: lib/cannery_web/live/ammo_group_live/index.ex:91
+#: lib/cannery_web/live/ammo_group_live/index.ex:97
 #, elixir-autogen, elixir-format
 msgid "Count"
 msgstr "Anzahl"
@@ -360,7 +360,7 @@ msgid "Pressure"
 msgstr "Druck"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:34
-#: lib/cannery_web/live/ammo_group_live/index.ex:92
+#: lib/cannery_web/live/ammo_group_live/index.ex:98
 #, elixir-autogen, elixir-format
 msgid "Price paid"
 msgstr "Kaufpreis"
@@ -492,7 +492,7 @@ msgid "No tags for this container"
 msgstr "Keine Tags für diesen Behälter"
 
 #: lib/cannery_web/components/topbar.ex:81
-#: lib/cannery_web/live/ammo_group_live/index.ex:94
+#: lib/cannery_web/live/ammo_group_live/index.ex:100
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr "Schießplatz"
@@ -524,7 +524,7 @@ msgstr "Keine Munition selektiert"
 msgid "Record shots"
 msgstr "Schüsse dokumentieren"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:49
+#: lib/cannery_web/live/ammo_group_live/index.ex:55
 #, elixir-autogen, elixir-format
 msgid "Ammo groups"
 msgstr "Munitionsgruppen"
@@ -572,7 +572,7 @@ msgstr "Schießkladde"
 msgid "Move Ammo group"
 msgstr "Munitionsgruppe verschieben"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:253
+#: lib/cannery_web/live/ammo_group_live/index.ex:267
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr "Munition verschieben"
@@ -588,7 +588,7 @@ msgid "Shot log"
 msgstr "Schießkladde"
 
 #: lib/cannery_web/components/ammo_group_card.ex:63
-#: lib/cannery_web/live/ammo_group_live/index.ex:145
+#: lib/cannery_web/live/ammo_group_live/index.ex:151
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:118
@@ -653,12 +653,12 @@ msgstr "Derzeitiges Passwort"
 msgid "New password"
 msgstr "Neues Passwort"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:183
+#: lib/cannery_web/live/ammo_group_live/index.ex:189
 #, elixir-autogen, elixir-format
 msgid "Stage"
 msgstr "Markiert"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:183
+#: lib/cannery_web/live/ammo_group_live/index.ex:189
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr "Demarkiert"
@@ -709,7 +709,7 @@ msgstr "Zeige %{name}"
 msgid "No cost information"
 msgstr "Keine Preisinformationen"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:93
+#: lib/cannery_web/live/ammo_group_live/index.ex:99
 #, elixir-autogen, elixir-format
 msgid "% left"
 msgstr "% verbleibend"
@@ -795,7 +795,7 @@ msgstr "Kopien"
 msgid "Ammo types"
 msgstr "Munitionsart"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:96
+#: lib/cannery_web/live/ammo_group_live/index.ex:102
 #, elixir-autogen, elixir-format
 msgid "Added on"
 msgstr "Hinzugefügt am"
@@ -924,7 +924,7 @@ msgstr "Behälter"
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:101
+#: lib/cannery_web/live/ammo_group_live/index.ex:107
 #, elixir-autogen, elixir-format
 msgid "Used up on"
 msgstr ""
@@ -934,7 +934,7 @@ msgstr ""
 msgid "Used up on:"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:197
+#: lib/cannery_web/live/ammo_group_live/index.ex:203
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"

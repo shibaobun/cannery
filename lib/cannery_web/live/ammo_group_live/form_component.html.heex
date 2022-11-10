@@ -51,8 +51,8 @@
     ) %>
     <%= error_tag(f, :container_id, "col-span-3 text-center") %>
 
-    <%= case @action do %>
-      <% :new -> %>
+    <%= cond do %>
+      <% @action in [:new, :clone] -> %>
         <hr class="hr col-span-3" />
 
         <%= label(f, :multiplier, gettext("Copies"), class: "title text-lg text-primary-600") %>
@@ -69,7 +69,7 @@
         ) %>
 
         <%= error_tag(f, :multiplier, "col-span-3 text-center") %>
-      <% :edit -> %>
+      <% @action == :edit -> %>
         <%= submit(dgettext("actions", "Save"),
           phx_disable_with: dgettext("prompts", "Saving..."),
           class: "mx-auto col-span-3 btn btn-primary"

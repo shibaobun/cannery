@@ -85,6 +85,7 @@ defmodule CanneryWeb.Router do
     live "/ammo", AmmoGroupLive.Index, :index
     live "/ammo/new", AmmoGroupLive.Index, :new
     live "/ammo/:id/edit", AmmoGroupLive.Index, :edit
+    live "/ammo/:id/clone", AmmoGroupLive.Index, :clone
     live "/ammo/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
     live "/ammo/:id/move", AmmoGroupLive.Index, :move
 

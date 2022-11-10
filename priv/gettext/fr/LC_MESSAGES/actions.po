@@ -24,6 +24,7 @@ msgstr ""
 # # date. Leave "msgstr"s empty as changing them here has no
 # # effect: edit them in PO (.po) files instead.
 #: lib/cannery_web/live/ammo_group_live/index.ex:44
+#: lib/cannery_web/live/ammo_group_live/index.ex:50
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Add Ammo"
@@ -168,7 +169,7 @@ msgstr "Munition préparée"
 msgid "Why not get some ready to shoot?"
 msgstr "Pourquoi pas en préparer pour tirer ?"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:190
+#: lib/cannery_web/live/ammo_group_live/index.ex:196
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:101
 #: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format

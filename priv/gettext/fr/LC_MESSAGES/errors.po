@@ -176,12 +176,12 @@ msgstr ""
 msgid "Tag could not be removed"
 msgstr "Le tag n’a pas pu être retiré"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:156
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:157
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "Impossible d'analyser le nombre de copies"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:141
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:142
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"

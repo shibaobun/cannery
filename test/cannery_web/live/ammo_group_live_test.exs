@@ -18,7 +18,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
   @create_attrs %{"count" => 42, "notes" => "some notes", "price_paid" => 120.5}
   @update_attrs %{"count" => 43, "notes" => "some updated notes", "price_paid" => 456.7}
   @ammo_group_create_limit 10_000
-  @ammo_group_attrs %{
+  @empty_attrs %{
     "price_paid" => 50,
     "count" => 20
   }
@@ -32,7 +32,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
   defp create_ammo_group(%{current_user: current_user}) do
     ammo_type = ammo_type_fixture(current_user)
     container = container_fixture(current_user)
-    {1, [ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+    {1, [ammo_group]} = ammo_group_fixture(@create_attrs, ammo_type, container, current_user)
 
     %{ammo_type: ammo_type, ammo_group: ammo_group, container: container}
   end
@@ -49,7 +49,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
          ammo_type: ammo_type,
          container: container
        }) do
-    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
+    {1, [ammo_group]} = ammo_group_fixture(@empty_attrs, ammo_type, container, current_user)
     shot_group = shot_group_fixture(@shot_group_attrs, current_user, ammo_group)
     ammo_group = ammo_group |> Repo.reload!()
     %{empty_ammo_group: ammo_group, shot_group: shot_group}
@@ -70,7 +70,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
-               gettext("Add Ammo")
+               dgettext("actions", "Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -94,7 +94,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
-               gettext("Add Ammo")
+               dgettext("actions", "Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -118,7 +118,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert index_live |> element("a", dgettext("actions", "Add Ammo")) |> render_click() =~
-               gettext("Add Ammo")
+               dgettext("actions", "Add Ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :new))
 
@@ -172,6 +172,62 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Ammo updated successfully")
       assert html =~ "43"
+    end
+
+    test "clones ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
+
+      html =
+        index_live
+        |> element("[data-qa=\"clone-#{ammo_group.id}\"]")
+        |> render_click()
+
+      assert html =~ dgettext("actions", "Add Ammo")
+      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+
+      assert_patch(index_live, Routes.ammo_group_index_path(conn, :clone, ammo_group))
+
+      # assert index_live
+      #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#ammo_group-form")
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
+
+      assert html =~ dgettext("prompts", "Ammo added successfully")
+      assert html =~ "42"
+      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+    end
+
+    test "clones ammo_group in listing with updates", %{conn: conn, ammo_group: ammo_group} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
+
+      html =
+        index_live
+        |> element("[data-qa=\"clone-#{ammo_group.id}\"]")
+        |> render_click()
+
+      assert html =~ dgettext("actions", "Add Ammo")
+      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+
+      assert_patch(index_live, Routes.ammo_group_index_path(conn, :clone, ammo_group))
+
+      # assert index_live
+      #        |> form("#ammo_group-form", ammo_group: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#ammo_group-form", ammo_group: Map.merge(@create_attrs, %{"count" => 43}))
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
+
+      assert html =~ dgettext("prompts", "Ammo added successfully")
+      assert html =~ "43"
+      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
     end
 
     test "deletes ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do

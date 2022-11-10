@@ -61,7 +61,7 @@
 </div>
 
 <%= cond do %>
-  <% @live_action in [:new, :edit] -> %>
+  <% @live_action in [:new, :edit, :clone] -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
         module={CanneryWeb.AmmoGroupLive.FormComponent}

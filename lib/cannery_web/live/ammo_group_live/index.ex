@@ -39,6 +39,12 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
   end
 
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :clone, %{"id" => id}) do
+    socket
+    |> assign(:page_title, dgettext("actions", "Add Ammo"))
+    |> assign(:ammo_group, %{Ammo.get_ammo_group!(id, current_user) | id: nil})
+  end
+
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, dgettext("actions", "Add Ammo"))
@@ -215,6 +221,14 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
         data-qa={"edit-#{@ammo_group.id}"}
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
+      </.link>
+
+      <.link
+        patch={Routes.ammo_group_index_path(Endpoint, :clone, @ammo_group)}
+        class="text-primary-600 link"
+        data-qa={"clone-#{@ammo_group.id}"}
+      >
+        <i class="fa-fw fa-lg fas fa-copy"></i>
       </.link>
 
       <.link
