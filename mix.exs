@@ -13,7 +13,7 @@ defmodule Cannery.MixProject do
       deps: deps(),
       dialyzer: [plt_add_apps: [:ex_unit]],
       consolidate_protocols: Mix.env() not in [:dev, :test],
-      preferred_cli_env: [test: :test],
+      preferred_cli_env: [test: :test, "test.all": :test],
       # ExDoc
       name: "Cannery",
       source_url: "https://gitea.bubbletea.dev/shibao/cannery",
@@ -92,7 +92,7 @@ defmodule Cannery.MixProject do
         "gettext.extract --merge",
         "gettext.merge --no-fuzzy priv/gettext"
       ],
-      test: [
+      "test.all": [
         "cmd npm run test --prefix assets",
         "dialyzer",
         "credo --strict",

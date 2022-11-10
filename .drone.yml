@@ -29,7 +29,7 @@ steps:
   - npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
   - npm run --prefix ./assets deploy
   - mix do phx.digest, gettext.extract
-  - mix test
+  - mix test.all
 
 - name: build and publish stable
   image: thegeeklab/drone-docker-buildx
