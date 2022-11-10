@@ -143,7 +143,7 @@ msgstr "Corrosive"
 msgid "Count"
 msgstr "Quantité"
 
-#: lib/cannery_web/components/ammo_group_card.ex:33
+#: lib/cannery_web/components/ammo_group_card.ex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Count:"
@@ -341,7 +341,7 @@ msgstr "Aucun tag"
 msgid "Notes"
 msgstr "Notes"
 
-#: lib/cannery_web/components/ammo_group_card.ex:39
+#: lib/cannery_web/components/ammo_group_card.ex:43
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Notes:"
@@ -365,7 +365,7 @@ msgstr "Pression"
 msgid "Price paid"
 msgstr "Prix payé"
 
-#: lib/cannery_web/components/ammo_group_card.ex:58
+#: lib/cannery_web/components/ammo_group_card.ex:62
 #, elixir-autogen, elixir-format
 msgid "Price paid:"
 msgstr "Prix payé :"
@@ -589,7 +589,7 @@ msgstr "Aucun autre conteneur"
 msgid "Shot log"
 msgstr "Évènements de tir"
 
-#: lib/cannery_web/components/ammo_group_card.ex:59
+#: lib/cannery_web/components/ammo_group_card.ex:63
 #: lib/cannery_web/live/ammo_group_live/index.ex:145
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
@@ -802,7 +802,7 @@ msgstr "Types de munition"
 msgid "Added on"
 msgstr "Ajouté le"
 
-#: lib/cannery_web/components/ammo_group_card.ex:45
+#: lib/cannery_web/components/ammo_group_card.ex:49
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:30
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:97
 #, elixir-autogen, elixir-format
@@ -916,7 +916,7 @@ msgstr ""
 msgid "Total # of ammo"
 msgstr "Quantité de cartouches"
 
-#: lib/cannery_web/components/ammo_group_card.ex:67
+#: lib/cannery_web/components/ammo_group_card.ex:71
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Container:"
 msgstr "Conteneur"
@@ -932,7 +932,7 @@ msgstr ""
 msgid "Used up on"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_card.ex:51
+#: lib/cannery_web/components/ammo_group_card.ex:55
 #, elixir-autogen, elixir-format
 msgid "Used up on:"
 msgstr ""

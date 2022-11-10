@@ -4,8 +4,12 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
   """
 
   use CanneryWeb, :component
-  alias Cannery.{Ammo, Repo}
+  alias Cannery.{Ammo, Ammo.AmmoGroup, Repo}
   alias CanneryWeb.Endpoint
+
+  attr :ammo_group, AmmoGroup, required: true
+  attr :show_container, :boolean, default: false
+  slot(:inner_block)
 
   def ammo_group_card(%{ammo_group: ammo_group} = assigns) do
     assigns =
