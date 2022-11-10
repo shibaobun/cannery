@@ -53,11 +53,27 @@
       <%= gettext("Shot log") %>
     </h1>
 
+    <canvas
+      id="shot-log-chart"
+      phx-hook="ShotLogChart"
+      phx-update="ignore"
+      class="max-h-72"
+      data-chart-data={Jason.encode!(@chart_data)}
+      data-label={gettext("Rounds fired")}
+      data-color={random_color()}
+      aria-label={gettext("Rounds fired chart")}
+      role="img"
+    >
+      <%= dgettext("errors", "Your browser does not support the canvas element.") %>
+    </canvas>
+
     <.live_component
       module={CanneryWeb.Components.TableComponent}
       id="shot_groups_index_table"
       columns={@columns}
       rows={@rows}
+      initial_key={:date}
+      initial_sort_mode={:desc}
     />
   <% end %>
 </div>

@@ -6,7 +6,7 @@ defmodule CanneryWeb.TagLive.Index do
   use CanneryWeb, :live_view
   import CanneryWeb.Components.TagCard
   alias Cannery.{Tags, Tags.Tag}
-  alias CanneryWeb.Endpoint
+  alias CanneryWeb.{Endpoint, ViewHelpers}
 
   @impl true
   def mount(_params, _session, socket), do: {:ok, socket |> display_tags()}
@@ -25,7 +25,7 @@ defmodule CanneryWeb.TagLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, gettext("New Tag"))
-    |> assign(:tag, %Tag{bg_color: Tags.random_bg_color(), text_color: "#ffffff"})
+    |> assign(:tag, %Tag{bg_color: ViewHelpers.random_color(), text_color: "#ffffff"})
   end
 
   defp apply_action(socket, :index, _params) do

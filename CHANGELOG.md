@@ -10,6 +10,7 @@
 - Make container show page a bit more compact
 - Make container show page filter used-up ammo
 - Forgot to add the logo as the favicon whoops
+- Add graph to range page
 - Update project dependencies
 
 # v0.5.4

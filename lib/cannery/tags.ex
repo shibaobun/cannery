@@ -120,18 +120,4 @@ defmodule Cannery.Tags do
   """
   @spec delete_tag!(Tag.t(), User.t()) :: Tag.t()
   def delete_tag!(%Tag{user_id: user_id} = tag, %User{id: user_id}), do: tag |> Repo.delete!()
-
-  @doc """
-  Get a random tag bg_color in `#ffffff` hex format
-
-  ## Examples
-
-      iex> random_color()
-      "#cc0066"
-  """
-  @spec random_bg_color() :: <<_::7>>
-  def random_bg_color do
-    ["#cc0066", "#ff6699", "#6666ff", "#0066cc", "#00cc66", "#669900", "#ff9900", "#996633"]
-    |> Enum.random()
-  end
 end

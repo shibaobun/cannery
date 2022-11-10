@@ -58,7 +58,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
     |> cast(attrs, [:count, :notes, :date])
     |> validate_number(:count, greater_than: 0)
     |> validate_create_shot_group_count(ammo_group)
-    |> validate_required([:count, :ammo_group_id, :user_id])
+    |> validate_required([:count, :date, :ammo_group_id, :user_id])
   end
 
   def create_changeset(shot_group, _invalid_user, _invalid_ammo_group, attrs) do
@@ -90,7 +90,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
     |> validate_number(:count, greater_than: 0)
-    |> validate_required([:count])
+    |> validate_required([:count, :date])
     |> validate_update_shot_group_count(shot_group, user)
   end
 

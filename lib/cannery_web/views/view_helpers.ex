@@ -115,4 +115,18 @@ defmodule CanneryWeb.ViewHelpers do
     </label>
     """
   end
+
+  @doc """
+  Get a random color in `#ffffff` hex format
+
+  ## Examples
+
+      iex> random_color()
+      "#cc0066"
+  """
+  @spec random_color() :: <<_::7>>
+  def random_color do
+    ["#cc0066", "#ff6699", "#6666ff", "#0066cc", "#00cc66", "#669900", "#ff9900", "#996633"]
+    |> Enum.random()
+  end
 end

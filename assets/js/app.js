@@ -26,6 +26,7 @@ import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
 import topbar from '../vendor/topbar'
 import MaintainAttrs from './maintain_attrs'
+import ShotLogChart from './shot_log_chart'
 import Alpine from 'alpinejs'
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content')
@@ -36,7 +37,7 @@ const liveSocket = new LiveSocket('/live', Socket, {
     }
   },
   params: { _csrf_token: csrfToken },
-  hooks: { MaintainAttrs }
+  hooks: { MaintainAttrs, ShotLogChart }
 })
 
 // alpine.js
