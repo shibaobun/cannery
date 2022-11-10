@@ -16,62 +16,80 @@
     <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
       <%= dgettext("actions", "New Container") %>
     </.link>
+
+    <div class="flex flex-col justify-center items-center">
+      <.toggle_button action="toggle_table" value={@view_table}>
+        <span class="title text-lg text-primary-600">
+          <%= gettext("View as table") %>
+        </span>
+      </.toggle_button>
+    </div>
   <% end %>
 
   <div class="max-w-full flex flex-row flex-wrap justify-center items-center">
-    <%= for container <- @containers do %>
-      <.container_card container={container}>
-        <:tag_actions>
-          <div class="mx-4 my-2">
-            <.link
-              patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
-              class="text-primary-600 link"
-            >
-              <i class="fa-fw fa-lg fas fa-tags"></i>
-            </.link>
-          </div>
-        </:tag_actions>
-        <.link
-          patch={Routes.container_index_path(Endpoint, :edit, container)}
-          class="text-primary-600 link"
-          data-qa={"edit-#{container.id}"}
-        >
-          <i class="fa-fw fa-lg fas fa-edit"></i>
-        </.link>
+    <%= if @view_table do %>
+      <.live_component
+        module={CanneryWeb.Components.TableComponent}
+        id="containers_index_table"
+        action={@live_action}
+        columns={@columns}
+        rows={@rows}
+      />
+    <% else %>
+      <%= for container <- @containers do %>
+        <.container_card container={container}>
+          <:tag_actions>
+            <div class="mx-4 my-2">
+              <.link
+                patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+                class="text-primary-600 link"
+              >
+                <i class="fa-fw fa-lg fas fa-tags"></i>
+              </.link>
+            </div>
+          </:tag_actions>
+          <.link
+            patch={Routes.container_index_path(Endpoint, :edit, container)}
+            class="text-primary-600 link"
+            data-qa={"edit-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-edit"></i>
+          </.link>
 
-        <.link
-          href="#"
-          class="text-primary-600 link"
-          phx-click="delete"
-          phx-value-id={container.id}
-          data-confirm={
-            dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
-          }
-          data-qa={"delete-#{container.id}"}
-        >
-          <i class="fa-fw fa-lg fas fa-trash"></i>
-        </.link>
-      </.container_card>
+          <.link
+            href="#"
+            class="text-primary-600 link"
+            phx-click="delete"
+            phx-value-id={container.id}
+            data-confirm={
+              dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
+            }
+            data-qa={"delete-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-trash"></i>
+          </.link>
+        </.container_card>
+      <% end %>
     <% end %>
   </div>
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+  <.modal return_to={return_to(@view_table)}>
     <.live_component
       module={CanneryWeb.ContainerLive.FormComponent}
       id={@container.id || :new}
       title={@page_title}
       action={@live_action}
       container={@container}
-      return_to={Routes.container_index_path(Endpoint, :index)}
+      return_to={return_to(@view_table)}
       current_user={@current_user}
     />
   </.modal>
 <% end %>
 
 <%= if @live_action == :edit_tags do %>
-  <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+  <.modal return_to={return_to(@view_table)}>
     <.live_component
       module={CanneryWeb.ContainerLive.EditTagsComponent}
       id={@container.id}

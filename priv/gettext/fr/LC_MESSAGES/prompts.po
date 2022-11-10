@@ -50,7 +50,7 @@ msgstr "%{name} supprimé·e avec succès"
 msgid "%{name} enabled succesfully"
 msgstr "%{name} activé·e avec succès"
 
-#: lib/cannery_web/live/container_live/index.ex:62
+#: lib/cannery_web/live/container_live/index.ex:74
 #: lib/cannery_web/live/container_live/show.ex:61
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
@@ -88,7 +88,8 @@ msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 "Êtes-vous certain·e de supprimer %{email} ? Cette action est définitive !"
 
-#: lib/cannery_web/live/container_live/index.html.heex:48
+#: lib/cannery_web/live/container_live/index.ex:208
+#: lib/cannery_web/live/container_live/index.html.heex:65
 #: lib/cannery_web/live/container_live/show.html.heex:51
 #: lib/cannery_web/live/tag_live/index.html.heex:39
 #, elixir-autogen, elixir-format

@@ -47,7 +47,7 @@ defmodule CanneryWeb.Components.TableComponent do
       if assigns |> Map.has_key?(:initial_key) do
         assigns.initial_key
       else
-        columns |> List.first() |> Map.get(:key)
+        columns |> List.first(%{}) |> Map.get(:key)
       end
 
     initial_sort_mode =

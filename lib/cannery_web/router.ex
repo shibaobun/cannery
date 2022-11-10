@@ -74,6 +74,7 @@ defmodule CanneryWeb.Router do
     live "/catalog/:id/show/edit", AmmoTypeLive.Show, :edit
 
     live "/containers", ContainerLive.Index, :index
+    live "/containers/table", ContainerLive.Index, :table
     live "/containers/new", ContainerLive.Index, :new
     live "/containers/:id/edit", ContainerLive.Index, :edit
     live "/containers/:id/edit_tags", ContainerLive.Index, :edit_tags

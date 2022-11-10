@@ -124,7 +124,8 @@ msgid "Container"
 msgstr "Behälter"
 
 #: lib/cannery_web/components/topbar.ex:57
-#: lib/cannery_web/live/container_live/index.ex:36
+#: lib/cannery_web/live/container_live/index.ex:37
+#: lib/cannery_web/live/container_live/index.ex:46
 #: lib/cannery_web/live/container_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Containers"
@@ -151,6 +152,7 @@ msgstr "Anzahl:"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:24
 #: lib/cannery_web/live/container_live/form_component.html.heex:27
+#: lib/cannery_web/live/container_live/index.ex:115
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr "Beschreibung"
@@ -240,6 +242,7 @@ msgstr "Für 60 Tage eingeloggt bleiben"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:69
 #: lib/cannery_web/live/container_live/form_component.html.heex:42
+#: lib/cannery_web/live/container_live/index.ex:116
 #, elixir-autogen, elixir-format
 msgid "Location"
 msgstr "Standort"
@@ -275,6 +278,7 @@ msgstr "Meine coole Munitionskiste"
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:20
 #: lib/cannery_web/live/ammo_type_live/index.ex:51
 #: lib/cannery_web/live/container_live/form_component.html.heex:20
+#: lib/cannery_web/live/container_live/index.ex:114
 #: lib/cannery_web/live/invite_live/form_component.html.heex:20
 #: lib/cannery_web/live/tag_live/form_component.ex:75
 #, elixir-autogen, elixir-format
@@ -421,6 +425,7 @@ msgid "Stored in"
 msgstr "Gelagert in"
 
 #: lib/cannery_web/components/topbar.ex:49
+#: lib/cannery_web/live/container_live/index.ex:120
 #: lib/cannery_web/live/tag_live/index.ex:32
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 #, elixir-autogen, elixir-format
@@ -451,6 +456,7 @@ msgstr "Leuchtspur"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:68
 #: lib/cannery_web/live/container_live/form_component.html.heex:35
+#: lib/cannery_web/live/container_live/index.ex:117
 #, elixir-autogen, elixir-format
 msgid "Type"
 msgstr "Art"
@@ -686,7 +692,7 @@ msgstr "Lädt..."
 msgid "Edit %{name}"
 msgstr "%{name} bearbeiten"
 
-#: lib/cannery_web/live/container_live/index.ex:46
+#: lib/cannery_web/live/container_live/index.ex:58
 #: lib/cannery_web/live/container_live/show.ex:107
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
@@ -964,3 +970,18 @@ msgstr ""
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot: %{count}"
 msgstr "Patronen abgefeuert"
+
+#: lib/cannery_web/live/container_live/index.ex:118
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Packs"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/index.ex:119
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Rounds"
+msgstr "Patronen:"
+
+#: lib/cannery_web/live/container_live/index.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "View as table"
+msgstr ""
