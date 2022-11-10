@@ -200,3 +200,8 @@ msgstr "Veuillez choisir un type de munitions et un conteneur"
 #, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo group"
 msgstr "Veuillez choisir un utilisateur valide et un groupe de munitions"
+
+#: lib/cannery_web/live/range_live/index.html.heex:67
+#, elixir-autogen, elixir-format
+msgid "Your browser does not support the canvas element."
+msgstr ""

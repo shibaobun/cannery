@@ -4,6 +4,10 @@ defmodule CanneryWeb.Components.UserCard do
   """
 
   use CanneryWeb, :component
+  alias Cannery.Accounts.User
+
+  attr :user, User, required: true
+  slot(:inner_block, required: true)
 
   def user_card(assigns) do
     ~H"""

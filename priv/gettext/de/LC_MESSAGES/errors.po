@@ -201,3 +201,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo group"
 msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:67
+#, elixir-autogen, elixir-format
+msgid "Your browser does not support the canvas element."
+msgstr ""

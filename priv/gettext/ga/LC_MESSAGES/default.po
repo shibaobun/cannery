@@ -801,7 +801,7 @@ msgstr ""
 msgid "Added on:"
 msgstr ""
 
-#: lib/cannery_web/components/user_card.ex:30
+#: lib/cannery_web/components/user_card.ex:34
 #, elixir-autogen, elixir-format
 msgid "User registered on"
 msgstr ""
@@ -932,4 +932,29 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.ex:121
+#, elixir-autogen, elixir-format
+msgid "Name: %{name}"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.ex:115
+#, elixir-autogen, elixir-format
+msgid "Notes: %{notes}"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:62
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Rounds fired"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "Rounds fired chart"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.ex:125
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Rounds shot: %{count}"
 msgstr ""
