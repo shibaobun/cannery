@@ -4,6 +4,10 @@ defmodule CanneryWeb.Components.TagCard do
   """
 
   use CanneryWeb, :component
+  alias Cannery.Tags.Tag
+
+  attr :tag, Tag, required: true
+  slot(:inner_block, required: true)
 
   def tag_card(assigns) do
     ~H"""
@@ -18,6 +22,8 @@ defmodule CanneryWeb.Components.TagCard do
     </div>
     """
   end
+
+  attr :tag, Tag, required: true
 
   def simple_tag_card(assigns) do
     ~H"""
