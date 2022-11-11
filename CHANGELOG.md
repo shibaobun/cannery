@@ -14,6 +14,7 @@
 - Add graph to range page
 - Add JSON export of data
 - Add ammo cloning
+- Add container cloning
 - Update project dependencies
 
 # v0.5.4

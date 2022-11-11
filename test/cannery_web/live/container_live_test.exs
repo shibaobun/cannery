@@ -114,6 +114,63 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ "some updated location"
     end
 
+    test "clones container in listing", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
+
+      html = index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click()
+      assert html =~ gettext("New Container")
+      assert html =~ "some location"
+
+      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
+
+      # assert index_live
+      #        |> form("#container-form", container: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#container-form", container: @create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
+
+      container = container.id |> Containers.get_container!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "some location"
+    end
+
+    test "clones container in listing with updates", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
+
+      assert index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click() =~
+               gettext("New Container")
+
+      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
+
+      # assert index_live
+      #        |> form("#container-form", container: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#container-form",
+          container: Map.merge(@create_attrs, %{location: "some updated location"})
+        )
+        |> render_submit()
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
+
+      container = container.id |> Containers.get_container!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "some updated location"
+    end
+
     test "deletes container in listing", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
@@ -178,6 +235,63 @@ defmodule CanneryWeb.ContainerLiveTest do
 
       container = container.id |> Containers.get_container!(current_user)
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
+      assert html =~ "some updated location"
+    end
+
+    test "clones container in listing", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
+
+      html = index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click()
+      assert html =~ gettext("New Container")
+      assert html =~ "some location"
+
+      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
+
+      # assert index_live
+      #        |> form("#container-form", container: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#container-form", container: @create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
+
+      container = container.id |> Containers.get_container!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "some location"
+    end
+
+    test "clones container in listing with updates", %{
+      conn: conn,
+      current_user: current_user,
+      container: container
+    } do
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
+
+      assert index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click() =~
+               gettext("New Container")
+
+      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
+
+      # assert index_live
+      #        |> form("#container-form", container: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#container-form",
+          container: Map.merge(@create_attrs, %{location: "some updated location"})
+        )
+        |> render_submit()
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
+
+      container = container.id |> Containers.get_container!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
       assert html =~ "some updated location"
     end
 

@@ -57,6 +57,14 @@
           </.link>
 
           <.link
+            patch={Routes.container_index_path(Endpoint, :clone, container)}
+            class="text-primary-600 link"
+            data-qa={"clone-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-copy"></i>
+          </.link>
+
+          <.link
             href="#"
             class="text-primary-600 link"
             phx-click="delete"
@@ -74,7 +82,7 @@
   </div>
 </div>
 
-<%= if @live_action in [:new, :edit] do %>
+<%= if @live_action in [:new, :edit, :clone] do %>
   <.modal return_to={return_to(@view_table)}>
     <.live_component
       module={CanneryWeb.ContainerLive.FormComponent}

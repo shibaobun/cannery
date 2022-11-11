@@ -31,6 +31,13 @@ defmodule CanneryWeb.ContainerLive.Index do
     socket |> assign(:page_title, gettext("New Container")) |> assign(:container, %Container{})
   end
 
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :clone, %{"id" => id}) do
+    container = Containers.get_container!(id, current_user)
+
+    socket
+    |> assign(page_title: gettext("New Container"), container: %{container | id: nil})
+  end
+
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(
@@ -197,6 +204,14 @@ defmodule CanneryWeb.ContainerLive.Index do
       data-qa={"edit-#{@container.id}"}
     >
       <i class="fa-fw fa-lg fas fa-edit"></i>
+    </.link>
+
+    <.link
+      patch={Routes.container_index_path(Endpoint, :clone, @container)}
+      class="text-primary-600 link"
+      data-qa={"clone-#{@container.id}"}
+    >
+      <i class="fa-fw fa-lg fas fa-copy"></i>
     </.link>
 
     <.link

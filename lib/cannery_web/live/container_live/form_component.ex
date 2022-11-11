@@ -35,15 +35,18 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
          container_params
        ) do
     changeset_action =
-      case action do
-        :new -> :insert
-        :edit -> :update
+      cond do
+        action in [:new, :clone] -> :insert
+        action == :edit -> :update
       end
 
     changeset =
-      case action do
-        :new -> container |> Container.create_changeset(user, container_params)
-        :edit -> container |> Container.update_changeset(container_params)
+      cond do
+        action in [:new, :clone] ->
+          container |> Container.create_changeset(user, container_params)
+
+        action == :edit ->
+          container |> Container.update_changeset(container_params)
       end
 
     changeset =
@@ -76,9 +79,10 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
 
   defp save_container(
          %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
-         :new,
+         action,
          container_params
-       ) do
+       )
+       when action in [:new, :clone] do
     socket =
       case Containers.create_container(container_params, current_user) do
         {:ok, %{name: container_name}} ->

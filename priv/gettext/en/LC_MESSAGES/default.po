@@ -110,8 +110,8 @@ msgid "Container"
 msgstr ""
 
 #: lib/cannery_web/components/topbar.ex:57
-#: lib/cannery_web/live/container_live/index.ex:37
-#: lib/cannery_web/live/container_live/index.ex:46
+#: lib/cannery_web/live/container_live/index.ex:44
+#: lib/cannery_web/live/container_live/index.ex:53
 #: lib/cannery_web/live/container_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Containers"
@@ -138,7 +138,7 @@ msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:24
 #: lib/cannery_web/live/container_live/form_component.html.heex:27
-#: lib/cannery_web/live/container_live/index.ex:115
+#: lib/cannery_web/live/container_live/index.ex:122
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr ""
@@ -228,7 +228,7 @@ msgstr ""
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:69
 #: lib/cannery_web/live/container_live/form_component.html.heex:42
-#: lib/cannery_web/live/container_live/index.ex:116
+#: lib/cannery_web/live/container_live/index.ex:123
 #, elixir-autogen, elixir-format
 msgid "Location"
 msgstr ""
@@ -264,7 +264,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:20
 #: lib/cannery_web/live/ammo_type_live/index.ex:51
 #: lib/cannery_web/live/container_live/form_component.html.heex:20
-#: lib/cannery_web/live/container_live/index.ex:114
+#: lib/cannery_web/live/container_live/index.ex:121
 #: lib/cannery_web/live/invite_live/form_component.html.heex:20
 #: lib/cannery_web/live/tag_live/form_component.ex:75
 #, elixir-autogen, elixir-format
@@ -277,6 +277,7 @@ msgid "New Ammo type"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.ex:31
+#: lib/cannery_web/live/container_live/index.ex:38
 #, elixir-autogen, elixir-format
 msgid "New Container"
 msgstr ""
@@ -409,7 +410,7 @@ msgid "Stored in"
 msgstr ""
 
 #: lib/cannery_web/components/topbar.ex:49
-#: lib/cannery_web/live/container_live/index.ex:120
+#: lib/cannery_web/live/container_live/index.ex:127
 #: lib/cannery_web/live/tag_live/index.ex:32
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 #, elixir-autogen, elixir-format
@@ -440,7 +441,7 @@ msgstr ""
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:68
 #: lib/cannery_web/live/container_live/form_component.html.heex:35
-#: lib/cannery_web/live/container_live/index.ex:117
+#: lib/cannery_web/live/container_live/index.ex:124
 #, elixir-autogen, elixir-format
 msgid "Type"
 msgstr ""
@@ -676,7 +677,7 @@ msgstr ""
 msgid "Edit %{name}"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.ex:58
+#: lib/cannery_web/live/container_live/index.ex:65
 #: lib/cannery_web/live/container_live/show.ex:107
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
@@ -955,12 +956,12 @@ msgstr ""
 msgid "Rounds shot: %{count}"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.ex:118
+#: lib/cannery_web/live/container_live/index.ex:125
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Packs"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.ex:119
+#: lib/cannery_web/live/container_live/index.ex:126
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds"
 msgstr ""
