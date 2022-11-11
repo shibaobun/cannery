@@ -21,6 +21,7 @@ defmodule CanneryWeb.Components.TableComponent do
 
   use CanneryWeb, :live_component
   alias Phoenix.LiveView.Socket
+  require Integer
 
   @impl true
   @spec update(
@@ -30,6 +31,8 @@ defmodule CanneryWeb.Components.TableComponent do
                 required(:label) => String.t() | nil,
                 required(:key) => atom() | nil,
                 optional(:class) => String.t(),
+                optional(:row_class) => String.t(),
+                optional(:alternate_row_class) => String.t(),
                 optional(:sortable) => false
               }),
             required(:rows) =>
@@ -57,7 +60,7 @@ defmodule CanneryWeb.Components.TableComponent do
         :asc
       end
 
-    rows = rows |> Enum.sort_by(fn row -> row |> Map.get(initial_key) end, initial_sort_mode)
+    rows = rows |> sort_by_custom_sort_value_or_value(initial_key, initial_sort_mode)
 
     socket =
       socket
@@ -68,6 +71,8 @@ defmodule CanneryWeb.Components.TableComponent do
         last_sort_key: initial_key,
         sort_mode: initial_sort_mode
       )
+      |> assign_new(:row_class, fn -> "bg-white" end)
+      |> assign_new(:alternate_row_class, fn -> "bg-gray-200" end)
 
     {:ok, socket}
   end

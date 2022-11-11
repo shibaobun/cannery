@@ -1,3 +1,6 @@
+# v0.6.1
+- Add shading to table component
+
 # v0.6.0
 - Update translations
 - Display used-up date on used-up ammo
