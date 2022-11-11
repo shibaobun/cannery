@@ -181,6 +181,40 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     end
   end
 
+  describe "Index with ammo group" do
+    setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
+
+    test "shows additional ammo type info on toggle",
+         %{conn: conn, ammo_group: ammo_group, current_user: current_user} do
+      {:ok, show_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+
+      assert html =~ dgettext("actions", "Show used")
+      refute html =~ gettext("Used Total # of rounds")
+      refute html =~ gettext("Historical Total # of rounds")
+      refute html =~ gettext("Used Total # of ammo")
+      refute html =~ gettext("Historical Total # of ammo")
+
+      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+
+      assert html =~ gettext("Used Total # of rounds")
+      assert html =~ gettext("Historical Total # of rounds")
+      assert html =~ gettext("Used Total # of ammo")
+      assert html =~ gettext("Historical Total # of ammo")
+
+      assert html =~ "20"
+      assert html =~ "0"
+      assert html =~ "1"
+
+      shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
+
+      {:ok, show_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+
+      assert html =~ "15"
+      assert html =~ "5"
+    end
+  end
+
   describe "Show ammo type" do
     setup [:register_and_log_in_user, :create_ammo_type]
 

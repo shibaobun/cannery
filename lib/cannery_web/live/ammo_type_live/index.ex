@@ -10,7 +10,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> list_ammo_types()}
+    {:ok, socket |> assign(:show_used, false) |> list_ammo_types()}
   end
 
   @impl true
@@ -49,7 +49,12 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> list_ammo_types()}
   end
 
-  defp list_ammo_types(%{assigns: %{current_user: current_user}} = socket) do
+  @impl true
+  def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
+    {:noreply, socket |> assign(:show_used, !show_used) |> list_ammo_types()}
+  end
+
+  defp list_ammo_types(%{assigns: %{current_user: current_user, show_used: show_used}} = socket) do
     ammo_types = Ammo.list_ammo_types(current_user)
 
     columns =
@@ -89,8 +94,46 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         end)
       end)
       |> Kernel.++([
-        %{label: gettext("Total # of rounds"), key: :round_count, type: :round_count},
-        %{label: gettext("Total # of ammo"), key: :ammo_count, type: :ammo_count},
+        %{label: gettext("Total # of rounds"), key: :round_count, type: :round_count}
+      ])
+      |> Kernel.++(
+        if show_used do
+          [
+            %{
+              label: gettext("Used Total # of rounds"),
+              key: :used_round_count,
+              type: :used_round_count
+            },
+            %{
+              label: gettext("Historical Total # of rounds"),
+              key: :historical_round_count,
+              type: :historical_round_count
+            }
+          ]
+        else
+          []
+        end
+      )
+      |> Kernel.++([%{label: gettext("Total # of ammo"), key: :ammo_count, type: :ammo_count}])
+      |> Kernel.++(
+        if show_used do
+          [
+            %{
+              label: gettext("Used Total # of ammo"),
+              key: :used_ammo_count,
+              type: :used_ammo_count
+            },
+            %{
+              label: gettext("Historical Total # of ammo"),
+              key: :historical_ammo_count,
+              type: :historical_ammo_count
+            }
+          ]
+        else
+          []
+        end
+      )
+      |> Kernel.++([
         %{label: gettext("Average Price paid"), key: :avg_price_paid, type: :avg_price_paid},
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
@@ -114,6 +157,18 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   defp get_ammo_type_value(:round_count, _key, ammo_type, current_user),
     do: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
+
+  defp get_ammo_type_value(:historical_round_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_historical_count_for_ammo_type(current_user)
+
+  defp get_ammo_type_value(:used_round_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_used_count_for_ammo_type(current_user)
+
+  defp get_ammo_type_value(:historical_ammo_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
+
+  defp get_ammo_type_value(:used_ammo_count, _key, ammo_type, current_user),
+    do: ammo_type |> Ammo.get_used_ammo_groups_count_for_type(current_user)
 
   defp get_ammo_type_value(:ammo_count, _key, ammo_type, current_user),
     do: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user)

@@ -294,7 +294,7 @@ msgid_plural "Ammo added successfully"
 msgstr[0] "Groupe de munition mis à jour avec succès"
 msgstr[1] "Groupe de munition mis à jour avec succès"
 
-#: lib/cannery_web/live/ammo_type_live/index.ex:177
+#: lib/cannery_web/live/ammo_type_live/index.ex:232
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:28
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
