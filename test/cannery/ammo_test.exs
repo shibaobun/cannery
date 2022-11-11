@@ -94,6 +94,135 @@ defmodule Cannery.AmmoTest do
     end
   end
 
+  describe "ammo types with ammo groups" do
+    setup do
+      current_user = user_fixture()
+      ammo_type = ammo_type_fixture(current_user)
+      container = container_fixture(current_user)
+
+      [
+        ammo_type: ammo_type,
+        container: container,
+        current_user: current_user
+      ]
+    end
+
+    test "get_average_cost_for_ammo_type!/2 gets average cost for ammo type",
+         %{ammo_type: ammo_type, current_user: current_user, container: container} do
+      {1, [_ammo_group]} =
+        ammo_group_fixture(
+          %{"price_paid" => 25.00, "count" => 1},
+          ammo_type,
+          container,
+          current_user
+        )
+
+      assert 25.0 = Ammo.get_average_cost_for_ammo_type!(ammo_type, current_user)
+
+      {1, [_ammo_group]} =
+        ammo_group_fixture(
+          %{"price_paid" => 25.00, "count" => 1},
+          ammo_type,
+          container,
+          current_user
+        )
+
+      assert 25.0 = Ammo.get_average_cost_for_ammo_type!(ammo_type, current_user)
+
+      {1, [_ammo_group]} =
+        ammo_group_fixture(
+          %{"price_paid" => 70.00, "count" => 1},
+          ammo_type,
+          container,
+          current_user
+        )
+
+      assert 40.0 = Ammo.get_average_cost_for_ammo_type!(ammo_type, current_user)
+
+      {1, [_ammo_group]} =
+        ammo_group_fixture(
+          %{"price_paid" => 30.00, "count" => 1},
+          ammo_type,
+          container,
+          current_user
+        )
+
+      assert 37.5 = Ammo.get_average_cost_for_ammo_type!(ammo_type, current_user)
+    end
+
+    test "get_round_count_for_ammo_type/2 gets accurate round count for ammo type",
+         %{ammo_type: ammo_type, current_user: current_user, container: container} do
+      {1, [first_ammo_group]} =
+        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+
+      assert 1 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
+
+      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+
+      assert 51 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      assert 25 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      assert 24 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
+    end
+
+    test "get_used_count_for_ammo_type/2 gets accurate used round count for ammo type",
+         %{ammo_type: ammo_type, current_user: current_user, container: container} do
+      {1, [first_ammo_group]} =
+        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+
+      assert 0 = Ammo.get_used_count_for_ammo_type(ammo_type, current_user)
+
+      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+
+      assert 0 = Ammo.get_used_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      assert 26 = Ammo.get_used_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      assert 27 = Ammo.get_used_count_for_ammo_type(ammo_type, current_user)
+    end
+
+    test "get_historical_count_for_ammo_type/2 gets accurate total round count for ammo type",
+         %{ammo_type: ammo_type, current_user: current_user, container: container} do
+      {1, [first_ammo_group]} =
+        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+
+      assert 1 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
+
+      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+
+      assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
+    end
+
+    test "get_used_ammo_groups_count_for_type/2 gets accurate total ammo count for ammo type",
+         %{ammo_type: ammo_type, current_user: current_user, container: container} do
+      {1, [first_ammo_group]} =
+        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+
+      assert 0 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
+
+      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+
+      assert 0 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 50}, current_user, ammo_group)
+      assert 1 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
+
+      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      assert 2 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
+    end
+  end
+
   describe "ammo_groups" do
     @valid_attrs %{"count" => 42, "notes" => "some notes", "price_paid" => 120.5}
     @update_attrs %{"count" => 43, "notes" => "some updated notes", "price_paid" => 456.7}
@@ -103,7 +232,7 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       ammo_type = ammo_type_fixture(current_user)
       container = container_fixture(current_user)
-      {1, [ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
 
       [
         ammo_type: ammo_type,
@@ -113,9 +242,76 @@ defmodule Cannery.AmmoTest do
       ]
     end
 
-    test "list_ammo_groups/0 returns all ammo_groups",
-         %{ammo_group: ammo_group, current_user: current_user} do
+    test "list_ammo_groups/2 returns all ammo_groups",
+         %{
+           ammo_type: ammo_type,
+           ammo_group: ammo_group,
+           container: container,
+           current_user: current_user
+         } do
+      {1, [another_ammo_group]} =
+        ammo_group_fixture(%{"count" => 30}, ammo_type, container, current_user)
+
+      shot_group_fixture(%{"count" => 30}, current_user, another_ammo_group)
+      another_ammo_group = another_ammo_group |> Repo.reload!()
       assert Ammo.list_ammo_groups(current_user) == [ammo_group] |> Repo.preload(:shot_groups)
+
+      assert Ammo.list_ammo_groups(current_user, true)
+             |> Enum.sort_by(fn %{count: count} -> count end) ==
+               [another_ammo_group, ammo_group] |> Repo.preload(:shot_groups)
+    end
+
+    test "list_ammo_groups_for_type/2 returns all ammo_groups for a type",
+         %{
+           ammo_type: ammo_type,
+           container: container,
+           ammo_group: ammo_group,
+           current_user: current_user
+         } do
+      another_ammo_type = ammo_type_fixture(current_user)
+      {1, [_another]} = ammo_group_fixture(another_ammo_type, container, current_user)
+
+      assert Ammo.list_ammo_groups_for_type(ammo_type, current_user) ==
+               [ammo_group] |> Repo.preload(:shot_groups)
+    end
+
+    test "list_ammo_groups_for_container/2 returns all ammo_groups for a container",
+         %{
+           ammo_type: ammo_type,
+           container: container,
+           ammo_group: ammo_group,
+           current_user: current_user
+         } do
+      another_container = container_fixture(current_user)
+      {1, [_another]} = ammo_group_fixture(ammo_type, another_container, current_user)
+
+      assert Ammo.list_ammo_groups_for_container(container, current_user) ==
+               [ammo_group] |> Repo.preload(:shot_groups)
+    end
+
+    test "get_ammo_groups_count_for_type/2 returns count of ammo_groups for a type",
+         %{
+           ammo_type: ammo_type,
+           container: container,
+           current_user: current_user
+         } do
+      another_ammo_type = ammo_type_fixture(current_user)
+      {1, [_another]} = ammo_group_fixture(another_ammo_type, container, current_user)
+
+      assert 1 = Ammo.get_ammo_groups_count_for_type(ammo_type, current_user)
+    end
+
+    test "list_staged_ammo_groups/2 returns all ammo_groups that are staged",
+         %{
+           ammo_type: ammo_type,
+           container: container,
+           current_user: current_user
+         } do
+      {1, [another_ammo_group]} =
+        ammo_group_fixture(%{"staged" => true}, ammo_type, container, current_user)
+
+      assert Ammo.list_staged_ammo_groups(current_user) ==
+               [another_ammo_group] |> Repo.preload(:shot_groups)
     end
 
     test "get_ammo_group!/1 returns the ammo_group with given id",
@@ -138,6 +334,27 @@ defmodule Cannery.AmmoTest do
       assert ammo_group.count == 42
       assert ammo_group.notes == "some notes"
       assert ammo_group.price_paid == 120.5
+    end
+
+    test "create_ammo_groups/3 with valid data creates multiple ammo_groups",
+         %{
+           ammo_type: ammo_type,
+           container: container,
+           current_user: current_user
+         } do
+      assert {:ok, {3, ammo_groups}} =
+               @valid_attrs
+               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Ammo.create_ammo_groups(3, current_user)
+
+      assert [%AmmoGroup{}, %AmmoGroup{}, %AmmoGroup{}] = ammo_groups
+
+      ammo_groups
+      |> Enum.map(fn %{count: count, notes: notes, price_paid: price_paid} ->
+        assert count == 42
+        assert notes == "some notes"
+        assert price_paid == 120.5
+      end)
     end
 
     test "create_ammo_groups/3 with invalid data returns error changeset",
@@ -174,6 +391,58 @@ defmodule Cannery.AmmoTest do
       assert_raise Ecto.NoResultsError, fn ->
         Ammo.get_ammo_group!(ammo_group.id, current_user)
       end
+    end
+
+    test "get_used_count/1 returns accurate used count",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert 0 = Ammo.get_used_count(ammo_group)
+      shot_group_fixture(%{"count" => 15}, current_user, ammo_group)
+      assert 15 = ammo_group |> Repo.preload(:shot_groups, force: true) |> Ammo.get_used_count()
+      shot_group_fixture(%{"count" => 10}, current_user, ammo_group)
+      assert 25 = ammo_group |> Repo.preload(:shot_groups, force: true) |> Ammo.get_used_count()
+    end
+
+    test "get_last_used_shot_group/1 returns accurate used count",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert ammo_group
+             |> Repo.preload(:shot_groups, force: true)
+             |> Ammo.get_last_used_shot_group()
+             |> is_nil()
+
+      shot_group = shot_group_fixture(%{"date" => ~D[2022-11-10]}, current_user, ammo_group)
+
+      assert ^shot_group =
+               ammo_group
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_last_used_shot_group()
+
+      shot_group = shot_group_fixture(%{"date" => ~D[2022-11-11]}, current_user, ammo_group)
+
+      assert ^shot_group =
+               ammo_group
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_last_used_shot_group()
+    end
+
+    test "get_percentage_remaining/1 gets accurate total round count for ammo type",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert 100 = Ammo.get_percentage_remaining(ammo_group)
+
+      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+
+      assert 44 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_percentage_remaining()
+
+      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+
+      assert 0 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_percentage_remaining()
     end
   end
 end

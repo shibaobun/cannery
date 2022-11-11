@@ -187,7 +187,7 @@ msgstr ""
 "Ungültige Nummer an Kopien. Muss zwischen 1 and %{max} liegen. War "
 "%{multiplier}"
 
-#: lib/cannery/ammo.ex:535
+#: lib/cannery/ammo.ex:587
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
 msgstr ""

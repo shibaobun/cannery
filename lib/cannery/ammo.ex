@@ -101,7 +101,7 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_round_count_for_ammo_type(123, %User{id: 123})
-      %AmmoType{}
+      35
 
       iex> get_round_count_for_ammo_type(456, %User{id: 123})
       ** (Ecto.NoResultsError)
@@ -127,7 +127,7 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_used_count_for_ammo_type(123, %User{id: 123})
-      %AmmoType{}
+      35
 
       iex> get_used_count_for_ammo_type(456, %User{id: 123})
       ** (Ecto.NoResultsError)
@@ -144,6 +144,29 @@ defmodule Cannery.Ammo do
         where: ag.ammo_type_id == ^ammo_type_id,
         select: sum(sg.count)
     ) || 0
+  end
+
+  @doc """
+  Gets the total number of ammo ever bought for an ammo type
+
+  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+
+  ## Examples
+
+      iex> get_historical_count_for_ammo_type(123, %User{id: 123})
+      %AmmoType{}
+
+      iex> get_historical_count_for_ammo_type(456, %User{id: 123})
+      ** (Ecto.NoResultsError)
+
+  """
+  @spec get_historical_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  def get_historical_count_for_ammo_type(
+        %AmmoType{user_id: user_id} = ammo_type,
+        %User{id: user_id} = user
+      ) do
+    get_round_count_for_ammo_type(ammo_type, user) +
+      get_used_count_for_ammo_type(ammo_type, user)
   end
 
   @doc """
@@ -305,8 +328,11 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_ammo_groups_count_for_type(%User{id: 123})
+      iex> get_ammo_groups_count_for_type(%AmmoType{id: 123}, %User{id: 123})
       3
+
+      iex> get_ammo_groups_count_for_type(%AmmoType{id: 123}, %User{id: 123}, true)
+      5
 
   """
   @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
@@ -338,6 +364,30 @@ defmodule Cannery.Ammo do
         where: ag.user_id == ^user_id,
         where: ag.ammo_type_id == ^ammo_type_id,
         where: not (ag.count == 0),
+        distinct: true,
+        select: count(ag.id)
+    ) || 0
+  end
+
+  @doc """
+  Returns the count of used ammo_groups for an ammo type.
+
+  ## Examples
+
+      iex> get_used_ammo_groups_count_for_type(%AmmoType{id: 123}, %User{id: 123})
+      3
+
+  """
+  @spec get_used_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
+  def get_used_ammo_groups_count_for_type(
+        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
+    Repo.one!(
+      from ag in AmmoGroup,
+        where: ag.user_id == ^user_id,
+        where: ag.ammo_type_id == ^ammo_type_id,
+        where: ag.count == 0,
         distinct: true,
         select: count(ag.id)
     ) || 0
@@ -456,7 +506,9 @@ defmodule Cannery.Ammo do
     ammo_group = ammo_group |> Repo.preload(:shot_groups)
 
     shot_group_sum =
-      ammo_group.shot_groups |> Enum.map(fn %{count: count} -> count end) |> Enum.sum()
+      ammo_group.shot_groups
+      |> Enum.map(fn %{count: count} -> count end)
+      |> Enum.sum()
 
     round(count / (count + shot_group_sum) * 100)
   end
