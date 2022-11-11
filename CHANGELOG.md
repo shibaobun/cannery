@@ -17,6 +17,7 @@
 - Add ammo type cloning
 - Add container cloning
 - Fix bug with moving ammo packs between containers
+- Add button to set rounds left to 0 when creating a shot group
 - Update project dependencies
 
 # v0.5.4

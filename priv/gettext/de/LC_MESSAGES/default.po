@@ -338,7 +338,7 @@ msgstr "Keine Einladung"
 msgid "No tags"
 msgstr "Keine Tags"
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:30
+#: lib/cannery_web/components/add_shot_group_component.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
 #: lib/cannery_web/live/ammo_group_live/show.ex:88
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
@@ -537,7 +537,7 @@ msgstr "Schüsse dokumentieren"
 msgid "Ammo groups"
 msgstr "Munitionsgruppen"
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:38
+#: lib/cannery_web/components/add_shot_group_component.html.heex:45
 #: lib/cannery_web/live/range_live/form_component.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Date (UTC)"
@@ -560,6 +560,7 @@ msgid "No shots recorded"
 msgstr "Keine Schüsse dokumentiert"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:21
+#: lib/cannery_web/components/add_shot_group_component.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Rounds left"
 msgstr "Patronen verbleibend"
@@ -1011,4 +1012,9 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:89
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Used rounds:"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:33
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Used up!"
 msgstr ""

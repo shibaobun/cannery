@@ -323,7 +323,7 @@ msgstr ""
 msgid "No tags"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:30
+#: lib/cannery_web/components/add_shot_group_component.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
 #: lib/cannery_web/live/ammo_group_live/show.ex:88
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
@@ -520,7 +520,7 @@ msgstr ""
 msgid "Ammo groups"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:38
+#: lib/cannery_web/components/add_shot_group_component.html.heex:45
 #: lib/cannery_web/live/range_live/form_component.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Date (UTC)"
@@ -543,6 +543,7 @@ msgid "No shots recorded"
 msgstr ""
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:21
+#: lib/cannery_web/components/add_shot_group_component.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Rounds left"
 msgstr ""
@@ -994,4 +995,9 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:89
 #, elixir-autogen, elixir-format
 msgid "Used rounds:"
+msgstr ""
+
+#: lib/cannery_web/components/add_shot_group_component.html.heex:33
+#, elixir-autogen, elixir-format
+msgid "Used up!"
 msgstr ""

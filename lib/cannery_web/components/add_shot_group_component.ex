@@ -5,7 +5,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo.AmmoGroup}
-  alias Phoenix.LiveView.Socket
+  alias Phoenix.LiveView.{JS, Socket}
 
   @impl true
   @spec update(

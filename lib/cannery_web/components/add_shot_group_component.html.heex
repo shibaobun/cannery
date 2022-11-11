@@ -22,9 +22,16 @@
     <%= number_input(f, :ammo_left,
       min: 0,
       max: @ammo_group.count - 1,
-      placeholder: 0,
-      class: "input input-primary col-span-2"
+      placeholder: gettext("Rounds left"),
+      class: "input input-primary"
     ) %>
+    <button
+      type="button"
+      class="mx-2 my-1 text-sm btn btn-primary"
+      phx-click={JS.dispatch("cannery:set-zero", to: "#shot-group-form_ammo_left")}
+    >
+      <%= gettext("Used up!") %>
+    </button>
     <%= error_tag(f, :ammo_left, "col-span-3") %>
 
     <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-600") %>

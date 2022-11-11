@@ -67,3 +67,8 @@ window.addEventListener('cannery:clipcopy', (event) => {
     window.alert('Sorry, your browser does not support clipboard copy.')
   }
 })
+
+// Set input value to 0
+window.addEventListener('cannery:set-zero', (event) => {
+  event.target.value = 0
+})
