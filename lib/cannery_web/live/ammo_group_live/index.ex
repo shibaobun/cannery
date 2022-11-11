@@ -9,12 +9,12 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(show_used: false) |> display_ammo_groups()}
+    {:ok, socket |> assign(show_used: false)}
   end
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
-    {:noreply, apply_action(socket, live_action, params)}
+    {:noreply, apply_action(socket, live_action, params) |> display_ammo_groups()}
   end
 
   defp apply_action(
@@ -52,7 +52,9 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   end
 
   defp apply_action(socket, :index, _params) do
-    socket |> assign(:page_title, gettext("Ammo groups")) |> assign(:ammo_group, nil)
+    socket
+    |> assign(:page_title, gettext("Ammo groups"))
+    |> assign(:ammo_group, nil)
   end
 
   @impl true
@@ -87,7 +89,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
          %{assigns: %{current_user: current_user, show_used: show_used}} = socket
        ) do
     ammo_groups =
-      Ammo.list_ammo_groups(current_user, show_used) |> Repo.preload([:ammo_type, :container])
+      Ammo.list_ammo_groups(current_user, show_used)
+      |> Repo.preload([:ammo_type, :container], force: true)
 
     ammo_types_count = Ammo.get_ammo_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)

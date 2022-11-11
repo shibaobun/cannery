@@ -16,6 +16,7 @@
 - Add ammo cloning
 - Add ammo type cloning
 - Add container cloning
+- Fix bug with moving ammo packs between containers
 - Update project dependencies
 
 # v0.5.4

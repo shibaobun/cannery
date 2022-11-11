@@ -10,7 +10,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   import CanneryWeb.Gettext
   import Ecto.Changeset
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers.Container}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
   @derive {Jason.Encoder,
@@ -95,13 +95,24 @@ defmodule Cannery.Ammo.AmmoGroup do
   end
 
   @doc false
-  @spec update_changeset(t() | new_ammo_group(), attrs :: map()) ::
+  @spec update_changeset(t() | new_ammo_group(), attrs :: map(), User.t()) ::
           Changeset.t(t() | new_ammo_group())
-  def update_changeset(ammo_group, attrs) do
+  def update_changeset(ammo_group, attrs, user) do
     ammo_group
-    |> cast(attrs, [:count, :price_paid, :notes, :staged])
+    |> cast(attrs, [:count, :price_paid, :notes, :staged, :container_id])
     |> validate_number(:count, greater_than_or_equal_to: 0)
-    |> validate_required([:count, :staged])
+    |> validate_container_id(user)
+    |> validate_required([:count, :staged, :container_id])
+  end
+
+  defp validate_container_id(changeset, user) do
+    container_id = changeset |> Changeset.get_field(:container_id)
+
+    if container_id do
+      Containers.get_container!(container_id, user)
+    end
+
+    changeset
   end
 
   @doc """

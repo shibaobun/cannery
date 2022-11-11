@@ -22,7 +22,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
           assigns,
         socket
       ) do
-    changeset = ammo_group |> AmmoGroup.update_changeset(%{})
+    changeset = ammo_group |> AmmoGroup.update_changeset(%{}, current_user)
 
     containers =
       Containers.list_containers(current_user)

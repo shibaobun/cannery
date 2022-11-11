@@ -76,7 +76,7 @@ msgstr ""
 "Un lien pour confirmer votre changement de mél a été envoyé à la nouvelle "
 "adresse."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:62
+#: lib/cannery_web/live/ammo_group_live/index.ex:64
 #, elixir-autogen, elixir-format
 msgid "Ammo group deleted succesfully"
 msgstr "Groupe de munition supprimé avec succès"
@@ -101,7 +101,7 @@ msgstr "Êtes-vous certain·e de supprimer %{name} ?"
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr "Êtes-vous certain·e de supprimer l’invitation pour %{name} ?"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:239
+#: lib/cannery_web/live/ammo_group_live/index.ex:242
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"

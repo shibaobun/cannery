@@ -94,7 +94,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
           ammo_group |> AmmoGroup.create_changeset(ammo_type, container, user, ammo_group_params)
 
         action == :edit ->
-          ammo_group |> AmmoGroup.update_changeset(ammo_group_params)
+          ammo_group |> AmmoGroup.update_changeset(ammo_group_params, user)
       end
 
     changeset =

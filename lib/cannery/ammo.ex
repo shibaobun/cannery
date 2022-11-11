@@ -607,8 +607,12 @@ defmodule Cannery.Ammo do
   """
   @spec update_ammo_group(AmmoGroup.t(), attrs :: map(), User.t()) ::
           {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.t())}
-  def update_ammo_group(%AmmoGroup{user_id: user_id} = ammo_group, attrs, %User{id: user_id}),
-    do: ammo_group |> AmmoGroup.update_changeset(attrs) |> Repo.update()
+  def update_ammo_group(
+        %AmmoGroup{user_id: user_id} = ammo_group,
+        attrs,
+        %User{id: user_id} = user
+      ),
+      do: ammo_group |> AmmoGroup.update_changeset(attrs, user) |> Repo.update()
 
   @doc """
   Deletes a ammo_group.

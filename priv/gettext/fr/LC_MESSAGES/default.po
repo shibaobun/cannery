@@ -53,7 +53,7 @@ msgid "Ammo"
 msgstr "Munition"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
-#: lib/cannery_web/live/ammo_group_live/index.ex:96
+#: lib/cannery_web/live/ammo_group_live/index.ex:99
 #, elixir-autogen, elixir-format
 msgid "Ammo type"
 msgstr "Type de munition"
@@ -118,7 +118,7 @@ msgstr "Matériau de la caisse"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:67
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:48
-#: lib/cannery_web/live/ammo_group_live/index.ex:101
+#: lib/cannery_web/live/ammo_group_live/index.ex:104
 #, elixir-autogen, elixir-format
 msgid "Container"
 msgstr "Conteneur"
@@ -139,7 +139,7 @@ msgid "Corrosive"
 msgstr "Corrosive"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:27
-#: lib/cannery_web/live/ammo_group_live/index.ex:97
+#: lib/cannery_web/live/ammo_group_live/index.ex:100
 #, elixir-autogen, elixir-format
 msgid "Count"
 msgstr "Quantité"
@@ -366,7 +366,7 @@ msgid "Pressure"
 msgstr "Pression"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:34
-#: lib/cannery_web/live/ammo_group_live/index.ex:98
+#: lib/cannery_web/live/ammo_group_live/index.ex:101
 #, elixir-autogen, elixir-format
 msgid "Price paid"
 msgstr "Prix payé"
@@ -502,7 +502,7 @@ msgid "No tags for this container"
 msgstr "Aucun tag pour ce conteneur"
 
 #: lib/cannery_web/components/topbar.ex:81
-#: lib/cannery_web/live/ammo_group_live/index.ex:100
+#: lib/cannery_web/live/ammo_group_live/index.ex:103
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr "Portée"
@@ -534,7 +534,7 @@ msgstr "Aucune munition sélectionnée"
 msgid "Record shots"
 msgstr "Tirs enregistrés"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:55
+#: lib/cannery_web/live/ammo_group_live/index.ex:56
 #, elixir-autogen, elixir-format
 msgid "Ammo groups"
 msgstr "Groupes de munition"
@@ -582,7 +582,7 @@ msgstr "Enregistrements de tir"
 msgid "Move Ammo group"
 msgstr "Déplacer le groupe de munition"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:267
+#: lib/cannery_web/live/ammo_group_live/index.ex:270
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr "Déplacer munition"
@@ -598,7 +598,7 @@ msgid "Shot log"
 msgstr "Évènements de tir"
 
 #: lib/cannery_web/components/ammo_group_card.ex:63
-#: lib/cannery_web/live/ammo_group_live/index.ex:151
+#: lib/cannery_web/live/ammo_group_live/index.ex:154
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:179
@@ -663,12 +663,12 @@ msgstr "Mot de passe actuel"
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:189
+#: lib/cannery_web/live/ammo_group_live/index.ex:192
 #, elixir-autogen, elixir-format
 msgid "Stage"
 msgstr "Sélectionné"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:189
+#: lib/cannery_web/live/ammo_group_live/index.ex:192
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr "Désélectionner"
@@ -720,7 +720,7 @@ msgstr "Montrer %{name}"
 msgid "No cost information"
 msgstr "Aucune information de prix"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:99
+#: lib/cannery_web/live/ammo_group_live/index.ex:102
 #, elixir-autogen, elixir-format
 msgid "% left"
 msgstr "% restante"
@@ -791,7 +791,7 @@ msgstr "Exemplaires"
 msgid "Ammo types"
 msgstr "Types de munition"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:102
+#: lib/cannery_web/live/ammo_group_live/index.ex:105
 #, elixir-autogen, elixir-format
 msgid "Added on"
 msgstr "Ajouté le"
@@ -918,7 +918,7 @@ msgstr "Conteneur"
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:107
+#: lib/cannery_web/live/ammo_group_live/index.ex:110
 #, elixir-autogen, elixir-format
 msgid "Used up on"
 msgstr ""
@@ -928,7 +928,7 @@ msgstr ""
 msgid "Used up on:"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:203
+#: lib/cannery_web/live/ammo_group_live/index.ex:206
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"

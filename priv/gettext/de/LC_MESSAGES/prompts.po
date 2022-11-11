@@ -74,7 +74,7 @@ msgstr "%{name} erfolgreich aktualisiert"
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Eine Mail zum Bestätigen ihre Mailadresse wurde Ihnen zugesandt."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:62
+#: lib/cannery_web/live/ammo_group_live/index.ex:64
 #, elixir-autogen, elixir-format
 msgid "Ammo group deleted succesfully"
 msgstr "Munitionsgruppe erfolgreich gelöscht"
@@ -100,7 +100,7 @@ msgstr "Sind Sie sicher, dass sie %{name} löschen möchten?"
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr "Sind Sie sicher, dass sie die Einladung für %{name} löschen möchten?"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:239
+#: lib/cannery_web/live/ammo_group_live/index.ex:242
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
