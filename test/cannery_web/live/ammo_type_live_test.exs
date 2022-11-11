@@ -121,6 +121,58 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ "some updated bullet_type"
     end
 
+    test "clones ammo_type in listing",
+         %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+
+      html = index_live |> element("[data-qa=\"clone-#{ammo_type.id}\"]") |> render_click()
+      assert html =~ gettext("New Ammo type")
+      assert html =~ "some bullet_type"
+
+      assert_patch(index_live, Routes.ammo_type_index_path(conn, :clone, ammo_type))
+
+      # assert index_live
+      #        |> form("#ammo_type-form", ammo_type: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#ammo_type-form", ammo_type: @create_attrs)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
+
+      ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: ammo_type.name)
+      assert html =~ "some bullet_type"
+    end
+
+    test "clones ammo_type in listing with updates",
+         %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
+      {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+
+      html = index_live |> element("[data-qa=\"clone-#{ammo_type.id}\"]") |> render_click()
+      assert html =~ gettext("New Ammo type")
+      assert html =~ "some bullet_type"
+
+      assert_patch(index_live, Routes.ammo_type_index_path(conn, :clone, ammo_type))
+
+      # assert index_live
+      #        |> form("#ammo_type-form", ammo_type: @invalid_attrs)
+      #        |> render_change() =~ dgettext("errors", "can't be blank")
+
+      {:ok, _view, html} =
+        index_live
+        |> form("#ammo_type-form",
+          ammo_type: Map.merge(@create_attrs, %{"bullet_type" => "some updated bullet_type"})
+        )
+        |> render_submit()
+        |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
+
+      ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
+      assert html =~ dgettext("prompts", "%{name} created successfully", name: ammo_type.name)
+      assert html =~ "some updated bullet_type"
+    end
+
     test "deletes ammo_type in listing", %{conn: conn, ammo_type: ammo_type} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 

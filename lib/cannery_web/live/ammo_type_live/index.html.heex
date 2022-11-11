@@ -27,7 +27,7 @@
   <% end %>
 </div>
 
-<%= if @live_action in [:new, :edit] do %>
+<%= if @live_action in [:new, :edit, :clone] do %>
   <.modal return_to={Routes.ammo_type_index_path(Endpoint, :index)}>
     <.live_component
       module={CanneryWeb.AmmoTypeLive.FormComponent}

@@ -24,6 +24,12 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     |> assign(:ammo_type, Ammo.get_ammo_type!(id, current_user))
   end
 
+  defp apply_action(%{assigns: %{current_user: current_user}} = socket, :clone, %{"id" => id}) do
+    socket
+    |> assign(:page_title, gettext("New Ammo type"))
+    |> assign(:ammo_type, %{Ammo.get_ammo_type!(id, current_user) | id: nil})
+  end
+
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, gettext("New Ammo type"))
@@ -152,6 +158,14 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         data-qa={"edit-#{@ammo_type.id}"}
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
+      </.link>
+
+      <.link
+        patch={Routes.ammo_type_index_path(Endpoint, :clone, @ammo_type)}
+        class="text-primary-600 link"
+        data-qa={"clone-#{@ammo_type.id}"}
+      >
+        <i class="fa-fw fa-lg fas fa-copy"></i>
       </.link>
 
       <.link

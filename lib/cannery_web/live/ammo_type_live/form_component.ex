@@ -35,15 +35,15 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
          ammo_type_params
        ) do
     changeset_action =
-      case action do
-        :new -> :insert
-        :edit -> :update
+      cond do
+        action in [:new, :clone] -> :insert
+        action == :edit -> :update
       end
 
     changeset =
-      case action do
-        :new -> ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
-        :edit -> ammo_type |> AmmoType.update_changeset(ammo_type_params)
+      cond do
+        action in [:new, :clone] -> ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
+        action == :edit -> ammo_type |> AmmoType.update_changeset(ammo_type_params)
       end
 
     changeset =
@@ -76,9 +76,10 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
 
   defp save_ammo_type(
          %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
-         :new,
+         action,
          ammo_type_params
-       ) do
+       )
+       when action in [:new, :clone] do
     socket =
       case Ammo.create_ammo_type(ammo_type_params, current_user) do
         {:ok, %{name: ammo_type_name}} ->

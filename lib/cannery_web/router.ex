@@ -68,6 +68,7 @@ defmodule CanneryWeb.Router do
 
     live "/catalog", AmmoTypeLive.Index, :index
     live "/catalog/new", AmmoTypeLive.Index, :new
+    live "/catalog/:id/clone", AmmoTypeLive.Index, :clone
     live "/catalog/:id/edit", AmmoTypeLive.Index, :edit
 
     live "/catalog/:id", AmmoTypeLive.Show, :show
