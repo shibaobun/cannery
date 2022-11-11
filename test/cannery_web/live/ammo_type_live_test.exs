@@ -189,17 +189,17 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       {:ok, show_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ gettext("Used Total # of rounds")
-      refute html =~ gettext("Historical Total # of rounds")
-      refute html =~ gettext("Used Total # of ammo")
-      refute html =~ gettext("Historical Total # of ammo")
+      refute html =~ gettext("Used rounds")
+      refute html =~ gettext("Total ever rounds")
+      refute html =~ gettext("Used packs")
+      refute html =~ gettext("Total ever packs")
 
       html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
 
-      assert html =~ gettext("Used Total # of rounds")
-      assert html =~ gettext("Historical Total # of rounds")
-      assert html =~ gettext("Used Total # of ammo")
-      assert html =~ gettext("Historical Total # of ammo")
+      assert html =~ gettext("Used rounds")
+      assert html =~ gettext("Total ever rounds")
+      assert html =~ gettext("Used packs")
+      assert html =~ gettext("Total ever packs")
 
       assert html =~ "20"
       assert html =~ "0"

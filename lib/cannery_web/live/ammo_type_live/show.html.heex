@@ -78,7 +78,7 @@
     <% end %>
 
     <h3 class="title text-lg">
-      <%= gettext("Current # of rounds:") %>
+      <%= gettext("Rounds:") %>
     </h3>
 
     <span class="text-primary-600">
@@ -86,11 +86,43 @@
     </span>
 
     <h3 class="title text-lg">
-      <%= gettext("Total rounds shot:") %>
+      <%= gettext("Used rounds:") %>
     </h3>
 
     <span class="text-primary-600">
       <%= @ammo_type |> Ammo.get_used_count_for_ammo_type(@current_user) %>
+    </span>
+
+    <h3 class="title text-lg">
+      <%= gettext("Total ever rounds:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_historical_count_for_ammo_type(@current_user) %>
+    </span>
+
+    <h3 class="title text-lg">
+      <%= gettext("Packs:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_ammo_groups_count_for_type(@current_user) %>
+    </span>
+
+    <h3 class="title text-lg">
+      <%= gettext("Used packs:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_used_ammo_groups_count_for_type(@current_user) %>
+    </span>
+
+    <h3 class="title text-lg">
+      <%= gettext("Total ever packs:") %>
+    </h3>
+
+    <span class="text-primary-600">
+      <%= @ammo_type |> Ammo.get_ammo_groups_count_for_type(@current_user, true) %>
     </span>
 
     <h3 class="title text-lg">

@@ -94,18 +94,18 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         end)
       end)
       |> Kernel.++([
-        %{label: gettext("Total # of rounds"), key: :round_count, type: :round_count}
+        %{label: gettext("Rounds"), key: :round_count, type: :round_count}
       ])
       |> Kernel.++(
         if show_used do
           [
             %{
-              label: gettext("Used Total # of rounds"),
+              label: gettext("Used rounds"),
               key: :used_round_count,
               type: :used_round_count
             },
             %{
-              label: gettext("Historical Total # of rounds"),
+              label: gettext("Total ever rounds"),
               key: :historical_round_count,
               type: :historical_round_count
             }
@@ -114,17 +114,17 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
           []
         end
       )
-      |> Kernel.++([%{label: gettext("Total # of ammo"), key: :ammo_count, type: :ammo_count}])
+      |> Kernel.++([%{label: gettext("Packs"), key: :ammo_count, type: :ammo_count}])
       |> Kernel.++(
         if show_used do
           [
             %{
-              label: gettext("Used Total # of ammo"),
+              label: gettext("Used packs"),
               key: :used_ammo_count,
               type: :used_ammo_count
             },
             %{
-              label: gettext("Historical Total # of ammo"),
+              label: gettext("Total ever packs"),
               key: :historical_ammo_count,
               type: :historical_ammo_count
             }
