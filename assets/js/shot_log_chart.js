@@ -11,22 +11,23 @@ export default {
       data: {
         datasets: [{
           label: el.dataset.label,
-          data: data.map(({ date, count, labels }) => ({
-            labels,
+          data: data.map(({ date, count, label }) => ({
+            label,
             x: date,
             y: count
           })),
-          backgroundColor: el.dataset.color,
+          backgroundColor: `${el.dataset.color}77`,
           borderColor: el.dataset.color,
           fill: true,
-          borderWidth: 4
+          borderWidth: 3,
+          pointBorderWidth: 1
         }]
       },
       options: {
         elements: {
           point: {
-            radius: 7,
-            hoverRadius: 10
+            radius: 9,
+            hoverRadius: 12
           }
         },
         plugins: {
@@ -39,7 +40,8 @@ export default {
           tooltip: {
             displayColors: false,
             callbacks: {
-              label: ({ raw: { labels } }) => labels
+              title: (contexts) => contexts.map(({ raw: { x } }) => Intl.DateTimeFormat([], { timeZone: 'Etc/UTC', dateStyle: 'short' }).format(new Date(x))),
+              label: ({ raw: { label } }) => label
             }
           }
         },

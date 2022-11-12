@@ -88,13 +88,7 @@ defmodule CanneryWeb.RangeLive.Index do
       shot_groups
       |> Enum.map(fn shot_group -> shot_group |> get_row_data_for_shot_group(columns) end)
 
-    chart_data =
-      shot_groups
-      |> Enum.map(fn shot_group ->
-        shot_group
-        |> get_chart_data_for_shot_group([:name, :count, :notes, :date])
-      end)
-      |> Enum.sort_by(fn %{date: date} -> date end, Date)
+    chart_data = shot_groups |> get_chart_data_for_shot_group()
 
     socket
     |> assign(
@@ -106,40 +100,21 @@ defmodule CanneryWeb.RangeLive.Index do
     )
   end
 
-  @spec get_chart_data_for_shot_group(ShotGroup.t(), keys :: [atom()]) :: map()
-  defp get_chart_data_for_shot_group(shot_group, keys) do
-    shot_group = shot_group |> Repo.preload(ammo_group: :ammo_type)
+  @spec get_chart_data_for_shot_group([ShotGroup.t()]) :: [map()]
+  defp get_chart_data_for_shot_group(shot_groups) do
+    shot_groups
+    |> Repo.preload(ammo_group: :ammo_type)
+    |> Enum.group_by(fn %{date: date} -> date end, fn %{count: count} -> count end)
+    |> Enum.map(fn {date, rounds} ->
+      sum = Enum.sum(rounds)
 
-    labels =
-      if shot_group.notes do
-        [gettext("Notes: %{notes}", notes: shot_group.notes)]
-      else
-        []
-      end
-
-    labels = [
-      gettext(
-        "Name: %{name}",
-        name: shot_group.ammo_group.ammo_type.name
-      ),
-      gettext(
-        "Rounds shot: %{count}",
-        count: shot_group.count
-      )
-      | labels
-    ]
-
-    keys
-    |> Map.new(fn key ->
-      value =
-        case key do
-          :name -> shot_group.ammo_group.ammo_type.name
-          key -> shot_group |> Map.get(key)
-        end
-
-      {key, value}
+      %{
+        date: date,
+        count: sum,
+        label: gettext("Rounds shot: %{count}", count: sum)
+      }
     end)
-    |> Map.put(:labels, labels)
+    |> Enum.sort_by(fn %{date: date} -> date end)
   end
 
   @spec get_row_data_for_shot_group(ShotGroup.t(), [map()]) :: map()

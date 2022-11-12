@@ -1,5 +1,6 @@
 # v0.6.1
 - Add shading to table component
+- Fix chart to sum by day
 
 # v0.6.0
 - Update translations

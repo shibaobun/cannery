@@ -567,6 +567,7 @@ msgstr "Patronen verbleibend"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:87
 #: lib/cannery_web/live/range_live/index.ex:81
+#: lib/cannery_web/live/range_live/index.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
 msgstr "Patronen abgefeuert"
@@ -932,27 +933,7 @@ msgstr ""
 msgid "%{percentage}%"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:121
-#, elixir-autogen, elixir-format
-msgid "Name: %{name}"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/index.ex:115
-#, elixir-autogen, elixir-format
-msgid "Notes: %{notes}"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/index.html.heex:62
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Rounds fired"
-msgstr "Patronen verbraucht"
-
-#: lib/cannery_web/live/range_live/index.html.heex:64
-#, elixir-autogen, elixir-format
-msgid "Rounds fired chart"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/index.ex:125
+#: lib/cannery_web/live/range_live/index.ex:114
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot: %{count}"
 msgstr "Patronen abgefeuert"
@@ -1018,3 +999,8 @@ msgstr ""
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Used up!"
 msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:64
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Rounds shot chart"
+msgstr "Patronen abgefeuert"
