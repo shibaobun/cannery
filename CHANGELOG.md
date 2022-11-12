@@ -1,4 +1,4 @@
-# v0.6.1
+# v0.7.0
 - Add shading to table component
 - Fix chart to sum by day
 - Fix whitespace when copying invite url
