@@ -81,19 +81,13 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
     columns = [
       %{label: gettext("Count"), key: :count},
+      %{label: gettext("Original Count"), key: :original_count},
       %{label: gettext("Price paid"), key: :price_paid},
       %{label: gettext("CPR"), key: :cpr},
       %{label: gettext("% left"), key: :remaining},
       %{label: gettext("Notes"), key: :notes}
       | columns
     ]
-
-    columns =
-      if show_used do
-        [%{label: gettext("Original Count"), key: :original_count} | columns]
-      else
-        columns
-      end
 
     columns =
       if ammo_type == [] do

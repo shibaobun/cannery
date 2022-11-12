@@ -58,6 +58,8 @@ defmodule CanneryWeb.ExportControllerTest do
         "price_paid" => ammo_group.price_paid,
         "staged" => ammo_group.staged,
         "used_count" => ammo_group |> Ammo.get_used_count(),
+        "original_count" => ammo_group |> Ammo.get_original_count(),
+        "cpr" => ammo_group |> Ammo.get_cpr(),
         "percentage_remaining" => ammo_group |> Ammo.get_percentage_remaining()
       }
 

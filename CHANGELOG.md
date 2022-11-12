@@ -6,6 +6,7 @@
 - Make container show page also display ammo groups as table
 - Display CPR for ammo packs
 - Add original count for ammo packs
+- Add ammo pack CPR and original count to json export
 
 # v0.6.0
 - Update translations

@@ -25,7 +25,9 @@ defmodule CanneryWeb.ExportController do
     ammo_groups =
       Ammo.list_ammo_groups(current_user, true)
       |> Enum.map(fn ammo_group ->
+        cpr = ammo_group |> Ammo.get_cpr()
         used_count = ammo_group |> Ammo.get_used_count()
+        original_count = ammo_group |> Ammo.get_original_count()
         percentage_remaining = ammo_group |> Ammo.get_percentage_remaining()
 
         ammo_group
@@ -33,7 +35,9 @@ defmodule CanneryWeb.ExportController do
         |> Jason.decode!()
         |> Map.merge(%{
           "used_count" => used_count,
-          "percentage_remaining" => percentage_remaining
+          "percentage_remaining" => percentage_remaining,
+          "original_count" => original_count,
+          "cpr" => cpr
         })
       end)
 
