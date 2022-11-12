@@ -1,6 +1,7 @@
 # v0.6.1
 - Add shading to table component
 - Fix chart to sum by day
+- Fix whitespace when copying invite url
 
 # v0.6.0
 - Update translations
