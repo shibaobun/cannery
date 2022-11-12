@@ -82,10 +82,18 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
     columns = [
       %{label: gettext("Count"), key: :count},
       %{label: gettext("Price paid"), key: :price_paid},
+      %{label: gettext("CPR"), key: :cpr},
       %{label: gettext("% left"), key: :remaining},
       %{label: gettext("Notes"), key: :notes}
       | columns
     ]
+
+    columns =
+      if show_used do
+        [%{label: gettext("Original Count"), key: :original_count} | columns]
+      else
+        columns
+      end
 
     columns =
       if ammo_type == [] do
@@ -213,6 +221,18 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      ~H"""
      <%= render_slot(@container, @ammo_group) %>
      """}
+  end
+
+  defp get_value_for_key(:original_count, ammo_group, _additional_data),
+    do: ammo_group |> Ammo.get_original_count()
+
+  defp get_value_for_key(:cpr, %{price_paid: nil}, _additional_data),
+    do: gettext("No cost information")
+
+  defp get_value_for_key(:cpr, ammo_group, _additional_data) do
+    gettext("$%{amount}",
+      amount: ammo_group |> Ammo.get_cpr() |> :erlang.float_to_binary(decimals: 2)
+    )
   end
 
   defp get_value_for_key(:count, %{count: count}, _additional_data),

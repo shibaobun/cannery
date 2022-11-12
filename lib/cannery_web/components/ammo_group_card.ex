@@ -17,6 +17,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
 
     preloads = if show_container, do: [:ammo_type, :container], else: [:ammo_type]
     ammo_group = ammo_group |> Repo.preload(preloads)
+
     assigns = assigns |> assign(:ammo_group, ammo_group)
 
     ~H"""
@@ -37,6 +38,13 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           <%= gettext("Count:") %>
           <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
         </span>
+
+        <%= if @ammo_group |> Ammo.get_original_count() != @ammo_group.count do %>
+          <span class="rounded-lg title text-lg">
+            <%= gettext("Original Count:") %>
+            <%= @ammo_group |> Ammo.get_original_count() %>
+          </span>
+        <% end %>
 
         <%= if @ammo_group.notes do %>
           <span class="rounded-lg title text-lg">
@@ -62,6 +70,13 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
             <%= gettext("Price paid:") %>
             <%= gettext("$%{amount}",
               amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
+            ) %>
+          </span>
+
+          <span class="rounded-lg title text-lg">
+            <%= gettext("CPR:") %>
+            <%= gettext("$%{amount}",
+              amount: @ammo_group |> Ammo.get_cpr() |> :erlang.float_to_binary(decimals: 2)
             ) %>
           </span>
         <% end %>

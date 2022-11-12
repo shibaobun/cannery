@@ -232,7 +232,10 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       ammo_type = ammo_type_fixture(current_user)
       container = container_fixture(current_user)
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
+
+      {1, [ammo_group]} =
+        %{"count" => 50, "price_paid" => 36.1}
+        |> ammo_group_fixture(ammo_type, container, current_user)
 
       [
         ammo_type: ammo_type,
@@ -424,13 +427,13 @@ defmodule Cannery.AmmoTest do
                |> Ammo.get_last_used_shot_group()
     end
 
-    test "get_percentage_remaining/1 gets accurate total round count for ammo type",
+    test "get_percentage_remaining/1 gets accurate total round count",
          %{ammo_group: ammo_group, current_user: current_user} do
       assert 100 = Ammo.get_percentage_remaining(ammo_group)
 
       shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
 
-      assert 44 =
+      assert 72 =
                ammo_group
                |> Repo.reload!()
                |> Repo.preload(:shot_groups, force: true)
@@ -438,11 +441,66 @@ defmodule Cannery.AmmoTest do
 
       shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
 
+      assert 50 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_percentage_remaining()
+
+      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+
       assert 0 =
                ammo_group
                |> Repo.reload!()
                |> Repo.preload(:shot_groups, force: true)
                |> Ammo.get_percentage_remaining()
+    end
+
+    test "get_cpr/1 gets accurate cpr",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert %AmmoGroup{price_paid: nil} |> Ammo.get_cpr() |> is_nil()
+      assert %AmmoGroup{count: 1, price_paid: nil} |> Ammo.get_cpr() |> is_nil()
+      assert 1.0 = %AmmoGroup{count: 1, price_paid: 1.0} |> Ammo.get_cpr()
+      assert 1.5 = %AmmoGroup{count: 2, price_paid: 3.0} |> Ammo.get_cpr()
+      assert 0.722 = %AmmoGroup{count: 50, price_paid: 36.1} |> Ammo.get_cpr()
+
+      # with shot group, maintains total
+      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+
+      assert 0.722 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_cpr()
+    end
+
+    test "get_original_count/1 gets accurate original count",
+         %{ammo_group: ammo_group, current_user: current_user} do
+      assert 50 = Ammo.get_original_count(ammo_group)
+
+      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+
+      assert 50 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_original_count()
+
+      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+
+      assert 50 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_original_count()
+
+      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+
+      assert 50 =
+               ammo_group
+               |> Repo.reload!()
+               |> Repo.preload(:shot_groups, force: true)
+               |> Ammo.get_original_count()
     end
   end
 end

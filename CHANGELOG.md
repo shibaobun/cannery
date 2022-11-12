@@ -4,6 +4,8 @@
 - Fix whitespace when copying invite url
 - Make ammo type show page also display ammo groups as table
 - Make container show page also display ammo groups as table
+- Display CPR for ammo packs
+- Add original count for ammo packs
 
 # v0.6.0
 - Update translations

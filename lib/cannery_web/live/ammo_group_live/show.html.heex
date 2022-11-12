@@ -11,7 +11,7 @@
 
     <span class="rounded-lg title text-lg">
       <%= gettext("Original count:") %>
-      <%= @ammo_group.count + Ammo.get_used_count(@ammo_group) %>
+      <%= Ammo.get_original_count(@ammo_group) %>
     </span>
 
     <span class="rounded-lg title text-lg">

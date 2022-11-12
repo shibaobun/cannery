@@ -52,7 +52,7 @@ msgstr "Administrateur·ices :"
 msgid "Ammo"
 msgstr "Munition"
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:94
+#: lib/cannery_web/components/ammo_group_table_component.ex:102
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Ammo type"
@@ -131,7 +131,7 @@ msgstr "Corrosive"
 msgid "Count"
 msgstr "Quantité"
 
-#: lib/cannery_web/components/ammo_group_card.ex:37
+#: lib/cannery_web/components/ammo_group_card.ex:38
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Count:"
@@ -322,7 +322,7 @@ msgid "No tags"
 msgstr "Aucun tag"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:37
-#: lib/cannery_web/components/ammo_group_table_component.ex:86
+#: lib/cannery_web/components/ammo_group_table_component.ex:87
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
 #: lib/cannery_web/live/ammo_group_live/show.ex:88
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
@@ -331,7 +331,7 @@ msgstr "Aucun tag"
 msgid "Notes"
 msgstr "Notes"
 
-#: lib/cannery_web/components/ammo_group_card.ex:43
+#: lib/cannery_web/components/ammo_group_card.ex:51
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Notes:"
@@ -354,7 +354,7 @@ msgstr "Pression"
 msgid "Price paid"
 msgstr "Prix payé"
 
-#: lib/cannery_web/components/ammo_group_card.ex:62
+#: lib/cannery_web/components/ammo_group_card.ex:70
 #, elixir-autogen, elixir-format
 msgid "Price paid:"
 msgstr "Prix payé :"
@@ -575,8 +575,10 @@ msgstr "Aucun autre conteneur"
 msgid "Shot log"
 msgstr "Évènements de tir"
 
-#: lib/cannery_web/components/ammo_group_card.ex:63
-#: lib/cannery_web/components/ammo_group_table_component.ex:157
+#: lib/cannery_web/components/ammo_group_card.ex:71
+#: lib/cannery_web/components/ammo_group_card.ex:78
+#: lib/cannery_web/components/ammo_group_table_component.ex:165
+#: lib/cannery_web/components/ammo_group_table_component.ex:233
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/index.ex:179
@@ -681,13 +683,14 @@ msgstr "Éditer les tags de %{name}"
 msgid "Rounds:"
 msgstr "Cartouches :"
 
+#: lib/cannery_web/components/ammo_group_table_component.ex:230
 #: lib/cannery_web/live/ammo_type_live/index.ex:178
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:142
 #, elixir-autogen, elixir-format
 msgid "No cost information"
 msgstr "Aucune information de prix"
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:85
+#: lib/cannery_web/components/ammo_group_table_component.ex:86
 #, elixir-autogen, elixir-format
 msgid "% left"
 msgstr "% restante"
@@ -763,7 +766,7 @@ msgstr "Types de munition"
 msgid "Added on"
 msgstr "Ajouté le"
 
-#: lib/cannery_web/components/ammo_group_card.ex:49
+#: lib/cannery_web/components/ammo_group_card.ex:57
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:30
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:123
 #, elixir-autogen, elixir-format
@@ -873,7 +876,7 @@ msgid "Leave \"Uses left\" blank to make invite unlimited"
 msgstr ""
 "Laissez \"Utilisations restantes\" vide pour rendre l'invitation illimitée"
 
-#: lib/cannery_web/components/ammo_group_card.ex:71
+#: lib/cannery_web/components/ammo_group_card.ex:86
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Container:"
 msgstr "Conteneur"
@@ -891,12 +894,12 @@ msgstr ""
 msgid "Used up on"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_card.ex:55
+#: lib/cannery_web/components/ammo_group_card.ex:63
 #, elixir-autogen, elixir-format
 msgid "Used up on:"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:193
+#: lib/cannery_web/components/ammo_group_table_component.ex:201
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
@@ -1082,8 +1085,28 @@ msgstr ""
 msgid "Edit %{ammo_type_name}"
 msgstr "Éditer %{name}"
 
-#: lib/cannery_web/components/ammo_group_card.ex:38
-#: lib/cannery_web/components/ammo_group_table_component.ex:219
+#: lib/cannery_web/components/ammo_group_card.ex:39
+#: lib/cannery_web/components/ammo_group_table_component.ex:239
 #, elixir-autogen, elixir-format
 msgid "Empty"
 msgstr ""
+
+#: lib/cannery_web/components/ammo_group_table_component.ex:85
+#, elixir-autogen, elixir-format
+msgid "CPR"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_card.ex:77
+#, elixir-autogen, elixir-format
+msgid "CPR:"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_table_component.ex:93
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Original Count"
+msgstr "Nombre original :"
+
+#: lib/cannery_web/components/ammo_group_card.ex:44
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Original Count:"
+msgstr "Nombre original :"

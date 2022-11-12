@@ -514,6 +514,28 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
+  Gets the original count for an ammo group
+  """
+  @spec get_original_count(AmmoGroup.t()) :: non_neg_integer()
+  def get_original_count(%AmmoGroup{count: count} = ammo_group) do
+    count + get_used_count(ammo_group)
+  end
+
+  @doc """
+  Calculates the CPR for a single ammo group
+  """
+  @spec get_cpr(AmmoGroup.t()) :: nil | float()
+  def get_cpr(%AmmoGroup{price_paid: nil}), do: nil
+
+  def get_cpr(%AmmoGroup{price_paid: price_paid} = ammo_group),
+    do: calculate_cpr(price_paid, get_original_count(ammo_group))
+
+  @spec calculate_cpr(price_paid :: float() | nil, count :: integer()) :: float() | nil
+  defp calculate_cpr(nil, _count), do: nil
+  defp calculate_cpr(_price_paid, 0), do: nil
+  defp calculate_cpr(price_paid, total_count), do: price_paid / total_count
+
+  @doc """
   Creates multiple ammo_groups at once.
 
   ## Examples
