@@ -106,7 +106,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
     containers
     |> Enum.map(fn container ->
       columns
-      |> Enum.into(%{}, fn %{key: key} -> {key, get_row_value_by_key(key, container, assigns)} end)
+      |> Map.new(fn %{key: key} -> {key, get_row_value_by_key(key, container, assigns)} end)
     end)
   end
 

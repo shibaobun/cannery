@@ -102,12 +102,12 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   defp display_ammo_group(%{assigns: %{current_user: current_user}} = socket, id),
     do: display_ammo_group(socket, Ammo.get_ammo_group!(id, current_user))
 
-  @spec get_table_row_for_shot_group(AmmoGroup.t(), ShotGroup.t(), [map()]) :: [map()]
+  @spec get_table_row_for_shot_group(AmmoGroup.t(), ShotGroup.t(), [map()]) :: map()
   defp get_table_row_for_shot_group(ammo_group, %{date: date} = shot_group, columns) do
     assigns = %{ammo_group: ammo_group, shot_group: shot_group}
 
     columns
-    |> Enum.into(%{}, fn %{key: key} ->
+    |> Map.new(fn %{key: key} ->
       value =
         case key do
           :date ->

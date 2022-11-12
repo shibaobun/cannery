@@ -91,25 +91,47 @@
 
   <hr class="mb-4 hr" />
 
-  <div class="flex flex-col justify-center items-center">
+  <div class="flex justify-center items-center space-x-4">
     <.toggle_button action="toggle_show_used" value={@show_used}>
       <span class="title text-lg text-primary-600">
-        <%= dgettext("actions", "Show used") %>
+        <%= gettext("Show used") %>
+      </span>
+    </.toggle_button>
+
+    <.toggle_button action="toggle_table" value={@view_table}>
+      <span class="title text-lg text-primary-600">
+        <%= gettext("View as table") %>
       </span>
     </.toggle_button>
   </div>
 
-  <div>
+  <div class="w-full p-4">
     <%= if @ammo_groups |> Enum.empty?() do %>
-      <h2 class="mx-8 my-4 title text-lg text-primary-600">
+      <h2 class="mx-4 title text-lg text-primary-600">
         <%= gettext("No ammo in this container") %>
       </h2>
     <% else %>
-      <div class="flex flex-wrap justify-center items-center">
-        <%= for ammo_group <- @ammo_groups do %>
-          <.ammo_group_card ammo_group={ammo_group} />
-        <% end %>
-      </div>
+      <%= if @view_table do %>
+        <.live_component
+          module={CanneryWeb.Components.AmmoGroupTableComponent}
+          id="ammo-type-show-table"
+          ammo_groups={@ammo_groups}
+          current_user={@current_user}
+          show_used={@show_used}
+        >
+          <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
+            <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
+              <%= ammo_type_name %>
+            </.link>
+          </:ammo_type>
+        </.live_component>
+      <% else %>
+        <div class="flex flex-wrap justify-center items-center">
+          <%= for ammo_group <- @ammo_groups do %>
+            <.ammo_group_card ammo_group={ammo_group} />
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

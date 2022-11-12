@@ -39,44 +39,30 @@
 
   <hr class="hr" />
 
-  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
-    <%= for {field_name, field, type} <- [
-          {gettext("Bullet type"), :bullet_type, :string},
-          {gettext("Bullet core"), :bullet_core, :string},
-          {gettext("Cartridge"), :cartridge, :string},
-          {gettext("Caliber"), :caliber, :string},
-          {gettext("Case material"), :case_material, :string},
-          {gettext("Jacket type"), :jacket_type, :string},
-          {gettext("Muzzle velocity"), :muzzle_velocity, :string},
-          {gettext("Powder type"), :powder_type, :string},
-          {gettext("Powder grains per charge"), :powder_grains_per_charge, :string},
-          {gettext("Grains"), :grains, :string},
-          {gettext("Pressure"), :pressure, :string},
-          {gettext("Primer type"), :primer_type, :string},
-          {gettext("Firing type"), :firing_type, :string},
-          {gettext("Tracer"), :tracer, :boolean},
-          {gettext("Incendiary"), :incendiary, :boolean},
-          {gettext("Blank"), :blank, :boolean},
-          {gettext("Corrosive"), :corrosive, :boolean},
-          {gettext("Manufacturer"), :manufacturer, :string},
-          {gettext("UPC"), :upc, :string}
-        ] do %>
-      <%= if @ammo_type |> Map.get(field) do %>
-        <h3 class="title text-lg">
-          <%= field_name %>:
-        </h3>
+  <%= if @fields_to_display do %>
+    <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
+      <%= for %{label: label, key: key, type: type} <- @fields_list do %>
+        <%= if @ammo_type |> Map.get(key) do %>
+          <h3 class="title text-lg">
+            <%= label %>
+          </h3>
 
-        <span class="text-primary-600">
-          <%= case type do %>
-            <% :boolean -> %>
-              <%= @ammo_type |> Map.get(field) |> humanize() %>
-            <% _ -> %>
-              <%= @ammo_type |> Map.get(field) %>
-          <% end %>
-        </span>
+          <span class="text-primary-600">
+            <%= case type do %>
+              <% :boolean -> %>
+                <%= @ammo_type |> Map.get(key) |> humanize() %>
+              <% _ -> %>
+                <%= @ammo_type |> Map.get(key) %>
+            <% end %>
+          </span>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
 
+    <hr class="hr" />
+  <% end %>
+
+  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
     <h3 class="title text-lg">
       <%= gettext("Rounds:") %>
     </h3>
@@ -100,7 +86,11 @@
     <span class="text-primary-600">
       <%= @ammo_type |> Ammo.get_historical_count_for_ammo_type(@current_user) %>
     </span>
+  </div>
 
+  <hr class="hr" />
+
+  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
     <h3 class="title text-lg">
       <%= gettext("Packs:") %>
     </h3>
@@ -124,7 +114,11 @@
     <span class="text-primary-600">
       <%= @ammo_type |> Ammo.get_ammo_groups_count_for_type(@current_user, true) %>
     </span>
+  </div>
 
+  <hr class="hr" />
+
+  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
     <h3 class="title text-lg">
       <%= gettext("Added on:") %>
     </h3>
@@ -135,7 +129,7 @@
 
     <%= if @avg_cost_per_round do %>
       <h3 class="title text-lg">
-        <%= gettext("Average Price paid") %>:
+        <%= gettext("Average CPR") %>:
       </h3>
 
       <span class="text-primary-600">
@@ -152,26 +146,51 @@
 
   <hr class="hr" />
 
-  <div class="flex flex-col justify-center items-center">
+  <div class="flex justify-center items-center space-x-4">
     <.toggle_button action="toggle_show_used" value={@show_used}>
       <span class="title text-lg text-primary-600">
         <%= gettext("Show used") %>
       </span>
     </.toggle_button>
+
+    <.toggle_button action="toggle_table" value={@view_table}>
+      <span class="title text-lg text-primary-600">
+        <%= gettext("View as table") %>
+      </span>
+    </.toggle_button>
   </div>
 
-  <div>
+  <div class="w-full p-4">
     <%= if @ammo_groups |> Enum.empty?() do %>
-      <h2 class="mx-8 my-4 title text-lg text-primary-600">
+      <h2 class="px-4 title text-lg text-primary-600">
         <%= gettext("No ammo for this type") %>
         <%= display_emoji("😔") %>
       </h2>
     <% else %>
-      <div class="flex flex-wrap justify-center items-center">
-        <%= for ammo_group <- @ammo_groups do %>
-          <.ammo_group_card ammo_group={ammo_group} show_container={true} />
-        <% end %>
-      </div>
+      <%= if @view_table do %>
+        <.live_component
+          module={CanneryWeb.Components.AmmoGroupTableComponent}
+          id="ammo-type-show-table"
+          ammo_groups={@ammo_groups}
+          current_user={@current_user}
+          show_used={@show_used}
+        >
+          <:container :let={%{container: %{name: container_name} = container}}>
+            <.link
+              navigate={Routes.container_show_path(Endpoint, :show, container)}
+              class="mx-2 my-1 link"
+            >
+              <%= container_name %>
+            </.link>
+          </:container>
+        </.live_component>
+      <% else %>
+        <div class="flex flex-wrap justify-center items-center">
+          <%= for ammo_group <- @ammo_groups do %>
+            <.ammo_group_card ammo_group={ammo_group} show_container={true} />
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

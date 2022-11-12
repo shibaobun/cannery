@@ -35,7 +35,7 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
       <div class="flex flex-col justify-center items-center">
         <span class="rounded-lg title text-lg">
           <%= gettext("Count:") %>
-          <%= if @ammo_group.count == 0, do: "Empty", else: @ammo_group.count %>
+          <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
         </span>
 
         <%= if @ammo_group.notes do %>

@@ -134,7 +134,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
         end
       )
       |> Kernel.++([
-        %{label: gettext("Average Price paid"), key: :avg_price_paid, type: :avg_price_paid},
+        %{label: gettext("Average CPR"), key: :avg_price_paid, type: :avg_price_paid},
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
 
@@ -147,7 +147,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   defp get_ammo_type_values(ammo_type, columns, current_user) do
     columns
-    |> Enum.into(%{}, fn %{key: key, type: type} ->
+    |> Map.new(fn %{key: key, type: type} ->
       {key, get_ammo_type_value(type, key, ammo_type, current_user)}
     end)
   end

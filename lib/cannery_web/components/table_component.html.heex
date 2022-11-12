@@ -6,7 +6,7 @@
           <%= if column |> Map.get(:sortable, true) do %>
             <th class={"p-2 #{column[:class]}"}>
               <span
-                class="cursor-pointer"
+                class="cursor-pointer flex justify-center items-center space-x-2"
                 phx-click="sort_by"
                 phx-value-sort-key={key}
                 phx-target={@myself}

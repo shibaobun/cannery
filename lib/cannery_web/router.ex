@@ -71,8 +71,9 @@ defmodule CanneryWeb.Router do
     live "/catalog/:id/clone", AmmoTypeLive.Index, :clone
     live "/catalog/:id/edit", AmmoTypeLive.Index, :edit
 
-    live "/catalog/:id", AmmoTypeLive.Show, :show
+    live "/catalog/:id/show", AmmoTypeLive.Show, :show
     live "/catalog/:id/show/edit", AmmoTypeLive.Show, :edit
+    live "/catalog/:id/show/table", AmmoTypeLive.Show, :table
 
     live "/containers", ContainerLive.Index, :index
     live "/containers/table", ContainerLive.Index, :table
@@ -81,7 +82,8 @@ defmodule CanneryWeb.Router do
     live "/containers/:id/clone", ContainerLive.Index, :clone
     live "/containers/:id/edit_tags", ContainerLive.Index, :edit_tags
 
-    live "/containers/:id", ContainerLive.Show, :show
+    live "/containers/:id/show", ContainerLive.Show, :show
+    live "/containers/:id/show/table", ContainerLive.Show, :table
     live "/containers/:id/show/edit", ContainerLive.Show, :edit
     live "/containers/:id/show/edit_tags", ContainerLive.Show, :edit_tags
 
@@ -92,7 +94,7 @@ defmodule CanneryWeb.Router do
     live "/ammo/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
     live "/ammo/:id/move", AmmoGroupLive.Index, :move
 
-    live "/ammo/:id", AmmoGroupLive.Show, :show
+    live "/ammo/:id/show", AmmoGroupLive.Show, :show
     live "/ammo/:id/show/edit", AmmoGroupLive.Show, :edit
     live "/ammo/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
     live "/ammo/:id/show/move", AmmoGroupLive.Show, :move

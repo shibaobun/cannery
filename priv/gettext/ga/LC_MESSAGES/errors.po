@@ -30,7 +30,7 @@ msgid "Container must be empty before deleting"
 msgstr "Caithfidh an coimeádán a bheidh follamh roimh scriosadh"
 
 #: lib/cannery_web/live/container_live/index.ex:88
-#: lib/cannery_web/live/container_live/show.ex:71
+#: lib/cannery_web/live/container_live/show.ex:75
 #, elixir-autogen, elixir-format
 msgid "Could not delete %{name}: %{error}"
 msgstr "Ní feidir %{name} a scriosadh: %{error}"

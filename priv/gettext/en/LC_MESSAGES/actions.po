@@ -157,7 +157,7 @@ msgstr ""
 msgid "Why not get some ready to shoot?"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:199
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:80
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:101
 #: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format
@@ -232,11 +232,6 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Set Unlimited"
-msgstr ""
-
-#: lib/cannery_web/live/container_live/show.html.heex:97
-#, elixir-autogen, elixir-format
-msgid "Show used"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86

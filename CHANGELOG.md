@@ -2,6 +2,8 @@
 - Add shading to table component
 - Fix chart to sum by day
 - Fix whitespace when copying invite url
+- Make ammo type show page also display ammo groups as table
+- Make container show page also display ammo groups as table
 
 # v0.6.0
 - Update translations

@@ -184,9 +184,9 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   describe "Index with ammo group" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
 
-    test "shows additional ammo type info on toggle",
+    test "shows used ammo groups on toggle",
          %{conn: conn, ammo_group: ammo_group, current_user: current_user} do
-      {:ok, show_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
       assert html =~ dgettext("actions", "Show used")
       refute html =~ gettext("Used rounds")
@@ -194,7 +194,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       refute html =~ gettext("Used packs")
       refute html =~ gettext("Total ever packs")
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html = index_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
 
       assert html =~ gettext("Used rounds")
       assert html =~ gettext("Total ever rounds")
@@ -207,8 +207,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
 
-      {:ok, show_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+      html = index_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
 
       assert html =~ "15"
       assert html =~ "5"
@@ -218,19 +218,22 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   describe "Show ammo type" do
     setup [:register_and_log_in_user, :create_ammo_type]
 
-    test "displays ammo_type", %{conn: conn, ammo_type: ammo_type} do
+    test "displays ammo_type", %{
+      conn: conn,
+      ammo_type: %{name: name, bullet_type: bullet_type} = ammo_type
+    } do
       {:ok, _show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      assert html =~ gettext("Show Ammo type")
-      assert html =~ ammo_type.bullet_type
+      assert html =~ name
+      assert html =~ bullet_type
     end
 
     test "updates ammo_type within modal",
-         %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
+         %{conn: conn, current_user: current_user, ammo_type: %{name: name} = ammo_type} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
       assert show_live |> element("[data-qa=\"edit\"]") |> render_click() =~
-               gettext("Edit Ammo type")
+               gettext("Edit %{ammo_type_name}", ammo_type_name: name)
 
       assert_patch(show_live, Routes.ammo_type_show_path(conn, :edit, ammo_type))
 
@@ -253,20 +256,35 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   describe "Show ammo type with ammo group" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
 
-    test "displays ammo group", %{conn: conn, ammo_type: ammo_type, container: container} do
+    test "displays ammo group", %{
+      conn: conn,
+      ammo_type: %{name: ammo_type_name} = ammo_type,
+      container: %{name: container_name}
+    } do
       {:ok, _show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      assert html =~ gettext("Show Ammo type")
+      assert html =~ ammo_type_name
       assert html =~ "some ammo group"
-      assert html =~ container.name
+      assert html =~ container_name
+    end
+
+    test "displays ammo group in table",
+         %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
+      {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
+
+      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
+
+      assert html =~ "some ammo group"
+      assert html =~ container_name
     end
   end
 
   describe "Show ammo type with empty ammo group" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_empty_ammo_group]
 
-    test "hides empty ammo groups by default",
-         %{conn: conn, ammo_type: ammo_type} do
+    test "displays empty ammo groups on toggle",
+         %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
       assert html =~ dgettext("actions", "Show used")
@@ -276,6 +294,24 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       assert html =~ "some ammo group"
       assert html =~ "Empty"
+      assert html =~ container_name
+    end
+
+    test "displays empty ammo groups in table on toggle",
+         %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
+      {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
+
+      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
+
+      assert html =~ dgettext("actions", "Show used")
+      refute html =~ "some ammo group"
+
+      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+
+      assert html =~ "some ammo group"
+      assert html =~ "Empty"
+      assert html =~ container_name
     end
   end
 end

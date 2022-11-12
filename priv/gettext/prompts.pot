@@ -19,7 +19,7 @@ msgid "%{name} created successfully"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:47
-#: lib/cannery_web/live/ammo_type_live/show.ex:28
+#: lib/cannery_web/live/ammo_type_live/show.ex:56
 #: lib/cannery_web/live/invite_live/index.ex:53
 #: lib/cannery_web/live/invite_live/index.ex:133
 #: lib/cannery_web/live/tag_live/index.ex:38
@@ -38,7 +38,7 @@ msgid "%{name} enabled succesfully"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.ex:81
-#: lib/cannery_web/live/container_live/show.ex:61
+#: lib/cannery_web/live/container_live/show.ex:65
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr ""
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:242
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:132
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -172,7 +172,7 @@ msgstr ""
 msgid "%{name} added successfully"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/show.ex:37
+#: lib/cannery_web/live/container_live/show.ex:41
 #, elixir-autogen, elixir-format
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr ""

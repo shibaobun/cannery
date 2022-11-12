@@ -153,12 +153,12 @@ defmodule CanneryWeb.ContainerLive.Index do
     )
   end
 
-  @spec get_row_data_for_container(Container.t(), [map()]) :: [map()]
+  @spec get_row_data_for_container(Container.t(), [map()]) :: map()
   defp get_row_data_for_container(container, columns) do
     container = container |> Repo.preload([:ammo_groups, :tags])
 
     columns
-    |> Enum.into(%{}, fn %{key: key} -> {key, get_value_for_key(key, container)} end)
+    |> Map.new(fn %{key: key} -> {key, get_value_for_key(key, container)} end)
   end
 
   @spec get_value_for_key(atom(), Container.t()) :: any()
