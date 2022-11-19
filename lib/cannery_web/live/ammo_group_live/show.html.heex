@@ -27,8 +27,8 @@
     <% end %>
 
     <span class="rounded-lg title text-lg">
-      <%= gettext("Added on:") %>
-      <%= @ammo_group.inserted_at |> display_datetime() %>
+      <%= gettext("Purchased on:") %>
+      <%= @ammo_group.purchased_on |> display_date() %>
     </span>
 
     <%= if @ammo_group.price_paid do %>

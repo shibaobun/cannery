@@ -224,9 +224,22 @@ defmodule Cannery.AmmoTest do
   end
 
   describe "ammo_groups" do
-    @valid_attrs %{"count" => 42, "notes" => "some notes", "price_paid" => 120.5}
-    @update_attrs %{"count" => 43, "notes" => "some updated notes", "price_paid" => 456.7}
-    @invalid_attrs %{"count" => nil, "notes" => nil, "price_paid" => nil}
+    @valid_attrs %{
+      "count" => 42,
+      "notes" => "some notes",
+      "price_paid" => 120.5,
+      "purchased_on" => ~D[2022-11-19]
+    }
+    @update_attrs %{
+      "count" => 43,
+      "notes" => "some updated notes",
+      "price_paid" => 456.7
+    }
+    @invalid_attrs %{
+      "count" => nil,
+      "notes" => nil,
+      "price_paid" => nil
+    }
 
     setup do
       current_user = user_fixture()

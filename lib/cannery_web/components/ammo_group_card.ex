@@ -54,13 +54,13 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
         <% end %>
 
         <span class="rounded-lg title text-lg">
-          <%= gettext("Added on:") %>
-          <%= @ammo_group.inserted_at |> display_datetime() %>
+          <%= gettext("Purchased on:") %>
+          <%= @ammo_group.purchased_on |> display_date() %>
         </span>
 
-        <%= if @ammo_group.count == 0 do %>
+        <%= if @ammo_group |> Ammo.get_last_used_shot_group() do %>
           <span class="rounded-lg title text-lg">
-            <%= gettext("Used up on:") %>
+            <%= gettext("Last used on:") %>
             <%= @ammo_group |> Ammo.get_last_used_shot_group() |> Map.get(:date) |> display_date() %>
           </span>
         <% end %>

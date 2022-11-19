@@ -192,7 +192,7 @@ msgstr ""
 msgid "Invalid multiplier"
 msgstr ""
 
-#: lib/cannery/ammo/ammo_group.ex:94
+#: lib/cannery/ammo/ammo_group.ex:96
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr ""

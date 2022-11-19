@@ -13,7 +13,6 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
             required(:ammo_groups) => [AmmoGroup.t()],
-            optional(:show_used) => boolean(),
             optional(:ammo_type) => Rendered.t(),
             optional(:range) => Rendered.t(),
             optional(:container) => Rendered.t(),
@@ -26,7 +25,6 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
     socket =
       socket
       |> assign(assigns)
-      |> assign_new(:show_used, fn -> false end)
       |> assign_new(:ammo_type, fn -> [] end)
       |> assign_new(:range, fn -> [] end)
       |> assign_new(:container, fn -> [] end)
@@ -41,7 +39,6 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
            assigns: %{
              ammo_groups: ammo_groups,
              current_user: current_user,
-             show_used: show_used,
              ammo_type: ammo_type,
              range: range,
              container: container,
@@ -56,14 +53,10 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
         [%{label: nil, key: :actions, sortable: false}]
       end
 
-    columns =
-      if show_used do
-        [%{label: gettext("Used up on"), key: :used_up_on} | columns]
-      else
-        columns
-      end
-
-    columns = [%{label: gettext("Added on"), key: :added_on} | columns]
+    columns = [
+      %{label: gettext("Purchased on"), key: :purchased_on},
+      %{label: gettext("Last used on"), key: :used_up_on} | columns
+    ]
 
     columns =
       if container == [] do
@@ -158,12 +151,12 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   defp get_value_for_key(:price_paid, %{price_paid: price_paid}, _additional_data),
     do: gettext("$%{amount}", amount: price_paid |> :erlang.float_to_binary(decimals: 2))
 
-  defp get_value_for_key(:added_on, %{inserted_at: inserted_at}, _additional_data) do
-    assigns = %{inserted_at: inserted_at}
+  defp get_value_for_key(:purchased_on, %{purchased_on: purchased_on}, _additional_data) do
+    assigns = %{purchased_on: purchased_on}
 
-    {inserted_at,
+    {purchased_on,
      ~H"""
-     <%= @inserted_at |> display_datetime() %>
+     <%= @purchased_on |> display_date() %>
      """}
   end
 
@@ -178,7 +171,11 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
     {last_shot_group_date,
      ~H"""
-     <%= @last_shot_group_date |> display_date() %>
+     <%= if @last_shot_group_date do %>
+       <%= @last_shot_group_date |> display_date() %>
+     <% else %>
+       <%= gettext("Never used") %>
+     <% end %>
      """}
   end
 

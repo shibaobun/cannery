@@ -38,6 +38,14 @@
     ) %>
     <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
 
+    <%= label(f, :purchased_on, gettext("Purchased on"), class: "title text-lg text-primary-600") %>
+    <%= date_input(f, :purchased_on,
+      class: "input input-primary col-span-2",
+      phx_update: "ignore",
+      value: @changeset |> Changeset.get_field(:purchased_on) || Date.utc_today()
+    ) %>
+    <%= error_tag(f, :purchased_on, "col-span-3 text-center") %>
+
     <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :notes,
       class: "text-center col-span-2 input input-primary",

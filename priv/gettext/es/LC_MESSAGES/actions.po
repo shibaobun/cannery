@@ -134,7 +134,7 @@ msgid "Reset password"
 msgstr "Resetear contraseña"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:53
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:73
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:81
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:156
 #: lib/cannery_web/live/container_live/form_component.html.heex:50
 #: lib/cannery_web/live/invite_live/form_component.html.heex:31
@@ -169,7 +169,7 @@ msgstr "Preparar munición"
 msgid "Why not get some ready to shoot?"
 msgstr "¿Por qué no preparar parte para disparar?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:80
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:79
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:101
 #: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format
@@ -201,7 +201,7 @@ msgstr "Copiar al portapapeles"
 msgid "add a container first"
 msgstr "añade primero un contenedor"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:66
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Create"
 msgstr "Crear"

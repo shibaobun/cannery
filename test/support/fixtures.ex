@@ -133,7 +133,8 @@ defmodule Cannery.Fixtures do
     |> Enum.into(%{
       "ammo_type_id" => ammo_type_id,
       "container_id" => container_id,
-      "count" => 20
+      "count" => 20,
+      "purchased_on" => Date.utc_today()
     })
     |> Ammo.create_ammo_groups(multiplier, user)
     |> unwrap_ok_tuple()

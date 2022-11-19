@@ -4,6 +4,7 @@
 - Miscellanous code improvements
 - Improve container index table
 - Fix bug with ammo not updating after deleting shot group
+- Replace ammo "added on" with "purchased on"
 
 # v0.7.1
 - Add shading to table component

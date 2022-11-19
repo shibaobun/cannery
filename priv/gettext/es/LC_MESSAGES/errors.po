@@ -190,7 +190,7 @@ msgstr "Número inválido de copias, debe ser entre 1 y %{max}. Fue %{multiplier
 msgid "Invalid multiplier"
 msgstr "Multiplicador inválido"
 
-#: lib/cannery/ammo/ammo_group.ex:94
+#: lib/cannery/ammo/ammo_group.ex:96
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr ""
