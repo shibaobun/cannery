@@ -117,10 +117,10 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="w-full">
+    <div id={@id} class="w-full">
       <.live_component
         module={CanneryWeb.Components.TableComponent}
-        id={@id}
+        id={"table-#{@id}"}
         columns={@columns}
         rows={@rows}
       />

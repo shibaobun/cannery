@@ -15,9 +15,12 @@ defmodule CanneryWeb.Components.InviteCard do
     assigns = assigns |> assign_new(:code_actions, fn -> [] end)
 
     ~H"""
-    <div class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
+    <div
+      id={"invite-#{@invite.id}"}
+      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
       border border-gray-400 rounded-lg shadow-lg hover:shadow-md
-      transition-all duration-300 ease-in-out">
+      transition-all duration-300 ease-in-out"
+    >
       <h1 class="title text-xl">
         <%= @invite.name %>
       </h1>
