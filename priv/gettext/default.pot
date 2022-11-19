@@ -10,12 +10,12 @@
 msgid ""
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:64
+#: lib/cannery_web/live/home_live.ex:47
 #, elixir-autogen, elixir-format
 msgid "%{name} lets you easily keep an eye on your ammo levels before and after range day"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:86
+#: lib/cannery_web/live/home_live.ex:69
 #, elixir-autogen, elixir-format
 msgid "Access from any internet-capable device"
 msgstr ""
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Admins"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:100
+#: lib/cannery_web/live/home_live.ex:83
 #, elixir-autogen, elixir-format
 msgid "Admins:"
 msgstr ""
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:61
+#: lib/cannery_web/live/home_live.ex:44
 #, elixir-autogen, elixir-format
 msgid "Easy to Use:"
 msgstr ""
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Incendiary"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:95
+#: lib/cannery_web/live/home_live.ex:78
 #, elixir-autogen, elixir-format
 msgid "Instance Information"
 msgstr ""
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Invite Disabled"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:128
+#: lib/cannery_web/live/home_live.ex:111
 #, elixir-autogen, elixir-format
 msgid "Invite Only"
 msgstr ""
@@ -350,17 +350,17 @@ msgstr ""
 msgid "Primer type"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:127
+#: lib/cannery_web/live/home_live.ex:110
 #, elixir-autogen, elixir-format
 msgid "Public Signups"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:73
+#: lib/cannery_web/live/home_live.ex:56
 #, elixir-autogen, elixir-format
 msgid "Secure:"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:76
+#: lib/cannery_web/live/home_live.ex:59
 #, elixir-autogen, elixir-format
 msgid "Self-host your own instance, or use an instance from someone you trust."
 msgstr ""
@@ -371,7 +371,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:83
+#: lib/cannery_web/live/home_live.ex:66
 #, elixir-autogen, elixir-format
 msgid "Simple:"
 msgstr ""
@@ -404,7 +404,7 @@ msgstr ""
 msgid "Text color"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:52
+#: lib/cannery_web/live/home_live.ex:35
 #, elixir-autogen, elixir-format
 msgid "The self-hosted firearm tracker website"
 msgstr ""
@@ -443,12 +443,12 @@ msgstr ""
 msgid "Uses left"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:48
+#: lib/cannery_web/live/home_live.ex:31
 #, elixir-autogen, elixir-format
 msgid "Welcome to %{name}"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:77
+#: lib/cannery_web/live/home_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "Your data stays with you, period"
 msgstr ""
@@ -782,22 +782,22 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:151
+#: lib/cannery_web/live/home_live.ex:136
 #, elixir-autogen, elixir-format
 msgid "Get involved!"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:172
+#: lib/cannery_web/live/home_live.ex:157
 #, elixir-autogen, elixir-format
 msgid "Help translate"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:183
+#: lib/cannery_web/live/home_live.ex:168
 #, elixir-autogen, elixir-format
 msgid "Report bugs or request features"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:161
+#: lib/cannery_web/live/home_live.ex:146
 #, elixir-autogen, elixir-format
 msgid "View the source code"
 msgstr ""
@@ -841,12 +841,12 @@ msgid "Packs:"
 msgstr ""
 
 #: lib/cannery_web/components/topbar.ex:25
-#: lib/cannery_web/live/home_live.ex:42
+#: lib/cannery_web/live/home_live.ex:25
 #, elixir-autogen, elixir-format
 msgid "Cannery logo"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:44
+#: lib/cannery_web/live/home_live.ex:27
 #, elixir-autogen, elixir-format
 msgid "isn't he cute >:3"
 msgstr ""
@@ -1089,4 +1089,9 @@ msgstr ""
 #: lib/cannery_web/components/ammo_group_card.ex:44
 #, elixir-autogen, elixir-format
 msgid "Original Count:"
+msgstr ""
+
+#: lib/cannery_web/live/home_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "Home"
 msgstr ""

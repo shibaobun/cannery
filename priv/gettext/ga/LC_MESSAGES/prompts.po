@@ -152,7 +152,7 @@ msgstr ""
 msgid "Please check your email to verify your account"
 msgstr ""
 
-#: lib/cannery_web/live/home_live.ex:108
+#: lib/cannery_web/live/home_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Register to setup %{name}"
 msgstr ""

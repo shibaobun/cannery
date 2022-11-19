@@ -14,4 +14,10 @@ defmodule CanneryWeb.HomeLiveTest do
     assert disconnected_html =~ gettext("Welcome to %{name}", name: "Cannery")
     assert render(home_live) =~ gettext("Welcome to %{name}", name: "Cannery")
   end
+
+  test "displays version number", %{conn: conn} do
+    {:ok, home_live, disconnected_html} = live(conn, "/")
+    assert disconnected_html =~ Mix.Project.config()[:version]
+    assert render(home_live) =~ Mix.Project.config()[:version]
+  end
 end

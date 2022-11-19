@@ -160,7 +160,7 @@ msgstr "Contraseña cambiada exitosamente."
 msgid "Please check your email to verify your account"
 msgstr "Por favor chequea el correo para verificar tu cuenta"
 
-#: lib/cannery_web/live/home_live.ex:108
+#: lib/cannery_web/live/home_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Register to setup %{name}"
 msgstr "Regístrese para configurar %{name}"

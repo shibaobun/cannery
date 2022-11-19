@@ -161,7 +161,7 @@ msgstr "Mot de passe mis à jour avec succès."
 msgid "Please check your email to verify your account"
 msgstr "Veuillez vérifier votre mél pour confirmer votre compte"
 
-#: lib/cannery_web/live/home_live.ex:108
+#: lib/cannery_web/live/home_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Register to setup %{name}"
 msgstr "S’enregistrer pour mettre en place %{name}"

@@ -160,7 +160,7 @@ msgstr "Passwort erfolgreich geändert."
 msgid "Please check your email to verify your account"
 msgstr "Bitte überprüfen Sie ihre Mailbox und bestätigen Sie das Nutzerkonto"
 
-#: lib/cannery_web/live/home_live.ex:108
+#: lib/cannery_web/live/home_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Register to setup %{name}"
 msgstr "Registrieren Sie sich, um %{name} zu bearbeiten"
