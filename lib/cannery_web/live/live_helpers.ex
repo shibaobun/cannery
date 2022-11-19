@@ -72,10 +72,57 @@ defmodule CanneryWeb.LiveHelpers do
     """
   end
 
-  def hide_modal(js \\ %JS{}) do
+  defp hide_modal(js \\ %JS{}) do
     js
     |> JS.hide(to: "#modal", transition: "fade-out")
     |> JS.hide(to: "#modal-bg", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
+  end
+
+  @doc """
+  A toggle button element that can be directed to a liveview or a
+  live_component's `handle_event/3`.
+
+  ## Examples
+
+  <.toggle_button action="my_liveview_action" value={@some_value}>
+    <span>Toggle me!</span>
+  </.toggle_button>
+  <.toggle_button action="my_live_component_action" target={@myself} value={@some_value}>
+    <span>Whatever you want</span>
+  </.toggle_button>
+  """
+  def toggle_button(assigns) do
+    assigns = assigns |> assign_new(:id, fn -> assigns.action end)
+
+    ~H"""
+    <label for={@id} class="inline-flex relative items-center cursor-pointer">
+      <input
+        id={@id}
+        type="checkbox"
+        value={@value}
+        checked={@value}
+        class="sr-only peer"
+        data-qa={@id}
+        {
+          if assigns |> Map.has_key?(:target),
+            do: %{"phx-click" => @action, "phx-value-value" => @value, "phx-target" => @target},
+            else: %{"phx-click" => @action, "phx-value-value" => @value}
+        }
+      />
+      <div class="w-11 h-6 bg-gray-300 rounded-full peer
+        peer-focus:ring-4 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800
+        peer-checked:bg-gray-600
+        peer-checked:after:translate-x-full peer-checked:after:border-white
+        after:content-[''] after:absolute after:top-1 after:left-[2px] after:bg-white after:border-gray-300
+        after:border after:rounded-full after:h-5 after:w-5
+        after:transition-all after:duration-250 after:ease-in-out
+        transition-colors duration-250 ease-in-out">
+      </div>
+      <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+        <%= render_slot(@inner_block) %>
+      </span>
+    </label>
+    """
   end
 end
