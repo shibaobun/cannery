@@ -24,12 +24,20 @@
 
   <%= unless @ammo_groups |> Enum.empty?() do %>
     <span class="rounded-lg title text-lg">
-      <%= gettext("Packs:") %>
+      <%= if @show_used do %>
+        <%= gettext("Total packs:") %>
+      <% else %>
+        <%= gettext("Packs:") %>
+      <% end %>
       <%= Enum.count(@ammo_groups) %>
     </span>
 
     <span class="rounded-lg title text-lg">
-      <%= gettext("Rounds:") %>
+      <%= if @show_used do %>
+        <%= gettext("Total rounds:") %>
+      <% else %>
+        <%= gettext("Rounds:") %>
+      <% end %>
       <%= @container |> Containers.get_container_rounds!() %>
     </span>
   <% end %>
@@ -107,7 +115,7 @@
 
   <div class="w-full p-4">
     <%= if @ammo_groups |> Enum.empty?() do %>
-      <h2 class="mx-4 title text-lg text-primary-600">
+      <h2 class="mx-4 title text-lg text-primary-600 text-center">
         <%= gettext("No ammo in this container") %>
       </h2>
     <% else %>

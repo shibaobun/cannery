@@ -468,7 +468,7 @@ msgstr ""
 msgid "Your data stays with you, period"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/show.html.heex:64
+#: lib/cannery_web/live/container_live/show.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "No tags for this container"
 msgstr ""
@@ -674,7 +674,7 @@ msgstr ""
 
 #: lib/cannery_web/components/container_card.ex:63
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:67
-#: lib/cannery_web/live/container_live/show.html.heex:32
+#: lib/cannery_web/live/container_live/show.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Rounds:"
 msgstr ""
@@ -833,7 +833,7 @@ msgstr ""
 msgid "Move Ammo"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/show.html.heex:111
+#: lib/cannery_web/live/container_live/show.html.heex:119
 #, elixir-autogen, elixir-format, fuzzy
 msgid "No ammo in this container"
 msgstr ""
@@ -850,7 +850,7 @@ msgstr ""
 
 #: lib/cannery_web/components/container_card.ex:58
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:95
-#: lib/cannery_web/live/container_live/show.html.heex:27
+#: lib/cannery_web/live/container_live/show.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Packs:"
 msgstr ""
@@ -879,7 +879,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:48
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:23
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:152
-#: lib/cannery_web/live/container_live/show.html.heex:97
+#: lib/cannery_web/live/container_live/show.html.heex:105
 #, elixir-autogen, elixir-format
 msgid "Show used"
 msgstr ""
@@ -919,7 +919,7 @@ msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:158
 #: lib/cannery_web/live/container_live/index.html.heex:23
-#: lib/cannery_web/live/container_live/show.html.heex:103
+#: lib/cannery_web/live/container_live/show.html.heex:111
 #, elixir-autogen, elixir-format
 msgid "View as table"
 msgstr ""
@@ -1109,4 +1109,14 @@ msgstr ""
 #: lib/cannery_web/live/home_live.ex:15
 #, elixir-autogen, elixir-format
 msgid "Home"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.html.heex:28
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Total packs:"
+msgstr ""
+
+#: lib/cannery_web/live/container_live/show.html.heex:37
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Total rounds:"
 msgstr ""

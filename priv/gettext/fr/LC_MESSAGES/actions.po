@@ -149,7 +149,7 @@ msgstr "Sauvegarder"
 msgid "Send instructions to reset password"
 msgstr "Envoyer les instructions pour réinitialiser le mot de passe"
 
-#: lib/cannery_web/live/container_live/show.html.heex:72
+#: lib/cannery_web/live/container_live/show.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Why not add one?"
 msgstr "Pourquoi pas en ajouter un ?"
