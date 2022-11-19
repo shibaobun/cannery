@@ -72,7 +72,7 @@ msgstr ""
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.ex:223
+#: lib/cannery_web/live/container_live/index.ex:236
 #: lib/cannery_web/live/container_live/index.html.heex:73
 #: lib/cannery_web/live/container_live/show.html.heex:59
 #: lib/cannery_web/live/tag_live/index.html.heex:39

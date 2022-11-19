@@ -162,6 +162,19 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   @spec get_value_for_key(atom(), Container.t()) :: any()
+  defp get_value_for_key(:name, %{id: id, name: container_name}) do
+    assigns = %{id: id, container_name: container_name}
+
+    {container_name,
+     ~H"""
+     <div class="flex flex-wrap justify-center items-center">
+       <.link navigate={Routes.container_show_path(Endpoint, :show, @id)} class="link">
+         <%= @container_name %>
+       </.link>
+     </div>
+     """}
+  end
+
   defp get_value_for_key(:packs, container) do
     container |> Containers.get_container_ammo_group_count!()
   end
