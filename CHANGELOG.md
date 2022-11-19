@@ -6,6 +6,7 @@
 - Fix bug with ammo not updating after deleting shot group
 - Replace ammo "added on" with "purchased on"
 - Miscellaneous wording improvements
+- Update translations
 
 # v0.7.1
 - Add shading to table component
