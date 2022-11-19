@@ -76,11 +76,6 @@ msgstr ""
 "Un lien pour confirmer votre changement de mél a été envoyé à la nouvelle "
 "adresse."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:64
-#, elixir-autogen, elixir-format
-msgid "Ammo group deleted succesfully"
-msgstr "Groupe de munition supprimé avec succès"
-
 #: lib/cannery_web/live/invite_live/index.html.heex:103
 #: lib/cannery_web/live/invite_live/index.html.heex:133
 #, elixir-autogen, elixir-format
@@ -272,6 +267,7 @@ msgstr "Êtes-vous certain·e de vouloir changer votre langue ?"
 msgid "Language updated successfully."
 msgstr "Langue mise à jour avec succès."
 
+#: lib/cannery_web/live/ammo_group_live/index.ex:64
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"

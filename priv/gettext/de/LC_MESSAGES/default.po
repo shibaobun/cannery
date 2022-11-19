@@ -46,6 +46,7 @@ msgid "Admins:"
 msgstr "Admins:"
 
 #: lib/cannery_web/components/topbar.ex:73
+#: lib/cannery_web/live/ammo_group_live/index.ex:56
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 #, elixir-autogen, elixir-format
@@ -154,11 +155,6 @@ msgstr "Beschreibung:"
 #, elixir-autogen, elixir-format
 msgid "Easy to Use:"
 msgstr "Einfache Anwendung:"
-
-#: lib/cannery_web/live/ammo_group_live/index.ex:38
-#, elixir-autogen, elixir-format
-msgid "Edit Ammo group"
-msgstr "Munitionsgruppe bearbeiten"
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:23
 #, elixir-autogen, elixir-format
@@ -294,11 +290,6 @@ msgstr "Neuer Tag"
 #, elixir-autogen, elixir-format
 msgid "No Ammo"
 msgstr "Keine Munition"
-
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:8
-#, elixir-autogen, elixir-format
-msgid "No Ammo Types"
-msgstr "Keine Munitionsarten"
 
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:166
 #, elixir-autogen, elixir-format
@@ -488,6 +479,7 @@ msgstr "Range Day"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:45
 #: lib/cannery_web/live/ammo_group_live/show.ex:94
+#: lib/cannery_web/live/range_live/form_component.html.heex:36
 #: lib/cannery_web/live/range_live/index.ex:83
 #, elixir-autogen, elixir-format
 msgid "Date"
@@ -508,16 +500,6 @@ msgstr "Keine Munition selektiert"
 #, elixir-autogen, elixir-format
 msgid "Record shots"
 msgstr "Schüsse dokumentieren"
-
-#: lib/cannery_web/live/ammo_group_live/index.ex:56
-#, elixir-autogen, elixir-format
-msgid "Ammo groups"
-msgstr "Munitionsgruppen"
-
-#: lib/cannery_web/live/range_live/form_component.html.heex:36
-#, elixir-autogen, elixir-format
-msgid "Date (UTC)"
-msgstr "Zeit (UTC)"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:42
 #: lib/cannery_web/live/range_live/index.ex:32
@@ -554,10 +536,6 @@ msgid "Shot Records"
 msgstr "Schießkladde"
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:32
-#, elixir-autogen, elixir-format
-msgid "Move Ammo group"
-msgstr "Munitionsgruppe verschieben"
-
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
@@ -1132,3 +1110,13 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Purchased on:"
 msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit ammo"
+msgstr "Munitionstyp bearbeiten"
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:8
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No Ammo types"
+msgstr "Keine Munitionsarten"

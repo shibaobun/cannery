@@ -76,11 +76,6 @@ msgstr ""
 "Un enlace para confirmar el correo electrónico ha sido enviado a la nueva "
 "dirección."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:64
-#, elixir-autogen, elixir-format
-msgid "Ammo group deleted succesfully"
-msgstr "Grupo de Munición borrado exitosamente"
-
 #: lib/cannery_web/live/invite_live/index.html.heex:103
 #: lib/cannery_web/live/invite_live/index.html.heex:133
 #, elixir-autogen, elixir-format
@@ -270,6 +265,7 @@ msgstr ""
 msgid "Language updated successfully."
 msgstr ""
 
+#: lib/cannery_web/live/ammo_group_live/index.ex:64
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"

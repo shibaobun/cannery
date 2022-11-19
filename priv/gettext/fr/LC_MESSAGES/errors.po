@@ -196,12 +196,12 @@ msgstr "Multiplicateur invalide"
 msgid "Please select an ammo type and container"
 msgstr "Veuillez choisir un type de munitions et un conteneur"
 
-#: lib/cannery/activity_log/shot_group.ex:77
-#, elixir-autogen, elixir-format
-msgid "Please select a valid user and ammo group"
-msgstr "Veuillez choisir un utilisateur valide et un groupe de munitions"
-
 #: lib/cannery_web/live/range_live/index.html.heex:67
 #, elixir-autogen, elixir-format
 msgid "Your browser does not support the canvas element."
 msgstr ""
+
+#: lib/cannery/activity_log/shot_group.ex:77
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Please select a valid user and ammo pack"
+msgstr "Veuillez choisir un utilisateur valide et un groupe de munitions"

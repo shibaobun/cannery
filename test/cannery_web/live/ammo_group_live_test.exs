@@ -156,7 +156,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert index_live
              |> element("[data-qa=\"edit-#{ammo_group.id}\"]")
              |> render_click() =~
-               gettext("Edit Ammo")
+               gettext("Edit ammo")
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :edit, ammo_group))
 

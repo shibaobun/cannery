@@ -29,13 +29,13 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :move, %{"id" => id}) do
     socket
-    |> assign(:page_title, gettext("Move Ammo group"))
+    |> assign(:page_title, gettext("Move ammo"))
     |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, gettext("Edit Ammo group"))
+    |> assign(:page_title, gettext("Edit ammo"))
     |> assign(:ammo_group, Ammo.get_ammo_group!(id, current_user))
   end
 
@@ -53,7 +53,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, gettext("Ammo groups"))
+    |> assign(:page_title, gettext("Ammo"))
     |> assign(:ammo_group, nil)
   end
 
@@ -61,7 +61,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
     Ammo.get_ammo_group!(id, current_user) |> Ammo.delete_ammo_group!(current_user)
 
-    prompt = dgettext("prompts", "Ammo group deleted succesfully")
+    prompt = dgettext("prompts", "Ammo deleted succesfully")
 
     {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_groups()}
   end

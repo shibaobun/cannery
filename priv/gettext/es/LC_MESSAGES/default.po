@@ -46,6 +46,7 @@ msgid "Admins:"
 msgstr ""
 
 #: lib/cannery_web/components/topbar.ex:73
+#: lib/cannery_web/live/ammo_group_live/index.ex:56
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 #, elixir-autogen, elixir-format
@@ -153,11 +154,6 @@ msgstr ""
 #: lib/cannery_web/live/home_live.ex:44
 #, elixir-autogen, elixir-format
 msgid "Easy to Use:"
-msgstr ""
-
-#: lib/cannery_web/live/ammo_group_live/index.ex:38
-#, elixir-autogen, elixir-format
-msgid "Edit Ammo group"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:23
@@ -293,11 +289,6 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "No Ammo"
-msgstr ""
-
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:8
-#, elixir-autogen, elixir-format
-msgid "No Ammo Types"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:166
@@ -486,6 +477,7 @@ msgstr ""
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:45
 #: lib/cannery_web/live/ammo_group_live/show.ex:94
+#: lib/cannery_web/live/range_live/form_component.html.heex:36
 #: lib/cannery_web/live/range_live/index.ex:83
 #, elixir-autogen, elixir-format
 msgid "Date"
@@ -505,16 +497,6 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.ex:26
 #, elixir-autogen, elixir-format
 msgid "Record shots"
-msgstr ""
-
-#: lib/cannery_web/live/ammo_group_live/index.ex:56
-#, elixir-autogen, elixir-format
-msgid "Ammo groups"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/form_component.html.heex:36
-#, elixir-autogen, elixir-format
-msgid "Date (UTC)"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:42
@@ -552,10 +534,6 @@ msgid "Shot Records"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:32
-#, elixir-autogen, elixir-format
-msgid "Move Ammo group"
-msgstr ""
-
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
@@ -1129,4 +1107,14 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Purchased on:"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit ammo"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:8
+#, elixir-autogen, elixir-format, fuzzy
+msgid "No Ammo types"
 msgstr ""

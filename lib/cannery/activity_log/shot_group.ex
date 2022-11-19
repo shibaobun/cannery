@@ -74,7 +74,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
     |> cast(attrs, [:count, :notes, :date])
     |> validate_number(:count, greater_than: 0)
     |> validate_required([:count, :ammo_group_id, :user_id])
-    |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo group"))
+    |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo pack"))
   end
 
   defp validate_create_shot_group_count(changeset, %AmmoGroup{count: ammo_group_count}) do

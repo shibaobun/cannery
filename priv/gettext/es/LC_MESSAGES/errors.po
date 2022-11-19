@@ -195,12 +195,12 @@ msgstr "Multiplicador inválido"
 msgid "Please select an ammo type and container"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:77
-#, elixir-autogen, elixir-format
-msgid "Please select a valid user and ammo group"
-msgstr ""
-
 #: lib/cannery_web/live/range_live/index.html.heex:67
 #, elixir-autogen, elixir-format
 msgid "Your browser does not support the canvas element."
 msgstr "Su navegador no es compatible con el elemento lienzo."
+
+#: lib/cannery/activity_log/shot_group.ex:77
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Please select a valid user and ammo pack"
+msgstr ""

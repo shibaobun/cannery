@@ -74,11 +74,6 @@ msgstr "%{name} erfolgreich aktualisiert"
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Eine Mail zum Bestätigen ihre Mailadresse wurde Ihnen zugesandt."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:64
-#, elixir-autogen, elixir-format
-msgid "Ammo group deleted succesfully"
-msgstr "Munitionsgruppe erfolgreich gelöscht"
-
 #: lib/cannery_web/live/invite_live/index.html.heex:103
 #: lib/cannery_web/live/invite_live/index.html.heex:133
 #, elixir-autogen, elixir-format
@@ -271,6 +266,7 @@ msgstr "Möchten Sie die Sprache wechseln?"
 msgid "Language updated successfully."
 msgstr "Spracheinstellung gespeichert."
 
+#: lib/cannery_web/live/ammo_group_live/index.ex:64
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"
