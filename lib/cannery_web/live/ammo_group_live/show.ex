@@ -30,7 +30,12 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _url, %{assigns: %{live_action: live_action}} = socket) do
-    {:noreply, socket |> assign(page_title: page_title(live_action)) |> display_ammo_group(id)}
+    socket =
+      socket
+      |> assign(page_title: page_title(live_action))
+      |> display_ammo_group(id)
+
+    {:noreply, socket}
   end
 
   defp page_title(:add_shot_group), do: gettext("Record Shots")
@@ -69,14 +74,14 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   def handle_event(
         "delete_shot_group",
         %{"id" => id},
-        %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
+        %{assigns: %{ammo_group: %{id: ammo_group_id}, current_user: current_user}} = socket
       ) do
     {:ok, _} =
       ActivityLog.get_shot_group!(id, current_user)
       |> ActivityLog.delete_shot_group(current_user)
 
     prompt = dgettext("prompts", "Shot records deleted succesfully")
-    {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_group(ammo_group)}
+    {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_group(ammo_group_id)}
   end
 
   @spec display_ammo_group(Socket.t(), AmmoGroup.t() | AmmoGroup.id()) :: Socket.t()

@@ -324,7 +324,7 @@ msgstr "Keine Tags"
 #: lib/cannery_web/components/add_shot_group_component.html.heex:37
 #: lib/cannery_web/components/ammo_group_table_component.ex:88
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:41
-#: lib/cannery_web/live/ammo_group_live/show.ex:88
+#: lib/cannery_web/live/ammo_group_live/show.ex:93
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
 #: lib/cannery_web/live/range_live/index.ex:82
 #, elixir-autogen, elixir-format
@@ -486,7 +486,7 @@ msgstr "Schießplatz"
 msgid "Range day"
 msgstr "Range Day"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:89
+#: lib/cannery_web/live/ammo_group_live/show.ex:94
 #: lib/cannery_web/live/range_live/index.ex:83
 #, elixir-autogen, elixir-format
 msgid "Date"
@@ -519,7 +519,7 @@ msgstr "Munitionsgruppen"
 msgid "Date (UTC)"
 msgstr "Zeit (UTC)"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:37
+#: lib/cannery_web/live/ammo_group_live/show.ex:42
 #: lib/cannery_web/live/range_live/index.ex:32
 #, elixir-autogen, elixir-format
 msgid "Edit Shot Records"
@@ -541,7 +541,7 @@ msgstr "Keine Schüsse dokumentiert"
 msgid "Rounds left"
 msgstr "Patronen verbleibend"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:87
+#: lib/cannery_web/live/ammo_group_live/show.ex:92
 #: lib/cannery_web/live/range_live/index.ex:81
 #: lib/cannery_web/live/range_live/index.html.heex:62
 #, elixir-autogen, elixir-format
@@ -743,7 +743,7 @@ msgstr "Registrieren"
 msgid "Reset your password"
 msgstr "Passwort zurücksetzen"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:36
+#: lib/cannery_web/live/ammo_group_live/show.ex:41
 #: lib/cannery_web/live/range_live/index.ex:26
 #, elixir-autogen, elixir-format
 msgid "Record Shots"
@@ -825,12 +825,12 @@ msgstr "Quellcode ansehen"
 msgid "Catalog"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:40
+#: lib/cannery_web/live/ammo_group_live/show.ex:45
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit Ammo"
 msgstr "Munitionstyp bearbeiten"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:38
+#: lib/cannery_web/live/ammo_group_live/show.ex:43
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Move Ammo"
 msgstr "Munition verschieben"
@@ -840,7 +840,7 @@ msgstr "Munition verschieben"
 msgid "No ammo in this container"
 msgstr "Keine Munitionsgruppe in diesem Behälter"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:39
+#: lib/cannery_web/live/ammo_group_live/show.ex:44
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Show Ammo"
 msgstr "Zeige Munitionsarten"
