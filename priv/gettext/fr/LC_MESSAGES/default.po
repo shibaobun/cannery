@@ -665,13 +665,13 @@ msgid "Loading..."
 msgstr "Chargement en cours…"
 
 #: lib/cannery_web/live/container_live/index.ex:27
-#: lib/cannery_web/live/container_live/show.ex:124
+#: lib/cannery_web/live/container_live/show.ex:126
 #, elixir-autogen, elixir-format
 msgid "Edit %{name}"
 msgstr "Éditer %{name}"
 
 #: lib/cannery_web/live/container_live/index.ex:65
-#: lib/cannery_web/live/container_live/show.ex:125
+#: lib/cannery_web/live/container_live/show.ex:127
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
 msgstr "Éditer les tags de %{name}"
@@ -1080,7 +1080,7 @@ msgstr "UPC"
 msgid "Average CPR"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/show.ex:117
+#: lib/cannery_web/live/ammo_type_live/show.ex:120
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit %{ammo_type_name}"
 msgstr "Éditer %{name}"

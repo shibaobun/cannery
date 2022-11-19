@@ -32,7 +32,7 @@ msgid "%{name} created successfully"
 msgstr "%{name} creado exitosamente"
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:47
-#: lib/cannery_web/live/ammo_type_live/show.ex:56
+#: lib/cannery_web/live/ammo_type_live/show.ex:55
 #: lib/cannery_web/live/invite_live/index.ex:53
 #: lib/cannery_web/live/invite_live/index.ex:133
 #: lib/cannery_web/live/tag_live/index.ex:38
@@ -51,7 +51,7 @@ msgid "%{name} enabled succesfully"
 msgstr "%{name} activado exitosamente"
 
 #: lib/cannery_web/live/container_live/index.ex:81
-#: lib/cannery_web/live/container_live/show.ex:65
+#: lib/cannery_web/live/container_live/show.ex:67
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr "%{name} ha sido borrado"
@@ -192,7 +192,7 @@ msgstr ""
 msgid "%{name} added successfully"
 msgstr "%{name} añadido exitosamente"
 
-#: lib/cannery_web/live/container_live/show.ex:41
+#: lib/cannery_web/live/container_live/show.ex:43
 #, elixir-autogen, elixir-format
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr "se ha removido %{tag_name} de %{container_name}"

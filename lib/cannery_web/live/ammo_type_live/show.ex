@@ -5,7 +5,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   use CanneryWeb, :live_view
   import CanneryWeb.Components.AmmoGroupCard
-  alias Cannery.Ammo
+  alias Cannery.{Ammo, Ammo.AmmoType}
   alias CanneryWeb.Endpoint
 
   @fields_list [
@@ -31,17 +31,16 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   ]
 
   @impl true
-  def mount(_params, _session, socket),
-    do: {:ok, socket |> assign(show_used: false, view_table: false)}
+  def mount(_params, _session, %{assigns: %{live_action: live_action}} = socket),
+    do: {:ok, socket |> assign(show_used: false, view_table: live_action == :table)}
 
   @impl true
-  def handle_params(
-        %{"id" => id},
-        _params,
-        %{assigns: %{current_user: current_user, live_action: live_action}} = socket
-      ) do
-    ammo_type = Ammo.get_ammo_type!(id, current_user)
-    socket = socket |> assign(view_table: live_action == :table) |> display_ammo_type(ammo_type)
+  def handle_params(%{"id" => id}, _params, %{assigns: %{live_action: live_action}} = socket) do
+    socket =
+      socket
+      |> assign(view_table: live_action == :table)
+      |> display_ammo_type(id)
+
     {:noreply, socket}
   end
 
@@ -75,13 +74,13 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
         do: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
         else: Routes.ammo_type_show_path(Endpoint, :table, ammo_type)
 
-    {:noreply, socket |> assign(view_table: !view_table) |> push_patch(to: new_path)}
+    {:noreply, socket |> push_patch(to: new_path)}
   end
 
   defp display_ammo_type(
          %{assigns: %{live_action: live_action, current_user: current_user, show_used: show_used}} =
            socket,
-         ammo_type
+         %AmmoType{} = ammo_type
        ) do
     fields_to_display =
       @fields_list
@@ -104,6 +103,10 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
       fields_list: @fields_list,
       fields_to_display: fields_to_display
     )
+  end
+
+  defp display_ammo_type(%{assigns: %{current_user: current_user}} = socket, ammo_type_id) do
+    socket |> display_ammo_type(Ammo.get_ammo_type!(ammo_type_id, current_user))
   end
 
   defp display_ammo_type(%{assigns: %{ammo_type: ammo_type}} = socket) do
