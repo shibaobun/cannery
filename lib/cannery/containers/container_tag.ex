@@ -29,10 +29,10 @@ defmodule Cannery.Containers.ContainerTag do
         }
   @type new_container_tag :: %ContainerTag{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_container_tag())
 
   @doc false
-  @spec create_changeset(new_container_tag(), Tag.t(), Container.t()) ::
-          Changeset.t(new_container_tag())
+  @spec create_changeset(new_container_tag(), Tag.t(), Container.t()) :: changeset()
   def create_changeset(
         container_tag,
         %Tag{id: tag_id, user_id: user_id},

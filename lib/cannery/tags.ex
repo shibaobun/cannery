@@ -6,7 +6,6 @@ defmodule Cannery.Tags do
   import Ecto.Query, warn: false
   import CanneryWeb.Gettext
   alias Cannery.{Accounts.User, Repo, Tags.Tag}
-  alias Ecto.Changeset
 
   @doc """
   Returns the list of tags.
@@ -73,7 +72,7 @@ defmodule Cannery.Tags do
 
   """
   @spec create_tag(attrs :: map(), User.t()) ::
-          {:ok, Tag.t()} | {:error, Changeset.t(Tag.new_tag())}
+          {:ok, Tag.t()} | {:error, Tag.changeset()}
   def create_tag(attrs, %User{} = user),
     do: %Tag{} |> Tag.create_changeset(user, attrs) |> Repo.insert()
 
@@ -90,7 +89,7 @@ defmodule Cannery.Tags do
 
   """
   @spec update_tag(Tag.t(), attrs :: map(), User.t()) ::
-          {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
+          {:ok, Tag.t()} | {:error, Tag.changeset()}
   def update_tag(%Tag{user_id: user_id} = tag, attrs, %User{id: user_id}),
     do: tag |> Tag.update_changeset(attrs) |> Repo.update()
 
@@ -106,7 +105,7 @@ defmodule Cannery.Tags do
       {:error, %Changeset{}}
 
   """
-  @spec delete_tag(Tag.t(), User.t()) :: {:ok, Tag.t()} | {:error, Changeset.t(Tag.t())}
+  @spec delete_tag(Tag.t(), User.t()) :: {:ok, Tag.t()} | {:error, Tag.changeset()}
   def delete_tag(%Tag{user_id: user_id} = tag, %User{id: user_id}), do: tag |> Repo.delete()
 
   @doc """

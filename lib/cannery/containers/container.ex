@@ -49,10 +49,10 @@ defmodule Cannery.Containers.Container do
         }
   @type new_container :: %Container{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_container())
 
   @doc false
-  @spec create_changeset(new_container(), User.t(), attrs :: map()) ::
-          Changeset.t(new_container())
+  @spec create_changeset(new_container(), User.t(), attrs :: map()) :: changeset()
   def create_changeset(container, %User{id: user_id}, attrs) do
     container
     |> change(user_id: user_id)
@@ -61,8 +61,7 @@ defmodule Cannery.Containers.Container do
   end
 
   @doc false
-  @spec update_changeset(t() | new_container(), attrs :: map()) ::
-          Changeset.t(t() | new_container())
+  @spec update_changeset(t() | new_container(), attrs :: map()) :: changeset()
   def update_changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location])

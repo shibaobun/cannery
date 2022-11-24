@@ -89,7 +89,7 @@ defmodule Cannery.Containers do
 
   """
   @spec create_container(attrs :: map(), User.t()) ::
-          {:ok, Container.t()} | {:error, Changeset.t(Container.new_container())}
+          {:ok, Container.t()} | {:error, Container.changeset()}
   def create_container(attrs, %User{} = user) do
     %Container{} |> Container.create_changeset(user, attrs) |> Repo.insert()
   end
@@ -107,7 +107,7 @@ defmodule Cannery.Containers do
 
   """
   @spec update_container(Container.t(), User.t(), attrs :: map()) ::
-          {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
+          {:ok, Container.t()} | {:error, Container.changeset()}
   def update_container(%Container{user_id: user_id} = container, %User{id: user_id}, attrs) do
     container |> Container.update_changeset(attrs) |> Repo.update()
   end
@@ -125,7 +125,7 @@ defmodule Cannery.Containers do
 
   """
   @spec delete_container(Container.t(), User.t()) ::
-          {:ok, Container.t()} | {:error, Changeset.t(Container.t())}
+          {:ok, Container.t()} | {:error, Container.changeset()}
   def delete_container(%Container{user_id: user_id} = container, %User{id: user_id}) do
     Repo.one(
       from ag in AmmoGroup,

@@ -150,7 +150,7 @@ msgstr "Contraseña reiniciada exitosamente."
 msgid "Password updated successfully."
 msgstr "Contraseña cambiada exitosamente."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:74
+#: lib/cannery_web/controllers/user_registration_controller.ex:73
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr "Por favor chequea el correo para verificar tu cuenta"

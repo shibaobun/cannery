@@ -150,7 +150,7 @@ msgstr "Passwort erfolgreich zurückgesetzt."
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:74
+#: lib/cannery_web/controllers/user_registration_controller.ex:73
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr "Bitte überprüfen Sie ihre Mailbox und bestätigen Sie das Nutzerkonto"

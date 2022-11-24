@@ -36,12 +36,12 @@ defmodule Cannery.Invites.Invite do
         }
   @type new_invite :: %Invite{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_invite())
 
   @doc false
-  @spec create_changeset(new_invite(), User.t(), token :: binary(), attrs :: map()) ::
-          Changeset.t(new_invite())
-  def create_changeset(invite, %User{id: user_id}, token, attrs) do
-    invite
+  @spec create_changeset(User.t(), token :: binary(), attrs :: map()) :: changeset()
+  def create_changeset(%User{id: user_id}, token, attrs) do
+    %Invite{}
     |> change(token: token, user_id: user_id)
     |> cast(attrs, [:name, :uses_left, :disabled_at])
     |> validate_required([:name, :token, :user_id])
@@ -49,7 +49,7 @@ defmodule Cannery.Invites.Invite do
   end
 
   @doc false
-  @spec update_changeset(t() | new_invite(), attrs :: map()) :: Changeset.t(t() | new_invite())
+  @spec update_changeset(t() | new_invite(), attrs :: map()) :: changeset()
   def update_changeset(invite, attrs) do
     invite
     |> cast(attrs, [:name, :uses_left, :disabled_at])

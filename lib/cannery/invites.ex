@@ -5,7 +5,6 @@ defmodule Cannery.Invites do
 
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Invites.Invite, Repo}
-  alias Ecto.Changeset
 
   @invite_token_length 20
 
@@ -99,14 +98,14 @@ defmodule Cannery.Invites do
 
   """
   @spec create_invite(User.t(), attrs :: map()) ::
-          {:ok, Invite.t()} | {:error, Changeset.t(Invite.new_invite())}
+          {:ok, Invite.t()} | {:error, Invite.changeset()}
   def create_invite(%User{role: :admin} = user, attrs) do
     token =
       :crypto.strong_rand_bytes(@invite_token_length)
       |> Base.url_encode64()
       |> binary_part(0, @invite_token_length)
 
-    %Invite{} |> Invite.create_changeset(user, token, attrs) |> Repo.insert()
+    Invite.create_changeset(user, token, attrs) |> Repo.insert()
   end
 
   @doc """
@@ -122,7 +121,7 @@ defmodule Cannery.Invites do
 
   """
   @spec update_invite(Invite.t(), attrs :: map(), User.t()) ::
-          {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
+          {:ok, Invite.t()} | {:error, Invite.changeset()}
   def update_invite(invite, attrs, %User{role: :admin}),
     do: invite |> Invite.update_changeset(attrs) |> Repo.update()
 
@@ -139,7 +138,7 @@ defmodule Cannery.Invites do
 
   """
   @spec delete_invite(Invite.t(), User.t()) ::
-          {:ok, Invite.t()} | {:error, Changeset.t(Invite.t())}
+          {:ok, Invite.t()} | {:error, Invite.changeset()}
   def delete_invite(invite, %User{role: :admin}), do: invite |> Repo.delete()
 
   @doc """

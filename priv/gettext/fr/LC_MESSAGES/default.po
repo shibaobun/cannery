@@ -713,7 +713,7 @@ msgstr "Mot de passe oublié ?"
 msgid "Log in"
 msgstr "Se connecter"
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:35
+#: lib/cannery_web/controllers/user_registration_controller.ex:34
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr "S’enregistrer"

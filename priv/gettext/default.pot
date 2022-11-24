@@ -694,7 +694,7 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:35
+#: lib/cannery_web/controllers/user_registration_controller.ex:34
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""

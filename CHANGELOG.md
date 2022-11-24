@@ -1,3 +1,6 @@
+# v0.7.2
+- Code improvements
+
 # v0.7.1
 - Fix table component alignment and styling
 - Fix toggle button styling

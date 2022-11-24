@@ -102,6 +102,7 @@ defmodule Cannery.Ammo.AmmoType do
         }
   @type new_ammo_type :: %AmmoType{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_ammo_type())
 
   @spec changeset_fields() :: [atom()]
   defp changeset_fields,
@@ -130,8 +131,7 @@ defmodule Cannery.Ammo.AmmoType do
     ]
 
   @doc false
-  @spec create_changeset(new_ammo_type(), User.t(), attrs :: map()) ::
-          Changeset.t(new_ammo_type())
+  @spec create_changeset(new_ammo_type(), User.t(), attrs :: map()) :: changeset()
   def create_changeset(ammo_type, %User{id: user_id}, attrs) do
     ammo_type
     |> change(user_id: user_id)
@@ -140,8 +140,7 @@ defmodule Cannery.Ammo.AmmoType do
   end
 
   @doc false
-  @spec update_changeset(t() | new_ammo_type(), attrs :: map()) ::
-          Changeset.t(t() | new_ammo_type())
+  @spec update_changeset(t() | new_ammo_type(), attrs :: map()) :: changeset()
   def update_changeset(ammo_type, attrs) do
     ammo_type
     |> cast(attrs, changeset_fields())

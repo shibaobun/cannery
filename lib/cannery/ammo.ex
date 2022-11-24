@@ -182,7 +182,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec create_ammo_type(attrs :: map(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.new_ammo_type())}
+          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
   def create_ammo_type(attrs \\ %{}, %User{} = user),
     do: %AmmoType{} |> AmmoType.create_changeset(user, attrs) |> Repo.insert()
 
@@ -199,7 +199,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec update_ammo_type(AmmoType.t(), attrs :: map(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.t())}
+          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
   def update_ammo_type(%AmmoType{user_id: user_id} = ammo_type, attrs, %User{id: user_id}),
     do: ammo_type |> AmmoType.update_changeset(attrs) |> Repo.update()
 
@@ -216,7 +216,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec delete_ammo_type(AmmoType.t(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, Changeset.t(AmmoType.t())}
+          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
   def delete_ammo_type(%AmmoType{user_id: user_id} = ammo_type, %User{id: user_id}),
     do: ammo_type |> Repo.delete()
 
@@ -549,7 +549,7 @@ defmodule Cannery.Ammo do
   """
   @spec create_ammo_groups(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
           {:ok, {count :: non_neg_integer(), [AmmoGroup.t()] | nil}}
-          | {:error, Changeset.t(AmmoGroup.new_ammo_group())}
+          | {:error, AmmoGroup.changeset()}
   def create_ammo_groups(
         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
         multiplier,
@@ -628,7 +628,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec update_ammo_group(AmmoGroup.t(), attrs :: map(), User.t()) ::
-          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.t())}
+          {:ok, AmmoGroup.t()} | {:error, AmmoGroup.changeset()}
   def update_ammo_group(
         %AmmoGroup{user_id: user_id} = ammo_group,
         attrs,
@@ -649,7 +649,7 @@ defmodule Cannery.Ammo do
 
   """
   @spec delete_ammo_group(AmmoGroup.t(), User.t()) ::
-          {:ok, AmmoGroup.t()} | {:error, Changeset.t(AmmoGroup.t())}
+          {:ok, AmmoGroup.t()} | {:error, AmmoGroup.changeset()}
   def delete_ammo_group(%AmmoGroup{user_id: user_id} = ammo_group, %User{id: user_id}),
     do: ammo_group |> Repo.delete()
 

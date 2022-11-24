@@ -151,7 +151,7 @@ msgstr "Mot de passe réinitialiser avec succès."
 msgid "Password updated successfully."
 msgstr "Mot de passe mis à jour avec succès."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:74
+#: lib/cannery_web/controllers/user_registration_controller.ex:73
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr "Veuillez vérifier votre mél pour confirmer votre compte"

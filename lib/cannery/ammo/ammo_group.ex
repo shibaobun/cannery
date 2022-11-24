@@ -59,6 +59,7 @@ defmodule Cannery.Ammo.AmmoGroup do
         }
   @type new_ammo_group :: %AmmoGroup{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_ammo_group())
 
   @doc false
   @spec create_changeset(
@@ -67,7 +68,7 @@ defmodule Cannery.Ammo.AmmoGroup do
           Container.t() | nil,
           User.t(),
           attrs :: map()
-        ) :: Changeset.t(new_ammo_group())
+        ) :: changeset()
   def create_changeset(
         ammo_group,
         %AmmoType{id: ammo_type_id},
@@ -97,8 +98,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   end
 
   @doc false
-  @spec update_changeset(t() | new_ammo_group(), attrs :: map(), User.t()) ::
-          Changeset.t(t() | new_ammo_group())
+  @spec update_changeset(t() | new_ammo_group(), attrs :: map(), User.t()) :: changeset()
   def update_changeset(ammo_group, attrs, user) do
     ammo_group
     |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on, :container_id])
@@ -121,8 +121,7 @@ defmodule Cannery.Ammo.AmmoGroup do
   This range changeset is used when "using up" ammo groups, and allows for
   updating the count to 0
   """
-  @spec range_changeset(t() | new_ammo_group(), attrs :: map()) ::
-          Changeset.t(t() | new_ammo_group())
+  @spec range_changeset(t() | new_ammo_group(), attrs :: map()) :: changeset()
   def range_changeset(ammo_group, attrs) do
     ammo_group
     |> cast(attrs, [:count, :staged])

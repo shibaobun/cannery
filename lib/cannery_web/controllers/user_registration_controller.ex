@@ -2,7 +2,6 @@ defmodule CanneryWeb.UserRegistrationController do
   use CanneryWeb, :controller
   import CanneryWeb.Gettext
   alias Cannery.{Accounts, Invites}
-  alias Cannery.Accounts.User
   alias CanneryWeb.{Endpoint, HomeLive}
 
   def new(conn, %{"invite" => invite_token}) do
@@ -30,7 +29,7 @@ defmodule CanneryWeb.UserRegistrationController do
   # renders new user registration page
   defp render_new(conn, invite \\ nil) do
     render(conn, "new.html",
-      changeset: Accounts.change_user_registration(%User{}),
+      changeset: Accounts.change_user_registration(),
       invite: invite,
       page_title: gettext("Register")
     )

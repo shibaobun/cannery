@@ -5,7 +5,7 @@ defmodule Cannery.ActivityLog do
 
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup, Repo}
-  alias Ecto.{Changeset, Multi}
+  alias Ecto.Multi
 
   @doc """
   Returns the list of shot_groups.
@@ -58,7 +58,7 @@ defmodule Cannery.ActivityLog do
 
   """
   @spec create_shot_group(attrs :: map(), User.t(), AmmoGroup.t()) ::
-          {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t()) | nil}
+          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset() | nil}
   def create_shot_group(attrs, user, ammo_group) do
     Multi.new()
     |> Multi.insert(
@@ -99,7 +99,7 @@ defmodule Cannery.ActivityLog do
 
   """
   @spec update_shot_group(ShotGroup.t(), attrs :: map(), User.t()) ::
-          {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t()) | nil}
+          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset() | nil}
   def update_shot_group(
         %ShotGroup{count: count, user_id: user_id} = shot_group,
         attrs,
@@ -149,7 +149,7 @@ defmodule Cannery.ActivityLog do
 
   """
   @spec delete_shot_group(ShotGroup.t(), User.t()) ::
-          {:ok, ShotGroup.t()} | {:error, Changeset.t(ShotGroup.t())}
+          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset()}
   def delete_shot_group(
         %ShotGroup{user_id: user_id} = shot_group,
         %User{id: user_id}

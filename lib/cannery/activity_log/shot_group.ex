@@ -44,6 +44,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
         }
   @type new_shot_group :: %ShotGroup{}
   @type id :: UUID.t()
+  @type changeset :: Changeset.t(t() | new_shot_group())
 
   @doc false
   @spec create_changeset(
@@ -51,8 +52,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
           User.t() | any(),
           AmmoGroup.t() | any(),
           attrs :: map()
-        ) ::
-          Changeset.t(new_shot_group())
+        ) :: changeset()
   def create_changeset(
         shot_group,
         %User{id: user_id},
@@ -87,8 +87,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
   end
 
   @doc false
-  @spec update_changeset(t() | new_shot_group(), User.t(), attrs :: map()) ::
-          Changeset.t(t() | new_shot_group())
+  @spec update_changeset(t() | new_shot_group(), User.t(), attrs :: map()) :: changeset()
   def update_changeset(
         %ShotGroup{user_id: user_id} = shot_group,
         %User{id: user_id} = user,
