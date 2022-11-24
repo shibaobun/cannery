@@ -13,6 +13,7 @@ defmodule Cannery.Fixtures do
     Containers,
     Containers.Container,
     Email,
+    Repo,
     Tags,
     Tags.Tag
   }
@@ -38,11 +39,12 @@ defmodule Cannery.Fixtures do
     attrs
     |> Enum.into(%{
       "email" => unique_user_email(),
-      "password" => valid_user_password(),
-      "role" => "admin"
+      "password" => valid_user_password()
     })
     |> Accounts.register_user()
     |> unwrap_ok_tuple()
+    |> User.role_changeset("admin")
+    |> Repo.update!()
   end
 
   def extract_user_token(fun) do
