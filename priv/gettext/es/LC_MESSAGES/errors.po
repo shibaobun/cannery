@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
-"PO-Revision-Date: 2022-11-30 19:19+0000\n"
+"PO-Revision-Date: 2022-12-01 19:21+0000\n"
 "Last-Translator: Brea Foga <breaardiente@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
 "errors/es/>\n"
@@ -111,7 +111,7 @@ msgstr "No autorizado"
 #: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
-msgstr "El enlace de confirmación de usuario no es válido o ha caducado"
+msgstr "El enlace de confirmación de usuario no es válido o ha caducado."
 
 #: lib/cannery_web/live/invite_live/index.ex:18
 #, elixir-autogen, elixir-format
