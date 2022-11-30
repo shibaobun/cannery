@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:45+0000\n"
-"PO-Revision-Date: 2022-11-13 21:49+0000\n"
+"PO-Revision-Date: 2022-11-30 19:19+0000\n"
 "Last-Translator: Brea Foga <breaardiente@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
 "actions/es/>\n"
@@ -244,21 +244,21 @@ msgstr "Mover munición"
 #: lib/cannery_web/live/invite_live/index.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Set Unlimited"
-msgstr ""
+msgstr "Activar ilimitados"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86
 #: lib/cannery_web/live/range_live/index.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Stage for range"
-msgstr ""
+msgstr "Preparar para el campo de tiro"
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:85
 #: lib/cannery_web/live/range_live/index.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"
-msgstr ""
+msgstr "Desmontar del campo de tiro"
 
 #: lib/cannery_web/templates/user_settings/edit.html.heex:148
 #, elixir-autogen, elixir-format
 msgid "Export Data as JSON"
-msgstr ""
+msgstr "Exportar datos como JSON"
