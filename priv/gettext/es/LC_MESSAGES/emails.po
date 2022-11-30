@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
 "PO-Revision-Date: 2022-11-30 19:19+0000\n"
-"Last-Translator: Brea Foga <breaardiente@gmail.com>\n"
+"Last-Translator: Hannah Winter <konhat@hotmail.es>\n"
 "Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
 "emails/es/>\n"
 "Language: es\n"
@@ -95,13 +95,15 @@ msgstr ""
 #: lib/cannery_web/templates/email/confirm_email.html.eex:22
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{name}, please ignore this."
-msgstr ""
+msgstr "Si no ha creado una cuenta en %{name}, por favor, ignore este mensaje."
 
 #: lib/cannery_web/templates/email/reset_password.html.eex:16
 #: lib/cannery_web/templates/email/update_email.html.eex:16
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{name}, please ignore this."
 msgstr ""
+"Si no ha solicitado este cambio desde %{name}, por favor, ignore este "
+"mensaje."
 
 #: lib/cannery_web/templates/layout/email.txt.eex:9
 #, elixir-autogen, elixir-format
