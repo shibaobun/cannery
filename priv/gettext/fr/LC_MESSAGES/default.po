@@ -46,7 +46,8 @@ msgid "Admins:"
 msgstr "Administrateur·ices :"
 
 #: lib/cannery_web/components/topbar.ex:73
-#: lib/cannery_web/live/ammo_group_live/index.ex:56
+#: lib/cannery_web/live/ammo_group_live/index.ex:70
+#: lib/cannery_web/live/ammo_group_live/index.ex:79
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #: lib/cannery_web/live/range_live/index.ex:80
 #, elixir-autogen, elixir-format
@@ -282,6 +283,7 @@ msgid "New Tag"
 msgstr "Nouveau tag"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:8
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "No Ammo"
 msgstr "Aucune munition"
@@ -493,7 +495,7 @@ msgid "No ammo staged"
 msgstr "Aucune munition sélectionnée"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:3
-#: lib/cannery_web/live/ammo_group_live/index.ex:26
+#: lib/cannery_web/live/ammo_group_live/index.ex:30
 #, elixir-autogen, elixir-format
 msgid "Record shots"
 msgstr "Tirs enregistrés"
@@ -532,8 +534,8 @@ msgstr "Cartouches tirées"
 msgid "Shot Records"
 msgstr "Enregistrements de tir"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:32
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:96
+#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:117
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr "Déplacer munition"
@@ -611,12 +613,12 @@ msgstr "Mot de passe actuel"
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:72
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:93
 #, elixir-autogen, elixir-format
 msgid "Stage"
 msgstr "Sélectionné"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:72
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:93
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr "Désélectionner"
@@ -844,7 +846,7 @@ msgstr ""
 msgid "Container:"
 msgstr "Conteneur"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:48
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:63
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:39
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:152
 #: lib/cannery_web/live/container_live/show.html.heex:105
@@ -1107,7 +1109,7 @@ msgstr ""
 msgid "Purchased on:"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#: lib/cannery_web/live/ammo_group_live/index.ex:46
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit ammo"
 msgstr "Éditer le type de munition"
@@ -1121,4 +1123,9 @@ msgstr "Aucun type de munition"
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Search catalog"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:57
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Search ammo"
 msgstr ""

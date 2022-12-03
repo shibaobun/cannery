@@ -66,6 +66,37 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert html =~ ammo_group.ammo_type.name
     end
 
+    test "can search for ammo_groups", %{conn: conn, ammo_group: ammo_group} do
+      {:ok, index_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
+
+      ammo_group = ammo_group |> Repo.preload(:ammo_type)
+
+      assert html =~ ammo_group.ammo_type.name
+
+      assert index_live
+             |> form("[data-qa=\"ammo_group_search\"]",
+               search: %{search_term: ammo_group.ammo_type.name}
+             )
+             |> render_change() =~ ammo_group.ammo_type.name
+
+      assert_patch(
+        index_live,
+        Routes.ammo_group_index_path(conn, :search, ammo_group.ammo_type.name)
+      )
+
+      refute index_live
+             |> form("[data-qa=\"ammo_group_search\"]", search: %{search_term: "something_else"})
+             |> render_change() =~ ammo_group.ammo_type.name
+
+      assert_patch(index_live, Routes.ammo_group_index_path(conn, :search, "something_else"))
+
+      assert index_live
+             |> form("[data-qa=\"ammo_group_search\"]", search: %{search_term: ""})
+             |> render_change() =~ ammo_group.ammo_type.name
+
+      assert_patch(index_live, Routes.ammo_group_index_path(conn, :index))
+    end
+
     test "saves a single new ammo_group", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
@@ -111,7 +142,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
-      assert Ammo.list_ammo_groups(current_user) |> Enum.count() == multiplier + 1
+      assert Ammo.list_ammo_groups(nil, false, current_user) |> Enum.count() == multiplier + 1
     end
 
     test "does not save invalid number of new ammo_groups", %{conn: conn} do

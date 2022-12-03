@@ -1,6 +1,6 @@
 # v0.8.0
-- Add search to catalog
-- Tweak urls for ammo types
+- Add search to catalog and ammo
+- Tweak urls for catalog and ammo
 
 # v0.7.2
 - Code improvements

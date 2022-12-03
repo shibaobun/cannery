@@ -3,7 +3,7 @@
     <%= gettext("Ammo") %>
   </h1>
 
-  <%= if @ammo_groups |> Enum.empty?() do %>
+  <%= if @ammo_groups |> Enum.empty?() and @search |> is_nil() do %>
     <h2 class="title text-xl text-primary-600">
       <%= gettext("No Ammo") %>
       <%= display_emoji("😔") %>
@@ -31,7 +31,7 @@
           <%= dgettext("actions", "add an ammo type first") %>
         </.link>
       </div>
-    <% @ammo_groups |> Enum.empty?() -> %>
+    <% @ammo_groups |> Enum.empty?() and @search |> is_nil() -> %>
       <.link patch={Routes.ammo_group_index_path(Endpoint, :new)} class="btn btn-primary">
         <%= dgettext("actions", "Add your first box!") %>
       </.link>
@@ -41,15 +41,36 @@
       </.link>
   <% end %>
 
-  <%= unless @ammo_groups |> Enum.empty?() do %>
-    <div class="flex flex-col space-y-4 justify-center items-center">
-      <.toggle_button action="toggle_show_used" value={@show_used}>
-        <span class="title text-lg text-primary-600">
-          <%= gettext("Show used") %>
-        </span>
-      </.toggle_button>
-    </div>
+  <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
+    <.form
+      :let={f}
+      for={:search}
+      phx-change="search"
+      phx-submit="search"
+      class="grow self-stretch flex flex-col items-stretch"
+      data-qa="ammo_group_search"
+    >
+      <%= text_input(f, :search_term,
+        class: "input input-primary",
+        value: @search,
+        phx_debounce: 300,
+        placeholder: gettext("Search ammo")
+      ) %>
+    </.form>
 
+    <.toggle_button action="toggle_show_used" value={@show_used}>
+      <span class="title text-lg text-primary-600">
+        <%= gettext("Show used") %>
+      </span>
+    </.toggle_button>
+  </div>
+
+  <%= if @ammo_groups |> Enum.empty?() do %>
+    <h2 class="title text-xl text-primary-600">
+      <%= gettext("No Ammo") %>
+      <%= display_emoji("😔") %>
+    </h2>
+  <% else %>
     <.live_component
       module={CanneryWeb.Components.AmmoGroupTableComponent}
       id="ammo-group-index-table"

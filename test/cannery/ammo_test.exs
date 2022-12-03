@@ -4,7 +4,7 @@ defmodule Cannery.AmmoTest do
   """
 
   use Cannery.DataCase
-  alias Cannery.{Ammo, Ammo.AmmoGroup, Ammo.AmmoType}
+  alias Cannery.{Ammo, Ammo.AmmoGroup, Ammo.AmmoType, Containers}
   alias Ecto.Changeset
 
   @moduletag :ammo_test
@@ -294,6 +294,13 @@ defmodule Cannery.AmmoTest do
         %{"count" => 50, "price_paid" => 36.1}
         |> ammo_group_fixture(ammo_type, container, current_user)
 
+      another_user = user_fixture()
+      another_ammo_type = ammo_type_fixture(another_user)
+      another_container = container_fixture(another_user)
+
+      {1, [_shouldnt_show_up]} =
+        ammo_group_fixture(another_ammo_type, another_container, another_user)
+
       [
         ammo_type: ammo_type,
         ammo_group: ammo_group,
@@ -302,7 +309,7 @@ defmodule Cannery.AmmoTest do
       ]
     end
 
-    test "list_ammo_groups/2 returns all ammo_groups",
+    test "list_ammo_groups/3 returns all ammo_groups",
          %{
            ammo_type: ammo_type,
            ammo_group: ammo_group,
@@ -314,12 +321,64 @@ defmodule Cannery.AmmoTest do
 
       shot_group_fixture(%{"count" => 30}, current_user, another_ammo_group)
       another_ammo_group = another_ammo_group |> Repo.reload!()
-      assert Ammo.list_ammo_groups(current_user) == [ammo_group] |> Repo.preload(:shot_groups)
 
-      assert Ammo.list_ammo_groups(current_user, true)
+      assert Ammo.list_ammo_groups(nil, false, current_user) ==
+               [ammo_group] |> preload_ammo_group()
+
+      assert Ammo.list_ammo_groups(nil, true, current_user)
              |> Enum.sort_by(fn %{count: count} -> count end) ==
-               [another_ammo_group, ammo_group] |> Repo.preload(:shot_groups)
+               [another_ammo_group, ammo_group] |> preload_ammo_group()
     end
+
+    test "list_ammo_groups/3 returns relevant ammo groups when searched",
+         %{
+           ammo_type: ammo_type,
+           ammo_group: ammo_group,
+           container: container,
+           current_user: current_user
+         } do
+      {1, [another_ammo_group]} =
+        %{"count" => 49, "notes" => "cool ammo group"}
+        |> ammo_group_fixture(ammo_type, container, current_user)
+
+      another_ammo_type = ammo_type_fixture(%{"name" => "amazing ammo"}, current_user)
+      another_container = container_fixture(%{"name" => "fantastic container"}, current_user)
+
+      tag = tag_fixture(%{"name" => "stupendous tag"}, current_user)
+      Containers.add_tag!(another_container, tag, current_user)
+
+      {1, [amazing_ammo_group]} =
+        ammo_group_fixture(%{"count" => 48}, another_ammo_type, container, current_user)
+
+      {1, [fantastic_ammo_group]} =
+        ammo_group_fixture(%{"count" => 47}, ammo_type, another_container, current_user)
+
+      assert Ammo.list_ammo_groups(nil, false, current_user)
+             |> Enum.sort_by(fn %{count: count} -> count end) ==
+               [fantastic_ammo_group, amazing_ammo_group, another_ammo_group, ammo_group]
+               |> preload_ammo_group()
+
+      # search works for ammo group attributes
+      assert Ammo.list_ammo_groups("cool", true, current_user) ==
+               [another_ammo_group] |> preload_ammo_group()
+
+      # search works for ammo type attributes
+      assert Ammo.list_ammo_groups("amazing", true, current_user) ==
+               [amazing_ammo_group] |> preload_ammo_group()
+
+      # search works for container attributes
+      assert Ammo.list_ammo_groups("fantastic", true, current_user) ==
+               [fantastic_ammo_group] |> preload_ammo_group()
+
+      # search works for container tag attributes
+      assert Ammo.list_ammo_groups("stupendous", true, current_user) ==
+               [fantastic_ammo_group] |> preload_ammo_group()
+
+      assert Ammo.list_ammo_groups("random", true, current_user) == []
+    end
+
+    defp preload_ammo_group(ammo_group),
+      do: ammo_group |> Repo.preload([:ammo_type, :shot_groups, container: :tags])
 
     test "list_ammo_groups_for_type/2 returns all ammo_groups for a type",
          %{

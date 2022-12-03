@@ -421,36 +421,86 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the list of ammo_groups for a user.
+  Returns the list of ammo_groups.
 
   ## Examples
 
       iex> list_ammo_groups(%User{id: 123})
       [%AmmoGroup{}, ...]
 
+      iex> list_ammo_groups("cool", true, %User{id: 123})
+      [%AmmoGroup{notes: "My cool ammo group"}, ...]
+
   """
   @spec list_ammo_groups(User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups(User.t(), include_empty :: boolean()) :: [AmmoGroup.t()]
-  def list_ammo_groups(user, include_empty \\ false)
-
-  def list_ammo_groups(%User{id: user_id}, true = _include_empty) do
-    Repo.all(
-      from ag in AmmoGroup,
-        left_join: sg in assoc(ag, :shot_groups),
-        where: ag.user_id == ^user_id,
-        preload: [shot_groups: sg],
-        order_by: ag.id
+  @spec list_ammo_groups(search :: nil | String.t(), User.t()) :: [AmmoGroup.t()]
+  @spec list_ammo_groups(search :: nil | String.t(), include_empty :: boolean(), User.t()) ::
+          [AmmoGroup.t()]
+  def list_ammo_groups(search \\ nil, include_empty \\ false, %{id: user_id}) do
+    from(
+      ag in AmmoGroup,
+      as: :ag,
+      left_join: sg in assoc(ag, :shot_groups),
+      as: :sg,
+      join: at in assoc(ag, :ammo_type),
+      as: :at,
+      join: c in assoc(ag, :container),
+      as: :c,
+      left_join: t in assoc(c, :tags),
+      as: :t,
+      where: ag.user_id == ^user_id,
+      preload: [shot_groups: sg, ammo_type: at, container: {c, tags: t}],
+      order_by: ag.id
     )
+    |> list_ammo_groups_include_empty(include_empty)
+    |> list_ammo_groups_search(search)
+    |> Repo.all()
   end
 
-  def list_ammo_groups(%User{id: user_id}, false = _include_empty) do
-    Repo.all(
-      from ag in AmmoGroup,
-        left_join: sg in assoc(ag, :shot_groups),
-        where: ag.user_id == ^user_id,
-        where: not (ag.count == 0),
-        preload: [shot_groups: sg],
-        order_by: ag.id
+  defp list_ammo_groups_include_empty(query, true), do: query
+
+  defp list_ammo_groups_include_empty(query, false) do
+    query |> where([ag], not (ag.count == 0))
+  end
+
+  defp list_ammo_groups_search(query, nil), do: query
+  defp list_ammo_groups_search(query, ""), do: query
+
+  defp list_ammo_groups_search(query, search) do
+    trimmed_search = String.trim(search)
+
+    query
+    |> where(
+      [ag: ag, at: at, c: c, t: t],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        ag.search,
+        ^trimmed_search
+      ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          at.search,
+          ^trimmed_search
+        ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          c.search,
+          ^trimmed_search
+        ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          t.search,
+          ^trimmed_search
+        )
+    )
+    |> order_by(
+      [ag: ag],
+      desc:
+        fragment(
+          "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+          ag.search,
+          ^trimmed_search
+        )
     )
   end
 

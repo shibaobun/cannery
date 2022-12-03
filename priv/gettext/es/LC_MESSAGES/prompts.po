@@ -95,7 +95,7 @@ msgstr "Está seguro que desea eliminar %{name}?"
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr "Está seguro que quiere eliminar la invitación para %{name}?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:131
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:152
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -265,7 +265,7 @@ msgstr ""
 msgid "Language updated successfully."
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:64
+#: lib/cannery_web/live/ammo_group_live/index.ex:89
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"

@@ -23,7 +23,7 @@ defmodule CanneryWeb.ExportController do
       end)
 
     ammo_groups =
-      Ammo.list_ammo_groups(current_user, true)
+      Ammo.list_ammo_groups(nil, true, current_user)
       |> Enum.map(fn ammo_group ->
         cpr = ammo_group |> Ammo.get_cpr()
         used_count = ammo_group |> Ammo.get_used_count()

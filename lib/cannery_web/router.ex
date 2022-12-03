@@ -90,16 +90,17 @@ defmodule CanneryWeb.Router do
 
     live "/ammo", AmmoGroupLive.Index, :index
     live "/ammo/new", AmmoGroupLive.Index, :new
-    live "/ammo/:id/edit", AmmoGroupLive.Index, :edit
-    live "/ammo/:id/clone", AmmoGroupLive.Index, :clone
-    live "/ammo/:id/add_shot_group", AmmoGroupLive.Index, :add_shot_group
-    live "/ammo/:id/move", AmmoGroupLive.Index, :move
+    live "/ammo/edit/:id", AmmoGroupLive.Index, :edit
+    live "/ammo/clone/:id", AmmoGroupLive.Index, :clone
+    live "/ammo/add_shot_group/:id", AmmoGroupLive.Index, :add_shot_group
+    live "/ammo/move/:id", AmmoGroupLive.Index, :move
+    live "/ammo/search/:search", AmmoGroupLive.Index, :search
 
-    live "/ammo/:id/show", AmmoGroupLive.Show, :show
-    live "/ammo/:id/show/edit", AmmoGroupLive.Show, :edit
-    live "/ammo/:id/show/add_shot_group", AmmoGroupLive.Show, :add_shot_group
-    live "/ammo/:id/show/move", AmmoGroupLive.Show, :move
-    live "/ammo/:id/show/:shot_group_id/edit", AmmoGroupLive.Show, :edit_shot_group
+    live "/ammo/show/:id", AmmoGroupLive.Show, :show
+    live "/ammo/show/edit/:id", AmmoGroupLive.Show, :edit
+    live "/ammo/show/add_shot_group/:id", AmmoGroupLive.Show, :add_shot_group
+    live "/ammo/show/move/:id", AmmoGroupLive.Show, :move
+    live "/ammo/show/:id/edit/:shot_group_id", AmmoGroupLive.Show, :edit_shot_group
 
     live "/range", RangeLive.Index, :index
     live "/range/:id/edit", RangeLive.Index, :edit
