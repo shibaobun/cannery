@@ -3,7 +3,7 @@
     <%= gettext("Catalog") %>
   </h1>
 
-  <%= if @rows |> Enum.empty?() do %>
+  <%= if @ammo_types |> Enum.empty?() and @search |> is_nil() do %>
     <h2 class="title text-xl text-primary-600">
       <%= gettext("No Ammo types") %>
       <%= display_emoji("😔") %>
@@ -41,13 +41,66 @@
       </.toggle_button>
     </div>
 
-    <.live_component
-      module={CanneryWeb.Components.TableComponent}
-      id="ammo_types_index_table"
-      action={@live_action}
-      columns={@columns}
-      rows={@rows}
-    />
+    <%= if @ammo_types |> Enum.empty?() do %>
+      <h2 class="title text-xl text-primary-600">
+        <%= gettext("No Ammo types") %>
+        <%= display_emoji("😔") %>
+      </h2>
+    <% else %>
+      <.live_component
+        module={CanneryWeb.Components.AmmoTypeTableComponent}
+        id="ammo_types_index_table"
+        action={@live_action}
+        ammo_types={@ammo_types}
+        current_user={@current_user}
+        show_used={@show_used}
+      >
+        <:actions :let={ammo_type}>
+          <div class="px-4 py-2 space-x-4 flex justify-center items-center">
+            <.link
+              navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)}
+              class="text-primary-600 link"
+              data-qa={"view-#{ammo_type.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-eye"></i>
+            </.link>
+
+            <.link
+              patch={Routes.ammo_type_index_path(Endpoint, :edit, ammo_type)}
+              class="text-primary-600 link"
+              data-qa={"edit-#{ammo_type.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-edit"></i>
+            </.link>
+
+            <.link
+              patch={Routes.ammo_type_index_path(Endpoint, :clone, ammo_type)}
+              class="text-primary-600 link"
+              data-qa={"clone-#{ammo_type.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-copy"></i>
+            </.link>
+
+            <.link
+              href="#"
+              class="text-primary-600 link"
+              phx-click="delete"
+              phx-value-id={ammo_type.id}
+              data-confirm={
+                dgettext(
+                  "prompts",
+                  "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!",
+                  name: ammo_type.name
+                )
+              }
+              data-qa={"delete-#{ammo_type.id}"}
+            >
+              <i class="fa-lg fas fa-trash"></i>
+            </.link>
+          </div>
+        </:actions>
+      </.live_component>
+    <% end %>
   <% end %>
 </div>
 

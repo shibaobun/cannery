@@ -92,6 +92,12 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
              |> render_change() =~ ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, "something_else"))
+
+      assert index_live
+             |> form("[data-qa=\"ammo_type_search\"]", search: %{search_term: ""})
+             |> render_change() =~ ammo_type.bullet_type
+
+      assert_patch(index_live, Routes.ammo_type_index_path(conn, :index))
     end
 
     test "saves new ammo_type", %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
