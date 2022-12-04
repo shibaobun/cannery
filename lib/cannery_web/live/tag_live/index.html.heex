@@ -5,7 +5,7 @@
   <p class="title text-md text-primary-600">
     <%= gettext("Tags can be added to your containers to help you organize") %>
   </p>
-  <%= if @tags |> Enum.empty?() do %>
+  <%= if @tags |> Enum.empty?() and @search |> is_nil() do %>
     <h2 class="title text-xl text-primary-600">
       <%= gettext("No tags") %>
       <%= display_emoji("😔") %>
@@ -19,7 +19,33 @@
       <%= dgettext("actions", "New Tag") %>
     </.link>
   <% end %>
+
+  <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
+    <.form
+      :let={f}
+      for={:search}
+      phx-change="search"
+      phx-submit="search"
+      class="grow self-stretch flex flex-col items-stretch"
+      data-qa="tag_search"
+    >
+      <%= text_input(f, :search_term,
+        class: "input input-primary",
+        value: @search,
+        phx_debounce: 300,
+        placeholder: gettext("Search tags")
+      ) %>
+    </.form>
+  </div>
+
   <div class="flex flex-row flex-wrap justify-center items-center">
+    <%= if @tags |> Enum.empty?() do %>
+      <h2 class="title text-xl text-primary-600">
+        <%= gettext("No tags") %>
+        <%= display_emoji("😔") %>
+      </h2>
+    <% end %>
+
     <%= for tag <- @tags do %>
       <.tag_card tag={tag}>
         <.link

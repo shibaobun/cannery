@@ -31,8 +31,26 @@ defmodule Cannery.TagsTest do
       [tag: tag_fixture(current_user), current_user: current_user]
     end
 
-    test "list_tags/0 returns all tags", %{tag: tag, current_user: current_user} do
+    test "list_tags/1 returns all tags", %{tag: tag, current_user: current_user} do
       assert Tags.list_tags(current_user) == [tag]
+    end
+
+    test "list_tags/2 returns relevant tags for a user", %{current_user: current_user} do
+      tag_a = tag_fixture(%{"name" => "bullets"}, current_user)
+      tag_b = tag_fixture(%{"name" => "hollows"}, current_user)
+
+      _shouldnt_return =
+        %{
+          "name" => "bullet",
+          "desc" => "pews brass shell"
+        }
+        |> tag_fixture(user_fixture())
+
+      # name
+      assert Tags.list_tags("bullet", current_user) == [tag_a]
+      assert Tags.list_tags("bullets", current_user) == [tag_a]
+      assert Tags.list_tags("hollow", current_user) == [tag_b]
+      assert Tags.list_tags("hollows", current_user) == [tag_b]
     end
 
     test "get_tag!/1 returns the tag with given id", %{tag: tag, current_user: current_user} do

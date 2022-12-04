@@ -41,6 +41,32 @@ defmodule CanneryWeb.TagLiveTest do
       assert html =~ tag.bg_color
     end
 
+    test "can search for tag", %{conn: conn, tag: tag} do
+      {:ok, index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
+
+      assert html =~ tag.name
+
+      assert index_live
+             |> form("[data-qa=\"tag_search\"]",
+               search: %{search_term: tag.name}
+             )
+             |> render_change() =~ tag.name
+
+      assert_patch(index_live, Routes.tag_index_path(conn, :search, tag.name))
+
+      refute index_live
+             |> form("[data-qa=\"tag_search\"]", search: %{search_term: "something_else"})
+             |> render_change() =~ tag.name
+
+      assert_patch(index_live, Routes.tag_index_path(conn, :search, "something_else"))
+
+      assert index_live
+             |> form("[data-qa=\"tag_search\"]", search: %{search_term: ""})
+             |> render_change() =~ tag.name
+
+      assert_patch(index_live, Routes.tag_index_path(conn, :index))
+    end
+
     test "saves new tag", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
 

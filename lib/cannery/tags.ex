@@ -15,10 +15,37 @@ defmodule Cannery.Tags do
       iex> list_tags(%User{id: 123})
       [%Tag{}, ...]
 
+      iex> list_tags("cool", %User{id: 123})
+      [%Tag{name: "my cool tag"}, ...]
+
   """
   @spec list_tags(User.t()) :: [Tag.t()]
-  def list_tags(%{id: user_id}),
+  @spec list_tags(search :: nil | String.t(), User.t()) :: [Tag.t()]
+  def list_tags(search \\ nil, user)
+
+  def list_tags(search, %{id: user_id}) when search |> is_nil() or search == "",
     do: Repo.all(from t in Tag, where: t.user_id == ^user_id, order_by: t.name)
+
+  def list_tags(search, %{id: user_id}) when search |> is_binary() do
+    trimmed_search = String.trim(search)
+
+    Repo.all(
+      from t in Tag,
+        where: t.user_id == ^user_id,
+        where:
+          fragment(
+            "search @@ websearch_to_tsquery('english', ?)",
+            ^trimmed_search
+          ),
+        order_by: {
+          :desc,
+          fragment(
+            "ts_rank_cd(search, websearch_to_tsquery('english', ?), 4)",
+            ^trimmed_search
+          )
+        }
+    )
+  end
 
   @doc """
   Gets a single tag.

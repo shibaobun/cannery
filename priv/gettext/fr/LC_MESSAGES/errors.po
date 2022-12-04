@@ -142,7 +142,7 @@ msgstr "n’est pas valide"
 msgid "must have the @ sign and no spaces"
 msgstr "doit contenir le symbole @ et aucune espace"
 
-#: lib/cannery/tags.ex:39
+#: lib/cannery/tags.ex:66
 #, elixir-autogen, elixir-format
 msgid "Tag not found"
 msgstr "Tag pas trouvé"

@@ -64,7 +64,8 @@ defmodule CanneryWeb.Router do
 
     live "/tags", TagLive.Index, :index
     live "/tags/new", TagLive.Index, :new
-    live "/tags/:id/edit", TagLive.Index, :edit
+    live "/tags/edit/:id", TagLive.Index, :edit
+    live "/tags/search/:search", TagLive.Index, :search
 
     live "/catalog", AmmoTypeLive.Index, :index
     live "/catalog/new", AmmoTypeLive.Index, :new

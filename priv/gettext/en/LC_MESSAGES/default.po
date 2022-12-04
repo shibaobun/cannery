@@ -148,7 +148,7 @@ msgstr ""
 msgid "Edit Invite"
 msgstr ""
 
-#: lib/cannery_web/live/tag_live/index.ex:21
+#: lib/cannery_web/live/tag_live/index.ex:28
 #, elixir-autogen, elixir-format
 msgid "Edit Tag"
 msgstr ""
@@ -263,7 +263,7 @@ msgstr ""
 msgid "New Invite"
 msgstr ""
 
-#: lib/cannery_web/live/tag_live/index.ex:27
+#: lib/cannery_web/live/tag_live/index.ex:36
 #, elixir-autogen, elixir-format
 msgid "New Tag"
 msgstr ""
@@ -292,6 +292,7 @@ msgstr ""
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:31
 #: lib/cannery_web/live/tag_live/index.html.heex:10
+#: lib/cannery_web/live/tag_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "No tags"
 msgstr ""
@@ -378,7 +379,8 @@ msgstr ""
 
 #: lib/cannery_web/components/container_table_component.ex:52
 #: lib/cannery_web/components/topbar.ex:49
-#: lib/cannery_web/live/tag_live/index.ex:32
+#: lib/cannery_web/live/tag_live/index.ex:44
+#: lib/cannery_web/live/tag_live/index.ex:54
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Tags"
@@ -1115,4 +1117,9 @@ msgstr ""
 #: lib/cannery_web/live/container_live/index.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "Search containers"
+msgstr ""
+
+#: lib/cannery_web/live/tag_live/index.html.heex:36
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Search tags"
 msgstr ""
