@@ -22,7 +22,12 @@ defmodule Cannery.ContainersTest do
     "name" => "some updated name",
     "type" => "some updated type"
   }
-  @invalid_attrs %{"desc" => nil, "location" => nil, "name" => nil, "type" => nil}
+  @invalid_attrs %{
+    "desc" => nil,
+    "location" => nil,
+    "name" => nil,
+    "type" => nil
+  }
 
   describe "containers" do
     setup do
