@@ -126,7 +126,12 @@
     <%= select(
       f,
       :locale,
-      [{gettext("English"), "en_US"}, {gettext("German"), "de"}, {gettext("French"), "fr"}],
+      [
+        {gettext("English"), "en_US"},
+        {gettext("German"), "de"},
+        {gettext("French"), "fr"},
+        {gettext("Spanish"), "es"}
+      ],
       class: "mx-2 my-1 min-w-md input input-primary"
     ) %>
     <%= error_tag(f, :locale) %>

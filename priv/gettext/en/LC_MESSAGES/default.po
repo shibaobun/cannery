@@ -729,19 +729,19 @@ msgid "User registered on"
 msgstr ""
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
-#: lib/cannery_web/templates/user_settings/edit.html.heex:129
+#: lib/cannery_web/templates/user_settings/edit.html.heex:130
 #, elixir-autogen, elixir-format
 msgid "English"
 msgstr ""
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
-#: lib/cannery_web/templates/user_settings/edit.html.heex:129
+#: lib/cannery_web/templates/user_settings/edit.html.heex:132
 #, elixir-autogen, elixir-format
 msgid "French"
 msgstr ""
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
-#: lib/cannery_web/templates/user_settings/edit.html.heex:129
+#: lib/cannery_web/templates/user_settings/edit.html.heex:131
 #, elixir-autogen, elixir-format
 msgid "German"
 msgstr ""
@@ -1129,4 +1129,9 @@ msgstr ""
 #: lib/cannery_web/live/range_live/index.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Search shot records"
+msgstr ""
+
+#: lib/cannery_web/templates/user_settings/edit.html.heex:133
+#, elixir-autogen, elixir-format
+msgid "Spanish"
 msgstr ""

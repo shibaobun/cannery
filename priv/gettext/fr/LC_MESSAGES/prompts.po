@@ -102,7 +102,7 @@ msgstr "Êtes-vous certain·e de supprimer l’invitation pour %{name} ?"
 msgid "Are you sure you want to delete this ammo?"
 msgstr "Êtes-vous certain·e de supprimer cette munition ?"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:155
+#: lib/cannery_web/templates/user_settings/edit.html.heex:160
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete your account?"
 msgstr "Êtes-vous certain·e de supprimer votre compte ?"
@@ -257,7 +257,7 @@ msgstr "Vous aurez besoin de"
 msgid "Creating..."
 msgstr "Création en cours…"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:136
+#: lib/cannery_web/templates/user_settings/edit.html.heex:141
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to change your language?"
 msgstr "Êtes-vous certain·e de vouloir changer votre langue ?"
