@@ -23,7 +23,7 @@ defmodule CanneryWeb.Components.ContainerCard do
     ~H"""
     <div
       id={"container-#{@container.id}"}
-      class="overflow-hidden max-w-full mx-4 mb-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
+      class="overflow-hidden max-w-full mx-4 mb-4 px-8 py-4 flex flex-col justify-center items-center space-y-4
         border border-gray-400 rounded-lg shadow-lg hover:shadow-md
         transition-all duration-300 ease-in-out"
     >

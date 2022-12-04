@@ -44,7 +44,7 @@
       <%= display_emoji("😔") %>
     </h2>
   <% else %>
-    <div class="flex flex-row flex-wrap justify-center items-center">
+    <div class="flex flex-row flex-wrap justify-center items-stretch">
       <%= for tag <- @tags do %>
         <.tag_card tag={tag}>
           <.link

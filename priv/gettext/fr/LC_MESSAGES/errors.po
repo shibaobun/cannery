@@ -196,7 +196,7 @@ msgstr "Multiplicateur invalide"
 msgid "Please select an ammo type and container"
 msgstr "Veuillez choisir un type de munitions et un conteneur"
 
-#: lib/cannery_web/live/range_live/index.html.heex:67
+#: lib/cannery_web/live/range_live/index.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Your browser does not support the canvas element."
 msgstr ""

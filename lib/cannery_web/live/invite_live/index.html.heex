@@ -18,7 +18,7 @@
     </.link>
   <% end %>
 
-  <div class="w-full flex flex-row flex-wrap justify-center items-center">
+  <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
     <%= for invite <- @invites do %>
       <.invite_card invite={invite}>
         <:code_actions>
@@ -91,7 +91,7 @@
       <%= gettext("Admins") %>
     </h1>
 
-    <div class="w-full flex flex-row flex-wrap justify-center items-center">
+    <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
       <%= for admin <- @admins do %>
         <.user_card user={admin}>
           <.link
@@ -121,7 +121,7 @@
       <%= gettext("Users") %>
     </h1>
 
-    <div class="w-full flex flex-row flex-wrap justify-center items-center">
+    <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
       <%= for user <- @users do %>
         <.user_card user={user}>
           <.link

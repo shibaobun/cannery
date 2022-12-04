@@ -510,8 +510,8 @@ msgstr ""
 msgid "New Shot Records"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:48
-#: lib/cannery_web/live/range_live/index.html.heex:90
+#: lib/cannery_web/live/range_live/index.html.heex:50
+#: lib/cannery_web/live/range_live/index.html.heex:92
 #, elixir-autogen, elixir-format
 msgid "No shots recorded"
 msgstr ""
@@ -524,7 +524,7 @@ msgstr ""
 
 #: lib/cannery_web/components/shot_group_table_component.ex:42
 #: lib/cannery_web/live/ammo_group_live/show.ex:92
-#: lib/cannery_web/live/range_live/index.html.heex:62
+#: lib/cannery_web/live/range_live/index.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
 msgstr ""
@@ -546,7 +546,7 @@ msgstr ""
 msgid "No other containers"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:53
+#: lib/cannery_web/live/range_live/index.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "Shot log"
 msgstr ""
@@ -929,7 +929,7 @@ msgstr ""
 msgid "Used up!"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:64
+#: lib/cannery_web/live/range_live/index.html.heex:66
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot chart"
 msgstr ""
@@ -1140,7 +1140,7 @@ msgstr ""
 msgid "Search tags"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:83
+#: lib/cannery_web/live/range_live/index.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Search shot records"
 msgstr ""

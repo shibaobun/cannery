@@ -171,7 +171,7 @@ msgstr "Pourquoi pas en préparer pour tirer ?"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:100
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:101
-#: lib/cannery_web/live/range_live/index.html.heex:38
+#: lib/cannery_web/live/range_live/index.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Record shots"
 msgstr "Enregistrer des tirs"
@@ -247,13 +247,13 @@ msgid "Set Unlimited"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:86
-#: lib/cannery_web/live/range_live/index.html.heex:31
+#: lib/cannery_web/live/range_live/index.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Stage for range"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:85
-#: lib/cannery_web/live/range_live/index.html.heex:30
+#: lib/cannery_web/live/range_live/index.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"
 msgstr ""

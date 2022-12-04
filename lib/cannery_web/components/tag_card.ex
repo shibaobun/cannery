@@ -13,7 +13,7 @@ defmodule CanneryWeb.Components.TagCard do
     ~H"""
     <div
       id={"tag-#{@tag.id}"}
-      class="mx-4 mb-2 px-8 py-4 space-x-4 flex justify-center items-center
+      class="mx-4 mb-4 px-8 py-4 space-x-4 flex justify-center items-center
           border border-gray-400 rounded-lg shadow-lg hover:shadow-md
           transition-all duration-300 ease-in-out"
     >

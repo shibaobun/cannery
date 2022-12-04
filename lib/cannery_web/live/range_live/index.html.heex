@@ -17,28 +17,30 @@
       <%= dgettext("actions", "Stage ammo") %>
     </.link>
 
-    <%= for ammo_group <- @ammo_groups do %>
-      <.ammo_group_card ammo_group={ammo_group}>
-        <button
-          type="button"
-          class="btn btn-primary"
-          phx-click="toggle_staged"
-          phx-value-ammo_group_id={ammo_group.id}
-          data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
-        >
-          <%= if ammo_group.staged,
-            do: dgettext("actions", "Unstage from range"),
-            else: dgettext("actions", "Stage for range") %>
-        </button>
+    <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
+      <%= for ammo_group <- @ammo_groups do %>
+        <.ammo_group_card ammo_group={ammo_group}>
+          <button
+            type="button"
+            class="btn btn-primary"
+            phx-click="toggle_staged"
+            phx-value-ammo_group_id={ammo_group.id}
+            data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
+          >
+            <%= if ammo_group.staged,
+              do: dgettext("actions", "Unstage from range"),
+              else: dgettext("actions", "Stage for range") %>
+          </button>
 
-        <.link
-          patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
-          class="btn btn-primary"
-        >
-          <%= dgettext("actions", "Record shots") %>
-        </.link>
-      </.ammo_group_card>
-    <% end %>
+          <.link
+            patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
+            class="btn btn-primary"
+          >
+            <%= dgettext("actions", "Record shots") %>
+          </.link>
+        </.ammo_group_card>
+      <% end %>
+    </div>
   <% end %>
 
   <hr class="hr" />
