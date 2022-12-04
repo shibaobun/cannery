@@ -62,7 +62,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     %{ammo_type: ammo_type, ammo_group: ammo_group, shot_group: shot_group}
   end
 
-  describe "Index regular" do
+  describe "Index" do
     setup [:register_and_log_in_user, :create_container]
 
     test "lists all containers", %{conn: conn, container: container} do
@@ -72,132 +72,43 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ container.location
     end
 
-    test "saves new container", %{conn: conn, container: container} do
+    test "lists all containers in table mode", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Container")) |> render_click() =~
-               gettext("New Container")
-
-      assert_patch(index_live, Routes.container_index_path(conn, :new))
-
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
-
-      {:ok, _view, html} =
-        index_live
-        |> form("#container-form", container: @create_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
-
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
-      assert html =~ "some location"
-    end
-
-    test "updates container in listing", %{
-      conn: conn,
-      current_user: current_user,
-      container: container
-    } do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
-
-      assert index_live |> element("[data-qa=\"edit-#{container.id}\"]") |> render_click() =~
-               gettext("Edit %{name}", name: container.name)
-
-      assert_patch(index_live, Routes.container_index_path(conn, :edit, container))
-
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
-
-      {:ok, _view, html} =
-        index_live
-        |> form("#container-form", container: @update_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
-
-      container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
-      assert html =~ "some updated location"
-    end
-
-    test "clones container in listing", %{
-      conn: conn,
-      current_user: current_user,
-      container: container
-    } do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
-
-      html = index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click()
-      assert html =~ gettext("New Container")
-      assert html =~ "some location"
-
-      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
-
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
-
-      {:ok, _view, html} =
-        index_live
-        |> form("#container-form", container: @create_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
-
-      container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
-      assert html =~ "some location"
-    end
-
-    test "clones container in listing with updates", %{
-      conn: conn,
-      current_user: current_user,
-      container: container
-    } do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
-
-      assert index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click() =~
-               gettext("New Container")
-
-      assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
-
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
-
-      {:ok, _view, html} =
-        index_live
-        |> form("#container-form",
-          container: Map.merge(@create_attrs, %{location: "some updated location"})
-        )
-        |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
-
-      container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
-      assert html =~ "some updated location"
-    end
-
-    test "deletes container in listing", %{conn: conn, container: container} do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
-
-      assert index_live |> element("[data-qa=\"delete-#{container.id}\"]") |> render_click()
-      refute has_element?(index_live, "#container-#{container.id}")
-    end
-  end
-
-  describe "Index table" do
-    setup [:register_and_log_in_user, :create_container]
-
-    test "lists all containers", %{conn: conn, container: container} do
-      {:ok, _index_live, html} = live(conn, Routes.container_index_path(conn, :table))
+      html = index_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
 
       assert html =~ gettext("Containers")
       assert html =~ container.location
     end
 
+    test "can search for containers", %{conn: conn, container: container} do
+      {:ok, index_live, html} = live(conn, Routes.container_index_path(conn, :index))
+
+      assert html =~ container.location
+
+      assert index_live
+             |> form("[data-qa=\"container_search\"]",
+               search: %{search_term: container.location}
+             )
+             |> render_change() =~ container.location
+
+      assert_patch(index_live, Routes.container_index_path(conn, :search, container.location))
+
+      refute index_live
+             |> form("[data-qa=\"container_search\"]", search: %{search_term: "something_else"})
+             |> render_change() =~ container.location
+
+      assert_patch(index_live, Routes.container_index_path(conn, :search, "something_else"))
+
+      assert index_live
+             |> form("[data-qa=\"container_search\"]", search: %{search_term: ""})
+             |> render_change() =~ container.location
+
+      assert_patch(index_live, Routes.container_index_path(conn, :index))
+    end
+
     test "saves new container", %{conn: conn, container: container} do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :table))
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("a", dgettext("actions", "New Container")) |> render_click() =~
                gettext("New Container")
@@ -212,7 +123,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         index_live
         |> form("#container-form", container: @create_attrs)
         |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :table))
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
       assert html =~ "some location"
@@ -223,7 +134,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       current_user: current_user,
       container: container
     } do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :table))
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("[data-qa=\"edit-#{container.id}\"]") |> render_click() =~
                gettext("Edit %{name}", name: container.name)
@@ -238,7 +149,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         index_live
         |> form("#container-form", container: @update_attrs)
         |> render_submit()
-        |> follow_redirect(conn, Routes.container_index_path(conn, :table))
+        |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       container = container.id |> Containers.get_container!(current_user)
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
@@ -303,7 +214,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     end
 
     test "deletes container in listing", %{conn: conn, container: container} do
-      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :table))
+      {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element("[data-qa=\"delete-#{container.id}\"]") |> render_click()
       refute has_element?(index_live, "#container-#{container.id}")
@@ -367,7 +278,6 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
-      assert_patch(show_live, Routes.container_show_path(conn, :table, container))
 
       assert html =~ ammo_type_name
       assert html =~ "some ammo group"
@@ -396,7 +306,6 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
-      assert_patch(show_live, Routes.container_show_path(conn, :table, container))
 
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"

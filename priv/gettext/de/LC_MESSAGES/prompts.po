@@ -50,8 +50,8 @@ msgstr "%{name} erfolgreich deaktiviert"
 msgid "%{name} enabled succesfully"
 msgstr "%{name} erfolgreich aktiviert"
 
-#: lib/cannery_web/live/container_live/index.ex:81
-#: lib/cannery_web/live/container_live/show.ex:67
+#: lib/cannery_web/live/container_live/index.ex:86
+#: lib/cannery_web/live/container_live/show.ex:63
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr "%{name} wurde gelöscht"
@@ -82,8 +82,8 @@ msgstr ""
 "Sind Sie sicher, dass sie %{email} löschen möchten? Dies kann nicht "
 "zurückgenommen werden!"
 
-#: lib/cannery_web/live/container_live/index.ex:236
-#: lib/cannery_web/live/container_live/index.html.heex:73
+#: lib/cannery_web/live/container_live/index.ex:246
+#: lib/cannery_web/live/container_live/index.html.heex:95
 #: lib/cannery_web/live/container_live/show.html.heex:59
 #: lib/cannery_web/live/tag_live/index.html.heex:39
 #, elixir-autogen, elixir-format
@@ -188,7 +188,7 @@ msgstr ""
 msgid "%{name} added successfully"
 msgstr "%{name} erfolgreich hinzugefügt"
 
-#: lib/cannery_web/live/container_live/show.ex:43
+#: lib/cannery_web/live/container_live/show.ex:39
 #, elixir-autogen, elixir-format
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr "%{tag_name} wurde von %{container_name} entfernt"

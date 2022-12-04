@@ -77,16 +77,15 @@ defmodule CanneryWeb.Router do
     live "/type/:id/table", AmmoTypeLive.Show, :table
 
     live "/containers", ContainerLive.Index, :index
-    live "/containers/table", ContainerLive.Index, :table
     live "/containers/new", ContainerLive.Index, :new
-    live "/containers/:id/edit", ContainerLive.Index, :edit
-    live "/containers/:id/clone", ContainerLive.Index, :clone
-    live "/containers/:id/edit_tags", ContainerLive.Index, :edit_tags
+    live "/containers/edit/:id", ContainerLive.Index, :edit
+    live "/containers/clone/:id", ContainerLive.Index, :clone
+    live "/containers/edit_tags/:id", ContainerLive.Index, :edit_tags
+    live "/containers/search/:search", ContainerLive.Index, :search
 
-    live "/containers/:id/show", ContainerLive.Show, :show
-    live "/containers/:id/show/table", ContainerLive.Show, :table
-    live "/containers/:id/show/edit", ContainerLive.Show, :edit
-    live "/containers/:id/show/edit_tags", ContainerLive.Show, :edit_tags
+    live "/container/:id", ContainerLive.Show, :show
+    live "/container/edit/:id", ContainerLive.Show, :edit
+    live "/container/edit_tags/:id", ContainerLive.Show, :edit_tags
 
     live "/ammo", AmmoGroupLive.Index, :index
     live "/ammo/new", AmmoGroupLive.Index, :new

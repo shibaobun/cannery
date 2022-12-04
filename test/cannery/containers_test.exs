@@ -34,8 +34,46 @@ defmodule Cannery.ContainersTest do
     test "list_containers/1 returns all containers",
          %{current_user: current_user, container: container} do
       assert Containers.list_containers(current_user) ==
-               [container |> Repo.preload([:ammo_groups, :tags])]
+               [container] |> preload_containers()
     end
+
+    test "list_containers/2 returns relevant containers for a user",
+         %{current_user: current_user} do
+      container_a =
+        container_fixture(%{"name" => "my cool container"}, current_user) |> preload_containers()
+
+      container_b =
+        container_fixture(%{"desc" => "a fascinating description"}, current_user)
+        |> preload_containers()
+
+      container_c = container_fixture(%{"location" => "a secret place"}, current_user)
+      tag = tag_fixture(%{"name" => "stupendous tag"}, current_user)
+      Containers.add_tag!(container_c, tag, current_user)
+      container_c = container_c |> preload_containers()
+
+      container_d = container_fixture(%{"type" => "musty old box"}, current_user)
+      tag = tag_fixture(%{"name" => "amazing tag"}, current_user)
+      Containers.add_tag!(container_d, tag, current_user)
+      container_d = container_d |> preload_containers()
+
+      _shouldnt_return =
+        container_fixture(%{"name" => "another person's container"}, user_fixture())
+
+      # attributes
+      assert Containers.list_containers("cool", current_user) == [container_a]
+      assert Containers.list_containers("fascinating", current_user) == [container_b]
+      assert Containers.list_containers("secret", current_user) == [container_c]
+      assert Containers.list_containers("box", current_user) == [container_d]
+
+      # tags
+      assert Containers.list_containers("stupendous", current_user) == [container_c]
+      assert Containers.list_containers("amazing", current_user) == [container_d]
+
+      assert Containers.list_containers("asajslkdflskdf", current_user) == []
+    end
+
+    defp preload_containers(containers),
+      do: containers |> Repo.preload([:ammo_groups, :tags])
 
     test "get_container!/1 returns the container with given id",
          %{current_user: current_user, container: container} do

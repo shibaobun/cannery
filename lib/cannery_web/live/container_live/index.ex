@@ -10,7 +10,13 @@ defmodule CanneryWeb.ContainerLive.Index do
   alias Ecto.Changeset
 
   @impl true
-  def mount(_params, _session, socket), do: {:ok, socket |> assign(view_table: false)}
+  def mount(%{"search" => search}, _session, socket) do
+    {:ok, socket |> assign(view_table: true, search: search) |> display_containers()}
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, socket |> assign(view_table: true, search: nil) |> display_containers()}
+  end
 
   @impl true
   def handle_params(params, _url, %{assigns: %{live_action: live_action}} = socket) do
@@ -21,7 +27,7 @@ defmodule CanneryWeb.ContainerLive.Index do
     %{name: container_name} =
       container =
       Containers.get_container!(id, current_user)
-      |> Repo.preload([:tags, :ammo_groups], force: true)
+      |> Repo.preload([:tags, :ammo_groups])
 
     socket
     |> assign(page_title: gettext("Edit %{name}", name: container_name), container: container)
@@ -42,19 +48,18 @@ defmodule CanneryWeb.ContainerLive.Index do
     socket
     |> assign(
       page_title: gettext("Containers"),
-      container: nil
+      container: nil,
+      search: nil
     )
-    |> display_containers()
   end
 
-  defp apply_action(socket, :table, _params) do
+  defp apply_action(socket, :search, %{"search" => search}) do
     socket
     |> assign(
       page_title: gettext("Containers"),
       container: nil,
-      view_table: true
+      search: search
     )
-    |> display_containers()
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit_tags, %{"id" => id}) do
@@ -104,17 +109,22 @@ defmodule CanneryWeb.ContainerLive.Index do
 
   @impl true
   def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
-    new_path =
-      if view_table,
-        do: Routes.container_index_path(Endpoint, :index),
-        else: Routes.container_index_path(Endpoint, :table)
-
-    {:noreply, socket |> assign(view_table: !view_table) |> push_patch(to: new_path)}
+    {:noreply, socket |> assign(:view_table, !view_table) |> display_containers()}
   end
 
-  defp display_containers(%{assigns: %{current_user: current_user}} = socket) do
+  @impl true
+  def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
+    {:noreply, socket |> push_patch(to: Routes.container_index_path(Endpoint, :index))}
+  end
+
+  def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
+    {:noreply,
+     socket |> push_patch(to: Routes.container_index_path(Endpoint, :search, search_term))}
+  end
+
+  defp display_containers(%{assigns: %{search: search, current_user: current_user}} = socket) do
     containers =
-      Containers.list_containers(current_user) |> Repo.preload([:tags, :ammo_groups], force: true)
+      Containers.list_containers(search, current_user) |> Repo.preload([:tags, :ammo_groups])
 
     columns =
       [
@@ -243,7 +253,4 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp get_value_for_key(key, container), do: container |> Map.get(key)
-
-  def return_to(true = _view_table), do: Routes.container_index_path(Endpoint, :table)
-  def return_to(false = _view_table), do: Routes.container_index_path(Endpoint, :index)
 end

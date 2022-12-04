@@ -11,18 +11,14 @@ defmodule CanneryWeb.ContainerLive.Show do
   alias Phoenix.LiveView.Socket
 
   @impl true
-  def mount(_params, _session, %{assigns: %{live_action: live_action}} = socket),
-    do: {:ok, socket |> assign(show_used: false, view_table: live_action == :table)}
+  def mount(_params, _session, socket),
+    do: {:ok, socket |> assign(show_used: false, view_table: true)}
 
   @impl true
-  def handle_params(
-        %{"id" => id},
-        _session,
-        %{assigns: %{current_user: current_user, live_action: live_action}} = socket
-      ) do
+  def handle_params(%{"id" => id}, _session, %{assigns: %{current_user: current_user}} = socket) do
     socket =
       socket
-      |> assign(view_table: live_action == :table)
+      |> assign(view_table: true)
       |> render_container(id, current_user)
 
     {:noreply, socket}
@@ -94,17 +90,8 @@ defmodule CanneryWeb.ContainerLive.Show do
   end
 
   @impl true
-  def handle_event(
-        "toggle_table",
-        _params,
-        %{assigns: %{view_table: view_table, container: container}} = socket
-      ) do
-    new_path =
-      if view_table,
-        do: Routes.container_show_path(Endpoint, :show, container),
-        else: Routes.container_show_path(Endpoint, :table, container)
-
-    {:noreply, socket |> push_patch(to: new_path)}
+  def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
+    {:noreply, socket |> assign(:view_table, !view_table) |> render_container()}
   end
 
   @spec render_container(Socket.t(), Container.id(), User.t()) :: Socket.t()

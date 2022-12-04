@@ -17,16 +17,55 @@ defmodule Cannery.Containers do
       iex> list_containers(%User{id: 123})
       [%Container{}, ...]
 
+      iex> list_containers("cool", %User{id: 123})
+      [%Container{name: "my cool container"}, ...]
+
   """
   @spec list_containers(User.t()) :: [Container.t()]
-  def list_containers(%User{id: user_id}) do
-    Repo.all(
-      from c in Container,
-        left_join: t in assoc(c, :tags),
-        left_join: ag in assoc(c, :ammo_groups),
-        where: c.user_id == ^user_id,
-        order_by: c.name,
-        preload: [tags: t, ammo_groups: ag]
+  @spec list_containers(search :: nil | String.t(), User.t()) :: [Container.t()]
+  def list_containers(search \\ nil, %User{id: user_id}) do
+    from(c in Container,
+      as: :c,
+      left_join: t in assoc(c, :tags),
+      as: :t,
+      left_join: ag in assoc(c, :ammo_groups),
+      as: :ag,
+      where: c.user_id == ^user_id,
+      order_by: c.name,
+      preload: [tags: t, ammo_groups: ag]
+    )
+    |> list_containers_search(search)
+    |> Repo.all()
+  end
+
+  defp list_containers_search(query, nil), do: query
+  defp list_containers_search(query, ""), do: query
+
+  defp list_containers_search(query, search) do
+    trimmed_search = String.trim(search)
+
+    query
+    |> where(
+      [c: c, t: t],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        c.search,
+        ^trimmed_search
+      ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          t.search,
+          ^trimmed_search
+        )
+    )
+    |> order_by(
+      [c: c],
+      desc:
+        fragment(
+          "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+          c.search,
+          ^trimmed_search
+        )
     )
   end
 
