@@ -17,7 +17,23 @@
       <%= dgettext("actions", "New Ammo type") %>
     </.link>
 
-    <div class="flex flex-col justify-center items-center">
+    <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
+      <.form
+        :let={f}
+        for={:search}
+        phx-change="search"
+        phx-submit="search"
+        class="grow self-stretch flex flex-col items-stretch"
+        data-qa="ammo_type_search"
+      >
+        <%= text_input(f, :search_term,
+          class: "input input-primary",
+          value: @search,
+          phx_debounce: 300,
+          placeholder: gettext("Search catalog")
+        ) %>
+      </.form>
+
       <.toggle_button action="toggle_show_used" value={@show_used}>
         <span class="title text-lg text-primary-600">
           <%= gettext("Show used") %>

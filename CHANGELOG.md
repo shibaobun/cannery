@@ -1,3 +1,7 @@
+# v0.8.0
+- Add search to catalog
+- Tweak urls for ammo types
+
 # v0.7.2
 - Code improvements
 

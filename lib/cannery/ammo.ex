@@ -20,10 +20,37 @@ defmodule Cannery.Ammo do
       iex> list_ammo_types(%User{id: 123})
       [%AmmoType{}, ...]
 
+      iex> list_ammo_types("cool", %User{id: 123})
+      [%AmmoType{name: "My cool ammo type"}, ...]
+
   """
   @spec list_ammo_types(User.t()) :: [AmmoType.t()]
-  def list_ammo_types(%User{id: user_id}),
+  @spec list_ammo_types(search :: nil | String.t(), User.t()) :: [AmmoType.t()]
+  def list_ammo_types(search \\ nil, user)
+
+  def list_ammo_types(search, %{id: user_id}) when search |> is_nil() or search == "",
     do: Repo.all(from at in AmmoType, where: at.user_id == ^user_id, order_by: at.name)
+
+  def list_ammo_types(search, %{id: user_id}) when search |> is_binary() do
+    trimmed_search = String.trim(search)
+
+    Repo.all(
+      from at in AmmoType,
+        where: at.user_id == ^user_id,
+        where:
+          fragment(
+            "search @@ websearch_to_tsquery('english', ?)",
+            ^trimmed_search
+          ),
+        order_by: {
+          :desc,
+          fragment(
+            "ts_rank_cd(search, websearch_to_tsquery('english', ?), 4)",
+            ^trimmed_search
+          )
+        }
+    )
+  end
 
   @doc """
   Returns a count of ammo_types.

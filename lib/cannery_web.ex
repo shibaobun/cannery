@@ -104,6 +104,7 @@ defmodule CanneryWeb do
 
       # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       import CanneryWeb.{ErrorHelpers, Gettext, LiveHelpers, ViewHelpers}
+      alias CanneryWeb.Endpoint
       alias CanneryWeb.Router.Helpers, as: Routes
     end
   end

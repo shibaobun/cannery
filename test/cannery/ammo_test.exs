@@ -40,9 +40,53 @@ defmodule Cannery.AmmoTest do
       [ammo_type: ammo_type_fixture(current_user), current_user: current_user]
     end
 
-    test "list_ammo_types/0 returns all ammo_types",
+    test "list_ammo_types/1 returns all ammo_types",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert Ammo.list_ammo_types(current_user) == [ammo_type]
+    end
+
+    test "list_ammo_types/1 returns relevant ammo_types for a user",
+         %{current_user: current_user} do
+      ammo_type_a =
+        %{"name" => "bullets", "desc" => "has some pews in it", "grains" => 5}
+        |> ammo_type_fixture(current_user)
+
+      ammo_type_b =
+        %{"name" => "hollows", "grains" => 3}
+        |> ammo_type_fixture(current_user)
+
+      ammo_type_c =
+        %{
+          "name" => "jackets",
+          "desc" => "brass shell",
+          "tracer" => true
+        }
+        |> ammo_type_fixture(current_user)
+
+      _shouldnt_return =
+        %{
+          "name" => "bullet",
+          "desc" => "pews brass shell"
+        }
+        |> ammo_type_fixture(user_fixture())
+
+      # name
+      assert Ammo.list_ammo_types("bullet", current_user) == [ammo_type_a]
+      assert Ammo.list_ammo_types("bullets", current_user) == [ammo_type_a]
+      assert Ammo.list_ammo_types("hollow", current_user) == [ammo_type_b]
+      assert Ammo.list_ammo_types("jacket", current_user) == [ammo_type_c]
+
+      # desc
+      assert Ammo.list_ammo_types("pew", current_user) == [ammo_type_a]
+      assert Ammo.list_ammo_types("brass", current_user) == [ammo_type_c]
+      assert Ammo.list_ammo_types("shell", current_user) == [ammo_type_c]
+
+      # grains (integer)
+      assert Ammo.list_ammo_types("5", current_user) == [ammo_type_a]
+      assert Ammo.list_ammo_types("3", current_user) == [ammo_type_b]
+
+      # tracer (boolean)
+      assert Ammo.list_ammo_types("tracer", current_user) == [ammo_type_c]
     end
 
     test "get_ammo_type!/1 returns the ammo_type with given id",

@@ -70,8 +70,28 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     test "lists all ammo_types", %{conn: conn, ammo_type: ammo_type} do
       {:ok, _index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      assert html =~ gettext("Ammo types")
+      assert html =~ gettext("Catalog")
       assert html =~ ammo_type.bullet_type
+    end
+
+    test "can search for ammo_type", %{conn: conn, ammo_type: ammo_type} do
+      {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+
+      assert html =~ ammo_type.bullet_type
+
+      assert index_live
+             |> form("[data-qa=\"ammo_type_search\"]",
+               search: %{search_term: ammo_type.bullet_type}
+             )
+             |> render_change() =~ ammo_type.bullet_type
+
+      assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, ammo_type.bullet_type))
+
+      refute index_live
+             |> form("[data-qa=\"ammo_type_search\"]", search: %{search_term: "something_else"})
+             |> render_change() =~ ammo_type.bullet_type
+
+      assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, "something_else"))
     end
 
     test "saves new ammo_type", %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
@@ -102,7 +122,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
       assert index_live |> element("[data-qa=\"edit-#{ammo_type.id}\"]") |> render_click() =~
-               gettext("Edit Ammo type")
+               gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :edit, ammo_type))
 
