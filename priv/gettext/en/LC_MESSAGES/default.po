@@ -280,7 +280,7 @@ msgid "No ammo for this type"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.html.heex:8
-#: lib/cannery_web/live/container_live/index.html.heex:48
+#: lib/cannery_web/live/container_live/index.html.heex:47
 #, elixir-autogen, elixir-format
 msgid "No containers"
 msgstr ""

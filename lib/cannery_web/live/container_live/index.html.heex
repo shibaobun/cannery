@@ -42,65 +42,63 @@
     </div>
   <% end %>
 
-  <div class="w-full flex flex-row flex-wrap justify-center items-center">
-    <%= if @containers |> Enum.empty?() do %>
-      <h2 class="title text-xl text-primary-600">
-        <%= gettext("No containers") %>
-        <%= display_emoji("😔") %>
-      </h2>
+  <%= if @containers |> Enum.empty?() do %>
+    <h2 class="title text-xl text-primary-600">
+      <%= gettext("No containers") %>
+      <%= display_emoji("😔") %>
+    </h2>
+  <% else %>
+    <%= if @view_table do %>
+      <.live_component
+        module={CanneryWeb.Components.ContainerTableComponent}
+        id="containers_index_table"
+        action={@live_action}
+        containers={@containers}
+        current_user={@current_user}
+      >
+        <:tag_actions :let={container}>
+          <div class="mx-4 my-2">
+            <.link
+              patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+              class="text-primary-600 link"
+            >
+              <i class="fa-fw fa-lg fas fa-tags"></i>
+            </.link>
+          </div>
+        </:tag_actions>
+        <:actions :let={container}>
+          <.link
+            patch={Routes.container_index_path(Endpoint, :edit, container)}
+            class="text-primary-600 link"
+            data-qa={"edit-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-edit"></i>
+          </.link>
+
+          <.link
+            patch={Routes.container_index_path(Endpoint, :clone, container)}
+            class="text-primary-600 link"
+            data-qa={"clone-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-copy"></i>
+          </.link>
+
+          <.link
+            href="#"
+            class="text-primary-600 link"
+            phx-click="delete"
+            phx-value-id={container.id}
+            data-confirm={
+              dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
+            }
+            data-qa={"delete-#{container.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-trash"></i>
+          </.link>
+        </:actions>
+      </.live_component>
     <% else %>
-      <%= if @view_table do %>
-        <.live_component
-          module={CanneryWeb.Components.ContainerTableComponent}
-          id="containers_index_table"
-          action={@live_action}
-          containers={@containers}
-          current_user={@current_user}
-        >
-          <:tag_actions :let={container}>
-            <div class="mx-4 my-2">
-              <.link
-                patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
-                class="text-primary-600 link"
-              >
-                <i class="fa-fw fa-lg fas fa-tags"></i>
-              </.link>
-            </div>
-          </:tag_actions>
-          <:actions :let={container}>
-            <.link
-              patch={Routes.container_index_path(Endpoint, :edit, container)}
-              class="text-primary-600 link"
-              data-qa={"edit-#{container.id}"}
-            >
-              <i class="fa-fw fa-lg fas fa-edit"></i>
-            </.link>
-
-            <.link
-              patch={Routes.container_index_path(Endpoint, :clone, container)}
-              class="text-primary-600 link"
-              data-qa={"clone-#{container.id}"}
-            >
-              <i class="fa-fw fa-lg fas fa-copy"></i>
-            </.link>
-
-            <.link
-              href="#"
-              class="text-primary-600 link"
-              phx-click="delete"
-              phx-value-id={container.id}
-              data-confirm={
-                dgettext("prompts", "Are you sure you want to delete %{name}?",
-                  name: container.name
-                )
-              }
-              data-qa={"delete-#{container.id}"}
-            >
-              <i class="fa-fw fa-lg fas fa-trash"></i>
-            </.link>
-          </:actions>
-        </.live_component>
-      <% else %>
+      <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
         <%= for container <- @containers do %>
           <.container_card container={container}>
             <:tag_actions>
@@ -145,9 +143,9 @@
             </.link>
           </.container_card>
         <% end %>
-      <% end %>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 </div>
 
 <%= if @live_action in [:new, :edit, :clone] do %>

@@ -83,8 +83,8 @@ msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 "Êtes-vous certain·e de supprimer %{email} ? Cette action est définitive !"
 
-#: lib/cannery_web/live/container_live/index.html.heex:93
-#: lib/cannery_web/live/container_live/index.html.heex:138
+#: lib/cannery_web/live/container_live/index.html.heex:92
+#: lib/cannery_web/live/container_live/index.html.heex:136
 #: lib/cannery_web/live/container_live/show.html.heex:59
 #: lib/cannery_web/live/tag_live/index.html.heex:64
 #, elixir-autogen, elixir-format
