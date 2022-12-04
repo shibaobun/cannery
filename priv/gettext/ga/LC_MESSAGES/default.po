@@ -302,7 +302,7 @@ msgstr ""
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:31
 #: lib/cannery_web/live/tag_live/index.html.heex:10
-#: lib/cannery_web/live/tag_live/index.html.heex:44
+#: lib/cannery_web/live/tag_live/index.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "No tags"
 msgstr ""

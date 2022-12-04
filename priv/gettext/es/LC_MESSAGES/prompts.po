@@ -85,7 +85,7 @@ msgstr "Está seguro que desea eliminar %{email}? Esta acción es permanente!"
 #: lib/cannery_web/live/container_live/index.html.heex:93
 #: lib/cannery_web/live/container_live/index.html.heex:138
 #: lib/cannery_web/live/container_live/show.html.heex:59
-#: lib/cannery_web/live/tag_live/index.html.heex:65
+#: lib/cannery_web/live/tag_live/index.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Está seguro que desea eliminar %{name}?"

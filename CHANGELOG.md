@@ -2,6 +2,7 @@
 - Add search to catalog, ammo, container, tag and range index pages
 - Tweak urls for catalog, ammo, containers, tags and shot records
 - Fix bug with shot group chart not drawing lines between days correctly
+- Improve cards across app (make them line up with each other)
 
 # v0.7.2
 - Code improvements

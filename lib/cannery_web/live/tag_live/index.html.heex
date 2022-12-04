@@ -38,39 +38,39 @@
     </.form>
   </div>
 
-  <div class="flex flex-row flex-wrap justify-center items-center">
-    <%= if @tags |> Enum.empty?() do %>
-      <h2 class="title text-xl text-primary-600">
-        <%= gettext("No tags") %>
-        <%= display_emoji("😔") %>
-      </h2>
-    <% end %>
+  <%= if @tags |> Enum.empty?() do %>
+    <h2 class="title text-xl text-primary-600">
+      <%= gettext("No tags") %>
+      <%= display_emoji("😔") %>
+    </h2>
+  <% else %>
+    <div class="flex flex-row flex-wrap justify-center items-center">
+      <%= for tag <- @tags do %>
+        <.tag_card tag={tag}>
+          <.link
+            patch={Routes.tag_index_path(Endpoint, :edit, tag)}
+            class="text-primary-600 link"
+            data-qa={"edit-#{tag.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-edit"></i>
+          </.link>
 
-    <%= for tag <- @tags do %>
-      <.tag_card tag={tag}>
-        <.link
-          patch={Routes.tag_index_path(Endpoint, :edit, tag)}
-          class="text-primary-600 link"
-          data-qa={"edit-#{tag.id}"}
-        >
-          <i class="fa-fw fa-lg fas fa-edit"></i>
-        </.link>
-
-        <.link
-          href="#"
-          class="text-primary-600 link"
-          phx-click="delete"
-          phx-value-id={tag.id}
-          data-confirm={
-            dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
-          }
-          data-qa={"delete-#{tag.id}"}
-        >
-          <i class="fa-fw fa-lg fas fa-trash"></i>
-        </.link>
-      </.tag_card>
-    <% end %>
-  </div>
+          <.link
+            href="#"
+            class="text-primary-600 link"
+            phx-click="delete"
+            phx-value-id={tag.id}
+            data-confirm={
+              dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
+            }
+            data-qa={"delete-#{tag.id}"}
+          >
+            <i class="fa-fw fa-lg fas fa-trash"></i>
+          </.link>
+        </.tag_card>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <%= if @live_action in [:new, :edit] do %>
