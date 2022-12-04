@@ -15,10 +15,50 @@ defmodule Cannery.ActivityLog do
       iex> list_shot_groups(%User{id: 123})
       [%ShotGroup{}, ...]
 
+      iex> list_shot_groups("cool", %User{id: 123})
+      [%ShotGroup{notes: "My cool shot group"}, ...]
+
   """
   @spec list_shot_groups(User.t()) :: [ShotGroup.t()]
-  def list_shot_groups(%User{id: user_id}) do
-    Repo.all(from(sg in ShotGroup, where: sg.user_id == ^user_id))
+  @spec list_shot_groups(search :: nil | String.t(), User.t()) :: [ShotGroup.t()]
+  def list_shot_groups(search \\ nil, user)
+
+  def list_shot_groups(search, %{id: user_id}) when search |> is_nil() or search == "",
+    do: Repo.all(from sg in ShotGroup, where: sg.user_id == ^user_id)
+
+  def list_shot_groups(search, %{id: user_id}) when search |> is_binary() do
+    trimmed_search = String.trim(search)
+
+    Repo.all(
+      from sg in ShotGroup,
+        left_join: ag in assoc(sg, :ammo_group),
+        left_join: at in assoc(ag, :ammo_type),
+        where: sg.user_id == ^user_id,
+        where:
+          fragment(
+            "? @@ websearch_to_tsquery('english', ?)",
+            sg.search,
+            ^trimmed_search
+          ) or
+            fragment(
+              "? @@ websearch_to_tsquery('english', ?)",
+              ag.search,
+              ^trimmed_search
+            ) or
+            fragment(
+              "? @@ websearch_to_tsquery('english', ?)",
+              at.search,
+              ^trimmed_search
+            ),
+        order_by: {
+          :desc,
+          fragment(
+            "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+            sg.search,
+            ^trimmed_search
+          )
+        }
+    )
   end
 
   @doc """

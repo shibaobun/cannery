@@ -37,6 +37,32 @@ defmodule CanneryWeb.RangeLiveTest do
       assert html =~ shot_group.notes
     end
 
+    test "can search for shot_group", %{conn: conn, shot_group: shot_group} do
+      {:ok, index_live, html} = live(conn, Routes.range_index_path(conn, :index))
+
+      assert html =~ shot_group.notes
+
+      assert index_live
+             |> form("[data-qa=\"shot_group_search\"]",
+               search: %{search_term: shot_group.notes}
+             )
+             |> render_change() =~ shot_group.notes
+
+      assert_patch(index_live, Routes.range_index_path(conn, :search, shot_group.notes))
+
+      refute index_live
+             |> form("[data-qa=\"shot_group_search\"]", search: %{search_term: "something_else"})
+             |> render_change() =~ shot_group.notes
+
+      assert_patch(index_live, Routes.range_index_path(conn, :search, "something_else"))
+
+      assert index_live
+             |> form("[data-qa=\"shot_group_search\"]", search: %{search_term: ""})
+             |> render_change() =~ shot_group.notes
+
+      assert_patch(index_live, Routes.range_index_path(conn, :index))
+    end
+
     test "saves new shot_group", %{conn: conn, ammo_group: ammo_group} do
       {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
 

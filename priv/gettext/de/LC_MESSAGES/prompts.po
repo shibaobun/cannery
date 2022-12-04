@@ -209,13 +209,13 @@ msgid "Are you sure you want to unstage this ammo?"
 msgstr "Sind sie sicher, dass Sie diese Munition demarkieren möchten?"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:137
-#: lib/cannery_web/live/range_live/index.ex:159
+#: lib/cannery_web/live/range_live/index.ex:196
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr "Sind sie sicher, dass sie die Schießkladde löschen möchten?"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:83
-#: lib/cannery_web/live/range_live/index.ex:54
+#: lib/cannery_web/live/range_live/index.ex:80
 #, elixir-autogen, elixir-format
 msgid "Shot records deleted succesfully"
 msgstr "Schießkladde erfolgreich gelöscht"
@@ -272,7 +272,7 @@ msgstr "Spracheinstellung gespeichert."
 msgid "Ammo deleted succesfully"
 msgstr "Munitionsgruppe erfolgreich gelöscht"
 
-#: lib/cannery_web/live/range_live/index.ex:68
+#: lib/cannery_web/live/range_live/index.ex:95
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo unstaged succesfully"
 msgstr "Munition erfolgreich demarkiert"

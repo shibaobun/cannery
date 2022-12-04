@@ -43,7 +43,7 @@
 
   <hr class="hr" />
 
-  <%= if @shot_groups |> Enum.empty?() do %>
+  <%= if @shot_groups |> Enum.empty?() and @search |> is_nil() do %>
     <h1 class="title text-xl text-primary-600">
       <%= gettext("No shots recorded") %>
       <%= display_emoji("😔") %>
@@ -67,14 +67,39 @@
       <%= dgettext("errors", "Your browser does not support the canvas element.") %>
     </canvas>
 
-    <.live_component
-      module={CanneryWeb.Components.TableComponent}
-      id="shot_groups_index_table"
-      columns={@columns}
-      rows={@rows}
-      initial_key={:date}
-      initial_sort_mode={:desc}
-    />
+    <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
+      <.form
+        :let={f}
+        for={:search}
+        phx-change="search"
+        phx-submit="search"
+        class="grow self-stretch flex flex-col items-stretch"
+        data-qa="shot_group_search"
+      >
+        <%= text_input(f, :search_term,
+          class: "input input-primary",
+          value: @search,
+          phx_debounce: 300,
+          placeholder: gettext("Search shot records")
+        ) %>
+      </.form>
+    </div>
+
+    <%= if @shot_groups |> Enum.empty?() do %>
+      <h1 class="title text-xl text-primary-600">
+        <%= gettext("No shots recorded") %>
+        <%= display_emoji("😔") %>
+      </h1>
+    <% else %>
+      <.live_component
+        module={CanneryWeb.Components.TableComponent}
+        id="shot_groups_index_table"
+        columns={@columns}
+        rows={@rows}
+        initial_key={:date}
+        initial_sort_mode={:desc}
+      />
+    <% end %>
   <% end %>
 </div>
 

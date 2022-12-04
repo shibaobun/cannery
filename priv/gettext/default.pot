@@ -34,7 +34,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/index.ex:70
 #: lib/cannery_web/live/ammo_group_live/index.ex:79
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
-#: lib/cannery_web/live/range_live/index.ex:80
+#: lib/cannery_web/live/range_live/index.ex:117
 #, elixir-autogen, elixir-format
 msgid "Ammo"
 msgstr ""
@@ -301,7 +301,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:49
 #: lib/cannery_web/live/ammo_group_live/show.ex:93
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
-#: lib/cannery_web/live/range_live/index.ex:82
+#: lib/cannery_web/live/range_live/index.ex:119
 #, elixir-autogen, elixir-format
 msgid "Notes"
 msgstr ""
@@ -463,7 +463,7 @@ msgstr ""
 #: lib/cannery_web/components/add_shot_group_component.html.heex:45
 #: lib/cannery_web/live/ammo_group_live/show.ex:94
 #: lib/cannery_web/live/range_live/form_component.html.heex:36
-#: lib/cannery_web/live/range_live/index.ex:83
+#: lib/cannery_web/live/range_live/index.ex:120
 #, elixir-autogen, elixir-format
 msgid "Date"
 msgstr ""
@@ -485,17 +485,18 @@ msgid "Record shots"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:42
-#: lib/cannery_web/live/range_live/index.ex:32
+#: lib/cannery_web/live/range_live/index.ex:41
 #, elixir-autogen, elixir-format
 msgid "Edit Shot Records"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:38
+#: lib/cannery_web/live/range_live/index.ex:49
 #, elixir-autogen, elixir-format
 msgid "New Shot Records"
 msgstr ""
 
 #: lib/cannery_web/live/range_live/index.html.heex:48
+#: lib/cannery_web/live/range_live/index.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "No shots recorded"
 msgstr ""
@@ -507,13 +508,14 @@ msgid "Rounds left"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:92
-#: lib/cannery_web/live/range_live/index.ex:81
+#: lib/cannery_web/live/range_live/index.ex:118
 #: lib/cannery_web/live/range_live/index.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:44
+#: lib/cannery_web/live/range_live/index.ex:57
+#: lib/cannery_web/live/range_live/index.ex:67
 #, elixir-autogen, elixir-format
 msgid "Shot Records"
 msgstr ""
@@ -705,7 +707,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:41
-#: lib/cannery_web/live/range_live/index.ex:26
+#: lib/cannery_web/live/range_live/index.ex:33
 #, elixir-autogen, elixir-format
 msgid "Record Shots"
 msgstr ""
@@ -843,7 +845,7 @@ msgstr ""
 msgid "%{percentage}%"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:114
+#: lib/cannery_web/live/range_live/index.ex:151
 #, elixir-autogen, elixir-format
 msgid "Rounds shot: %{count}"
 msgstr ""
@@ -1121,4 +1123,9 @@ msgstr ""
 #: lib/cannery_web/live/tag_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Search tags"
+msgstr ""
+
+#: lib/cannery_web/live/range_live/index.html.heex:83
+#, elixir-autogen, elixir-format
+msgid "Search shot records"
 msgstr ""

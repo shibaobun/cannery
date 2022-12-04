@@ -1,6 +1,7 @@
 # v0.8.0
-- Add search to catalog, ammo, container and tag index
-- Tweak urls for catalog, ammo, containers and tags
+- Add search to catalog, ammo, container, tag and range index pages
+- Tweak urls for catalog, ammo, containers, tags and shot records
+- Fix bug with shot group chart not drawing lines between days correctly
 
 # v0.7.2
 - Code improvements

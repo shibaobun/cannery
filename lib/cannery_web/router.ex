@@ -103,8 +103,9 @@ defmodule CanneryWeb.Router do
     live "/ammo/show/:id/edit/:shot_group_id", AmmoGroupLive.Show, :edit_shot_group
 
     live "/range", RangeLive.Index, :index
-    live "/range/:id/edit", RangeLive.Index, :edit
-    live "/range/:id/add_shot_group", RangeLive.Index, :add_shot_group
+    live "/range/edit/:id", RangeLive.Index, :edit
+    live "/range/add_shot_group/:id", RangeLive.Index, :add_shot_group
+    live "/range/search/:search", RangeLive.Index, :search
   end
 
   scope "/", CanneryWeb do

@@ -80,6 +80,27 @@ export default {
       }
     })
   },
+  updateChart (el) {
+    const data = JSON.parse(el.dataset.chartData)
+
+    this.el.chart.data = {
+      datasets: [{
+        label: el.dataset.label,
+        data: data.map(({ date, count, label }) => ({
+          label,
+          x: date,
+          y: count
+        })),
+        backgroundColor: `${el.dataset.color}77`,
+        borderColor: el.dataset.color,
+        fill: true,
+        borderWidth: 3,
+        pointBorderWidth: 1
+      }]
+    }
+
+    this.el.chart.update()
+  },
   mounted () { this.initalizeChart(this.el) },
-  updated () { this.initalizeChart(this.el) }
+  updated () { this.updateChart(this.el) }
 }
