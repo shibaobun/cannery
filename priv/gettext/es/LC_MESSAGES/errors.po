@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-21 19:44+0000\n"
-"PO-Revision-Date: 2022-11-13 21:49+0000\n"
+"PO-Revision-Date: 2022-12-01 19:21+0000\n"
 "Last-Translator: Brea Foga <breaardiente@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.bubbletea.dev/projects/cannery/"
 "errors/es/>\n"
@@ -90,18 +90,18 @@ msgstr ""
 #: lib/cannery_web/controllers/user_registration_controller.ex:55
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
-msgstr "Lo sentimos, la inscripción pública está desactivada"
+msgstr "Lo sentimos, el registro público no está habilitado"
 
 #: lib/cannery_web/controllers/user_registration_controller.ex:14
 #: lib/cannery_web/controllers/user_registration_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
-msgstr "Lo sentimos, esta invitación no fue encontrada o ha expirado"
+msgstr "Lo sentimos, esta invitación no es válida o ha caducado"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:99
 #, elixir-autogen, elixir-format
 msgid "Unable to delete user"
-msgstr "No se pudo borrar el usuario"
+msgstr "No se ha podido eliminar el usuario"
 
 #: lib/cannery_web/views/error_view.ex:10
 #, elixir-autogen, elixir-format
@@ -111,7 +111,7 @@ msgstr "No autorizado"
 #: lib/cannery_web/controllers/user_confirmation_controller.ex:54
 #, elixir-autogen, elixir-format
 msgid "User confirmation link is invalid or it has expired."
-msgstr "El enlace de confirmación es inválido o ha expirado."
+msgstr "El enlace de confirmación de usuario no es válido o ha caducado."
 
 #: lib/cannery_web/live/invite_live/index.ex:18
 #, elixir-autogen, elixir-format
@@ -151,7 +151,7 @@ msgstr "Etiqueta no encontrada"
 #: lib/cannery_web/live/container_live/edit_tags_component.ex:30
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
-msgstr "La etiqueta no pudo ser añadida"
+msgstr "No se ha podido añadir la etiqueta"
 
 #: lib/cannery/activity_log/shot_group.ex:122
 #, elixir-autogen, elixir-format
@@ -178,7 +178,7 @@ msgstr "La etiqueta no pudo ser eliminada"
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:157
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
-msgstr "No se pudo analizar el número de copias"
+msgstr "No se ha podido procesar el número de copias"
 
 #: lib/cannery_web/live/ammo_group_live/form_component.ex:142
 #, elixir-autogen, elixir-format
@@ -193,7 +193,7 @@ msgstr "Multiplicador inválido"
 #: lib/cannery/ammo/ammo_group.ex:97
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
-msgstr ""
+msgstr "Por favor escoja un tipo de munición y un contenedor"
 
 #: lib/cannery_web/live/range_live/index.html.heex:69
 #, elixir-autogen, elixir-format
@@ -201,6 +201,6 @@ msgid "Your browser does not support the canvas element."
 msgstr "Su navegador no es compatible con el elemento lienzo."
 
 #: lib/cannery/activity_log/shot_group.ex:77
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo pack"
-msgstr ""
+msgstr "Por favor escoja un usuario y tipo de munición valido"
