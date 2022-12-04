@@ -28,13 +28,13 @@ msgstr ""
 msgid "Container must be empty before deleting"
 msgstr "Le conteneur doit être vide pour être supprimé"
 
-#: lib/cannery_web/live/container_live/index.ex:93
+#: lib/cannery_web/live/container_live/index.ex:92
 #: lib/cannery_web/live/container_live/show.ex:73
 #, elixir-autogen, elixir-format
 msgid "Could not delete %{name}: %{error}"
 msgstr "Impossible de supprimer %{name} : %{error}"
 
-#: lib/cannery_web/live/container_live/index.ex:81
+#: lib/cannery_web/live/container_live/index.ex:80
 #, elixir-autogen, elixir-format
 msgid "Could not find that container"
 msgstr "Impossible de trouver ce conteneur"

@@ -51,12 +51,55 @@
     <% else %>
       <%= if @view_table do %>
         <.live_component
-          module={CanneryWeb.Components.TableComponent}
+          module={CanneryWeb.Components.ContainerTableComponent}
           id="containers_index_table"
           action={@live_action}
-          columns={@columns}
-          rows={@rows}
-        />
+          containers={@containers}
+          current_user={@current_user}
+        >
+          <:tag_actions :let={container}>
+            <div class="mx-4 my-2">
+              <.link
+                patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+                class="text-primary-600 link"
+              >
+                <i class="fa-fw fa-lg fas fa-tags"></i>
+              </.link>
+            </div>
+          </:tag_actions>
+          <:actions :let={container}>
+            <.link
+              patch={Routes.container_index_path(Endpoint, :edit, container)}
+              class="text-primary-600 link"
+              data-qa={"edit-#{container.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-edit"></i>
+            </.link>
+
+            <.link
+              patch={Routes.container_index_path(Endpoint, :clone, container)}
+              class="text-primary-600 link"
+              data-qa={"clone-#{container.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-copy"></i>
+            </.link>
+
+            <.link
+              href="#"
+              class="text-primary-600 link"
+              phx-click="delete"
+              phx-value-id={container.id}
+              data-confirm={
+                dgettext("prompts", "Are you sure you want to delete %{name}?",
+                  name: container.name
+                )
+              }
+              data-qa={"delete-#{container.id}"}
+            >
+              <i class="fa-fw fa-lg fas fa-trash"></i>
+            </.link>
+          </:actions>
+        </.live_component>
       <% else %>
         <%= for container <- @containers do %>
           <.container_card container={container}>

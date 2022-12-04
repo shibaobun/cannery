@@ -114,8 +114,8 @@ msgid "Container"
 msgstr "Behälter"
 
 #: lib/cannery_web/components/topbar.ex:57
-#: lib/cannery_web/live/container_live/index.ex:50
-#: lib/cannery_web/live/container_live/index.ex:59
+#: lib/cannery_web/live/container_live/index.ex:49
+#: lib/cannery_web/live/container_live/index.ex:58
 #: lib/cannery_web/live/container_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Containers"
@@ -139,9 +139,9 @@ msgstr "Anzahl"
 msgid "Count:"
 msgstr "Anzahl:"
 
+#: lib/cannery_web/components/container_table_component.ex:47
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:24
 #: lib/cannery_web/live/container_live/form_component.html.heex:27
-#: lib/cannery_web/live/container_live/index.ex:132
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr "Beschreibung"
@@ -216,9 +216,9 @@ msgstr "Einladungen"
 msgid "Keep me logged in for 60 days"
 msgstr "Für 60 Tage eingeloggt bleiben"
 
+#: lib/cannery_web/components/container_table_component.ex:48
 #: lib/cannery_web/components/move_ammo_group_component.ex:69
 #: lib/cannery_web/live/container_live/form_component.html.heex:42
-#: lib/cannery_web/live/container_live/index.ex:133
 #, elixir-autogen, elixir-format
 msgid "Location"
 msgstr "Standort"
@@ -251,9 +251,9 @@ msgid "My cool ammo can"
 msgstr "Meine coole Munitionskiste"
 
 #: lib/cannery_web/components/ammo_type_table_component.ex:45
+#: lib/cannery_web/components/container_table_component.ex:46
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:20
 #: lib/cannery_web/live/container_live/form_component.html.heex:20
-#: lib/cannery_web/live/container_live/index.ex:131
 #: lib/cannery_web/live/invite_live/form_component.html.heex:20
 #: lib/cannery_web/live/tag_live/form_component.ex:75
 #, elixir-autogen, elixir-format
@@ -266,8 +266,8 @@ msgstr "Name"
 msgid "New Ammo type"
 msgstr "Neuer Munitionstyp"
 
-#: lib/cannery_web/live/container_live/index.ex:37
-#: lib/cannery_web/live/container_live/index.ex:44
+#: lib/cannery_web/live/container_live/index.ex:36
+#: lib/cannery_web/live/container_live/index.ex:43
 #, elixir-autogen, elixir-format
 msgid "New Container"
 msgstr "Neuer Behälter"
@@ -392,8 +392,8 @@ msgstr "Stahl"
 msgid "Stored in"
 msgstr "Gelagert in"
 
+#: lib/cannery_web/components/container_table_component.ex:52
 #: lib/cannery_web/components/topbar.ex:49
-#: lib/cannery_web/live/container_live/index.ex:137
 #: lib/cannery_web/live/tag_live/index.ex:32
 #: lib/cannery_web/live/tag_live/index.html.heex:3
 #, elixir-autogen, elixir-format
@@ -421,9 +421,9 @@ msgstr "Die selbst-gehostete Website zur Verwaltung von Schusswaffen"
 msgid "Tracer"
 msgstr "Leuchtspur"
 
+#: lib/cannery_web/components/container_table_component.ex:49
 #: lib/cannery_web/components/move_ammo_group_component.ex:68
 #: lib/cannery_web/live/container_live/form_component.html.heex:35
-#: lib/cannery_web/live/container_live/index.ex:134
 #, elixir-autogen, elixir-format
 msgid "Type"
 msgstr "Art"
@@ -638,13 +638,13 @@ msgstr "Neu verbinden..."
 msgid "Loading..."
 msgstr "Lädt..."
 
-#: lib/cannery_web/live/container_live/index.ex:33
+#: lib/cannery_web/live/container_live/index.ex:32
 #: lib/cannery_web/live/container_live/show.ex:113
 #, elixir-autogen, elixir-format
 msgid "Edit %{name}"
 msgstr "%{name} bearbeiten"
 
-#: lib/cannery_web/live/container_live/index.ex:70
+#: lib/cannery_web/live/container_live/index.ex:69
 #: lib/cannery_web/live/container_live/show.ex:114
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
@@ -864,13 +864,13 @@ msgid "Rounds shot: %{count}"
 msgstr "Patronen abgefeuert"
 
 #: lib/cannery_web/components/ammo_type_table_component.ex:100
-#: lib/cannery_web/live/container_live/index.ex:135
+#: lib/cannery_web/components/container_table_component.ex:50
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Packs"
 msgstr ""
 
 #: lib/cannery_web/components/ammo_type_table_component.ex:80
-#: lib/cannery_web/live/container_live/index.ex:136
+#: lib/cannery_web/components/container_table_component.ex:51
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds"
 msgstr "Patronen:"
