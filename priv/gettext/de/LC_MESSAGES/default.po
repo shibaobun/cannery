@@ -45,11 +45,11 @@ msgstr "Admins"
 msgid "Admins:"
 msgstr "Admins:"
 
+#: lib/cannery_web/components/shot_group_table_component.ex:41
 #: lib/cannery_web/components/topbar.ex:73
 #: lib/cannery_web/live/ammo_group_live/index.ex:70
 #: lib/cannery_web/live/ammo_group_live/index.ex:79
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
-#: lib/cannery_web/live/range_live/index.ex:117
 #, elixir-autogen, elixir-format
 msgid "Ammo"
 msgstr "Munition"
@@ -313,10 +313,10 @@ msgstr "Keine Tags"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:37
 #: lib/cannery_web/components/ammo_group_table_component.ex:81
+#: lib/cannery_web/components/shot_group_table_component.ex:43
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:49
 #: lib/cannery_web/live/ammo_group_live/show.ex:93
 #: lib/cannery_web/live/range_live/form_component.html.heex:29
-#: lib/cannery_web/live/range_live/index.ex:119
 #, elixir-autogen, elixir-format
 msgid "Notes"
 msgstr "Bemerkungen"
@@ -478,9 +478,9 @@ msgid "Range day"
 msgstr "Range Day"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:45
+#: lib/cannery_web/components/shot_group_table_component.ex:44
 #: lib/cannery_web/live/ammo_group_live/show.ex:94
 #: lib/cannery_web/live/range_live/form_component.html.heex:36
-#: lib/cannery_web/live/range_live/index.ex:120
 #, elixir-autogen, elixir-format
 msgid "Date"
 msgstr "Datum"
@@ -524,8 +524,8 @@ msgstr "Keine Schüsse dokumentiert"
 msgid "Rounds left"
 msgstr "Patronen verbleibend"
 
+#: lib/cannery_web/components/shot_group_table_component.ex:42
 #: lib/cannery_web/live/ammo_group_live/show.ex:92
-#: lib/cannery_web/live/range_live/index.ex:118
 #: lib/cannery_web/live/range_live/index.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
@@ -862,7 +862,7 @@ msgstr ""
 msgid "%{percentage}%"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:151
+#: lib/cannery_web/live/range_live/index.ex:136
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot: %{count}"
 msgstr "Patronen abgefeuert"

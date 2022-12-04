@@ -210,7 +210,7 @@ msgid "Are you sure you want to unstage this ammo?"
 msgstr "Êtes-vous certain·e de vouloir désélectionner cette munition ?"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:137
-#: lib/cannery_web/live/range_live/index.ex:196
+#: lib/cannery_web/live/range_live/index.html.heex:116
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr "Êtes-vous certain·e de vouloir supprimer cet enregistrement de tir ?"

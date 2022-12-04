@@ -112,26 +112,11 @@ defmodule CanneryWeb.RangeLive.Index do
       |> Repo.preload(ammo_group: :ammo_type)
 
     ammo_groups = Ammo.list_staged_ammo_groups(current_user)
-
-    columns = [
-      %{label: gettext("Ammo"), key: :name},
-      %{label: gettext("Rounds shot"), key: :count},
-      %{label: gettext("Notes"), key: :notes},
-      %{label: gettext("Date"), key: :date},
-      %{label: nil, key: :actions, sortable: false}
-    ]
-
-    rows =
-      shot_groups
-      |> Enum.map(fn shot_group -> shot_group |> get_row_data_for_shot_group(columns) end)
-
     chart_data = shot_groups |> get_chart_data_for_shot_group()
 
     socket
     |> assign(
       ammo_groups: ammo_groups,
-      columns: columns,
-      rows: rows,
       chart_data: chart_data,
       shot_groups: shot_groups
     )
@@ -152,60 +137,5 @@ defmodule CanneryWeb.RangeLive.Index do
       }
     end)
     |> Enum.sort_by(fn %{date: date} -> date end, Date)
-  end
-
-  @spec get_row_data_for_shot_group(ShotGroup.t(), [map()]) :: map()
-  defp get_row_data_for_shot_group(%{date: date} = shot_group, columns) do
-    shot_group = shot_group |> Repo.preload(ammo_group: :ammo_type)
-    assigns = %{shot_group: shot_group}
-
-    columns
-    |> Map.new(fn %{key: key} ->
-      value =
-        case key do
-          :name ->
-            {shot_group.ammo_group.ammo_type.name,
-             ~H"""
-             <.link
-               navigate={Routes.ammo_group_show_path(Endpoint, :show, @shot_group.ammo_group)}
-               class="link"
-             >
-               <%= @shot_group.ammo_group.ammo_type.name %>
-             </.link>
-             """}
-
-          :date ->
-            date |> display_date()
-
-          :actions ->
-            ~H"""
-            <div class="px-4 py-2 space-x-4 flex justify-center items-center">
-              <.link
-                patch={Routes.range_index_path(Endpoint, :edit, @shot_group)}
-                class="text-primary-600 link"
-                data-qa={"edit-#{@shot_group.id}"}
-              >
-                <i class="fa-fw fa-lg fas fa-edit"></i>
-              </.link>
-
-              <.link
-                href="#"
-                class="text-primary-600 link"
-                phx-click="delete"
-                phx-value-id={@shot_group.id}
-                data-confirm={dgettext("prompts", "Are you sure you want to delete this shot record?")}
-                data-qa={"delete-#{@shot_group.id}"}
-              >
-                <i class="fa-fw fa-lg fas fa-trash"></i>
-              </.link>
-            </div>
-            """
-
-          key ->
-            shot_group |> Map.get(key)
-        end
-
-      {key, value}
-    end)
   end
 end
