@@ -66,15 +66,16 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
         end)
       end)
 
+    extra_data = %{
+      current_user: current_user,
+      tag_actions: tag_actions,
+      actions: actions
+    }
+
     rows =
       containers
       |> Enum.map(fn container ->
-        container
-        |> get_row_data_for_container(columns, %{
-          current_user: current_user,
-          tag_actions: tag_actions,
-          actions: actions
-        })
+        container |> get_row_data_for_container(columns, extra_data)
       end)
 
     socket

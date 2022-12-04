@@ -89,19 +89,20 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
         [%{label: gettext("Ammo type"), key: :ammo_type} | columns]
       end
 
+    extra_data = %{
+      current_user: current_user,
+      ammo_type: ammo_type,
+      columns: columns,
+      container: container,
+      actions: actions,
+      range: range
+    }
+
     rows =
       ammo_groups
       |> Repo.preload([:ammo_type, :container])
       |> Enum.map(fn ammo_group ->
-        ammo_group
-        |> get_row_data_for_ammo_group(%{
-          current_user: current_user,
-          ammo_type: ammo_type,
-          columns: columns,
-          container: container,
-          actions: actions,
-          range: range
-        })
+        ammo_group |> get_row_data_for_ammo_group(extra_data)
       end)
 
     socket |> assign(columns: columns, rows: rows)

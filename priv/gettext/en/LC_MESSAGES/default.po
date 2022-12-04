@@ -539,9 +539,9 @@ msgstr ""
 
 #: lib/cannery_web/components/ammo_group_card.ex:71
 #: lib/cannery_web/components/ammo_group_card.ex:78
-#: lib/cannery_web/components/ammo_group_table_component.ex:152
-#: lib/cannery_web/components/ammo_group_table_component.ex:224
-#: lib/cannery_web/components/ammo_type_table_component.ex:179
+#: lib/cannery_web/components/ammo_group_table_component.ex:153
+#: lib/cannery_web/components/ammo_group_table_component.ex:225
+#: lib/cannery_web/components/ammo_type_table_component.ex:180
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:37
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:44
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:136
@@ -645,8 +645,8 @@ msgstr ""
 msgid "Rounds:"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:221
-#: lib/cannery_web/components/ammo_type_table_component.ex:178
+#: lib/cannery_web/components/ammo_group_table_component.ex:222
+#: lib/cannery_web/components/ammo_type_table_component.ex:179
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:142
 #, elixir-autogen, elixir-format
 msgid "No cost information"
@@ -840,7 +840,7 @@ msgstr ""
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:192
+#: lib/cannery_web/components/ammo_group_table_component.ex:193
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
@@ -1028,7 +1028,7 @@ msgid "Edit %{ammo_type_name}"
 msgstr ""
 
 #: lib/cannery_web/components/ammo_group_card.ex:39
-#: lib/cannery_web/components/ammo_group_table_component.ex:230
+#: lib/cannery_web/components/ammo_group_table_component.ex:231
 #, elixir-autogen, elixir-format
 msgid "Empty"
 msgstr ""
@@ -1078,7 +1078,7 @@ msgstr ""
 msgid "Last used on:"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:177
+#: lib/cannery_web/components/ammo_group_table_component.ex:178
 #, elixir-autogen, elixir-format
 msgid "Never used"
 msgstr ""

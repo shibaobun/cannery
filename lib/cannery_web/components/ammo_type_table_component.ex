@@ -121,11 +121,12 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
         %{label: nil, key: "actions", type: :actions, sortable: false}
       ])
 
+    extra_data = %{actions: actions, current_user: current_user}
+
     rows =
       ammo_types
       |> Enum.map(fn ammo_type ->
-        ammo_type
-        |> get_ammo_type_values(columns, %{actions: actions, current_user: current_user})
+        ammo_type |> get_ammo_type_values(columns, extra_data)
       end)
 
     socket |> assign(columns: columns, rows: rows)
