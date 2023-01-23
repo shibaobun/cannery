@@ -633,15 +633,10 @@ msgstr "Retirar"
 msgid "Firing type"
 msgstr "Tipo de fuego"
 
-#: lib/cannery_web/templates/layout/live.html.heex:50
+#: lib/cannery_web/templates/layout/live.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Reconnecting..."
 msgstr "Reconectando..."
-
-#: lib/cannery_web/templates/layout/live.html.heex:37
-#, elixir-autogen, elixir-format
-msgid "Loading..."
-msgstr "Cargando..."
 
 #: lib/cannery_web/live/container_live/index.ex:32
 #: lib/cannery_web/live/container_live/show.ex:113

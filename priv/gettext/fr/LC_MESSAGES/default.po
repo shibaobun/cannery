@@ -634,15 +634,10 @@ msgstr "Désélectionner"
 msgid "Firing type"
 msgstr "Type d’allumage"
 
-#: lib/cannery_web/templates/layout/live.html.heex:50
+#: lib/cannery_web/templates/layout/live.html.heex:40
 #, elixir-autogen, elixir-format
 msgid "Reconnecting..."
 msgstr "Reconnexion en cours…"
-
-#: lib/cannery_web/templates/layout/live.html.heex:37
-#, elixir-autogen, elixir-format
-msgid "Loading..."
-msgstr "Chargement en cours…"
 
 #: lib/cannery_web/live/container_live/index.ex:32
 #: lib/cannery_web/live/container_live/show.ex:113
