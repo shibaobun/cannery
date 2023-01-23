@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Language: en\n"
-"Plural-Forms: nplurals=2\n"
 
 #: lib/cannery_web/live/home_live.ex:47
 #, elixir-autogen, elixir-format

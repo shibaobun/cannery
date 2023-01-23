@@ -9,7 +9,6 @@
 msgid ""
 msgstr ""
 "Language: en\n"
-"Plural-Forms: nplurals=2\n"
 
 #: lib/cannery/accounts/email.ex:30
 #, elixir-autogen, elixir-format
