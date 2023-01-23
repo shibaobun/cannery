@@ -25,6 +25,7 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
   100% { scale: 1.0; opacity: 1; }
 }
 
+// disconnect toast
 .phx-connected > #disconnect {
   opacity: 0 !important;
   pointer-events: none;
