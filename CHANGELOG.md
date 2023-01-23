@@ -1,3 +1,7 @@
+# v0.8.1
+- Update dependencies
+- Show topbar on form submit/page refresh
+
 # v0.8.0
 - Add search to catalog, ammo, container, tag and range index pages
 - Tweak urls for catalog, ammo, containers, tags and shot records
