@@ -5,64 +5,62 @@ defmodule CanneryWeb.ViewHelpers do
   :view`
   """
 
-  import Phoenix.Component
-
-  @id_length 16
+  use Phoenix.Component
 
   @doc """
-  Returns a <time> element that renders the naivedatetime in the user's local
-  timezone with Alpine.js
+  Phoenix.Component for a <time> element that renders the naivedatetime in the
+  user's local timezone with Alpine.js
   """
-  @spec display_datetime(NaiveDateTime.t() | nil) :: Phoenix.LiveView.Rendered.t()
-  def display_datetime(nil), do: ""
 
-  def display_datetime(datetime) do
-    assigns = %{
-      id: :crypto.strong_rand_bytes(@id_length) |> Base.url_encode64(),
-      datetime: datetime |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_iso8601(:extended)
-    }
+  attr :datetime, :any, required: true, doc: "A `DateTime` struct or nil"
 
+  def datetime(assigns) do
     ~H"""
-    <time
-      id={@id}
-      datetime={@datetime}
-      x-data={"{
-        date:
-          Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
-            .format(new Date(\"#{@datetime}\"))
-      }"}
-      x-text="date"
-    >
-      <%= @datetime %>
-    </time>
+    <%= if @datetime do %>
+      <time
+        datetime={cast_datetime(@datetime)}
+        x-data={"{
+          datetime:
+            Intl.DateTimeFormat([], {dateStyle: 'short', timeStyle: 'long'})
+              .format(new Date(\"#{cast_datetime(@datetime)}\"))
+        }"}
+        x-text="datetime"
+      >
+        <%= cast_datetime(@datetime) %>
+      </time>
+    <% end %>
     """
   end
 
+  @spec cast_datetime(NaiveDateTime.t() | nil) :: String.t()
+  defp cast_datetime(%NaiveDateTime{} = datetime) do
+    datetime |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_iso8601(:extended)
+  end
+
+  defp cast_datetime(_datetime), do: ""
+
   @doc """
-  Returns a <date> element that renders the Date in the user's local
-  timezone with Alpine.js
+  Phoenix.Component for a <date> element that renders the Date in the user's
+  local timezone with Alpine.js
   """
-  @spec display_date(Date.t() | nil) :: Phoenix.LiveView.Rendered.t()
-  def display_date(nil), do: ""
 
-  def display_date(date) do
-    assigns = %{
-      id: :crypto.strong_rand_bytes(@id_length) |> Base.url_encode64(),
-      date: date |> Date.to_iso8601(:extended)
-    }
+  attr :date, :any, required: true, doc: "A `Date` struct or nil"
 
+  def date(assigns) do
     ~H"""
-    <time
-      id={@id}
-      datetime={@date}
-      x-data={"{
-        date:
-          Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'}).format(new Date(\"#{@date}\"))
-      }"}
-      x-text="date"
-    >
-      <%= @date %>
-    </time>
+    <%= if @date do %>
+      <time
+        datetime={@date |> Date.to_iso8601(:extended)}
+        x-data={"{
+          date:
+            Intl.DateTimeFormat([], {timeZone: 'Etc/UTC', dateStyle: 'short'})
+              .format(new Date(\"#{@date |> Date.to_iso8601(:extended)}\"))
+        }"}
+        x-text="date"
+      >
+        <%= @date |> Date.to_iso8601(:extended) %>
+      </time>
+    <% end %>
     """
   end
 
@@ -70,9 +68,9 @@ defmodule CanneryWeb.ViewHelpers do
   Displays emoji as text emoji if SHIBAO_MODE is set to true :)
   """
   @spec display_emoji(String.t()) :: String.t()
-  def display_emoji("😔"),
-    do:
-      if(Application.get_env(:cannery, CanneryWeb.ViewHelpers)[:shibao_mode], do: "q_q", else: "😔")
+  def display_emoji("😔") do
+    if Application.get_env(:cannery, CanneryWeb.ViewHelpers)[:shibao_mode], do: "q_q", else: "😔"
+  end
 
   def display_emoji(other_emoji), do: other_emoji
 

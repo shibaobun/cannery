@@ -179,7 +179,7 @@ msgstr ""
 msgid "Instance Information"
 msgstr ""
 
-#: lib/cannery_web/components/invite_card.ex:35
+#: lib/cannery_web/components/invite_card.ex:41
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr ""
@@ -422,11 +422,6 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:121
 #, elixir-autogen, elixir-format
 msgid "Users"
-msgstr ""
-
-#: lib/cannery_web/components/invite_card.ex:30
-#, elixir-autogen, elixir-format
-msgid "Uses Left:"
 msgstr ""
 
 #: lib/cannery_web/live/invite_live/form_component.html.heex:24
@@ -715,11 +710,6 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:123
 #, elixir-autogen, elixir-format
 msgid "Added on:"
-msgstr ""
-
-#: lib/cannery_web/components/user_card.ex:34
-#, elixir-autogen, elixir-format
-msgid "User registered on"
 msgstr ""
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
@@ -1134,4 +1124,29 @@ msgstr ""
 #: lib/cannery_web/templates/layout/root.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Cannery"
+msgstr ""
+
+#: lib/cannery_web/components/user_card.ex:33
+#, elixir-autogen, elixir-format
+msgid "Email unconfirmed"
+msgstr ""
+
+#: lib/cannery_web/components/user_card.ex:38
+#, elixir-autogen, elixir-format
+msgid "User registered on%{registered_datetime}"
+msgstr ""
+
+#: lib/cannery_web/components/user_card.ex:27
+#, elixir-autogen, elixir-format
+msgid "User was confirmed at%{confirmed_datetime}"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:31
+#, elixir-autogen, elixir-format
+msgid "Uses Left: %{uses_left}"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:36
+#, elixir-autogen, elixir-format
+msgid "Uses Left: Unlimited"
 msgstr ""

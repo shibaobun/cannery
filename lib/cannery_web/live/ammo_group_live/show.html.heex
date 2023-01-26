@@ -28,7 +28,7 @@
 
     <span class="rounded-lg title text-lg">
       <%= gettext("Purchased on:") %>
-      <%= @ammo_group.purchased_on |> display_date() %>
+      <.date date={@ammo_group.purchased_on} />
     </span>
 
     <%= if @ammo_group.price_paid do %>

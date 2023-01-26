@@ -194,7 +194,7 @@ msgstr "Brandmunition"
 msgid "Instance Information"
 msgstr "Instanzinformationen"
 
-#: lib/cannery_web/components/invite_card.ex:35
+#: lib/cannery_web/components/invite_card.ex:41
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr "Einladung deaktiviert"
@@ -440,11 +440,6 @@ msgstr "Art:"
 #, elixir-autogen, elixir-format
 msgid "Users"
 msgstr "Benutzer"
-
-#: lib/cannery_web/components/invite_card.ex:30
-#, elixir-autogen, elixir-format
-msgid "Uses Left:"
-msgstr "Verbleibende Nutzung:"
 
 #: lib/cannery_web/live/invite_live/form_component.html.heex:24
 #, elixir-autogen, elixir-format
@@ -733,11 +728,6 @@ msgstr "Kopien"
 #, elixir-autogen, elixir-format
 msgid "Added on:"
 msgstr "Hinzugefügt am:"
-
-#: lib/cannery_web/components/user_card.ex:34
-#, elixir-autogen, elixir-format
-msgid "User registered on"
-msgstr "Benutzer registriert am"
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
 #: lib/cannery_web/templates/user_settings/edit.html.heex:130
@@ -1152,3 +1142,28 @@ msgstr ""
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Cannery"
 msgstr ""
+
+#: lib/cannery_web/components/user_card.ex:33
+#, elixir-autogen, elixir-format
+msgid "Email unconfirmed"
+msgstr ""
+
+#: lib/cannery_web/components/user_card.ex:38
+#, elixir-autogen, elixir-format, fuzzy
+msgid "User registered on%{registered_datetime}"
+msgstr "Benutzer registriert am"
+
+#: lib/cannery_web/components/user_card.ex:27
+#, elixir-autogen, elixir-format
+msgid "User was confirmed at%{confirmed_datetime}"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:31
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Uses Left: %{uses_left}"
+msgstr "Verbleibende Nutzung:"
+
+#: lib/cannery_web/components/invite_card.ex:36
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Uses Left: Unlimited"
+msgstr "Verbleibende Nutzung:"

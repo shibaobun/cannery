@@ -124,7 +124,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type.inserted_at |> display_datetime() %>
+      <.datetime datetime={@ammo_type.inserted_at} />
     </span>
 
     <%= if @avg_cost_per_round do %>

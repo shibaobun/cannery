@@ -116,7 +116,12 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
       value =
         case key do
           :date ->
-            {date, date |> display_date()}
+            assigns = %{date: date}
+
+            {date,
+             ~H"""
+             <.date date={@date} />
+             """}
 
           :actions ->
             ~H"""

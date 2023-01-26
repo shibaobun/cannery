@@ -157,7 +157,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
     {purchased_on,
      ~H"""
-     <%= @purchased_on |> display_date() %>
+     <.date date={@purchased_on} />
      """}
   end
 
@@ -173,7 +173,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
     {last_shot_group_date,
      ~H"""
      <%= if @last_shot_group_date do %>
-       <%= @last_shot_group_date |> display_date() %>
+       <.date date={@last_shot_group_date} />
      <% else %>
        <%= gettext("Never used") %>
      <% end %>

@@ -103,7 +103,11 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
     {ammo_type_name, name_block}
   end
 
-  defp get_row_value(:date, %{date: date}, _extra_data), do: date |> display_date()
+  defp get_row_value(:date, assigns = %{date: _date}, _extra_data) do
+    ~H"""
+    <.date date={@date} />
+    """
+  end
 
   defp get_row_value(:actions, shot_group, %{actions: actions}) do
     assigns = %{actions: actions, shot_group: shot_group}

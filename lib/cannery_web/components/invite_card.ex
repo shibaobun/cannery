@@ -27,8 +27,14 @@ defmodule CanneryWeb.Components.InviteCard do
 
       <%= if @invite.disabled_at |> is_nil() do %>
         <h2 class="title text-md">
-          <%= gettext("Uses Left:") %>
-          <%= @invite.uses_left || "Unlimited" %>
+          <%= if @invite.uses_left do %>
+            <%= gettext(
+              "Uses Left: %{uses_left}",
+              uses_left: @invite.uses_left
+            ) %>
+          <% else %>
+            <%= gettext("Uses Left: Unlimited") %>
+          <% end %>
         </h2>
       <% else %>
         <h2 class="title text-md">
