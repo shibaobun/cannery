@@ -1129,3 +1129,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Spanish"
 msgstr ""
+
+#: lib/cannery_web/templates/layout/root.html.heex:13
+#: lib/cannery_web/templates/layout/root.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Cannery"
+msgstr ""

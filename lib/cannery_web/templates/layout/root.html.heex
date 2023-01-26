@@ -10,8 +10,8 @@
       type="image/jpg"
       href={Routes.static_path(@conn, "/images/cannery.svg")}
     />
-    <.live_title suffix=" | Cannery">
-      <%= assigns[:page_title] || "Cannery" %>
+    <.live_title suffix={" | #{gettext("Cannery")}"}>
+      <%= assigns[:page_title] || gettext("Cannery") %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/app.css")} />
     <script
@@ -23,7 +23,7 @@
     </script>
   </head>
 
-  <body class="m-0 p-0 w-full h-full bg-white">
+  <body class="m-0 p-0 w-full h-full subpixel-antialiased">
     <%= @inner_content %>
   </body>
 </html>
