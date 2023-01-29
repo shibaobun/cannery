@@ -48,7 +48,7 @@ defmodule Cannery.Accounts.User do
   @type new_user :: %User{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_user())
-  @type role :: :admin | :user | String.t()
+  @type role :: :admin | :user
 
   @doc """
   A user changeset for registration.
@@ -81,7 +81,7 @@ defmodule Cannery.Accounts.User do
   """
   @spec role_changeset(t() | new_user() | changeset(), role()) :: changeset()
   def role_changeset(user, role) do
-    user |> cast(%{"role" => role}, [:role])
+    user |> change(role: role)
   end
 
   @spec validate_email(changeset()) :: changeset()
