@@ -69,7 +69,7 @@ msgstr "Correo o contraseña incorrecta"
 msgid "Not found"
 msgstr "No se encontró"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:14
+#: lib/cannery_web/templates/user_registration/new.html.heex:13
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:14
 #: lib/cannery_web/templates/user_settings/edit.html.heex:23
 #: lib/cannery_web/templates/user_settings/edit.html.heex:67
@@ -86,14 +86,15 @@ msgid "Reset password link is invalid or it has expired."
 msgstr ""
 "El enlace de reestablecimiento de la contraseña es inválido o ha caducado."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:24
-#: lib/cannery_web/controllers/user_registration_controller.ex:55
+#: lib/cannery_web/controllers/user_registration_controller.ex:22
+#: lib/cannery_web/controllers/user_registration_controller.ex:51
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
 msgstr "Lo sentimos, el registro público no está habilitado"
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:14
-#: lib/cannery_web/controllers/user_registration_controller.ex:45
+#: lib/cannery_web/controllers/user_registration_controller.ex:12
+#: lib/cannery_web/controllers/user_registration_controller.ex:41
+#: lib/cannery_web/controllers/user_registration_controller.ex:70
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
 msgstr "Lo sentimos, esta invitación no es válida o ha caducado"
@@ -113,7 +114,7 @@ msgstr "No autorizado"
 msgid "User confirmation link is invalid or it has expired."
 msgstr "El enlace de confirmación de usuario no es válido o ha caducado."
 
-#: lib/cannery_web/live/invite_live/index.ex:18
+#: lib/cannery_web/live/invite_live/index.ex:19
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page"
 msgstr "No está autorizado a ver esta página"
@@ -123,22 +124,22 @@ msgstr "No está autorizado a ver esta página"
 msgid "You are not authorized to view this page."
 msgstr "No está autorizado a ver esta página."
 
-#: lib/cannery/accounts/user.ex:137
+#: lib/cannery/accounts/user.ex:144
 #, elixir-autogen, elixir-format
 msgid "did not change"
 msgstr "no cambió"
 
-#: lib/cannery/accounts/user.ex:158
+#: lib/cannery/accounts/user.ex:165
 #, elixir-autogen, elixir-format
 msgid "does not match password"
 msgstr "no coincide con la contraseña"
 
-#: lib/cannery/accounts/user.ex:195
+#: lib/cannery/accounts/user.ex:202
 #, elixir-autogen, elixir-format
 msgid "is not valid"
 msgstr "no es válido"
 
-#: lib/cannery/accounts/user.ex:92
+#: lib/cannery/accounts/user.ex:99
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
 msgstr "debe tener el signo @ y no contener espacios"

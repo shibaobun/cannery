@@ -141,7 +141,7 @@ msgstr "Descripción:"
 msgid "Easy to Use:"
 msgstr "Facil de Usar:"
 
-#: lib/cannery_web/live/invite_live/index.ex:33
+#: lib/cannery_web/live/invite_live/index.ex:34
 #, elixir-autogen, elixir-format
 msgid "Edit Invite"
 msgstr "Editar Invitación"
@@ -178,7 +178,7 @@ msgstr "Incendiaria"
 msgid "Instance Information"
 msgstr "Información de Instancia"
 
-#: lib/cannery_web/components/invite_card.ex:41
+#: lib/cannery_web/components/invite_card.ex:42
 #, elixir-autogen, elixir-format
 msgid "Invite Disabled"
 msgstr "Invitación Desactivada"
@@ -189,7 +189,7 @@ msgid "Invite Only"
 msgstr "Solo Invitación"
 
 #: lib/cannery_web/components/topbar.ex:90
-#: lib/cannery_web/live/invite_live/index.ex:41
+#: lib/cannery_web/live/invite_live/index.ex:42
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Invites"
@@ -256,7 +256,7 @@ msgstr "Nuevo tipo de Munición"
 msgid "New Container"
 msgstr "Nuevo Contenedor"
 
-#: lib/cannery_web/live/invite_live/index.ex:37
+#: lib/cannery_web/live/invite_live/index.ex:38
 #, elixir-autogen, elixir-format
 msgid "New Invite"
 msgstr "Nueva Invitación"
@@ -683,7 +683,7 @@ msgstr "¿Olvidó su contraseña?"
 msgid "Log in"
 msgstr "Entrar"
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:34
+#: lib/cannery_web/controllers/user_registration_controller.ex:32
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr "Registrarse"
@@ -709,25 +709,23 @@ msgstr "Copias"
 msgid "Added on:"
 msgstr "Añadido en:"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:34
+#: lib/cannery_web/templates/user_registration/new.html.heex:32
 #: lib/cannery_web/templates/user_settings/edit.html.heex:133
 #, elixir-autogen, elixir-format
 msgid "English"
 msgstr "Inglés"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:34
 #: lib/cannery_web/templates/user_settings/edit.html.heex:135
 #, elixir-autogen, elixir-format
 msgid "French"
 msgstr "Francés"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:34
 #: lib/cannery_web/templates/user_settings/edit.html.heex:134
 #, elixir-autogen, elixir-format
 msgid "German"
 msgstr "Alemán"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:30
+#: lib/cannery_web/templates/user_registration/new.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr "Idioma"
@@ -1141,12 +1139,7 @@ msgstr "Usuario registrado en"
 msgid "User was confirmed at%{confirmed_datetime}"
 msgstr ""
 
-#: lib/cannery_web/components/invite_card.ex:31
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Uses Left: %{uses_left}"
-msgstr "Usos Restantes:"
-
-#: lib/cannery_web/components/invite_card.ex:36
+#: lib/cannery_web/components/invite_card.ex:37
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Uses Left: Unlimited"
 msgstr "Usos Restantes:"
@@ -1195,4 +1188,14 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Enable"
+msgstr ""
+
+#: lib/cannery_web/components/invite_card.ex:32
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Uses Left: %{uses_left_count}"
+msgstr "Usos Restantes:"
+
+#: lib/cannery_web/components/invite_card.ex:52
+#, elixir-autogen, elixir-format
+msgid "Uses: %{uses_count}"
 msgstr ""

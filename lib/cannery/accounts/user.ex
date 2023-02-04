@@ -1,13 +1,13 @@
 defmodule Cannery.Accounts.User do
   @moduledoc """
-  A cannery user
+  A Cannery user
   """
 
   use Ecto.Schema
   import Ecto.Changeset
   import CanneryWeb.Gettext
-  alias Ecto.{Changeset, UUID}
-  alias Cannery.{Accounts.User, Invites.Invite}
+  alias Ecto.{Association, Changeset, UUID}
+  alias Cannery.Accounts.{Invite, User}
 
   @derive {Jason.Encoder,
            only: [
@@ -15,7 +15,9 @@ defmodule Cannery.Accounts.User do
              :email,
              :confirmed_at,
              :role,
-             :locale
+             :locale,
+             :inserted_at,
+             :updated_at
            ]}
   @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -28,7 +30,9 @@ defmodule Cannery.Accounts.User do
     field :role, Ecto.Enum, values: [:admin, :user], default: :user
     field :locale, :string
 
-    has_many :invites, Invite, on_delete: :delete_all
+    has_many :created_invites, Invite, foreign_key: :created_by_id
+
+    belongs_to :invite, Invite
 
     timestamps()
   end
@@ -41,7 +45,9 @@ defmodule Cannery.Accounts.User do
           confirmed_at: NaiveDateTime.t(),
           role: role(),
           locale: String.t() | nil,
-          invites: [Invite.t()],
+          created_invites: [Invite.t()] | Association.NotLoaded.t(),
+          invite: Invite.t() | nil | Association.NotLoaded.t(),
+          invite_id: Invite.id() | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
@@ -67,11 +73,12 @@ defmodule Cannery.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  @spec registration_changeset(attrs :: map()) :: changeset()
-  @spec registration_changeset(attrs :: map(), opts :: keyword()) :: changeset()
-  def registration_changeset(attrs, opts \\ []) do
+  @spec registration_changeset(attrs :: map(), Invite.t() | nil) :: changeset()
+  @spec registration_changeset(attrs :: map(), Invite.t() | nil, opts :: keyword()) :: changeset()
+  def registration_changeset(attrs, invite, opts \\ []) do
     %User{}
     |> cast(attrs, [:email, :password, :locale])
+    |> put_change(:invite_id, if(invite, do: invite.id))
     |> validate_email()
     |> validate_password(opts)
   end

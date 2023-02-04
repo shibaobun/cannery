@@ -33,33 +33,16 @@ msgstr "%{name} erfolgreich erstellt"
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:73
 #: lib/cannery_web/live/ammo_type_live/show.ex:55
-#: lib/cannery_web/live/invite_live/index.ex:53
-#: lib/cannery_web/live/invite_live/index.ex:133
 #: lib/cannery_web/live/tag_live/index.ex:64
 #, elixir-autogen, elixir-format
 msgid "%{name} deleted succesfully"
 msgstr "%{name} erfolgreich gelöscht"
-
-#: lib/cannery_web/live/invite_live/index.ex:109
-#, elixir-autogen, elixir-format
-msgid "%{name} disabled succesfully"
-msgstr "%{name} erfolgreich deaktiviert"
-
-#: lib/cannery_web/live/invite_live/index.ex:87
-#, elixir-autogen, elixir-format
-msgid "%{name} enabled succesfully"
-msgstr "%{name} erfolgreich aktiviert"
 
 #: lib/cannery_web/live/container_live/index.ex:85
 #: lib/cannery_web/live/container_live/show.ex:63
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr "%{name} wurde gelöscht"
-
-#: lib/cannery_web/live/invite_live/index.ex:67
-#, elixir-autogen, elixir-format
-msgid "%{name} updated succesfully"
-msgstr "%{name} erfolgreich aktualisiert"
 
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
 #: lib/cannery_web/live/container_live/form_component.ex:70
@@ -90,11 +73,6 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Sind Sie sicher, dass sie %{name} löschen möchten?"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:48
-#, elixir-autogen, elixir-format
-msgid "Are you sure you want to delete the invite for %{name}?"
-msgstr "Sind Sie sicher, dass sie die Einladung für %{name} löschen möchten?"
-
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:153
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
@@ -110,11 +88,6 @@ msgstr "Sind Sie sicher, dass sie Ihren Account löschen möchten?"
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to log out?"
 msgstr "Wirklich ausloggen?"
-
-#: lib/cannery_web/live/invite_live/index.html.heex:73
-#, elixir-autogen, elixir-format
-msgid "Are you sure you want to make %{name} unlimited?"
-msgstr "Sind Sie sicher, dass sie %{name} auf unbegrenzt setzen möchten?"
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:77
 #, elixir-autogen, elixir-format
@@ -150,7 +123,7 @@ msgstr "Passwort erfolgreich zurückgesetzt."
 msgid "Password updated successfully."
 msgstr "Passwort erfolgreich geändert."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:73
+#: lib/cannery_web/controllers/user_registration_controller.ex:65
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr "Bitte überprüfen Sie ihre Mailbox und bestätigen Sie das Nutzerkonto"
@@ -230,7 +203,7 @@ msgstr "%{email} erfolgreich bestätigt."
 msgid "Ammo moved to %{name} successfully"
 msgstr "Munition erfolgreich zu %{name} verschoben"
 
-#: lib/cannery_web/live/invite_live/index.ex:121
+#: lib/cannery_web/live/invite_live/index.ex:128
 #, elixir-autogen, elixir-format
 msgid "Copied to clipboard"
 msgstr "Der Zwischenablage hinzugefügt"
@@ -294,3 +267,38 @@ msgstr "Sind Sie sicher, dass sie %{name} löschen möchten?"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Register to setup Cannery"
 msgstr "Registrieren Sie sich, um %{name} zu bearbeiten"
+
+#: lib/cannery_web/live/invite_live/index.ex:54
+#, elixir-autogen, elixir-format, fuzzy
+msgid "%{invite_name} deleted succesfully"
+msgstr "%{name} erfolgreich gelöscht"
+
+#: lib/cannery_web/live/invite_live/index.ex:115
+#, elixir-autogen, elixir-format, fuzzy
+msgid "%{invite_name} disabled succesfully"
+msgstr "%{name} erfolgreich deaktiviert"
+
+#: lib/cannery_web/live/invite_live/index.ex:91
+#, elixir-autogen, elixir-format, fuzzy
+msgid "%{invite_name} enabled succesfully"
+msgstr "%{name} erfolgreich aktiviert"
+
+#: lib/cannery_web/live/invite_live/index.ex:69
+#, elixir-autogen, elixir-format, fuzzy
+msgid "%{invite_name} updated succesfully"
+msgstr "%{name} erfolgreich aktualisiert"
+
+#: lib/cannery_web/live/invite_live/index.ex:140
+#, elixir-autogen, elixir-format, fuzzy
+msgid "%{user_email} deleted succesfully"
+msgstr "%{name} erfolgreich gelöscht"
+
+#: lib/cannery_web/live/invite_live/index.html.heex:48
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Are you sure you want to delete the invite for %{invite_name}?"
+msgstr "Sind Sie sicher, dass sie die Einladung für %{name} löschen möchten?"
+
+#: lib/cannery_web/live/invite_live/index.html.heex:73
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Are you sure you want to make %{invite_name} unlimited?"
+msgstr "Sind Sie sicher, dass sie %{name} auf unbegrenzt setzen möchten?"

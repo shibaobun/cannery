@@ -69,7 +69,7 @@ msgstr "Ungültige Mailadresse oder Passwort"
 msgid "Not found"
 msgstr "Nicht gefunden"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:14
+#: lib/cannery_web/templates/user_registration/new.html.heex:13
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:14
 #: lib/cannery_web/templates/user_settings/edit.html.heex:23
 #: lib/cannery_web/templates/user_settings/edit.html.heex:67
@@ -83,14 +83,15 @@ msgstr "Oops, etwas ist schiefgegangen. Bitte beachten Sie den Fehler unten."
 msgid "Reset password link is invalid or it has expired."
 msgstr "Link zum Passwort zurücksetzen ist ungültig oder abgelaufen."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:24
-#: lib/cannery_web/controllers/user_registration_controller.ex:55
+#: lib/cannery_web/controllers/user_registration_controller.ex:22
+#: lib/cannery_web/controllers/user_registration_controller.ex:51
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
 msgstr "Entschuldigung, aber öffentliche Registrierung ist deaktiviert"
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:14
-#: lib/cannery_web/controllers/user_registration_controller.ex:45
+#: lib/cannery_web/controllers/user_registration_controller.ex:12
+#: lib/cannery_web/controllers/user_registration_controller.ex:41
+#: lib/cannery_web/controllers/user_registration_controller.ex:70
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
 msgstr ""
@@ -111,7 +112,7 @@ msgstr "Unbefugt"
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Nutzerkonto Bestätigungslink ist ungültig oder abgelaufen."
 
-#: lib/cannery_web/live/invite_live/index.ex:18
+#: lib/cannery_web/live/invite_live/index.ex:19
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page"
 msgstr "Sie sind nicht berechtigt, diese Seite aufzurufen"
@@ -121,22 +122,22 @@ msgstr "Sie sind nicht berechtigt, diese Seite aufzurufen"
 msgid "You are not authorized to view this page."
 msgstr "Sie sind nicht berechtigt, diese Seite aufzurufen."
 
-#: lib/cannery/accounts/user.ex:137
+#: lib/cannery/accounts/user.ex:144
 #, elixir-autogen, elixir-format
 msgid "did not change"
 msgstr "hat sich nicht geändert"
 
-#: lib/cannery/accounts/user.ex:158
+#: lib/cannery/accounts/user.ex:165
 #, elixir-autogen, elixir-format
 msgid "does not match password"
 msgstr "Passwort stimmt nicht überein"
 
-#: lib/cannery/accounts/user.ex:195
+#: lib/cannery/accounts/user.ex:202
 #, elixir-autogen, elixir-format
 msgid "is not valid"
 msgstr "ist nicht gültig"
 
-#: lib/cannery/accounts/user.ex:92
+#: lib/cannery/accounts/user.ex:99
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
 msgstr "Muss ein @ Zeichen und keine Leerzeichen haben"

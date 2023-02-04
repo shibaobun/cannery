@@ -6,7 +6,7 @@ defmodule CanneryWeb.InviteLiveTest do
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
   import CanneryWeb.Gettext
-  alias Cannery.Invites
+  alias Cannery.Accounts.Invites
 
   @moduletag :invite_live_test
   @create_attrs %{"name" => "some name"}
@@ -40,13 +40,14 @@ defmodule CanneryWeb.InviteLiveTest do
       #        |> form("#invite-form", invite: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _view, html} =
+      {:ok, _live, html} =
         index_live
         |> form("#invite-form", invite: @create_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.invite_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: "some name")
+      assert html =~
+               dgettext("prompts", "%{invite_name} created successfully", invite_name: "some name")
 
       assert html =~ "some name"
     end
@@ -63,14 +64,16 @@ defmodule CanneryWeb.InviteLiveTest do
       #        |> form("#invite-form", invite: @invalid_attrs)
       #        |> render_change() =~ dgettext("errors", "can't be blank")
 
-      {:ok, _view, html} =
+      {:ok, _live, html} =
         index_live
         |> form("#invite-form", invite: @update_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.invite_index_path(conn, :index))
 
       assert html =~
-               dgettext("prompts", "%{name} updated successfully", name: "some updated name")
+               dgettext("prompts", "%{invite_name} updated successfully",
+                 invite_name: "some updated name"
+               )
 
       assert html =~ "some updated name"
     end

@@ -8,14 +8,7 @@ defmodule CanneryWeb.ExportControllerTest do
 
   @moduletag :export_controller_test
 
-  setup %{conn: conn} do
-    current_user = user_fixture() |> confirm_user()
-
-    [
-      current_user: current_user,
-      conn: conn |> log_in_user(current_user)
-    ]
-  end
+  setup [:register_and_log_in_user]
 
   defp add_data(%{current_user: current_user}) do
     ammo_type = ammo_type_fixture(current_user)
@@ -124,7 +117,9 @@ defmodule CanneryWeb.ExportControllerTest do
         "email" => current_user.email,
         "id" => current_user.id,
         "locale" => current_user.locale,
-        "role" => to_string(current_user.role)
+        "role" => to_string(current_user.role),
+        "inserted_at" => current_user.inserted_at |> NaiveDateTime.to_iso8601(),
+        "updated_at" => current_user.updated_at |> NaiveDateTime.to_iso8601()
       }
 
       json_resp = conn |> json_response(200)

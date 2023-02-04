@@ -20,32 +20,15 @@ msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:73
 #: lib/cannery_web/live/ammo_type_live/show.ex:55
-#: lib/cannery_web/live/invite_live/index.ex:53
-#: lib/cannery_web/live/invite_live/index.ex:133
 #: lib/cannery_web/live/tag_live/index.ex:64
 #, elixir-autogen, elixir-format
 msgid "%{name} deleted succesfully"
-msgstr ""
-
-#: lib/cannery_web/live/invite_live/index.ex:109
-#, elixir-autogen, elixir-format
-msgid "%{name} disabled succesfully"
-msgstr ""
-
-#: lib/cannery_web/live/invite_live/index.ex:87
-#, elixir-autogen, elixir-format
-msgid "%{name} enabled succesfully"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.ex:85
 #: lib/cannery_web/live/container_live/show.ex:63
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
-msgstr ""
-
-#: lib/cannery_web/live/invite_live/index.ex:67
-#, elixir-autogen, elixir-format
-msgid "%{name} updated succesfully"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
@@ -75,11 +58,6 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:48
-#, elixir-autogen, elixir-format
-msgid "Are you sure you want to delete the invite for %{name}?"
-msgstr ""
-
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:153
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
@@ -94,11 +72,6 @@ msgstr ""
 #: lib/cannery_web/components/topbar.ex:106
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to log out?"
-msgstr ""
-
-#: lib/cannery_web/live/invite_live/index.html.heex:73
-#, elixir-autogen, elixir-format
-msgid "Are you sure you want to make %{name} unlimited?"
 msgstr ""
 
 #: lib/cannery_web/controllers/user_settings_controller.ex:77
@@ -131,7 +104,7 @@ msgstr ""
 msgid "Password updated successfully."
 msgstr ""
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:73
+#: lib/cannery_web/controllers/user_registration_controller.ex:65
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr ""
@@ -209,7 +182,7 @@ msgstr ""
 msgid "Ammo moved to %{name} successfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:121
+#: lib/cannery_web/live/invite_live/index.ex:128
 #, elixir-autogen, elixir-format
 msgid "Copied to clipboard"
 msgstr ""
@@ -272,4 +245,39 @@ msgstr ""
 #: lib/cannery_web/live/home_live.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Register to setup Cannery"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:54
+#, elixir-autogen, elixir-format
+msgid "%{invite_name} deleted succesfully"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:115
+#, elixir-autogen, elixir-format
+msgid "%{invite_name} disabled succesfully"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:91
+#, elixir-autogen, elixir-format
+msgid "%{invite_name} enabled succesfully"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:69
+#, elixir-autogen, elixir-format
+msgid "%{invite_name} updated succesfully"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.ex:140
+#, elixir-autogen, elixir-format
+msgid "%{user_email} deleted succesfully"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "Are you sure you want to delete the invite for %{invite_name}?"
+msgstr ""
+
+#: lib/cannery_web/live/invite_live/index.html.heex:73
+#, elixir-autogen, elixir-format
+msgid "Are you sure you want to make %{invite_name} unlimited?"
 msgstr ""

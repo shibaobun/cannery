@@ -1,12 +1,12 @@
 defmodule Cannery.Accounts.UserToken do
   @moduledoc """
-  Schema for serialized user session and authentication tokens
+  Schema for a user's session token
   """
 
   use Ecto.Schema
   import Ecto.Query
-  alias Ecto.{Query, UUID}
-  alias Cannery.{Accounts.User, Accounts.UserToken}
+  alias Cannery.Accounts.User
+  alias Ecto.{Association, UUID}
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -30,27 +30,27 @@ defmodule Cannery.Accounts.UserToken do
     timestamps(updated_at: false)
   end
 
-  @type t :: %UserToken{
+  @type t :: %__MODULE__{
           id: id(),
-          token: String.t(),
+          token: token(),
           context: String.t(),
           sent_to: String.t(),
-          user: User.t(),
-          user_id: User.id(),
+          user: User.t() | Association.NotLoaded.t(),
+          user_id: User.id() | nil,
           inserted_at: NaiveDateTime.t()
         }
-  @type new_token :: %UserToken{}
+  @type new_user_token :: %__MODULE__{}
   @type id :: UUID.t()
+  @type token :: binary()
 
   @doc """
   Generates a token that will be stored in a signed place,
   such as session or cookie. As they are signed, those
   tokens do not need to be hashed.
   """
-  @spec build_session_token(User.t()) :: {token :: String.t(), new_token()}
-  def build_session_token(%{id: user_id}) do
+  def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %UserToken{token: token, context: "session", user_id: user_id}}
+    {token, %__MODULE__{token: token, context: "session", user_id: user.id}}
   end
 
   @doc """
@@ -58,7 +58,6 @@ defmodule Cannery.Accounts.UserToken do
 
   The query returns the user found by the token.
   """
-  @spec verify_session_token_query(token :: String.t()) :: {:ok, Query.t()}
   def verify_session_token_query(token) do
     query =
       from token in token_and_context_query(token, "session"),
@@ -77,19 +76,16 @@ defmodule Cannery.Accounts.UserToken do
   The token is valid for a week as long as users don't change
   their email.
   """
-  @spec build_email_token(User.t(), context :: String.t()) :: {token :: String.t(), new_token()}
   def build_email_token(user, context) do
     build_hashed_token(user, context, user.email)
   end
 
-  @spec build_hashed_token(User.t(), String.t(), String.t()) ::
-          {String.t(), new_token()}
   defp build_hashed_token(user, context, sent_to) do
     token = :crypto.strong_rand_bytes(@rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %UserToken{
+     %__MODULE__{
        token: hashed_token,
        context: context,
        sent_to: sent_to,
@@ -102,8 +98,6 @@ defmodule Cannery.Accounts.UserToken do
 
   The query returns the user found by the token.
   """
-  @spec verify_email_token_query(token :: String.t(), context :: String.t()) ::
-          {:ok, Query.t()} | :error
   def verify_email_token_query(token, context) do
     case Base.url_decode64(token, padding: false) do
       {:ok, decoded_token} ->
@@ -123,7 +117,6 @@ defmodule Cannery.Accounts.UserToken do
     end
   end
 
-  @spec days_for_context(context :: <<_::56>>) :: non_neg_integer()
   defp days_for_context("confirm"), do: @confirm_validity_in_days
   defp days_for_context("reset_password"), do: @reset_password_validity_in_days
 
@@ -132,8 +125,6 @@ defmodule Cannery.Accounts.UserToken do
 
   The query returns the user token record.
   """
-  @spec verify_change_email_token_query(token :: String.t(), context :: String.t()) ::
-          {:ok, Query.t()} | :error
   def verify_change_email_token_query(token, context) do
     case Base.url_decode64(token, padding: false) do
       {:ok, decoded_token} ->
@@ -153,21 +144,18 @@ defmodule Cannery.Accounts.UserToken do
   @doc """
   Returns the given token with the given context.
   """
-  @spec token_and_context_query(token :: String.t(), context :: String.t()) :: Query.t()
   def token_and_context_query(token, context) do
-    from UserToken, where: [token: ^token, context: ^context]
+    from __MODULE__, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
-  @spec user_and_contexts_query(User.t(), contexts :: :all | nonempty_maybe_improper_list()) ::
-          Query.t()
-  def user_and_contexts_query(%{id: user_id}, :all) do
-    from t in UserToken, where: t.user_id == ^user_id
+  def user_and_contexts_query(user, :all) do
+    from t in __MODULE__, where: t.user_id == ^user.id
   end
 
-  def user_and_contexts_query(%{id: user_id}, [_ | _] = contexts) do
-    from t in UserToken, where: t.user_id == ^user_id and t.context in ^contexts
+  def user_and_contexts_query(user, [_ | _] = contexts) do
+    from t in __MODULE__, where: t.user_id == ^user.id and t.context in ^contexts
   end
 end

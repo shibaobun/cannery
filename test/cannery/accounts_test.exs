@@ -5,7 +5,7 @@ defmodule Cannery.AccountsTest do
 
   use Cannery.DataCase
   alias Cannery.Accounts
-  alias Cannery.Accounts.{User, UserToken}
+  alias Cannery.Accounts.{Invites, User, UserToken}
   alias Ecto.Changeset
 
   @moduletag :accounts_test
@@ -101,6 +101,17 @@ defmodule Cannery.AccountsTest do
       assert is_binary(user.hashed_password)
       assert is_nil(user.confirmed_at)
       assert is_nil(user.password)
+    end
+
+    test "records used invite during registration" do
+      {:ok, %{id: invite_id, token: token}} =
+        admin_fixture() |> Invites.create_invite(%{"name" => "my invite"})
+
+      assert {:ok, %{invite_id: ^invite_id}} =
+               Accounts.register_user(
+                 %{"email" => unique_user_email(), "password" => valid_user_password()},
+                 token
+               )
     end
   end
 
@@ -305,9 +316,9 @@ defmodule Cannery.AccountsTest do
     end
 
     test "deletes all tokens for the given user", %{user: user} do
-      _token = Accounts.generate_user_session_token(user)
+      _session_token = Accounts.generate_user_session_token(user)
 
-      {:ok, _user} =
+      {:ok, _} =
         Accounts.update_user_password(user, valid_user_password(), %{
           "password" => "new valid password"
         })
@@ -502,7 +513,7 @@ defmodule Cannery.AccountsTest do
     end
 
     test "deletes all tokens for the given user", %{user: user} do
-      _token = Accounts.generate_user_session_token(user)
+      _session_token = Accounts.generate_user_session_token(user)
       {:ok, _user} = Accounts.reset_user_password(user, %{"password" => "new valid password"})
       refute Repo.get_by(UserToken, user_id: user.id)
     end

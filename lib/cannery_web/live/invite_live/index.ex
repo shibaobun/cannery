@@ -1,11 +1,12 @@
 defmodule CanneryWeb.InviteLive.Index do
   @moduledoc """
-  Liveview to show a Cannery.Invites.Invite index
+  Liveview to show a Cannery.Accounts.Invite index
   """
 
   use CanneryWeb, :live_view
   import CanneryWeb.Components.{InviteCard, UserCard}
-  alias Cannery.{Accounts, Invites, Invites.Invite}
+  alias Cannery.Accounts
+  alias Cannery.Accounts.{Invite, Invites}
   alias CanneryWeb.{Endpoint, HomeLive}
   alias Phoenix.LiveView.JS
 
@@ -17,7 +18,7 @@ defmodule CanneryWeb.InviteLive.Index do
       else
         prompt = dgettext("errors", "You are not authorized to view this page")
         return_to = Routes.live_path(Endpoint, HomeLive)
-        socket |> put_flash(:error, prompt) |> push_navigate(to: return_to)
+        socket |> put_flash(:error, prompt) |> push_redirect(to: return_to)
       end
 
     {:ok, socket}
@@ -50,7 +51,7 @@ defmodule CanneryWeb.InviteLive.Index do
     %{name: invite_name} =
       id |> Invites.get_invite!(current_user) |> Invites.delete_invite!(current_user)
 
-    prompt = dgettext("prompts", "%{name} deleted succesfully", name: invite_name)
+    prompt = dgettext("prompts", "%{invite_name} deleted succesfully", invite_name: invite_name)
     {:noreply, socket |> put_flash(:info, prompt) |> display_invites()}
   end
 
@@ -61,10 +62,12 @@ defmodule CanneryWeb.InviteLive.Index do
       ) do
     socket =
       Invites.get_invite!(id, current_user)
-      |> Invites.update_invite(%{"uses_left" => nil}, current_user)
+      |> Invites.update_invite(%{uses_left: nil}, current_user)
       |> case do
         {:ok, %{name: invite_name}} ->
-          prompt = dgettext("prompts", "%{name} updated succesfully", name: invite_name)
+          prompt =
+            dgettext("prompts", "%{invite_name} updated succesfully", invite_name: invite_name)
+
           socket |> put_flash(:info, prompt) |> display_invites()
 
         {:error, changeset} ->
@@ -81,10 +84,12 @@ defmodule CanneryWeb.InviteLive.Index do
       ) do
     socket =
       Invites.get_invite!(id, current_user)
-      |> Invites.update_invite(%{"uses_left" => nil, "disabled_at" => nil}, current_user)
+      |> Invites.update_invite(%{uses_left: nil, disabled_at: nil}, current_user)
       |> case do
         {:ok, %{name: invite_name}} ->
-          prompt = dgettext("prompts", "%{name} enabled succesfully", name: invite_name)
+          prompt =
+            dgettext("prompts", "%{invite_name} enabled succesfully", invite_name: invite_name)
+
           socket |> put_flash(:info, prompt) |> display_invites()
 
         {:error, changeset} ->
@@ -103,10 +108,12 @@ defmodule CanneryWeb.InviteLive.Index do
 
     socket =
       Invites.get_invite!(id, current_user)
-      |> Invites.update_invite(%{"uses_left" => 0, "disabled_at" => now}, current_user)
+      |> Invites.update_invite(%{uses_left: 0, disabled_at: now}, current_user)
       |> case do
         {:ok, %{name: invite_name}} ->
-          prompt = dgettext("prompts", "%{name} disabled succesfully", name: invite_name)
+          prompt =
+            dgettext("prompts", "%{invite_name} disabled succesfully", invite_name: invite_name)
+
           socket |> put_flash(:info, prompt) |> display_invites()
 
         {:error, changeset} ->
@@ -130,7 +137,7 @@ defmodule CanneryWeb.InviteLive.Index do
       ) do
     %{email: user_email} = Accounts.get_user!(id) |> Accounts.delete_user!(current_user)
 
-    prompt = dgettext("prompts", "%{name} deleted succesfully", name: user_email)
+    prompt = dgettext("prompts", "%{user_email} deleted succesfully", user_email: user_email)
 
     {:noreply, socket |> put_flash(:info, prompt) |> display_invites()}
   end

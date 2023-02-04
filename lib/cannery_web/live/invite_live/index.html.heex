@@ -19,7 +19,7 @@
   <% end %>
 
   <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
-    <.invite_card :for={invite <- @invites} invite={invite}>
+    <.invite_card :for={invite <- @invites} invite={invite} current_user={@current_user}>
       <:code_actions>
         <form phx-submit="copy_to_clipboard">
           <button
@@ -45,8 +45,8 @@
         phx-click="delete_invite"
         phx-value-id={invite.id}
         data-confirm={
-          dgettext("prompts", "Are you sure you want to delete the invite for %{name}?",
-            name: invite.name
+          dgettext("prompts", "Are you sure you want to delete the invite for %{invite_name}?",
+            invite_name: invite.name
           )
         }
         data-qa={"delete-#{invite.id}"}
@@ -70,8 +70,8 @@
         phx-click="set_unlimited"
         phx-value-id={invite.id}
         data-confirm={
-          dgettext("prompts", "Are you sure you want to make %{name} unlimited?",
-            name: invite.name
+          dgettext("prompts", "Are you sure you want to make %{invite_name} unlimited?",
+            invite_name: invite.name
           )
         }
       >

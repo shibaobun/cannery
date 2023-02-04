@@ -1,11 +1,11 @@
 defmodule CanneryWeb.InviteLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update or create an Cannery.Invites.Invite
+  Livecomponent that can update or create an Cannery.Accounts.Invite
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Invites, Invites.Invite}
   alias Ecto.Changeset
+  alias Cannery.Accounts.{Invite, Invites, User}
   alias Phoenix.LiveView.Socket
 
   @impl true
