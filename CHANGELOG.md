@@ -1,3 +1,6 @@
+# v0.8.2
+- Fix bug with public registration
+
 # v0.8.1
 - Update dependencies
 - Show topbar on form submit/page refresh

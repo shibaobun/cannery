@@ -105,8 +105,7 @@ defmodule CanneryWeb.HomeLive do
         <li class="flex flex-row justify-center space-x-2">
           <b>Registration:</b>
           <p>
-            <%= Application.get_env(:cannery, CanneryWeb.Endpoint)[:registration]
-            |> case do
+            <%= case Application.get_env(:cannery, Cannery.Accounts)[:registration] do
               "public" -> gettext("Public Signups")
               _ -> gettext("Invite Only")
             end %>

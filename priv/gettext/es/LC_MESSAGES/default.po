@@ -199,7 +199,7 @@ msgstr "Información de Instancia"
 msgid "Invite Disabled"
 msgstr "Invitación Desactivada"
 
-#: lib/cannery_web/live/home_live.ex:111
+#: lib/cannery_web/live/home_live.ex:110
 #, elixir-autogen, elixir-format
 msgid "Invite Only"
 msgstr "Solo Invitación"
@@ -355,7 +355,7 @@ msgstr "Precio pagado:"
 msgid "Primer type"
 msgstr "Tipo de espoleta"
 
-#: lib/cannery_web/live/home_live.ex:110
+#: lib/cannery_web/live/home_live.ex:109
 #, elixir-autogen, elixir-format
 msgid "Public Signups"
 msgstr "Registro Público"
@@ -753,22 +753,22 @@ msgstr "Alemán"
 msgid "Language"
 msgstr "Idioma"
 
-#: lib/cannery_web/live/home_live.ex:136
+#: lib/cannery_web/live/home_live.ex:135
 #, elixir-autogen, elixir-format
 msgid "Get involved!"
 msgstr "¡Implícate!"
 
-#: lib/cannery_web/live/home_live.ex:157
+#: lib/cannery_web/live/home_live.ex:156
 #, elixir-autogen, elixir-format
 msgid "Help translate"
 msgstr "Ayuda a traducir"
 
-#: lib/cannery_web/live/home_live.ex:168
+#: lib/cannery_web/live/home_live.ex:167
 #, elixir-autogen, elixir-format
 msgid "Report bugs or request features"
 msgstr "Informar de errores o solicitar funciones"
 
-#: lib/cannery_web/live/home_live.ex:146
+#: lib/cannery_web/live/home_live.ex:145
 #, elixir-autogen, elixir-format
 msgid "View the source code"
 msgstr "Ver código fuente"
