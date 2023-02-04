@@ -3,20 +3,17 @@
     <%= dgettext("actions", "Reset password") %>
   </h1>
 
-  <%= form_for @changeset,
-           Routes.user_reset_password_path(@conn, :update, @token),
-           [
-             class:
-               "flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
-           ],
-           fn f -> %>
-    <%= if @changeset.action && not @changeset.valid? do %>
-      <div class="alert alert-danger col-span-3">
-        <p>
-          <%= dgettext("errors", "Oops, something went wrong! Please check the errors below.") %>
-        </p>
-      </div>
-    <% end %>
+  <.form
+    :let={f}
+    for={@changeset}
+    action={Routes.user_reset_password_path(@conn, :update, @token)}
+    class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+  >
+    <div :if={@changeset.action && not @changeset.valid?()} class="alert alert-danger col-span-3">
+      <p>
+        <%= dgettext("errors", "Oops, something went wrong! Please check the errors below.") %>
+      </p>
+    </div>
 
     <%= label(f, :password, "New password", class: "title text-lg text-primary-600") %>
     <%= password_input(f, :password, required: true, class: "input input-primary col-span-2") %>
@@ -34,16 +31,18 @@
     <%= submit(dgettext("actions", "Reset password"),
       class: "mx-auto btn btn-primary col-span-3"
     ) %>
-  <% end %>
+  </.form>
 
   <hr class="hr" />
 
   <div class="flex flex-row justify-center items-center space-x-4">
-    <%= if Accounts.allow_registration?() do %>
-      <.link href={Routes.user_registration_path(@conn, :new)} class="btn btn-primary">
-        <%= dgettext("actions", "Register") %>
-      </.link>
-    <% end %>
+    <.link
+      :if={Accounts.allow_registration?()}
+      href={Routes.user_registration_path(@conn, :new)}
+      class="btn btn-primary"
+    >
+      <%= dgettext("actions", "Register") %>
+    </.link>
     <.link href={Routes.user_session_path(@conn, :new)} class="btn btn-primary">
       <%= dgettext("actions", "Log in") %>
     </.link>

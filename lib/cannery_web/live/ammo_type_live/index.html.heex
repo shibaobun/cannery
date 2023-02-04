@@ -104,17 +104,18 @@
   <% end %>
 </div>
 
-<%= if @live_action in [:new, :edit, :clone] do %>
-  <.modal return_to={Routes.ammo_type_index_path(Endpoint, :index)}>
-    <.live_component
-      module={CanneryWeb.AmmoTypeLive.FormComponent}
-      id={@ammo_type.id || :new}
-      title={@page_title}
-      action={@live_action}
-      ammo_type={@ammo_type}
-      return_to={Routes.ammo_type_index_path(Endpoint, :index)}
-      current_user={@current_user}
-      }
-    />
-  </.modal>
-<% end %>
+<.modal
+  :if={@live_action in [:new, :edit, :clone]}
+  return_to={Routes.ammo_type_index_path(Endpoint, :index)}
+>
+  <.live_component
+    module={CanneryWeb.AmmoTypeLive.FormComponent}
+    id={@ammo_type.id || :new}
+    title={@page_title}
+    action={@live_action}
+    ammo_type={@ammo_type}
+    return_to={Routes.ammo_type_index_path(Endpoint, :index)}
+    current_user={@current_user}
+    }
+  />
+</.modal>

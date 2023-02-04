@@ -5,7 +5,7 @@
   <.form
     :let={f}
     for={@changeset}
-    id="invite-form"
+    id="tag-form"
     class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
     phx-target={@myself}
     phx-change="validate"
@@ -22,12 +22,17 @@
     <%= text_input(f, :name, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :name, "col-span-3") %>
 
-    <%= label(f, :uses_left, gettext("Uses left"), class: "title text-lg text-primary-600") %>
-    <%= number_input(f, :uses_left, min: 0, class: "input input-primary col-span-2") %>
-    <%= error_tag(f, :uses_left, "col-span-3") %>
-    <span class="col-span-3 text-primary-400 italic text-center">
-      <%= gettext(~s/Leave "Uses left" blank to make invite unlimited/) %>
+    <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-600") %>
+    <span id="tag-bg-color-input" class="mx-auto col-span-2" phx-update="ignore">
+      <%= color_input(f, :bg_color) %>
     </span>
+    <%= error_tag(f, :bg_color, "col-span-3") %>
+
+    <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-600") %>
+    <span id="tag-text-color-input" class="mx-auto col-span-2" phx-update="ignore">
+      <%= color_input(f, :text_color) %>
+    </span>
+    <%= error_tag(f, :text_color, "col-span-3") %>
 
     <%= submit(dgettext("actions", "Save"),
       class: "mx-auto btn btn-primary col-span-3",

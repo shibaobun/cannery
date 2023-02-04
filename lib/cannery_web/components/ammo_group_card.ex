@@ -23,9 +23,10 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
     ~H"""
     <div
       id={"ammo_group-#{@ammo_group.id}"}
-      class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center
-            border border-gray-400 rounded-lg shadow-lg hover:shadow-md
-            transition-all duration-300 ease-in-out"
+      class="mx-4 my-2 px-8 py-4
+        flex flex-col justify-center items-center
+        border border-gray-400 rounded-lg shadow-lg hover:shadow-md
+        transition-all duration-300 ease-in-out"
     >
       <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="mb-2 link">
         <h1 class="title text-xl title-primary-500">
@@ -39,31 +40,28 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
         </span>
 
-        <%= if @ammo_group |> Ammo.get_original_count() != @ammo_group.count do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Original Count:") %>
-            <%= @ammo_group |> Ammo.get_original_count() %>
-          </span>
-        <% end %>
+        <span
+          :if={@ammo_group |> Ammo.get_original_count() != @ammo_group.count}
+          class="rounded-lg title text-lg"
+        >
+          <%= gettext("Original Count:") %>
+          <%= @ammo_group |> Ammo.get_original_count() %>
+        </span>
 
-        <%= if @ammo_group.notes do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Notes:") %>
-            <%= @ammo_group.notes %>
-          </span>
-        <% end %>
+        <span :if={@ammo_group.notes} class="rounded-lg title text-lg">
+          <%= gettext("Notes:") %>
+          <%= @ammo_group.notes %>
+        </span>
 
         <span class="rounded-lg title text-lg">
           <%= gettext("Purchased on:") %>
           <.date date={@ammo_group.purchased_on} />
         </span>
 
-        <%= if @ammo_group |> Ammo.get_last_used_shot_group() do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Last used on:") %>
-            <.date date={@ammo_group |> Ammo.get_last_used_shot_group() |> Map.get(:date)} />
-          </span>
-        <% end %>
+        <span :if={@ammo_group |> Ammo.get_last_used_shot_group()} class="rounded-lg title text-lg">
+          <%= gettext("Last used on:") %>
+          <.date date={@ammo_group |> Ammo.get_last_used_shot_group() |> Map.get(:date)} />
+        </span>
 
         <%= if @ammo_group.price_paid do %>
           <span class="rounded-lg title text-lg">
@@ -81,25 +79,24 @@ defmodule CanneryWeb.Components.AmmoGroupCard do
           </span>
         <% end %>
 
-        <%= if @show_container and @ammo_group.container do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Container:") %>
+        <span :if={@show_container and @ammo_group.container} class="rounded-lg title text-lg">
+          <%= gettext("Container:") %>
 
-            <.link
-              navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
-              class="link"
-            >
-              <%= @ammo_group.container.name %>
-            </.link>
-          </span>
-        <% end %>
+          <.link
+            navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
+            class="link"
+          >
+            <%= @ammo_group.container.name %>
+          </.link>
+        </span>
       </div>
 
-      <%= if assigns |> Map.has_key?(:inner_block) do %>
-        <div class="mt-4 flex space-x-4 justify-center items-center">
-          <%= render_slot(@inner_block) %>
-        </div>
-      <% end %>
+      <div
+        :if={assigns |> Map.has_key?(:inner_block)}
+        class="mt-4 flex space-x-4 justify-center items-center"
+      >
+        <%= render_slot(@inner_block) %>
+      </div>
     </div>
     """
   end

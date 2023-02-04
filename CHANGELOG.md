@@ -1,5 +1,6 @@
 # v0.8.2
 - Fix bug with public registration
+- Improve templates
 
 # v0.8.1
 - Update dependencies

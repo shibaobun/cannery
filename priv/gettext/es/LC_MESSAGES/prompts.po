@@ -26,7 +26,7 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:86
 #: lib/cannery_web/live/container_live/form_component.ex:89
 #: lib/cannery_web/live/invite_live/form_component.ex:80
-#: lib/cannery_web/live/tag_live/form_component.ex:126
+#: lib/cannery_web/live/tag_live/form_component.ex:79
 #, elixir-autogen, elixir-format
 msgid "%{name} created successfully"
 msgstr "%{name} creado exitosamente"
@@ -64,7 +64,7 @@ msgstr "%{name} actualizado exitosamente"
 #: lib/cannery_web/live/ammo_type_live/form_component.ex:67
 #: lib/cannery_web/live/container_live/form_component.ex:70
 #: lib/cannery_web/live/invite_live/form_component.ex:62
-#: lib/cannery_web/live/tag_live/form_component.ex:108
+#: lib/cannery_web/live/tag_live/form_component.ex:61
 #, elixir-autogen, elixir-format
 msgid "%{name} updated successfully"
 msgstr "%{name} actualizado exitosamente"
@@ -76,32 +76,32 @@ msgstr ""
 "Un enlace para confirmar el correo electrónico ha sido enviado a la nueva "
 "dirección."
 
-#: lib/cannery_web/live/invite_live/index.html.heex:103
-#: lib/cannery_web/live/invite_live/index.html.heex:133
+#: lib/cannery_web/live/invite_live/index.html.heex:98
+#: lib/cannery_web/live/invite_live/index.html.heex:126
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr "Está seguro que desea eliminar %{email}? Esta acción es permanente!"
 
 #: lib/cannery_web/live/container_live/index.html.heex:92
-#: lib/cannery_web/live/container_live/index.html.heex:136
-#: lib/cannery_web/live/container_live/show.html.heex:59
-#: lib/cannery_web/live/tag_live/index.html.heex:64
+#: lib/cannery_web/live/container_live/index.html.heex:135
+#: lib/cannery_web/live/container_live/show.html.heex:55
+#: lib/cannery_web/live/tag_live/index.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Está seguro que desea eliminar %{name}?"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:49
+#: lib/cannery_web/live/invite_live/index.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete the invite for %{name}?"
 msgstr "Está seguro que quiere eliminar la invitación para %{name}?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:152
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:153
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
 msgstr "Está seguro que desea eliminar esta munición?"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:160
+#: lib/cannery_web/templates/user_settings/edit.html.heex:163
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete your account?"
 msgstr "Está seguro que desea eliminar su cuenta?"
@@ -111,7 +111,7 @@ msgstr "Está seguro que desea eliminar su cuenta?"
 msgid "Are you sure you want to log out?"
 msgstr "Está seguro que desea cerrar sesión?"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:75
+#: lib/cannery_web/live/invite_live/index.html.heex:73
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to make %{name} unlimited?"
 msgstr "Está seguro que desea hacer %{name} ilimitado?"
@@ -155,18 +155,13 @@ msgstr "Contraseña cambiada exitosamente."
 msgid "Please check your email to verify your account"
 msgstr "Por favor chequea el correo para verificar tu cuenta"
 
-#: lib/cannery_web/live/home_live.ex:91
-#, elixir-autogen, elixir-format
-msgid "Register to setup %{name}"
-msgstr "Regístrese para configurar %{name}"
-
-#: lib/cannery_web/components/add_shot_group_component.html.heex:55
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:82
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:157
-#: lib/cannery_web/live/container_live/form_component.html.heex:52
-#: lib/cannery_web/live/invite_live/form_component.html.heex:33
-#: lib/cannery_web/live/range_live/form_component.html.heex:42
-#: lib/cannery_web/live/tag_live/form_component.ex:93
+#: lib/cannery_web/components/add_shot_group_component.html.heex:56
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:83
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:158
+#: lib/cannery_web/live/container_live/form_component.html.heex:53
+#: lib/cannery_web/live/invite_live/form_component.html.heex:34
+#: lib/cannery_web/live/range_live/form_component.html.heex:43
+#: lib/cannery_web/live/tag_live/form_component.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Guardando..."
@@ -192,7 +187,7 @@ msgstr "%{name} añadido exitosamente"
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr "se ha removido %{tag_name} de %{container_name}"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:55
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "Adding..."
 msgstr "Añadiendo..."
@@ -202,13 +197,13 @@ msgstr "Añadiendo..."
 msgid "Shots recorded successfully"
 msgstr "Tiros registrados exitosamente"
 
-#: lib/cannery_web/live/range_live/index.html.heex:28
+#: lib/cannery_web/live/range_live/index.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to unstage this ammo?"
 msgstr "Está seguro que desea desmontar esta munición?"
 
 #: lib/cannery_web/live/ammo_group_live/show.ex:142
-#: lib/cannery_web/live/range_live/index.html.heex:118
+#: lib/cannery_web/live/range_live/index.html.heex:116
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr "¿Está segure que quiere borrar este récord de disparos?"
@@ -244,18 +239,18 @@ msgstr "Copiado al portapapeles"
 msgid "%{name} removed successfully"
 msgstr "%{name} eliminado exitosamente"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:17
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:27
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:18
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "You'll need to"
 msgstr "Necesitará hacerlo"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:75
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Creating..."
 msgstr "Creando..."
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:141
+#: lib/cannery_web/templates/user_settings/edit.html.heex:144
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to change your language?"
 msgstr "¿Está segure de que quiere cambiar el idioma?"
@@ -289,9 +284,14 @@ msgstr[0] "Munición añadida exitosamente"
 msgstr[1] "Municiones añadidas exitosamente"
 
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:90
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:28
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
 msgstr ""
 "¿Está seguro de que quiere borrar %{name}? ¡Esto también borrará todos los "
 "tipos de munición %{name}!"
+
+#: lib/cannery_web/live/home_live.html.heex:65
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Register to setup Cannery"
+msgstr "Regístrese para configurar %{name}"

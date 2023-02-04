@@ -135,11 +135,7 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
     {container.tags |> Enum.map(fn %{name: name} -> name end),
      ~H"""
      <div class="flex flex-wrap justify-center items-center">
-       <%= unless @container.tags |> Enum.empty?() do %>
-         <%= for tag <- @container.tags do %>
-           <TagCard.simple_tag_card tag={tag} />
-         <% end %>
-       <% end %>
+       <TagCard.simple_tag_card :for={tag <- @container.tags} :if={@container.tags} tag={tag} />
 
        <%= render_slot(@tag_actions, @container) %>
      </div>

@@ -119,16 +119,14 @@ defmodule CanneryWeb.Components.Topbar do
               </li>
             <% end %>
           <% else %>
-            <%= if Accounts.allow_registration?() do %>
-              <li class="mx-2 my-1">
-                <.link
-                  navigate={Routes.user_registration_path(Endpoint, :new)}
-                  class="text-primary-600 text-white hover:underline truncate"
-                >
-                  <%= dgettext("actions", "Register") %>
-                </.link>
-              </li>
-            <% end %>
+            <li :if={Accounts.allow_registration?()} class="mx-2 my-1">
+              <.link
+                navigate={Routes.user_registration_path(Endpoint, :new)}
+                class="text-primary-600 text-white hover:underline truncate"
+              >
+                <%= dgettext("actions", "Register") %>
+              </.link>
+            </li>
             <li class="mx-2 my-1">
               <.link
                 navigate={Routes.user_session_path(Endpoint, :new)}

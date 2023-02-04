@@ -23,7 +23,8 @@ defmodule CanneryWeb.Components.ContainerCard do
     ~H"""
     <div
       id={"container-#{@container.id}"}
-      class="overflow-hidden max-w-full mx-4 mb-4 px-8 py-4 flex flex-col justify-center items-center space-y-4
+      class="overflow-hidden max-w-full mx-4 mb-4 px-8 py-4
+        flex flex-col justify-center items-center space-y-4
         border border-gray-400 rounded-lg shadow-lg hover:shadow-md
         transition-all duration-300 ease-in-out"
     >
@@ -34,24 +35,20 @@ defmodule CanneryWeb.Components.ContainerCard do
           </h1>
         </.link>
 
-        <%= if @container.desc do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Description:") %>
-            <%= @container.desc %>
-          </span>
-        <% end %>
+        <span :if={@container.desc} class="rounded-lg title text-lg">
+          <%= gettext("Description:") %>
+          <%= @container.desc %>
+        </span>
 
         <span class="rounded-lg title text-lg">
           <%= gettext("Type:") %>
           <%= @container.type %>
         </span>
 
-        <%= if @container.location do %>
-          <span class="rounded-lg title text-lg">
-            <%= gettext("Location:") %>
-            <%= @container.location %>
-          </span>
-        <% end %>
+        <span :if={@container.location} class="rounded-lg title text-lg">
+          <%= gettext("Location:") %>
+          <%= @container.location %>
+        </span>
 
         <%= unless @container.ammo_groups |> Enum.empty?() do %>
           <span class="rounded-lg title text-lg">
@@ -66,21 +63,18 @@ defmodule CanneryWeb.Components.ContainerCard do
         <% end %>
 
         <div class="flex flex-wrap justify-center items-center">
-          <%= unless @container.tags |> Enum.empty?() do %>
-            <%= for tag <- @container.tags do %>
-              <.simple_tag_card tag={tag} />
-            <% end %>
-          <% end %>
+          <.simple_tag_card :for={tag <- @container.tags} :if={@container.tags} tag={tag} />
 
           <%= render_slot(@tag_actions) %>
         </div>
       </div>
 
-      <%= if assigns |> Map.has_key?(:inner_block) do %>
-        <div class="flex space-x-4 justify-center items-center">
-          <%= render_slot(@inner_block) %>
-        </div>
-      <% end %>
+      <div
+        :if={assigns |> Map.has_key?(:inner_block)}
+        class="flex space-x-4 justify-center items-center"
+      >
+        <%= render_slot(@inner_block) %>
+      </div>
     </div>
     """
   end

@@ -45,44 +45,40 @@
     </h2>
   <% else %>
     <div class="flex flex-row flex-wrap justify-center items-stretch">
-      <%= for tag <- @tags do %>
-        <.tag_card tag={tag}>
-          <.link
-            patch={Routes.tag_index_path(Endpoint, :edit, tag)}
-            class="text-primary-600 link"
-            data-qa={"edit-#{tag.id}"}
-          >
-            <i class="fa-fw fa-lg fas fa-edit"></i>
-          </.link>
+      <.tag_card :for={tag <- @tags} tag={tag}>
+        <.link
+          patch={Routes.tag_index_path(Endpoint, :edit, tag)}
+          class="text-primary-600 link"
+          data-qa={"edit-#{tag.id}"}
+        >
+          <i class="fa-fw fa-lg fas fa-edit"></i>
+        </.link>
 
-          <.link
-            href="#"
-            class="text-primary-600 link"
-            phx-click="delete"
-            phx-value-id={tag.id}
-            data-confirm={
-              dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
-            }
-            data-qa={"delete-#{tag.id}"}
-          >
-            <i class="fa-fw fa-lg fas fa-trash"></i>
-          </.link>
-        </.tag_card>
-      <% end %>
+        <.link
+          href="#"
+          class="text-primary-600 link"
+          phx-click="delete"
+          phx-value-id={tag.id}
+          data-confirm={
+            dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
+          }
+          data-qa={"delete-#{tag.id}"}
+        >
+          <i class="fa-fw fa-lg fas fa-trash"></i>
+        </.link>
+      </.tag_card>
     </div>
   <% end %>
 </div>
 
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.tag_index_path(Endpoint, :index)}>
-    <.live_component
-      module={CanneryWeb.TagLive.FormComponent}
-      id={@tag.id || :new}
-      title={@page_title}
-      action={@live_action}
-      tag={@tag}
-      return_to={Routes.tag_index_path(Endpoint, :index)}
-      current_user={@current_user}
-    />
-  </.modal>
-<% end %>
+<.modal :if={@live_action in [:new, :edit]} return_to={Routes.tag_index_path(Endpoint, :index)}>
+  <.live_component
+    module={CanneryWeb.TagLive.FormComponent}
+    id={@tag.id || :new}
+    title={@page_title}
+    action={@live_action}
+    tag={@tag}
+    return_to={Routes.tag_index_path(Endpoint, :index)}
+    current_user={@current_user}
+  />
+</.modal>

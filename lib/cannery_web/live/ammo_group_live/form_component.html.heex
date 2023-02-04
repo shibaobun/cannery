@@ -12,11 +12,12 @@
     phx-submit="save"
     class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
   >
-    <%= if @changeset.action && not @changeset.valid? do %>
-      <div class="invalid-feedback col-span-3 text-center">
-        <%= changeset_errors(@changeset) %>
-      </div>
-    <% end %>
+    <div
+      :if={@changeset.action && not @changeset.valid?()}
+      class="invalid-feedback col-span-3 text-center"
+    >
+      <%= changeset_errors(@changeset) %>
+    </div>
 
     <%= label(f, :ammo_type_id, gettext("Ammo type"), class: "title text-lg text-primary-600") %>
     <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
@@ -59,8 +60,8 @@
     ) %>
     <%= error_tag(f, :container_id, "col-span-3 text-center") %>
 
-    <%= cond do %>
-      <% @action in [:new, :clone] -> %>
+    <%= case @action do %>
+      <% action when action in [:new, :clone] -> %>
         <hr class="hr col-span-3" />
 
         <%= label(f, :multiplier, gettext("Copies"), class: "title text-lg text-primary-600") %>
@@ -77,7 +78,7 @@
         ) %>
 
         <%= error_tag(f, :multiplier, "col-span-3 text-center") %>
-      <% @action == :edit -> %>
+      <% :edit -> %>
         <%= submit(dgettext("actions", "Save"),
           phx_disable_with: dgettext("prompts", "Saving..."),
           class: "mx-auto col-span-3 btn btn-primary"

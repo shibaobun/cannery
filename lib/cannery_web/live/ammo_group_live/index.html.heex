@@ -3,12 +3,13 @@
     <%= gettext("Ammo") %>
   </h1>
 
-  <%= if @ammo_groups |> Enum.empty?() and @search |> is_nil() do %>
-    <h2 class="title text-xl text-primary-600">
-      <%= gettext("No Ammo") %>
-      <%= display_emoji("😔") %>
-    </h2>
-  <% end %>
+  <h2
+    :if={@ammo_groups |> Enum.empty?() and @search |> is_nil()}
+    class="title text-xl text-primary-600"
+  >
+    <%= gettext("No Ammo") %>
+    <%= display_emoji("😔") %>
+  </h2>
 
   <%= cond do %>
     <% @containers_count == 0 -> %>

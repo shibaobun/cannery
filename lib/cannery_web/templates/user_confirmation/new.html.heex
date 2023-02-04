@@ -3,29 +3,30 @@
     <%= dgettext("actions", "Resend confirmation instructions") %>
   </h1>
 
-  <%= form_for :user,
-           Routes.user_confirmation_path(@conn, :create),
-           [
-             class:
-               "flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
-           ],
-           fn f -> %>
+  <.form
+    :let={f}
+    for={:user}
+    action={Routes.user_confirmation_path(@conn, :create)}
+    class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
+  >
     <%= label(f, :email, class: "title text-lg text-primary-600") %>
     <%= email_input(f, :email, required: true, class: "input input-primary col-span-2") %>
 
     <%= submit(dgettext("actions", "Resend confirmation instructions"),
       class: "mx-auto btn btn-primary col-span-3"
     ) %>
-  <% end %>
+  </.form>
 
   <hr class="hr" />
 
   <div class="flex flex-row justify-center items-center space-x-4">
-    <%= if Accounts.allow_registration?() do %>
-      <.link href={Routes.user_registration_path(@conn, :new)} class="btn btn-primary">
-        <%= dgettext("actions", "Register") %>
-      </.link>
-    <% end %>
+    <.link
+      :if={Accounts.allow_registration?()}
+      href={Routes.user_registration_path(@conn, :new)}
+      class="btn btn-primary"
+    >
+      <%= dgettext("actions", "Register") %>
+    </.link>
     <.link href={Routes.user_session_path(@conn, :new)} class="btn btn-primary">
       <%= dgettext("actions", "Log in") %>
     </.link>

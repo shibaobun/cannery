@@ -50,53 +50,6 @@ defmodule CanneryWeb.TagLive.FormComponent do
     socket |> assign(:changeset, changeset)
   end
 
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <h2 class="mb-8 text-center title text-xl text-primary-600">
-        <%= @title %>
-      </h2>
-      <.form
-        :let={f}
-        for={@changeset}
-        id="tag-form"
-        class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <%= if @changeset.action && not @changeset.valid? do %>
-          <div class="invalid-feedback col-span-3 text-center">
-            <%= changeset_errors(@changeset) %>
-          </div>
-        <% end %>
-
-        <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
-        <%= text_input(f, :name, class: "input input-primary col-span-2") %>
-        <%= error_tag(f, :name, "col-span-3") %>
-
-        <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-600") %>
-        <span id="tag-bg-color-input" class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input(f, :bg_color) %>
-        </span>
-        <%= error_tag(f, :bg_color, "col-span-3") %>
-
-        <%= label(f, :text_color, gettext("Text color"), class: "title text-lg text-primary-600") %>
-        <span id="tag-text-color-input" class="mx-auto col-span-2" phx-update="ignore">
-          <%= color_input(f, :text_color) %>
-        </span>
-        <%= error_tag(f, :text_color, "col-span-3") %>
-
-        <%= submit(dgettext("actions", "Save"),
-          class: "mx-auto btn btn-primary col-span-3",
-          phx_disable_with: dgettext("prompts", "Saving...")
-        ) %>
-      </.form>
-    </div>
-    """
-  end
-
   defp save_tag(
          %{assigns: %{tag: tag, current_user: current_user, return_to: return_to}} = socket,
          :edit,

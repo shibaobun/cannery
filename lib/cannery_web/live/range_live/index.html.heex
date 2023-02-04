@@ -18,28 +18,26 @@
     </.link>
 
     <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
-      <%= for ammo_group <- @ammo_groups do %>
-        <.ammo_group_card ammo_group={ammo_group}>
-          <button
-            type="button"
-            class="btn btn-primary"
-            phx-click="toggle_staged"
-            phx-value-ammo_group_id={ammo_group.id}
-            data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
-          >
-            <%= if ammo_group.staged,
-              do: dgettext("actions", "Unstage from range"),
-              else: dgettext("actions", "Stage for range") %>
-          </button>
+      <.ammo_group_card :for={ammo_group <- @ammo_groups} ammo_group={ammo_group}>
+        <button
+          type="button"
+          class="btn btn-primary"
+          phx-click="toggle_staged"
+          phx-value-ammo_group_id={ammo_group.id}
+          data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
+        >
+          <%= if ammo_group.staged,
+            do: dgettext("actions", "Unstage from range"),
+            else: dgettext("actions", "Stage for range") %>
+        </button>
 
-          <.link
-            patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
-            class="btn btn-primary"
-          >
-            <%= dgettext("actions", "Record shots") %>
-          </.link>
-        </.ammo_group_card>
-      <% end %>
+        <.link
+          patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
+          class="btn btn-primary"
+        >
+          <%= dgettext("actions", "Record shots") %>
+        </.link>
+      </.ammo_group_card>
     </div>
   <% end %>
 
@@ -128,30 +126,29 @@
   <% end %>
 </div>
 
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
-    <.live_component
-      module={CanneryWeb.RangeLive.FormComponent}
-      id={@shot_group.id}
-      title={@page_title}
-      action={@live_action}
-      shot_group={@shot_group}
-      return_to={Routes.range_index_path(Endpoint, :index)}
-      current_user={@current_user}
-    />
-  </.modal>
-<% end %>
+<.modal :if={@live_action == :edit} return_to={Routes.range_index_path(Endpoint, :index)}>
+  <.live_component
+    module={CanneryWeb.RangeLive.FormComponent}
+    id={@shot_group.id}
+    title={@page_title}
+    action={@live_action}
+    shot_group={@shot_group}
+    return_to={Routes.range_index_path(Endpoint, :index)}
+    current_user={@current_user}
+  />
+</.modal>
 
-<%= if @live_action in [:add_shot_group] do %>
-  <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
-    <.live_component
-      module={CanneryWeb.Components.AddShotGroupComponent}
-      id={:new}
-      title={@page_title}
-      action={@live_action}
-      ammo_group={@ammo_group}
-      return_to={Routes.range_index_path(Endpoint, :index)}
-      current_user={@current_user}
-    />
-  </.modal>
-<% end %>
+<.modal
+  :if={@live_action == :add_shot_group}
+  return_to={Routes.range_index_path(Endpoint, :index)}
+>
+  <.live_component
+    module={CanneryWeb.Components.AddShotGroupComponent}
+    id={:new}
+    title={@page_title}
+    action={@live_action}
+    ammo_group={@ammo_group}
+    return_to={Routes.range_index_path(Endpoint, :index)}
+    current_user={@current_user}
+  />
+</.modal>

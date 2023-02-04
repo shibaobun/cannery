@@ -12,11 +12,12 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <%= if @changeset.action && not @changeset.valid? do %>
-      <div class="invalid-feedback col-span-3 text-center">
-        <%= changeset_errors(@changeset) %>
-      </div>
-    <% end %>
+    <div
+      :if={@changeset.action && not @changeset.valid?()}
+      class="invalid-feedback col-span-3 text-center"
+    >
+      <%= changeset_errors(@changeset) %>
+    </div>
 
     <%= label(f, :ammo_left, gettext("Rounds left"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :ammo_left,

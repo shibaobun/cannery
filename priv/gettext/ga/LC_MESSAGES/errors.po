@@ -70,11 +70,11 @@ msgstr "Seoladh email nó pasfhocal neamhbhailí"
 msgid "Not found"
 msgstr "Ní feidir é a fáil"
 
-#: lib/cannery_web/templates/user_registration/new.html.heex:16
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:16
-#: lib/cannery_web/templates/user_settings/edit.html.heex:21
-#: lib/cannery_web/templates/user_settings/edit.html.heex:64
-#: lib/cannery_web/templates/user_settings/edit.html.heex:119
+#: lib/cannery_web/templates/user_registration/new.html.heex:14
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:14
+#: lib/cannery_web/templates/user_settings/edit.html.heex:23
+#: lib/cannery_web/templates/user_settings/edit.html.heex:67
+#: lib/cannery_web/templates/user_settings/edit.html.heex:123
 #, elixir-autogen, elixir-format
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Please select an ammo type and container"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:69
+#: lib/cannery_web/live/range_live/index.html.heex:67
 #, elixir-autogen, elixir-format
 msgid "Your browser does not support the canvas element."
 msgstr ""

@@ -31,10 +31,10 @@ defmodule CanneryWeb.LiveHelpers do
       patch={@return_to}
       id="modal-bg"
       class="fade-in fixed z-10 left-0 top-0
-         w-full h-full overflow-hidden
-         p-8 flex flex-col justify-center items-center cursor-auto"
+        w-full h-full overflow-hidden
+        p-8 flex flex-col justify-center items-center cursor-auto"
       style="background-color: rgba(0,0,0,0.4);"
-      phx_remove={hide_modal()}
+      phx-remove={hide_modal()}
     >
       <span class="hidden"></span>
     </.link>
@@ -48,18 +48,18 @@ defmodule CanneryWeb.LiveHelpers do
       <div
         id="modal-content"
         class="fade-in-scale w-full max-w-3xl relative
-        pointer-events-auto overflow-hidden
-        px-8 py-4 sm:py-8 flex flex-col justify-center items-center
-        flex flex-col justify-start items-center
-        bg-white border-2 rounded-lg"
+          pointer-events-auto overflow-hidden
+          px-8 py-4 sm:py-8 flex flex-col justify-center items-center
+          flex flex-col justify-start items-center
+          bg-white border-2 rounded-lg"
       >
         <.link
           patch={@return_to}
           id="close"
           class="absolute top-8 right-10
-                      text-gray-500 hover:text-gray-800
-                      transition-all duration-500 ease-in-out"
-          phx_remove={hide_modal()}
+            text-gray-500 hover:text-gray-800
+            transition-all duration-500 ease-in-out"
+          phx-remove={hide_modal()}
         >
           <i class="fa-fw fa-lg fas fa-times"></i>
         </.link>
@@ -106,8 +106,8 @@ defmodule CanneryWeb.LiveHelpers do
         data-qa={@id}
         {
           if assigns |> Map.has_key?(:target),
-            do: %{"phx-click" => @action, "phx-value-value" => @value, "phx-target" => @target},
-            else: %{"phx-click" => @action, "phx-value-value" => @value}
+            do: %{"phx-click": @action, "phx-value-value": @value, "phx-target": @target},
+            else: %{"phx-click": @action, "phx-value-value": @value}
         }
       />
       <div class="w-11 h-6 bg-gray-300 rounded-full peer

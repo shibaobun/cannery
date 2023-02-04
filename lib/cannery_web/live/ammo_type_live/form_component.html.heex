@@ -11,11 +11,12 @@
     phx-submit="save"
     class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
   >
-    <%= if @changeset.action && not @changeset.valid? do %>
-      <div class="invalid-feedback col-span-3 text-center">
-        <%= changeset_errors(@changeset) %>
-      </div>
-    <% end %>
+    <div
+      :if={@changeset.action && not @changeset.valid?()}
+      class="invalid-feedback col-span-3 text-center"
+    >
+      <%= changeset_errors(@changeset) %>
+    </div>
 
     <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name, class: "text-center col-span-2 input input-primary") %>

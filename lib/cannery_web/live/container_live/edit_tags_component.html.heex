@@ -4,34 +4,31 @@
   </h2>
 
   <div class="flex flex-wrap justify-center items-center">
-    <%= for tag <- @container.tags do %>
-      <.link
-        href="#"
-        class="mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
-        style={"color: #{tag.text_color}; background-color: #{tag.bg_color}"}
-        phx-click="delete"
-        phx-value-tag-id={tag.id}
-        phx-target={@myself}
-        data-confirm={
-          dgettext(
-            "prompts",
-            "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
-            tag_name: tag.name,
-            container_name: @container.name
-          )
-        }
-      >
-        <%= tag.name %>
-        <i class="fa-fw fa-sm fas fa-trash"></i>
-      </.link>
-    <% end %>
+    <.link
+      :for={tag <- @container.tags}
+      href="#"
+      class="mx-2 my-1 px-4 py-2 rounded-lg title text-xl"
+      style={"color: #{tag.text_color}; background-color: #{tag.bg_color}"}
+      phx-click="delete"
+      phx-value-tag-id={tag.id}
+      phx-target={@myself}
+      data-confirm={
+        dgettext(
+          "prompts",
+          "Are you sure you want to remove the %{tag_name} tag from %{container_name}?",
+          tag_name: tag.name,
+          container_name: @container.name
+        )
+      }
+    >
+      <%= tag.name %>
+      <i class="fa-fw fa-sm fas fa-trash"></i>
+    </.link>
 
-    <%= if @container.tags |> Enum.empty?() do %>
-      <h2 class="title text-xl text-primary-600">
-        <%= gettext("No tags") %>
-        <%= display_emoji("😔") %>
-      </h2>
-    <% end %>
+    <h2 :if={@container.tags |> Enum.empty?()} class="title text-xl text-primary-600">
+      <%= gettext("No tags") %>
+      <%= display_emoji("😔") %>
+    </h2>
   </div>
 
   <%= unless tag_options(@tags, @container) |> Enum.empty?() do %>
