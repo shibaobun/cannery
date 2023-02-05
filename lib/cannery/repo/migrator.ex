@@ -11,12 +11,15 @@ defmodule Cannery.Repo.Migrator do
   end
 
   def init(_opts) do
-    migrate!()
-    {:ok, nil}
+    {:ok, if(automigrate_enabled?(), do: migrate!())}
   end
 
   def migrate! do
     path = Application.app_dir(:cannery, "priv/repo/migrations")
     Ecto.Migrator.run(Cannery.Repo, path, :up, all: true)
+  end
+
+  defp automigrate_enabled? do
+    Application.get_env(:cannery, Cannery.Application, automigrate: false)[:automigrate]
   end
 end
