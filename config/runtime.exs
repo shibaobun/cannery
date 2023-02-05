@@ -44,8 +44,6 @@ config :cannery, Cannery.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
   socket_options: maybe_ipv6
 
-config :cannery, Cannery.Accounts, registration: System.get_env("REGISTRATION", "invite")
-
 config :cannery, CanneryWeb.Endpoint,
   url: [scheme: "https", host: host, port: 443],
   http: [
@@ -55,6 +53,10 @@ config :cannery, CanneryWeb.Endpoint,
     port: String.to_integer(System.get_env("PORT", "4000"))
   ],
   server: true
+
+if config_env() in [:dev, :prod] do
+  config :cannery, Cannery.Accounts, registration: System.get_env("REGISTRATION", "invite")
+end
 
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.

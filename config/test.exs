@@ -22,6 +22,9 @@ config :cannery, CanneryWeb.Endpoint,
 # In test we don't send emails.
 config :cannery, Cannery.Mailer, adapter: Swoosh.Adapters.Test
 
+# Don't require invites for signups
+config :cannery, Cannery.Accounts, registration: "public"
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
