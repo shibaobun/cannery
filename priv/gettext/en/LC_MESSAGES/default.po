@@ -568,18 +568,18 @@ msgstr ""
 msgid "UPC"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:80
+#: lib/cannery_web/templates/user_settings/edit.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:33
-#: lib/cannery_web/templates/user_settings/edit.html.heex:89
+#: lib/cannery_web/templates/user_settings/edit.html.heex:31
+#: lib/cannery_web/templates/user_settings/edit.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Current password"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:73
+#: lib/cannery_web/templates/user_settings/edit.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr ""
@@ -703,17 +703,17 @@ msgid "Added on:"
 msgstr ""
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:32
-#: lib/cannery_web/templates/user_settings/edit.html.heex:133
+#: lib/cannery_web/templates/user_settings/edit.html.heex:127
 #, elixir-autogen, elixir-format
 msgid "English"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:135
+#: lib/cannery_web/templates/user_settings/edit.html.heex:129
 #, elixir-autogen, elixir-format
 msgid "French"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:134
+#: lib/cannery_web/templates/user_settings/edit.html.heex:128
 #, elixir-autogen, elixir-format
 msgid "German"
 msgstr ""
@@ -1103,7 +1103,7 @@ msgstr ""
 msgid "Search shot records"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:136
+#: lib/cannery_web/templates/user_settings/edit.html.heex:130
 #, elixir-autogen, elixir-format
 msgid "Spanish"
 msgstr ""

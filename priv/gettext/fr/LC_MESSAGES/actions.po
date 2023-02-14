@@ -46,13 +46,13 @@ msgid "Add your first type!"
 msgstr "Ajoutez votre premier type !"
 
 #: lib/cannery_web/templates/user_settings/edit.html.heex:15
-#: lib/cannery_web/templates/user_settings/edit.html.heex:45
+#: lib/cannery_web/templates/user_settings/edit.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Change email"
 msgstr "Changer le mél"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:59
-#: lib/cannery_web/templates/user_settings/edit.html.heex:101
+#: lib/cannery_web/templates/user_settings/edit.html.heex:57
+#: lib/cannery_web/templates/user_settings/edit.html.heex:97
 #, elixir-autogen, elixir-format
 msgid "Change password"
 msgstr "Changer le mot de passe"
@@ -62,7 +62,7 @@ msgstr "Changer le mot de passe"
 msgid "Create Invite"
 msgstr "Créer une invitation"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:165
+#: lib/cannery_web/templates/user_settings/edit.html.heex:159
 #, elixir-autogen, elixir-format
 msgid "Delete User"
 msgstr "Supprimer utilisateur"
@@ -206,12 +206,12 @@ msgstr "ajouter un conteneur en premier"
 msgid "Create"
 msgstr "Créer"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:115
+#: lib/cannery_web/templates/user_settings/edit.html.heex:111
 #, elixir-autogen, elixir-format
 msgid "Change Language"
 msgstr "Changer la langue"
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:142
+#: lib/cannery_web/templates/user_settings/edit.html.heex:136
 #, elixir-autogen, elixir-format
 msgid "Change language"
 msgstr "Changer la langue"
@@ -248,7 +248,7 @@ msgstr ""
 msgid "Unstage from range"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:156
+#: lib/cannery_web/templates/user_settings/edit.html.heex:150
 #, elixir-autogen, elixir-format
 msgid "Export Data as JSON"
 msgstr ""
