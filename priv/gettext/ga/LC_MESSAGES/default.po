@@ -570,6 +570,7 @@ msgstr ""
 msgid "UPC"
 msgstr ""
 
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:22
 #: lib/cannery_web/templates/user_settings/edit.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
@@ -581,6 +582,7 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:18
 #: lib/cannery_web/templates/user_settings/edit.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "New password"
@@ -1190,4 +1192,19 @@ msgstr ""
 #: lib/cannery_web/components/invite_card.ex:52
 #, elixir-autogen, elixir-format
 msgid "Uses: %{uses_count}"
+msgstr ""
+
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:12
+#: lib/cannery_web/templates/user_registration/new.html.heex:20
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:12
+#: lib/cannery_web/templates/user_session/new.html.heex:19
+#: lib/cannery_web/templates/user_settings/edit.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr ""
+
+#: lib/cannery_web/templates/user_registration/new.html.heex:24
+#: lib/cannery_web/templates/user_session/new.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Password"
 msgstr ""
