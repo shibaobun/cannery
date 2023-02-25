@@ -1,4 +1,4 @@
-defmodule Lokal.DataCase do
+defmodule Cannery.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule Lokal.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Lokal.DataCase, async: true`, although
+  by setting `use Cannery.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -19,16 +19,16 @@ defmodule Lokal.DataCase do
 
   using do
     quote do
-      alias Lokal.Repo
+      alias Cannery.Repo
 
       import Ecto
       import Ecto.{Changeset, Query}
-      import Lokal.{DataCase, Fixtures}
+      import Cannery.{DataCase, Fixtures}
     end
   end
 
   setup tags do
-    pid = Sandbox.start_owner!(Lokal.Repo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(Cannery.Repo, shared: not tags[:async])
     on_exit(fn -> Sandbox.stop_owner(pid) end)
     :ok
   end

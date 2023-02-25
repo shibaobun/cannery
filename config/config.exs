@@ -7,24 +7,24 @@
 # General application configuration
 import Config
 
-config :lokal,
-  ecto_repos: [Lokal.Repo],
+config :cannery,
+  ecto_repos: [Cannery.Repo],
   generators: [binary_id: true]
 
-config :lokal, Lokal.Accounts, registration: System.get_env("REGISTRATION", "invite")
+config :cannery, Cannery.Accounts, registration: System.get_env("REGISTRATION", "invite")
 
 # Configures the endpoint
-config :lokal, LokalWeb.Endpoint,
+config :cannery, CanneryWeb.Endpoint,
   url: [scheme: "https", host: System.get_env("HOST") || "localhost", port: "443"],
   http: [port: String.to_integer(System.get_env("PORT") || "4000")],
   secret_key_base: "KH59P0iZixX5gP/u+zkxxG8vAAj6vgt0YqnwEB5JP5K+E567SsqkCz69uWShjE7I",
-  render_errors: [view: LokalWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Lokal.PubSub,
+  render_errors: [view: CanneryWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Cannery.PubSub,
   live_view: [signing_salt: "zOLgd3lr"]
 
-config :lokal, Lokal.Application, automigrate: false
+config :cannery, Cannery.Application, automigrate: false
 
-config :lokal, :generators,
+config :cannery, :generators,
   migration: true,
   binary_id: true,
   sample_binary_id: "11111111-1111-1111-1111-111111111111"
@@ -36,7 +36,7 @@ config :lokal, :generators,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :lokal, Lokal.Mailer, adapter: Swoosh.Adapters.Local
+config :cannery, Cannery.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
@@ -45,8 +45,8 @@ config :swoosh, :api_client, false
 config :gettext, :default_locale, "en_US"
 
 # Configure Oban
-config :lokal, Oban,
-  repo: Lokal.Repo,
+config :cannery, Oban,
+  repo: Cannery.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [default: 10, mailers: 20]
 
