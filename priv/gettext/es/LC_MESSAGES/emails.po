@@ -14,25 +14,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.14.2\n"
 
-## This file is a PO Template file.
-##
-## "msgid"s here are often extracted from source code.
-## Add new translations manually only if they're dynamic
-## translations that can't be statically extracted.
-##
-## Run "mix gettext.extract" to bring this file up to
-## date. Leave "msgstr"s empty as changing them here has no
-## effect: edit them in PO (.po) files instead.
-#: lib/cannery/accounts/email.ex:30
-#, elixir-autogen, elixir-format
-msgid "Confirm your %{name} account"
-msgstr "Confirma el %{name} de la cuenta"
-
-#: lib/cannery_web/templates/email/confirm_email.html.eex:3
+#: lib/cannery_web/templates/email/confirm_email.html.heex:3
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:2
-#: lib/cannery_web/templates/email/reset_password.html.eex:3
+#: lib/cannery_web/templates/email/reset_password.html.heex:3
 #: lib/cannery_web/templates/email/reset_password.txt.eex:2
-#: lib/cannery_web/templates/email/update_email.html.eex:3
+#: lib/cannery_web/templates/email/update_email.html.heex:3
 #: lib/cannery_web/templates/email/update_email.txt.eex:2
 #, elixir-autogen, elixir-format
 msgid "Hi %{email},"
@@ -49,27 +35,7 @@ msgstr "Si no creó un usuario en %{url}, por favor, ignore este mensaje."
 msgid "If you didn't request this change from %{url}, please ignore this."
 msgstr "Si no pidió este cambio desde %{url}, por favor, ignore este mensaje."
 
-#: lib/cannery/accounts/email.ex:37
-#, elixir-autogen, elixir-format
-msgid "Reset your %{name} password"
-msgstr "Reseteé su contraseña en %{name}"
-
-#: lib/cannery/accounts/email.ex:44
-#, elixir-autogen, elixir-format
-msgid "Update your %{name} email"
-msgstr "Actualice su correo en &{url}"
-
-#: lib/cannery_web/templates/email/confirm_email.html.eex:9
-#, elixir-autogen, elixir-format
-msgid "Welcome to %{name}!"
-msgstr "¡Bienvenide a %{name}!"
-
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:4
-#, elixir-autogen, elixir-format
-msgid "Welcome to %{name}%!"
-msgstr "¡Bienvenide a %{name}%!"
-
-#: lib/cannery_web/templates/email/update_email.html.eex:8
+#: lib/cannery_web/templates/email/update_email.html.heex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can change your email by visiting the URL below:"
@@ -77,14 +43,14 @@ msgstr ""
 "Puede cambiar su correo electrónico visitando el enlace que se muestra a "
 "continuación:"
 
-#: lib/cannery_web/templates/email/confirm_email.html.eex:14
+#: lib/cannery_web/templates/email/confirm_email.html.heex:14
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:6
 #, elixir-autogen, elixir-format
 msgid "You can confirm your account by visiting the URL below:"
 msgstr ""
 "Puede confirmar su cuenta visitando el enlace que se muestra a continuación:"
 
-#: lib/cannery_web/templates/email/reset_password.html.eex:8
+#: lib/cannery_web/templates/email/reset_password.html.heex:8
 #: lib/cannery_web/templates/email/reset_password.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can reset your password by visiting the URL below:"
@@ -92,29 +58,59 @@ msgstr ""
 "Puede reestablecer su contraseña visitando el enlace que se muestra a "
 "continuación:"
 
-#: lib/cannery_web/templates/email/confirm_email.html.eex:22
-#, elixir-autogen, elixir-format
-msgid "If you didn't create an account at %{name}, please ignore this."
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#: lib/cannery/accounts/email.ex:30
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Confirm your Cannery account"
+msgstr "Confirma el %{name} de la cuenta"
+
+#: lib/cannery_web/templates/email/confirm_email.html.heex:22
+#, elixir-autogen, elixir-format, fuzzy
+msgid "If you didn't create an account at Cannery, please ignore this."
 msgstr "Si no ha creado una cuenta en %{name}, por favor, ignore este mensaje."
 
-#: lib/cannery_web/templates/email/reset_password.html.eex:16
-#: lib/cannery_web/templates/email/update_email.html.eex:16
-#, elixir-autogen, elixir-format
-msgid "If you didn't request this change from %{name}, please ignore this."
+#: lib/cannery_web/templates/email/reset_password.html.heex:16
+#: lib/cannery_web/templates/email/update_email.html.heex:16
+#, elixir-autogen, elixir-format, fuzzy
+msgid "If you didn't request this change from Cannery, please ignore this."
 msgstr ""
 "Si no ha solicitado este cambio desde %{name}, por favor, ignore este "
 "mensaje."
 
+#: lib/cannery/accounts/email.ex:37
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Reset your Cannery password"
+msgstr "Reseteé su contraseña en %{name}"
+
 #: lib/cannery_web/templates/layout/email.txt.eex:9
-#, elixir-autogen, elixir-format
-msgid "This email was sent from %{name} at %{url}, the self-hosted firearm tracker website."
+#, elixir-autogen, elixir-format, fuzzy
+msgid "This email was sent from Cannery at %{url}, the self-hosted firearm tracker website."
 msgstr ""
 "Este correo se mandó por %{name} desde %{url}, la página de seguimiento de "
 "armas autogestionada."
 
 #: lib/cannery_web/templates/layout/email.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "This email was sent from %{name}, the self-hosted firearm tracker website."
+#, elixir-autogen, elixir-format, fuzzy
+msgid "This email was sent from Cannery, the self-hosted firearm tracker website."
 msgstr ""
 "Este correo se mandó por %{name}, la página de seguimiento de armas "
 "autogestionada."
+
+#: lib/cannery/accounts/email.ex:44
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Update your Cannery email"
+msgstr "Actualice su correo en &{url}"
+
+#: lib/cannery_web/templates/email/confirm_email.html.heex:9
+#: lib/cannery_web/templates/email/confirm_email.txt.eex:4
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Welcome to Cannery"
+msgstr "¡Bienvenide a %{name}!"

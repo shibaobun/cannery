@@ -93,7 +93,7 @@ defmodule CanneryWeb.Components.Topbar do
             <% end %>
             <li class="mx-2 my-1">
               <.link
-                navigate={Routes.user_settings_path(Endpoint, :edit)}
+                href={Routes.user_settings_path(Endpoint, :edit)}
                 class="text-primary-600 text-white hover:underline truncate"
               >
                 <%= @current_user.email %>
@@ -108,29 +108,32 @@ defmodule CanneryWeb.Components.Topbar do
                 <i class="fas fa-sign-out-alt"></i>
               </.link>
             </li>
-            <%= if @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li class="mx-2 my-1">
-                <.link
-                  navigate={Routes.live_dashboard_path(Endpoint, :home)}
-                  class="text-primary-600 text-white hover:underline"
-                >
-                  <i class="fas fa-gauge"></i>
-                </.link>
-              </li>
-            <% end %>
+            <li
+              :if={
+                @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2)
+              }
+              class="mx-2 my-1"
+            >
+              <.link
+                navigate={Routes.live_dashboard_path(Endpoint, :home)}
+                class="text-white text-white hover:underline"
+              >
+                <i class="fas fa-gauge"></i>
+              </.link>
+            </li>
           <% else %>
             <li :if={Accounts.allow_registration?()} class="mx-2 my-1">
               <.link
-                navigate={Routes.user_registration_path(Endpoint, :new)}
-                class="text-primary-600 text-white hover:underline truncate"
+                href={Routes.user_registration_path(Endpoint, :new)}
+                class="text-white hover:underline truncate"
               >
                 <%= dgettext("actions", "Register") %>
               </.link>
             </li>
             <li class="mx-2 my-1">
               <.link
-                navigate={Routes.user_session_path(Endpoint, :new)}
-                class="text-primary-600 text-white hover:underline truncate"
+                href={Routes.user_session_path(Endpoint, :new)}
+                class="text-white hover:underline truncate"
               >
                 <%= dgettext("actions", "Log in") %>
               </.link>

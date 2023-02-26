@@ -1,6 +1,6 @@
 defmodule Cannery.Repo.Migrator do
   @moduledoc """
-  Genserver to automatically run migrations in prod env
+  Genserver to automatically perform all migration on app start
   """
 
   use GenServer

@@ -70,7 +70,7 @@ msgid "Not found"
 msgstr "Nicht gefunden"
 
 #: lib/cannery_web/templates/user_registration/new.html.heex:13
-#: lib/cannery_web/templates/user_reset_password/edit.html.heex:14
+#: lib/cannery_web/templates/user_reset_password/edit.html.heex:13
 #: lib/cannery_web/templates/user_settings/edit.html.heex:22
 #: lib/cannery_web/templates/user_settings/edit.html.heex:64
 #: lib/cannery_web/templates/user_settings/edit.html.heex:118

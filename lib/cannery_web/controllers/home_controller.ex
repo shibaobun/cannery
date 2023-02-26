@@ -1,4 +1,8 @@
 defmodule CanneryWeb.HomeController do
+  @moduledoc """
+  Controller for home page
+  """
+
   use CanneryWeb, :controller
 
   def index(conn, _params) do

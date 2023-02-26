@@ -63,7 +63,8 @@ And as always, thank you!
   [`phx_gen_auth`](https://hexdocs.pm/phx_gen_auth/).
 - `Dockerfile` and example `docker-compose.yml`
 - Automatic migrations in `MIX_ENV=prod` or Docker image
-- JS linting with [standard.js](https://standardjs.com)
+- JS linting with [standard.js](https://standardjs.com), HEEx linting with
+  [heex_formatter](https://github.com/feliperenan/heex_formatter)
 
 ## Docs
 
@@ -109,7 +110,7 @@ In `dev` mode, Cannery will listen for these environment variables at runtime.
 - `POOL_SIZE`: Controls the pool size to use with PostgreSQL. Defaults to `10`.
 - `REGISTRATION`: Controls if user sign-up should be invite only or set to public. Set to `public` to enable public registration. Defaults to `invite`.
 - `LOCALE`: Sets a custom default locale. Defaults to `en_US`.
-  - Available options: `en_US`, `de`, and `fr`
+  - Available options: `en_US`, `de`, `fr`, and `es`
 
 ## `MIX_ENV=test`
 
