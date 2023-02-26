@@ -1,7 +1,7 @@
 defmodule CanneryWeb.ErrorView do
   use CanneryWeb, :view
   import CanneryWeb.Components.Topbar
-  alias CanneryWeb.{Endpoint, HomeLive}
+  alias CanneryWeb.HomeLive
 
   def template_not_found(error_path, _assigns) do
     error_string =

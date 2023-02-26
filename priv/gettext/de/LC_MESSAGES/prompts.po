@@ -84,7 +84,7 @@ msgstr "Sind Sie sicher, dass sie diese Munition löschen möchten?"
 msgid "Are you sure you want to delete your account?"
 msgstr "Sind Sie sicher, dass sie Ihren Account löschen möchten?"
 
-#: lib/cannery_web/components/topbar.ex:106
+#: lib/cannery_web/components/topbar.ex:104
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to log out?"
 msgstr "Wirklich ausloggen?"

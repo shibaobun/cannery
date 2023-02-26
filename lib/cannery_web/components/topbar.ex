@@ -6,7 +6,7 @@ defmodule CanneryWeb.Components.Topbar do
   use CanneryWeb, :component
 
   alias Cannery.Accounts
-  alias CanneryWeb.{Endpoint, HomeLive}
+  alias CanneryWeb.HomeLive
 
   def topbar(assigns) do
     assigns =
@@ -81,16 +81,14 @@ defmodule CanneryWeb.Components.Topbar do
                 <%= gettext("Range") %>
               </.link>
             </li>
-            <%= if @current_user.role == :admin do %>
-              <li class="mx-2 my-1">
-                <.link
-                  navigate={Routes.invite_index_path(Endpoint, :index)}
-                  class="text-primary-600 text-white hover:underline"
-                >
-                  <%= gettext("Invites") %>
-                </.link>
-              </li>
-            <% end %>
+            <li :if={@current_user |> Accounts.is_already_admin?()} class="mx-2 my-1">
+              <.link
+                navigate={Routes.invite_index_path(Endpoint, :index)}
+                class="text-primary-600 text-white hover:underline"
+              >
+                <%= gettext("Invites") %>
+              </.link>
+            </li>
             <li class="mx-2 my-1">
               <.link
                 href={Routes.user_settings_path(Endpoint, :edit)}
@@ -110,7 +108,8 @@ defmodule CanneryWeb.Components.Topbar do
             </li>
             <li
               :if={
-                @current_user.role == :admin and function_exported?(Routes, :live_dashboard_path, 2)
+                @current_user |> Accounts.is_already_admin?() and
+                  function_exported?(Routes, :live_dashboard_path, 2)
               }
               class="mx-2 my-1"
             >

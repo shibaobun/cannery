@@ -184,7 +184,7 @@ msgstr ""
 msgid "Invite Only"
 msgstr ""
 
-#: lib/cannery_web/components/topbar.ex:90
+#: lib/cannery_web/components/topbar.ex:89
 #: lib/cannery_web/live/invite_live/index.ex:42
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 #, elixir-autogen, elixir-format

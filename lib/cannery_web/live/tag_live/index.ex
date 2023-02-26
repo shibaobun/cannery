@@ -6,7 +6,7 @@ defmodule CanneryWeb.TagLive.Index do
   use CanneryWeb, :live_view
   import CanneryWeb.Components.TagCard
   alias Cannery.{Tags, Tags.Tag}
-  alias CanneryWeb.{Endpoint, ViewHelpers}
+  alias CanneryWeb.ViewHelpers
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do

@@ -85,7 +85,7 @@ msgstr "Êtes-vous certain·e de supprimer cette munition ?"
 msgid "Are you sure you want to delete your account?"
 msgstr "Êtes-vous certain·e de supprimer votre compte ?"
 
-#: lib/cannery_web/components/topbar.ex:106
+#: lib/cannery_web/components/topbar.ex:104
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to log out?"
 msgstr "Êtes-vous certain·e de vouloir vous déconnecter ?"

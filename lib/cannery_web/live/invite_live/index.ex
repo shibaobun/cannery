@@ -7,7 +7,7 @@ defmodule CanneryWeb.InviteLive.Index do
   import CanneryWeb.Components.{InviteCard, UserCard}
   alias Cannery.Accounts
   alias Cannery.Accounts.{Invite, Invites}
-  alias CanneryWeb.{Endpoint, HomeLive}
+  alias CanneryWeb.HomeLive
   alias Phoenix.LiveView.JS
 
   @impl true

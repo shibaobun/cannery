@@ -3,5 +3,5 @@ defmodule CanneryWeb.EmailView do
   A view for email-related helper functions
   """
   use CanneryWeb, :view
-  alias CanneryWeb.{Endpoint, HomeLive}
+  alias CanneryWeb.HomeLive
 end
