@@ -1,6 +1,7 @@
 # v0.8.3
 - Improve some styles
 - Improve server log
+- Various minor improvements
 
 # v0.8.2
 - Fix bug with public registration
