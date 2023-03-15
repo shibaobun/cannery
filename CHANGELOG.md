@@ -1,3 +1,6 @@
+# v0.8.4
+- Improve accessibility
+
 # v0.8.3
 - Improve some styles
 - Improve server log

@@ -74,7 +74,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert html =~ ammo_group.ammo_type.name
 
       assert index_live
-             |> form("[data-qa=\"ammo_group_search\"]",
+             |> form(~s/form[phx-change="search"]/,
                search: %{search_term: ammo_group.ammo_type.name}
              )
              |> render_change() =~ ammo_group.ammo_type.name
@@ -85,13 +85,13 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       )
 
       refute index_live
-             |> form("[data-qa=\"ammo_group_search\"]", search: %{search_term: "something_else"})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
              |> render_change() =~ ammo_group.ammo_type.name
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form("[data-qa=\"ammo_group_search\"]", search: %{search_term: ""})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
              |> render_change() =~ ammo_group.ammo_type.name
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :index))
@@ -185,7 +185,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert index_live
-             |> element("[data-qa=\"edit-#{ammo_group.id}\"]")
+             |> element(~s/a[aria-label="Edit ammo group of #{ammo_group.count} bullets"]/)
              |> render_click() =~
                gettext("Edit ammo")
 
@@ -210,7 +210,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       html =
         index_live
-        |> element("[data-qa=\"clone-#{ammo_group.id}\"]")
+        |> element(~s/a[aria-label="Clone ammo group of #{ammo_group.count} bullets"]/)
         |> render_click()
 
       assert html =~ dgettext("actions", "Add Ammo")
@@ -238,7 +238,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       html =
         index_live
-        |> element("[data-qa=\"clone-#{ammo_group.id}\"]")
+        |> element(~s/a[aria-label="Clone ammo group of #{ammo_group.count} bullets"]/)
         |> render_click()
 
       assert html =~ dgettext("actions", "Add Ammo")
@@ -265,7 +265,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert index_live
-             |> element("[data-qa=\"delete-#{ammo_group.id}\"]")
+             |> element(~s/a[aria-label="Delete ammo group of #{ammo_group.count} bullets"]/)
              |> render_click()
 
       refute has_element?(index_live, "#ammo_group-#{ammo_group.id}")
@@ -309,7 +309,10 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
                  ) <>
                  "\n"
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ gettext("$%{amount}", amount: 50.00 |> :erlang.float_to_binary(decimals: 2))
 
@@ -337,7 +340,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.ammo_group_show_path(conn, :show, ammo_group))
 
       assert show_live
-             |> element("[data-qa=\"edit\"]")
+             |> element(~s/a[aria-label="Edit ammo group of #{ammo_group.count} bullets"]/)
              |> render_click() =~
                gettext("Edit Ammo")
 
@@ -386,7 +389,9 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
          %{conn: conn, ammo_group: ammo_group, shot_group: shot_group} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_group_show_path(conn, :edit, ammo_group))
 
-      assert index_live |> element("[data-qa=\"edit-#{shot_group.id}\"]") |> render_click() =~
+      assert index_live
+             |> element(~s/a[aria-label="Edit shot group of #{shot_group.count} shots"]/)
+             |> render_click() =~
                gettext("Edit Shot Records")
 
       assert_patch(
@@ -413,7 +418,10 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       {:ok, index_live, _html} =
         live(conn, Routes.ammo_group_show_path(conn, :edit_shot_group, ammo_group, shot_group))
 
-      assert index_live |> element("[data-qa=\"delete-#{shot_group.id}\"]") |> render_click()
+      assert index_live
+             |> element(~s/a[aria-label="Delete shot record of #{shot_group.count} shots"]/)
+             |> render_click()
+
       refute has_element?(index_live, "#shot_group-#{shot_group.id}")
     end
   end

@@ -16,7 +16,7 @@
     <.link
       patch={Routes.ammo_type_show_path(Endpoint, :edit, @ammo_type)}
       class="text-primary-600 link"
-      data-qa="edit"
+      aria-label={gettext("Edit %{ammo_type_name}", ammo_type_name: @ammo_type.name)}
     >
       <i class="fa-fw fa-lg fas fa-edit"></i>
     </.link>
@@ -32,7 +32,7 @@
           name: @ammo_type.name
         )
       }
-      data-qa="delete"
+      aria-label={gettext("Delete %{ammo_type_name}", ammo_type_name: @ammo_type.name)}
     >
       <i class="fa-fw fa-lg fas fa-trash"></i>
     </.link>

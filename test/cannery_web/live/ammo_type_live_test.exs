@@ -80,7 +80,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ ammo_type.bullet_type
 
       assert index_live
-             |> form("[data-qa=\"ammo_type_search\"]",
+             |> form(~s/form[phx-change="search"]/,
                search: %{search_term: ammo_type.bullet_type}
              )
              |> render_change() =~ ammo_type.bullet_type
@@ -88,13 +88,13 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, ammo_type.bullet_type))
 
       refute index_live
-             |> form("[data-qa=\"ammo_type_search\"]", search: %{search_term: "something_else"})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
              |> render_change() =~ ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form("[data-qa=\"ammo_type_search\"]", search: %{search_term: ""})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
              |> render_change() =~ ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :index))
@@ -127,7 +127,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"edit-#{ammo_type.id}\"]") |> render_click() =~
+      assert index_live |> element(~s/a[aria-label="Edit #{ammo_type.name}"]/) |> render_click() =~
                gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :edit, ammo_type))
@@ -151,7 +151,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      html = index_live |> element("[data-qa=\"clone-#{ammo_type.id}\"]") |> render_click()
+      html = index_live |> element(~s/a[aria-label="Clone #{ammo_type.name}"]/) |> render_click()
       assert html =~ gettext("New Ammo type")
       assert html =~ "some bullet_type"
 
@@ -176,7 +176,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, current_user: current_user, ammo_type: ammo_type} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      html = index_live |> element("[data-qa=\"clone-#{ammo_type.id}\"]") |> render_click()
+      html = index_live |> element(~s/a[aria-label="Clone #{ammo_type.name}"]/) |> render_click()
       assert html =~ gettext("New Ammo type")
       assert html =~ "some bullet_type"
 
@@ -202,7 +202,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     test "deletes ammo_type in listing", %{conn: conn, ammo_type: ammo_type} do
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"delete-#{ammo_type.id}\"]") |> render_click()
+      assert index_live |> element(~s/a[aria-label="Delete #{ammo_type.name}"]/) |> render_click()
       refute has_element?(index_live, "#ammo_type-#{ammo_type.id}")
     end
   end
@@ -220,7 +220,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       refute html =~ gettext("Used packs")
       refute html =~ gettext("Total ever packs")
 
-      html = index_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        index_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ gettext("Used rounds")
       assert html =~ gettext("Total ever rounds")
@@ -234,7 +237,11 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
 
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
-      html = index_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+
+      html =
+        index_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ "15"
       assert html =~ "5"
@@ -258,7 +265,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, current_user: current_user, ammo_type: %{name: name} = ammo_type} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      assert show_live |> element("[data-qa=\"edit\"]") |> render_click() =~
+      assert show_live |> element(~s/a[aria-label="Edit #{ammo_type.name}"]/) |> render_click() =~
                gettext("Edit %{ammo_type_name}", ammo_type_name: name)
 
       assert_patch(show_live, Routes.ammo_type_show_path(conn, :edit, ammo_type))
@@ -298,7 +305,11 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
+        |> render_click()
+
       assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
 
       assert html =~ "some ammo group"
@@ -316,7 +327,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ "some ammo group"
       assert html =~ "Empty"
@@ -327,13 +341,20 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
-      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
+        |> render_click()
+
       assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
 
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ "some ammo group"
       assert html =~ "Empty"

@@ -185,11 +185,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
     assigns = %{ammo_type: ammo_type}
 
     ~H"""
-    <.link
-      navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
-      class="link"
-      data-qa={"view-name-#{@ammo_type.id}"}
-    >
+    <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
       <%= @ammo_type.name %>
     </.link>
     """

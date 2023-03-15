@@ -55,7 +55,6 @@
       <.link
         navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type)}
         class="mx-4 my-2 btn btn-primary"
-        data-qa="details"
       >
         <%= dgettext("actions", "View in Catalog") %>
       </.link>
@@ -63,7 +62,11 @@
       <.link
         patch={Routes.ammo_group_show_path(Endpoint, :edit, @ammo_group)}
         class="mx-4 my-2 text-primary-600 link"
-        data-qa="edit"
+        aria-label={
+          gettext("Edit ammo group of %{ammo_group_count} bullets",
+            ammo_group_count: @ammo_group.count
+          )
+        }
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
       </.link>
@@ -73,7 +76,11 @@
         class="mx-4 my-2 text-primary-600 link"
         phx-click="delete"
         data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
-        data-qa="delete"
+        aria-label={
+          gettext("Delete ammo group of %{ammo_group_count} bullets",
+            ammo_group_count: @ammo_group.count
+          )
+        }
       >
         <i class="fa-fw fa-lg fas fa-trash"></i>
       </.link>
@@ -89,7 +96,6 @@
       <.link
         patch={Routes.ammo_group_show_path(Endpoint, :move, @ammo_group)}
         class="btn btn-primary"
-        data-qa="move"
       >
         <%= dgettext("actions", "Move containers") %>
       </.link>

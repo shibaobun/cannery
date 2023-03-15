@@ -47,7 +47,7 @@ defmodule CanneryWeb.TagLiveTest do
       assert html =~ tag.name
 
       assert index_live
-             |> form("[data-qa=\"tag_search\"]",
+             |> form(~s/form[phx-change="search"]/,
                search: %{search_term: tag.name}
              )
              |> render_change() =~ tag.name
@@ -55,13 +55,13 @@ defmodule CanneryWeb.TagLiveTest do
       assert_patch(index_live, Routes.tag_index_path(conn, :search, tag.name))
 
       refute index_live
-             |> form("[data-qa=\"tag_search\"]", search: %{search_term: "something_else"})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
              |> render_change() =~ tag.name
 
       assert_patch(index_live, Routes.tag_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form("[data-qa=\"tag_search\"]", search: %{search_term: ""})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
              |> render_change() =~ tag.name
 
       assert_patch(index_live, Routes.tag_index_path(conn, :index))
@@ -92,7 +92,7 @@ defmodule CanneryWeb.TagLiveTest do
     test "updates tag in listing", %{conn: conn, tag: tag} do
       {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"edit-#{tag.id}\"]") |> render_click() =~
+      assert index_live |> element(~s/a[aria-label="Edit #{tag.name}"]/) |> render_click() =~
                dgettext("actions", "Edit Tag")
 
       assert_patch(index_live, Routes.tag_index_path(conn, :edit, tag))
@@ -116,7 +116,7 @@ defmodule CanneryWeb.TagLiveTest do
     test "deletes tag in listing", %{conn: conn, tag: tag} do
       {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"delete-#{tag.id}\"]") |> render_click()
+      assert index_live |> element(~s/a[aria-label="Delete #{tag.name}"]/) |> render_click()
       refute has_element?(index_live, "#tag-#{tag.id}")
     end
   end

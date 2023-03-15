@@ -138,15 +138,9 @@ msgstr ""
 msgid "Tag could not be added"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:122
+#: lib/cannery/activity_log/shot_group.ex:126
 #, elixir-autogen, elixir-format
 msgid "Count must be at least 1"
-msgstr ""
-
-#: lib/cannery/activity_log/shot_group.ex:82
-#: lib/cannery/activity_log/shot_group.ex:118
-#, elixir-autogen, elixir-format
-msgid "Count must be less than %{count}"
 msgstr ""
 
 #: lib/cannery_web/controllers/user_auth.ex:39
@@ -188,4 +182,10 @@ msgstr ""
 #: lib/cannery/activity_log/shot_group.ex:77
 #, elixir-autogen, elixir-format
 msgid "Please select a valid user and ammo pack"
+msgstr ""
+
+#: lib/cannery/activity_log/shot_group.ex:83
+#: lib/cannery/activity_log/shot_group.ex:121
+#, elixir-autogen, elixir-format
+msgid "Count must be less than %{count} shots"
 msgstr ""

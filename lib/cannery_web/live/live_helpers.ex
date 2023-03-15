@@ -103,7 +103,7 @@ defmodule CanneryWeb.LiveHelpers do
         value={@value}
         checked={@value}
         class="sr-only peer"
-        data-qa={@id}
+        aria-labelledby={"#{@id}-label"}
         {
           if assigns |> Map.has_key?(:target),
             do: %{"phx-click": @action, "phx-value-value": @value, "phx-target": @target},
@@ -119,7 +119,7 @@ defmodule CanneryWeb.LiveHelpers do
         after:transition-all after:duration-250 after:ease-in-out
         transition-colors duration-250 ease-in-out">
       </div>
-      <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+      <span id={"#{@id}-label"} class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
         <%= render_slot(@inner_block) %>
       </span>
     </label>

@@ -43,7 +43,7 @@ defmodule CanneryWeb.RangeLiveTest do
       assert html =~ shot_group.notes
 
       assert index_live
-             |> form("[data-qa=\"shot_group_search\"]",
+             |> form(~s/form[phx-change="search"]/,
                search: %{search_term: shot_group.notes}
              )
              |> render_change() =~ shot_group.notes
@@ -51,13 +51,13 @@ defmodule CanneryWeb.RangeLiveTest do
       assert_patch(index_live, Routes.range_index_path(conn, :search, shot_group.notes))
 
       refute index_live
-             |> form("[data-qa=\"shot_group_search\"]", search: %{search_term: "something_else"})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
              |> render_change() =~ shot_group.notes
 
       assert_patch(index_live, Routes.range_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form("[data-qa=\"shot_group_search\"]", search: %{search_term: ""})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
              |> render_change() =~ shot_group.notes
 
       assert_patch(index_live, Routes.range_index_path(conn, :index))
@@ -88,7 +88,9 @@ defmodule CanneryWeb.RangeLiveTest do
     test "updates shot_group in listing", %{conn: conn, shot_group: shot_group} do
       {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"edit-#{shot_group.id}\"]") |> render_click() =~
+      assert index_live
+             |> element(~s/a[aria-label="Edit shot record of #{shot_group.count} shots"]/)
+             |> render_click() =~
                gettext("Edit Shot Records")
 
       assert_patch(index_live, Routes.range_index_path(conn, :edit, shot_group))
@@ -110,7 +112,10 @@ defmodule CanneryWeb.RangeLiveTest do
     test "deletes shot_group in listing", %{conn: conn, shot_group: shot_group} do
       {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"delete-#{shot_group.id}\"]") |> render_click()
+      assert index_live
+             |> element(~s/a[aria-label="Delete shot record of #{shot_group.count} shots"]/)
+             |> render_click()
+
       refute has_element?(index_live, "#shot_group-#{shot_group.id}")
     end
   end

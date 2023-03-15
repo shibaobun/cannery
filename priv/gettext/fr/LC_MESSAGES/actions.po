@@ -169,8 +169,8 @@ msgstr "Munition préparée"
 msgid "Why not get some ready to shoot?"
 msgstr "Pourquoi pas en préparer pour tirer ?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:101
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:101
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:100
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:107
 #: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Record shots"
@@ -181,7 +181,7 @@ msgstr "Enregistrer des tirs"
 msgid "Add another container!"
 msgstr "Ajoutez un autre conteneur !"
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:94
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:100
 #, elixir-autogen, elixir-format
 msgid "Move containers"
 msgstr "Déplacer les conteneurs"
@@ -191,7 +191,7 @@ msgstr "Déplacer les conteneurs"
 msgid "Select"
 msgstr "Sélectionner"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:30
+#: lib/cannery_web/live/invite_live/index.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Copy to clipboard"
 msgstr "Copier dans le presse-papier"
@@ -216,7 +216,7 @@ msgstr "Changer la langue"
 msgid "Change language"
 msgstr "Changer la langue"
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:60
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "View in Catalog"
 msgstr "Voir en catalogue"
@@ -231,18 +231,18 @@ msgstr "Ajoutez d'abord un type de munitions"
 msgid "Move ammo"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:78
+#: lib/cannery_web/live/invite_live/index.html.heex:79
 #, elixir-autogen, elixir-format
 msgid "Set Unlimited"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:86
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:93
 #: lib/cannery_web/live/range_live/index.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Stage for range"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:85
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:92
 #: lib/cannery_web/live/range_live/index.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"

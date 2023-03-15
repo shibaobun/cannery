@@ -75,7 +75,10 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "lists all containers in table mode", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      html = index_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      html =
+        index_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
+        |> render_click()
 
       assert html =~ gettext("Containers")
       assert html =~ container.location
@@ -87,7 +90,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ container.location
 
       assert index_live
-             |> form("[data-qa=\"container_search\"]",
+             |> form(~s/form[phx-change="search"]/,
                search: %{search_term: container.location}
              )
              |> render_change() =~ container.location
@@ -95,13 +98,13 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert_patch(index_live, Routes.container_index_path(conn, :search, container.location))
 
       refute index_live
-             |> form("[data-qa=\"container_search\"]", search: %{search_term: "something_else"})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
              |> render_change() =~ container.location
 
       assert_patch(index_live, Routes.container_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form("[data-qa=\"container_search\"]", search: %{search_term: ""})
+             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
              |> render_change() =~ container.location
 
       assert_patch(index_live, Routes.container_index_path(conn, :index))
@@ -136,7 +139,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     } do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"edit-#{container.id}\"]") |> render_click() =~
+      assert index_live |> element(~s/a[aria-label="Edit #{container.name}"]/) |> render_click() =~
                gettext("Edit %{name}", name: container.name)
 
       assert_patch(index_live, Routes.container_index_path(conn, :edit, container))
@@ -163,7 +166,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     } do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      html = index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click()
+      html = index_live |> element(~s/a[aria-label="Clone #{container.name}"]/) |> render_click()
       assert html =~ gettext("New Container")
       assert html =~ "some location"
 
@@ -191,7 +194,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     } do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"clone-#{container.id}\"]") |> render_click() =~
+      assert index_live |> element(~s/a[aria-label="Clone #{container.name}"]/) |> render_click() =~
                gettext("New Container")
 
       assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
@@ -216,7 +219,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "deletes container in listing", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("[data-qa=\"delete-#{container.id}\"]") |> render_click()
+      assert index_live |> element(~s/a[aria-label="Delete #{container.name}"]/) |> render_click()
       refute has_element?(index_live, "#container-#{container.id}")
     end
   end
@@ -241,7 +244,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     } do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      assert show_live |> element("[data-qa=\"edit\"]") |> render_click() =~
+      assert show_live |> element(~s/a[aria-label="Edit #{container.name}"]/) |> render_click() =~
                gettext("Edit %{name}", name: container.name)
 
       assert_patch(show_live, Routes.container_show_path(conn, :edit, container))
@@ -277,7 +280,10 @@ defmodule CanneryWeb.ContainerLiveTest do
          %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
+        |> render_click()
 
       assert html =~ ammo_type_name
       assert html =~ "some ammo group"
@@ -294,7 +300,10 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ ammo_type_name
       assert html =~ "some ammo group"
@@ -305,12 +314,18 @@ defmodule CanneryWeb.ContainerLiveTest do
          %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      html = show_live |> element("[data-qa=\"toggle_table\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
+        |> render_click()
 
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
 
-      html = show_live |> element("[data-qa=\"toggle_show_used\"]") |> render_click()
+      html =
+        show_live
+        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
+        |> render_click()
 
       assert html =~ ammo_type_name
       assert html =~ "some ammo group"

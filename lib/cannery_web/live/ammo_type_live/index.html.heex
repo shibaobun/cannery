@@ -24,7 +24,6 @@
         phx-change="search"
         phx-submit="search"
         class="grow self-stretch flex flex-col items-stretch"
-        data-qa="ammo_type_search"
       >
         <%= text_input(f, :search_term,
           class: "input input-primary",
@@ -60,7 +59,7 @@
             <.link
               navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)}
               class="text-primary-600 link"
-              data-qa={"view-#{ammo_type.id}"}
+              aria-label={gettext("View %{ammo_type_name}", ammo_type_name: ammo_type.name)}
             >
               <i class="fa-fw fa-lg fas fa-eye"></i>
             </.link>
@@ -68,7 +67,7 @@
             <.link
               patch={Routes.ammo_type_index_path(Endpoint, :edit, ammo_type)}
               class="text-primary-600 link"
-              data-qa={"edit-#{ammo_type.id}"}
+              aria-label={gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)}
             >
               <i class="fa-fw fa-lg fas fa-edit"></i>
             </.link>
@@ -76,7 +75,7 @@
             <.link
               patch={Routes.ammo_type_index_path(Endpoint, :clone, ammo_type)}
               class="text-primary-600 link"
-              data-qa={"clone-#{ammo_type.id}"}
+              aria-label={gettext("Clone %{ammo_type_name}", ammo_type_name: ammo_type.name)}
             >
               <i class="fa-fw fa-lg fas fa-copy"></i>
             </.link>
@@ -93,7 +92,7 @@
                   name: ammo_type.name
                 )
               }
-              data-qa={"delete-#{ammo_type.id}"}
+              aria-label={gettext("Delete %{ammo_type_name}", ammo_type_name: ammo_type.name)}
             >
               <i class="fa-lg fas fa-trash"></i>
             </.link>

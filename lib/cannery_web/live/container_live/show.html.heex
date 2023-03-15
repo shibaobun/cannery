@@ -42,7 +42,7 @@
     <.link
       patch={Routes.container_show_path(Endpoint, :edit, @container)}
       class="text-primary-600 link"
-      data-qa="edit"
+      aria-label={gettext("Edit %{container_name}", container_name: @container.name)}
     >
       <i class="fa-fw fa-lg fas fa-edit"></i>
     </.link>
@@ -54,7 +54,7 @@
       data-confirm={
         dgettext("prompts", "Are you sure you want to delete %{name}?", name: @container.name)
       }
-      data-qa="delete"
+      aria-label={gettext("Delete %{container_name}", container_name: @container.name)}
     >
       <i class="fa-fw fa-lg fas fa-trash"></i>
     </.link>

@@ -129,7 +129,9 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
               <.link
                 patch={Routes.ammo_group_show_path(Endpoint, :edit_shot_group, @ammo_group, @shot_group)}
                 class="text-primary-600 link"
-                data-qa={"edit-#{@shot_group.id}"}
+                aria-label={
+                  gettext("Edit shot group of %{shot_group_count} shots", shot_group_count: @shot_group.count)
+                }
               >
                 <i class="fa-fw fa-lg fas fa-edit"></i>
               </.link>
@@ -140,7 +142,11 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
                 phx-click="delete_shot_group"
                 phx-value-id={@shot_group.id}
                 data-confirm={dgettext("prompts", "Are you sure you want to delete this shot record?")}
-                data-qa={"delete-#{@shot_group.id}"}
+                aria-label={
+                  gettext("Delete shot record of %{shot_group_count} shots",
+                    shot_group_count: @shot_group.count
+                  )
+                }
               >
                 <i class="fa-fw fa-lg fas fa-trash"></i>
               </.link>
