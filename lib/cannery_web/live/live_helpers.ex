@@ -3,8 +3,11 @@ defmodule CanneryWeb.LiveHelpers do
   Contains common helper functions for liveviews
   """
 
-  import Phoenix.Component
+  use Phoenix.Component
   alias Phoenix.LiveView.JS
+
+  attr :return_to, :string, required: true
+  slot(:inner_block)
 
   @doc """
   Renders a live component inside a modal.
@@ -78,6 +81,11 @@ defmodule CanneryWeb.LiveHelpers do
     |> JS.hide(to: "#modal-bg", transition: "fade-out")
     |> JS.hide(to: "#modal-content", transition: "fade-out-scale")
   end
+
+  attr :action, :string, required: true
+  attr :value, :boolean, required: true
+  attr :id, :string
+  slot(:inner_block)
 
   @doc """
   A toggle button element that can be directed to a liveview or a
