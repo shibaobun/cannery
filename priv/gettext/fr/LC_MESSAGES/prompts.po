@@ -39,7 +39,7 @@ msgid "%{name} deleted succesfully"
 msgstr "%{name} supprimé· avec succès"
 
 #: lib/cannery_web/live/container_live/index.ex:85
-#: lib/cannery_web/live/container_live/show.ex:63
+#: lib/cannery_web/live/container_live/show.ex:62
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr "%{name} a été supprimé·e"
@@ -177,13 +177,13 @@ msgstr "Tirs enregistré avec succès"
 msgid "Are you sure you want to unstage this ammo?"
 msgstr "Êtes-vous certain·e de vouloir désélectionner cette munition ?"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:144
+#: lib/cannery_web/live/ammo_group_live/show.ex:141
 #: lib/cannery_web/live/range_live/index.html.heex:119
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr "Êtes-vous certain·e de vouloir supprimer cet enregistrement de tir ?"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:83
+#: lib/cannery_web/live/ammo_group_live/show.ex:80
 #: lib/cannery_web/live/range_live/index.ex:80
 #, elixir-autogen, elixir-format
 msgid "Shot records deleted succesfully"
@@ -204,7 +204,7 @@ msgstr "%{email} confirmé avec succès."
 msgid "Ammo moved to %{name} successfully"
 msgstr "Munition déplacée à %{name} avec succès"
 
-#: lib/cannery_web/live/invite_live/index.ex:128
+#: lib/cannery_web/live/invite_live/index.ex:127
 #, elixir-autogen, elixir-format
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papier"
@@ -236,12 +236,12 @@ msgid "Language updated successfully."
 msgstr "Langue mise à jour avec succès."
 
 #: lib/cannery_web/live/ammo_group_live/index.ex:89
-#: lib/cannery_web/live/ammo_group_live/show.ex:55
+#: lib/cannery_web/live/ammo_group_live/show.ex:54
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"
 msgstr "Groupe de munition supprimé avec succès"
 
-#: lib/cannery_web/live/range_live/index.ex:95
+#: lib/cannery_web/live/range_live/index.ex:94
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo unstaged succesfully"
 msgstr "Groupe de munition désélectionner avec succès"
@@ -289,7 +289,7 @@ msgstr "%{name} activé·e avec succès"
 msgid "%{invite_name} updated succesfully"
 msgstr "%{name} mis à jour avec succès"
 
-#: lib/cannery_web/live/invite_live/index.ex:140
+#: lib/cannery_web/live/invite_live/index.ex:138
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{user_email} deleted succesfully"
 msgstr "%{name} supprimé· avec succès"

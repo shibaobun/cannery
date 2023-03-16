@@ -81,7 +81,6 @@ defmodule CanneryWeb.RangeLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
   end
 
-  @impl true
   def handle_event(
         "toggle_staged",
         %{"ammo_group_id" => ammo_group_id},
@@ -96,7 +95,6 @@ defmodule CanneryWeb.RangeLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
   end
 
-  @impl true
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
     {:noreply, socket |> push_patch(to: Routes.range_index_path(Endpoint, :index))}
   end

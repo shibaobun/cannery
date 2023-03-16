@@ -28,7 +28,6 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     {:noreply, socket}
   end
 
-  @impl true
   def handle_params(%{"id" => id}, _url, %{assigns: %{live_action: live_action}} = socket) do
     socket =
       socket
@@ -58,7 +57,6 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
 
-  @impl true
   def handle_event(
         "toggle_staged",
         _params,
@@ -70,7 +68,6 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     {:noreply, socket |> display_ammo_group(ammo_group)}
   end
 
-  @impl true
   def handle_event(
         "delete_shot_group",
         %{"id" => id},

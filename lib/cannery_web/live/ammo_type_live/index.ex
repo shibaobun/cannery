@@ -75,12 +75,10 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> list_ammo_types()}
   end
 
-  @impl true
   def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> list_ammo_types()}
   end
 
-  @impl true
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
     {:noreply, socket |> push_patch(to: Routes.ammo_type_index_path(Endpoint, :index))}
   end

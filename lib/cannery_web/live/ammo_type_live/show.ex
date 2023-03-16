@@ -58,12 +58,10 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
 
-  @impl true
   def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_type()}
   end
 
-  @impl true
   def handle_event(
         "toggle_table",
         _params,

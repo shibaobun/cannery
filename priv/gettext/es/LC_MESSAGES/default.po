@@ -299,7 +299,7 @@ msgstr "Sin etiquetas"
 #: lib/cannery_web/components/ammo_group_table_component.ex:81
 #: lib/cannery_web/components/shot_group_table_component.ex:43
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:50
-#: lib/cannery_web/live/ammo_group_live/show.ex:93
+#: lib/cannery_web/live/ammo_group_live/show.ex:90
 #: lib/cannery_web/live/range_live/form_component.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Notes"
@@ -454,7 +454,7 @@ msgstr "Día de disparar"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:46
 #: lib/cannery_web/components/shot_group_table_component.ex:44
-#: lib/cannery_web/live/ammo_group_live/show.ex:94
+#: lib/cannery_web/live/ammo_group_live/show.ex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Date"
@@ -476,7 +476,7 @@ msgstr "No hay munición preparada"
 msgid "Record shots"
 msgstr "Tiros récord"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:42
+#: lib/cannery_web/live/ammo_group_live/show.ex:41
 #: lib/cannery_web/live/range_live/index.ex:41
 #, elixir-autogen, elixir-format
 msgid "Edit Shot Records"
@@ -500,7 +500,7 @@ msgid "Rounds left"
 msgstr "Balas restantes"
 
 #: lib/cannery_web/components/shot_group_table_component.ex:42
-#: lib/cannery_web/live/ammo_group_live/show.ex:92
+#: lib/cannery_web/live/ammo_group_live/show.ex:89
 #: lib/cannery_web/live/range_live/index.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
@@ -615,13 +615,13 @@ msgid "Reconnecting..."
 msgstr "Reconectando..."
 
 #: lib/cannery_web/live/container_live/index.ex:32
-#: lib/cannery_web/live/container_live/show.ex:113
+#: lib/cannery_web/live/container_live/show.ex:110
 #, elixir-autogen, elixir-format
 msgid "Edit %{name}"
 msgstr "Editar %{name}"
 
 #: lib/cannery_web/live/container_live/index.ex:69
-#: lib/cannery_web/live/container_live/show.ex:114
+#: lib/cannery_web/live/container_live/show.ex:111
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
 msgstr "Editar etiquetas de %{name}"
@@ -695,7 +695,7 @@ msgstr "Registrarse"
 msgid "Reset your password"
 msgstr "Reestablecer contraseña"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:41
+#: lib/cannery_web/live/ammo_group_live/show.ex:40
 #: lib/cannery_web/live/range_live/index.ex:33
 #, elixir-autogen, elixir-format
 msgid "Record Shots"
@@ -760,12 +760,12 @@ msgstr "Ver código fuente"
 msgid "Catalog"
 msgstr "Catálogo"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:45
+#: lib/cannery_web/live/ammo_group_live/show.ex:44
 #, elixir-autogen, elixir-format
 msgid "Edit Ammo"
 msgstr "Editar Munición"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:43
+#: lib/cannery_web/live/ammo_group_live/show.ex:42
 #, elixir-autogen, elixir-format
 msgid "Move Ammo"
 msgstr "Mover Munición"
@@ -775,7 +775,7 @@ msgstr "Mover Munición"
 msgid "No ammo in this container"
 msgstr "No hay munición en este contenedor"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:44
+#: lib/cannery_web/live/ammo_group_live/show.ex:43
 #, elixir-autogen, elixir-format
 msgid "Show Ammo"
 msgstr "Mostrar Munición"
@@ -828,7 +828,7 @@ msgstr "Mostrar usadas"
 msgid "%{percentage}%"
 msgstr "%{percentage}%"
 
-#: lib/cannery_web/live/range_live/index.ex:136
+#: lib/cannery_web/live/range_live/index.ex:134
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot: %{count}"
 msgstr "Balas disparadas: %{count}"
@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:28
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:70
-#: lib/cannery_web/live/ammo_type_live/show.ex:120
+#: lib/cannery_web/live/ammo_type_live/show.ex:118
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Edit %{ammo_type_name}"
@@ -1269,7 +1269,7 @@ msgstr ""
 msgid "Delete invite for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:146
+#: lib/cannery_web/live/ammo_group_live/show.ex:143
 #: lib/cannery_web/live/range_live/index.html.heex:122
 #, elixir-autogen, elixir-format
 msgid "Delete shot record of %{shot_group_count} shots"
@@ -1298,7 +1298,7 @@ msgstr ""
 msgid "Edit invite for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:133
+#: lib/cannery_web/live/ammo_group_live/show.ex:130
 #, elixir-autogen, elixir-format
 msgid "Edit shot group of %{shot_group_count} shots"
 msgstr ""

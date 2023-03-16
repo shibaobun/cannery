@@ -65,7 +65,6 @@ defmodule CanneryWeb.TagLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> display_tags()}
   end
 
-  @impl true
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
     {:noreply, socket |> push_patch(to: Routes.tag_index_path(Endpoint, :index))}
   end

@@ -91,7 +91,6 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_groups()}
   end
 
-  @impl true
   def handle_event(
         "toggle_staged",
         %{"ammo_group_id" => id},
@@ -105,12 +104,10 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket |> display_ammo_groups()}
   end
 
-  @impl true
   def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_groups()}
   end
 
-  @impl true
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
     {:noreply, socket |> push_patch(to: Routes.ammo_group_index_path(Endpoint, :index))}
   end

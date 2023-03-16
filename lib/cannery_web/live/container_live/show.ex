@@ -50,7 +50,6 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket}
   end
 
-  @impl true
   def handle_event(
         "delete_container",
         _params,
@@ -84,12 +83,10 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket}
   end
 
-  @impl true
   def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
     {:noreply, socket |> assign(:show_used, !show_used) |> render_container()}
   end
 
-  @impl true
   def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
     {:noreply, socket |> assign(:view_table, !view_table) |> render_container()}
   end

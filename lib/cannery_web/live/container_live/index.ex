@@ -106,12 +106,10 @@ defmodule CanneryWeb.ContainerLive.Index do
     {:noreply, socket}
   end
 
-  @impl true
   def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
     {:noreply, socket |> assign(:view_table, !view_table) |> display_containers()}
   end
 
-  @impl true
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
     {:noreply, socket |> push_patch(to: Routes.container_index_path(Endpoint, :index))}
   end
