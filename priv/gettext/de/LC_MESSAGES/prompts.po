@@ -151,7 +151,7 @@ msgstr ""
 "Sind Sie sicher, dass sie %{tag_name} Tag von %{container_name} entfernen "
 "wollen?"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:36
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "%{name} added successfully"
 msgstr "%{name} erfolgreich hinzugefügt"
@@ -208,7 +208,7 @@ msgstr "Munition erfolgreich zu %{name} verschoben"
 msgid "Copied to clipboard"
 msgstr "Der Zwischenablage hinzugefügt"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:58
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:77
 #, elixir-autogen, elixir-format
 msgid "%{name} removed successfully"
 msgstr "%{name} erfolgreich entfernt"

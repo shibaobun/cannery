@@ -148,7 +148,7 @@ msgstr "doit contenir le symbole @ et aucune espace"
 msgid "Tag not found"
 msgstr "Tag pas trouvé"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:45
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
 msgstr "Le tag n’a pas pu être ajouté"
@@ -166,7 +166,7 @@ msgstr ""
 "Vous devez d’abord confirmer votre compte et vous connecter pour accéder à "
 "cette page."
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:72
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
 msgstr "Le tag n’a pas pu être retiré"

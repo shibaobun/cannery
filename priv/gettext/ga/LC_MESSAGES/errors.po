@@ -149,7 +149,7 @@ msgstr ""
 msgid "Tag not found"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:45
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
 msgstr ""
@@ -165,7 +165,7 @@ msgstr ""
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:72
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
 msgstr ""

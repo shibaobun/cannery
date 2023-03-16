@@ -4,25 +4,40 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Containers, Containers.Container, Repo, Tags, Tags.Tag}
+  alias Cannery.{Accounts.User, Containers, Containers.Container, Tags, Tags.Tag}
   alias Phoenix.LiveView.Socket
 
   @impl true
   @spec update(
-          %{:container => Container.t(), :current_user => User.t(), optional(any) => any},
+          %{
+            :container => Container.t(),
+            :current_path => String.t(),
+            :current_user => User.t(),
+            optional(any) => any
+          },
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{container: container, current_user: current_user} = assigns, socket) do
+  def update(
+        %{container: _container, current_path: _current_path, current_user: current_user} =
+          assigns,
+        socket
+      ) do
     tags = Tags.list_tags(current_user)
-    container = container |> Repo.preload(:tags)
-    {:ok, socket |> assign(assigns) |> assign(tags: tags, container: container)}
+    {:ok, socket |> assign(assigns) |> assign(:tags, tags)}
   end
 
   @impl true
   def handle_event(
         "save",
         %{"tag" => %{"tag_id" => tag_id}},
-        %{assigns: %{tags: tags, container: container, current_user: current_user}} = socket
+        %{
+          assigns: %{
+            tags: tags,
+            container: container,
+            current_user: current_user,
+            current_path: current_path
+          }
+        } = socket
       ) do
     socket =
       case tags |> Enum.find(fn %{id: id} -> tag_id == id end) do
@@ -32,19 +47,24 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
 
         %{name: tag_name} = tag ->
           _container_tag = Containers.add_tag!(container, tag, current_user)
-          container = container |> Repo.preload(:tags, force: true)
           prompt = dgettext("prompts", "%{name} added successfully", name: tag_name)
-          socket |> put_flash(:info, prompt) |> assign(container: container)
+          socket |> put_flash(:info, prompt) |> push_patch(to: current_path)
       end
 
     {:noreply, socket}
   end
 
-  @impl true
   def handle_event(
         "delete",
         %{"tag-id" => tag_id},
-        %{assigns: %{tags: tags, container: container, current_user: current_user}} = socket
+        %{
+          assigns: %{
+            tags: tags,
+            container: container,
+            current_user: current_user,
+            current_path: current_path
+          }
+        } = socket
       ) do
     socket =
       case tags |> Enum.find(fn %{id: id} -> tag_id == id end) do
@@ -54,9 +74,8 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
 
         %{name: tag_name} = tag ->
           _container_tag = Containers.remove_tag!(container, tag, current_user)
-          container = container |> Repo.preload(:tags, force: true)
           prompt = dgettext("prompts", "%{name} removed successfully", name: tag_name)
-          socket |> put_flash(:info, prompt) |> assign(container: container)
+          socket |> put_flash(:info, prompt) |> push_patch(to: current_path)
       end
 
     {:noreply, socket}

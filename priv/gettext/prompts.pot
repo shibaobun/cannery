@@ -130,7 +130,7 @@ msgstr ""
 msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name}?"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:36
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "%{name} added successfully"
 msgstr ""
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Copied to clipboard"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:58
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:77
 #, elixir-autogen, elixir-format
 msgid "%{name} removed successfully"
 msgstr ""

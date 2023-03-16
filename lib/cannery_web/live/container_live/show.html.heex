@@ -161,6 +161,7 @@
     action={@live_action}
     container={@container}
     return_to={Routes.container_show_path(Endpoint, :show, @container)}
+    current_path={Routes.container_show_path(Endpoint, :edit_tags, @container)}
     current_user={@current_user}
   />
 </.modal>

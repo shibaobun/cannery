@@ -150,7 +150,7 @@ msgid "Are you sure you want to remove the %{tag_name} tag from %{container_name
 msgstr ""
 "Está seguro que desea remover la etiqueta %{tag_name} de %{container_name}?"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:36
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "%{name} added successfully"
 msgstr "%{name} añadido exitosamente"
@@ -207,7 +207,7 @@ msgstr "Munición movida a %{name} exitosamente"
 msgid "Copied to clipboard"
 msgstr "Copiado al portapapeles"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:58
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:77
 #, elixir-autogen, elixir-format
 msgid "%{name} removed successfully"
 msgstr "%{name} eliminado exitosamente"

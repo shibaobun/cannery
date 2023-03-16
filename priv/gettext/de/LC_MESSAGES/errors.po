@@ -147,7 +147,7 @@ msgstr "Muss ein @ Zeichen und keine Leerzeichen haben"
 msgid "Tag not found"
 msgstr "Tag nicht gefunden"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:45
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
 msgstr "Tag konnte nicht hinzugefügt werden"
@@ -165,7 +165,7 @@ msgstr ""
 "Sie müssen ihr Nutzerkonto bestätigen und einloggen, um diese Seite "
 "anzuzeigen."
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:72
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
 msgstr "Tag konnte nicht gelöscht werden"

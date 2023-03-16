@@ -149,7 +149,7 @@ msgstr "debe tener el signo @ y no contener espacios"
 msgid "Tag not found"
 msgstr "Etiqueta no encontrada"
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:30
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:45
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
 msgstr "No se ha podido añadir la etiqueta"
@@ -165,7 +165,7 @@ msgstr "El recuento debe dar al menos 1"
 msgid "You must confirm your account and log in to access this page."
 msgstr "Debe confirmar su cuenta e iniciar sesión para acceder a esta página."
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:52
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:72
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
 msgstr "La etiqueta no pudo ser eliminada"
