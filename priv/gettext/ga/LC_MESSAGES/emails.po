@@ -3,14 +3,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-06 23:51+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-03-18 00:52+0000\n"
+"Last-Translator: pehoulihan <pehoulihan@gmail.com>\n"
+"Language-Team: Irish <https://weblate.bubbletea.dev/projects/cannery/emails/"
+"ga/>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.7.3\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 4.16.2\n"
 
 #: lib/cannery_web/templates/email/confirm_email.html.heex:3
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:2
@@ -20,36 +23,42 @@ msgstr ""
 #: lib/cannery_web/templates/email/update_email.txt.eex:2
 #, elixir-autogen, elixir-format
 msgid "Hi %{email},"
-msgstr ""
+msgstr "Fáilte %{email},"
 
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:10
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{url}, please ignore this."
 msgstr ""
+"Murar chruthaigh sibh cuntas ag %{url}, déan neamhaird de seo le bhur dtoil."
 
 #: lib/cannery_web/templates/email/reset_password.txt.eex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:8
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{url}, please ignore this."
 msgstr ""
+"Murar iarr tú an t-athrú seo ó %{url}, déan neamhaird de seo le do thoil."
 
 #: lib/cannery_web/templates/email/update_email.html.heex:8
 #: lib/cannery_web/templates/email/update_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can change your email by visiting the URL below:"
 msgstr ""
+"Is féidir leat do ríomhphost a athrú ach cuairt a thabhairt ar an URL thíos:"
 
 #: lib/cannery_web/templates/email/confirm_email.html.heex:14
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:6
 #, elixir-autogen, elixir-format
 msgid "You can confirm your account by visiting the URL below:"
 msgstr ""
+"Is féidir leat do chuntas a dhearbhú ach cuairt a thabhairt ar an URL thíos:"
 
 #: lib/cannery_web/templates/email/reset_password.html.heex:8
 #: lib/cannery_web/templates/email/reset_password.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can reset your password by visiting the URL below:"
 msgstr ""
+"Is féidir leat do phasfhocal a athshocrú ach cuairt a thabhairt ar an URL "
+"thíos:"
 
 ## This file is a PO Template file.
 ##
@@ -61,43 +70,47 @@ msgstr ""
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
 #: lib/cannery/accounts/email.ex:30
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Confirm your Cannery account"
-msgstr ""
+msgstr "Deimhnigh do chuntas Cannery"
 
 #: lib/cannery_web/templates/email/confirm_email.html.heex:22
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "If you didn't create an account at Cannery, please ignore this."
-msgstr ""
+msgstr "Murar chruthaigh tú cuntas ag Cannery, déan neamhaird de seo."
 
 #: lib/cannery_web/templates/email/reset_password.html.heex:16
 #: lib/cannery_web/templates/email/update_email.html.heex:16
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "If you didn't request this change from Cannery, please ignore this."
-msgstr ""
+msgstr "Murar iarr tú an t-athrú seo ó Cannery, déan neamhaird de."
 
 #: lib/cannery/accounts/email.ex:37
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Reset your Cannery password"
-msgstr ""
+msgstr "Athshocraigh do phasfhocal Cannery"
 
 #: lib/cannery_web/templates/layout/email.txt.eex:9
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "This email was sent from Cannery at %{url}, the self-hosted firearm tracker website."
 msgstr ""
+"Seoladh an ríomhphost seo ó Cannery ag %{url}, an suíomh Gréasáin féin-"
+"óstáilte rianaithe airm tine."
 
 #: lib/cannery_web/templates/layout/email.html.heex:13
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "This email was sent from Cannery, the self-hosted firearm tracker website."
 msgstr ""
+"Tá an ríomhphost seo ó Cannery, an suíomh Gréasáin féin-óstáilte rianaithe "
+"airm tine."
 
 #: lib/cannery/accounts/email.ex:44
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Update your Cannery email"
-msgstr ""
+msgstr "Nuashonraigh do ríomhphost Cannery"
 
 #: lib/cannery_web/templates/email/confirm_email.html.heex:9
 #: lib/cannery_web/templates/email/confirm_email.txt.eex:4
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Welcome to Cannery"
-msgstr ""
+msgstr "Fáilte go Cannery"
