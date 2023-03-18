@@ -1,5 +1,6 @@
 # v0.8.4
 - Improve accessibility
+- Code quality improvements
 
 # v0.8.3
 - Improve some styles

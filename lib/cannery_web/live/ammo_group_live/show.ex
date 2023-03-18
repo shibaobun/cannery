@@ -4,7 +4,6 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.ContainerCard
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.AmmoGroup, Repo}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket

@@ -4,7 +4,6 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
   """
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Containers, Containers.Container, Repo}
-  alias CanneryWeb.Components.TagCard
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -135,7 +134,7 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
     {container.tags |> Enum.map(fn %{name: name} -> name end),
      ~H"""
      <div class="flex flex-wrap justify-center items-center">
-       <TagCard.simple_tag_card :for={tag <- @container.tags} :if={@container.tags} tag={tag} />
+       <.simple_tag_card :for={tag <- @container.tags} :if={@container.tags} tag={tag} />
 
        <%= render_slot(@tag_actions, @container) %>
      </div>

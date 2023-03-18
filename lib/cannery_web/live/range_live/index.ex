@@ -4,7 +4,6 @@ defmodule CanneryWeb.RangeLive.Index do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.AmmoGroupCard
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo, Repo}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket

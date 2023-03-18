@@ -4,7 +4,6 @@ defmodule CanneryWeb.InviteLive.Index do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.{InviteCard, UserCard}
   alias Cannery.Accounts
   alias Cannery.Accounts.{Invite, Invites}
   alias CanneryWeb.HomeLive

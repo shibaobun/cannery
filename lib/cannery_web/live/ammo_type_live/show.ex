@@ -4,7 +4,6 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.AmmoGroupCard
   alias Cannery.{Ammo, Ammo.AmmoType}
   alias CanneryWeb.Endpoint
 

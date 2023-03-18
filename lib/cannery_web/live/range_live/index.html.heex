@@ -70,7 +70,8 @@
     <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
       <.form
         :let={f}
-        for={:search}
+        for={%{}}
+        as={:search}
         phx-change="search"
         phx-submit="search"
         class="grow self-stretch flex flex-col items-stretch"

@@ -4,7 +4,6 @@ defmodule CanneryWeb.ContainerLive.Show do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.{AmmoGroupCard, TagCard}
   alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container, Repo, Tags}
   alias CanneryWeb.Endpoint
   alias Ecto.Changeset

@@ -44,8 +44,7 @@ defmodule CanneryWeb do
 
   def live_view do
     quote do
-      use Phoenix.LiveView,
-        layout: {CanneryWeb.LayoutView, "live.html"}
+      use Phoenix.LiveView, layout: {CanneryWeb.LayoutView, :live}
 
       on_mount CanneryWeb.InitAssigns
       unquote(view_helpers())
@@ -94,7 +93,7 @@ defmodule CanneryWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       # Import basic rendering functionality (render, render_layout, etc)
-      import CanneryWeb.{ErrorHelpers, Gettext, LiveHelpers, ViewHelpers}
+      import CanneryWeb.{ErrorHelpers, Gettext, CoreComponents, ViewHelpers}
       import Phoenix.{Component, View}
 
       alias CanneryWeb.Endpoint

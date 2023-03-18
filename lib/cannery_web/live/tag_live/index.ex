@@ -4,7 +4,6 @@ defmodule CanneryWeb.TagLive.Index do
   """
 
   use CanneryWeb, :live_view
-  import CanneryWeb.Components.TagCard
   alias Cannery.{Tags, Tags.Tag}
   alias CanneryWeb.ViewHelpers
 
