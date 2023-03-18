@@ -48,7 +48,7 @@
         <.link
           patch={Routes.tag_index_path(Endpoint, :edit, tag)}
           class="text-primary-600 link"
-          aria-label={gettext("Edit %{tag_name}", tag_name: tag.name)}
+          aria-label={dgettext("actions", "Edit %{tag_name}", tag_name: tag.name)}
         >
           <i class="fa-fw fa-lg fas fa-edit"></i>
         </.link>
@@ -61,7 +61,7 @@
           data-confirm={
             dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
           }
-          aria-label={gettext("Delete %{tag_name}", tag_name: tag.name)}
+          aria-label={dgettext("actions", "Delete %{tag_name}", tag_name: tag.name)}
         >
           <i class="fa-fw fa-lg fas fa-trash"></i>
         </.link>

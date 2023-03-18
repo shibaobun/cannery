@@ -59,7 +59,9 @@
             <.link
               navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)}
               class="text-primary-600 link"
-              aria-label={gettext("View %{ammo_type_name}", ammo_type_name: ammo_type.name)}
+              aria-label={
+                dgettext("actions", "View %{ammo_type_name}", ammo_type_name: ammo_type.name)
+              }
             >
               <i class="fa-fw fa-lg fas fa-eye"></i>
             </.link>
@@ -67,7 +69,9 @@
             <.link
               patch={Routes.ammo_type_index_path(Endpoint, :edit, ammo_type)}
               class="text-primary-600 link"
-              aria-label={gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)}
+              aria-label={
+                dgettext("actions", "Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)
+              }
             >
               <i class="fa-fw fa-lg fas fa-edit"></i>
             </.link>
@@ -75,7 +79,9 @@
             <.link
               patch={Routes.ammo_type_index_path(Endpoint, :clone, ammo_type)}
               class="text-primary-600 link"
-              aria-label={gettext("Clone %{ammo_type_name}", ammo_type_name: ammo_type.name)}
+              aria-label={
+                dgettext("actions", "Clone %{ammo_type_name}", ammo_type_name: ammo_type.name)
+              }
             >
               <i class="fa-fw fa-lg fas fa-copy"></i>
             </.link>
@@ -92,7 +98,9 @@
                   name: ammo_type.name
                 )
               }
-              aria-label={gettext("Delete %{ammo_type_name}", ammo_type_name: ammo_type.name)}
+              aria-label={
+                dgettext("actions", "Delete %{ammo_type_name}", ammo_type_name: ammo_type.name)
+              }
             >
               <i class="fa-lg fas fa-trash"></i>
             </.link>

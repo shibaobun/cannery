@@ -63,7 +63,7 @@
         patch={Routes.ammo_group_show_path(Endpoint, :edit, @ammo_group)}
         class="mx-4 my-2 text-primary-600 link"
         aria-label={
-          gettext("Edit ammo group of %{ammo_group_count} bullets",
+          dgettext("actions", "Edit ammo group of %{ammo_group_count} bullets",
             ammo_group_count: @ammo_group.count
           )
         }

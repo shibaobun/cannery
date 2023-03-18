@@ -26,7 +26,9 @@
             type="submit"
             class="mx-2 my-1 btn btn-primary"
             phx-click={JS.dispatch("cannery:clipcopy", to: "#code-#{invite.id}")}
-            aria-label={gettext("Copy invite link for %{invite_name}", invite_name: invite.name)}
+            aria-label={
+              dgettext("actions", "Copy invite link for %{invite_name}", invite_name: invite.name)
+            }
           >
             <%= dgettext("actions", "Copy to clipboard") %>
           </button>
@@ -35,7 +37,9 @@
       <.link
         patch={Routes.invite_index_path(Endpoint, :edit, invite)}
         class="text-primary-600 link"
-        aria-label={gettext("Edit invite for %{invite_name}", invite_name: invite.name)}
+        aria-label={
+          dgettext("actions", "Edit invite for %{invite_name}", invite_name: invite.name)
+        }
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
       </.link>
@@ -50,7 +54,9 @@
             invite_name: invite.name
           )
         }
-        aria-label={gettext("Delete invite for %{invite_name}", invite_name: invite.name)}
+        aria-label={
+          dgettext("actions", "Delete invite for %{invite_name}", invite_name: invite.name)
+        }
       >
         <i class="fa-fw fa-lg fas fa-trash"></i>
       </.link>

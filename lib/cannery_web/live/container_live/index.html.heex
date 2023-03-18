@@ -60,7 +60,9 @@
             <.link
               patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
               class="text-primary-600 link"
-              aria-label={gettext("Tag %{container_name}", container_name: container.name)}
+              aria-label={
+                dgettext("actions", "Tag %{container_name}", container_name: container.name)
+              }
             >
               <i class="fa-fw fa-lg fas fa-tags"></i>
             </.link>
@@ -70,7 +72,9 @@
           <.link
             patch={Routes.container_index_path(Endpoint, :edit, container)}
             class="text-primary-600 link"
-            aria-label={gettext("Edit %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Edit %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-edit"></i>
           </.link>
@@ -78,7 +82,9 @@
           <.link
             patch={Routes.container_index_path(Endpoint, :clone, container)}
             class="text-primary-600 link"
-            aria-label={gettext("Clone %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Clone %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-copy"></i>
           </.link>
@@ -91,7 +97,9 @@
             data-confirm={
               dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
             }
-            aria-label={gettext("Delete %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Delete %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-trash"></i>
           </.link>
@@ -105,7 +113,9 @@
               <.link
                 patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
                 class="text-primary-600 link"
-                aria-label={gettext("Tag %{container_name}", container_name: container.name)}
+                aria-label={
+                  dgettext("actions", "Tag %{container_name}", container_name: container.name)
+                }
               >
                 <i class="fa-fw fa-lg fas fa-tags"></i>
               </.link>
@@ -114,7 +124,9 @@
           <.link
             patch={Routes.container_index_path(Endpoint, :edit, container)}
             class="text-primary-600 link"
-            aria-label={gettext("Edit %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Edit %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-edit"></i>
           </.link>
@@ -122,7 +134,9 @@
           <.link
             patch={Routes.container_index_path(Endpoint, :clone, container)}
             class="text-primary-600 link"
-            aria-label={gettext("Clone %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Clone %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-copy"></i>
           </.link>
@@ -135,7 +149,9 @@
             data-confirm={
               dgettext("prompts", "Are you sure you want to delete %{name}?", name: container.name)
             }
-            aria-label={gettext("Delete %{container_name}", container_name: container.name)}
+            aria-label={
+              dgettext("actions", "Delete %{container_name}", container_name: container.name)
+            }
           >
             <i class="fa-fw fa-lg fas fa-trash"></i>
           </.link>

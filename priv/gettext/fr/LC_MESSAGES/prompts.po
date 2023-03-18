@@ -59,22 +59,22 @@ msgstr ""
 "Un lien pour confirmer votre changement de mél a été envoyé à la nouvelle "
 "adresse."
 
-#: lib/cannery_web/live/invite_live/index.html.heex:99
-#: lib/cannery_web/live/invite_live/index.html.heex:127
+#: lib/cannery_web/live/invite_live/index.html.heex:105
+#: lib/cannery_web/live/invite_live/index.html.heex:133
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{email}? This action is permanent!"
 msgstr ""
 "Êtes-vous certain·e de supprimer %{email} ? Cette action est définitive !"
 
-#: lib/cannery_web/live/container_live/index.html.heex:92
-#: lib/cannery_web/live/container_live/index.html.heex:136
+#: lib/cannery_web/live/container_live/index.html.heex:98
+#: lib/cannery_web/live/container_live/index.html.heex:150
 #: lib/cannery_web/live/container_live/show.html.heex:55
 #: lib/cannery_web/live/tag_live/index.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Êtes-vous certain·e de supprimer %{name} ?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:164
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:166
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:78
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -177,7 +177,7 @@ msgstr "Tirs enregistré avec succès"
 msgid "Are you sure you want to unstage this ammo?"
 msgstr "Êtes-vous certain·e de vouloir désélectionner cette munition ?"
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:141
+#: lib/cannery_web/live/ammo_group_live/show.ex:143
 #: lib/cannery_web/live/range_live/index.html.heex:119
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
@@ -258,7 +258,7 @@ msgid_plural "Ammo added successfully"
 msgstr[0] "Groupe de munition mis à jour avec succès"
 msgstr[1] "Groupe de munition mis à jour avec succès"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:89
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:95
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:29
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
@@ -294,12 +294,12 @@ msgstr "%{name} mis à jour avec succès"
 msgid "%{user_email} deleted succesfully"
 msgstr "%{name} supprimé· avec succès"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:49
+#: lib/cannery_web/live/invite_live/index.html.heex:53
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to delete the invite for %{invite_name}?"
 msgstr "Êtes-vous certain·e de supprimer l’invitation pour %{name} ?"
 
-#: lib/cannery_web/live/invite_live/index.html.heex:74
+#: lib/cannery_web/live/invite_live/index.html.heex:80
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to make %{invite_name} unlimited?"
 msgstr "Êtes-vous certain·e de vouloir rendre %{name} illimité ?"

@@ -90,7 +90,9 @@
             phx-click="toggle_staged"
             phx-value-ammo_group_id={ammo_group.id}
           >
-            <%= if ammo_group.staged, do: gettext("Unstage"), else: gettext("Stage") %>
+            <%= if ammo_group.staged,
+              do: dgettext("actions", "Unstage"),
+              else: dgettext("actions", "Stage") %>
           </button>
 
           <.link
