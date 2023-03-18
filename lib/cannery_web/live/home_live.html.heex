@@ -66,9 +66,13 @@
           </.link>
         <% else %>
           <div class="flex flex-wrap justify-center space-x-2">
-            <a :for={%{email: email} <- @admins} class="hover:underline" href={"mailto:#{email}"}>
+            <.link
+              :for={%{email: email} <- @admins}
+              class="hover:underline"
+              href={"mailto:#{email}"}
+            >
               <%= email %>
-            </a>
+            </.link>
           </div>
         <% end %>
       </p>

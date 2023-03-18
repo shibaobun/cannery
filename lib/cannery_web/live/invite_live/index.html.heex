@@ -61,16 +61,16 @@
         <i class="fa-fw fa-lg fas fa-trash"></i>
       </.link>
 
-      <a
+      <.link
         href="#"
         class="btn btn-primary"
         phx-click={if invite.disabled_at, do: "enable_invite", else: "disable_invite"}
         phx-value-id={invite.id}
       >
         <%= if invite.disabled_at, do: gettext("Enable"), else: gettext("Disable") %>
-      </a>
+      </.link>
 
-      <a
+      <.link
         :if={invite.disabled_at |> is_nil() and not (invite.uses_left |> is_nil())}
         href="#"
         class="btn btn-primary"
@@ -83,7 +83,7 @@
         }
       >
         <%= dgettext("actions", "Set Unlimited") %>
-      </a>
+      </.link>
     </.invite_card>
   </div>
 

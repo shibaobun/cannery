@@ -29,12 +29,12 @@
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
-    <a
-      href="https://en.wikipedia.org/wiki/Bullet#Abbreviations"
+    <.link
+      href="https://shootersreference.com/reloadingdata/bullet_abbreviations/"
       class="col-span-3 text-center link title text-md text-primary-600"
     >
       <%= gettext("Example bullet type abbreviations") %>
-    </a>
+    </.link>
     <%= label(f, :bullet_type, gettext("Bullet type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :bullet_type,
       class: "text-center col-span-2 input input-primary",

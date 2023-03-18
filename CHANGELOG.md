@@ -1,6 +1,7 @@
 # v0.8.4
 - Improve accessibility
 - Code quality improvements
+- Fix dead link of example bullet abbreviations
 
 # v0.8.3
 - Improve some styles
