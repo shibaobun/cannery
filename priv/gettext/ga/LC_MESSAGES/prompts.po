@@ -246,6 +246,9 @@ msgid "Ammo added successfully"
 msgid_plural "Ammo added successfully"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
 
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:95
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:29
