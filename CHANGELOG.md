@@ -2,6 +2,7 @@
 - Improve accessibility
 - Code quality improvements
 - Fix dead link of example bullet abbreviations
+- Fix inaccurate error message when updating shot records
 
 # v0.8.3
 - Improve some styles

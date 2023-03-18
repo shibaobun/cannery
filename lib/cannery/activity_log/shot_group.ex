@@ -115,18 +115,13 @@ defmodule Cannery.ActivityLog.ShotGroup do
     new_shot_group_count = changeset |> Changeset.get_field(:count)
     shot_diff_to_add = new_shot_group_count - count
 
-    cond do
-      shot_diff_to_add > ammo_group_count ->
-        error =
-          dgettext("errors", "Count must be less than %{count} shots", count: ammo_group_count)
+    if shot_diff_to_add > ammo_group_count do
+      error =
+        dgettext("errors", "Count can be at most %{count} shots", count: ammo_group_count + count)
 
-        changeset |> Changeset.add_error(:count, error)
-
-      new_shot_group_count <= 0 ->
-        changeset |> Changeset.add_error(:count, dgettext("errors", "Count must be at least 1"))
-
-      true ->
-        changeset
+      changeset |> Changeset.add_error(:count, error)
+    else
+      changeset
     end
   end
 end
