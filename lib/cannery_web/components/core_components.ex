@@ -6,7 +6,7 @@ defmodule CanneryWeb.CoreComponents do
   import CanneryWeb.{Gettext, ViewHelpers}
   alias Cannery.{Accounts, Accounts.Invite, Accounts.User}
   alias Cannery.{Ammo, Ammo.AmmoGroup}
-  alias Cannery.{Containers, Containers.Container, Containers.Tag}
+  alias Cannery.{Containers.Container, Containers.Tag}
   alias CanneryWeb.{Endpoint, HomeLive}
   alias CanneryWeb.Router.Helpers, as: Routes
   alias Phoenix.LiveView.{JS, Rendered}
@@ -91,7 +91,7 @@ defmodule CanneryWeb.CoreComponents do
   attr :original_count, :integer, default: nil
   attr :cpr, :integer, default: nil
   attr :last_used_date, Date, default: nil
-  attr :show_container, :boolean, default: false
+  attr :container, Container, default: nil
   slot(:inner_block)
 
   def ammo_group_card(assigns)

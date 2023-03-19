@@ -32,18 +32,17 @@ defmodule CanneryWeb.ExportController do
     used_counts = ammo_groups |> ActivityLog.get_used_counts(current_user)
     original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
     cprs = ammo_groups |> Ammo.get_cprs(current_user)
+    percentages_remaining = ammo_groups |> Ammo.get_percentages_remaining(current_user)
 
     ammo_groups =
       ammo_groups
       |> Enum.map(fn %{id: ammo_group_id} = ammo_group ->
-        percentage_remaining = ammo_group |> Ammo.get_percentage_remaining(current_user)
-
         ammo_group
         |> Jason.encode!()
         |> Jason.decode!()
         |> Map.merge(%{
           "used_count" => Map.get(used_counts, ammo_group_id),
-          "percentage_remaining" => percentage_remaining,
+          "percentage_remaining" => Map.fetch!(percentages_remaining, ammo_group_id),
           "original_count" => Map.get(original_counts, ammo_group_id),
           "cpr" => Map.get(cprs, ammo_group_id)
         })

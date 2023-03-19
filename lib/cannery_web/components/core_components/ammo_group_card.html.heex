@@ -50,17 +50,11 @@
       <%= gettext("$%{amount}", amount: display_currency(@cpr)) %>
     </span>
 
-    <span
-      :if={@show_container && Containers.get_container!(@ammo_group.container_id, @current_user)}
-      class="rounded-lg title text-lg"
-    >
+    <span :if={@container} class="rounded-lg title text-lg">
       <%= gettext("Container:") %>
 
-      <.link
-        navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container_id)}
-        class="link"
-      >
-        <%= Containers.get_container!(@ammo_group.container_id, @current_user).name %>
+      <.link navigate={Routes.container_show_path(Endpoint, :show, @container)} class="link">
+        <%= @container.name %>
       </.link>
     </span>
   </div>

@@ -519,8 +519,8 @@ msgstr ""
 msgid "Shot log"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:173
-#: lib/cannery_web/components/ammo_group_table_component.ex:251
+#: lib/cannery_web/components/ammo_group_table_component.ex:180
+#: lib/cannery_web/components/ammo_group_table_component.ex:263
 #: lib/cannery_web/components/ammo_type_table_component.ex:235
 #: lib/cannery_web/components/core_components/ammo_group_card.html.heex:45
 #: lib/cannery_web/components/core_components/ammo_group_card.html.heex:50
@@ -614,8 +614,8 @@ msgstr ""
 msgid "Rounds:"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:170
-#: lib/cannery_web/components/ammo_group_table_component.ex:247
+#: lib/cannery_web/components/ammo_group_table_component.ex:177
+#: lib/cannery_web/components/ammo_group_table_component.ex:259
 #: lib/cannery_web/components/ammo_type_table_component.ex:234
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:139
 #, elixir-autogen, elixir-format
@@ -790,7 +790,7 @@ msgstr ""
 msgid "Leave \"Uses left\" blank to make invite unlimited"
 msgstr ""
 
-#: lib/cannery_web/components/core_components/ammo_group_card.html.heex:57
+#: lib/cannery_web/components/core_components/ammo_group_card.html.heex:54
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Container:"
 msgstr ""
@@ -803,7 +803,7 @@ msgstr ""
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:207
+#: lib/cannery_web/components/ammo_group_table_component.ex:218
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
@@ -990,7 +990,7 @@ msgstr ""
 msgid "Edit %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:255
+#: lib/cannery_web/components/ammo_group_table_component.ex:267
 #: lib/cannery_web/components/core_components/ammo_group_card.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Empty"
@@ -1036,7 +1036,7 @@ msgstr ""
 msgid "Last used on:"
 msgstr ""
 
-#: lib/cannery_web/components/ammo_group_table_component.ex:191
+#: lib/cannery_web/components/ammo_group_table_component.ex:198
 #, elixir-autogen, elixir-format
 msgid "Never used"
 msgstr ""

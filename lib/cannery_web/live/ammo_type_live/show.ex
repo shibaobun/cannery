@@ -4,7 +4,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{ActivityLog, Ammo, Ammo.AmmoType}
+  alias Cannery.{ActivityLog, Ammo, Ammo.AmmoType, Containers}
   alias CanneryWeb.Endpoint
 
   @fields_list [
@@ -104,11 +104,17 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
         :edit -> gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type_name)
       end
 
+    containers =
+      ammo_groups
+      |> Enum.map(fn %{container_id: container_id} -> container_id end)
+      |> Containers.get_containers(current_user)
+
     socket
     |> assign(
       page_title: page_title,
       ammo_type: ammo_type,
       ammo_groups: ammo_groups,
+      containers: containers,
       cprs: ammo_groups |> Ammo.get_cprs(current_user),
       last_used_dates: ammo_groups |> ActivityLog.get_last_used_dates(current_user),
       avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type(current_user),

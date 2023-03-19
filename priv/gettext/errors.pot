@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/cannery/containers.ex:201
+#: lib/cannery/containers.ex:220
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
 msgstr ""
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr ""
 
-#: lib/cannery/ammo.ex:1016
+#: lib/cannery/ammo.ex:1043
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
 msgstr ""

@@ -108,14 +108,21 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
         [%{label: gettext("Ammo type"), key: :ammo_type} | columns]
       end
 
+    containers =
+      ammo_groups
+      |> Enum.map(fn %{container_id: container_id} -> container_id end)
+      |> Containers.get_containers(current_user)
+
     extra_data = %{
       current_user: current_user,
       ammo_type: ammo_type,
       columns: columns,
       container: container,
+      containers: containers,
       original_counts: Ammo.get_original_counts(ammo_groups, current_user),
       cprs: Ammo.get_cprs(ammo_groups, current_user),
       last_used_dates: ActivityLog.get_last_used_dates(ammo_groups, current_user),
+      percentages_remaining: Ammo.get_percentages_remaining(ammo_groups, current_user),
       actions: actions,
       range: range
     }
@@ -202,8 +209,12 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:remaining, ammo_group, %{current_user: current_user}) do
-    percentage = ammo_group |> Ammo.get_percentage_remaining(current_user)
+  defp get_value_for_key(
+         :remaining,
+         %{id: ammo_group_id},
+         %{percentages_remaining: percentages_remaining}
+       ) do
+    percentage = Map.fetch!(percentages_remaining, ammo_group_id)
     {percentage, gettext("%{percentage}%", percentage: percentage)}
   end
 
@@ -220,12 +231,13 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   defp get_value_for_key(
          :container,
          %{container_id: container_id} = ammo_group,
-         %{container: container, current_user: current_user}
+         %{container: container_block, containers: containers}
        ) do
+    container = %{name: container_name} = Map.fetch!(containers, container_id)
+
     assigns = %{
-      container:
-        %{name: container_name} = container_id |> Containers.get_container!(current_user),
-      container_block: container,
+      container: container,
+      container_block: container_block,
       ammo_group: ammo_group
     }
 

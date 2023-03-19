@@ -309,12 +309,8 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert html =~ dgettext("actions", "Show used")
       refute html =~ gettext("$%{amount}", amount: display_currency(50.00))
 
-      refute html =~
-               "\n" <>
-                 gettext("%{percentage}%",
-                   percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
-                 ) <>
-                 "\n"
+      percentage = ammo_group |> Ammo.get_percentage_remaining(current_user)
+      refute html =~ "\n#{gettext("%{percentage}%", percentage: percentage)}\n"
 
       html =
         show_live
@@ -323,12 +319,8 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ gettext("$%{amount}", amount: display_currency(50.00))
 
-      assert html =~
-               "\n" <>
-                 gettext("%{percentage}%",
-                   percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
-                 ) <>
-                 "\n"
+      percentage = ammo_group |> Ammo.get_percentage_remaining(current_user)
+      assert html =~ "\n#{gettext("%{percentage}%", percentage: percentage)}\n"
     end
   end
 

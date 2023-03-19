@@ -90,12 +90,24 @@ defmodule Cannery.ContainersTest do
       assert Containers.list_containers("asajslkdflskdf", current_user) == []
     end
 
-    test "get_container!/1 returns the container with given id",
+    test "get_container!/2 returns the container with given id",
          %{current_user: current_user, container: container} do
       assert Containers.get_container!(container.id, current_user) == container
+      assert_raise KeyError, fn -> Containers.get_container!(current_user.id, current_user) end
     end
 
-    test "create_container/1 with valid data creates a container", %{current_user: current_user} do
+    test "get_containers/2 returns the container with given id",
+         %{current_user: current_user, container: %{id: container_id} = container} do
+      assert %{container_id => container} ==
+               Containers.get_containers([container_id], current_user)
+
+      %{id: another_container_id} = another_container = container_fixture(current_user)
+      containers = [container_id, another_container_id] |> Containers.get_containers(current_user)
+      assert %{^container_id => ^container} = containers
+      assert %{^another_container_id => ^another_container} = containers
+    end
+
+    test "create_container/2 with valid data creates a container", %{current_user: current_user} do
       assert {:ok, %Container{} = container} =
                @valid_attrs |> Containers.create_container(current_user)
 
@@ -106,12 +118,12 @@ defmodule Cannery.ContainersTest do
       assert container.user_id == current_user.id
     end
 
-    test "create_container/1 with invalid data returns error changeset",
+    test "create_container/2 with invalid data returns error changeset",
          %{current_user: current_user} do
       assert {:error, %Changeset{}} = @invalid_attrs |> Containers.create_container(current_user)
     end
 
-    test "update_container/2 with valid data updates the container",
+    test "update_container/3 with valid data updates the container",
          %{current_user: current_user, container: container} do
       assert {:ok, %Container{} = container} =
                Containers.update_container(container, current_user, @update_attrs)
@@ -122,7 +134,7 @@ defmodule Cannery.ContainersTest do
       assert container.type == "some updated type"
     end
 
-    test "update_container/2 with invalid data returns error changeset",
+    test "update_container/3 with invalid data returns error changeset",
          %{current_user: current_user, container: container} do
       assert {:error, %Changeset{}} =
                Containers.update_container(container, current_user, @invalid_attrs)
@@ -130,11 +142,11 @@ defmodule Cannery.ContainersTest do
       assert container == Containers.get_container!(container.id, current_user)
     end
 
-    test "delete_container/1 deletes the container",
+    test "delete_container/2 deletes the container",
          %{current_user: current_user, container: container} do
       assert {:ok, %Container{}} = Containers.delete_container(container, current_user)
 
-      assert_raise Ecto.NoResultsError, fn ->
+      assert_raise KeyError, fn ->
         Containers.get_container!(container.id, current_user)
       end
     end
@@ -168,36 +180,36 @@ defmodule Cannery.ContainersTest do
       assert Containers.list_tags("hollows", current_user) == [tag_b]
     end
 
-    test "get_tag!/1 returns the tag with given id", %{tag: tag, current_user: current_user} do
+    test "get_tag!/2 returns the tag with given id", %{tag: tag, current_user: current_user} do
       assert Containers.get_tag!(tag.id, current_user) == tag
     end
 
-    test "create_tag/1 with valid data creates a tag", %{current_user: current_user} do
+    test "create_tag/2 with valid data creates a tag", %{current_user: current_user} do
       assert {:ok, %Tag{} = tag} = Containers.create_tag(@valid_tag_attrs, current_user)
       assert tag.bg_color == "some bg-color"
       assert tag.name == "some name"
       assert tag.text_color == "some text-color"
     end
 
-    test "create_tag/1 with invalid data returns error changeset",
+    test "create_tag/2 with invalid data returns error changeset",
          %{current_user: current_user} do
       assert {:error, %Changeset{}} = Containers.create_tag(@invalid_tag_attrs, current_user)
     end
 
-    test "update_tag/2 with valid data updates the tag", %{tag: tag, current_user: current_user} do
+    test "update_tag/3 with valid data updates the tag", %{tag: tag, current_user: current_user} do
       assert {:ok, %Tag{} = tag} = Containers.update_tag(tag, @update_tag_attrs, current_user)
       assert tag.bg_color == "some updated bg-color"
       assert tag.name == "some updated name"
       assert tag.text_color == "some updated text-color"
     end
 
-    test "update_tag/2 with invalid data returns error changeset",
+    test "update_tag/3 with invalid data returns error changeset",
          %{tag: tag, current_user: current_user} do
       assert {:error, %Changeset{}} = Containers.update_tag(tag, @invalid_tag_attrs, current_user)
       assert tag == Containers.get_tag!(tag.id, current_user)
     end
 
-    test "delete_tag/1 deletes the tag", %{tag: tag, current_user: current_user} do
+    test "delete_tag/2 deletes the tag", %{tag: tag, current_user: current_user} do
       assert {:ok, %Tag{}} = Containers.delete_tag(tag, current_user)
       assert_raise Ecto.NoResultsError, fn -> Containers.get_tag!(tag.id, current_user) end
     end

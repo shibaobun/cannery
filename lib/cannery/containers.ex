@@ -92,7 +92,7 @@ defmodule Cannery.Containers do
   @doc """
   Gets a single container.
 
-  Raises `Ecto.NoResultsError` if the Container does not exist.
+  Raises `KeyError` if the Container does not exist.
 
   ## Examples
 
@@ -100,18 +100,37 @@ defmodule Cannery.Containers do
       %Container{}
 
       iex> get_container!(456, %User{id: 123})
-      ** (Ecto.NoResultsError)
+      ** (KeyError)
 
   """
   @spec get_container!(Container.id(), User.t()) :: Container.t()
-  def get_container!(id, %User{id: user_id}) do
-    Repo.one!(
+  def get_container!(id, user) do
+    [id]
+    |> get_containers(user)
+    |> Map.fetch!(id)
+  end
+
+  @doc """
+  Gets multiple containers.
+
+
+  ## Examples
+
+      iex> get_containers([123], %User{id: 123})
+      %{123 => %Container{}}
+
+  """
+  @spec get_containers([Container.id()], User.t()) :: %{optional(Container.id()) => Container.t()}
+  def get_containers(ids, %User{id: user_id}) do
+    Repo.all(
       from c in Container,
         where: c.user_id == ^user_id,
-        where: c.id == ^id,
+        where: c.id in ^ids,
         order_by: c.name,
-        preload: ^@container_preloads
+        preload: ^@container_preloads,
+        select: {c.id, c}
     )
+    |> Map.new()
   end
 
   @doc """

@@ -843,12 +843,39 @@ defmodule Cannery.Ammo do
 
   """
   @spec get_percentage_remaining(AmmoGroup.t(), User.t()) :: non_neg_integer()
-  def get_percentage_remaining(%AmmoGroup{count: 0, user_id: user_id}, %User{id: user_id}) do
-    0
+  def get_percentage_remaining(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
+    [ammo_group]
+    |> get_percentages_remaining(user)
+    |> Map.fetch!(ammo_group_id)
   end
 
-  def get_percentage_remaining(%AmmoGroup{count: count} = ammo_group, current_user) do
-    round(count / get_original_count(ammo_group, current_user) * 100)
+  @doc """
+  Calculates the percentages remaining of multiple ammo groups out of 100
+
+  ## Examples
+
+      iex> get_percentages_remaining(
+      ...>   [%AmmoGroup{id: 123, count: 5, user_id: 456}],
+      ...>   %User{id: 456}
+      ...> )
+      %{123 => 100}
+
+  """
+  @spec get_percentages_remaining([AmmoGroup.t()], User.t()) ::
+          %{optional(AmmoGroup.id()) => non_neg_integer()}
+  def get_percentages_remaining(ammo_groups, %User{id: user_id} = user) do
+    original_counts = get_original_counts(ammo_groups, user)
+
+    ammo_groups
+    |> Map.new(fn %AmmoGroup{id: ammo_group_id, count: count, user_id: ^user_id} ->
+      percentage =
+        case count do
+          0 -> 0
+          count -> round(count / Map.fetch!(original_counts, ammo_group_id) * 100)
+        end
+
+      {ammo_group_id, percentage}
+    end)
   end
 
   @doc """

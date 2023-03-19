@@ -45,7 +45,7 @@ defmodule Cannery.AmmoTest do
       assert Ammo.list_ammo_types(current_user) == [ammo_type]
     end
 
-    test "list_ammo_types/1 returns relevant ammo_types for a user",
+    test "list_ammo_types/2 returns relevant ammo_types for a user",
          %{current_user: current_user} do
       ammo_type_a =
         %{"name" => "bullets", "desc" => "has some pews in it", "grains" => 5}
@@ -89,12 +89,12 @@ defmodule Cannery.AmmoTest do
       assert Ammo.list_ammo_types("tracer", current_user) == [ammo_type_c]
     end
 
-    test "get_ammo_type!/1 returns the ammo_type with given id",
+    test "get_ammo_type!/2 returns the ammo_type with given id",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert Ammo.get_ammo_type!(ammo_type.id, current_user) == ammo_type
     end
 
-    test "create_ammo_type/1 with valid data creates a ammo_type",
+    test "create_ammo_type/2 with valid data creates a ammo_type",
          %{current_user: current_user} do
       assert {:ok, %AmmoType{} = ammo_type} = Ammo.create_ammo_type(@valid_attrs, current_user)
       assert ammo_type.bullet_type == "some bullet_type"
@@ -105,12 +105,12 @@ defmodule Cannery.AmmoTest do
       assert ammo_type.grains == 120
     end
 
-    test "create_ammo_type/1 with invalid data returns error changeset",
+    test "create_ammo_type/2 with invalid data returns error changeset",
          %{current_user: current_user} do
       assert {:error, %Changeset{}} = Ammo.create_ammo_type(@invalid_attrs, current_user)
     end
 
-    test "update_ammo_type/2 with valid data updates the ammo_type",
+    test "update_ammo_type/3 with valid data updates the ammo_type",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert {:ok, %AmmoType{} = ammo_type} =
                Ammo.update_ammo_type(ammo_type, @update_attrs, current_user)
@@ -123,7 +123,7 @@ defmodule Cannery.AmmoTest do
       assert ammo_type.grains == 456
     end
 
-    test "update_ammo_type/2 with invalid data returns error changeset",
+    test "update_ammo_type/3 with invalid data returns error changeset",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert {:error, %Changeset{}} =
                Ammo.update_ammo_type(ammo_type, @invalid_attrs, current_user)
@@ -131,7 +131,7 @@ defmodule Cannery.AmmoTest do
       assert ammo_type == Ammo.get_ammo_type!(ammo_type.id, current_user)
     end
 
-    test "delete_ammo_type/1 deletes the ammo_type",
+    test "delete_ammo_type/2 deletes the ammo_type",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert {:ok, %AmmoType{}} = Ammo.delete_ammo_type(ammo_type, current_user)
       assert_raise Ecto.NoResultsError, fn -> Ammo.get_ammo_type!(ammo_type.id, current_user) end
@@ -785,7 +785,7 @@ defmodule Cannery.AmmoTest do
       assert %{^another_ammo_type_id => 1} = ammo_groups_count
     end
 
-    test "list_staged_ammo_groups/2 returns all ammo_groups that are staged",
+    test "list_staged_ammo_groups/1 returns all ammo_groups that are staged",
          %{
            ammo_type: ammo_type,
            container: container,
@@ -797,7 +797,7 @@ defmodule Cannery.AmmoTest do
       assert Ammo.list_staged_ammo_groups(current_user) == [another_ammo_group]
     end
 
-    test "get_ammo_group!/1 returns the ammo_group with given id",
+    test "get_ammo_group!/2 returns the ammo_group with given id",
          %{ammo_group: %{id: ammo_group_id} = ammo_group, current_user: current_user} do
       assert Ammo.get_ammo_group!(ammo_group_id, current_user) == ammo_group
     end
@@ -861,7 +861,7 @@ defmodule Cannery.AmmoTest do
                |> Ammo.create_ammo_groups(1, current_user)
     end
 
-    test "update_ammo_group/2 with valid data updates the ammo_group",
+    test "update_ammo_group/3 with valid data updates the ammo_group",
          %{ammo_group: ammo_group, current_user: current_user} do
       assert {:ok, %AmmoGroup{} = ammo_group} =
                Ammo.update_ammo_group(ammo_group, @update_attrs, current_user)
@@ -871,7 +871,7 @@ defmodule Cannery.AmmoTest do
       assert ammo_group.price_paid == 456.7
     end
 
-    test "update_ammo_group/2 with invalid data returns error changeset",
+    test "update_ammo_group/3 with invalid data returns error changeset",
          %{ammo_group: ammo_group, current_user: current_user} do
       assert {:error, %Changeset{}} =
                Ammo.update_ammo_group(ammo_group, @invalid_attrs, current_user)
@@ -879,13 +879,13 @@ defmodule Cannery.AmmoTest do
       assert ammo_group == Ammo.get_ammo_group!(ammo_group.id, current_user)
     end
 
-    test "delete_ammo_group/1 deletes the ammo_group",
+    test "delete_ammo_group/2 deletes the ammo_group",
          %{ammo_group: ammo_group, current_user: current_user} do
       assert {:ok, %AmmoGroup{}} = Ammo.delete_ammo_group(ammo_group, current_user)
       assert_raise KeyError, fn -> Ammo.get_ammo_group!(ammo_group.id, current_user) end
     end
 
-    test "get_percentage_remaining/1 gets accurate total round count",
+    test "get_percentage_remaining/2 gets accurate total round count",
          %{ammo_group: %{id: ammo_group_id} = ammo_group, current_user: current_user} do
       assert 100 = ammo_group |> Ammo.get_percentage_remaining(current_user)
 
@@ -900,6 +900,53 @@ defmodule Cannery.AmmoTest do
       shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 0 = ammo_group |> Ammo.get_percentage_remaining(current_user)
+    end
+
+    test "get_percentages_remaining/2 gets accurate total round count", %{
+      ammo_group: %{id: ammo_group_id} = ammo_group,
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
+      assert %{ammo_group_id => 100} ==
+               [ammo_group] |> Ammo.get_percentages_remaining(current_user)
+
+      {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
+        %{"count" => 50, "price_paid" => 36.1}
+        |> ammo_group_fixture(ammo_type, container, current_user)
+
+      percentages =
+        [ammo_group, another_ammo_group] |> Ammo.get_percentages_remaining(current_user)
+
+      assert %{^ammo_group_id => 100} = percentages
+      assert %{^another_ammo_group_id => 100} = percentages
+
+      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
+
+      percentages =
+        [ammo_group, another_ammo_group] |> Ammo.get_percentages_remaining(current_user)
+
+      assert %{^ammo_group_id => 72} = percentages
+      assert %{^another_ammo_group_id => 100} = percentages
+
+      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+      ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
+
+      percentages =
+        [ammo_group, another_ammo_group] |> Ammo.get_percentages_remaining(current_user)
+
+      assert %{^ammo_group_id => 50} = percentages
+      assert %{^another_ammo_group_id => 100} = percentages
+
+      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+      ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
+
+      percentages =
+        [ammo_group, another_ammo_group] |> Ammo.get_percentages_remaining(current_user)
+
+      assert %{^ammo_group_id => 0} = percentages
+      assert %{^another_ammo_group_id => 100} = percentages
     end
 
     test "get_cpr/2 gets accurate cpr",
