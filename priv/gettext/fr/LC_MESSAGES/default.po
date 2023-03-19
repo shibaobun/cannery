@@ -267,7 +267,7 @@ msgid "New Tag"
 msgstr "Nouveau tag"
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:10
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:71
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "No Ammo"
 msgstr "Aucune munition"
@@ -278,7 +278,7 @@ msgid "No ammo for this type"
 msgstr "Aucune munition pour ce type"
 
 #: lib/cannery_web/live/container_live/index.html.heex:8
-#: lib/cannery_web/live/container_live/index.html.heex:47
+#: lib/cannery_web/live/container_live/index.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "No containers"
 msgstr "Aucun conteneur"
@@ -290,7 +290,7 @@ msgstr "Aucune invitation"
 
 #: lib/cannery_web/live/container_live/edit_tags_component.html.heex:29
 #: lib/cannery_web/live/tag_live/index.html.heex:10
-#: lib/cannery_web/live/tag_live/index.html.heex:43
+#: lib/cannery_web/live/tag_live/index.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "No tags"
 msgstr "Aucun tag"
@@ -489,7 +489,7 @@ msgid "New Shot Records"
 msgstr "Nouveaux enregistrements de tir"
 
 #: lib/cannery_web/live/range_live/index.html.heex:55
-#: lib/cannery_web/live/range_live/index.html.heex:97
+#: lib/cannery_web/live/range_live/index.html.heex:98
 #, elixir-autogen, elixir-format
 msgid "No shots recorded"
 msgstr "Aucun tir enregistré"
@@ -804,8 +804,8 @@ msgstr ""
 msgid "Container:"
 msgstr "Conteneur"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:64
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:39
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:65
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:40
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:149
 #: lib/cannery_web/live/container_live/show.html.heex:98
 #, elixir-autogen, elixir-format
@@ -836,7 +836,7 @@ msgid "Rounds"
 msgstr "Cartouches :"
 
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:155
-#: lib/cannery_web/live/container_live/index.html.heex:39
+#: lib/cannery_web/live/container_live/index.html.heex:40
 #: lib/cannery_web/live/container_live/show.html.heex:104
 #, elixir-autogen, elixir-format
 msgid "View as table"
@@ -1068,32 +1068,32 @@ msgid "Edit ammo"
 msgstr "Éditer le type de munition"
 
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:8
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:46
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:47
 #, elixir-autogen, elixir-format, fuzzy
 msgid "No Ammo types"
 msgstr "Aucun type de munition"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:33
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Search catalog"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:58
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:59
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Search ammo"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.html.heex:33
+#: lib/cannery_web/live/container_live/index.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Search containers"
 msgstr ""
 
-#: lib/cannery_web/live/tag_live/index.html.heex:36
+#: lib/cannery_web/live/tag_live/index.html.heex:37
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Search tags"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:90
+#: lib/cannery_web/live/range_live/index.html.heex:91
 #, elixir-autogen, elixir-format
 msgid "Search shot records"
 msgstr ""
@@ -1231,4 +1231,24 @@ msgstr ""
 #: lib/cannery_web/live/range_live/form_component.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Really great weather"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_group_table_component.ex:54
+#: lib/cannery_web/components/ammo_type_table_component.ex:121
+#: lib/cannery_web/components/container_table_component.ex:67
+#: lib/cannery_web/components/move_ammo_group_component.ex:70
+#: lib/cannery_web/components/shot_group_table_component.ex:45
+#: lib/cannery_web/live/ammo_group_live/show.ex:94
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/cannery_web/components/core_components/topbar.html.heex:105
+#, elixir-autogen, elixir-format
+msgid "Live Dashboard"
+msgstr ""
+
+#: lib/cannery_web/components/core_components/topbar.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "Log out"
 msgstr ""

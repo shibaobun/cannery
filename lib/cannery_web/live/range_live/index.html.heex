@@ -86,6 +86,7 @@
         <%= text_input(f, :search_term,
           class: "input input-primary",
           value: @search,
+          role: "search",
           phx_debounce: 300,
           placeholder: gettext("Search shot records")
         ) %>

@@ -91,7 +91,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
       %{label: gettext("Date"), key: :date, type: ComparableDate},
-      %{label: nil, key: :actions, sortable: false}
+      %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
     shot_groups = ActivityLog.list_shot_groups_for_ammo_group(ammo_group, current_user)

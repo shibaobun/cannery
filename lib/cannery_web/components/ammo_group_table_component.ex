@@ -51,7 +51,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       if actions == [] do
         []
       else
-        [%{label: nil, key: :actions, sortable: false}]
+        [%{label: gettext("Actions"), key: :actions, sortable: false}]
       end
 
     columns = [

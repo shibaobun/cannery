@@ -42,7 +42,7 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
       %{label: gettext("Date"), key: :date, type: ComparableDate},
-      %{label: nil, key: :actions, sortable: false}
+      %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
     ammo_groups =

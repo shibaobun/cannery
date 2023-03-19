@@ -67,7 +67,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
       %{label: gettext("Container"), key: :name},
       %{label: gettext("Type"), key: :type},
       %{label: gettext("Location"), key: :location},
-      %{label: nil, key: :actions, sortable: false}
+      %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
     rows = containers |> get_rows_for_containers(assigns, columns)

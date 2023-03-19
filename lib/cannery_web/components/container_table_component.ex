@@ -64,7 +64,7 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
         %{label: gettext("Packs"), key: :packs, type: :integer},
         %{label: gettext("Rounds"), key: :rounds, type: :integer},
         %{label: gettext("Tags"), key: :tags, type: :tags},
-        %{label: nil, key: :actions, sortable: false, type: :actions}
+        %{label: gettext("Actions"), key: :actions, sortable: false, type: :actions}
       ])
 
     extra_data = %{

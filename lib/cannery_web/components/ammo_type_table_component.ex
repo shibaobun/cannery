@@ -118,7 +118,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       )
       |> Kernel.++([
         %{label: gettext("Average CPR"), key: :avg_price_paid, type: :avg_price_paid},
-        %{label: nil, key: "actions", type: :actions, sortable: false}
+        %{label: gettext("Actions"), key: "actions", type: :actions, sortable: false}
       ])
 
     round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
