@@ -92,25 +92,40 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
       end)
 
     ammo_groups = ammo_type |> Ammo.list_ammo_groups_for_type(current_user, show_used)
-    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
-    cprs = ammo_groups |> Ammo.get_cprs(current_user)
-    historical_packs_count = ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
-    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
+
+    [
+      original_counts,
+      used_packs_count,
+      historical_packs_count,
+      used_rounds,
+      historical_round_count
+    ] =
+      if show_used do
+        [
+          ammo_groups |> Ammo.get_original_counts(current_user),
+          ammo_type |> Ammo.get_used_ammo_groups_count_for_type(current_user),
+          ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true),
+          ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user),
+          ammo_type |> Ammo.get_historical_count_for_ammo_type(current_user)
+        ]
+      else
+        [nil, nil, nil, nil, nil]
+      end
 
     socket
     |> assign(
       page_title: page_title(live_action, ammo_type),
       ammo_type: ammo_type,
       ammo_groups: ammo_groups,
-      original_counts: original_counts,
-      cprs: cprs,
-      last_used_dates: last_used_dates,
+      cprs: ammo_groups |> Ammo.get_cprs(current_user),
+      last_used_dates: ammo_groups |> ActivityLog.get_last_used_dates(current_user),
       avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type(current_user),
       rounds: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user),
-      used_rounds: ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user),
-      historical_round_count: ammo_type |> Ammo.get_historical_count_for_ammo_type(current_user),
+      original_counts: original_counts,
+      used_rounds: used_rounds,
+      historical_round_count: historical_round_count,
       packs_count: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user),
-      used_packs_count: ammo_type |> Ammo.get_used_ammo_groups_count_for_type(current_user),
+      used_packs_count: used_packs_count,
       historical_packs_count: historical_packs_count,
       fields_list: @fields_list,
       fields_to_display: fields_to_display

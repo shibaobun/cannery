@@ -17,7 +17,10 @@
       <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
     </span>
 
-    <span :if={@original_count != @ammo_group.count} class="rounded-lg title text-lg">
+    <span
+      :if={@original_count && @original_count != @ammo_group.count}
+      class="rounded-lg title text-lg"
+    >
       <%= gettext("Original Count:") %>
       <%= @original_count %>
     </span>
@@ -27,7 +30,7 @@
       <%= @ammo_group.notes %>
     </span>
 
-    <span class="rounded-lg title text-lg">
+    <span :if={@ammo_group.purchased_on} class="rounded-lg title text-lg">
       <%= gettext("Purchased on:") %>
       <.date id={"#{@ammo_group.id}-purchased-on"} date={@ammo_group.purchased_on} />
     </span>

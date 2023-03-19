@@ -1,6 +1,7 @@
 # v0.8.5
 - Add link in readme to github mirror
 - Fix tables unable to sort on empty dates
+- Only show historical ammo type information when displaying "Show used"
 
 # v0.8.4
 - Improve accessibility

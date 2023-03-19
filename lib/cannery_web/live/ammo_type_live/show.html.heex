@@ -74,26 +74,24 @@
       <%= @rounds %>
     </span>
 
-    <h3 class="title text-lg">
-      <%= gettext("Used rounds:") %>
-    </h3>
+    <%= if @show_used do %>
+      <h3 class="title text-lg">
+        <%= gettext("Used rounds:") %>
+      </h3>
 
-    <span class="text-primary-600">
-      <%= @used_rounds %>
-    </span>
+      <span class="text-primary-600">
+        <%= @used_rounds %>
+      </span>
 
-    <h3 class="title text-lg">
-      <%= gettext("Total ever rounds:") %>
-    </h3>
+      <h3 class="title text-lg">
+        <%= gettext("Total ever rounds:") %>
+      </h3>
 
-    <span class="text-primary-600">
-      <%= @historical_round_count %>
-    </span>
-  </div>
+      <span class="text-primary-600">
+        <%= @historical_round_count %>
+      </span>
+    <% end %>
 
-  <hr class="hr" />
-
-  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
     <h3 class="title text-lg">
       <%= gettext("Packs:") %>
     </h3>
@@ -102,26 +100,24 @@
       <%= @packs_count %>
     </span>
 
-    <h3 class="title text-lg">
-      <%= gettext("Used packs:") %>
-    </h3>
+    <%= if @show_used do %>
+      <h3 class="title text-lg">
+        <%= gettext("Used packs:") %>
+      </h3>
 
-    <span class="text-primary-600">
-      <%= @used_packs_count %>
-    </span>
+      <span class="text-primary-600">
+        <%= @used_packs_count %>
+      </span>
 
-    <h3 class="title text-lg">
-      <%= gettext("Total ever packs:") %>
-    </h3>
+      <h3 class="title text-lg">
+        <%= gettext("Total ever packs:") %>
+      </h3>
 
-    <span class="text-primary-600">
-      <%= @historical_packs_count %>
-    </span>
-  </div>
+      <span class="text-primary-600">
+        <%= @historical_packs_count %>
+      </span>
+    <% end %>
 
-  <hr class="hr" />
-
-  <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
     <h3 class="title text-lg">
       <%= gettext("Added on:") %>
     </h3>
@@ -189,7 +185,7 @@
           <.ammo_group_card
             :for={%{id: ammo_group_id} = ammo_group <- @ammo_groups}
             ammo_group={ammo_group}
-            original_count={Map.fetch!(@original_counts, ammo_group_id)}
+            original_count={@original_counts && Map.fetch!(@original_counts, ammo_group_id)}
             cpr={Map.get(@cprs, ammo_group_id)}
             last_used_date={Map.get(@last_used_dates, ammo_group_id)}
             current_user={@current_user}
