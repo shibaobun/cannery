@@ -3,7 +3,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   A component that displays a list of ammo groups
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog, Ammo, Ammo.AmmoGroup, Containers}
+  alias Cannery.{Accounts.User, Ammo.AmmoGroup, ComparableDate}
+  alias Cannery.{ActivityLog, Ammo, Containers}
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -54,8 +55,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       end
 
     columns = [
-      %{label: gettext("Purchased on"), key: :purchased_on, type: Date},
-      %{label: gettext("Last used on"), key: :used_up_on, type: Date} | columns
+      %{label: gettext("Purchased on"), key: :purchased_on, type: ComparableDate},
+      %{label: gettext("Last used on"), key: :used_up_on, type: ComparableDate} | columns
     ]
 
     columns =

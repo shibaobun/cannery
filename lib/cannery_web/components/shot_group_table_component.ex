@@ -3,7 +3,7 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
   A component that displays a list of shot groups
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo, ComparableDate}
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -41,7 +41,7 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
       %{label: gettext("Ammo"), key: :name},
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
-      %{label: gettext("Date"), key: :date, type: Date},
+      %{label: gettext("Date"), key: :date, type: ComparableDate},
       %{label: nil, key: :actions, sortable: false}
     ]
 

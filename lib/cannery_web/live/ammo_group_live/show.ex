@@ -6,7 +6,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   use CanneryWeb, :live_view
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
   alias Cannery.{Ammo, Ammo.AmmoGroup}
-  alias Cannery.Containers
+  alias Cannery.{ComparableDate, Containers}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
@@ -90,7 +90,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     columns = [
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
-      %{label: gettext("Date"), key: :date, type: Date},
+      %{label: gettext("Date"), key: :date, type: ComparableDate},
       %{label: nil, key: :actions, sortable: false}
     ]
 
