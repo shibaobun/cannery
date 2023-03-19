@@ -1,3 +1,6 @@
+# v0.8.6
+- Fix duplicate entries showing up
+
 # v0.8.5
 - Add link in readme to github mirror
 - Fix tables unable to sort on empty dates

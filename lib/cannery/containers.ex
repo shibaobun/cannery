@@ -32,6 +32,7 @@ defmodule Cannery.Containers do
       as: :t,
       where: c.user_id == ^user_id,
       order_by: c.name,
+      distinct: c.id,
       preload: ^@container_preloads
     )
     |> list_containers_search(search)

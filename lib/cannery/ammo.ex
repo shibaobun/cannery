@@ -715,6 +715,7 @@ defmodule Cannery.Ammo do
       on: c.user_id == t.user_id,
       as: :t,
       where: ag.user_id == ^user_id,
+      distinct: ag.id,
       preload: ^@ammo_group_preloads
     )
     |> list_ammo_groups_include_empty(include_empty)

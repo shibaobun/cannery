@@ -60,7 +60,8 @@ defmodule Cannery.ActivityLog do
             sg.search,
             ^trimmed_search
           )
-        }
+        },
+        distinct: sg.id
     )
   end
 

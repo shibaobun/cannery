@@ -23,7 +23,7 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery/containers.ex:200
+#: lib/cannery/containers.ex:201
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
 msgstr "El contenedor debe estar vacío antes de ser borrado"
@@ -170,7 +170,7 @@ msgstr "No se ha podido procesar el número de copias"
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Número inválido de copias, debe ser entre 1 y %{max}. Fue %{multiplier"
 
-#: lib/cannery/ammo.ex:1015
+#: lib/cannery/ammo.ex:1016
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
 msgstr "Multiplicador inválido"
