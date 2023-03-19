@@ -19,7 +19,7 @@ msgid "%{name} created successfully"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:72
-#: lib/cannery_web/live/ammo_type_live/show.ex:54
+#: lib/cannery_web/live/ammo_type_live/show.ex:49
 #: lib/cannery_web/live/tag_live/index.ex:65
 #, elixir-autogen, elixir-format
 msgid "%{name} deleted succesfully"

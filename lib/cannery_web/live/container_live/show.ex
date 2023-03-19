@@ -104,7 +104,7 @@ defmodule CanneryWeb.ContainerLive.Show do
 
     page_title =
       case live_action do
-        action when action in [:show, :table] -> container_name
+        :show -> container_name
         :edit -> gettext("Edit %{name}", name: container_name)
         :edit_tags -> gettext("Edit %{name} tags", name: container_name)
       end

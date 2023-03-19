@@ -30,17 +30,12 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   ]
 
   @impl true
-  def mount(_params, _session, %{assigns: %{live_action: live_action}} = socket),
-    do: {:ok, socket |> assign(show_used: false, view_table: live_action == :table)}
+  def mount(_params, _session, socket),
+    do: {:ok, socket |> assign(show_used: false, view_table: true)}
 
   @impl true
-  def handle_params(%{"id" => id}, _params, %{assigns: %{live_action: live_action}} = socket) do
-    socket =
-      socket
-      |> assign(view_table: live_action == :table)
-      |> display_ammo_type(id)
-
-    {:noreply, socket}
+  def handle_params(%{"id" => id}, _params, socket) do
+    {:noreply, socket |> display_ammo_type(id)}
   end
 
   @impl true
@@ -61,23 +56,14 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_type()}
   end
 
-  def handle_event(
-        "toggle_table",
-        _params,
-        %{assigns: %{view_table: view_table, ammo_type: ammo_type}} = socket
-      ) do
-    new_path =
-      if view_table,
-        do: Routes.ammo_type_show_path(Endpoint, :show, ammo_type),
-        else: Routes.ammo_type_show_path(Endpoint, :table, ammo_type)
-
-    {:noreply, socket |> push_patch(to: new_path)}
+  def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
+    {:noreply, socket |> assign(:view_table, !view_table)}
   end
 
   defp display_ammo_type(
          %{assigns: %{live_action: live_action, current_user: current_user, show_used: show_used}} =
            socket,
-         %AmmoType{} = ammo_type
+         %AmmoType{name: ammo_type_name} = ammo_type
        ) do
     fields_to_display =
       @fields_list
@@ -112,9 +98,15 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
         [nil, nil, nil, nil, nil]
       end
 
+    page_title =
+      case live_action do
+        :show -> ammo_type_name
+        :edit -> gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type_name)
+      end
+
     socket
     |> assign(
-      page_title: page_title(live_action, ammo_type),
+      page_title: page_title,
       ammo_type: ammo_type,
       ammo_groups: ammo_groups,
       cprs: ammo_groups |> Ammo.get_cprs(current_user),
@@ -142,10 +134,4 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   @spec display_currency(float()) :: String.t()
   defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
-
-  defp page_title(action, %{name: ammo_type_name}) when action in [:show, :table],
-    do: ammo_type_name
-
-  defp page_title(:edit, %{name: ammo_type_name}),
-    do: gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type_name)
 end

@@ -994,7 +994,7 @@ msgid "Average CPR"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/index.ex:28
-#: lib/cannery_web/live/ammo_type_live/show.ex:150
+#: lib/cannery_web/live/ammo_type_live/show.ex:104
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit %{ammo_type_name}"
 msgstr "Éditer %{name}"

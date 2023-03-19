@@ -310,8 +310,6 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
         |> render_click()
 
-      assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
-
       assert html =~ "some ammo group"
       assert html =~ container_name
     end
@@ -345,8 +343,6 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
         show_live
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
         |> render_click()
-
-      assert_patch(show_live, Routes.ammo_type_show_path(conn, :table, ammo_type))
 
       assert html =~ dgettext("actions", "Show used")
       refute html =~ "some ammo group"
