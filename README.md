@@ -92,6 +92,15 @@ Cannery is licensed under AGPLv3 or later. A copy of the latest version of the
 license can be found at
 [LICENSE.md](https://gitea.bubbletea.dev/shibao/cannery/src/branch/stable/LICENSE.md).
 
+# Links
+
+- [Gitea](https://gitea.bubbletea.dev/shibao/cannery): Main repo, feature
+  requests and bug reports
+- [Github](https://github.com/shibaobun/cannery): Source code mirror, please
+  don't open pull requests to this repository
+- [Weblate](https://weblate.bubbletea.dev/engage/cannery): Contribute to
+  translations!
+
 ---
 
 [![Build
