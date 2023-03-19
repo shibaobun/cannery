@@ -354,6 +354,7 @@ msgid "Delete ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:132
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:189
 #, elixir-autogen, elixir-format
 msgid "View ammo group of %{ammo_group_count} bullets"
 msgstr ""

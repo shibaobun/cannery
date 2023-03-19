@@ -180,6 +180,21 @@
               <%= container_name %>
             </.link>
           </:container>
+          <:actions :let={%{count: ammo_group_count} = ammo_group}>
+            <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
+              <.link
+                navigate={Routes.ammo_group_show_path(Endpoint, :show, ammo_group)}
+                class="text-primary-600 link"
+                aria-label={
+                  dgettext("actions", "View ammo group of %{ammo_group_count} bullets",
+                    ammo_group_count: ammo_group_count
+                  )
+                }
+              >
+                <i class="fa-fw fa-lg fas fa-eye"></i>
+              </.link>
+            </div>
+          </:actions>
         </.live_component>
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">

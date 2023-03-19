@@ -1,10 +1,11 @@
 # v0.8.6
 - Fix duplicate entries showing up
-- Show ammo groups under a type in a table by default
+- Show ammo packs under a type in a table by default
 - Only show historical ammo type information when displaying "Show used" in table
-- Only show historical ammo group information when displaying "Show used" in table
+- Only show historical ammo pack information when displaying "Show used" in table
 - Fix some values not being sorted in tables properly
 - Code quality improvements
+- Show link to ammo pack in ammo pack table while viewing ammo type
 
 # v0.8.5
 - Add link in readme to github mirror
