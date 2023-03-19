@@ -116,7 +116,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
-      assert html =~ "42"
+      assert html =~ "\n42\n"
     end
 
     test "saves multiple new ammo_groups", %{conn: conn, current_user: current_user} do
@@ -202,7 +202,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo updated successfully")
-      assert html =~ "43"
+      assert html =~ "\n43\n"
     end
 
     test "clones ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do
@@ -229,7 +229,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
-      assert html =~ "42"
+      assert html =~ "\n42\n"
       assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
     end
 
@@ -257,7 +257,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
-      assert html =~ "43"
+      assert html =~ "\n43\n"
       assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
     end
 

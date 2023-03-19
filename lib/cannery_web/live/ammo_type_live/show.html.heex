@@ -170,6 +170,7 @@
           id="ammo-type-show-table"
           ammo_groups={@ammo_groups}
           current_user={@current_user}
+          show_used={@show_used}
         >
           <:container :let={{_ammo_group, %{name: container_name} = container}}>
             <.link

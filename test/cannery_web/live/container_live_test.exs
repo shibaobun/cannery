@@ -273,7 +273,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert html =~ ammo_type_name
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
     end
 
     test "displays ammo group in table",
@@ -286,7 +286,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_click()
 
       assert html =~ ammo_type_name
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
     end
   end
 
@@ -298,7 +298,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ "some ammo group"
+      refute html =~ "\n20\n"
 
       html =
         show_live
@@ -306,7 +306,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_click()
 
       assert html =~ ammo_type_name
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ "Empty"
     end
 
@@ -320,7 +320,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_click()
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ "some ammo group"
+      refute html =~ "\n20\n"
 
       html =
         show_live
@@ -328,7 +328,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> render_click()
 
       assert html =~ ammo_type_name
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ "Empty"
     end
   end

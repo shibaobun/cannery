@@ -169,7 +169,7 @@ msgstr "Munition préparée"
 msgid "Why not get some ready to shoot?"
 msgstr "Pourquoi pas en préparer pour tirer ?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:104
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:105
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:103
 #: lib/cannery_web/live/range_live/index.html.heex:45
 #, elixir-autogen, elixir-format
@@ -222,7 +222,7 @@ msgid "add an ammo type first"
 msgstr "Ajoutez d'abord un type de munitions"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:80
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:121
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:122
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Edit %{tag_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:143
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:144
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Edit ammo group of %{ammo_group_count} bullets"
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Edit shot record of %{shot_group_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:97
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:98
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Stage"
 msgstr "Munition préparée"
@@ -345,7 +345,7 @@ msgstr "Munition préparée"
 msgid "Tag %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:96
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:97
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr ""
@@ -355,18 +355,18 @@ msgstr ""
 msgid "View %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:155
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:156
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Clone ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:170
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:171
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:76
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:131
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:132
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View ammo group of %{ammo_group_count} bullets"
 msgstr ""

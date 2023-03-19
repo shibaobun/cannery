@@ -14,6 +14,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
             required(:ammo_groups) => [AmmoGroup.t()],
+            required(:show_used) => boolean(),
             optional(:ammo_type) => Rendered.t(),
             optional(:range) => Rendered.t(),
             optional(:container) => Rendered.t(),
@@ -22,7 +23,11 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{id: _id, ammo_groups: _ammo_group, current_user: _current_user} = assigns, socket) do
+  def update(
+        %{id: _id, ammo_groups: _ammo_group, current_user: _current_user, show_used: _show_used} =
+          assigns,
+        socket
+      ) do
     socket =
       socket
       |> assign(assigns)
@@ -43,7 +48,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
              ammo_type: ammo_type,
              range: range,
              container: container,
-             actions: actions
+             actions: actions,
+             show_used: show_used
            }
          } = socket
        ) do
@@ -74,12 +80,24 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       end
 
     columns = [
-      %{label: gettext("Count"), key: :count},
-      %{label: gettext("Original Count"), key: :original_count},
       %{label: gettext("Price paid"), key: :price_paid},
-      %{label: gettext("CPR"), key: :cpr},
-      %{label: gettext("% left"), key: :remaining},
-      %{label: gettext("Notes"), key: :notes}
+      %{label: gettext("CPR"), key: :cpr}
+      | columns
+    ]
+
+    columns =
+      if show_used do
+        [
+          %{label: gettext("Original Count"), key: :original_count},
+          %{label: gettext("% left"), key: :remaining}
+          | columns
+        ]
+      else
+        columns
+      end
+
+    columns = [
+      %{label: if(show_used, do: gettext("Current Count"), else: gettext("Count")), key: :count}
       | columns
     ]
 
@@ -148,7 +166,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:price_paid, %{price_paid: nil}, _additional_data), do: {"", nil}
+  defp get_value_for_key(:price_paid, %{price_paid: nil}, _additional_data),
+    do: {nil, gettext("No cost information")}
 
   defp get_value_for_key(:price_paid, %{price_paid: price_paid}, _additional_data),
     do: gettext("$%{amount}", amount: display_currency(price_paid))
@@ -183,11 +202,11 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:remaining, ammo_group, %{current_user: current_user}),
-    do:
-      gettext("%{percentage}%",
-        percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
-      )
+  defp get_value_for_key(:remaining, ammo_group, %{current_user: current_user}) do
+    gettext("%{percentage}%",
+      percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
+    )
+  end
 
   defp get_value_for_key(:actions, ammo_group, %{actions: actions}) do
     assigns = %{actions: actions, ammo_group: ammo_group}
@@ -217,18 +236,19 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:original_count, %{id: ammo_group_id}, %{
-         original_counts: original_counts
-       }) do
+  defp get_value_for_key(
+         :original_count,
+         %{id: ammo_group_id},
+         %{original_counts: original_counts}
+       ) do
     Map.fetch!(original_counts, ammo_group_id)
   end
 
   defp get_value_for_key(:cpr, %{price_paid: nil}, _additional_data),
-    do: gettext("No cost information")
+    do: {nil, gettext("No cost information")}
 
-  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}) do
-    gettext("$%{amount}", amount: display_currency(Map.fetch!(cprs, ammo_group_id)))
-  end
+  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}),
+    do: gettext("$%{amount}", amount: display_currency(Map.fetch!(cprs, ammo_group_id)))
 
   defp get_value_for_key(:count, %{count: count}, _additional_data),
     do: if(count == 0, do: gettext("Empty"), else: count)

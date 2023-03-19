@@ -78,6 +78,7 @@
       id="ammo-group-index-table"
       ammo_groups={@ammo_groups}
       current_user={@current_user}
+      show_used={@show_used}
     >
       <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
         <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
