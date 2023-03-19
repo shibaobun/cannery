@@ -6,21 +6,11 @@ defmodule CanneryWeb.InviteLive.Index do
   use CanneryWeb, :live_view
   alias Cannery.Accounts
   alias Cannery.Accounts.{Invite, Invites}
-  alias CanneryWeb.HomeLive
   alias Phoenix.LiveView.JS
 
   @impl true
-  def mount(_params, _session, %{assigns: %{current_user: current_user}} = socket) do
-    socket =
-      if current_user |> Map.get(:role) == :admin do
-        socket |> display_invites()
-      else
-        prompt = dgettext("errors", "You are not authorized to view this page")
-        return_to = Routes.live_path(Endpoint, HomeLive)
-        socket |> put_flash(:error, prompt) |> push_redirect(to: return_to)
-      end
-
-    {:ok, socket}
+  def mount(_params, _session, socket) do
+    {:ok, socket |> display_invites()}
   end
 
   @impl true

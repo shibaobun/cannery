@@ -114,11 +114,6 @@ msgstr "Níl cead agaibh"
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Tá nasc an úsáideoir a deimhnigh neamhbailí nó as dáta."
 
-#: lib/cannery_web/live/invite_live/index.ex:18
-#, elixir-autogen, elixir-format
-msgid "You are not authorized to view this page"
-msgstr "Níl cead agaibh féachaint ar an leathanach seo"
-
 #: lib/cannery_web/controllers/user_auth.ex:177
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page."

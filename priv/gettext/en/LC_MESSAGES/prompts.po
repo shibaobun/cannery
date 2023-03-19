@@ -182,7 +182,7 @@ msgstr ""
 msgid "Ammo moved to %{name} successfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:126
+#: lib/cannery_web/live/invite_live/index.ex:116
 #, elixir-autogen, elixir-format
 msgid "Copied to clipboard"
 msgstr ""
@@ -247,27 +247,27 @@ msgstr ""
 msgid "Register to setup Cannery"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:53
+#: lib/cannery_web/live/invite_live/index.ex:43
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{invite_name} deleted succesfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:114
+#: lib/cannery_web/live/invite_live/index.ex:104
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{invite_name} disabled succesfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:90
+#: lib/cannery_web/live/invite_live/index.ex:80
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{invite_name} enabled succesfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:68
+#: lib/cannery_web/live/invite_live/index.ex:58
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{invite_name} updated succesfully"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.ex:135
+#: lib/cannery_web/live/invite_live/index.ex:125
 #, elixir-autogen, elixir-format, fuzzy
 msgid "%{user_email} deleted succesfully"
 msgstr ""

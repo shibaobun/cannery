@@ -141,7 +141,7 @@ msgstr "Descripción:"
 msgid "Easy to Use:"
 msgstr "Facil de Usar:"
 
-#: lib/cannery_web/live/invite_live/index.ex:33
+#: lib/cannery_web/live/invite_live/index.ex:23
 #, elixir-autogen, elixir-format
 msgid "Edit Invite"
 msgstr "Editar Invitación"
@@ -189,7 +189,7 @@ msgid "Invite Only"
 msgstr "Solo Invitación"
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:74
-#: lib/cannery_web/live/invite_live/index.ex:41
+#: lib/cannery_web/live/invite_live/index.ex:31
 #: lib/cannery_web/live/invite_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Invites"
@@ -256,7 +256,7 @@ msgstr "Nuevo tipo de Munición"
 msgid "New Container"
 msgstr "Nuevo Contenedor"
 
-#: lib/cannery_web/live/invite_live/index.ex:37
+#: lib/cannery_web/live/invite_live/index.ex:27
 #, elixir-autogen, elixir-format
 msgid "New Invite"
 msgstr "Nueva Invitación"
