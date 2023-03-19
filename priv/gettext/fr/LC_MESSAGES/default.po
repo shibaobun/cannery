@@ -1257,3 +1257,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Current Count"
 msgstr ""
+
+#: lib/cannery_web/components/core_components/modal.html.heex:9
+#: lib/cannery_web/components/core_components/modal.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Close modal"
+msgstr ""
