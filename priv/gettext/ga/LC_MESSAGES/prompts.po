@@ -120,12 +120,12 @@ msgstr ""
 msgid "Please check your email to verify your account"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:56
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:83
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:158
-#: lib/cannery_web/live/container_live/form_component.html.heex:53
+#: lib/cannery_web/components/add_shot_group_component.html.heex:58
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:85
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:160
+#: lib/cannery_web/live/container_live/form_component.html.heex:57
 #: lib/cannery_web/live/invite_live/form_component.html.heex:34
-#: lib/cannery_web/live/range_live/form_component.html.heex:43
+#: lib/cannery_web/live/range_live/form_component.html.heex:46
 #: lib/cannery_web/live/tag_live/form_component.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Saving..."
@@ -209,7 +209,7 @@ msgstr ""
 msgid "You'll need to"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:76
+#: lib/cannery_web/live/ammo_group_live/form_component.html.heex:78
 #, elixir-autogen, elixir-format
 msgid "Creating..."
 msgstr ""

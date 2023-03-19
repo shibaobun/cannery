@@ -24,8 +24,10 @@
 
     <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :desc,
+      id: "ammo-type-form-desc",
       class: "text-center col-span-2 input input-primary",
-      phx_hook: "MaintainAttrs"
+      phx_hook: "MaintainAttrs",
+      phx_update: "ignore"
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
@@ -52,14 +54,14 @@
     <%= label(f, :cartridge, gettext("Cartridge"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :cartridge,
       class: "text-center col-span-2 input input-primary",
-      placeholder: "5.56x46mm NATO"
+      placeholder: gettext("5.56x46mm NATO")
     ) %>
     <%= error_tag(f, :cartridge, "col-span-3 text-center") %>
 
     <%= label(f, :caliber, gettext("Caliber"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :caliber,
       class: "text-center col-span-2 input input-primary",
-      placeholder: ".223"
+      placeholder: gettext(".223")
     ) %>
     <%= error_tag(f, :caliber, "col-span-3 text-center") %>
 
@@ -112,21 +114,21 @@
     <%= label(f, :pressure, gettext("Pressure"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :pressure,
       class: "text-center col-span-2 input input-primary",
-      placeholder: "+P"
+      placeholder: gettext("+P")
     ) %>
     <%= error_tag(f, :pressure, "col-span-3 text-center") %>
 
     <%= label(f, :primer_type, gettext("Primer type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :primer_type,
       class: "text-center col-span-2 input input-primary",
-      placeholder: "Boxer"
+      placeholder: gettext("Boxer")
     ) %>
     <%= error_tag(f, :primer_type, "col-span-3 text-center") %>
 
     <%= label(f, :firing_type, gettext("Firing type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :firing_type,
       class: "text-center col-span-2 input input-primary",
-      placeholder: "Centerfire"
+      placeholder: gettext("Centerfire")
     ) %>
     <%= error_tag(f, :firing_type, "col-span-3 text-center") %>
 

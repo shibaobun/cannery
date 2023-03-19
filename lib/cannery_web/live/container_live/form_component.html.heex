@@ -27,9 +27,11 @@
 
     <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :desc,
+      id: "container-form-desc",
       class: "input input-primary col-span-2",
+      placeholder: gettext("Metal ammo can with the anime girl sticker"),
       phx_hook: "MaintainAttrs",
-      placeholder: gettext("Metal ammo can with the anime girl sticker")
+      phx_update: "ignore"
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
@@ -42,9 +44,11 @@
 
     <%= label(f, :location, gettext("Location"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :location,
+      id: "container-form-location",
       class: "input input-primary col-span-2",
+      placeholder: gettext("On the bookshelf"),
       phx_hook: "MaintainAttrs",
-      placeholder: gettext("On the bookshelf")
+      phx_update: "ignore"
     ) %>
     <%= error_tag(f, :location, "col-span-3 text-center") %>
 

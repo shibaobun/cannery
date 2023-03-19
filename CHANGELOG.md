@@ -6,6 +6,7 @@
 - Fix tables not sorting dates correctly
 - Fix dates displaying incorrectly
 - Fix container table not displaying all fields
+- Fix textareas resizing when typing in them
 
 # v0.8.3
 - Improve some styles
