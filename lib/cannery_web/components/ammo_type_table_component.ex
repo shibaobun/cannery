@@ -183,7 +183,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
     do: ammo_type |> Map.get(key) |> humanize()
 
   defp get_ammo_type_value(:round_count, _key, %{id: ammo_type_id}, %{round_counts: round_counts}),
-    do: Map.get(round_counts, ammo_type_id)
+    do: Map.get(round_counts, ammo_type_id, 0)
 
   defp get_ammo_type_value(
          :historical_round_count,
@@ -191,7 +191,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
          %{id: ammo_type_id},
          %{historical_round_counts: historical_round_counts}
        ) do
-    Map.get(historical_round_counts, ammo_type_id)
+    Map.get(historical_round_counts, ammo_type_id, 0)
   end
 
   defp get_ammo_type_value(
@@ -200,7 +200,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
          %{id: ammo_type_id},
          %{used_counts: used_counts}
        ) do
-    Map.get(used_counts, ammo_type_id)
+    Map.get(used_counts, ammo_type_id, 0)
   end
 
   defp get_ammo_type_value(
@@ -209,7 +209,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
          %{id: ammo_type_id},
          %{historical_pack_counts: historical_pack_counts}
        ) do
-    Map.get(historical_pack_counts, ammo_type_id)
+    Map.get(historical_pack_counts, ammo_type_id, 0)
   end
 
   defp get_ammo_type_value(
@@ -231,19 +231,20 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
          %{average_costs: average_costs}
        ) do
     case Map.get(average_costs, ammo_type_id) do
-      nil -> gettext("No cost information")
-      count -> gettext("$%{amount}", amount: display_currency(count))
+      nil -> {0, gettext("No cost information")}
+      count -> {count, gettext("$%{amount}", amount: display_currency(count))}
     end
   end
 
-  defp get_ammo_type_value(:name, _key, ammo_type, _other_data) do
+  defp get_ammo_type_value(:name, _key, %{name: ammo_type_name} = ammo_type, _other_data) do
     assigns = %{ammo_type: ammo_type}
 
-    ~H"""
-    <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
-      <%= @ammo_type.name %>
-    </.link>
-    """
+    {ammo_type_name,
+     ~H"""
+     <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
+       <%= @ammo_type.name %>
+     </.link>
+     """}
   end
 
   defp get_ammo_type_value(:actions, _key, ammo_type, %{actions: actions}) do

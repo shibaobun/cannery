@@ -167,10 +167,10 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   end
 
   defp get_value_for_key(:price_paid, %{price_paid: nil}, _additional_data),
-    do: {nil, gettext("No cost information")}
+    do: {0, gettext("No cost information")}
 
   defp get_value_for_key(:price_paid, %{price_paid: price_paid}, _additional_data),
-    do: gettext("$%{amount}", amount: display_currency(price_paid))
+    do: {price_paid, gettext("$%{amount}", amount: display_currency(price_paid))}
 
   defp get_value_for_key(:purchased_on, %{purchased_on: purchased_on} = assigns, _additional_data) do
     {purchased_on,
@@ -203,9 +203,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   end
 
   defp get_value_for_key(:remaining, ammo_group, %{current_user: current_user}) do
-    gettext("%{percentage}%",
-      percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
-    )
+    percentage = ammo_group |> Ammo.get_percentage_remaining(current_user)
+    {percentage, gettext("%{percentage}%", percentage: percentage)}
   end
 
   defp get_value_for_key(:actions, ammo_group, %{actions: actions}) do
@@ -245,13 +244,15 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   end
 
   defp get_value_for_key(:cpr, %{price_paid: nil}, _additional_data),
-    do: {nil, gettext("No cost information")}
+    do: {0, gettext("No cost information")}
 
-  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}),
-    do: gettext("$%{amount}", amount: display_currency(Map.fetch!(cprs, ammo_group_id)))
+  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}) do
+    amount = Map.fetch!(cprs, ammo_group_id)
+    {amount, gettext("$%{amount}", amount: display_currency(amount))}
+  end
 
   defp get_value_for_key(:count, %{count: count}, _additional_data),
-    do: if(count == 0, do: gettext("Empty"), else: count)
+    do: if(count == 0, do: {0, gettext("Empty")}, else: count)
 
   defp get_value_for_key(key, ammo_group, _additional_data), do: ammo_group |> Map.get(key)
 
