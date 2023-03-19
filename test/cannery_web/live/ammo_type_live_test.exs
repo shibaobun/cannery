@@ -230,9 +230,9 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ gettext("Used packs")
       assert html =~ gettext("Total ever packs")
 
-      assert html =~ "20"
-      assert html =~ "0"
-      assert html =~ "1"
+      assert html =~ "\n20\n"
+      assert html =~ "\n0\n"
+      assert html =~ "\n1\n"
 
       shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
 
@@ -243,8 +243,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
         |> render_click()
 
-      assert html =~ "15"
-      assert html =~ "5"
+      assert html =~ "\n15\n"
+      assert html =~ "\n5\n"
     end
   end
 
@@ -297,7 +297,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       {:ok, _show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
       assert html =~ ammo_type_name
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ container_name
     end
 
@@ -310,7 +310,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
         |> render_click()
 
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ container_name
     end
   end
@@ -323,14 +323,14 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       {:ok, show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ "some ammo group"
+      refute html =~ "\n20\n"
 
       html =
         show_live
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
         |> render_click()
 
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ "Empty"
       assert html =~ container_name
     end
@@ -345,14 +345,14 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
         |> render_click()
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ "some ammo group"
+      refute html =~ "\n20\n"
 
       html =
         show_live
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
         |> render_click()
 
-      assert html =~ "some ammo group"
+      assert html =~ "\n20\n"
       assert html =~ "Empty"
       assert html =~ container_name
     end

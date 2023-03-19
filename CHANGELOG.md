@@ -1,6 +1,7 @@
 # v0.8.6
 - Fix duplicate entries showing up
 - Show ammo groups under a type in a table by default
+- Only show historical ammo type information when displaying "Show used" in table
 
 # v0.8.5
 - Add link in readme to github mirror

@@ -103,13 +103,13 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
           [
             %{
               label: gettext("Used packs"),
-              key: :used_packs_count,
-              type: :used_packs_count
+              key: :used_pack_count,
+              type: :used_pack_count
             },
             %{
               label: gettext("Total ever packs"),
-              key: :historical_packs_count,
-              type: :historical_packs_count
+              key: :historical_pack_count,
+              type: :historical_pack_count
             }
           ]
         else
@@ -122,22 +122,20 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       ])
 
     round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
-
-    used_counts =
-      show_used && ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user)
-
-    historical_round_counts =
-      show_used && ammo_types |> Ammo.get_historical_count_for_ammo_types(current_user)
-
     packs_count = ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user)
-
-    historical_packs_count =
-      show_used && ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user, true)
-
-    used_packs_count =
-      show_used && ammo_types |> Ammo.get_used_ammo_groups_count_for_types(current_user)
-
     average_costs = ammo_types |> Ammo.get_average_cost_for_ammo_types(current_user)
+
+    [used_counts, historical_round_counts, historical_pack_counts, used_pack_counts] =
+      if show_used do
+        [
+          ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user),
+          ammo_types |> Ammo.get_historical_count_for_ammo_types(current_user),
+          ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user, true),
+          ammo_types |> Ammo.get_used_ammo_groups_count_for_types(current_user)
+        ]
+      else
+        [nil, nil, nil, nil]
+      end
 
     extra_data = %{
       actions: actions,
@@ -146,8 +144,8 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       round_counts: round_counts,
       historical_round_counts: historical_round_counts,
       packs_count: packs_count,
-      used_packs_count: used_packs_count,
-      historical_packs_count: historical_packs_count,
+      used_pack_counts: used_pack_counts,
+      historical_pack_counts: historical_pack_counts,
       average_costs: average_costs
     }
 
@@ -192,33 +190,46 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
          _key,
          %{id: ammo_type_id},
          %{historical_round_counts: historical_round_counts}
-       ),
-       do: Map.get(historical_round_counts, ammo_type_id)
-
-  defp get_ammo_type_value(:used_round_count, _key, %{id: ammo_type_id}, %{
-         used_counts: used_counts
-       }),
-       do: Map.get(used_counts, ammo_type_id)
+       ) do
+    Map.get(historical_round_counts, ammo_type_id)
+  end
 
   defp get_ammo_type_value(
-         :historical_packs_count,
+         :used_round_count,
          _key,
          %{id: ammo_type_id},
-         %{historical_packs_count: historical_packs_count}
-       ),
-       do: Map.get(historical_packs_count, ammo_type_id)
+         %{used_counts: used_counts}
+       ) do
+    Map.get(used_counts, ammo_type_id)
+  end
 
-  defp get_ammo_type_value(:used_packs_count, _key, %{id: ammo_type_id}, %{
-         used_packs_count: used_packs_count
-       }),
-       do: Map.get(used_packs_count, ammo_type_id)
+  defp get_ammo_type_value(
+         :historical_pack_count,
+         _key,
+         %{id: ammo_type_id},
+         %{historical_pack_counts: historical_pack_counts}
+       ) do
+    Map.get(historical_pack_counts, ammo_type_id)
+  end
+
+  defp get_ammo_type_value(
+         :used_pack_count,
+         _key,
+         %{id: ammo_type_id},
+         %{used_pack_counts: used_pack_counts}
+       ) do
+    Map.get(used_pack_counts, ammo_type_id, 0)
+  end
 
   defp get_ammo_type_value(:ammo_count, _key, %{id: ammo_type_id}, %{packs_count: packs_count}),
     do: Map.get(packs_count, ammo_type_id)
 
-  defp get_ammo_type_value(:avg_price_paid, _key, %{id: ammo_type_id}, %{
-         average_costs: average_costs
-       }) do
+  defp get_ammo_type_value(
+         :avg_price_paid,
+         _key,
+         %{id: ammo_type_id},
+         %{average_costs: average_costs}
+       ) do
     case Map.get(average_costs, ammo_type_id) do
       nil -> gettext("No cost information")
       count -> gettext("$%{amount}", amount: display_currency(count))
