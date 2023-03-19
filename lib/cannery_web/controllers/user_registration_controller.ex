@@ -3,6 +3,7 @@ defmodule CanneryWeb.UserRegistrationController do
   import CanneryWeb.Gettext
   alias Cannery.{Accounts, Accounts.Invites}
   alias CanneryWeb.{Endpoint, HomeLive}
+  alias Ecto.Changeset
 
   def new(conn, %{"invite" => invite_token}) do
     if Invites.valid_invite_token?(invite_token) do
@@ -70,7 +71,7 @@ defmodule CanneryWeb.UserRegistrationController do
         |> put_flash(:error, dgettext("errors", "Sorry, this invite was not found or expired"))
         |> redirect(to: Routes.live_path(Endpoint, HomeLive))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Changeset{} = changeset} ->
         conn |> render("new.html", changeset: changeset, invite_token: invite_token)
     end
   end

@@ -69,9 +69,7 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   @impl true
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
     %{name: name} = Ammo.get_ammo_type!(id, current_user) |> Ammo.delete_ammo_type!(current_user)
-
     prompt = dgettext("prompts", "%{name} deleted succesfully", name: name)
-
     {:noreply, socket |> put_flash(:info, prompt) |> list_ammo_types()}
   end
 
@@ -84,8 +82,8 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    {:noreply,
-     socket |> push_patch(to: Routes.ammo_type_index_path(Endpoint, :search, search_term))}
+    search_path = Routes.ammo_type_index_path(Endpoint, :search, search_term)
+    {:noreply, socket |> push_patch(to: search_path)}
   end
 
   defp list_ammo_types(%{assigns: %{search: search, current_user: current_user}} = socket) do

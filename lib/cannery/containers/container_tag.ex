@@ -1,12 +1,12 @@
 defmodule Cannery.Containers.ContainerTag do
   @moduledoc """
   Thru-table struct for associating Cannery.Containers.Container and
-  Cannery.Tags.Tag.
+  Cannery.Containers.Tag.
   """
 
   use Ecto.Schema
   import Ecto.Changeset
-  alias Cannery.{Containers.Container, Containers.ContainerTag, Tags.Tag}
+  alias Cannery.Containers.{Container, Tag}
   alias Ecto.{Changeset, UUID}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,7 +18,7 @@ defmodule Cannery.Containers.ContainerTag do
     timestamps()
   end
 
-  @type t :: %ContainerTag{
+  @type t :: %__MODULE__{
           id: id(),
           container: Container.t(),
           container_id: Container.id(),
@@ -27,7 +27,7 @@ defmodule Cannery.Containers.ContainerTag do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_container_tag :: %ContainerTag{}
+  @type new_container_tag :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_container_tag())
 

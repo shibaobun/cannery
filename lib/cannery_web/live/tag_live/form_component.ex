@@ -1,11 +1,10 @@
 defmodule CanneryWeb.TagLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update or create an Cannery.Tags.Tag
+  Livecomponent that can update or create an Cannery.Containers.Tag
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.Tags
-  alias Cannery.{Accounts.User, Tags.Tag}
+  alias Cannery.{Accounts.User, Containers, Containers.Tag}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
@@ -56,7 +55,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
          tag_params
        ) do
     socket =
-      case Tags.update_tag(tag, tag_params, current_user) do
+      case Containers.update_tag(tag, tag_params, current_user) do
         {:ok, %{name: tag_name}} ->
           prompt = dgettext("prompts", "%{name} updated successfully", name: tag_name)
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
@@ -74,7 +73,7 @@ defmodule CanneryWeb.TagLive.FormComponent do
          tag_params
        ) do
     socket =
-      case Tags.create_tag(tag_params, current_user) do
+      case Containers.create_tag(tag_params, current_user) do
         {:ok, %{name: tag_name}} ->
           prompt = dgettext("prompts", "%{name} created successfully", name: tag_name)
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)

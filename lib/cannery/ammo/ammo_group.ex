@@ -9,8 +9,8 @@ defmodule Cannery.Ammo.AmmoGroup do
   use Ecto.Schema
   import CanneryWeb.Gettext
   import Ecto.Changeset
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Containers, Containers.Container}
+  alias Cannery.Ammo.AmmoType
+  alias Cannery.{Accounts.User, Containers, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
   @derive {Jason.Encoder,
@@ -33,15 +33,13 @@ defmodule Cannery.Ammo.AmmoGroup do
     field :purchased_on, :date
 
     belongs_to :ammo_type, AmmoType
-    belongs_to :container, Container
-    belongs_to :user, User
-
-    has_many :shot_groups, ShotGroup
+    field :container_id, :binary_id
+    field :user_id, :binary_id
 
     timestamps()
   end
 
-  @type t :: %AmmoGroup{
+  @type t :: %__MODULE__{
           id: id(),
           count: integer,
           notes: String.t() | nil,
@@ -50,14 +48,12 @@ defmodule Cannery.Ammo.AmmoGroup do
           purchased_on: Date.t(),
           ammo_type: AmmoType.t() | nil,
           ammo_type_id: AmmoType.id(),
-          container: Container.t() | nil,
           container_id: Container.id(),
-          user: User.t() | nil,
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_ammo_group :: %AmmoGroup{}
+  @type new_ammo_group :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_ammo_group())
 
@@ -76,8 +72,7 @@ defmodule Cannery.Ammo.AmmoGroup do
         %User{id: user_id},
         attrs
       )
-      when not (ammo_type_id |> is_nil()) and not (container_id |> is_nil()) and
-             not (user_id |> is_nil()) do
+      when is_binary(ammo_type_id) and is_binary(container_id) and is_binary(user_id) do
     ammo_group
     |> change(ammo_type_id: ammo_type_id)
     |> change(user_id: user_id)

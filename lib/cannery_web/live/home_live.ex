@@ -12,7 +12,6 @@ defmodule CanneryWeb.HomeLive do
   @impl true
   def mount(_params, _session, socket) do
     admins = Accounts.list_users_by_role(:admin)
-    socket = socket |> assign(page_title: gettext("Home"), admins: admins, version: @version)
-    {:ok, socket}
+    {:ok, socket |> assign(page_title: gettext("Home"), admins: admins, version: @version)}
   end
 end

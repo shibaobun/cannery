@@ -5,7 +5,11 @@ defmodule CanneryWeb.RangeLive.FormComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.AmmoGroup}
+  alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
+
+  @impl true
+  def mount(socket), do: {:ok, socket |> assign(:ammo_group, nil)}
 
   @impl true
   @spec update(
@@ -19,28 +23,23 @@ defmodule CanneryWeb.RangeLive.FormComponent do
         ) :: {:ok, Socket.t()}
   def update(
         %{
-          shot_group: %ShotGroup{ammo_group_id: ammo_group_id} = shot_group,
+          shot_group: %ShotGroup{ammo_group_id: ammo_group_id},
           current_user: current_user
         } = assigns,
         socket
-      ) do
-    changeset = shot_group |> ShotGroup.update_changeset(current_user, %{})
+      )
+      when is_binary(ammo_group_id) do
     ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
-    {:ok, socket |> assign(assigns) |> assign(ammo_group: ammo_group, changeset: changeset)}
+    {:ok, socket |> assign(assigns) |> assign(:ammo_group, ammo_group) |> assign_changeset(%{})}
+  end
+
+  def update(%{shot_group: %ShotGroup{}} = assigns, socket) do
+    {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event(
-        "validate",
-        %{"shot_group" => shot_group_params},
-        %{assigns: %{current_user: current_user, shot_group: shot_group}} = socket
-      ) do
-    changeset =
-      shot_group
-      |> ShotGroup.update_changeset(current_user, shot_group_params)
-      |> Map.put(:action, :validate)
-
-    {:noreply, assign(socket, :changeset, changeset)}
+  def handle_event("validate", %{"shot_group" => shot_group_params}, socket) do
+    {:noreply, socket |> assign_changeset(shot_group_params, :validate)}
   end
 
   def handle_event(
@@ -60,5 +59,38 @@ defmodule CanneryWeb.RangeLive.FormComponent do
       end
 
     {:noreply, socket}
+  end
+
+  defp assign_changeset(
+         %{
+           assigns: %{
+             action: live_action,
+             current_user: user,
+             ammo_group: ammo_group,
+             shot_group: shot_group
+           }
+         } = socket,
+         shot_group_params,
+         action \\ nil
+       ) do
+    default_action =
+      case live_action do
+        :add_shot_group -> :insert
+        editing when editing in [:edit, :edit_shot_group] -> :update
+      end
+
+    changeset =
+      case default_action do
+        :insert -> shot_group |> ShotGroup.create_changeset(user, ammo_group, shot_group_params)
+        :update -> shot_group |> ShotGroup.update_changeset(user, shot_group_params)
+      end
+
+    changeset =
+      case changeset |> Changeset.apply_action(action || default_action) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
+
+    socket |> assign(:changeset, changeset)
   end
 end

@@ -35,17 +35,17 @@ defmodule CanneryWeb.ContainerLive.FormComponent do
          container_params
        ) do
     changeset_action =
-      cond do
-        action in [:new, :clone] -> :insert
-        action == :edit -> :update
+      case action do
+        create when create in [:new, :clone] -> :insert
+        :edit -> :update
       end
 
     changeset =
-      cond do
-        action in [:new, :clone] ->
+      case action do
+        create when create in [:new, :clone] ->
           container |> Container.create_changeset(user, container_params)
 
-        action == :edit ->
+        :edit ->
           container |> Container.update_changeset(container_params)
       end
 

@@ -3,41 +3,49 @@ defmodule CanneryWeb.ExportController do
   alias Cannery.{ActivityLog, Ammo, Containers}
 
   def export(%{assigns: %{current_user: current_user}} = conn, %{"mode" => "json"}) do
-    ammo_types =
-      Ammo.list_ammo_types(current_user)
-      |> Enum.map(fn ammo_type ->
-        average_cost = ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user)
-        round_count = ammo_type |> Ammo.get_round_count_for_ammo_type(current_user)
-        used_count = ammo_type |> Ammo.get_used_count_for_ammo_type(current_user)
-        ammo_group_count = ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
+    ammo_types = Ammo.list_ammo_types(current_user)
+    used_counts = ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user)
+    round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
+    ammo_group_counts = ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user)
 
+    total_ammo_group_counts =
+      ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user, true)
+
+    average_costs = ammo_types |> Ammo.get_average_cost_for_ammo_types(current_user)
+
+    ammo_types =
+      ammo_types
+      |> Enum.map(fn %{id: ammo_type_id} = ammo_type ->
         ammo_type
         |> Jason.encode!()
         |> Jason.decode!()
         |> Map.merge(%{
-          "average_cost" => average_cost,
-          "round_count" => round_count,
-          "used_count" => used_count,
-          "ammo_group_count" => ammo_group_count
+          "average_cost" => Map.get(average_costs, ammo_type_id),
+          "round_count" => Map.get(round_counts, ammo_type_id, 0),
+          "used_count" => Map.get(used_counts, ammo_type_id, 0),
+          "ammo_group_count" => Map.get(ammo_group_counts, ammo_type_id, 0),
+          "total_ammo_group_count" => Map.get(total_ammo_group_counts, ammo_type_id, 0)
         })
       end)
 
+    ammo_groups = Ammo.list_ammo_groups(nil, true, current_user)
+    used_counts = ammo_groups |> ActivityLog.get_used_counts(current_user)
+    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
+    cprs = ammo_groups |> Ammo.get_cprs(current_user)
+
     ammo_groups =
-      Ammo.list_ammo_groups(nil, true, current_user)
-      |> Enum.map(fn ammo_group ->
-        cpr = ammo_group |> Ammo.get_cpr()
-        used_count = ammo_group |> Ammo.get_used_count()
-        original_count = ammo_group |> Ammo.get_original_count()
-        percentage_remaining = ammo_group |> Ammo.get_percentage_remaining()
+      ammo_groups
+      |> Enum.map(fn %{id: ammo_group_id} = ammo_group ->
+        percentage_remaining = ammo_group |> Ammo.get_percentage_remaining(current_user)
 
         ammo_group
         |> Jason.encode!()
         |> Jason.decode!()
         |> Map.merge(%{
-          "used_count" => used_count,
+          "used_count" => Map.get(used_counts, ammo_group_id),
           "percentage_remaining" => percentage_remaining,
-          "original_count" => original_count,
-          "cpr" => cpr
+          "original_count" => Map.get(original_counts, ammo_group_id),
+          "cpr" => Map.get(cprs, ammo_group_id)
         })
       end)
 
@@ -46,8 +54,8 @@ defmodule CanneryWeb.ExportController do
     containers =
       Containers.list_containers(current_user)
       |> Enum.map(fn container ->
-        ammo_group_count = container |> Containers.get_container_ammo_group_count!()
-        round_count = container |> Containers.get_container_rounds!()
+        ammo_group_count = container |> Ammo.get_ammo_groups_count_for_container!(current_user)
+        round_count = container |> Ammo.get_round_count_for_container!(current_user)
 
         container
         |> Jason.encode!()

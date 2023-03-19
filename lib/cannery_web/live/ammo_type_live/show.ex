@@ -4,7 +4,7 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{Ammo, Ammo.AmmoType}
+  alias Cannery.{ActivityLog, Ammo, Ammo.AmmoType}
   alias CanneryWeb.Endpoint
 
   @fields_list [
@@ -91,12 +91,27 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
         ammo_type |> Map.get(field) != default_value
       end)
 
+    ammo_groups = ammo_type |> Ammo.list_ammo_groups_for_type(current_user, show_used)
+    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
+    cprs = ammo_groups |> Ammo.get_cprs(current_user)
+    historical_packs_count = ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
+    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
+
     socket
     |> assign(
       page_title: page_title(live_action, ammo_type),
       ammo_type: ammo_type,
-      ammo_groups: ammo_type |> Ammo.list_ammo_groups_for_type(current_user, show_used),
-      avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user),
+      ammo_groups: ammo_groups,
+      original_counts: original_counts,
+      cprs: cprs,
+      last_used_dates: last_used_dates,
+      avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type(current_user),
+      rounds: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user),
+      used_rounds: ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user),
+      historical_round_count: ammo_type |> Ammo.get_historical_count_for_ammo_type(current_user),
+      packs_count: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user),
+      used_packs_count: ammo_type |> Ammo.get_used_ammo_groups_count_for_type(current_user),
+      historical_packs_count: historical_packs_count,
       fields_list: @fields_list,
       fields_to_display: fields_to_display
     )
@@ -109,6 +124,9 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   defp display_ammo_type(%{assigns: %{ammo_type: ammo_type}} = socket) do
     socket |> display_ammo_type(ammo_type)
   end
+
+  @spec display_currency(float()) :: String.t()
+  defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
 
   defp page_title(action, %{name: ammo_type_name}) when action in [:show, :table],
     do: ammo_type_name

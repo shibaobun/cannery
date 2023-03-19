@@ -4,7 +4,7 @@ defmodule CanneryWeb.ContainerLive.Show do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container, Repo, Tags}
+  alias Cannery.{Accounts.User, ActivityLog, Ammo, Containers, Containers.Container}
   alias CanneryWeb.Endpoint
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
@@ -30,7 +30,7 @@ defmodule CanneryWeb.ContainerLive.Show do
         %{assigns: %{container: container, current_user: current_user}} = socket
       ) do
     socket =
-      case Tags.get_tag(tag_id, current_user) do
+      case Containers.get_tag(tag_id, current_user) do
         {:ok, tag} ->
           _count = Containers.remove_tag!(container, tag, current_user)
 
@@ -42,8 +42,8 @@ defmodule CanneryWeb.ContainerLive.Show do
 
           socket |> put_flash(:info, prompt) |> render_container()
 
-        {:error, error_string} ->
-          socket |> put_flash(:error, error_string)
+        {:error, :not_found} ->
+          socket |> put_flash(:error, dgettext("errors", "Tag not found"))
       end
 
     {:noreply, socket}
@@ -96,12 +96,11 @@ defmodule CanneryWeb.ContainerLive.Show do
          id,
          current_user
        ) do
-    %{name: container_name} =
-      container =
-      Containers.get_container!(id, current_user)
-      |> Repo.preload([:tags], force: true)
-
+    %{name: container_name} = container = Containers.get_container!(id, current_user)
     ammo_groups = Ammo.list_ammo_groups_for_container(container, current_user, show_used)
+    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
+    cprs = ammo_groups |> Ammo.get_cprs(current_user)
+    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
 
     page_title =
       case live_action do
@@ -110,7 +109,16 @@ defmodule CanneryWeb.ContainerLive.Show do
         :edit_tags -> gettext("Edit %{name} tags", name: container_name)
       end
 
-    socket |> assign(container: container, ammo_groups: ammo_groups, page_title: page_title)
+    socket
+    |> assign(
+      container: container,
+      round_count: Ammo.get_round_count_for_container!(container, current_user),
+      ammo_groups: ammo_groups,
+      original_counts: original_counts,
+      cprs: cprs,
+      last_used_dates: last_used_dates,
+      page_title: page_title
+    )
   end
 
   @spec render_container(Socket.t()) :: Socket.t()

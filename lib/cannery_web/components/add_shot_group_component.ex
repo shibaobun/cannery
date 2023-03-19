@@ -5,6 +5,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo.AmmoGroup}
+  alias Ecto.Changeset
   alias Phoenix.LiveView.{JS, Socket}
 
   @impl true
@@ -18,7 +19,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
         ) :: {:ok, Socket.t()}
   def update(%{ammo_group: ammo_group, current_user: current_user} = assigns, socket) do
     changeset =
-      %ShotGroup{date: NaiveDateTime.utc_now(), count: 1}
+      %ShotGroup{date: Date.utc_today()}
       |> ShotGroup.create_changeset(current_user, ammo_group, %{})
 
     {:ok, socket |> assign(assigns) |> assign(:changeset, changeset)}
@@ -32,10 +33,13 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
       ) do
     params = shot_group_params |> process_params(ammo_group)
 
+    changeset = %ShotGroup{} |> ShotGroup.create_changeset(current_user, ammo_group, params)
+
     changeset =
-      %ShotGroup{}
-      |> ShotGroup.create_changeset(current_user, ammo_group, params)
-      |> Map.put(:action, :validate)
+      case changeset |> Changeset.apply_action(:validate) do
+        {:ok, _data} -> changeset
+        {:error, changeset} -> changeset
+      end
 
     {:noreply, socket |> assign(:changeset, changeset)}
   end
@@ -56,7 +60,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
           prompt = dgettext("prompts", "Shots recorded successfully")
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
-        {:error, %Ecto.Changeset{} = changeset} ->
+        {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)
       end
 
@@ -65,14 +69,14 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
 
   # calculate count from shots left
   defp process_params(params, %AmmoGroup{count: count}) do
-    new_count =
-      if params |> Map.get("ammo_left", "0") == "" do
-        "0"
+    shot_group_count =
+      if params |> Map.get("ammo_left", "") == "" do
+        nil
       else
-        params |> Map.get("ammo_left", "0")
+        new_count = params |> Map.get("ammo_left") |> String.to_integer()
+        count - new_count
       end
-      |> String.to_integer()
 
-    params |> Map.put("count", count - new_count)
+    params |> Map.put("count", shot_group_count)
   end
 end

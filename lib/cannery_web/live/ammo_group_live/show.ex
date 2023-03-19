@@ -4,7 +4,9 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.AmmoGroup, Repo}
+  alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
+  alias Cannery.{Ammo, Ammo.AmmoGroup}
+  alias Cannery.Containers
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
@@ -81,30 +83,45 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   end
 
   @spec display_ammo_group(Socket.t(), AmmoGroup.t() | AmmoGroup.id()) :: Socket.t()
-  defp display_ammo_group(socket, %AmmoGroup{} = ammo_group) do
-    ammo_group = ammo_group |> Repo.preload([:container, :ammo_type, :shot_groups], force: true)
-
+  defp display_ammo_group(
+         %{assigns: %{current_user: current_user}} = socket,
+         %AmmoGroup{container_id: container_id} = ammo_group
+       ) do
     columns = [
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
-      %{label: gettext("Date"), key: :date},
+      %{label: gettext("Date"), key: :date, type: Date},
       %{label: nil, key: :actions, sortable: false}
     ]
 
+    shot_groups = ActivityLog.list_shot_groups_for_ammo_group(ammo_group, current_user)
+
     rows =
-      ammo_group.shot_groups
+      shot_groups
       |> Enum.map(fn shot_group ->
         ammo_group |> get_table_row_for_shot_group(shot_group, columns)
       end)
 
-    socket |> assign(ammo_group: ammo_group, columns: columns, rows: rows)
+    socket
+    |> assign(
+      ammo_group: ammo_group,
+      original_count: Ammo.get_original_count(ammo_group, current_user),
+      percentage_remaining: Ammo.get_percentage_remaining(ammo_group, current_user),
+      container: container_id && Containers.get_container!(container_id, current_user),
+      shot_groups: shot_groups,
+      columns: columns,
+      rows: rows
+    )
   end
 
   defp display_ammo_group(%{assigns: %{current_user: current_user}} = socket, id),
     do: display_ammo_group(socket, Ammo.get_ammo_group!(id, current_user))
 
+  @spec display_currency(float()) :: String.t()
+  defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
+
   @spec get_table_row_for_shot_group(AmmoGroup.t(), ShotGroup.t(), [map()]) :: map()
-  defp get_table_row_for_shot_group(ammo_group, %{date: date} = shot_group, columns) do
+  defp get_table_row_for_shot_group(ammo_group, %{id: id, date: date} = shot_group, columns) do
     assigns = %{ammo_group: ammo_group, shot_group: shot_group}
 
     columns
@@ -112,11 +129,11 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
       value =
         case key do
           :date ->
-            assigns = %{date: date}
+            assigns = %{id: id, date: date}
 
             {date,
              ~H"""
-             <.date date={@date} />
+             <.date id={"#{@id}-date"} date={@date} />
              """}
 
           :actions ->

@@ -20,21 +20,18 @@
 
   <%= unless @ammo_groups |> Enum.empty?() do %>
     <span class="rounded-lg title text-lg">
-      <%= if @show_used do %>
-        <%= gettext("Total packs:") %>
-      <% else %>
-        <%= gettext("Packs:") %>
-      <% end %>
+      <%= gettext("Packs:") %>
+      <%= @ammo_groups |> Enum.reject(fn %{count: count} -> count in [0, nil] end) |> Enum.count() %>
+    </span>
+
+    <span :if={@show_used} class="rounded-lg title text-lg">
+      <%= gettext("Total packs:") %>
       <%= Enum.count(@ammo_groups) %>
     </span>
 
     <span class="rounded-lg title text-lg">
-      <%= if @show_used do %>
-        <%= gettext("Total rounds:") %>
-      <% else %>
-        <%= gettext("Rounds:") %>
-      <% end %>
-      <%= @container |> Containers.get_container_rounds!() %>
+      <%= gettext("Rounds:") %>
+      <%= @round_count %>
     </span>
   <% end %>
 
@@ -130,40 +127,45 @@
         </.live_component>
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">
-          <.ammo_group_card :for={ammo_group <- @ammo_groups} ammo_group={ammo_group} />
+          <.ammo_group_card
+            :for={%{id: ammo_group_id} = ammo_group <- @ammo_groups}
+            ammo_group={ammo_group}
+            original_count={Map.fetch!(@original_counts, ammo_group_id)}
+            cpr={Map.get(@cprs, ammo_group_id)}
+            last_used_date={Map.get(@last_used_dates, ammo_group_id)}
+            current_user={@current_user}
+          />
         </div>
       <% end %>
     <% end %>
   </div>
 </div>
 
-<.modal
-  :if={@live_action == :edit}
-  return_to={Routes.container_show_path(Endpoint, :show, @container)}
->
-  <.live_component
-    module={CanneryWeb.ContainerLive.FormComponent}
-    id={@container.id}
-    title={@page_title}
-    action={@live_action}
-    container={@container}
-    return_to={Routes.container_show_path(Endpoint, :show, @container)}
-    current_user={@current_user}
-  />
-</.modal>
-
-<.modal
-  :if={@live_action == :edit_tags}
-  return_to={Routes.container_show_path(Endpoint, :show, @container)}
->
-  <.live_component
-    module={CanneryWeb.ContainerLive.EditTagsComponent}
-    id={@container.id}
-    title={@page_title}
-    action={@live_action}
-    container={@container}
-    return_to={Routes.container_show_path(Endpoint, :show, @container)}
-    current_path={Routes.container_show_path(Endpoint, :edit_tags, @container)}
-    current_user={@current_user}
-  />
-</.modal>
+<%= case @live_action do %>
+  <% :edit -> %>
+    <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+      <.live_component
+        module={CanneryWeb.ContainerLive.FormComponent}
+        id={@container.id}
+        title={@page_title}
+        action={@live_action}
+        container={@container}
+        return_to={Routes.container_show_path(Endpoint, :show, @container)}
+        current_user={@current_user}
+      />
+    </.modal>
+  <% :edit_tags -> %>
+    <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+      <.live_component
+        module={CanneryWeb.ContainerLive.EditTagsComponent}
+        id={@container.id}
+        title={@page_title}
+        action={@live_action}
+        container={@container}
+        return_to={Routes.container_show_path(Endpoint, :show, @container)}
+        current_path={Routes.container_show_path(Endpoint, :edit_tags, @container)}
+        current_user={@current_user}
+      />
+    </.modal>
+  <% _ -> %>
+<% end %>

@@ -66,11 +66,11 @@ msgstr ""
 msgid "Invite someone new!"
 msgstr ""
 
-#: lib/cannery_web/components/topbar.ex:137
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:31
+#: lib/cannery_web/components/core_components/topbar.html.heex:122
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:32
 #: lib/cannery_web/templates/user_registration/new.html.heex:44
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:45
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:31
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:32
 #: lib/cannery_web/templates/user_session/new.html.heex:3
 #: lib/cannery_web/templates/user_session/new.html.heex:28
 #, elixir-autogen, elixir-format
@@ -97,19 +97,19 @@ msgstr ""
 msgid "New Tag"
 msgstr ""
 
-#: lib/cannery_web/components/topbar.ex:129
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:28
+#: lib/cannery_web/components/core_components/topbar.html.heex:114
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:29
 #: lib/cannery_web/templates/user_registration/new.html.heex:3
 #: lib/cannery_web/templates/user_registration/new.html.heex:37
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:42
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:28
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:29
 #: lib/cannery_web/templates/user_session/new.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
 
 #: lib/cannery_web/templates/user_confirmation/new.html.heex:3
-#: lib/cannery_web/templates/user_confirmation/new.html.heex:15
+#: lib/cannery_web/templates/user_confirmation/new.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Resend confirmation instructions"
 msgstr ""
@@ -131,17 +131,17 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: lib/cannery_web/templates/user_reset_password/new.html.heex:15
+#: lib/cannery_web/templates/user_reset_password/new.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Send instructions to reset password"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/show.html.heex:78
+#: lib/cannery_web/live/container_live/show.html.heex:75
 #, elixir-autogen, elixir-format
 msgid "Why not add one?"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:50
+#: lib/cannery_web/live/container_live/edit_tags_component.html.heex:51
 #, elixir-autogen, elixir-format
 msgid "Add"
 msgstr ""
@@ -156,9 +156,9 @@ msgstr ""
 msgid "Why not get some ready to shoot?"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:102
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:107
-#: lib/cannery_web/live/range_live/index.html.heex:38
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:103
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:103
+#: lib/cannery_web/live/range_live/index.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Record shots"
 msgstr ""
@@ -168,17 +168,12 @@ msgstr ""
 msgid "Add another container!"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:100
-#, elixir-autogen, elixir-format
-msgid "Move containers"
-msgstr ""
-
 #: lib/cannery_web/components/move_ammo_group_component.ex:126
 #, elixir-autogen, elixir-format
 msgid "Select"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:33
+#: lib/cannery_web/live/invite_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Copy to clipboard"
 msgstr ""
@@ -203,7 +198,7 @@ msgstr ""
 msgid "Change language"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:59
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "View in Catalog"
 msgstr ""
@@ -214,23 +209,25 @@ msgid "add an ammo type first"
 msgstr ""
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:80
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:120
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:85
+#: lib/cannery_web/live/invite_live/index.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "Set Unlimited"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:93
-#: lib/cannery_web/live/range_live/index.html.heex:31
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:89
+#: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Stage for range"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:92
-#: lib/cannery_web/live/range_live/index.html.heex:30
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:88
+#: lib/cannery_web/live/range_live/index.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"
 msgstr ""
@@ -240,106 +237,123 @@ msgstr ""
 msgid "Export Data as JSON"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:83
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "Clone %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.html.heex:86
-#: lib/cannery_web/live/container_live/index.html.heex:138
+#: lib/cannery_web/live/container_live/index.html.heex:87
+#: lib/cannery_web/live/container_live/index.html.heex:143
 #, elixir-autogen, elixir-format
 msgid "Clone %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:30
+#: lib/cannery_web/live/invite_live/index.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Copy invite link for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:102
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:103
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Delete %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.html.heex:101
-#: lib/cannery_web/live/container_live/index.html.heex:153
-#: lib/cannery_web/live/container_live/show.html.heex:58
+#: lib/cannery_web/live/container_live/index.html.heex:102
+#: lib/cannery_web/live/container_live/index.html.heex:158
+#: lib/cannery_web/live/container_live/show.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "Delete %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/tag_live/index.html.heex:64
+#: lib/cannery_web/live/tag_live/index.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Delete %{tag_name}"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:58
+#: lib/cannery_web/live/invite_live/index.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Delete invite for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:145
-#: lib/cannery_web/live/range_live/index.html.heex:122
+#: lib/cannery_web/live/ammo_group_live/show.ex:161
+#: lib/cannery_web/live/range_live/index.html.heex:130
 #, elixir-autogen, elixir-format
 msgid "Delete shot record of %{shot_group_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:73
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:74
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Edit %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.html.heex:76
-#: lib/cannery_web/live/container_live/index.html.heex:128
-#: lib/cannery_web/live/container_live/show.html.heex:45
+#: lib/cannery_web/live/container_live/index.html.heex:77
+#: lib/cannery_web/live/container_live/index.html.heex:133
+#: lib/cannery_web/live/container_live/show.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Edit %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/tag_live/index.html.heex:51
+#: lib/cannery_web/live/tag_live/index.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "Edit %{tag_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.html.heex:66
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:142
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Edit ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/invite_live/index.html.heex:41
+#: lib/cannery_web/live/invite_live/index.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Edit invite for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/show.ex:130
+#: lib/cannery_web/live/ammo_group_live/show.ex:146
 #, elixir-autogen, elixir-format
 msgid "Edit shot group of %{shot_group_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:105
+#: lib/cannery_web/live/range_live/index.html.heex:113
 #, elixir-autogen, elixir-format
 msgid "Edit shot record of %{shot_group_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:95
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:96
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Stage"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/index.html.heex:64
-#: lib/cannery_web/live/container_live/index.html.heex:117
+#: lib/cannery_web/live/container_live/index.html.heex:65
+#: lib/cannery_web/live/container_live/index.html.heex:122
 #, elixir-autogen, elixir-format
 msgid "Tag %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:94
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:95
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:63
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "View %{ammo_type_name}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:154
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Clone ammo group of %{ammo_group_count} bullets"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:169
+#: lib/cannery_web/live/ammo_group_live/show.html.heex:76
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete ammo group of %{ammo_group_count} bullets"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:130
+#, elixir-autogen, elixir-format, fuzzy
+msgid "View ammo group of %{ammo_group_count} bullets"
 msgstr ""

@@ -6,6 +6,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup, Containers, Containers.Container}
   alias CanneryWeb.Endpoint
+  alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
   @impl true
@@ -51,10 +52,9 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
       |> case do
         {:ok, _ammo_group} ->
           prompt = dgettext("prompts", "Ammo moved to %{name} successfully", name: container_name)
-
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
-        {:error, %Ecto.Changeset{} = changeset} ->
+        {:error, %Changeset{} = changeset} ->
           socket |> assign(changeset: changeset)
       end
 
@@ -64,10 +64,10 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
   @impl true
   def render(%{containers: containers} = assigns) do
     columns = [
-      %{label: gettext("Container"), key: "name"},
-      %{label: gettext("Type"), key: "type"},
-      %{label: gettext("Location"), key: "location"},
-      %{label: nil, key: "actions", sortable: false}
+      %{label: gettext("Container"), key: :name},
+      %{label: gettext("Type"), key: :type},
+      %{label: gettext("Location"), key: :location},
+      %{label: nil, key: :actions, sortable: false}
     ]
 
     rows = containers |> get_rows_for_containers(assigns, columns)
@@ -110,8 +110,8 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
     end)
   end
 
-  @spec get_row_value_by_key(String.t(), Container.t(), map()) :: any()
-  defp get_row_value_by_key("actions", container, assigns) do
+  @spec get_row_value_by_key(atom(), Container.t(), map()) :: any()
+  defp get_row_value_by_key(:actions, container, assigns) do
     assigns = assigns |> Map.put(:container, container)
 
     ~H"""
@@ -129,6 +129,5 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
     """
   end
 
-  defp get_row_value_by_key(key, container, _assigns),
-    do: container |> Map.get(key |> String.to_existing_atom())
+  defp get_row_value_by_key(key, container, _assigns), do: container |> Map.get(key)
 end

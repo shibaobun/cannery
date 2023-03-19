@@ -12,10 +12,9 @@ defmodule Cannery.Fixtures do
     Ammo.AmmoType,
     Containers,
     Containers.Container,
+    Containers.Tag,
     Email,
-    Repo,
-    Tags,
-    Tags.Tag
+    Repo
   }
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -154,7 +153,7 @@ defmodule Cannery.Fixtures do
       "name" => "some name",
       "text_color" => "some text-color"
     })
-    |> Tags.create_tag(user)
+    |> Containers.create_tag(user)
     |> unwrap_ok_tuple()
   end
 

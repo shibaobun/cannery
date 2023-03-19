@@ -4,7 +4,8 @@ defmodule Cannery.ActivityLog do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup, Repo}
+  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
   alias Ecto.Multi
 
   @doc """
@@ -31,8 +32,10 @@ defmodule Cannery.ActivityLog do
 
     Repo.all(
       from sg in ShotGroup,
-        left_join: ag in assoc(sg, :ammo_group),
-        left_join: at in assoc(ag, :ammo_type),
+        left_join: ag in AmmoGroup,
+        on: sg.ammo_group_id == ag.id,
+        left_join: at in AmmoType,
+        on: ag.ammo_type_id == at.id,
         where: sg.user_id == ^user_id,
         where:
           fragment(
@@ -58,6 +61,18 @@ defmodule Cannery.ActivityLog do
             ^trimmed_search
           )
         }
+    )
+  end
+
+  @spec list_shot_groups_for_ammo_group(AmmoGroup.t(), User.t()) :: [ShotGroup.t()]
+  def list_shot_groups_for_ammo_group(
+        %AmmoGroup{id: ammo_group_id, user_id: user_id},
+        %User{id: user_id}
+      ) do
+    Repo.all(
+      from sg in ShotGroup,
+        where: sg.ammo_group_id == ^ammo_group_id,
+        where: sg.user_id == ^user_id
     )
   end
 
@@ -107,9 +122,15 @@ defmodule Cannery.ActivityLog do
     )
     |> Multi.run(
       :ammo_group,
-      fn repo, %{create_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
-        {:ok,
-         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
+      fn _repo, %{create_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
+        ammo_group =
+          Repo.one(
+            from ag in AmmoGroup,
+              where: ag.id == ^ammo_group_id,
+              where: ag.user_id == ^user_id
+          )
+
+        {:ok, ammo_group}
       end
     )
     |> Multi.update(
@@ -219,5 +240,113 @@ defmodule Cannery.ActivityLog do
       {:error, :delete_shot_group, changeset, _changes_so_far} -> {:error, changeset}
       {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
+  end
+
+  @doc """
+  Returns the number of shot rounds for an ammo group
+  """
+  @spec get_used_count(AmmoGroup.t(), User.t()) :: non_neg_integer()
+  def get_used_count(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
+    [ammo_group]
+    |> get_used_counts(user)
+    |> Map.get(ammo_group_id, 0)
+  end
+
+  @doc """
+  Returns the number of shot rounds for multiple ammo groups
+  """
+  @spec get_used_counts([AmmoGroup.t()], User.t()) ::
+          %{optional(AmmoGroup.id()) => non_neg_integer()}
+  def get_used_counts(ammo_groups, %User{id: user_id}) do
+    ammo_group_ids =
+      ammo_groups
+      |> Enum.map(fn %{id: ammo_group_id} -> ammo_group_id end)
+
+    Repo.all(
+      from sg in ShotGroup,
+        where: sg.ammo_group_id in ^ammo_group_ids,
+        where: sg.user_id == ^user_id,
+        group_by: sg.ammo_group_id,
+        select: {sg.ammo_group_id, sum(sg.count)}
+    )
+    |> Map.new()
+  end
+
+  @doc """
+  Returns the last entered shot group date for an ammo group
+  """
+  @spec get_last_used_date(AmmoGroup.t(), User.t()) :: Date.t() | nil
+  def get_last_used_date(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
+    [ammo_group]
+    |> get_last_used_dates(user)
+    |> Map.get(ammo_group_id)
+  end
+
+  @doc """
+  Returns the last entered shot group date for an ammo group
+  """
+  @spec get_last_used_dates([AmmoGroup.t()], User.t()) :: %{optional(AmmoGroup.id()) => Date.t()}
+  def get_last_used_dates(ammo_groups, %User{id: user_id}) do
+    ammo_group_ids =
+      ammo_groups
+      |> Enum.map(fn %AmmoGroup{id: ammo_group_id, user_id: ^user_id} -> ammo_group_id end)
+
+    Repo.all(
+      from sg in ShotGroup,
+        where: sg.ammo_group_id in ^ammo_group_ids,
+        where: sg.user_id == ^user_id,
+        group_by: sg.ammo_group_id,
+        select: {sg.ammo_group_id, max(sg.date)}
+    )
+    |> Map.new()
+  end
+
+  @doc """
+  Gets the total number of rounds shot for an ammo type
+
+  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+
+  ## Examples
+
+      iex> get_used_count_for_ammo_type(123, %User{id: 123})
+      35
+
+      iex> get_used_count_for_ammo_type(456, %User{id: 123})
+      ** (Ecto.NoResultsError)
+
+  """
+  @spec get_used_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  def get_used_count_for_ammo_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
+    [ammo_type]
+    |> get_used_count_for_ammo_types(user)
+    |> Map.get(ammo_type_id, 0)
+  end
+
+  @doc """
+  Gets the total number of rounds shot for multiple ammo types
+
+  ## Examples
+
+      iex> get_used_count_for_ammo_types(123, %User{id: 123})
+      35
+
+  """
+  @spec get_used_count_for_ammo_types([AmmoType.t()], User.t()) ::
+          %{optional(AmmoType.id()) => non_neg_integer()}
+  def get_used_count_for_ammo_types(ammo_types, %User{id: user_id}) do
+    ammo_type_ids =
+      ammo_types
+      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+
+    Repo.all(
+      from ag in AmmoGroup,
+        left_join: sg in ShotGroup,
+        on: ag.id == sg.ammo_group_id,
+        where: ag.ammo_type_id in ^ammo_type_ids,
+        where: not (sg.count |> is_nil()),
+        group_by: ag.ammo_type_id,
+        select: {ag.ammo_type_id, sum(sg.count)}
+    )
+    |> Map.new()
   end
 end

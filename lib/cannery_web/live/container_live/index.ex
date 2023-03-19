@@ -4,7 +4,7 @@ defmodule CanneryWeb.ContainerLive.Index do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{Containers, Containers.Container, Repo}
+  alias Cannery.{Containers, Containers.Container}
   alias Ecto.Changeset
 
   @impl true
@@ -22,10 +22,7 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
-    %{name: container_name} =
-      container =
-      Containers.get_container!(id, current_user)
-      |> Repo.preload([:tags, :ammo_groups])
+    %{name: container_name} = container = Containers.get_container!(id, current_user)
 
     socket
     |> assign(page_title: gettext("Edit %{name}", name: container_name), container: container)
@@ -61,9 +58,7 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit_tags, %{"id" => id}) do
-    %{name: container_name} =
-      container =
-      Containers.get_container!(id, current_user) |> Repo.preload([:tags, :ammo_groups])
+    %{name: container_name} = container = Containers.get_container!(id, current_user)
 
     page_title = gettext("Edit %{name} tags", name: container_name)
     socket |> assign(page_title: page_title, container: container)
@@ -119,10 +114,6 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp display_containers(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    containers =
-      Containers.list_containers(search, current_user)
-      |> Repo.preload([:tags, :ammo_groups])
-
-    socket |> assign(:containers, containers)
+    socket |> assign(:containers, Containers.list_containers(search, current_user))
   end
 end

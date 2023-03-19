@@ -29,8 +29,8 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(page_title: gettext("Edit Invite"), invite: Invites.get_invite!(id, current_user))
+    invite = Invites.get_invite!(id, current_user)
+    socket |> assign(page_title: gettext("Edit Invite"), invite: invite)
   end
 
   defp apply_action(socket, :new, _params) do
@@ -123,8 +123,7 @@ defmodule CanneryWeb.InviteLive.Index do
   end
 
   def handle_event("copy_to_clipboard", _params, socket) do
-    prompt = dgettext("prompts", "Copied to clipboard")
-    {:noreply, socket |> put_flash(:info, prompt)}
+    {:noreply, socket |> put_flash(:info, dgettext("prompts", "Copied to clipboard"))}
   end
 
   def handle_event(
@@ -133,9 +132,7 @@ defmodule CanneryWeb.InviteLive.Index do
         %{assigns: %{current_user: current_user}} = socket
       ) do
     %{email: user_email} = Accounts.get_user!(id) |> Accounts.delete_user!(current_user)
-
     prompt = dgettext("prompts", "%{user_email} deleted succesfully", user_email: user_email)
-
     {:noreply, socket |> put_flash(:info, prompt) |> display_invites()}
   end
 
@@ -148,7 +145,8 @@ defmodule CanneryWeb.InviteLive.Index do
       |> Map.get(:admin, [])
       |> Enum.reject(fn %{id: user_id} -> user_id == current_user.id end)
 
+    use_counts = invites |> Invites.get_use_counts(current_user)
     users = all_users |> Map.get(:user, [])
-    socket |> assign(invites: invites, admins: admins, users: users)
+    socket |> assign(invites: invites, use_counts: use_counts, admins: admins, users: users)
   end
 end

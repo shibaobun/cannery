@@ -17,12 +17,9 @@
       <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
     </span>
 
-    <span
-      :if={@ammo_group |> Ammo.get_original_count() != @ammo_group.count}
-      class="rounded-lg title text-lg"
-    >
+    <span :if={@original_count != @ammo_group.count} class="rounded-lg title text-lg">
       <%= gettext("Original Count:") %>
-      <%= @ammo_group |> Ammo.get_original_count() %>
+      <%= @original_count %>
     </span>
 
     <span :if={@ammo_group.notes} class="rounded-lg title text-lg">
@@ -32,38 +29,35 @@
 
     <span class="rounded-lg title text-lg">
       <%= gettext("Purchased on:") %>
-      <.date date={@ammo_group.purchased_on} />
+      <.date id={"#{@ammo_group.id}-purchased-on"} date={@ammo_group.purchased_on} />
     </span>
 
-    <span :if={@ammo_group |> Ammo.get_last_used_shot_group()} class="rounded-lg title text-lg">
+    <span :if={@last_used_date} class="rounded-lg title text-lg">
       <%= gettext("Last used on:") %>
-      <.date date={@ammo_group |> Ammo.get_last_used_shot_group() |> Map.get(:date)} />
+      <.date id={"#{@ammo_group.id}-last-used-on"} date={@last_used_date} />
     </span>
 
-    <%= if @ammo_group.price_paid do %>
-      <span class="rounded-lg title text-lg">
-        <%= gettext("Price paid:") %>
-        <%= gettext("$%{amount}",
-          amount: @ammo_group.price_paid |> :erlang.float_to_binary(decimals: 2)
-        ) %>
-      </span>
+    <span :if={@ammo_group.price_paid} class="rounded-lg title text-lg">
+      <%= gettext("Price paid:") %>
+      <%= gettext("$%{amount}", amount: display_currency(@ammo_group.price_paid)) %>
+    </span>
 
-      <span class="rounded-lg title text-lg">
-        <%= gettext("CPR:") %>
-        <%= gettext("$%{amount}",
-          amount: @ammo_group |> Ammo.get_cpr() |> :erlang.float_to_binary(decimals: 2)
-        ) %>
-      </span>
-    <% end %>
+    <span :if={@cpr} class="rounded-lg title text-lg">
+      <%= gettext("CPR:") %>
+      <%= gettext("$%{amount}", amount: display_currency(@cpr)) %>
+    </span>
 
-    <span :if={@show_container and @ammo_group.container} class="rounded-lg title text-lg">
+    <span
+      :if={@show_container && Containers.get_container!(@ammo_group.container_id, @current_user)}
+      class="rounded-lg title text-lg"
+    >
       <%= gettext("Container:") %>
 
       <.link
-        navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container)}
+        navigate={Routes.container_show_path(Endpoint, :show, @ammo_group.container_id)}
         class="link"
       >
-        <%= @ammo_group.container.name %>
+        <%= Containers.get_container!(@ammo_group.container_id, @current_user).name %>
       </.link>
     </span>
   </div>

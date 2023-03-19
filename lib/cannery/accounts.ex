@@ -385,8 +385,18 @@ defmodule Cannery.Accounts do
   """
   @spec allow_registration?() :: boolean()
   def allow_registration? do
-    Application.get_env(:cannery, Cannery.Accounts)[:registration] == "public" or
-      list_users_by_role(:admin) |> Enum.empty?()
+    registration_mode() == :public or list_users_by_role(:admin) |> Enum.empty?()
+  end
+
+  @doc """
+  Returns an atom representing the current configured registration mode
+  """
+  @spec registration_mode() :: :public | :invite_only
+  def registration_mode do
+    case Application.get_env(:cannery, Cannery.Accounts)[:registration] do
+      "public" -> :public
+      _other -> :invite_only
+    end
   end
 
   @doc """

@@ -104,7 +104,7 @@
           </.link>
         </div>
       </:range>
-      <:container :let={%{container: %{name: container_name} = container} = ammo_group}>
+      <:container :let={{ammo_group, %{name: container_name} = container}}>
         <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
           <.link
             navigate={Routes.container_show_path(Endpoint, :show, container)}
@@ -117,18 +117,18 @@
             patch={Routes.ammo_group_index_path(Endpoint, :move, ammo_group)}
             class="mx-2 my-1 text-sm btn btn-primary"
           >
-            <%= gettext("Move ammo") %>
+            <%= dgettext("actions", "Move ammo") %>
           </.link>
         </div>
       </:container>
-      <:actions :let={ammo_group}>
+      <:actions :let={%{count: ammo_group_count} = ammo_group}>
         <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
           <.link
             navigate={Routes.ammo_group_show_path(Endpoint, :show, ammo_group)}
             class="text-primary-600 link"
             aria-label={
-              gettext("View ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group.count
+              dgettext("actions", "View ammo group of %{ammo_group_count} bullets",
+                ammo_group_count: ammo_group_count
               )
             }
           >
@@ -139,8 +139,8 @@
             patch={Routes.ammo_group_index_path(Endpoint, :edit, ammo_group)}
             class="text-primary-600 link"
             aria-label={
-              gettext("Edit ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group.count
+              dgettext("actions", "Edit ammo group of %{ammo_group_count} bullets",
+                ammo_group_count: ammo_group_count
               )
             }
           >
@@ -151,8 +151,8 @@
             patch={Routes.ammo_group_index_path(Endpoint, :clone, ammo_group)}
             class="text-primary-600 link"
             aria-label={
-              gettext("Clone ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group.count
+              dgettext("actions", "Clone ammo group of %{ammo_group_count} bullets",
+                ammo_group_count: ammo_group_count
               )
             }
           >
@@ -166,8 +166,8 @@
             phx-value-id={ammo_group.id}
             data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
             aria-label={
-              gettext("Delete ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group.count
+              dgettext("actions", "Delete ammo group of %{ammo_group_count} bullets",
+                ammo_group_count: ammo_group_count
               )
             }
           >
@@ -179,8 +179,8 @@
   <% end %>
 </div>
 
-<%= cond do %>
-  <% @live_action in [:new, :edit, :clone] -> %>
+<%= case @live_action do %>
+  <% create when create in [:new, :edit, :clone] -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
         module={CanneryWeb.AmmoGroupLive.FormComponent}
@@ -192,7 +192,7 @@
         current_user={@current_user}
       />
     </.modal>
-  <% @live_action == :add_shot_group -> %>
+  <% :add_shot_group -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
         module={CanneryWeb.Components.AddShotGroupComponent}
@@ -204,7 +204,7 @@
         current_user={@current_user}
       />
     </.modal>
-  <% @live_action == :move -> %>
+  <% :move -> %>
     <.modal return_to={Routes.ammo_group_index_path(Endpoint, :index)}>
       <.live_component
         module={CanneryWeb.Components.MoveAmmoGroupComponent}
@@ -216,6 +216,5 @@
         current_user={@current_user}
       />
     </.modal>
-  <% true -> %>
-    <%= nil %>
+  <% _ -> %>
 <% end %>

@@ -4,7 +4,7 @@ defmodule CanneryWeb.RangeLive.Index do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo, Repo}
+  alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
@@ -104,16 +104,19 @@ defmodule CanneryWeb.RangeLive.Index do
 
   @spec display_shot_groups(Socket.t()) :: Socket.t()
   defp display_shot_groups(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    shot_groups =
-      ActivityLog.list_shot_groups(search, current_user)
-      |> Repo.preload(ammo_group: :ammo_type)
-
+    shot_groups = ActivityLog.list_shot_groups(search, current_user)
     ammo_groups = Ammo.list_staged_ammo_groups(current_user)
     chart_data = shot_groups |> get_chart_data_for_shot_group()
+    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
+    cprs = ammo_groups |> Ammo.get_cprs(current_user)
+    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
 
     socket
     |> assign(
       ammo_groups: ammo_groups,
+      original_counts: original_counts,
+      cprs: cprs,
+      last_used_dates: last_used_dates,
       chart_data: chart_data,
       shot_groups: shot_groups
     )
@@ -122,7 +125,6 @@ defmodule CanneryWeb.RangeLive.Index do
   @spec get_chart_data_for_shot_group([ShotGroup.t()]) :: [map()]
   defp get_chart_data_for_shot_group(shot_groups) do
     shot_groups
-    |> Repo.preload(ammo_group: :ammo_type)
     |> Enum.group_by(fn %{date: date} -> date end, fn %{count: count} -> count end)
     |> Enum.map(fn {date, rounds} ->
       sum = Enum.sum(rounds)

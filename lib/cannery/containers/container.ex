@@ -6,8 +6,7 @@ defmodule Cannery.Containers.Container do
   use Ecto.Schema
   import Ecto.Changeset
   alias Ecto.{Changeset, UUID}
-  alias Cannery.Containers.{Container, ContainerTag}
-  alias Cannery.{Accounts.User, Ammo.AmmoGroup, Tags.Tag}
+  alias Cannery.{Accounts.User, Containers.ContainerTag, Containers.Tag}
 
   @derive {Jason.Encoder,
            only: [
@@ -26,28 +25,25 @@ defmodule Cannery.Containers.Container do
     field :location, :string
     field :type, :string
 
-    belongs_to :user, User
+    field :user_id, :binary_id
 
-    has_many :ammo_groups, AmmoGroup
     many_to_many :tags, Tag, join_through: ContainerTag
 
     timestamps()
   end
 
-  @type t :: %Container{
+  @type t :: %__MODULE__{
           id: id(),
           name: String.t(),
           desc: String.t(),
           location: String.t(),
           type: String.t(),
-          user: User.t(),
           user_id: User.id(),
-          ammo_groups: [AmmoGroup.t()] | nil,
           tags: [Tag.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_container :: %Container{}
+  @type new_container :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_container())
 

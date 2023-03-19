@@ -214,7 +214,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_click()
 
       assert html =~ dgettext("actions", "Add Ammo")
-      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+      assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :clone, ammo_group))
 
@@ -230,7 +230,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
       assert html =~ "42"
-      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+      assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
     end
 
     test "clones ammo_group in listing with updates", %{conn: conn, ammo_group: ammo_group} do
@@ -242,7 +242,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> render_click()
 
       assert html =~ dgettext("actions", "Add Ammo")
-      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+      assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
 
       assert_patch(index_live, Routes.ammo_group_index_path(conn, :clone, ammo_group))
 
@@ -258,7 +258,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
       assert html =~ "43"
-      assert html =~ gettext("$%{amount}", amount: 120.5 |> :erlang.float_to_binary(decimals: 2))
+      assert html =~ gettext("$%{amount}", amount: display_currency(120.5))
     end
 
     test "deletes ammo_group in listing", %{conn: conn, ammo_group: ammo_group} do
@@ -291,21 +291,28 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
 
       assert html =~ dgettext("prompts", "Shots recorded successfully")
     end
+
+    @spec display_currency(float()) :: String.t()
+    defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
   end
 
   describe "Index of empty ammo group" do
     setup [:register_and_log_in_user, :create_ammo_group, :create_empty_ammo_group]
 
-    test "hides empty ammo groups by default", %{conn: conn, empty_ammo_group: ammo_group} do
+    test "hides empty ammo groups by default", %{
+      conn: conn,
+      empty_ammo_group: ammo_group,
+      current_user: current_user
+    } do
       {:ok, show_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("actions", "Show used")
-      refute html =~ gettext("$%{amount}", amount: 50.00 |> :erlang.float_to_binary(decimals: 2))
+      refute html =~ gettext("$%{amount}", amount: display_currency(50.00))
 
       refute html =~
                "\n" <>
                  gettext("%{percentage}%",
-                   percentage: ammo_group |> Ammo.get_percentage_remaining()
+                   percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
                  ) <>
                  "\n"
 
@@ -314,12 +321,12 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
         |> render_click()
 
-      assert html =~ gettext("$%{amount}", amount: 50.00 |> :erlang.float_to_binary(decimals: 2))
+      assert html =~ gettext("$%{amount}", amount: display_currency(50.00))
 
       assert html =~
                "\n" <>
                  gettext("%{percentage}%",
-                   percentage: ammo_group |> Ammo.get_percentage_remaining()
+                   percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
                  ) <>
                  "\n"
     end

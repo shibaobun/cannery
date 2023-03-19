@@ -4,9 +4,9 @@ defmodule CanneryWeb.CoreComponents do
   """
   use Phoenix.Component
   import CanneryWeb.{Gettext, ViewHelpers}
-  alias Cannery.{Accounts, Ammo, Ammo.AmmoGroup}
-  alias Cannery.Accounts.{Invite, Invites, User}
-  alias Cannery.{Containers, Containers.Container, Tags.Tag}
+  alias Cannery.{Accounts, Accounts.Invite, Accounts.User}
+  alias Cannery.{Ammo, Ammo.AmmoGroup}
+  alias Cannery.{Containers, Containers.Container, Containers.Tag}
   alias CanneryWeb.{Endpoint, HomeLive}
   alias CanneryWeb.Router.Helpers, as: Routes
   alias Phoenix.LiveView.{JS, Rendered}
@@ -70,6 +70,7 @@ defmodule CanneryWeb.CoreComponents do
   def toggle_button(assigns)
 
   attr :container, Container, required: true
+  attr :current_user, User, required: true
   slot(:tag_actions)
   slot(:inner_block)
 
@@ -86,10 +87,17 @@ defmodule CanneryWeb.CoreComponents do
   def simple_tag_card(assigns)
 
   attr :ammo_group, AmmoGroup, required: true
+  attr :current_user, User, required: true
+  attr :original_count, :integer, default: nil
+  attr :cpr, :integer, default: nil
+  attr :last_used_date, Date, default: nil
   attr :show_container, :boolean, default: false
   slot(:inner_block)
 
   def ammo_group_card(assigns)
+
+  @spec display_currency(float()) :: String.t()
+  defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
 
   attr :user, User, required: true
   slot(:inner_block, required: true)
@@ -97,62 +105,12 @@ defmodule CanneryWeb.CoreComponents do
   def user_card(assigns)
 
   attr :invite, Invite, required: true
+  attr :use_count, :integer, default: nil
   attr :current_user, User, required: true
   slot(:inner_block)
   slot(:code_actions)
 
-  def invite_card(%{invite: invite, current_user: current_user} = assigns) do
-    assigns = assigns |> assign(:use_count, Invites.get_use_count(invite, current_user))
-
-    ~H"""
-    <div class="mx-4 my-2 px-8 py-4 flex flex-col justify-center items-center space-y-4
-      border border-gray-400 rounded-lg shadow-lg hover:shadow-md
-      transition-all duration-300 ease-in-out">
-      <h1 class="title text-xl">
-        <%= @invite.name %>
-      </h1>
-
-      <%= if @invite.disabled_at |> is_nil() do %>
-        <h2 class="title text-md">
-          <%= if @invite.uses_left do %>
-            <%= gettext(
-              "Uses Left: %{uses_left_count}",
-              uses_left_count: @invite.uses_left
-            ) %>
-          <% else %>
-            <%= gettext("Uses Left: Unlimited") %>
-          <% end %>
-        </h2>
-      <% else %>
-        <h2 class="title text-md">
-          <%= gettext("Invite Disabled") %>
-        </h2>
-      <% end %>
-
-      <.qr_code
-        content={Routes.user_registration_url(Endpoint, :new, invite: @invite.token)}
-        filename={@invite.name}
-      />
-
-      <h2 :if={@use_count != 0} class="title text-md">
-        <%= gettext("Uses: %{uses_count}", uses_count: @use_count) %>
-      </h2>
-
-      <div class="flex flex-row flex-wrap justify-center items-center">
-        <code
-          id={"code-#{@invite.id}"}
-          class="mx-2 my-1 text-xs px-4 py-2 rounded-lg text-center break-all text-gray-100 bg-primary-800"
-          phx-no-format
-        ><%= Routes.user_registration_url(Endpoint, :new, invite: @invite.token) %></code>
-        <%= if @code_actions, do: render_slot(@code_actions) %>
-      </div>
-
-      <div :if={@inner_block} class="flex space-x-4 justify-center items-center">
-        <%= render_slot(@inner_block) %>
-      </div>
-    </div>
-    """
-  end
+  def invite_card(assigns)
 
   attr :content, :string, required: true
   attr :filename, :string, default: "qrcode", doc: "filename without .png extension"
@@ -164,6 +122,7 @@ defmodule CanneryWeb.CoreComponents do
   """
   def qr_code(assigns)
 
+  attr :id, :string, required: true
   attr :date, :any, required: true, doc: "A `Date` struct or nil"
 
   @doc """
@@ -172,6 +131,7 @@ defmodule CanneryWeb.CoreComponents do
   """
   def date(assigns)
 
+  attr :id, :string, required: true
   attr :datetime, :any, required: true, doc: "A `DateTime` struct or nil"
 
   @doc """

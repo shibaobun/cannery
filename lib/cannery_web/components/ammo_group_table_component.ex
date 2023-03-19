@@ -3,7 +3,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   A component that displays a list of ammo groups
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup, Repo}
+  alias Cannery.{Accounts.User, ActivityLog, Ammo, Ammo.AmmoGroup, Containers}
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -54,8 +54,8 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       end
 
     columns = [
-      %{label: gettext("Purchased on"), key: :purchased_on},
-      %{label: gettext("Last used on"), key: :used_up_on} | columns
+      %{label: gettext("Purchased on"), key: :purchased_on, type: Date},
+      %{label: gettext("Last used on"), key: :used_up_on, type: Date} | columns
     ]
 
     columns =
@@ -94,13 +94,15 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       ammo_type: ammo_type,
       columns: columns,
       container: container,
+      original_counts: Ammo.get_original_counts(ammo_groups, current_user),
+      cprs: Ammo.get_cprs(ammo_groups, current_user),
+      last_used_dates: ActivityLog.get_last_used_dates(ammo_groups, current_user),
       actions: actions,
       range: range
     }
 
     rows =
       ammo_groups
-      |> Repo.preload([:ammo_type, :container])
       |> Enum.map(fn ammo_group ->
         ammo_group |> get_row_data_for_ammo_group(extra_data)
       end)
@@ -124,8 +126,6 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
   @spec get_row_data_for_ammo_group(AmmoGroup.t(), additional_data :: map()) :: map()
   defp get_row_data_for_ammo_group(ammo_group, %{columns: columns} = additional_data) do
-    ammo_group = ammo_group |> Repo.preload([:ammo_type, :container])
-
     columns
     |> Map.new(fn %{key: key} ->
       {key, get_value_for_key(key, ammo_group, additional_data)}
@@ -150,30 +150,23 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   defp get_value_for_key(:price_paid, %{price_paid: nil}, _additional_data), do: {"", nil}
 
   defp get_value_for_key(:price_paid, %{price_paid: price_paid}, _additional_data),
-    do: gettext("$%{amount}", amount: price_paid |> :erlang.float_to_binary(decimals: 2))
+    do: gettext("$%{amount}", amount: display_currency(price_paid))
 
-  defp get_value_for_key(:purchased_on, %{purchased_on: purchased_on}, _additional_data) do
-    assigns = %{purchased_on: purchased_on}
-
+  defp get_value_for_key(:purchased_on, %{purchased_on: purchased_on} = assigns, _additional_data) do
     {purchased_on,
      ~H"""
-     <.date date={@purchased_on} />
+     <.date id={"#{@id}-purchased-on"} date={@purchased_on} />
      """}
   end
 
-  defp get_value_for_key(:used_up_on, ammo_group, _additional_data) do
-    last_shot_group_date =
-      case ammo_group |> Ammo.get_last_used_shot_group() do
-        %{date: last_shot_group_date} -> last_shot_group_date
-        _no_shot_groups -> nil
-      end
+  defp get_value_for_key(:used_up_on, %{id: ammo_group_id}, %{last_used_dates: last_used_dates}) do
+    last_used_date = last_used_dates |> Map.get(ammo_group_id)
+    assigns = %{id: ammo_group_id, last_used_date: last_used_date}
 
-    assigns = %{last_shot_group_date: last_shot_group_date}
-
-    {last_shot_group_date,
+    {last_used_date,
      ~H"""
-     <%= if @last_shot_group_date do %>
-       <.date date={@last_shot_group_date} />
+     <%= if @last_used_date do %>
+       <.date id={"#{@id}-last-used-date"} date={@last_used_date} />
      <% else %>
        <%= gettext("Never used") %>
      <% end %>
@@ -189,8 +182,11 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:remaining, ammo_group, _additional_data),
-    do: gettext("%{percentage}%", percentage: ammo_group |> Ammo.get_percentage_remaining())
+  defp get_value_for_key(:remaining, ammo_group, %{current_user: current_user}),
+    do:
+      gettext("%{percentage}%",
+        percentage: ammo_group |> Ammo.get_percentage_remaining(current_user)
+      )
 
   defp get_value_for_key(:actions, ammo_group, %{actions: actions}) do
     assigns = %{actions: actions, ammo_group: ammo_group}
@@ -204,31 +200,40 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
   defp get_value_for_key(
          :container,
-         %{container: %{name: container_name}} = ammo_group,
-         %{container: container}
+         %{container_id: container_id} = ammo_group,
+         %{container: container, current_user: current_user}
        ) do
-    assigns = %{container: container, ammo_group: ammo_group}
+    assigns = %{
+      container:
+        %{name: container_name} = container_id |> Containers.get_container!(current_user),
+      container_block: container,
+      ammo_group: ammo_group
+    }
 
     {container_name,
      ~H"""
-     <%= render_slot(@container, @ammo_group) %>
+     <%= render_slot(@container_block, {@ammo_group, @container}) %>
      """}
   end
 
-  defp get_value_for_key(:original_count, ammo_group, _additional_data),
-    do: ammo_group |> Ammo.get_original_count()
+  defp get_value_for_key(:original_count, %{id: ammo_group_id}, %{
+         original_counts: original_counts
+       }) do
+    Map.fetch!(original_counts, ammo_group_id)
+  end
 
   defp get_value_for_key(:cpr, %{price_paid: nil}, _additional_data),
     do: gettext("No cost information")
 
-  defp get_value_for_key(:cpr, ammo_group, _additional_data) do
-    gettext("$%{amount}",
-      amount: ammo_group |> Ammo.get_cpr() |> :erlang.float_to_binary(decimals: 2)
-    )
+  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}) do
+    gettext("$%{amount}", amount: display_currency(Map.fetch!(cprs, ammo_group_id)))
   end
 
   defp get_value_for_key(:count, %{count: count}, _additional_data),
     do: if(count == 0, do: gettext("Empty"), else: count)
 
   defp get_value_for_key(key, ammo_group, _additional_data), do: ammo_group |> Map.get(key)
+
+  @spec display_currency(float()) :: String.t()
+  defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
 end

@@ -1,10 +1,10 @@
 defmodule CanneryWeb.TagLive.Index do
   @moduledoc """
-  Liveview to show a Cannery.Tags.Tag index
+  Liveview to show a Cannery.Containers.Tag index
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{Tags, Tags.Tag}
+  alias Cannery.{Containers, Containers.Tag}
   alias CanneryWeb.ViewHelpers
 
   @impl true
@@ -25,7 +25,7 @@ defmodule CanneryWeb.TagLive.Index do
     socket
     |> assign(
       page_title: gettext("Edit Tag"),
-      tag: Tags.get_tag!(id, current_user)
+      tag: Containers.get_tag!(id, current_user)
     )
   end
 
@@ -59,7 +59,9 @@ defmodule CanneryWeb.TagLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
-    %{name: tag_name} = Tags.get_tag!(id, current_user) |> Tags.delete_tag!(current_user)
+    %{name: tag_name} =
+      Containers.get_tag!(id, current_user) |> Containers.delete_tag!(current_user)
+
     prompt = dgettext("prompts", "%{name} deleted succesfully", name: tag_name)
     {:noreply, socket |> put_flash(:info, prompt) |> display_tags()}
   end
@@ -73,6 +75,6 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   defp display_tags(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    socket |> assign(tags: Tags.list_tags(search, current_user))
+    socket |> assign(tags: Containers.list_tags(search, current_user))
   end
 end

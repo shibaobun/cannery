@@ -3,7 +3,7 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
   A component that displays a list of shot groups
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
+  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo}
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -41,11 +41,16 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
       %{label: gettext("Ammo"), key: :name},
       %{label: gettext("Rounds shot"), key: :count},
       %{label: gettext("Notes"), key: :notes},
-      %{label: gettext("Date"), key: :date},
+      %{label: gettext("Date"), key: :date, type: Date},
       %{label: nil, key: :actions, sortable: false}
     ]
 
-    extra_data = %{current_user: current_user, actions: actions}
+    ammo_groups =
+      shot_groups
+      |> Enum.map(fn %{ammo_group_id: ammo_group_id} -> ammo_group_id end)
+      |> Ammo.get_ammo_groups(current_user)
+
+    extra_data = %{current_user: current_user, actions: actions, ammo_groups: ammo_groups}
 
     rows =
       shot_groups
@@ -79,34 +84,28 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
   @spec get_row_data_for_shot_group(ShotGroup.t(), columns :: [map()], extra_data :: map()) ::
           map()
   defp get_row_data_for_shot_group(shot_group, columns, extra_data) do
-    shot_group = shot_group |> Repo.preload(ammo_group: :ammo_type)
-
     columns
     |> Map.new(fn %{key: key} ->
       {key, get_row_value(key, shot_group, extra_data)}
     end)
   end
 
-  defp get_row_value(
-         :name,
-         %{ammo_group: %{ammo_type: %{name: ammo_type_name} = ammo_group}},
-         _extra_data
-       ) do
-    assigns = %{ammo_group: ammo_group, ammo_type_name: ammo_type_name}
+  defp get_row_value(:name, %{ammo_group_id: ammo_group_id}, %{ammo_groups: ammo_groups}) do
+    assigns = %{ammo_group: ammo_group = Map.fetch!(ammo_groups, ammo_group_id)}
 
-    name_block = ~H"""
-    <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="link">
-      <%= @ammo_type_name %>
-    </.link>
-    """
-
-    {ammo_type_name, name_block}
+    {ammo_group.ammo_type.name,
+     ~H"""
+     <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="link">
+       <%= @ammo_group.ammo_type.name %>
+     </.link>
+     """}
   end
 
-  defp get_row_value(:date, %{date: _date} = assigns, _extra_data) do
-    ~H"""
-    <.date date={@date} />
-    """
+  defp get_row_value(:date, %{date: date} = assigns, _extra_data) do
+    {date,
+     ~H"""
+     <.date id={"#{@id}-date"} date={@date} />
+     """}
   end
 
   defp get_row_value(:actions, shot_group, %{actions: actions}) do

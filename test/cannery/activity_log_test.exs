@@ -217,5 +217,158 @@ defmodule Cannery.ActivityLogTest do
         ActivityLog.get_shot_group!(shot_group.id, current_user)
       end
     end
+
+    test "get_used_count/2 returns accurate used count", %{
+      ammo_group: ammo_group,
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
+      {1, [another_ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+      assert 0 = another_ammo_group |> ActivityLog.get_used_count(current_user)
+      assert 5 = ammo_group |> ActivityLog.get_used_count(current_user)
+
+      shot_group_fixture(%{"count" => 15}, current_user, ammo_group)
+      assert 20 = ammo_group |> ActivityLog.get_used_count(current_user)
+
+      shot_group_fixture(%{"count" => 10}, current_user, ammo_group)
+      assert 30 = ammo_group |> ActivityLog.get_used_count(current_user)
+
+      {1, [another_ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+      assert 0 = another_ammo_group |> ActivityLog.get_used_count(current_user)
+    end
+
+    test "get_used_counts/2 returns accurate used counts", %{
+      ammo_group: %{id: ammo_group_id} = ammo_group,
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
+      {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
+        ammo_group_fixture(ammo_type, container, current_user)
+
+      assert %{ammo_group_id => 5} ==
+               [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
+
+      shot_group_fixture(%{"count" => 5}, current_user, another_ammo_group)
+      used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
+      assert %{^ammo_group_id => 5} = used_counts
+      assert %{^another_ammo_group_id => 5} = used_counts
+
+      shot_group_fixture(%{"count" => 15}, current_user, ammo_group)
+      used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
+      assert %{^ammo_group_id => 20} = used_counts
+      assert %{^another_ammo_group_id => 5} = used_counts
+
+      shot_group_fixture(%{"count" => 10}, current_user, ammo_group)
+      used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
+      assert %{^ammo_group_id => 30} = used_counts
+      assert %{^another_ammo_group_id => 5} = used_counts
+    end
+
+    test "get_last_used_date/2 returns accurate used count", %{
+      ammo_group: ammo_group,
+      ammo_type: ammo_type,
+      container: container,
+      shot_group: %{date: date},
+      current_user: current_user
+    } do
+      {1, [another_ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+      assert another_ammo_group |> ActivityLog.get_last_used_date(current_user) |> is_nil()
+      assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
+
+      %{date: date} = shot_group_fixture(%{"date" => ~D[2022-11-10]}, current_user, ammo_group)
+      assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
+
+      %{date: date} = shot_group_fixture(%{"date" => ~D[2022-11-11]}, current_user, ammo_group)
+      assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
+    end
+
+    test "get_last_used_dates/2 returns accurate used counts", %{
+      ammo_group: %{id: ammo_group_id} = ammo_group,
+      ammo_type: ammo_type,
+      container: container,
+      shot_group: %{date: date},
+      current_user: current_user
+    } do
+      {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
+        ammo_group_fixture(ammo_type, container, current_user)
+
+      # unset date
+      assert %{ammo_group_id => date} ==
+               [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
+
+      shot_group_fixture(%{"date" => ~D[2022-11-09]}, current_user, another_ammo_group)
+
+      # setting initial date
+      last_used_shot_groups =
+        [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
+
+      assert %{^ammo_group_id => ^date} = last_used_shot_groups
+      assert %{^another_ammo_group_id => ~D[2022-11-09]} = last_used_shot_groups
+
+      # setting another date
+      shot_group_fixture(%{"date" => ~D[2022-11-10]}, current_user, ammo_group)
+
+      last_used_shot_groups =
+        [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
+
+      assert %{^ammo_group_id => ~D[2022-11-10]} = last_used_shot_groups
+      assert %{^another_ammo_group_id => ~D[2022-11-09]} = last_used_shot_groups
+
+      # setting yet another date
+      shot_group_fixture(%{"date" => ~D[2022-11-11]}, current_user, ammo_group)
+
+      last_used_shot_groups =
+        [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
+
+      assert %{^ammo_group_id => ~D[2022-11-11]} = last_used_shot_groups
+      assert %{^another_ammo_group_id => ~D[2022-11-09]} = last_used_shot_groups
+    end
+
+    test "get_used_count_for_ammo_type/2 gets accurate used round count for ammo type",
+         %{ammo_type: ammo_type, ammo_group: ammo_group, current_user: current_user} do
+      another_ammo_type = ammo_type_fixture(current_user)
+      assert 0 = another_ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+      assert 5 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+
+      shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
+      assert 10 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+
+      shot_group_fixture(%{"count" => 1}, current_user, ammo_group)
+      assert 11 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+    end
+
+    test "get_used_count_for_ammo_types/2 gets accurate used round count for ammo types", %{
+      ammo_type: %{id: ammo_type_id} = ammo_type,
+      container: container,
+      current_user: current_user
+    } do
+      # testing unused ammo type
+      %{id: another_ammo_type_id} = another_ammo_type = ammo_type_fixture(current_user)
+      {1, [ammo_group]} = ammo_group_fixture(another_ammo_type, container, current_user)
+
+      assert %{ammo_type_id => 5} ==
+               [ammo_type, another_ammo_type]
+               |> ActivityLog.get_used_count_for_ammo_types(current_user)
+
+      # use generated ammo group
+      shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
+
+      used_counts =
+        [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
+
+      assert %{^ammo_type_id => 5} = used_counts
+      assert %{^another_ammo_type_id => 5} = used_counts
+
+      # use generated ammo group again
+      shot_group_fixture(%{"count" => 1}, current_user, ammo_group)
+
+      used_counts =
+        [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
+
+      assert %{^ammo_type_id => 5} = used_counts
+      assert %{^another_ammo_type_id => 6} = used_counts
+    end
   end
 end

@@ -35,15 +35,18 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
          ammo_type_params
        ) do
     changeset_action =
-      cond do
-        action in [:new, :clone] -> :insert
-        action == :edit -> :update
+      case action do
+        create when create in [:new, :clone] -> :insert
+        :edit -> :update
       end
 
     changeset =
-      cond do
-        action in [:new, :clone] -> ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
-        action == :edit -> ammo_type |> AmmoType.update_changeset(ammo_type_params)
+      case action do
+        create when create in [:new, :clone] ->
+          ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
+
+        :edit ->
+          ammo_type |> AmmoType.update_changeset(ammo_type_params)
       end
 
     changeset =

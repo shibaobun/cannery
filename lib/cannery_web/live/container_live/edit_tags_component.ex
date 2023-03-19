@@ -4,7 +4,8 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Containers, Containers.Container, Tags, Tags.Tag}
+  alias Cannery.{Accounts.User, Containers}
+  alias Cannery.Containers.{Container, Tag}
   alias Phoenix.LiveView.Socket
 
   @impl true
@@ -22,7 +23,7 @@ defmodule CanneryWeb.ContainerLive.EditTagsComponent do
           assigns,
         socket
       ) do
-    tags = Tags.list_tags(current_user)
+    tags = Containers.list_tags(current_user)
     {:ok, socket |> assign(assigns) |> assign(:tags, tags)}
   end
 

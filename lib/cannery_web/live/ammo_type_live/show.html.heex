@@ -6,8 +6,8 @@
   <span
     :if={@ammo_type.desc}
     class="max-w-2xl w-full px-8 py-4 rounded-lg
-    text-center title text-lg
-    border border-primary-600"
+      text-center title text-lg
+      border border-primary-600"
   >
     <%= @ammo_type.desc %>
   </span>
@@ -71,7 +71,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_round_count_for_ammo_type(@current_user) %>
+      <%= @rounds %>
     </span>
 
     <h3 class="title text-lg">
@@ -79,7 +79,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_used_count_for_ammo_type(@current_user) %>
+      <%= @used_rounds %>
     </span>
 
     <h3 class="title text-lg">
@@ -87,7 +87,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_historical_count_for_ammo_type(@current_user) %>
+      <%= @historical_round_count %>
     </span>
   </div>
 
@@ -99,7 +99,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_ammo_groups_count_for_type(@current_user) %>
+      <%= @packs_count %>
     </span>
 
     <h3 class="title text-lg">
@@ -107,7 +107,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_used_ammo_groups_count_for_type(@current_user) %>
+      <%= @used_packs_count %>
     </span>
 
     <h3 class="title text-lg">
@@ -115,7 +115,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <%= @ammo_type |> Ammo.get_ammo_groups_count_for_type(@current_user, true) %>
+      <%= @historical_packs_count %>
     </span>
   </div>
 
@@ -127,7 +127,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <.datetime datetime={@ammo_type.inserted_at} />
+      <.datetime id={"#{@ammo_type.id}-inserted-at"} datetime={@ammo_type.inserted_at} />
     </span>
 
     <%= if @avg_cost_per_round do %>
@@ -136,9 +136,7 @@
       </h3>
 
       <span class="text-primary-600">
-        <%= gettext("$%{amount}",
-          amount: @avg_cost_per_round |> :erlang.float_to_binary(decimals: 2)
-        ) %>
+        <%= gettext("$%{amount}", amount: display_currency(@avg_cost_per_round)) %>
       </span>
     <% else %>
       <h3 class="mx-8 my-4 title text-lg text-primary-600 col-span-2">
@@ -177,7 +175,7 @@
           ammo_groups={@ammo_groups}
           current_user={@current_user}
         >
-          <:container :let={%{container: %{name: container_name} = container}}>
+          <:container :let={{_ammo_group, %{name: container_name} = container}}>
             <.link
               navigate={Routes.container_show_path(Endpoint, :show, container)}
               class="mx-2 my-1 link"
@@ -189,8 +187,12 @@
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">
           <.ammo_group_card
-            :for={ammo_group <- @ammo_groups}
+            :for={%{id: ammo_group_id} = ammo_group <- @ammo_groups}
             ammo_group={ammo_group}
+            original_count={Map.fetch!(@original_counts, ammo_group_id)}
+            cpr={Map.get(@cprs, ammo_group_id)}
+            last_used_date={Map.get(@last_used_dates, ammo_group_id)}
+            current_user={@current_user}
             show_container={true}
           />
         </div>

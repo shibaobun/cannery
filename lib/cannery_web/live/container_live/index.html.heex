@@ -108,7 +108,11 @@
       </.live_component>
     <% else %>
       <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
-        <.container_card :for={container <- @containers} container={container}>
+        <.container_card
+          :for={container <- @containers}
+          container={container}
+          current_user={@current_user}
+        >
           <:tag_actions>
             <div class="mx-4 my-2">
               <.link
@@ -162,29 +166,30 @@
   <% end %>
 </div>
 
-<.modal
-  :if={@live_action in [:new, :edit, :clone]}
-  return_to={Routes.container_index_path(Endpoint, :index)}
->
-  <.live_component
-    module={CanneryWeb.ContainerLive.FormComponent}
-    id={@container.id || :new}
-    title={@page_title}
-    action={@live_action}
-    container={@container}
-    return_to={Routes.container_index_path(Endpoint, :index)}
-    current_user={@current_user}
-  />
-</.modal>
-
-<.modal :if={@live_action == :edit_tags} return_to={Routes.container_index_path(Endpoint, :index)}>
-  <.live_component
-    module={CanneryWeb.ContainerLive.EditTagsComponent}
-    id={@container.id}
-    title={@page_title}
-    action={@live_action}
-    container={@container}
-    current_path={Routes.container_index_path(Endpoint, :edit_tags, @container)}
-    current_user={@current_user}
-  />
-</.modal>
+<%= case @live_action do %>
+  <% modifying when modifying in [:new, :edit, :clone] -> %>
+    <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+      <.live_component
+        module={CanneryWeb.ContainerLive.FormComponent}
+        id={@container.id || :new}
+        title={@page_title}
+        action={@live_action}
+        container={@container}
+        return_to={Routes.container_index_path(Endpoint, :index)}
+        current_user={@current_user}
+      />
+    </.modal>
+  <% :edit_tags -> %>
+    <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+      <.live_component
+        module={CanneryWeb.ContainerLive.EditTagsComponent}
+        id={@container.id}
+        title={@page_title}
+        action={@live_action}
+        container={@container}
+        current_path={Routes.container_index_path(Endpoint, :edit_tags, @container)}
+        current_user={@current_user}
+      />
+    </.modal>
+  <% _ -> %>
+<% end %>

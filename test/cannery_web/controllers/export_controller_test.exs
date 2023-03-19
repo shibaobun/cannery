@@ -4,7 +4,7 @@ defmodule CanneryWeb.ExportControllerTest do
   """
 
   use CanneryWeb.ConnCase
-  alias Cannery.{Ammo, Containers, Repo}
+  alias Cannery.{ActivityLog, Ammo, Containers, Repo}
 
   @moduletag :export_controller_test
 
@@ -50,10 +50,10 @@ defmodule CanneryWeb.ExportControllerTest do
         "notes" => ammo_group.notes,
         "price_paid" => ammo_group.price_paid,
         "staged" => ammo_group.staged,
-        "used_count" => ammo_group |> Ammo.get_used_count(),
-        "original_count" => ammo_group |> Ammo.get_original_count(),
-        "cpr" => ammo_group |> Ammo.get_cpr(),
-        "percentage_remaining" => ammo_group |> Ammo.get_percentage_remaining()
+        "used_count" => ammo_group |> ActivityLog.get_used_count(current_user),
+        "original_count" => ammo_group |> Ammo.get_original_count(current_user),
+        "cpr" => ammo_group |> Ammo.get_cpr(current_user),
+        "percentage_remaining" => ammo_group |> Ammo.get_percentage_remaining(current_user)
       }
 
       ideal_ammo_type = %{
@@ -79,10 +79,12 @@ defmodule CanneryWeb.ExportControllerTest do
         "primer_type" => ammo_type.primer_type,
         "tracer" => ammo_type.tracer,
         "upc" => ammo_type.upc,
-        "average_cost" => ammo_type |> Ammo.get_average_cost_for_ammo_type!(current_user),
+        "average_cost" => ammo_type |> Ammo.get_average_cost_for_ammo_type(current_user),
         "round_count" => ammo_type |> Ammo.get_round_count_for_ammo_type(current_user),
-        "used_count" => ammo_type |> Ammo.get_used_count_for_ammo_type(current_user),
-        "ammo_group_count" => ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
+        "used_count" => ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user),
+        "ammo_group_count" => ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user),
+        "total_ammo_group_count" =>
+          ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user, true)
       }
 
       ideal_container = %{
@@ -99,8 +101,9 @@ defmodule CanneryWeb.ExportControllerTest do
           }
         ],
         "type" => container.type,
-        "ammo_group_count" => container |> Containers.get_container_ammo_group_count!(),
-        "round_count" => container |> Containers.get_container_rounds!()
+        "ammo_group_count" =>
+          container |> Ammo.get_ammo_groups_count_for_container!(current_user),
+        "round_count" => container |> Ammo.get_round_count_for_container!(current_user)
       }
 
       ideal_shot_group = %{

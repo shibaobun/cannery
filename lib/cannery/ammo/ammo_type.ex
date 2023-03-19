@@ -8,7 +8,7 @@ defmodule Cannery.Ammo.AmmoType do
   use Ecto.Schema
   import Ecto.Changeset
   alias Cannery.Accounts.User
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.Ammo.AmmoGroup
   alias Ecto.{Changeset, UUID}
 
   @derive {Jason.Encoder,
@@ -64,14 +64,14 @@ defmodule Cannery.Ammo.AmmoType do
     field :manufacturer, :string
     field :upc, :string
 
-    belongs_to :user, User
+    field :user_id, :binary_id
 
     has_many :ammo_groups, AmmoGroup
 
     timestamps()
   end
 
-  @type t :: %AmmoType{
+  @type t :: %__MODULE__{
           id: id(),
           name: String.t(),
           desc: String.t() | nil,
@@ -95,12 +95,11 @@ defmodule Cannery.Ammo.AmmoType do
           manufacturer: String.t() | nil,
           upc: String.t() | nil,
           user_id: User.id(),
-          user: User.t() | nil,
           ammo_groups: [AmmoGroup.t()] | nil,
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_ammo_type :: %AmmoType{}
+  @type new_ammo_type :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_ammo_type())
 

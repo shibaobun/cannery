@@ -1,4 +1,4 @@
-defmodule Cannery.Tags.Tag do
+defmodule Cannery.Containers.Tag do
   @moduledoc """
   Tags are added to containers to help organize, and can include custom-defined
   text and bg colors.
@@ -6,8 +6,8 @@ defmodule Cannery.Tags.Tag do
 
   use Ecto.Schema
   import Ecto.Changeset
+  alias Cannery.Accounts.User
   alias Ecto.{Changeset, UUID}
-  alias Cannery.{Accounts.User, Tags.Tag}
 
   @derive {Jason.Encoder,
            only: [
@@ -23,22 +23,21 @@ defmodule Cannery.Tags.Tag do
     field :bg_color, :string
     field :text_color, :string
 
-    belongs_to :user, User
+    field :user_id, :binary_id
 
     timestamps()
   end
 
-  @type t :: %Tag{
+  @type t :: %__MODULE__{
           id: id(),
           name: String.t(),
           bg_color: String.t(),
           text_color: String.t(),
-          user: User.t() | nil,
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_tag() :: %Tag{}
+  @type new_tag() :: %__MODULE__{}
   @type id() :: UUID.t()
   @type changeset() :: Changeset.t(t() | new_tag())
 

@@ -6,7 +6,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
   use Ecto.Schema
   import CanneryWeb.Gettext
   import Ecto.Changeset
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo.AmmoGroup, Repo}
+  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup}
   alias Ecto.{Changeset, UUID}
 
   @derive {Jason.Encoder,
@@ -24,25 +24,23 @@ defmodule Cannery.ActivityLog.ShotGroup do
     field :date, :date
     field :notes, :string
 
-    belongs_to :user, User
-    belongs_to :ammo_group, AmmoGroup
+    field :user_id, :binary_id
+    field :ammo_group_id, :binary_id
 
     timestamps()
   end
 
-  @type t :: %ShotGroup{
+  @type t :: %__MODULE__{
           id: id(),
           count: integer,
           notes: String.t() | nil,
           date: Date.t() | nil,
-          ammo_group: AmmoGroup.t() | nil,
           ammo_group_id: AmmoGroup.id(),
-          user: User.t() | nil,
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_shot_group :: %ShotGroup{}
+  @type new_shot_group :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_shot_group())
 
@@ -58,44 +56,47 @@ defmodule Cannery.ActivityLog.ShotGroup do
         %User{id: user_id},
         %AmmoGroup{id: ammo_group_id, user_id: user_id} = ammo_group,
         attrs
-      )
-      when not (user_id |> is_nil()) and not (ammo_group_id |> is_nil()) do
+      ) do
     shot_group
     |> change(user_id: user_id)
     |> change(ammo_group_id: ammo_group_id)
     |> cast(attrs, [:count, :notes, :date])
-    |> validate_number(:count, greater_than: 0)
     |> validate_create_shot_group_count(ammo_group)
-    |> validate_required([:count, :date, :ammo_group_id, :user_id])
+    |> validate_required([:date, :ammo_group_id, :user_id])
   end
 
   def create_changeset(shot_group, _invalid_user, _invalid_ammo_group, attrs) do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
-    |> validate_number(:count, greater_than: 0)
-    |> validate_required([:count, :ammo_group_id, :user_id])
+    |> validate_required([:ammo_group_id, :user_id])
     |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo pack"))
   end
 
   defp validate_create_shot_group_count(changeset, %AmmoGroup{count: ammo_group_count}) do
-    if changeset |> Changeset.get_field(:count) > ammo_group_count do
-      error =
-        dgettext("errors", "Count must be less than %{count} shots", count: ammo_group_count)
+    case changeset |> Changeset.get_field(:count) do
+      nil ->
+        changeset |> Changeset.add_error(:ammo_left, dgettext("errors", "can't be blank"))
 
-      changeset |> Changeset.add_error(:count, error)
-    else
-      changeset
+      count when count > ammo_group_count ->
+        changeset
+        |> Changeset.add_error(:ammo_left, dgettext("errors", "Ammo left must be at least 0"))
+
+      count when count <= 0 ->
+        error =
+          dgettext("errors", "Ammo left can be at most %{count} rounds",
+            count: ammo_group_count - 1
+          )
+
+        changeset |> Changeset.add_error(:ammo_left, error)
+
+      _valid_count ->
+        changeset
     end
   end
 
   @doc false
   @spec update_changeset(t() | new_shot_group(), User.t(), attrs :: map()) :: changeset()
-  def update_changeset(
-        %ShotGroup{user_id: user_id} = shot_group,
-        %User{id: user_id} = user,
-        attrs
-      )
-      when not (user_id |> is_nil()) do
+  def update_changeset(%__MODULE__{} = shot_group, user, attrs) do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
     |> validate_number(:count, greater_than: 0)
@@ -105,12 +106,10 @@ defmodule Cannery.ActivityLog.ShotGroup do
 
   defp validate_update_shot_group_count(
          changeset,
-         %ShotGroup{count: count} = shot_group,
-         %User{id: user_id}
-       )
-       when not (user_id |> is_nil()) do
-    %{ammo_group: %AmmoGroup{count: ammo_group_count, user_id: ^user_id}} =
-      shot_group |> Repo.preload(:ammo_group)
+         %__MODULE__{ammo_group_id: ammo_group_id, count: count},
+         user
+       ) do
+    %{count: ammo_group_count} = Ammo.get_ammo_group!(ammo_group_id, user)
 
     new_shot_group_count = changeset |> Changeset.get_field(:count)
     shot_diff_to_add = new_shot_group_count - count

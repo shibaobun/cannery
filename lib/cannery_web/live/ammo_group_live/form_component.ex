@@ -44,7 +44,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"ammo_group" => ammo_group_params}, socket) do
-    {:noreply, socket |> assign_changeset(ammo_group_params)}
+    {:noreply, socket |> assign_changeset(ammo_group_params, :validate)}
   end
 
   def handle_event(
@@ -56,6 +56,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   end
 
   # HTML Helpers
+
   @spec container_options([Container.t()]) :: [{String.t(), Container.id()}]
   defp container_options(containers) do
     containers |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
@@ -70,41 +71,48 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   defp assign_changeset(
          %{assigns: %{action: action, ammo_group: ammo_group, current_user: user}} = socket,
-         ammo_group_params
+         ammo_group_params,
+         changeset_action \\ nil
        ) do
-    changeset_action =
-      cond do
-        action in [:new, :clone] -> :insert
-        action == :edit -> :update
+    default_action =
+      case action do
+        create when create in [:new, :clone] -> :insert
+        :edit -> :update
       end
 
     changeset =
-      cond do
-        action in [:new, :clone] ->
-          ammo_type =
-            if ammo_group_params |> Map.has_key?("ammo_type_id"),
-              do: ammo_group_params |> Map.get("ammo_type_id") |> Ammo.get_ammo_type!(user),
-              else: nil
-
-          container =
-            if ammo_group_params |> Map.has_key?("container_id"),
-              do: ammo_group_params |> Map.get("container_id") |> Containers.get_container!(user),
-              else: nil
-
+      case default_action do
+        :insert ->
+          ammo_type = maybe_get_ammo_type(ammo_group_params, user)
+          container = maybe_get_container(ammo_group_params, user)
           ammo_group |> AmmoGroup.create_changeset(ammo_type, container, user, ammo_group_params)
 
-        action == :edit ->
+        :update ->
           ammo_group |> AmmoGroup.update_changeset(ammo_group_params, user)
       end
 
     changeset =
-      case changeset |> Changeset.apply_action(changeset_action) do
+      case changeset |> Changeset.apply_action(changeset_action || default_action) do
         {:ok, _data} -> changeset
         {:error, changeset} -> changeset
       end
 
     socket |> assign(:changeset, changeset)
   end
+
+  defp maybe_get_container(%{"container_id" => container_id}, user)
+       when is_binary(container_id) do
+    container_id |> Containers.get_container!(user)
+  end
+
+  defp maybe_get_container(_params_not_found, _user), do: nil
+
+  defp maybe_get_ammo_type(%{"ammo_type_id" => ammo_type_id}, user)
+       when is_binary(ammo_type_id) do
+    ammo_type_id |> Ammo.get_ammo_type!(user)
+  end
+
+  defp maybe_get_ammo_type(_params_not_found, _user), do: nil
 
   defp save_ammo_group(
          %{assigns: %{ammo_group: ammo_group, current_user: current_user, return_to: return_to}} =
@@ -146,25 +154,24 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
               multiplier: multiplier
             )
 
-          {:error, changeset} =
-            changeset
-            |> Changeset.add_error(:multiplier, error_msg)
-            |> Changeset.apply_action(:insert)
-
-          socket |> assign(:changeset, changeset)
+          save_multiplier_error(socket, changeset, error_msg)
 
         :error ->
           error_msg = dgettext("errors", "Could not parse number of copies")
-
-          {:error, changeset} =
-            changeset
-            |> Changeset.add_error(:multiplier, error_msg)
-            |> Changeset.apply_action(:insert)
-
-          socket |> assign(:changeset, changeset)
+          save_multiplier_error(socket, changeset, error_msg)
       end
 
     {:noreply, socket}
+  end
+
+  @spec save_multiplier_error(Socket.t(), Changeset.t(), String.t()) :: Socket.t()
+  defp save_multiplier_error(socket, changeset, error_msg) do
+    {:error, changeset} =
+      changeset
+      |> Changeset.add_error(:multiplier, error_msg)
+      |> Changeset.apply_action(:insert)
+
+    socket |> assign(:changeset, changeset)
   end
 
   defp create_multiple(

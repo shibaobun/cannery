@@ -17,8 +17,7 @@
   <hr class="hr" />
 
   <ul class="flex flex-col space-y-4 text-center">
-    <li class="flex flex-col justify-center items-center
-      space-y-2">
+    <li class="flex flex-col justify-center items-center space-y-2">
       <b class="whitespace-nowrap">
         <%= gettext("Easy to Use:") %>
       </b>
@@ -37,8 +36,7 @@
         <%= gettext("Your data stays with you, period") %>
       </p>
     </li>
-    <li class="flex flex-col justify-center items-center
-      space-y-2">
+    <li class="flex flex-col justify-center items-center space-y-2">
       <b class="whitespace-nowrap">
         <%= gettext("Simple:") %>
       </b>
@@ -81,9 +79,9 @@
     <li class="flex flex-row justify-center space-x-2">
       <b><%= gettext("Registration:") %></b>
       <p>
-        <%= case Application.get_env(:cannery, Cannery.Accounts)[:registration] do
-          "public" -> gettext("Public Signups")
-          _ -> gettext("Invite Only")
+        <%= case Accounts.registration_mode() do
+          :public -> gettext("Public Signups")
+          :invite_only -> gettext("Invite Only")
         end %>
       </p>
     </li>

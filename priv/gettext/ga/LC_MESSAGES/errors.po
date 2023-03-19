@@ -24,18 +24,18 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery/containers.ex:179
+#: lib/cannery/containers.ex:200
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
 msgstr "Caithfidh an coimeádán a bheidh follamh roimh scriosadh"
 
-#: lib/cannery_web/live/container_live/index.ex:92
-#: lib/cannery_web/live/container_live/show.ex:72
+#: lib/cannery_web/live/container_live/index.ex:86
+#: lib/cannery_web/live/container_live/show.ex:71
 #, elixir-autogen, elixir-format
 msgid "Could not delete %{name}: %{error}"
 msgstr "Ní feidir %{name} a scriosadh: %{error}"
 
-#: lib/cannery_web/live/container_live/index.ex:80
+#: lib/cannery_web/live/container_live/index.ex:74
 #, elixir-autogen, elixir-format
 msgid "Could not find that container"
 msgstr "Ní feidir an coimeádán sin a fáil"
@@ -50,12 +50,12 @@ msgstr "Tá an nasc chun an seoladh email a athrú neamhbhailí nó as dáta."
 msgid "Error"
 msgstr "Fadhb"
 
-#: lib/cannery_web/templates/error/error.html.heex:28
+#: lib/cannery_web/templates/error/error.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Go back home"
 msgstr "Dul abhaile"
 
-#: lib/cannery_web/views/error_view.ex:11
+#: lib/cannery_web/views/error_view.ex:10
 #, elixir-autogen, elixir-format
 msgid "Internal Server Error"
 msgstr "Fadhb freastalaí inmhéanach"
@@ -65,7 +65,7 @@ msgstr "Fadhb freastalaí inmhéanach"
 msgid "Invalid email or password"
 msgstr "Seoladh email nó pasfhocal neamhbhailí"
 
-#: lib/cannery_web/views/error_view.ex:9
+#: lib/cannery_web/views/error_view.ex:8
 #, elixir-autogen, elixir-format
 msgid "Not found"
 msgstr "Ní feidir é a fáil"
@@ -86,15 +86,15 @@ msgstr ""
 msgid "Reset password link is invalid or it has expired."
 msgstr "Tá nasc an pasfhocail a athrú neamhbailí nó as dáta."
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:22
-#: lib/cannery_web/controllers/user_registration_controller.ex:51
+#: lib/cannery_web/controllers/user_registration_controller.ex:23
+#: lib/cannery_web/controllers/user_registration_controller.ex:52
 #, elixir-autogen, elixir-format
 msgid "Sorry, public registration is disabled"
 msgstr "Tá brón orainn, tá clarú póiblí bactha"
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:12
-#: lib/cannery_web/controllers/user_registration_controller.ex:41
-#: lib/cannery_web/controllers/user_registration_controller.ex:70
+#: lib/cannery_web/controllers/user_registration_controller.ex:13
+#: lib/cannery_web/controllers/user_registration_controller.ex:42
+#: lib/cannery_web/controllers/user_registration_controller.ex:71
 #, elixir-autogen, elixir-format
 msgid "Sorry, this invite was not found or expired"
 msgstr "Tá brón orainn, ní feidir an cuireadh seo a fáil nó tá sé as dáta"
@@ -104,7 +104,7 @@ msgstr "Tá brón orainn, ní feidir an cuireadh seo a fáil nó tá sé as dát
 msgid "Unable to delete user"
 msgstr "Ní feidir an úsáideoir a scriosadh"
 
-#: lib/cannery_web/views/error_view.ex:10
+#: lib/cannery_web/views/error_view.ex:9
 #, elixir-autogen, elixir-format
 msgid "Unauthorized"
 msgstr "Níl cead agaibh"
@@ -114,7 +114,7 @@ msgstr "Níl cead agaibh"
 msgid "User confirmation link is invalid or it has expired."
 msgstr "Tá nasc an úsáideoir a deimhnigh neamhbailí nó as dáta."
 
-#: lib/cannery_web/live/invite_live/index.ex:19
+#: lib/cannery_web/live/invite_live/index.ex:18
 #, elixir-autogen, elixir-format
 msgid "You are not authorized to view this page"
 msgstr "Níl cead agaibh féachaint ar an leathanach seo"
@@ -144,19 +144,14 @@ msgstr ""
 msgid "must have the @ sign and no spaces"
 msgstr ""
 
-#: lib/cannery/tags.ex:66
+#: lib/cannery_web/live/container_live/show.ex:46
 #, elixir-autogen, elixir-format
 msgid "Tag not found"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:45
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:46
 #, elixir-autogen, elixir-format
 msgid "Tag could not be added"
-msgstr ""
-
-#: lib/cannery/activity_log/shot_group.ex:126
-#, elixir-autogen, elixir-format
-msgid "Count must be at least 1"
 msgstr ""
 
 #: lib/cannery_web/controllers/user_auth.ex:39
@@ -165,43 +160,57 @@ msgstr ""
 msgid "You must confirm your account and log in to access this page."
 msgstr ""
 
-#: lib/cannery_web/live/container_live/edit_tags_component.ex:72
+#: lib/cannery_web/live/container_live/edit_tags_component.ex:73
 #, elixir-autogen, elixir-format
 msgid "Tag could not be removed"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:157
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:160
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:142
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:150
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr ""
 
-#: lib/cannery/ammo.ex:686
+#: lib/cannery/ammo.ex:1015
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
 msgstr ""
 
-#: lib/cannery/ammo/ammo_group.ex:97
+#: lib/cannery/ammo/ammo_group.ex:92
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.html.heex:67
+#: lib/cannery_web/live/range_live/index.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Your browser does not support the canvas element."
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:77
+#: lib/cannery/activity_log/shot_group.ex:72
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Please select a valid user and ammo pack"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:83
-#: lib/cannery/activity_log/shot_group.ex:121
+#: lib/cannery/activity_log/shot_group.ex:86
+#, elixir-autogen, elixir-format
+msgid "Ammo left can be at most %{count} rounds"
+msgstr ""
+
+#: lib/cannery/activity_log/shot_group.ex:82
+#, elixir-autogen, elixir-format
+msgid "Ammo left must be at least 0"
+msgstr ""
+
+#: lib/cannery/activity_log/shot_group.ex:119
 #, elixir-autogen, elixir-format, fuzzy
-msgid "Count must be less than %{count} shots"
+msgid "Count can be at most %{count} shots"
+msgstr ""
+
+#: lib/cannery/activity_log/shot_group.ex:78
+#, elixir-autogen, elixir-format
+msgid "can't be blank"
 msgstr ""
