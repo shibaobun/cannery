@@ -4,7 +4,7 @@
   "license": "MIT",
   "engines": {
     "node": "v18.9.1",
-    "npm": "8.10.0"
+    "npm": "8.19.1"
   },
   "scripts": {
     "deploy": "NODE_ENV=production webpack --mode production",
@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
-    "alpinejs": "^3.10.2",
     "chart.js": "^3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",
     "date-fns": "^2.29.3",

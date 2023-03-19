@@ -4,6 +4,7 @@
 - Fix dead link of example bullet abbreviations
 - Fix inaccurate error message when updating shot records
 - Fix tables not sorting dates correctly
+- Fix dates displaying incorrectly
 - Fix container table not displaying all fields
 
 # v0.8.3
