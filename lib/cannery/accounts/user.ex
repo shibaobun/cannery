@@ -79,6 +79,7 @@ defmodule Cannery.Accounts.User do
     %User{}
     |> cast(attrs, [:email, :password, :locale])
     |> put_change(:invite_id, if(invite, do: invite.id))
+    |> validate_length(:locale, max: 255)
     |> validate_email()
     |> validate_password(opts)
   end
@@ -209,6 +210,7 @@ defmodule Cannery.Accounts.User do
   def locale_changeset(user_or_changeset, locale) do
     user_or_changeset
     |> cast(%{"locale" => locale}, [:locale])
+    |> validate_length(:locale, max: 255)
     |> validate_required(:locale)
   end
 end

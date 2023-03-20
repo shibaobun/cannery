@@ -61,6 +61,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
     |> change(user_id: user_id)
     |> change(ammo_group_id: ammo_group_id)
     |> cast(attrs, [:count, :notes, :date])
+    |> validate_length(:notes, max: 255)
     |> validate_create_shot_group_count(ammo_group)
     |> validate_required([:date, :ammo_group_id, :user_id])
   end
@@ -68,6 +69,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
   def create_changeset(shot_group, _invalid_user, _invalid_ammo_group, attrs) do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
+    |> validate_length(:notes, max: 255)
     |> validate_required([:ammo_group_id, :user_id])
     |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo pack"))
   end
@@ -99,6 +101,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
   def update_changeset(%__MODULE__{} = shot_group, user, attrs) do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
+    |> validate_length(:notes, max: 255)
     |> validate_number(:count, greater_than: 0)
     |> validate_required([:count, :date])
     |> validate_update_shot_group_count(shot_group, user)

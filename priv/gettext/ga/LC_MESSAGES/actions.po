@@ -131,12 +131,12 @@ msgstr ""
 msgid "Reset password"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:56
+#: lib/cannery_web/components/add_shot_group_component.html.heex:57
 #: lib/cannery_web/live/ammo_group_live/form_component.html.heex:84
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:159
-#: lib/cannery_web/live/container_live/form_component.html.heex:55
-#: lib/cannery_web/live/invite_live/form_component.html.heex:32
-#: lib/cannery_web/live/range_live/form_component.html.heex:44
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:180
+#: lib/cannery_web/live/container_live/form_component.html.heex:57
+#: lib/cannery_web/live/invite_live/form_component.html.heex:35
+#: lib/cannery_web/live/range_live/form_component.html.heex:45
 #: lib/cannery_web/live/tag_live/form_component.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Save"

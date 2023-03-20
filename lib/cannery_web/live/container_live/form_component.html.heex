@@ -21,7 +21,8 @@
     <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name,
       class: "input input-primary col-span-2",
-      placeholder: gettext("My cool ammo can")
+      placeholder: gettext("My cool ammo can"),
+      maxlength: 255
     ) %>
     <%= error_tag(f, :name, "col-span-3 text-center") %>
 
@@ -38,7 +39,8 @@
     <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :type,
       class: "input input-primary col-span-2",
-      placeholder: gettext("Magazine, Clip, Ammo Box, etc")
+      placeholder: gettext("Magazine, Clip, Ammo Box, etc"),
+      maxlength: 255
     ) %>
     <%= error_tag(f, :type, "col-span-3 text-center") %>
 

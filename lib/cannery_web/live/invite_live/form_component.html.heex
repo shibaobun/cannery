@@ -18,7 +18,10 @@
       <%= changeset_errors(@changeset) %>
     </div>
 
-    <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
+    <%= label(f, :name, gettext("Name"),
+      class: "title text-lg text-primary-600",
+      maxlength: 255
+    ) %>
     <%= text_input(f, :name, class: "input input-primary col-span-2") %>
     <%= error_tag(f, :name, "col-span-3") %>
 

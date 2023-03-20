@@ -149,9 +149,9 @@ defmodule Cannery.Fixtures do
   def tag_fixture(attrs \\ %{}, %User{} = user) do
     attrs
     |> Enum.into(%{
-      "bg_color" => "some bg-color",
+      "bg_color" => "#100000",
       "name" => "some name",
-      "text_color" => "some text-color"
+      "text_color" => "#000000"
     })
     |> Containers.create_tag(user)
     |> unwrap_ok_tuple()

@@ -1,3 +1,6 @@
+# v0.9.0
+- Add length limits to all string fields
+
 # v0.8.6
 - Fix duplicate entries showing up
 - Show ammo packs under a type in a table by default

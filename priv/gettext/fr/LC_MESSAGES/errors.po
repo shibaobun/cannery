@@ -118,22 +118,22 @@ msgstr "Le lien de confirmation d’utilisateur·ice est invalide ou a expiré."
 msgid "You are not authorized to view this page."
 msgstr "Vous n’êtes pas autorisé·e à voir cette page."
 
-#: lib/cannery/accounts/user.ex:144
+#: lib/cannery/accounts/user.ex:145
 #, elixir-autogen, elixir-format
 msgid "did not change"
 msgstr "est inchangé"
 
-#: lib/cannery/accounts/user.ex:165
+#: lib/cannery/accounts/user.ex:166
 #, elixir-autogen, elixir-format
 msgid "does not match password"
 msgstr "le mot de passe ne correspond pas"
 
-#: lib/cannery/accounts/user.ex:202
+#: lib/cannery/accounts/user.ex:203
 #, elixir-autogen, elixir-format
 msgid "is not valid"
 msgstr "n’est pas valide"
 
-#: lib/cannery/accounts/user.ex:99
+#: lib/cannery/accounts/user.ex:100
 #, elixir-autogen, elixir-format
 msgid "must have the @ sign and no spaces"
 msgstr "doit contenir le symbole @ et aucune espace"
@@ -186,27 +186,27 @@ msgstr "Veuillez choisir un type de munitions et un conteneur"
 msgid "Your browser does not support the canvas element."
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:72
+#: lib/cannery/activity_log/shot_group.ex:74
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Please select a valid user and ammo pack"
 msgstr "Veuillez choisir un utilisateur valide et un groupe de munitions"
 
-#: lib/cannery/activity_log/shot_group.ex:86
+#: lib/cannery/activity_log/shot_group.ex:88
 #, elixir-autogen, elixir-format
 msgid "Ammo left can be at most %{count} rounds"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:82
+#: lib/cannery/activity_log/shot_group.ex:84
 #, elixir-autogen, elixir-format
 msgid "Ammo left must be at least 0"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:119
+#: lib/cannery/activity_log/shot_group.ex:122
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Count can be at most %{count} shots"
 msgstr "La quantité doit être inférieur à %{count}"
 
-#: lib/cannery/activity_log/shot_group.ex:78
+#: lib/cannery/activity_log/shot_group.ex:80
 #, elixir-autogen, elixir-format
 msgid "can't be blank"
 msgstr ""

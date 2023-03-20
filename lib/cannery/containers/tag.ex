@@ -47,6 +47,9 @@ defmodule Cannery.Containers.Tag do
     tag
     |> change(user_id: user_id)
     |> cast(attrs, [:name, :bg_color, :text_color])
+    |> validate_length(:name, max: 255)
+    |> validate_length(:bg_color, max: 12)
+    |> validate_length(:text_color, max: 12)
     |> validate_required([:name, :bg_color, :text_color, :user_id])
   end
 
@@ -55,6 +58,9 @@ defmodule Cannery.Containers.Tag do
   def update_changeset(tag, attrs) do
     tag
     |> cast(attrs, [:name, :bg_color, :text_color])
+    |> validate_length(:name, max: 255)
+    |> validate_length(:bg_color, max: 12)
+    |> validate_length(:text_color, max: 12)
     |> validate_required([:name, :bg_color, :text_color])
   end
 end

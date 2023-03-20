@@ -10,14 +10,14 @@ defmodule CanneryWeb.TagLiveTest do
   @moduletag :tag_live_test
 
   @create_attrs %{
-    "bg_color" => "some bg-color",
+    "bg_color" => "#100000",
     "name" => "some name",
-    "text_color" => "some text-color"
+    "text_color" => "#000000"
   }
   @update_attrs %{
-    "bg_color" => "some updated bg-color",
+    "bg_color" => "#100001",
     "name" => "some updated name",
-    "text_color" => "some updated text-color"
+    "text_color" => "#000001"
   }
 
   # @invalid_attrs %{
@@ -86,7 +86,7 @@ defmodule CanneryWeb.TagLiveTest do
         |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
 
       assert html =~ dgettext("actions", "%{name} created successfully", name: "some name")
-      assert html =~ "some bg-color"
+      assert html =~ "#100000"
     end
 
     test "updates tag in listing", %{conn: conn, tag: tag} do
@@ -110,7 +110,7 @@ defmodule CanneryWeb.TagLiveTest do
       assert html =~
                dgettext("prompts", "%{name} updated successfully", name: "some updated name")
 
-      assert html =~ "some updated bg-color"
+      assert html =~ "#100001"
     end
 
     test "deletes tag in listing", %{conn: conn, tag: tag} do

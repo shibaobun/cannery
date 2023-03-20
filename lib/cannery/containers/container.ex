@@ -53,6 +53,8 @@ defmodule Cannery.Containers.Container do
     container
     |> change(user_id: user_id)
     |> cast(attrs, [:name, :desc, :type, :location])
+    |> validate_length(:name, max: 255)
+    |> validate_length(:type, max: 255)
     |> validate_required([:name, :type, :user_id])
   end
 
@@ -61,6 +63,8 @@ defmodule Cannery.Containers.Container do
   def update_changeset(container, attrs) do
     container
     |> cast(attrs, [:name, :desc, :type, :location])
+    |> validate_length(:name, max: 255)
+    |> validate_length(:type, max: 255)
     |> validate_required([:name, :type])
   end
 end

@@ -39,6 +39,7 @@
     <%= textarea(f, :notes,
       id: "add-shot-group-form-notes",
       class: "input input-primary col-span-2",
+      maxlength: 255,
       placeholder: gettext("Really great weather"),
       phx_hook: "MaintainAttrs",
       phx_update: "ignore"

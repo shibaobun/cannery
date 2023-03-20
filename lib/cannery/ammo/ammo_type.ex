@@ -42,7 +42,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :name, :string
     field :desc, :string
 
-    # https://en.wikipedia.org/wiki/Bullet#Abbreviations
+    # https://shootersreference.com/reloadingdata/bullet_abbreviations/
     field :bullet_type, :string
     field :bullet_core, :string
     field :cartridge, :string
@@ -129,20 +129,46 @@ defmodule Cannery.Ammo.AmmoType do
       :upc
     ]
 
+  @spec string_fields() :: [atom()]
+  defp string_fields,
+    do: [
+      :name,
+      :bullet_type,
+      :bullet_core,
+      :cartridge,
+      :caliber,
+      :case_material,
+      :jacket_type,
+      :powder_type,
+      :pressure,
+      :primer_type,
+      :firing_type,
+      :manufacturer,
+      :upc
+    ]
+
   @doc false
   @spec create_changeset(new_ammo_type(), User.t(), attrs :: map()) :: changeset()
   def create_changeset(ammo_type, %User{id: user_id}, attrs) do
-    ammo_type
-    |> change(user_id: user_id)
-    |> cast(attrs, changeset_fields())
+    changeset =
+      ammo_type
+      |> change(user_id: user_id)
+      |> cast(attrs, changeset_fields())
+
+    string_fields()
+    |> Enum.reduce(changeset, fn field, acc -> acc |> validate_length(field, max: 255) end)
     |> validate_required([:name, :user_id])
   end
 
   @doc false
   @spec update_changeset(t() | new_ammo_type(), attrs :: map()) :: changeset()
   def update_changeset(ammo_type, attrs) do
-    ammo_type
-    |> cast(attrs, changeset_fields())
+    changeset =
+      ammo_type
+      |> cast(attrs, changeset_fields())
+
+    string_fields()
+    |> Enum.reduce(changeset, fn field, acc -> acc |> validate_length(field, max: 255) end)
     |> validate_required(:name)
   end
 end

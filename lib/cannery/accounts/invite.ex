@@ -48,8 +48,9 @@ defmodule Cannery.Accounts.Invite do
     %__MODULE__{}
     |> change(token: token, created_by_id: user_id)
     |> cast(attrs, [:name, :uses_left, :disabled_at])
-    |> validate_required([:name, :token, :created_by_id])
+    |> validate_length(:name, max: 255)
     |> validate_number(:uses_left, greater_than_or_equal_to: 0)
+    |> validate_required([:name, :token, :created_by_id])
   end
 
   @doc false
@@ -57,7 +58,8 @@ defmodule Cannery.Accounts.Invite do
   def update_changeset(invite, attrs) do
     invite
     |> cast(attrs, [:name, :uses_left, :disabled_at])
-    |> validate_required([:name])
+    |> validate_length(:name, max: 255)
     |> validate_number(:uses_left, greater_than_or_equal_to: 0)
+    |> validate_required([:name])
   end
 end

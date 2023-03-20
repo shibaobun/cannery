@@ -28,14 +28,14 @@ defmodule Cannery.ContainersTest do
     "type" => nil
   }
   @valid_tag_attrs %{
-    "bg_color" => "some bg-color",
+    "bg_color" => "#100000",
     "name" => "some name",
-    "text_color" => "some text-color"
+    "text_color" => "#000000"
   }
   @update_tag_attrs %{
-    "bg_color" => "some updated bg-color",
+    "bg_color" => "#100001",
     "name" => "some updated name",
-    "text_color" => "some updated text-color"
+    "text_color" => "#000001"
   }
   @invalid_tag_attrs %{
     "bg_color" => nil,
@@ -186,9 +186,9 @@ defmodule Cannery.ContainersTest do
 
     test "create_tag/2 with valid data creates a tag", %{current_user: current_user} do
       assert {:ok, %Tag{} = tag} = Containers.create_tag(@valid_tag_attrs, current_user)
-      assert tag.bg_color == "some bg-color"
+      assert tag.bg_color == "#100000"
       assert tag.name == "some name"
-      assert tag.text_color == "some text-color"
+      assert tag.text_color == "#000000"
     end
 
     test "create_tag/2 with invalid data returns error changeset",
@@ -198,9 +198,9 @@ defmodule Cannery.ContainersTest do
 
     test "update_tag/3 with valid data updates the tag", %{tag: tag, current_user: current_user} do
       assert {:ok, %Tag{} = tag} = Containers.update_tag(tag, @update_tag_attrs, current_user)
-      assert tag.bg_color == "some updated bg-color"
+      assert tag.bg_color == "#100001"
       assert tag.name == "some updated name"
-      assert tag.text_color == "some updated text-color"
+      assert tag.text_color == "#000001"
     end
 
     test "update_tag/3 with invalid data returns error changeset",

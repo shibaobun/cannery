@@ -19,7 +19,7 @@
     </div>
 
     <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :name, class: "input input-primary col-span-2") %>
+    <%= text_input(f, :name, class: "input input-primary col-span-2", maxlength: 255) %>
     <%= error_tag(f, :name, "col-span-3") %>
 
     <%= label(f, :bg_color, gettext("Background color"), class: "title text-lg text-primary-600") %>
