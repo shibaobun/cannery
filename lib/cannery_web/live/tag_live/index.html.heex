@@ -18,57 +18,57 @@
     <.link patch={Routes.tag_index_path(Endpoint, :new)} class="btn btn-primary">
       <%= dgettext("actions", "New Tag") %>
     </.link>
-  <% end %>
 
-  <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
-    <.form
-      :let={f}
-      for={%{}}
-      as={:search}
-      phx-change="search"
-      phx-submit="search"
-      class="grow self-stretch flex flex-col items-stretch"
-    >
-      <%= text_input(f, :search_term,
-        class: "input input-primary",
-        value: @search,
-        role: "search",
-        phx_debounce: 300,
-        placeholder: gettext("Search tags")
-      ) %>
-    </.form>
-  </div>
-
-  <%= if @tags |> Enum.empty?() do %>
-    <h2 class="title text-xl text-primary-600">
-      <%= gettext("No tags") %>
-      <%= display_emoji("😔") %>
-    </h2>
-  <% else %>
-    <div class="flex flex-row flex-wrap justify-center items-stretch">
-      <.tag_card :for={tag <- @tags} tag={tag}>
-        <.link
-          patch={Routes.tag_index_path(Endpoint, :edit, tag)}
-          class="text-primary-600 link"
-          aria-label={dgettext("actions", "Edit %{tag_name}", tag_name: tag.name)}
-        >
-          <i class="fa-fw fa-lg fas fa-edit"></i>
-        </.link>
-
-        <.link
-          href="#"
-          class="text-primary-600 link"
-          phx-click="delete"
-          phx-value-id={tag.id}
-          data-confirm={
-            dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
-          }
-          aria-label={dgettext("actions", "Delete %{tag_name}", tag_name: tag.name)}
-        >
-          <i class="fa-fw fa-lg fas fa-trash"></i>
-        </.link>
-      </.tag_card>
+    <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-2xl">
+      <.form
+        :let={f}
+        for={%{}}
+        as={:search}
+        phx-change="search"
+        phx-submit="search"
+        class="grow flex items-center"
+      >
+        <%= text_input(f, :search_term,
+          class: "grow input input-primary",
+          value: @search,
+          role: "search",
+          phx_debounce: 300,
+          placeholder: gettext("Search tags")
+        ) %>
+      </.form>
     </div>
+
+    <%= if @tags |> Enum.empty?() do %>
+      <h2 class="title text-xl text-primary-600">
+        <%= gettext("No tags") %>
+        <%= display_emoji("😔") %>
+      </h2>
+    <% else %>
+      <div class="flex flex-row flex-wrap justify-center items-stretch">
+        <.tag_card :for={tag <- @tags} tag={tag}>
+          <.link
+            patch={Routes.tag_index_path(Endpoint, :edit, tag)}
+            class="text-primary-600 link"
+            aria-label={dgettext("actions", "Edit %{tag_name}", tag_name: tag.name)}
+          >
+            <i class="fa-fw fa-lg fas fa-edit"></i>
+          </.link>
+
+          <.link
+            href="#"
+            class="text-primary-600 link"
+            phx-click="delete"
+            phx-value-id={tag.id}
+            data-confirm={
+              dgettext("prompts", "Are you sure you want to delete %{name}?", name: tag.name)
+            }
+            aria-label={dgettext("actions", "Delete %{tag_name}", tag_name: tag.name)}
+          >
+            <i class="fa-fw fa-lg fas fa-trash"></i>
+          </.link>
+        </.tag_card>
+      </div>
+    <% end %>
   <% end %>
 </div>
 

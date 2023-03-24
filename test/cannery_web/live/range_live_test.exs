@@ -24,7 +24,12 @@ defmodule CanneryWeb.RangeLiveTest do
       %{"count" => 5, "date" => ~N[2022-02-13 03:17:00], "notes" => "some notes"}
       |> shot_group_fixture(current_user, ammo_group)
 
-    %{shot_group: shot_group, ammo_group: ammo_group}
+    [
+      container: container,
+      ammo_type: ammo_type,
+      ammo_group: ammo_group,
+      shot_group: shot_group
+    ]
   end
 
   describe "Index" do
@@ -35,6 +40,71 @@ defmodule CanneryWeb.RangeLiveTest do
 
       assert html =~ gettext("Range day")
       assert html =~ shot_group.notes
+    end
+
+    test "can sort by type",
+         %{conn: conn, container: container, current_user: current_user} do
+      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
+
+      rifle_shot_group =
+        shot_group_fixture(%{"notes" => "group_one"}, current_user, rifle_ammo_group)
+
+      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
+
+      shotgun_shot_group =
+        shot_group_fixture(%{"notes" => "group_two"}, current_user, shotgun_ammo_group)
+
+      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
+
+      pistol_shot_group =
+        shot_group_fixture(%{"notes" => "group_three"}, current_user, pistol_ammo_group)
+
+      {:ok, index_live, html} = live(conn, Routes.range_index_path(conn, :index))
+
+      assert html =~ "All"
+
+      assert html =~ rifle_shot_group.notes
+      assert html =~ shotgun_shot_group.notes
+      assert html =~ pistol_shot_group.notes
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :rifle})
+
+      assert html =~ rifle_shot_group.notes
+      refute html =~ shotgun_shot_group.notes
+      refute html =~ pistol_shot_group.notes
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :shotgun})
+
+      refute html =~ rifle_shot_group.notes
+      assert html =~ shotgun_shot_group.notes
+      refute html =~ pistol_shot_group.notes
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :pistol})
+
+      refute html =~ rifle_shot_group.notes
+      refute html =~ shotgun_shot_group.notes
+      assert html =~ pistol_shot_group.notes
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :all})
+
+      assert html =~ rifle_shot_group.notes
+      assert html =~ shotgun_shot_group.notes
+      assert html =~ pistol_shot_group.notes
     end
 
     test "can search for shot_group", %{conn: conn, shot_group: shot_group} do

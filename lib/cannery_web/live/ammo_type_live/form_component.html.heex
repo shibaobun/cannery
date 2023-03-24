@@ -15,8 +15,18 @@
       :if={@changeset.action && not @changeset.valid?()}
       class="invalid-feedback col-span-3 text-center"
     >
-      <%= changeset_errors(@changeset) %>
+      <%= dgettext("errors", "Oops, something went wrong! Please check the errors below.") %>
     </div>
+
+    <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-600") %>
+    <%= select(
+      f,
+      :type,
+      [{gettext("Rifle"), :rifle}, {gettext("Shotgun"), :shotgun}, {gettext("Pistol"), :pistol}],
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255
+    ) %>
+    <%= error_tag(f, :type, "col-span-3 text-center") %>
 
     <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name,
@@ -34,37 +44,31 @@
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>
 
-    <.link
-      href="https://shootersreference.com/reloadingdata/bullet_abbreviations/"
-      class="col-span-3 text-center link title text-md text-primary-600"
-    >
-      <%= gettext("Example bullet type abbreviations") %>
-    </.link>
-    <%= label(f, :bullet_type, gettext("Bullet type"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :bullet_type,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("FMJ")
-    ) %>
-    <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Dimensions") %>
+    </h2>
 
-    <%= label(f, :bullet_core, gettext("Bullet core"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :bullet_core,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("Steel")
-    ) %>
-    <%= error_tag(f, :bullet_core, "col-span-3 text-center") %>
+    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+      <%= label(f, :cartridge, gettext("Cartridge"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :cartridge,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255,
+        placeholder: gettext("5.56x46mm NATO")
+      ) %>
+      <%= error_tag(f, :cartridge, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :cartridge, value: nil) %>
+    <% end %>
 
-    <%= label(f, :cartridge, gettext("Cartridge"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :cartridge,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("5.56x46mm NATO")
+    <%= label(
+      f,
+      :caliber,
+      if(Changeset.get_field(@changeset, :type) == :shotgun,
+        do: gettext("Gauge"),
+        else: gettext("Caliber")
+      ),
+      class: "title text-lg text-primary-600"
     ) %>
-    <%= error_tag(f, :cartridge, "col-span-3 text-center") %>
-
-    <%= label(f, :caliber, gettext("Caliber"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :caliber,
       class: "text-center col-span-2 input input-primary",
       maxlength: 255,
@@ -72,48 +76,38 @@
     ) %>
     <%= error_tag(f, :caliber, "col-span-3 text-center") %>
 
-    <%= label(f, :case_material, gettext("Case material"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :case_material,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("Brass")
-    ) %>
-    <%= error_tag(f, :case_material, "col-span-3 text-center") %>
+    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+      <%= label(f, :unfired_length, gettext("Unfired shell length"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= text_input(f, :unfired_length,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :unfired_length, "col-span-3 text-center") %>
 
-    <%= label(f, :jacket_type, gettext("Jacket type"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :jacket_type,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("Bimetal")
-    ) %>
-    <%= error_tag(f, :case_material, "col-span-3 text-center") %>
+      <%= label(f, :brass_height, gettext("Brass height"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :brass_height,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :brass_height, "col-span-3 text-center") %>
 
-    <%= label(f, :muzzle_velocity, gettext("Muzzle velocity"),
-      class: "title text-lg text-primary-600"
-    ) %>
-    <%= number_input(f, :muzzle_velocity,
-      step: "1",
-      class: "text-center col-span-2 input input-primary",
-      min: 1
-    ) %>
-    <%= error_tag(f, :muzzle_velocity, "col-span-3 text-center") %>
+      <%= label(f, :chamber_size, gettext("Chamber size"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :chamber_size,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :chamber_size, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :unfired_length, value: nil) %>
+      <%= hidden_input(f, :brass_height, value: nil) %>
+      <%= hidden_input(f, :chamber_size, value: nil) %>
+    <% end %>
 
-    <%= label(f, :powder_type, gettext("Powder type"), class: "title text-lg text-primary-600") %>
-    <%= text_input(f, :powder_type,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255
-    ) %>
-    <%= error_tag(f, :powder_type, "col-span-3 text-center") %>
-
-    <%= label(f, :powder_grains_per_charge, gettext("Powder grains per charge"),
-      class: "title text-lg text-primary-600"
-    ) %>
-    <%= number_input(f, :powder_grains_per_charge,
-      step: "1",
-      class: "text-center col-span-2 input input-primary",
-      min: 1
-    ) %>
-    <%= error_tag(f, :powder_grains_per_charge, "col-span-3 text-center") %>
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Projectile") %>
+    </h2>
 
     <%= label(f, :grains, gettext("Grains"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :grains,
@@ -123,6 +117,143 @@
     ) %>
     <%= error_tag(f, :grains, "col-span-3 text-center") %>
 
+    <%= label f, :bullet_type, class: "flex title text-lg text-primary-600 space-x-2" do %>
+      <p><%= gettext("Bullet type") %></p>
+
+      <.link
+        href="https://shootersreference.com/reloadingdata/bullet_abbreviations/"
+        class="link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fas fa-md fa-external-link-alt"></i>
+      </.link>
+    <% end %>
+    <%= text_input(f, :bullet_type,
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255,
+      placeholder: gettext("FMJ")
+    ) %>
+    <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
+
+    <%= label(
+      f,
+      :bullet_core,
+      if(Changeset.get_field(@changeset, :type) == :shotgun,
+        do: gettext("Slug core"),
+        else: gettext("Bullet core")
+      ),
+      class: "title text-lg text-primary-600"
+    ) %>
+    <%= text_input(f, :bullet_core,
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255,
+      placeholder: gettext("Steel")
+    ) %>
+    <%= error_tag(f, :bullet_core, "col-span-3 text-center") %>
+
+    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+      <%= label(f, :jacket_type, gettext("Jacket type"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :jacket_type,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255,
+        placeholder: gettext("Bimetal")
+      ) %>
+      <%= error_tag(f, :jacket_type, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :jacket_type, value: nil) %>
+    <% end %>
+
+    <%= label(f, :case_material, gettext("Case material"), class: "title text-lg text-primary-600") %>
+    <%= text_input(f, :case_material,
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255,
+      placeholder: gettext("Brass")
+    ) %>
+    <%= error_tag(f, :case_material, "col-span-3 text-center") %>
+
+    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+      <%= label(f, :wadding, gettext("Wadding"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :wadding,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :wadding, "col-span-3 text-center") %>
+
+      <%= label(f, :shot_type, gettext("Shot type"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :shot_type,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255,
+        placeholder: gettext("Target, bird, buck, etc")
+      ) %>
+      <%= error_tag(f, :shot_type, "col-span-3 text-center") %>
+
+      <%= label(f, :shot_material, gettext("Shot material"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= text_input(f, :shot_material,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :shot_material, "col-span-3 text-center") %>
+
+      <%= label(f, :shot_size, gettext("Shot size"), class: "title text-lg text-primary-600") %>
+      <%= text_input(f, :shot_size,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :shot_size, "col-span-3 text-center") %>
+
+      <%= label(f, :load_grains, gettext("Load grains"), class: "title text-lg text-primary-600") %>
+      <%= number_input(f, :load_grains,
+        step: "1",
+        class: "text-center col-span-2 input input-primary",
+        min: 1
+      ) %>
+      <%= error_tag(f, :load_grains, "col-span-3 text-center") %>
+
+      <%= label(f, :shot_charge_weight, gettext("Shot charge weight"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= text_input(f, :shot_charge_weight,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :shot_charge_weight, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :wadding, value: nil) %>
+      <%= hidden_input(f, :shot_type, value: nil) %>
+      <%= hidden_input(f, :shot_material, value: nil) %>
+      <%= hidden_input(f, :shot_size, value: nil) %>
+      <%= hidden_input(f, :load_grains, value: nil) %>
+      <%= hidden_input(f, :shot_charge_weight, value: nil) %>
+    <% end %>
+
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Powder") %>
+    </h2>
+
+    <%= label(f, :powder_type, gettext("Powder type"), class: "title text-lg text-primary-600") %>
+    <%= text_input(f, :powder_type,
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255
+    ) %>
+    <%= error_tag(f, :powder_type, "col-span-3 text-center") %>
+
+    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+      <%= label(f, :powder_grains_per_charge, gettext("Powder grains per charge"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= number_input(f, :powder_grains_per_charge,
+        step: "1",
+        class: "text-center col-span-2 input input-primary",
+        min: 1
+      ) %>
+      <%= error_tag(f, :powder_grains_per_charge, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :powder_grains_per_charge, value: nil) %>
+    <% end %>
+
     <%= label(f, :pressure, gettext("Pressure"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :pressure,
       class: "text-center col-span-2 input input-primary",
@@ -130,6 +261,37 @@
       placeholder: gettext("+P")
     ) %>
     <%= error_tag(f, :pressure, "col-span-3 text-center") %>
+
+    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+      <%= label(f, :dram_equivalent, gettext("Dram equivalent"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= text_input(f, :dram_equivalent,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255
+      ) %>
+      <%= error_tag(f, :dram_equivalent, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :dram_equivalent, value: nil) %>
+    <% end %>
+
+    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+      <%= label(f, :muzzle_velocity, gettext("Muzzle velocity"),
+        class: "title text-lg text-primary-600"
+      ) %>
+      <%= number_input(f, :muzzle_velocity,
+        step: "1",
+        class: "text-center col-span-2 input input-primary",
+        min: 1
+      ) %>
+      <%= error_tag(f, :muzzle_velocity, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :muzzle_velocity, value: nil) %>
+    <% end %>
+
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Primer") %>
+    </h2>
 
     <%= label(f, :primer_type, gettext("Primer type"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :primer_type,
@@ -147,6 +309,10 @@
     ) %>
     <%= error_tag(f, :firing_type, "col-span-3 text-center") %>
 
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Attributes") %>
+    </h2>
+
     <%= label(f, :tracer, gettext("Tracer"), class: "title text-lg text-primary-600") %>
     <%= checkbox(f, :tracer, class: "text-center col-span-2 checkbox") %>
     <%= error_tag(f, :tracer, "col-span-3 text-center") %>
@@ -162,6 +328,10 @@
     <%= label(f, :corrosive, gettext("Corrosive"), class: "title text-lg text-primary-600") %>
     <%= checkbox(f, :corrosive, class: "text-center col-span-2 checkbox") %>
     <%= error_tag(f, :corrosive, "col-span-3 text-center") %>
+
+    <h2 class="text-center title text-lg text-primary-600 col-span-3">
+      <%= gettext("Manufacturer") %>
+    </h2>
 
     <%= label(f, :manufacturer, gettext("Manufacturer"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :manufacturer,

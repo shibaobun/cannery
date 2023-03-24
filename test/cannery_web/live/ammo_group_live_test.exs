@@ -66,6 +66,60 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
       assert html =~ ammo_group.ammo_type.name
     end
 
+    test "can sort by type",
+         %{conn: conn, container: container, current_user: current_user} do
+      rifle_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_type, container, current_user)
+      shotgun_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_type, container, current_user)
+      pistol_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_type, container, current_user)
+
+      {:ok, index_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
+
+      assert html =~ "All"
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :rifle})
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      refute html =~ shotgun_ammo_group.ammo_type.name
+      refute html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :shotgun})
+
+      refute html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      refute html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :pistol})
+
+      refute html =~ rifle_ammo_group.ammo_type.name
+      refute html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :all})
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+    end
+
     test "can search for ammo_groups", %{conn: conn, ammo_group: ammo_group} do
       {:ok, index_live, html} = live(conn, Routes.ammo_group_index_path(conn, :index))
 
@@ -142,7 +196,7 @@ defmodule CanneryWeb.AmmoGroupLiveTest do
         |> follow_redirect(conn, Routes.ammo_group_index_path(conn, :index))
 
       assert html =~ dgettext("prompts", "Ammo added successfully")
-      assert Ammo.list_ammo_groups(nil, false, current_user) |> Enum.count() == multiplier + 1
+      assert Ammo.list_ammo_groups(nil, :all, current_user) |> Enum.count() == multiplier + 1
     end
 
     test "does not save invalid number of new ammo_groups", %{conn: conn} do

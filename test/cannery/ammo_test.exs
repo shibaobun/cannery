@@ -9,54 +9,55 @@ defmodule Cannery.AmmoTest do
 
   @moduletag :ammo_test
 
-  describe "ammo_types" do
-    @valid_attrs %{
-      "bullet_type" => "some bullet_type",
-      "case_material" => "some case_material",
-      "desc" => "some desc",
-      "manufacturer" => "some manufacturer",
-      "name" => "some name",
-      "grains" => 120
-    }
-    @update_attrs %{
-      "bullet_type" => "some updated bullet_type",
-      "case_material" => "some updated case_material",
-      "desc" => "some updated desc",
-      "manufacturer" => "some updated manufacturer",
-      "name" => "some updated name",
-      "grains" => 456
-    }
-    @invalid_attrs %{
-      "bullet_type" => nil,
-      "case_material" => nil,
-      "desc" => nil,
-      "manufacturer" => nil,
-      "name" => nil,
-      "grains" => nil
-    }
+  @valid_attrs %{
+    "bullet_type" => "some bullet_type",
+    "case_material" => "some case_material",
+    "desc" => "some desc",
+    "manufacturer" => "some manufacturer",
+    "name" => "some name",
+    "grains" => 120
+  }
+  @update_attrs %{
+    "bullet_type" => "some updated bullet_type",
+    "case_material" => "some updated case_material",
+    "desc" => "some updated desc",
+    "manufacturer" => "some updated manufacturer",
+    "name" => "some updated name",
+    "grains" => 456
+  }
+  @invalid_attrs %{
+    "bullet_type" => nil,
+    "case_material" => nil,
+    "desc" => nil,
+    "manufacturer" => nil,
+    "name" => nil,
+    "grains" => nil
+  }
 
+  describe "list_ammo_types/2" do
     setup do
       current_user = user_fixture()
-      [ammo_type: ammo_type_fixture(current_user), current_user: current_user]
-    end
 
-    test "list_ammo_types/1 returns all ammo_types",
-         %{ammo_type: ammo_type, current_user: current_user} do
-      assert Ammo.list_ammo_types(current_user) == [ammo_type]
-    end
-
-    test "list_ammo_types/2 returns relevant ammo_types for a user",
-         %{current_user: current_user} do
-      ammo_type_a =
-        %{"name" => "bullets", "desc" => "has some pews in it", "grains" => 5}
-        |> ammo_type_fixture(current_user)
-
-      ammo_type_b =
-        %{"name" => "hollows", "grains" => 3}
-        |> ammo_type_fixture(current_user)
-
-      ammo_type_c =
+      rifle_ammo_type =
         %{
+          "name" => "bullets",
+          "type" => "rifle",
+          "desc" => "has some pews in it",
+          "grains" => 5
+        }
+        |> ammo_type_fixture(current_user)
+
+      shotgun_ammo_type =
+        %{
+          "name" => "hollows",
+          "type" => "shotgun",
+          "grains" => 3
+        }
+        |> ammo_type_fixture(current_user)
+
+      pistol_ammo_type =
+        %{
+          "type" => "pistol",
           "name" => "jackets",
           "desc" => "brass shell",
           "tracer" => true
@@ -70,28 +71,100 @@ defmodule Cannery.AmmoTest do
         }
         |> ammo_type_fixture(user_fixture())
 
+      [
+        rifle_ammo_type: rifle_ammo_type,
+        shotgun_ammo_type: shotgun_ammo_type,
+        pistol_ammo_type: pistol_ammo_type,
+        current_user: current_user
+      ]
+    end
+
+    test "list_ammo_types/2 returns all ammo_types", %{
+      rifle_ammo_type: rifle_ammo_type,
+      shotgun_ammo_type: shotgun_ammo_type,
+      pistol_ammo_type: pistol_ammo_type,
+      current_user: current_user
+    } do
+      results = Ammo.list_ammo_types(current_user, :all)
+      assert results |> Enum.count() == 3
+      assert rifle_ammo_type in results
+      assert shotgun_ammo_type in results
+      assert pistol_ammo_type in results
+    end
+
+    test "list_ammo_types/2 returns rifle ammo_types", %{
+      rifle_ammo_type: rifle_ammo_type,
+      current_user: current_user
+    } do
+      assert [^rifle_ammo_type] = Ammo.list_ammo_types(current_user, :rifle)
+    end
+
+    test "list_ammo_types/2 returns shotgun ammo_types", %{
+      shotgun_ammo_type: shotgun_ammo_type,
+      current_user: current_user
+    } do
+      assert [^shotgun_ammo_type] = Ammo.list_ammo_types(current_user, :shotgun)
+    end
+
+    test "list_ammo_types/2 returns pistol ammo_types", %{
+      pistol_ammo_type: pistol_ammo_type,
+      current_user: current_user
+    } do
+      assert [^pistol_ammo_type] = Ammo.list_ammo_types(current_user, :pistol)
+    end
+
+    test "list_ammo_types/2 returns relevant ammo_types for a user", %{
+      rifle_ammo_type: rifle_ammo_type,
+      shotgun_ammo_type: shotgun_ammo_type,
+      pistol_ammo_type: pistol_ammo_type,
+      current_user: current_user
+    } do
       # name
-      assert Ammo.list_ammo_types("bullet", current_user) == [ammo_type_a]
-      assert Ammo.list_ammo_types("bullets", current_user) == [ammo_type_a]
-      assert Ammo.list_ammo_types("hollow", current_user) == [ammo_type_b]
-      assert Ammo.list_ammo_types("jacket", current_user) == [ammo_type_c]
+      assert Ammo.list_ammo_types("bullet", current_user, :all) == [rifle_ammo_type]
+      assert Ammo.list_ammo_types("bullets", current_user, :all) == [rifle_ammo_type]
+      assert Ammo.list_ammo_types("hollow", current_user, :all) == [shotgun_ammo_type]
+      assert Ammo.list_ammo_types("jacket", current_user, :all) == [pistol_ammo_type]
 
       # desc
-      assert Ammo.list_ammo_types("pew", current_user) == [ammo_type_a]
-      assert Ammo.list_ammo_types("brass", current_user) == [ammo_type_c]
-      assert Ammo.list_ammo_types("shell", current_user) == [ammo_type_c]
+      assert Ammo.list_ammo_types("pew", current_user, :all) == [rifle_ammo_type]
+      assert Ammo.list_ammo_types("brass", current_user, :all) == [pistol_ammo_type]
+      assert Ammo.list_ammo_types("shell", current_user, :all) == [pistol_ammo_type]
 
       # grains (integer)
-      assert Ammo.list_ammo_types("5", current_user) == [ammo_type_a]
-      assert Ammo.list_ammo_types("3", current_user) == [ammo_type_b]
+      assert Ammo.list_ammo_types("5", current_user, :all) == [rifle_ammo_type]
+      assert Ammo.list_ammo_types("3", current_user, :all) == [shotgun_ammo_type]
 
       # tracer (boolean)
-      assert Ammo.list_ammo_types("tracer", current_user) == [ammo_type_c]
+      assert Ammo.list_ammo_types("tracer", current_user, :all) == [pistol_ammo_type]
+    end
+  end
+
+  describe "ammo types" do
+    setup do
+      current_user = user_fixture()
+      [ammo_type: ammo_type_fixture(current_user), current_user: current_user]
     end
 
     test "get_ammo_type!/2 returns the ammo_type with given id",
          %{ammo_type: ammo_type, current_user: current_user} do
       assert Ammo.get_ammo_type!(ammo_type.id, current_user) == ammo_type
+    end
+
+    test "get_ammo_types_count!/1 returns the correct amount of ammo",
+         %{current_user: current_user} do
+      assert Ammo.get_ammo_types_count!(current_user) == 1
+
+      ammo_type_fixture(current_user)
+      assert Ammo.get_ammo_types_count!(current_user) == 2
+
+      ammo_type_fixture(current_user)
+      assert Ammo.get_ammo_types_count!(current_user) == 3
+
+      other_user = user_fixture()
+      assert Ammo.get_ammo_types_count!(other_user) == 0
+
+      ammo_type_fixture(other_user)
+      assert Ammo.get_ammo_types_count!(other_user) == 1
     end
 
     test "create_ammo_type/2 with valid data creates a ammo_type",
@@ -653,32 +726,85 @@ defmodule Cannery.AmmoTest do
       ]
     end
 
-    test "list_ammo_groups/3 returns all ammo_groups",
-         %{
-           ammo_type: ammo_type,
-           ammo_group: ammo_group,
-           container: container,
-           current_user: current_user
-         } do
+    test "get_ammo_groups_count!/2 returns the correct amount of ammo",
+         %{ammo_type: ammo_type, container: container, current_user: current_user} do
+      assert Ammo.get_ammo_groups_count!(current_user) == 1
+
+      ammo_group_fixture(ammo_type, container, current_user)
+      assert Ammo.get_ammo_groups_count!(current_user) == 2
+
+      ammo_group_fixture(ammo_type, container, current_user)
+      assert Ammo.get_ammo_groups_count!(current_user) == 3
+
+      other_user = user_fixture()
+      assert Ammo.get_ammo_groups_count!(other_user) == 0
+      assert Ammo.get_ammo_groups_count!(other_user, true) == 0
+
+      other_ammo_type = ammo_type_fixture(other_user)
+      other_container = container_fixture(other_user)
+
+      {1, [another_ammo_group]} =
+        ammo_group_fixture(%{"count" => 30}, other_ammo_type, other_container, other_user)
+
+      shot_group_fixture(%{"count" => 30}, other_user, another_ammo_group)
+      assert Ammo.get_ammo_groups_count!(other_user) == 0
+      assert Ammo.get_ammo_groups_count!(other_user, true) == 1
+    end
+
+    test "list_ammo_groups/4 returns all ammo_groups for a type" do
+      current_user = user_fixture()
+      container = container_fixture(current_user)
+
+      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
+
+      assert [^rifle_ammo_group] = Ammo.list_ammo_groups(nil, :rifle, current_user, false)
+      assert [^shotgun_ammo_group] = Ammo.list_ammo_groups(nil, :shotgun, current_user, false)
+      assert [^pistol_ammo_group] = Ammo.list_ammo_groups(nil, :pistol, current_user, false)
+
+      ammo_groups = Ammo.list_ammo_groups(nil, :all, current_user, false)
+      assert Enum.count(ammo_groups) == 3
+      assert rifle_ammo_group in ammo_groups
+      assert shotgun_ammo_group in ammo_groups
+      assert pistol_ammo_group in ammo_groups
+
+      ammo_groups = Ammo.list_ammo_groups(nil, nil, current_user, false)
+      assert Enum.count(ammo_groups) == 3
+      assert rifle_ammo_group in ammo_groups
+      assert shotgun_ammo_group in ammo_groups
+      assert pistol_ammo_group in ammo_groups
+    end
+
+    test "list_ammo_groups/4 returns all relevant ammo_groups including used", %{
+      ammo_type: ammo_type,
+      ammo_group: ammo_group,
+      container: container,
+      current_user: current_user
+    } do
       {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
         ammo_group_fixture(%{"count" => 30}, ammo_type, container, current_user)
 
       shot_group_fixture(%{"count" => 30}, current_user, another_ammo_group)
       another_ammo_group = Ammo.get_ammo_group!(another_ammo_group_id, current_user)
 
-      assert Ammo.list_ammo_groups(nil, false, current_user) == [ammo_group]
+      assert Ammo.list_ammo_groups(nil, :all, current_user, false) == [ammo_group]
 
-      assert Ammo.list_ammo_groups(nil, true, current_user)
-             |> Enum.sort_by(fn %{count: count} -> count end) == [another_ammo_group, ammo_group]
+      ammo_groups = Ammo.list_ammo_groups(nil, :all, current_user, true)
+      assert Enum.count(ammo_groups) == 2
+      assert another_ammo_group in ammo_groups
+      assert ammo_group in ammo_groups
     end
 
-    test "list_ammo_groups/3 returns relevant ammo groups when searched",
-         %{
-           ammo_type: ammo_type,
-           ammo_group: ammo_group,
-           container: container,
-           current_user: current_user
-         } do
+    test "list_ammo_groups/4 returns relevant ammo groups when searched", %{
+      ammo_type: ammo_type,
+      ammo_group: ammo_group,
+      container: container,
+      current_user: current_user
+    } do
       {1, [another_ammo_group]} =
         %{"count" => 49, "notes" => "cool ammo group"}
         |> ammo_group_fixture(ammo_type, container, current_user)
@@ -695,49 +821,80 @@ defmodule Cannery.AmmoTest do
       {1, [fantastic_ammo_group]} =
         ammo_group_fixture(%{"count" => 47}, ammo_type, another_container, current_user)
 
-      assert Ammo.list_ammo_groups(nil, false, current_user)
-             |> Enum.sort_by(fn %{count: count} -> count end) ==
-               [fantastic_ammo_group, amazing_ammo_group, another_ammo_group, ammo_group]
+      ammo_groups = Ammo.list_ammo_groups(nil, :all, current_user, false)
+      assert Enum.count(ammo_groups) == 4
+      assert fantastic_ammo_group in ammo_groups
+      assert amazing_ammo_group in ammo_groups
+      assert another_ammo_group in ammo_groups
+      assert ammo_group in ammo_groups
 
       # search works for ammo group attributes
-      assert Ammo.list_ammo_groups("cool", true, current_user) == [another_ammo_group]
+      assert Ammo.list_ammo_groups("cool", :all, current_user, true) == [another_ammo_group]
 
       # search works for ammo type attributes
-      assert Ammo.list_ammo_groups("amazing", true, current_user) == [amazing_ammo_group]
+      assert Ammo.list_ammo_groups("amazing", :all, current_user, true) == [amazing_ammo_group]
 
       # search works for container attributes
-      assert Ammo.list_ammo_groups("fantastic", true, current_user) == [fantastic_ammo_group]
+      assert Ammo.list_ammo_groups("fantastic", :all, current_user, true) ==
+               [fantastic_ammo_group]
 
       # search works for container tag attributes
-      assert Ammo.list_ammo_groups("stupendous", true, current_user) == [fantastic_ammo_group]
+      assert Ammo.list_ammo_groups("stupendous", :all, current_user, true) ==
+               [fantastic_ammo_group]
 
-      assert Ammo.list_ammo_groups("random", true, current_user) == []
+      assert Ammo.list_ammo_groups("random", :all, current_user, true) == []
     end
 
-    test "list_ammo_groups_for_type/2 returns all ammo_groups for a type",
-         %{
-           ammo_type: ammo_type,
-           container: container,
-           ammo_group: ammo_group,
-           current_user: current_user
-         } do
-      another_ammo_type = ammo_type_fixture(current_user)
-      {1, [_another]} = ammo_group_fixture(another_ammo_type, container, current_user)
+    test "list_ammo_groups_for_type/3 returns all ammo_groups for a type", %{
+      container: container,
+      current_user: current_user
+    } do
+      ammo_type = ammo_type_fixture(current_user)
+      {1, [ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+      assert [^ammo_group] = Ammo.list_ammo_groups_for_type(ammo_type, current_user)
 
-      assert Ammo.list_ammo_groups_for_type(ammo_type, current_user) == [ammo_group]
+      shot_group_fixture(current_user, ammo_group)
+      ammo_group = Ammo.get_ammo_group!(ammo_group.id, current_user)
+      assert [] == Ammo.list_ammo_groups_for_type(ammo_type, current_user)
+      assert [^ammo_group] = Ammo.list_ammo_groups_for_type(ammo_type, current_user, true)
     end
 
-    test "list_ammo_groups_for_container/2 returns all ammo_groups for a container",
-         %{
-           ammo_type: ammo_type,
-           container: container,
-           ammo_group: ammo_group,
-           current_user: current_user
-         } do
+    test "list_ammo_groups_for_container/3 returns all ammo_groups for a container" do
+      current_user = user_fixture()
+      container = container_fixture(current_user)
+
+      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
+
       another_container = container_fixture(current_user)
-      {1, [_another]} = ammo_group_fixture(ammo_type, another_container, current_user)
+      ammo_group_fixture(rifle_ammo_type, another_container, current_user)
+      ammo_group_fixture(shotgun_ammo_type, another_container, current_user)
+      ammo_group_fixture(pistol_ammo_type, another_container, current_user)
 
-      assert Ammo.list_ammo_groups_for_container(container, current_user) == [ammo_group]
+      assert [^rifle_ammo_group] =
+               Ammo.list_ammo_groups_for_container(container, :rifle, current_user)
+
+      assert [^shotgun_ammo_group] =
+               Ammo.list_ammo_groups_for_container(container, :shotgun, current_user)
+
+      assert [^pistol_ammo_group] =
+               Ammo.list_ammo_groups_for_container(container, :pistol, current_user)
+
+      ammo_groups = Ammo.list_ammo_groups_for_container(container, :all, current_user)
+      assert Enum.count(ammo_groups) == 3
+      assert rifle_ammo_group in ammo_groups
+      assert shotgun_ammo_group in ammo_groups
+      assert pistol_ammo_group in ammo_groups
+
+      ammo_groups = Ammo.list_ammo_groups_for_container(container, nil, current_user)
+      assert Enum.count(ammo_groups) == 3
+      assert rifle_ammo_group in ammo_groups
+      assert shotgun_ammo_group in ammo_groups
+      assert pistol_ammo_group in ammo_groups
     end
 
     test "get_ammo_groups_count_for_type/2 returns count of ammo_groups for a type", %{
@@ -785,12 +942,11 @@ defmodule Cannery.AmmoTest do
       assert %{^another_ammo_type_id => 1} = ammo_groups_count
     end
 
-    test "list_staged_ammo_groups/1 returns all ammo_groups that are staged",
-         %{
-           ammo_type: ammo_type,
-           container: container,
-           current_user: current_user
-         } do
+    test "list_staged_ammo_groups/1 returns all ammo_groups that are staged", %{
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
       {1, [another_ammo_group]} =
         ammo_group_fixture(%{"staged" => true}, ammo_type, container, current_user)
 
@@ -816,12 +972,11 @@ defmodule Cannery.AmmoTest do
       assert %{^another_ammo_group_id => ^another_ammo_group} = ammo_groups
     end
 
-    test "create_ammo_groups/3 with valid data creates a ammo_group",
-         %{
-           ammo_type: ammo_type,
-           container: container,
-           current_user: current_user
-         } do
+    test "create_ammo_groups/3 with valid data creates a ammo_group", %{
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
       assert {:ok, {1, [%AmmoGroup{} = ammo_group]}} =
                @valid_attrs
                |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
@@ -832,12 +987,11 @@ defmodule Cannery.AmmoTest do
       assert ammo_group.price_paid == 120.5
     end
 
-    test "create_ammo_groups/3 with valid data creates multiple ammo_groups",
-         %{
-           ammo_type: ammo_type,
-           container: container,
-           current_user: current_user
-         } do
+    test "create_ammo_groups/3 with valid data creates multiple ammo_groups", %{
+      ammo_type: ammo_type,
+      container: container,
+      current_user: current_user
+    } do
       assert {:ok, {3, ammo_groups}} =
                @valid_attrs
                |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})

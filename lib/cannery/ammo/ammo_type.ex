@@ -42,30 +42,47 @@ defmodule Cannery.Ammo.AmmoType do
     field :name, :string
     field :desc, :string
 
+    field :type, Ecto.Enum, values: [:rifle, :shotgun, :pistol]
+
+    # common fields
     # https://shootersreference.com/reloadingdata/bullet_abbreviations/
     field :bullet_type, :string
     field :bullet_core, :string
-    field :cartridge, :string
+    # also gauge for shotguns
     field :caliber, :string
     field :case_material, :string
-    field :jacket_type, :string
-    field :muzzle_velocity, :integer
     field :powder_type, :string
-    field :powder_grains_per_charge, :integer
     field :grains, :integer
     field :pressure, :string
     field :primer_type, :string
     field :firing_type, :string
+    field :manufacturer, :string
+    field :upc, :string
+
     field :tracer, :boolean, default: false
     field :incendiary, :boolean, default: false
     field :blank, :boolean, default: false
     field :corrosive, :boolean, default: false
 
-    field :manufacturer, :string
-    field :upc, :string
+    # rifle/pistol fields
+    field :cartridge, :string
+    field :jacket_type, :string
+    field :powder_grains_per_charge, :integer
+    field :muzzle_velocity, :integer
+
+    # shotgun fields
+    field :wadding, :string
+    field :shot_type, :string
+    field :shot_material, :string
+    field :shot_size, :string
+    field :unfired_length, :string
+    field :brass_height, :string
+    field :chamber_size, :string
+    field :load_grains, :integer
+    field :shot_charge_weight, :string
+    field :dram_equivalent, :string
 
     field :user_id, :binary_id
-
     has_many :ammo_groups, AmmoGroup
 
     timestamps()
@@ -75,6 +92,7 @@ defmodule Cannery.Ammo.AmmoType do
           id: id(),
           name: String.t(),
           desc: String.t() | nil,
+          type: type(),
           bullet_type: String.t() | nil,
           bullet_core: String.t() | nil,
           cartridge: String.t() | nil,
@@ -88,6 +106,16 @@ defmodule Cannery.Ammo.AmmoType do
           pressure: String.t() | nil,
           primer_type: String.t() | nil,
           firing_type: String.t() | nil,
+          wadding: String.t() | nil,
+          shot_type: String.t() | nil,
+          shot_material: String.t() | nil,
+          shot_size: String.t() | nil,
+          unfired_length: String.t() | nil,
+          brass_height: String.t() | nil,
+          chamber_size: String.t() | nil,
+          load_grains: integer() | nil,
+          shot_charge_weight: String.t() | nil,
+          dram_equivalent: String.t() | nil,
           tracer: boolean(),
           incendiary: boolean(),
           blank: boolean(),
@@ -102,12 +130,14 @@ defmodule Cannery.Ammo.AmmoType do
   @type new_ammo_type :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_ammo_type())
+  @type type :: :rifle | :shotgun | :pistol | nil
 
   @spec changeset_fields() :: [atom()]
   defp changeset_fields,
     do: [
       :name,
       :desc,
+      :type,
       :bullet_type,
       :bullet_core,
       :cartridge,
@@ -121,6 +151,16 @@ defmodule Cannery.Ammo.AmmoType do
       :pressure,
       :primer_type,
       :firing_type,
+      :wadding,
+      :shot_type,
+      :shot_material,
+      :shot_size,
+      :unfired_length,
+      :brass_height,
+      :chamber_size,
+      :load_grains,
+      :shot_charge_weight,
+      :dram_equivalent,
       :tracer,
       :incendiary,
       :blank,
@@ -143,6 +183,15 @@ defmodule Cannery.Ammo.AmmoType do
       :pressure,
       :primer_type,
       :firing_type,
+      :wadding,
+      :shot_type,
+      :shot_material,
+      :shot_size,
+      :unfired_length,
+      :brass_height,
+      :chamber_size,
+      :shot_charge_weight,
+      :dram_equivalent,
       :manufacturer,
       :upc
     ]

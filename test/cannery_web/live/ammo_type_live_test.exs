@@ -74,28 +74,77 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ ammo_type.bullet_type
     end
 
+    test "can sort by type", %{conn: conn, current_user: current_user} do
+      rifle_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      shotgun_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      pistol_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+
+      {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
+
+      assert html =~ "All"
+
+      assert html =~ rifle_type.name
+      assert html =~ shotgun_type.name
+      assert html =~ pistol_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :rifle})
+
+      assert html =~ rifle_type.name
+      refute html =~ shotgun_type.name
+      refute html =~ pistol_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :shotgun})
+
+      refute html =~ rifle_type.name
+      assert html =~ shotgun_type.name
+      refute html =~ pistol_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :pistol})
+
+      refute html =~ rifle_type.name
+      refute html =~ shotgun_type.name
+      assert html =~ pistol_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :all})
+
+      assert html =~ rifle_type.name
+      assert html =~ shotgun_type.name
+      assert html =~ pistol_type.name
+    end
+
     test "can search for ammo_type", %{conn: conn, ammo_type: ammo_type} do
       {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
       assert html =~ ammo_type.bullet_type
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/,
-               search: %{search_term: ammo_type.bullet_type}
-             )
-             |> render_change() =~ ammo_type.bullet_type
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: ammo_type.bullet_type}) =~
+               ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, ammo_type.bullet_type))
 
       refute index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
-             |> render_change() =~ ammo_type.bullet_type
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: "something_else"}) =~ ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
-             |> render_change() =~ ammo_type.bullet_type
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: ""}) =~ ammo_type.bullet_type
 
       assert_patch(index_live, Routes.ammo_type_index_path(conn, :index))
     end
@@ -114,8 +163,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       {:ok, _view, html} =
         index_live
-        |> form("#ammo_type-form", ammo_type: @create_attrs)
-        |> render_submit()
+        |> form("#ammo_type-form")
+        |> render_submit(ammo_type: @create_attrs)
         |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
 
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
@@ -138,8 +187,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       {:ok, _view, html} =
         index_live
-        |> form("#ammo_type-form", ammo_type: @update_attrs)
-        |> render_submit()
+        |> form("#ammo_type-form")
+        |> render_submit(ammo_type: @update_attrs)
         |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
 
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
@@ -163,8 +212,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       {:ok, _view, html} =
         index_live
-        |> form("#ammo_type-form", ammo_type: @create_attrs)
-        |> render_submit()
+        |> form("#ammo_type-form")
+        |> render_submit(ammo_type: @create_attrs)
         |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
 
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
@@ -188,10 +237,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       {:ok, _view, html} =
         index_live
-        |> form("#ammo_type-form",
+        |> form("#ammo_type-form")
+        |> render_submit(
           ammo_type: Map.merge(@create_attrs, %{"bullet_type" => "some updated bullet_type"})
         )
-        |> render_submit()
         |> follow_redirect(conn, Routes.ammo_type_index_path(conn, :index))
 
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)
@@ -276,8 +325,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       {:ok, _view, html} =
         show_live
-        |> form("#ammo_type-form", ammo_type: @update_attrs)
-        |> render_submit()
+        |> form("#ammo_type-form")
+        |> render_submit(ammo_type: @update_attrs)
         |> follow_redirect(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
       ammo_type = ammo_type.id |> Ammo.get_ammo_type!(current_user)

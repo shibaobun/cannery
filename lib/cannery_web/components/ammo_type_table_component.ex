@@ -4,6 +4,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
   """
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, ActivityLog, Ammo, Ammo.AmmoType}
+  alias CanneryWeb.Components.TableComponent
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -12,6 +13,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
           %{
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
+            optional(:type) => AmmoType.type() | nil,
             optional(:show_used) => boolean(),
             optional(:ammo_types) => [AmmoType.t()],
             optional(:actions) => Rendered.t(),
@@ -24,6 +26,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       socket
       |> assign(assigns)
       |> assign_new(:show_used, fn -> false end)
+      |> assign_new(:type, fn -> :all end)
       |> assign_new(:actions, fn -> [] end)
       |> display_ammo_types()
 
@@ -36,90 +39,118 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
              ammo_types: ammo_types,
              current_user: current_user,
              show_used: show_used,
+             type: type,
              actions: actions
            }
          } = socket
        ) do
-    columns =
+    filtered_columns =
       [
-        %{label: gettext("Name"), key: :name, type: :name},
-        %{label: gettext("Bullet type"), key: :bullet_type, type: :string},
-        %{label: gettext("Bullet core"), key: :bullet_core, type: :string},
         %{label: gettext("Cartridge"), key: :cartridge, type: :string},
-        %{label: gettext("Caliber"), key: :caliber, type: :string},
-        %{label: gettext("Case material"), key: :case_material, type: :string},
+        %{
+          label: if(type == :shotgun, do: gettext("Gauge"), else: gettext("Caliber")),
+          key: :caliber,
+          type: :string
+        },
+        %{label: gettext("Unfired shell length"), key: :unfired_length, type: :string},
+        %{label: gettext("Brass height"), key: :brass_height, type: :string},
+        %{label: gettext("Chamber size"), key: :chamber_size, type: :string},
+        %{label: gettext("Chamber size"), key: :chamber_size, type: :string},
+        %{label: gettext("Grains"), key: :grains, type: :string},
+        %{label: gettext("Bullet type"), key: :bullet_type, type: :string},
+        %{
+          label: if(type == :shotgun, do: gettext("Slug core"), else: gettext("Bullet core")),
+          key: :bullet_core,
+          type: :string
+        },
         %{label: gettext("Jacket type"), key: :jacket_type, type: :string},
-        %{label: gettext("Muzzle velocity"), key: :muzzle_velocity, type: :string},
+        %{label: gettext("Case material"), key: :case_material, type: :string},
+        %{label: gettext("Wadding"), key: :wadding, type: :string},
+        %{label: gettext("Shot type"), key: :shot_type, type: :string},
+        %{label: gettext("Shot material"), key: :shot_material, type: :string},
+        %{label: gettext("Shot size"), key: :shot_size, type: :string},
+        %{label: gettext("Load grains"), key: :load_grains, type: :string},
+        %{label: gettext("Shot charge weight"), key: :shot_charge_weight, type: :string},
         %{label: gettext("Powder type"), key: :powder_type, type: :string},
         %{
           label: gettext("Powder grains per charge"),
           key: :powder_grains_per_charge,
           type: :string
         },
-        %{label: gettext("Grains"), key: :grains, type: :string},
         %{label: gettext("Pressure"), key: :pressure, type: :string},
+        %{label: gettext("Dram equivalent"), key: :dram_equivalent, type: :string},
+        %{label: gettext("Muzzle velocity"), key: :muzzle_velocity, type: :string},
         %{label: gettext("Primer type"), key: :primer_type, type: :string},
         %{label: gettext("Firing type"), key: :firing_type, type: :string},
-        %{label: gettext("Tracer"), key: :tracer, type: :boolean},
-        %{label: gettext("Incendiary"), key: :incendiary, type: :boolean},
-        %{label: gettext("Blank"), key: :blank, type: :boolean},
-        %{label: gettext("Corrosive"), key: :corrosive, type: :boolean},
-        %{label: gettext("Manufacturer"), key: :manufacturer, type: :string},
-        %{label: gettext("UPC"), key: "upc", type: :string}
+        %{label: gettext("Tracer"), key: :tracer, type: :atom},
+        %{label: gettext("Incendiary"), key: :incendiary, type: :atom},
+        %{label: gettext("Blank"), key: :blank, type: :atom},
+        %{label: gettext("Corrosive"), key: :corrosive, type: :atom},
+        %{label: gettext("Manufacturer"), key: :manufacturer, type: :string}
       ]
       |> Enum.filter(fn %{key: key, type: type} ->
         # remove columns if all values match defaults
-        default_value = if type == :boolean, do: false, else: nil
+        default_value = if type == :atom, do: false, else: nil
 
         ammo_types
-        |> Enum.any?(fn ammo_type ->
-          not (ammo_type |> Map.get(key) == default_value)
-        end)
+        |> Enum.any?(fn ammo_type -> Map.get(ammo_type, key, default_value) != default_value end)
       end)
-      |> Kernel.++([
-        %{label: gettext("Rounds"), key: :round_count, type: :round_count}
-      ])
-      |> Kernel.++(
-        if show_used do
-          [
-            %{
-              label: gettext("Used rounds"),
-              key: :used_round_count,
-              type: :used_round_count
-            },
-            %{
-              label: gettext("Total ever rounds"),
-              key: :historical_round_count,
-              type: :historical_round_count
-            }
-          ]
-        else
-          []
-        end
+
+    columns =
+      [%{label: gettext("Actions"), key: "actions", type: :actions, sortable: false}]
+      |> TableComponent.maybe_compose_columns(%{
+        label: gettext("Average CPR"),
+        key: :avg_price_paid,
+        type: :avg_price_paid
+      })
+      |> TableComponent.maybe_compose_columns(
+        %{
+          label: gettext("Total ever packs"),
+          key: :historical_pack_count,
+          type: :historical_pack_count
+        },
+        show_used
       )
-      |> Kernel.++([%{label: gettext("Packs"), key: :ammo_count, type: :ammo_count}])
-      |> Kernel.++(
-        if show_used do
-          [
-            %{
-              label: gettext("Used packs"),
-              key: :used_pack_count,
-              type: :used_pack_count
-            },
-            %{
-              label: gettext("Total ever packs"),
-              key: :historical_pack_count,
-              type: :historical_pack_count
-            }
-          ]
-        else
-          []
-        end
+      |> TableComponent.maybe_compose_columns(
+        %{
+          label: gettext("Used packs"),
+          key: :used_pack_count,
+          type: :used_pack_count
+        },
+        show_used
       )
-      |> Kernel.++([
-        %{label: gettext("Average CPR"), key: :avg_price_paid, type: :avg_price_paid},
-        %{label: gettext("Actions"), key: "actions", type: :actions, sortable: false}
-      ])
+      |> TableComponent.maybe_compose_columns(%{
+        label: gettext("Packs"),
+        key: :ammo_count,
+        type: :ammo_count
+      })
+      |> TableComponent.maybe_compose_columns(
+        %{
+          label: gettext("Total ever rounds"),
+          key: :historical_round_count,
+          type: :historical_round_count
+        },
+        show_used
+      )
+      |> TableComponent.maybe_compose_columns(
+        %{
+          label: gettext("Used rounds"),
+          key: :used_round_count,
+          type: :used_round_count
+        },
+        show_used
+      )
+      |> TableComponent.maybe_compose_columns(%{
+        label: gettext("Rounds"),
+        key: :round_count,
+        type: :round_count
+      })
+      |> TableComponent.maybe_compose_columns(filtered_columns)
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Type"), key: :type, type: :atom},
+        type in [:all, nil]
+      )
+      |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
 
     round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
     packs_count = ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user)
@@ -162,12 +193,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
   def render(assigns) do
     ~H"""
     <div id={@id} class="w-full">
-      <.live_component
-        module={CanneryWeb.Components.TableComponent}
-        id={"table-#{@id}"}
-        columns={@columns}
-        rows={@rows}
-      />
+      <.live_component module={TableComponent} id={"table-#{@id}"} columns={@columns} rows={@rows} />
     </div>
     """
   end
@@ -179,7 +205,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
     end)
   end
 
-  defp get_ammo_type_value(:boolean, key, ammo_type, _other_data),
+  defp get_ammo_type_value(:atom, key, ammo_type, _other_data),
     do: ammo_type |> Map.get(key) |> humanize()
 
   defp get_ammo_type_value(:round_count, _key, %{id: ammo_type_id}, %{round_counts: round_counts}),

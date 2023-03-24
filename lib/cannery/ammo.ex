@@ -9,7 +9,7 @@ defmodule Cannery.Ammo do
   alias Cannery.Containers.{Container, ContainerTag, Tag}
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
-  alias Ecto.Changeset
+  alias Ecto.{Changeset, Queryable}
 
   @ammo_group_create_limit 10_000
   @ammo_group_preloads [:ammo_type]
@@ -20,49 +20,68 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> list_ammo_types(%User{id: 123})
+      iex> list_ammo_types(%User{id: 123}, :all)
       [%AmmoType{}, ...]
 
-      iex> list_ammo_types("cool", %User{id: 123})
-      [%AmmoType{name: "My cool ammo type"}, ...]
+      iex> list_ammo_types("cool", %User{id: 123}, :shotgun)
+      [%AmmoType{name: "My cool ammo type", type: :shotgun}, ...]
 
   """
-  @spec list_ammo_types(User.t()) :: [AmmoType.t()]
-  @spec list_ammo_types(search :: nil | String.t(), User.t()) :: [AmmoType.t()]
-  def list_ammo_types(search \\ nil, user)
+  @spec list_ammo_types(User.t(), AmmoType.type() | :all) :: [AmmoType.t()]
+  @spec list_ammo_types(search :: nil | String.t(), User.t(), AmmoType.type() | :all) ::
+          [AmmoType.t()]
+  def list_ammo_types(search \\ nil, user, type)
 
-  def list_ammo_types(search, %{id: user_id}) when search |> is_nil() or search == "" do
-    Repo.all(
-      from at in AmmoType,
-        where: at.user_id == ^user_id,
-        order_by: at.name,
-        preload: ^@ammo_type_preloads
+  def list_ammo_types(search, %{id: user_id}, type) do
+    from(at in AmmoType,
+      as: :at,
+      where: at.user_id == ^user_id,
+      preload: ^@ammo_type_preloads
     )
+    |> list_ammo_types_filter_type(type)
+    |> list_ammo_types_filter_search(search)
+    |> Repo.all()
   end
 
-  def list_ammo_types(search, %{id: user_id}) when search |> is_binary() do
+  @spec list_ammo_types_filter_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_ammo_types_filter_search(query, search) when search in ["", nil],
+    do: query |> order_by([at: at], at.name)
+
+  defp list_ammo_types_filter_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
-    Repo.all(
-      from at in AmmoType,
-        where: at.user_id == ^user_id,
-        where:
-          fragment(
-            "? @@ websearch_to_tsquery('english', ?)",
-            at.search,
-            ^trimmed_search
-          ),
-        order_by: {
-          :desc,
-          fragment(
-            "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-            at.search,
-            ^trimmed_search
-          )
-        },
-        preload: ^@ammo_type_preloads
+    query
+    |> where(
+      [at: at],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        at.search,
+        ^trimmed_search
+      )
+    )
+    |> order_by(
+      [at: at],
+      {
+        :desc,
+        fragment(
+          "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+          at.search,
+          ^trimmed_search
+        )
+      }
     )
   end
+
+  @spec list_ammo_types_filter_type(Queryable.t(), AmmoType.type() | :all) :: Queryable.t()
+  defp list_ammo_types_filter_type(query, :rifle), do: query |> where([at: at], at.type == :rifle)
+
+  defp list_ammo_types_filter_type(query, :pistol),
+    do: query |> where([at: at], at.type == :pistol)
+
+  defp list_ammo_types_filter_type(query, :shotgun),
+    do: query |> where([at: at], at.type == :shotgun)
+
+  defp list_ammo_types_filter_type(query, _all), do: query
 
   @doc """
   Returns a count of ammo_types.
@@ -80,7 +99,7 @@ defmodule Cannery.Ammo do
         where: at.user_id == ^user_id,
         select: count(at.id),
         distinct: true
-    )
+    ) || 0
   end
 
   @doc """
@@ -375,36 +394,31 @@ defmodule Cannery.Ammo do
 
   """
   @spec list_ammo_groups_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups_for_type(AmmoType.t(), User.t(), include_empty :: boolean()) ::
+  @spec list_ammo_groups_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
           [AmmoGroup.t()]
-  def list_ammo_groups_for_type(ammo_type, user, include_empty \\ false)
+  def list_ammo_groups_for_type(ammo_type, user, show_used \\ false)
 
   def list_ammo_groups_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
-        true = _include_empty
+        show_used
       ) do
-    Repo.all(
-      from ag in AmmoGroup,
-        where: ag.ammo_type_id == ^ammo_type_id,
-        where: ag.user_id == ^user_id,
-        preload: ^@ammo_group_preloads
+    from(ag in AmmoGroup,
+      as: :ag,
+      where: ag.ammo_type_id == ^ammo_type_id,
+      where: ag.user_id == ^user_id,
+      preload: ^@ammo_group_preloads
     )
+    |> list_ammo_groups_for_type_show_used(show_used)
+    |> Repo.all()
   end
 
-  def list_ammo_groups_for_type(
-        %AmmoType{id: ammo_type_id, user_id: user_id},
-        %User{id: user_id},
-        false = _include_empty
-      ) do
-    Repo.all(
-      from ag in AmmoGroup,
-        where: ag.ammo_type_id == ^ammo_type_id,
-        where: ag.user_id == ^user_id,
-        where: not (ag.count == 0),
-        preload: ^@ammo_group_preloads
-    )
-  end
+  @spec list_ammo_groups_for_type_show_used(Queryable.t(), show_used :: boolean()) ::
+          Queryable.t()
+  def list_ammo_groups_for_type_show_used(query, false),
+    do: query |> where([ag: ag], ag.count > 0)
+
+  def list_ammo_groups_for_type_show_used(query, _true), do: query
 
   @doc """
   Returns the list of ammo_groups for a user and container.
@@ -413,49 +427,85 @@ defmodule Cannery.Ammo do
 
       iex> list_ammo_groups_for_container(
       ...>   %Container{id: 123, user_id: 456},
+      ...>   :rifle,
       ...>   %User{id: 456}
       ...> )
       [%AmmoGroup{}, ...]
 
       iex> list_ammo_groups_for_container(
       ...>   %Container{id: 123, user_id: 456},
-      ...>   %User{id: 456},
-      ...>   true
+      ...>   :all,
+      ...>   %User{id: 456}
       ...> )
       [%AmmoGroup{}, %AmmoGroup{}, ...]
 
   """
-  @spec list_ammo_groups_for_container(Container.t(), User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups_for_container(Container.t(), User.t(), include_empty :: boolean()) ::
-          [AmmoGroup.t()]
-  def list_ammo_groups_for_container(container, user, include_empty \\ false)
-
+  @spec list_ammo_groups_for_container(
+          Container.t(),
+          AmmoType.t() | :all,
+          User.t()
+        ) :: [AmmoGroup.t()]
   def list_ammo_groups_for_container(
         %Container{id: container_id, user_id: user_id},
-        %User{id: user_id},
-        true = _include_empty
+        type,
+        %User{id: user_id}
       ) do
-    Repo.all(
-      from ag in AmmoGroup,
-        where: ag.container_id == ^container_id,
-        where: ag.user_id == ^user_id,
-        preload: ^@ammo_group_preloads
+    from(ag in AmmoGroup,
+      as: :ag,
+      join: at in assoc(ag, :ammo_type),
+      as: :at,
+      where: ag.container_id == ^container_id,
+      where: ag.user_id == ^user_id,
+      where: ag.count > 0,
+      preload: ^@ammo_group_preloads
     )
+    |> list_ammo_groups_for_container_filter_type(type)
+    |> Repo.all()
   end
 
-  def list_ammo_groups_for_container(
-        %Container{id: container_id, user_id: user_id},
-        %User{id: user_id},
-        false = _include_empty
-      ) do
-    Repo.all(
-      from ag in AmmoGroup,
-        where: ag.container_id == ^container_id,
-        where: ag.user_id == ^user_id,
-        where: not (ag.count == 0),
-        preload: ^@ammo_group_preloads
+  @spec list_ammo_groups_for_container_filter_type(Queryable.t(), AmmoType.type() | :all) ::
+          Queryable.t()
+  defp list_ammo_groups_for_container_filter_type(query, :rifle),
+    do: query |> where([at: at], at.type == :rifle)
+
+  defp list_ammo_groups_for_container_filter_type(query, :pistol),
+    do: query |> where([at: at], at.type == :pistol)
+
+  defp list_ammo_groups_for_container_filter_type(query, :shotgun),
+    do: query |> where([at: at], at.type == :shotgun)
+
+  defp list_ammo_groups_for_container_filter_type(query, _all), do: query
+
+  @doc """
+  Returns a count of ammo_groups.
+
+  ## Examples
+
+      iex> get_ammo_groups_count!(%User{id: 123})
+      3
+
+      iex> get_ammo_groups_count!(%User{id: 123}, true)
+      4
+
+  """
+  @spec get_ammo_groups_count!(User.t()) :: integer()
+  @spec get_ammo_groups_count!(User.t(), show_used :: boolean()) :: integer()
+  def get_ammo_groups_count!(%User{id: user_id}, show_used \\ false) do
+    from(ag in AmmoGroup,
+      as: :ag,
+      where: ag.user_id == ^user_id,
+      select: count(ag.id),
+      distinct: true
     )
+    |> get_ammo_groups_count_show_used(show_used)
+    |> Repo.one() || 0
   end
+
+  @spec get_ammo_groups_count_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
+  defp get_ammo_groups_count_show_used(query, false),
+    do: query |> where([ag: ag], ag.count > 0)
+
+  defp get_ammo_groups_count_show_used(query, _true), do: query
 
   @doc """
   Returns the count of ammo_groups for an ammo type.
@@ -477,15 +527,15 @@ defmodule Cannery.Ammo do
 
   """
   @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t(), include_empty :: boolean()) ::
+  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
           non_neg_integer()
   def get_ammo_groups_count_for_type(
         %AmmoType{id: ammo_type_id} = ammo_type,
         user,
-        include_empty \\ false
+        show_used \\ false
       ) do
     [ammo_type]
-    |> get_ammo_groups_count_for_types(user, include_empty)
+    |> get_ammo_groups_count_for_types(user, show_used)
     |> Map.get(ammo_type_id, 0)
   end
 
@@ -510,28 +560,31 @@ defmodule Cannery.Ammo do
   """
   @spec get_ammo_groups_count_for_types([AmmoType.t()], User.t()) ::
           %{optional(AmmoType.id()) => non_neg_integer()}
-  @spec get_ammo_groups_count_for_types([AmmoType.t()], User.t(), include_empty :: boolean()) ::
+  @spec get_ammo_groups_count_for_types([AmmoType.t()], User.t(), show_used :: boolean()) ::
           %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_ammo_groups_count_for_types(ammo_types, %User{id: user_id}, include_empty \\ false) do
+  def get_ammo_groups_count_for_types(ammo_types, %User{id: user_id}, show_used \\ false) do
     ammo_type_ids =
       ammo_types
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
     from(ag in AmmoGroup,
+      as: :ag,
       where: ag.user_id == ^user_id,
       where: ag.ammo_type_id in ^ammo_type_ids,
       group_by: ag.ammo_type_id,
       select: {ag.ammo_type_id, count(ag.id)}
     )
-    |> maybe_include_empty(include_empty)
+    |> get_ammo_groups_count_for_types_maybe_show_used(show_used)
     |> Repo.all()
     |> Map.new()
   end
 
-  defp maybe_include_empty(query, true), do: query
+  @spec get_ammo_groups_count_for_types_maybe_show_used(Queryable.t(), show_used :: boolean()) ::
+          Queryable.t()
+  defp get_ammo_groups_count_for_types_maybe_show_used(query, true), do: query
 
-  defp maybe_include_empty(query, _false) do
-    query |> where([ag], not (ag.count == 0))
+  defp get_ammo_groups_count_for_types_maybe_show_used(query, _false) do
+    query |> where([ag: ag], not (ag.count == 0))
   end
 
   @doc """
@@ -628,7 +681,7 @@ defmodule Cannery.Ammo do
     Repo.all(
       from ag in AmmoGroup,
         where: ag.container_id in ^container_ids,
-        where: ag.count != 0,
+        where: ag.count > 0,
         group_by: ag.container_id,
         select: {ag.container_id, count(ag.id)}
     )
@@ -690,17 +743,20 @@ defmodule Cannery.Ammo do
       iex> list_ammo_groups(%User{id: 123})
       [%AmmoGroup{}, ...]
 
-      iex> list_ammo_groups("cool", true, %User{id: 123})
+      iex> list_ammo_groups("cool", %User{id: 123}, true)
       [%AmmoGroup{notes: "My cool ammo group"}, ...]
 
   """
-  @spec list_ammo_groups(User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups(search :: nil | String.t(), User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups(search :: nil | String.t(), include_empty :: boolean(), User.t()) ::
+  @spec list_ammo_groups(search :: String.t() | nil, AmmoType.type() | :all, User.t()) ::
           [AmmoGroup.t()]
-  def list_ammo_groups(search \\ nil, include_empty \\ false, %{id: user_id}) do
-    from(
-      ag in AmmoGroup,
+  @spec list_ammo_groups(
+          search :: nil | String.t(),
+          AmmoType.type() | :all,
+          User.t(),
+          show_used :: boolean()
+        ) :: [AmmoGroup.t()]
+  def list_ammo_groups(search, type, %{id: user_id}, show_used \\ false) do
+    from(ag in AmmoGroup,
       as: :ag,
       join: at in assoc(ag, :ammo_type),
       as: :at,
@@ -718,17 +774,32 @@ defmodule Cannery.Ammo do
       distinct: ag.id,
       preload: ^@ammo_group_preloads
     )
-    |> list_ammo_groups_include_empty(include_empty)
+    |> list_ammo_groups_filter_on_type(type)
+    |> list_ammo_groups_show_used(show_used)
     |> list_ammo_groups_search(search)
     |> Repo.all()
   end
 
-  defp list_ammo_groups_include_empty(query, true), do: query
+  @spec list_ammo_groups_filter_on_type(Queryable.t(), AmmoType.type() | :all) :: Queryable.t()
+  defp list_ammo_groups_filter_on_type(query, :rifle),
+    do: query |> where([at: at], at.type == :rifle)
 
-  defp list_ammo_groups_include_empty(query, false) do
-    query |> where([ag], not (ag.count == 0))
+  defp list_ammo_groups_filter_on_type(query, :pistol),
+    do: query |> where([at: at], at.type == :pistol)
+
+  defp list_ammo_groups_filter_on_type(query, :shotgun),
+    do: query |> where([at: at], at.type == :shotgun)
+
+  defp list_ammo_groups_filter_on_type(query, _all), do: query
+
+  @spec list_ammo_groups_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
+  defp list_ammo_groups_show_used(query, true), do: query
+
+  defp list_ammo_groups_show_used(query, _false) do
+    query |> where([ag: ag], not (ag.count == 0))
   end
 
+  @spec list_ammo_groups_show_used(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
   defp list_ammo_groups_search(query, nil), do: query
   defp list_ammo_groups_search(query, ""), do: query
 

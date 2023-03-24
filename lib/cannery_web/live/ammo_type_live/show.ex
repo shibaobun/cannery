@@ -7,28 +7,6 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
   alias Cannery.{ActivityLog, Ammo, Ammo.AmmoType, Containers}
   alias CanneryWeb.Endpoint
 
-  @fields_list [
-    %{label: gettext("Bullet type:"), key: :bullet_type, type: :string},
-    %{label: gettext("Bullet core:"), key: :bullet_core, type: :string},
-    %{label: gettext("Cartridge:"), key: :cartridge, type: :string},
-    %{label: gettext("Caliber:"), key: :caliber, type: :string},
-    %{label: gettext("Case material:"), key: :case_material, type: :string},
-    %{label: gettext("Jacket type:"), key: :jacket_type, type: :string},
-    %{label: gettext("Muzzle velocity:"), key: :muzzle_velocity, type: :string},
-    %{label: gettext("Powder type:"), key: :powder_type, type: :string},
-    %{label: gettext("Powder grains per charge:"), key: :powder_grains_per_charge, type: :string},
-    %{label: gettext("Grains:"), key: :grains, type: :string},
-    %{label: gettext("Pressure:"), key: :pressure, type: :string},
-    %{label: gettext("Primer type:"), key: :primer_type, type: :string},
-    %{label: gettext("Firing type:"), key: :firing_type, type: :string},
-    %{label: gettext("Tracer:"), key: :tracer, type: :boolean},
-    %{label: gettext("Incendiary:"), key: :incendiary, type: :boolean},
-    %{label: gettext("Blank:"), key: :blank, type: :boolean},
-    %{label: gettext("Corrosive:"), key: :corrosive, type: :boolean},
-    %{label: gettext("Manufacturer:"), key: :manufacturer, type: :string},
-    %{label: gettext("UPC:"), key: :upc, type: :string}
-  ]
-
   @impl true
   def mount(_params, _session, socket),
     do: {:ok, socket |> assign(show_used: false, view_table: true)}
@@ -65,8 +43,8 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
            socket,
          %AmmoType{name: ammo_type_name} = ammo_type
        ) do
-    fields_to_display =
-      @fields_list
+    custom_fields? =
+      fields_to_display(ammo_type)
       |> Enum.any?(fn %{key: field, type: type} ->
         default_value =
           case type do
@@ -125,8 +103,8 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
       packs_count: ammo_type |> Ammo.get_ammo_groups_count_for_type(current_user),
       used_packs_count: used_packs_count,
       historical_packs_count: historical_packs_count,
-      fields_list: @fields_list,
-      fields_to_display: fields_to_display
+      fields_to_display: fields_to_display(ammo_type),
+      custom_fields?: custom_fields?
     )
   end
 
@@ -136,6 +114,48 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   defp display_ammo_type(%{assigns: %{ammo_type: ammo_type}} = socket) do
     socket |> display_ammo_type(ammo_type)
+  end
+
+  defp fields_to_display(%AmmoType{type: type}) do
+    [
+      %{label: gettext("Cartridge:"), key: :cartridge, type: :string},
+      %{
+        label: if(type == :shotgun, do: gettext("Gauge:"), else: gettext("Caliber:")),
+        key: :caliber,
+        type: :string
+      },
+      %{label: gettext("Unfired length:"), key: :unfired_length, type: :string},
+      %{label: gettext("Brass height:"), key: :brass_height, type: :string},
+      %{label: gettext("Chamber size:"), key: :chamber_size, type: :string},
+      %{label: gettext("Grains:"), key: :grains, type: :string},
+      %{label: gettext("Bullet type:"), key: :bullet_type, type: :string},
+      %{label: gettext("Bullet core:"), key: :bullet_core, type: :string},
+      %{label: gettext("Jacket type:"), key: :jacket_type, type: :string},
+      %{label: gettext("Case material:"), key: :case_material, type: :string},
+      %{label: gettext("Wadding:"), key: :wadding, type: :string},
+      %{label: gettext("Shot type:"), key: :shot_type, type: :string},
+      %{label: gettext("Shot material:"), key: :shot_material, type: :string},
+      %{label: gettext("Shot size:"), key: :shot_size, type: :string},
+      %{label: gettext("Load grains:"), key: :load_grains, type: :string},
+      %{label: gettext("Shot charge weight:"), key: :shot_charge_weight, type: :string},
+      %{label: gettext("Powder type:"), key: :powder_type, type: :string},
+      %{
+        label: gettext("Powder grains per charge:"),
+        key: :powder_grains_per_charge,
+        type: :string
+      },
+      %{label: gettext("Pressure:"), key: :pressure, type: :string},
+      %{label: gettext("Dram equivalent:"), key: :dram_equivalent, type: :string},
+      %{label: gettext("Muzzle velocity:"), key: :muzzle_velocity, type: :string},
+      %{label: gettext("Primer type:"), key: :primer_type, type: :string},
+      %{label: gettext("Firing type:"), key: :firing_type, type: :string},
+      %{label: gettext("Tracer:"), key: :tracer, type: :boolean},
+      %{label: gettext("Incendiary:"), key: :incendiary, type: :boolean},
+      %{label: gettext("Blank:"), key: :blank, type: :boolean},
+      %{label: gettext("Corrosive:"), key: :corrosive, type: :boolean},
+      %{label: gettext("Manufacturer:"), key: :manufacturer, type: :string},
+      %{label: gettext("UPC:"), key: :upc, type: :string}
+    ]
   end
 
   @spec display_currency(float()) :: String.t()

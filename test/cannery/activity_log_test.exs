@@ -38,50 +38,6 @@ defmodule Cannery.ActivityLogTest do
       ]
     end
 
-    test "list_shot_groups/1 returns all shot_groups",
-         %{shot_group: shot_group, current_user: current_user} do
-      assert ActivityLog.list_shot_groups(current_user) == [shot_group]
-    end
-
-    test "list_shot_groups/2 returns relevant shot_groups for a user", %{
-      ammo_type: ammo_type,
-      ammo_group: ammo_group,
-      container: container,
-      current_user: current_user
-    } do
-      shot_group_a = shot_group_fixture(%{"notes" => "amazing"}, current_user, ammo_group)
-
-      {1, [another_ammo_group]} =
-        ammo_group_fixture(%{"notes" => "stupendous"}, ammo_type, container, current_user)
-
-      shot_group_b = shot_group_fixture(current_user, another_ammo_group)
-
-      another_ammo_type = ammo_type_fixture(%{"name" => "fabulous ammo"}, current_user)
-
-      {1, [yet_another_ammo_group]} =
-        ammo_group_fixture(another_ammo_type, container, current_user)
-
-      shot_group_c = shot_group_fixture(current_user, yet_another_ammo_group)
-
-      random_user = user_fixture()
-      random_container = container_fixture(random_user)
-      random_ammo_type = ammo_type_fixture(random_user)
-
-      {1, [random_ammo_group]} =
-        ammo_group_fixture(random_ammo_type, random_container, random_user)
-
-      _shouldnt_return = shot_group_fixture(random_user, random_ammo_group)
-
-      # notes
-      assert ActivityLog.list_shot_groups("amazing", current_user) == [shot_group_a]
-
-      # ammo group attributes
-      assert ActivityLog.list_shot_groups("stupendous", current_user) == [shot_group_b]
-
-      # ammo type attributes
-      assert ActivityLog.list_shot_groups("fabulous", current_user) == [shot_group_c]
-    end
-
     test "get_shot_group!/2 returns the shot_group with given id",
          %{shot_group: shot_group, current_user: current_user} do
       assert ActivityLog.get_shot_group!(shot_group.id, current_user) == shot_group
@@ -369,6 +325,101 @@ defmodule Cannery.ActivityLogTest do
 
       assert %{^ammo_type_id => 5} = used_counts
       assert %{^another_ammo_type_id => 6} = used_counts
+    end
+  end
+
+  describe "list_shot_groups/3" do
+    setup do
+      current_user = user_fixture()
+      container = container_fixture(current_user)
+      ammo_type = ammo_type_fixture(current_user)
+      {1, [ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
+
+      [
+        current_user: current_user,
+        container: container,
+        ammo_type: ammo_type,
+        ammo_group: ammo_group
+      ]
+    end
+
+    test "list_shot_groups/3 returns relevant shot_groups for a type",
+         %{current_user: current_user, container: container} do
+      other_user = user_fixture()
+      other_container = container_fixture(other_user)
+
+      for type <- ["rifle", "shotgun", "pistol"] do
+        other_ammo_type = ammo_type_fixture(%{"type" => type}, other_user)
+        {1, [other_ammo_group]} = ammo_group_fixture(other_ammo_type, other_container, other_user)
+        shot_group_fixture(other_user, other_ammo_group)
+      end
+
+      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
+      rifle_shot_group = shot_group_fixture(current_user, rifle_ammo_group)
+
+      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
+      shotgun_shot_group = shot_group_fixture(current_user, shotgun_ammo_group)
+
+      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
+      pistol_shot_group = shot_group_fixture(current_user, pistol_ammo_group)
+
+      assert [^rifle_shot_group] = ActivityLog.list_shot_groups(:rifle, current_user)
+      assert [^shotgun_shot_group] = ActivityLog.list_shot_groups(:shotgun, current_user)
+      assert [^pistol_shot_group] = ActivityLog.list_shot_groups(:pistol, current_user)
+
+      shot_groups = ActivityLog.list_shot_groups(:all, current_user)
+      assert Enum.count(shot_groups) == 3
+      assert rifle_shot_group in shot_groups
+      assert shotgun_shot_group in shot_groups
+      assert pistol_shot_group in shot_groups
+
+      shot_groups = ActivityLog.list_shot_groups(nil, current_user)
+      assert Enum.count(shot_groups) == 3
+      assert rifle_shot_group in shot_groups
+      assert shotgun_shot_group in shot_groups
+      assert pistol_shot_group in shot_groups
+    end
+
+    test "list_shot_groups/3 returns relevant shot_groups for a search", %{
+      ammo_type: ammo_type,
+      ammo_group: ammo_group,
+      container: container,
+      current_user: current_user
+    } do
+      shot_group_a = shot_group_fixture(%{"notes" => "amazing"}, current_user, ammo_group)
+
+      {1, [another_ammo_group]} =
+        ammo_group_fixture(%{"notes" => "stupendous"}, ammo_type, container, current_user)
+
+      shot_group_b = shot_group_fixture(current_user, another_ammo_group)
+
+      another_ammo_type = ammo_type_fixture(%{"name" => "fabulous ammo"}, current_user)
+
+      {1, [yet_another_ammo_group]} =
+        ammo_group_fixture(another_ammo_type, container, current_user)
+
+      shot_group_c = shot_group_fixture(current_user, yet_another_ammo_group)
+
+      another_user = user_fixture()
+      another_container = container_fixture(another_user)
+      another_ammo_type = ammo_type_fixture(another_user)
+
+      {1, [another_ammo_group]} =
+        ammo_group_fixture(another_ammo_type, another_container, another_user)
+
+      _shouldnt_return = shot_group_fixture(another_user, another_ammo_group)
+
+      # notes
+      assert ActivityLog.list_shot_groups("amazing", :all, current_user) == [shot_group_a]
+
+      # ammo group attributes
+      assert ActivityLog.list_shot_groups("stupendous", :all, current_user) == [shot_group_b]
+
+      # ammo type attributes
+      assert ActivityLog.list_shot_groups("fabulous", :all, current_user) == [shot_group_c]
     end
   end
 end

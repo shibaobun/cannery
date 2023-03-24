@@ -6,7 +6,7 @@ defmodule CanneryWeb.ContainerLiveTest do
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
   import CanneryWeb.Gettext
-  alias Cannery.{Containers, Repo}
+  alias Cannery.Containers
 
   @moduletag :container_live_test
 
@@ -34,10 +34,6 @@ defmodule CanneryWeb.ContainerLiveTest do
     "notes" => "some ammo group",
     "count" => 20
   }
-  @shot_group_attrs %{
-    "notes" => "some shot group",
-    "count" => 20
-  }
 
   # @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
@@ -51,15 +47,6 @@ defmodule CanneryWeb.ContainerLiveTest do
     {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
 
     %{ammo_type: ammo_type, ammo_group: ammo_group}
-  end
-
-  defp create_empty_ammo_group(%{container: container, current_user: current_user}) do
-    ammo_type = ammo_type_fixture(@ammo_type_attrs, current_user)
-    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
-    shot_group = shot_group_fixture(@shot_group_attrs, current_user, ammo_group)
-    ammo_group = ammo_group |> Repo.reload!()
-
-    %{ammo_type: ammo_type, ammo_group: ammo_group, shot_group: shot_group}
   end
 
   describe "Index" do
@@ -263,6 +250,60 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
       assert html =~ "some updated location"
     end
+
+    test "can sort by type",
+         %{conn: conn, container: container, current_user: current_user} do
+      rifle_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_type, container, current_user)
+      shotgun_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_type, container, current_user)
+      pistol_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_type, container, current_user)
+
+      {:ok, index_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
+
+      assert html =~ "All"
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :rifle})
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      refute html =~ shotgun_ammo_group.ammo_type.name
+      refute html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :shotgun})
+
+      refute html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      refute html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :pistol})
+
+      refute html =~ rifle_ammo_group.ammo_type.name
+      refute html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_type"]/)
+        |> render_change(ammo_type: %{type: :all})
+
+      assert html =~ rifle_ammo_group.ammo_type.name
+      assert html =~ shotgun_ammo_group.ammo_type.name
+      assert html =~ pistol_ammo_group.ammo_type.name
+    end
   end
 
   describe "Show with ammo group" do
@@ -287,49 +328,6 @@ defmodule CanneryWeb.ContainerLiveTest do
 
       assert html =~ ammo_type_name
       assert html =~ "\n20\n"
-    end
-  end
-
-  describe "Show with empty ammo group" do
-    setup [:register_and_log_in_user, :create_container, :create_empty_ammo_group]
-
-    test "hides empty ammo groups by default",
-         %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
-      {:ok, show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
-
-      assert html =~ dgettext("actions", "Show used")
-      refute html =~ "\n20\n"
-
-      html =
-        show_live
-        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
-        |> render_click()
-
-      assert html =~ ammo_type_name
-      assert html =~ "\n20\n"
-      assert html =~ "Empty"
-    end
-
-    test "displays empty ammo groups in table on toggle",
-         %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
-      {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
-
-      html =
-        show_live
-        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
-        |> render_click()
-
-      assert html =~ dgettext("actions", "Show used")
-      refute html =~ "\n20\n"
-
-      html =
-        show_live
-        |> element(~s/input[type="checkbox"][aria-labelledby="toggle_show_used-label"}]/)
-        |> render_click()
-
-      assert html =~ ammo_type_name
-      assert html =~ "\n20\n"
-      assert html =~ "Empty"
     end
   end
 end

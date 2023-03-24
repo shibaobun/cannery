@@ -11,7 +11,7 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   @impl true
   def mount(_params, _session, socket),
-    do: {:ok, socket |> assign(show_used: false, view_table: true)}
+    do: {:ok, socket |> assign(type: :all, view_table: true)}
 
   @impl true
   def handle_params(%{"id" => id}, _session, %{assigns: %{current_user: current_user}} = socket) do
@@ -82,22 +82,34 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket}
   end
 
-  def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
-    {:noreply, socket |> assign(:show_used, !show_used) |> render_container()}
-  end
-
   def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
     {:noreply, socket |> assign(:view_table, !view_table) |> render_container()}
   end
 
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "rifle"}}, socket) do
+    {:noreply, socket |> assign(:type, :rifle) |> render_container()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "shotgun"}}, socket) do
+    {:noreply, socket |> assign(:type, :shotgun) |> render_container()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "pistol"}}, socket) do
+    {:noreply, socket |> assign(:type, :pistol) |> render_container()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => _all}}, socket) do
+    {:noreply, socket |> assign(:type, :all) |> render_container()}
+  end
+
   @spec render_container(Socket.t(), Container.id(), User.t()) :: Socket.t()
   defp render_container(
-         %{assigns: %{live_action: live_action, show_used: show_used}} = socket,
+         %{assigns: %{type: type, live_action: live_action}} = socket,
          id,
          current_user
        ) do
     %{name: container_name} = container = Containers.get_container!(id, current_user)
-    ammo_groups = Ammo.list_ammo_groups_for_container(container, current_user, show_used)
+    ammo_groups = Ammo.list_ammo_groups_for_container(container, type, current_user)
     original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
     cprs = ammo_groups |> Ammo.get_cprs(current_user)
     last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
@@ -113,6 +125,7 @@ defmodule CanneryWeb.ContainerLive.Show do
     |> assign(
       container: container,
       round_count: Ammo.get_round_count_for_container!(container, current_user),
+      ammo_groups_count: Ammo.get_ammo_groups_count_for_container!(container, current_user),
       ammo_groups: ammo_groups,
       original_counts: original_counts,
       cprs: cprs,

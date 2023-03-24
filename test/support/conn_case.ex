@@ -26,7 +26,7 @@ defmodule CanneryWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
-      import Cannery.Fixtures
+      import Cannery.{DataCase, Fixtures}
       import CanneryWeb.ConnCase
 
       alias CanneryWeb.Router.Helpers, as: Routes

@@ -6,64 +6,91 @@ defmodule Cannery.ActivityLog do
   import Ecto.Query, warn: false
   alias Cannery.Ammo.{AmmoGroup, AmmoType}
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
-  alias Ecto.Multi
+  alias Ecto.{Multi, Queryable}
 
   @doc """
   Returns the list of shot_groups.
 
   ## Examples
 
-      iex> list_shot_groups(%User{id: 123})
+      iex> list_shot_groups(:all, %User{id: 123})
       [%ShotGroup{}, ...]
 
-      iex> list_shot_groups("cool", %User{id: 123})
+      iex> list_shot_groups("cool", :all, %User{id: 123})
       [%ShotGroup{notes: "My cool shot group"}, ...]
 
+      iex> list_shot_groups("cool", :rifle, %User{id: 123})
+      [%ShotGroup{notes: "Shot some rifle rounds"}, ...]
+
   """
-  @spec list_shot_groups(User.t()) :: [ShotGroup.t()]
-  @spec list_shot_groups(search :: nil | String.t(), User.t()) :: [ShotGroup.t()]
-  def list_shot_groups(search \\ nil, user)
+  @spec list_shot_groups(AmmoType.type() | :all, User.t()) :: [ShotGroup.t()]
+  @spec list_shot_groups(search :: nil | String.t(), AmmoType.type() | :all, User.t()) ::
+          [ShotGroup.t()]
+  def list_shot_groups(search \\ nil, type, %{id: user_id}) do
+    from(sg in ShotGroup,
+      as: :sg,
+      left_join: ag in AmmoGroup,
+      as: :ag,
+      on: sg.ammo_group_id == ag.id,
+      left_join: at in AmmoType,
+      as: :at,
+      on: ag.ammo_type_id == at.id,
+      where: sg.user_id == ^user_id,
+      distinct: sg.id
+    )
+    |> list_shot_groups_search(search)
+    |> list_shot_groups_filter_type(type)
+    |> Repo.all()
+  end
 
-  def list_shot_groups(search, %{id: user_id}) when search |> is_nil() or search == "",
-    do: Repo.all(from sg in ShotGroup, where: sg.user_id == ^user_id)
+  @spec list_shot_groups_search(Queryable.t(), search :: String.t() | nil) ::
+          Queryable.t()
+  defp list_shot_groups_search(query, search) when search in ["", nil], do: query
 
-  def list_shot_groups(search, %{id: user_id}) when search |> is_binary() do
+  defp list_shot_groups_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
-    Repo.all(
-      from sg in ShotGroup,
-        left_join: ag in AmmoGroup,
-        on: sg.ammo_group_id == ag.id,
-        left_join: at in AmmoType,
-        on: ag.ammo_type_id == at.id,
-        where: sg.user_id == ^user_id,
-        where:
-          fragment(
-            "? @@ websearch_to_tsquery('english', ?)",
-            sg.search,
-            ^trimmed_search
-          ) or
-            fragment(
-              "? @@ websearch_to_tsquery('english', ?)",
-              ag.search,
-              ^trimmed_search
-            ) or
-            fragment(
-              "? @@ websearch_to_tsquery('english', ?)",
-              at.search,
-              ^trimmed_search
-            ),
-        order_by: {
-          :desc,
-          fragment(
-            "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-            sg.search,
-            ^trimmed_search
-          )
-        },
-        distinct: sg.id
+    query
+    |> where(
+      [sg: sg, ag: ag, at: at],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        sg.search,
+        ^trimmed_search
+      ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          ag.search,
+          ^trimmed_search
+        ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          at.search,
+          ^trimmed_search
+        )
     )
+    |> order_by([sg: sg], {
+      :desc,
+      fragment(
+        "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+        sg.search,
+        ^trimmed_search
+      )
+    })
   end
+
+  @spec list_shot_groups_filter_type(Queryable.t(), AmmoType.type() | :all) ::
+          Queryable.t()
+  defp list_shot_groups_filter_type(query, :rifle),
+    do: query |> where([at: at], at.type == :rifle)
+
+  defp list_shot_groups_filter_type(query, :pistol),
+    do: query |> where([at: at], at.type == :pistol)
+
+  defp list_shot_groups_filter_type(query, :shotgun),
+    do: query |> where([at: at], at.type == :shotgun)
+
+  defp list_shot_groups_filter_type(query, _all), do: query
 
   @spec list_shot_groups_for_ammo_group(AmmoGroup.t(), User.t()) :: [ShotGroup.t()]
   def list_shot_groups_for_ammo_group(

@@ -3,7 +3,7 @@
     <%= gettext("Catalog") %>
   </h1>
 
-  <%= if @ammo_types |> Enum.empty?() and @search |> is_nil() do %>
+  <%= if @ammo_types_count == 0 do %>
     <h2 class="title text-xl text-primary-600">
       <%= gettext("No Ammo types") %>
       <%= display_emoji("😔") %>
@@ -17,17 +17,41 @@
       <%= dgettext("actions", "New Ammo type") %>
     </.link>
 
-    <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
+    <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-2xl">
+      <.form
+        :let={f}
+        for={%{}}
+        as={:ammo_type}
+        phx-change="change_type"
+        phx-submit="change_type"
+        class="flex items-center"
+      >
+        <%= label(f, :type, gettext("Type"), class: "title text-primary-600 text-lg text-center") %>
+
+        <%= select(
+          f,
+          :type,
+          [
+            {gettext("All"), :all},
+            {gettext("Rifle"), :rifle},
+            {gettext("Shotgun"), :shotgun},
+            {gettext("Pistol"), :pistol}
+          ],
+          class: "mx-2 my-1 min-w-md input input-primary",
+          value: @type
+        ) %>
+      </.form>
+
       <.form
         :let={f}
         for={%{}}
         as={:search}
         phx-change="search"
         phx-submit="search"
-        class="grow self-stretch flex flex-col items-stretch"
+        class="grow flex items-center"
       >
         <%= text_input(f, :search_term,
-          class: "input input-primary",
+          class: "grow input input-primary",
           value: @search,
           role: "search",
           phx_debounce: 300,
@@ -55,6 +79,7 @@
         ammo_types={@ammo_types}
         current_user={@current_user}
         show_used={@show_used}
+        type={@type}
       >
         <:actions :let={ammo_type}>
           <div class="px-4 py-2 space-x-4 flex justify-center items-center">

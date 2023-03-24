@@ -8,11 +8,11 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do
-    {:ok, socket |> assign(show_used: false, search: search) |> display_ammo_groups()}
+    {:ok, socket |> assign(type: :all, show_used: false, search: search) |> display_ammo_groups()}
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(show_used: false, search: nil) |> display_ammo_groups()}
+    {:ok, socket |> assign(type: :all, show_used: false, search: nil) |> display_ammo_groups()}
   end
 
   @impl true
@@ -119,10 +119,36 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket}
   end
 
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "rifle"}}, socket) do
+    {:noreply, socket |> assign(:type, :rifle) |> display_ammo_groups()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "shotgun"}}, socket) do
+    {:noreply, socket |> assign(:type, :shotgun) |> display_ammo_groups()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "pistol"}}, socket) do
+    {:noreply, socket |> assign(:type, :pistol) |> display_ammo_groups()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => _all}}, socket) do
+    {:noreply, socket |> assign(:type, :all) |> display_ammo_groups()}
+  end
+
   defp display_ammo_groups(
-         %{assigns: %{search: search, current_user: current_user, show_used: show_used}} = socket
+         %{
+           assigns: %{
+             type: type,
+             search: search,
+             current_user: current_user,
+             show_used: show_used
+           }
+         } = socket
        ) do
-    ammo_groups = Ammo.list_ammo_groups(search, show_used, current_user)
+    # get total number of ammo groups to determine whether to display onboarding
+    # prompts
+    ammo_groups_count = Ammo.get_ammo_groups_count!(current_user, true)
+    ammo_groups = Ammo.list_ammo_groups(search, type, current_user, show_used)
     ammo_types_count = Ammo.get_ammo_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)
 
@@ -130,7 +156,8 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     |> assign(
       ammo_groups: ammo_groups,
       ammo_types_count: ammo_types_count,
-      containers_count: containers_count
+      containers_count: containers_count,
+      ammo_groups_count: ammo_groups_count
     )
   end
 end

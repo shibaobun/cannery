@@ -1,5 +1,9 @@
 # v0.9.0
 - Add length limits to all string fields
+- Add selectable ammo types
+- Improve onboarding experience slightly
+- Remove show used view from a container since it doesn't really make that much
+  sense
 
 # v0.8.6
 - Fix duplicate entries showing up

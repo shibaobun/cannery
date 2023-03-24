@@ -48,4 +48,15 @@ defmodule Cannery.DataCase do
       end)
     end)
   end
+
+  @doc """
+  Generates a random string of any length, default of 12
+  """
+  @spec random_string(length :: non_neg_integer()) :: String.t()
+  def random_string(length \\ 12) do
+    :crypto.strong_rand_bytes(length) |> Base.url_encode64() |> binary_part(0, length)
+  end
+
+  def unique_user_email, do: "user#{System.unique_integer()}@example.com"
+  def valid_user_password, do: "hello world!"
 end

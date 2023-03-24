@@ -42,9 +42,26 @@
 
   <hr class="hr" />
 
-  <%= if @fields_to_display do %>
+  <%= if @ammo_type.type || @custom_fields? do %>
     <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
-      <%= for %{label: label, key: key, type: type} <- @fields_list do %>
+      <h3 class="title text-lg">
+        <%= gettext("Type") %>
+      </h3>
+
+      <span class="text-primary-600">
+        <%= case @ammo_type.type do %>
+          <% :shotgun -> %>
+            <%= gettext("Shotgun") %>
+          <% :rifle -> %>
+            <%= gettext("Rifle") %>
+          <% :pistol -> %>
+            <%= gettext("Pistol") %>
+          <% _ -> %>
+            <%= gettext("None specified") %>
+        <% end %>
+      </span>
+
+      <%= for %{label: label, key: key, type: type} <- @fields_to_display do %>
         <%= if @ammo_type |> Map.get(key) do %>
           <h3 class="title text-lg">
             <%= label %>

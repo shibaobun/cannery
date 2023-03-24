@@ -3,14 +3,6 @@
     <%= gettext("Ammo") %>
   </h1>
 
-  <h2
-    :if={@ammo_groups |> Enum.empty?() and @search |> is_nil()}
-    class="title text-xl text-primary-600"
-  >
-    <%= gettext("No Ammo") %>
-    <%= display_emoji("😔") %>
-  </h2>
-
   <%= cond do %>
     <% @containers_count == 0 -> %>
       <div class="flex justify-center items-center">
@@ -32,7 +24,12 @@
           <%= dgettext("actions", "add an ammo type first") %>
         </.link>
       </div>
-    <% @ammo_groups |> Enum.empty?() and @search |> is_nil() -> %>
+    <% @ammo_groups_count == 0 -> %>
+      <h2 class="title text-xl text-primary-600">
+        <%= gettext("No ammo") %>
+        <%= display_emoji("😔") %>
+      </h2>
+
       <.link patch={Routes.ammo_group_index_path(Endpoint, :new)} class="btn btn-primary">
         <%= dgettext("actions", "Add your first box!") %>
       </.link>
@@ -40,144 +37,168 @@
       <.link patch={Routes.ammo_group_index_path(Endpoint, :new)} class="btn btn-primary">
         <%= dgettext("actions", "Add Ammo") %>
       </.link>
-  <% end %>
 
-  <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl">
-    <.form
-      :let={f}
-      for={%{}}
-      as={:search}
-      phx-change="search"
-      phx-submit="search"
-      class="grow self-stretch flex flex-col items-stretch"
-    >
-      <%= text_input(f, :search_term,
-        class: "input input-primary",
-        value: @search,
-        role: "search",
-        phx_debounce: 300,
-        placeholder: gettext("Search ammo")
-      ) %>
-    </.form>
+      <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-2xl">
+        <.form
+          :let={f}
+          for={%{}}
+          as={:ammo_type}
+          phx-change="change_type"
+          phx-submit="change_type"
+          class="flex items-center"
+        >
+          <%= label(f, :type, gettext("Type"), class: "title text-primary-600 text-lg text-center") %>
 
-    <.toggle_button action="toggle_show_used" value={@show_used}>
-      <span class="title text-lg text-primary-600">
-        <%= gettext("Show used") %>
-      </span>
-    </.toggle_button>
-  </div>
+          <%= select(
+            f,
+            :type,
+            [
+              {gettext("All"), :all},
+              {gettext("Rifle"), :rifle},
+              {gettext("Shotgun"), :shotgun},
+              {gettext("Pistol"), :pistol}
+            ],
+            class: "mx-2 my-1 min-w-md input input-primary",
+            value: @type
+          ) %>
+        </.form>
 
-  <%= if @ammo_groups |> Enum.empty?() do %>
-    <h2 class="title text-xl text-primary-600">
-      <%= gettext("No Ammo") %>
-      <%= display_emoji("😔") %>
-    </h2>
-  <% else %>
-    <.live_component
-      module={CanneryWeb.Components.AmmoGroupTableComponent}
-      id="ammo-group-index-table"
-      ammo_groups={@ammo_groups}
-      current_user={@current_user}
-      show_used={@show_used}
-    >
-      <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
-        <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
-          <%= ammo_type_name %>
-        </.link>
-      </:ammo_type>
-      <:range :let={ammo_group}>
-        <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
-          <button
-            type="button"
-            class="mx-2 my-1 text-sm btn btn-primary"
-            phx-click="toggle_staged"
-            phx-value-ammo_group_id={ammo_group.id}
-          >
-            <%= if ammo_group.staged,
-              do: dgettext("actions", "Unstage"),
-              else: dgettext("actions", "Stage") %>
-          </button>
+        <.form
+          :let={f}
+          for={%{}}
+          as={:search}
+          phx-change="search"
+          phx-submit="search"
+          class="grow flex items-center"
+        >
+          <%= text_input(f, :search_term,
+            class: "grow input input-primary",
+            value: @search,
+            role: "search",
+            phx_debounce: 300,
+            placeholder: gettext("Search ammo")
+          ) %>
+        </.form>
 
-          <.link
-            patch={Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group)}
-            class="mx-2 my-1 text-sm btn btn-primary"
-          >
-            <%= dgettext("actions", "Record shots") %>
-          </.link>
-        </div>
-      </:range>
-      <:container :let={{ammo_group, %{name: container_name} = container}}>
-        <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
-          <.link
-            navigate={Routes.container_show_path(Endpoint, :show, container)}
-            class="mx-2 my-1 link"
-          >
-            <%= container_name %>
-          </.link>
+        <.toggle_button action="toggle_show_used" value={@show_used}>
+          <span class="title text-lg text-primary-600">
+            <%= gettext("Show used") %>
+          </span>
+        </.toggle_button>
+      </div>
 
-          <.link
-            patch={Routes.ammo_group_index_path(Endpoint, :move, ammo_group)}
-            class="mx-2 my-1 text-sm btn btn-primary"
-          >
-            <%= dgettext("actions", "Move ammo") %>
-          </.link>
-        </div>
-      </:container>
-      <:actions :let={%{count: ammo_group_count} = ammo_group}>
-        <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
-          <.link
-            navigate={Routes.ammo_group_show_path(Endpoint, :show, ammo_group)}
-            class="text-primary-600 link"
-            aria-label={
-              dgettext("actions", "View ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group_count
-              )
-            }
-          >
-            <i class="fa-fw fa-lg fas fa-eye"></i>
-          </.link>
+      <%= if @ammo_groups |> Enum.empty?() do %>
+        <h2 class="title text-xl text-primary-600">
+          <%= gettext("No Ammo") %>
+          <%= display_emoji("😔") %>
+        </h2>
+      <% else %>
+        <.live_component
+          module={CanneryWeb.Components.AmmoGroupTableComponent}
+          id="ammo-group-index-table"
+          ammo_groups={@ammo_groups}
+          current_user={@current_user}
+          show_used={@show_used}
+        >
+          <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
+            <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
+              <%= ammo_type_name %>
+            </.link>
+          </:ammo_type>
+          <:range :let={ammo_group}>
+            <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
+              <button
+                type="button"
+                class="mx-2 my-1 text-sm btn btn-primary"
+                phx-click="toggle_staged"
+                phx-value-ammo_group_id={ammo_group.id}
+              >
+                <%= if ammo_group.staged,
+                  do: dgettext("actions", "Unstage"),
+                  else: dgettext("actions", "Stage") %>
+              </button>
 
-          <.link
-            patch={Routes.ammo_group_index_path(Endpoint, :edit, ammo_group)}
-            class="text-primary-600 link"
-            aria-label={
-              dgettext("actions", "Edit ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group_count
-              )
-            }
-          >
-            <i class="fa-fw fa-lg fas fa-edit"></i>
-          </.link>
+              <.link
+                patch={Routes.ammo_group_index_path(Endpoint, :add_shot_group, ammo_group)}
+                class="mx-2 my-1 text-sm btn btn-primary"
+              >
+                <%= dgettext("actions", "Record shots") %>
+              </.link>
+            </div>
+          </:range>
+          <:container :let={{ammo_group, %{name: container_name} = container}}>
+            <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
+              <.link
+                navigate={Routes.container_show_path(Endpoint, :show, container)}
+                class="mx-2 my-1 link"
+              >
+                <%= container_name %>
+              </.link>
 
-          <.link
-            patch={Routes.ammo_group_index_path(Endpoint, :clone, ammo_group)}
-            class="text-primary-600 link"
-            aria-label={
-              dgettext("actions", "Clone ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group_count
-              )
-            }
-          >
-            <i class="fa-fw fa-lg fas fa-copy"></i>
-          </.link>
+              <.link
+                patch={Routes.ammo_group_index_path(Endpoint, :move, ammo_group)}
+                class="mx-2 my-1 text-sm btn btn-primary"
+              >
+                <%= dgettext("actions", "Move ammo") %>
+              </.link>
+            </div>
+          </:container>
+          <:actions :let={%{count: ammo_group_count} = ammo_group}>
+            <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
+              <.link
+                navigate={Routes.ammo_group_show_path(Endpoint, :show, ammo_group)}
+                class="text-primary-600 link"
+                aria-label={
+                  dgettext("actions", "View ammo group of %{ammo_group_count} bullets",
+                    ammo_group_count: ammo_group_count
+                  )
+                }
+              >
+                <i class="fa-fw fa-lg fas fa-eye"></i>
+              </.link>
 
-          <.link
-            href="#"
-            class="text-primary-600 link"
-            phx-click="delete"
-            phx-value-id={ammo_group.id}
-            data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
-            aria-label={
-              dgettext("actions", "Delete ammo group of %{ammo_group_count} bullets",
-                ammo_group_count: ammo_group_count
-              )
-            }
-          >
-            <i class="fa-fw fa-lg fas fa-trash"></i>
-          </.link>
-        </div>
-      </:actions>
-    </.live_component>
+              <.link
+                patch={Routes.ammo_group_index_path(Endpoint, :edit, ammo_group)}
+                class="text-primary-600 link"
+                aria-label={
+                  dgettext("actions", "Edit ammo group of %{ammo_group_count} bullets",
+                    ammo_group_count: ammo_group_count
+                  )
+                }
+              >
+                <i class="fa-fw fa-lg fas fa-edit"></i>
+              </.link>
+
+              <.link
+                patch={Routes.ammo_group_index_path(Endpoint, :clone, ammo_group)}
+                class="text-primary-600 link"
+                aria-label={
+                  dgettext("actions", "Clone ammo group of %{ammo_group_count} bullets",
+                    ammo_group_count: ammo_group_count
+                  )
+                }
+              >
+                <i class="fa-fw fa-lg fas fa-copy"></i>
+              </.link>
+
+              <.link
+                href="#"
+                class="text-primary-600 link"
+                phx-click="delete"
+                phx-value-id={ammo_group.id}
+                data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
+                aria-label={
+                  dgettext("actions", "Delete ammo group of %{ammo_group_count} bullets",
+                    ammo_group_count: ammo_group_count
+                  )
+                }
+              >
+                <i class="fa-fw fa-lg fas fa-trash"></i>
+              </.link>
+            </div>
+          </:actions>
+        </.live_component>
+      <% end %>
   <% end %>
 </div>
 

@@ -69,6 +69,7 @@ msgstr "Ungültige Mailadresse oder Passwort"
 msgid "Not found"
 msgstr "Nicht gefunden"
 
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:18
 #: lib/cannery_web/templates/user_registration/new.html.heex:13
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:13
 #: lib/cannery_web/templates/user_settings/edit.html.heex:22
@@ -172,7 +173,7 @@ msgstr ""
 "Ungültige Nummer an Kopien. Muss zwischen 1 and %{max} liegen. War "
 "%{multiplier}"
 
-#: lib/cannery/ammo.ex:1043
+#: lib/cannery/ammo.ex:1114
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
 msgstr ""

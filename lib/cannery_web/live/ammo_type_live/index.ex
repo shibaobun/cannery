@@ -8,11 +8,11 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do
-    {:ok, socket |> assign(show_used: false, search: search) |> list_ammo_types()}
+    {:ok, socket |> assign(type: :all, show_used: false, search: search) |> list_ammo_types()}
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(show_used: false, search: nil) |> list_ammo_types()}
+    {:ok, socket |> assign(type: :all, show_used: false, search: nil) |> list_ammo_types()}
   end
 
   @impl true
@@ -86,7 +86,29 @@ defmodule CanneryWeb.AmmoTypeLive.Index do
     {:noreply, socket |> push_patch(to: search_path)}
   end
 
-  defp list_ammo_types(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    socket |> assign(ammo_types: Ammo.list_ammo_types(search, current_user))
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "rifle"}}, socket) do
+    {:noreply, socket |> assign(:type, :rifle) |> list_ammo_types()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "shotgun"}}, socket) do
+    {:noreply, socket |> assign(:type, :shotgun) |> list_ammo_types()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => "pistol"}}, socket) do
+    {:noreply, socket |> assign(:type, :pistol) |> list_ammo_types()}
+  end
+
+  def handle_event("change_type", %{"ammo_type" => %{"type" => _all}}, socket) do
+    {:noreply, socket |> assign(:type, :all) |> list_ammo_types()}
+  end
+
+  defp list_ammo_types(
+         %{assigns: %{type: type, search: search, current_user: current_user}} = socket
+       ) do
+    socket
+    |> assign(
+      ammo_types: Ammo.list_ammo_types(search, current_user, type),
+      ammo_types_count: Ammo.get_ammo_types_count!(current_user)
+    )
   end
 end

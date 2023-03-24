@@ -3,7 +3,7 @@ defmodule CanneryWeb.ExportController do
   alias Cannery.{ActivityLog, Ammo, Containers}
 
   def export(%{assigns: %{current_user: current_user}} = conn, %{"mode" => "json"}) do
-    ammo_types = Ammo.list_ammo_types(current_user)
+    ammo_types = Ammo.list_ammo_types(current_user, :all)
     used_counts = ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user)
     round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
     ammo_group_counts = ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user)
@@ -28,7 +28,7 @@ defmodule CanneryWeb.ExportController do
         })
       end)
 
-    ammo_groups = Ammo.list_ammo_groups(nil, true, current_user)
+    ammo_groups = Ammo.list_ammo_groups(nil, :all, current_user, true)
     used_counts = ammo_groups |> ActivityLog.get_used_counts(current_user)
     original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
     cprs = ammo_groups |> Ammo.get_cprs(current_user)
@@ -48,7 +48,7 @@ defmodule CanneryWeb.ExportController do
         })
       end)
 
-    shot_groups = ActivityLog.list_shot_groups(current_user)
+    shot_groups = ActivityLog.list_shot_groups(:all, current_user)
 
     containers =
       Containers.list_containers(current_user)

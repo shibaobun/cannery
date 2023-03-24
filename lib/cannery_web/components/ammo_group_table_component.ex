@@ -5,6 +5,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Ammo.AmmoGroup, ComparableDate}
   alias Cannery.{ActivityLog, Ammo, Containers}
+  alias CanneryWeb.Components.TableComponent
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -54,59 +55,47 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
          } = socket
        ) do
     columns =
-      if actions == [] do
-        []
-      else
-        [%{label: gettext("Actions"), key: :actions, sortable: false}]
-      end
-
-    columns = [
-      %{label: gettext("Purchased on"), key: :purchased_on, type: ComparableDate},
-      %{label: gettext("Last used on"), key: :used_up_on, type: ComparableDate} | columns
-    ]
-
-    columns =
-      if container == [] do
-        columns
-      else
-        [%{label: gettext("Container"), key: :container} | columns]
-      end
-
-    columns =
-      if range == [] do
-        columns
-      else
-        [%{label: gettext("Range"), key: :range} | columns]
-      end
-
-    columns = [
-      %{label: gettext("Price paid"), key: :price_paid},
-      %{label: gettext("CPR"), key: :cpr}
-      | columns
-    ]
-
-    columns =
-      if show_used do
-        [
-          %{label: gettext("Original Count"), key: :original_count},
-          %{label: gettext("% left"), key: :remaining}
-          | columns
-        ]
-      else
-        columns
-      end
-
-    columns = [
-      %{label: if(show_used, do: gettext("Current Count"), else: gettext("Count")), key: :count}
-      | columns
-    ]
-
-    columns =
-      if ammo_type == [] do
-        columns
-      else
-        [%{label: gettext("Ammo type"), key: :ammo_type} | columns]
-      end
+      []
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Actions"), key: :actions, sortable: false},
+        actions != []
+      )
+      |> TableComponent.maybe_compose_columns(%{
+        label: gettext("Last used on"),
+        key: :used_up_on,
+        type: ComparableDate
+      })
+      |> TableComponent.maybe_compose_columns(%{
+        label: gettext("Purchased on"),
+        key: :purchased_on,
+        type: ComparableDate
+      })
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Container"), key: :container},
+        container != []
+      )
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Range"), key: :range},
+        range != []
+      )
+      |> TableComponent.maybe_compose_columns(%{label: gettext("CPR"), key: :cpr})
+      |> TableComponent.maybe_compose_columns(%{label: gettext("Price paid"), key: :price_paid})
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("% left"), key: :remaining},
+        show_used
+      )
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Original Count"), key: :original_count},
+        show_used
+      )
+      |> TableComponent.maybe_compose_columns(%{
+        label: if(show_used, do: gettext("Current Count"), else: gettext("Count")),
+        key: :count
+      })
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Ammo type"), key: :ammo_type},
+        ammo_type != []
+      )
 
     containers =
       ammo_groups
@@ -140,12 +129,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
   def render(assigns) do
     ~H"""
     <div id={@id} class="w-full">
-      <.live_component
-        module={CanneryWeb.Components.TableComponent}
-        id={"table-#{@id}"}
-        columns={@columns}
-        rows={@rows}
-      />
+      <.live_component module={TableComponent} id={"table-#{@id}"} columns={@columns} rows={@rows} />
     </div>
     """
   end

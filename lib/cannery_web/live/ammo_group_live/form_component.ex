@@ -26,7 +26,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
       socket =
       socket
       |> assign(:ammo_group_create_limit, @ammo_group_create_limit)
-      |> assign(:ammo_types, Ammo.list_ammo_types(current_user))
+      |> assign(:ammo_types, Ammo.list_ammo_types(current_user, :all))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
     params =
