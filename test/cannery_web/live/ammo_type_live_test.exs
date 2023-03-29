@@ -69,10 +69,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ ammo_type.bullet_type
     end
 
-    test "can sort by type", %{conn: conn, current_user: current_user} do
-      rifle_type = ammo_type_fixture(%{type: "rifle"}, current_user)
-      shotgun_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
-      pistol_type = ammo_type_fixture(%{type: "pistol"}, current_user)
+    test "can sort by class", %{conn: conn, current_user: current_user} do
+      rifle_type = ammo_type_fixture(%{class: :rifle}, current_user)
+      shotgun_type = ammo_type_fixture(%{class: :shotgun}, current_user)
+      pistol_type = ammo_type_fixture(%{class: :pistol}, current_user)
 
       {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
@@ -84,8 +84,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       html =
         index_live
-        |> form(~s/form[phx-change="change_type"]/)
-        |> render_change(ammo_type: %{type: :rifle})
+        |> form(~s/form[phx-change="change_class"]/)
+        |> render_change(ammo_type: %{class: :rifle})
 
       assert html =~ rifle_type.name
       refute html =~ shotgun_type.name
@@ -93,8 +93,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       html =
         index_live
-        |> form(~s/form[phx-change="change_type"]/)
-        |> render_change(ammo_type: %{type: :shotgun})
+        |> form(~s/form[phx-change="change_class"]/)
+        |> render_change(ammo_type: %{class: :shotgun})
 
       refute html =~ rifle_type.name
       assert html =~ shotgun_type.name
@@ -102,8 +102,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       html =
         index_live
-        |> form(~s/form[phx-change="change_type"]/)
-        |> render_change(ammo_type: %{type: :pistol})
+        |> form(~s/form[phx-change="change_class"]/)
+        |> render_change(ammo_type: %{class: :pistol})
 
       refute html =~ rifle_type.name
       refute html =~ shotgun_type.name
@@ -111,8 +111,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
 
       html =
         index_live
-        |> form(~s/form[phx-change="change_type"]/)
-        |> render_change(ammo_type: %{type: :all})
+        |> form(~s/form[phx-change="change_class"]/)
+        |> render_change(ammo_type: %{class: :all})
 
       assert html =~ rifle_type.name
       assert html =~ shotgun_type.name

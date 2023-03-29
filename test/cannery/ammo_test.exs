@@ -41,7 +41,7 @@ defmodule Cannery.AmmoTest do
       rifle_ammo_type =
         %{
           name: "bullets",
-          type: "rifle",
+          class: :rifle,
           desc: "has some pews in it",
           grains: 5
         }
@@ -50,14 +50,14 @@ defmodule Cannery.AmmoTest do
       shotgun_ammo_type =
         %{
           name: "hollows",
-          type: "shotgun",
+          class: :shotgun,
           grains: 3
         }
         |> ammo_type_fixture(current_user)
 
       pistol_ammo_type =
         %{
-          type: "pistol",
+          class: :pistol,
           name: "jackets",
           desc: "brass shell",
           tracer: true
@@ -750,11 +750,11 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
-      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
-      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
-      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
 
       assert [^rifle_ammo_group] = Ammo.list_ammo_groups(nil, :rifle, current_user, false)
@@ -858,11 +858,11 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
-      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
-      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
-      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
 
       another_container = container_fixture(current_user)

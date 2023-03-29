@@ -13,7 +13,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
           %{
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
-            optional(:type) => AmmoType.type() | nil,
+            optional(:class) => AmmoType.class() | nil,
             optional(:show_used) => boolean(),
             optional(:ammo_types) => [AmmoType.t()],
             optional(:actions) => Rendered.t(),
@@ -26,7 +26,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       socket
       |> assign(assigns)
       |> assign_new(:show_used, fn -> false end)
-      |> assign_new(:type, fn -> :all end)
+      |> assign_new(:class, fn -> :all end)
       |> assign_new(:actions, fn -> [] end)
       |> display_ammo_types()
 
@@ -39,7 +39,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
              ammo_types: ammo_types,
              current_user: current_user,
              show_used: show_used,
-             type: type,
+             class: class,
              actions: actions
            }
          } = socket
@@ -48,7 +48,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       [
         %{label: gettext("Cartridge"), key: :cartridge, type: :string},
         %{
-          label: if(type == :shotgun, do: gettext("Gauge"), else: gettext("Caliber")),
+          label: if(class == :shotgun, do: gettext("Gauge"), else: gettext("Caliber")),
           key: :caliber,
           type: :string
         },
@@ -59,7 +59,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
         %{label: gettext("Grains"), key: :grains, type: :string},
         %{label: gettext("Bullet type"), key: :bullet_type, type: :string},
         %{
-          label: if(type == :shotgun, do: gettext("Slug core"), else: gettext("Bullet core")),
+          label: if(class == :shotgun, do: gettext("Slug core"), else: gettext("Bullet core")),
           key: :bullet_core,
           type: :string
         },
@@ -147,8 +147,8 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       })
       |> TableComponent.maybe_compose_columns(filtered_columns)
       |> TableComponent.maybe_compose_columns(
-        %{label: gettext("Type"), key: :type, type: :atom},
-        type in [:all, nil]
+        %{label: gettext("Class"), key: :type, type: :atom},
+        class in [:all, nil]
       )
       |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
 

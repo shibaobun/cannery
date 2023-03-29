@@ -18,15 +18,15 @@
       <%= dgettext("errors", "Oops, something went wrong! Please check the errors below.") %>
     </div>
 
-    <%= label(f, :type, gettext("Type"), class: "title text-lg text-primary-600") %>
+    <%= label(f, :class, gettext("Class"), class: "title text-lg text-primary-600") %>
     <%= select(
       f,
-      :type,
+      :class,
       [{gettext("Rifle"), :rifle}, {gettext("Shotgun"), :shotgun}, {gettext("Pistol"), :pistol}],
       class: "text-center col-span-2 input input-primary",
       maxlength: 255
     ) %>
-    <%= error_tag(f, :type, "col-span-3 text-center") %>
+    <%= error_tag(f, :class, "col-span-3 text-center") %>
 
     <%= label(f, :name, gettext("Name"), class: "title text-lg text-primary-600") %>
     <%= text_input(f, :name,
@@ -48,7 +48,7 @@
       <%= gettext("Dimensions") %>
     </h2>
 
-    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+    <%= if Changeset.get_field(@changeset, :class) in [:rifle, :pistol] do %>
       <%= label(f, :cartridge, gettext("Cartridge"), class: "title text-lg text-primary-600") %>
       <%= text_input(f, :cartridge,
         class: "text-center col-span-2 input input-primary",
@@ -63,7 +63,7 @@
     <%= label(
       f,
       :caliber,
-      if(Changeset.get_field(@changeset, :type) == :shotgun,
+      if(Changeset.get_field(@changeset, :class) == :shotgun,
         do: gettext("Gauge"),
         else: gettext("Caliber")
       ),
@@ -76,7 +76,7 @@
     ) %>
     <%= error_tag(f, :caliber, "col-span-3 text-center") %>
 
-    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+    <%= if Changeset.get_field(@changeset, :class) == :shotgun do %>
       <%= label(f, :unfired_length, gettext("Unfired shell length"),
         class: "title text-lg text-primary-600"
       ) %>
@@ -139,7 +139,7 @@
     <%= label(
       f,
       :bullet_core,
-      if(Changeset.get_field(@changeset, :type) == :shotgun,
+      if(Changeset.get_field(@changeset, :class) == :shotgun,
         do: gettext("Slug core"),
         else: gettext("Bullet core")
       ),
@@ -152,7 +152,7 @@
     ) %>
     <%= error_tag(f, :bullet_core, "col-span-3 text-center") %>
 
-    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+    <%= if Changeset.get_field(@changeset, :class) in [:rifle, :pistol] do %>
       <%= label(f, :jacket_type, gettext("Jacket type"), class: "title text-lg text-primary-600") %>
       <%= text_input(f, :jacket_type,
         class: "text-center col-span-2 input input-primary",
@@ -172,7 +172,7 @@
     ) %>
     <%= error_tag(f, :case_material, "col-span-3 text-center") %>
 
-    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+    <%= if Changeset.get_field(@changeset, :class) == :shotgun do %>
       <%= label(f, :wadding, gettext("Wadding"), class: "title text-lg text-primary-600") %>
       <%= text_input(f, :wadding,
         class: "text-center col-span-2 input input-primary",
@@ -240,7 +240,7 @@
     ) %>
     <%= error_tag(f, :powder_type, "col-span-3 text-center") %>
 
-    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+    <%= if Changeset.get_field(@changeset, :class) in [:rifle, :pistol] do %>
       <%= label(f, :powder_grains_per_charge, gettext("Powder grains per charge"),
         class: "title text-lg text-primary-600"
       ) %>
@@ -262,7 +262,7 @@
     ) %>
     <%= error_tag(f, :pressure, "col-span-3 text-center") %>
 
-    <%= if Changeset.get_field(@changeset, :type) == :shotgun do %>
+    <%= if Changeset.get_field(@changeset, :class) == :shotgun do %>
       <%= label(f, :dram_equivalent, gettext("Dram equivalent"),
         class: "title text-lg text-primary-600"
       ) %>
@@ -275,7 +275,7 @@
       <%= hidden_input(f, :dram_equivalent, value: nil) %>
     <% end %>
 
-    <%= if Changeset.get_field(@changeset, :type) in [:rifle, :pistol] do %>
+    <%= if Changeset.get_field(@changeset, :class) in [:rifle, :pistol] do %>
       <%= label(f, :muzzle_velocity, gettext("Muzzle velocity"),
         class: "title text-lg text-primary-600"
       ) %>

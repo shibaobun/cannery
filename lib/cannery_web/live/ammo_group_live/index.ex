@@ -8,11 +8,16 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do
-    {:ok, socket |> assign(type: :all, show_used: false, search: search) |> display_ammo_groups()}
+    socket =
+      socket
+      |> assign(class: :all, show_used: false, search: search)
+      |> display_ammo_groups()
+
+    {:ok, socket}
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(type: :all, show_used: false, search: nil) |> display_ammo_groups()}
+    {:ok, socket |> assign(class: :all, show_used: false, search: nil) |> display_ammo_groups()}
   end
 
   @impl true
@@ -119,26 +124,26 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "rifle"}}, socket) do
-    {:noreply, socket |> assign(:type, :rifle) |> display_ammo_groups()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
+    {:noreply, socket |> assign(:class, :rifle) |> display_ammo_groups()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "shotgun"}}, socket) do
-    {:noreply, socket |> assign(:type, :shotgun) |> display_ammo_groups()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
+    {:noreply, socket |> assign(:class, :shotgun) |> display_ammo_groups()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "pistol"}}, socket) do
-    {:noreply, socket |> assign(:type, :pistol) |> display_ammo_groups()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
+    {:noreply, socket |> assign(:class, :pistol) |> display_ammo_groups()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => _all}}, socket) do
-    {:noreply, socket |> assign(:type, :all) |> display_ammo_groups()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
+    {:noreply, socket |> assign(:class, :all) |> display_ammo_groups()}
   end
 
   defp display_ammo_groups(
          %{
            assigns: %{
-             type: type,
+             class: class,
              search: search,
              current_user: current_user,
              show_used: show_used
@@ -148,7 +153,7 @@ defmodule CanneryWeb.AmmoGroupLive.Index do
     # get total number of ammo groups to determine whether to display onboarding
     # prompts
     ammo_groups_count = Ammo.get_ammo_groups_count!(current_user, true)
-    ammo_groups = Ammo.list_ammo_groups(search, type, current_user, show_used)
+    ammo_groups = Ammo.list_ammo_groups(search, class, current_user, show_used)
     ammo_types_count = Ammo.get_ammo_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)
 

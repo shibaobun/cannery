@@ -1,4 +1,5 @@
 # v0.9.1
+- Rename ammo_type's type to class to avoid confusion
 - Code quality improvements
 
 # v0.9.0

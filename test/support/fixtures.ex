@@ -103,7 +103,7 @@ defmodule Cannery.Fixtures do
   @spec ammo_type_fixture(attrs :: map(), User.t()) :: AmmoType.t()
   def ammo_type_fixture(attrs \\ %{}, %User{} = user) do
     attrs
-    |> Enum.into(%{name: random_string(), type: "rifle"})
+    |> Enum.into(%{name: random_string(), class: :rifle})
     |> Ammo.create_ammo_type(user)
     |> unwrap_ok_tuple()
   end

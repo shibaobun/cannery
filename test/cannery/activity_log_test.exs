@@ -343,21 +343,21 @@ defmodule Cannery.ActivityLogTest do
       other_user = user_fixture()
       other_container = container_fixture(other_user)
 
-      for type <- ["rifle", "shotgun", "pistol"] do
-        other_ammo_type = ammo_type_fixture(%{type: type}, other_user)
+      for class <- ["rifle", "shotgun", "pistol"] do
+        other_ammo_type = ammo_type_fixture(%{class: class}, other_user)
         {1, [other_ammo_group]} = ammo_group_fixture(other_ammo_type, other_container, other_user)
         shot_group_fixture(other_user, other_ammo_group)
       end
 
-      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
       rifle_shot_group = shot_group_fixture(current_user, rifle_ammo_group)
 
-      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
       shotgun_shot_group = shot_group_fixture(current_user, shotgun_ammo_group)
 
-      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
       pistol_shot_group = shot_group_fixture(current_user, pistol_ammo_group)
 

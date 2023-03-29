@@ -23,8 +23,8 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery_web/live/ammo_group_live/index.ex:54
-#: lib/cannery_web/live/ammo_group_live/index.ex:62
+#: lib/cannery_web/live/ammo_group_live/index.ex:59
+#: lib/cannery_web/live/ammo_group_live/index.ex:67
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Add Ammo"
@@ -169,7 +169,7 @@ msgstr "Preparar munición"
 msgid "Why not get some ready to shoot?"
 msgstr "¿Por qué no preparar parte para disparar?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:125
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:127
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:103
 #: lib/cannery_web/live/range_live/index.html.heex:45
 #, elixir-autogen, elixir-format
@@ -222,7 +222,7 @@ msgid "add an ammo type first"
 msgstr "añade primero un tipo de munición"
 
 #: lib/cannery_web/components/move_ammo_group_component.ex:80
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:142
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:144
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:96
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Edit %{tag_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:164
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:166
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Edit ammo group of %{ammo_group_count} bullets"
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Edit shot record of %{shot_group_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:118
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:120
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Stage"
 msgstr "Preparar munición"
@@ -345,7 +345,7 @@ msgstr "Preparar munición"
 msgid "Tag %{container_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:117
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:119
 #, elixir-autogen, elixir-format
 msgid "Unstage"
 msgstr ""
@@ -355,18 +355,18 @@ msgstr ""
 msgid "View %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:176
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:178
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Clone ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:191
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:193
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:76
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete ammo group of %{ammo_group_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:152
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:154
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:206
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View ammo group of %{ammo_group_count} bullets"

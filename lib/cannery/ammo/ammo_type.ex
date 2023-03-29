@@ -42,7 +42,7 @@ defmodule Cannery.Ammo.AmmoType do
     field :name, :string
     field :desc, :string
 
-    field :type, Ecto.Enum, values: [:rifle, :shotgun, :pistol]
+    field :class, Ecto.Enum, values: [:rifle, :shotgun, :pistol]
 
     # common fields
     # https://shootersreference.com/reloadingdata/bullet_abbreviations/
@@ -92,7 +92,7 @@ defmodule Cannery.Ammo.AmmoType do
           id: id(),
           name: String.t(),
           desc: String.t() | nil,
-          type: type(),
+          class: class(),
           bullet_type: String.t() | nil,
           bullet_core: String.t() | nil,
           cartridge: String.t() | nil,
@@ -130,14 +130,14 @@ defmodule Cannery.Ammo.AmmoType do
   @type new_ammo_type :: %__MODULE__{}
   @type id :: UUID.t()
   @type changeset :: Changeset.t(t() | new_ammo_type())
-  @type type :: :rifle | :shotgun | :pistol | nil
+  @type class :: :rifle | :shotgun | :pistol | nil
 
   @spec changeset_fields() :: [atom()]
   defp changeset_fields,
     do: [
       :name,
       :desc,
-      :type,
+      :class,
       :bullet_type,
       :bullet_core,
       :cartridge,

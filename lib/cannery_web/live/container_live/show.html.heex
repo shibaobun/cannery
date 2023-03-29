@@ -90,15 +90,15 @@
       :let={f}
       for={%{}}
       as={:ammo_type}
-      phx-change="change_type"
-      phx-submit="change_type"
+      phx-change="change_class"
+      phx-submit="change_class"
       class="flex items-center"
     >
-      <%= label(f, :type, gettext("Type"), class: "title text-primary-600 text-lg text-center") %>
+      <%= label(f, :class, gettext("Class"), class: "title text-primary-600 text-lg text-center") %>
 
       <%= select(
         f,
-        :type,
+        :class,
         [
           {gettext("All"), :all},
           {gettext("Rifle"), :rifle},
@@ -106,7 +106,7 @@
           {gettext("Pistol"), :pistol}
         ],
         class: "mx-2 my-1 min-w-md input input-primary",
-        value: @type
+        value: @class
       ) %>
     </.form>
 

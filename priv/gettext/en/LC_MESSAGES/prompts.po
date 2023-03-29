@@ -58,7 +58,7 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:189
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:191
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Language updated successfully."
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:89
+#: lib/cannery_web/live/ammo_group_live/index.ex:94
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"

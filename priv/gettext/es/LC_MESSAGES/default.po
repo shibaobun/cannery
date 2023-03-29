@@ -31,8 +31,8 @@ msgstr "Aministradores:"
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:58
 #: lib/cannery_web/components/shot_group_table_component.ex:41
-#: lib/cannery_web/live/ammo_group_live/index.ex:70
-#: lib/cannery_web/live/ammo_group_live/index.ex:79
+#: lib/cannery_web/live/ammo_group_live/index.ex:75
+#: lib/cannery_web/live/ammo_group_live/index.ex:84
 #: lib/cannery_web/live/ammo_group_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Ammo"
@@ -262,7 +262,7 @@ msgstr "Nueva Invitación"
 msgid "New Tag"
 msgstr "Nueva Etiqueta"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:92
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:94
 #, elixir-autogen, elixir-format
 msgid "No Ammo"
 msgstr "Sin Munición"
@@ -402,16 +402,9 @@ msgstr "La página de seguimiento de armas autogestionada"
 msgid "Tracer"
 msgstr "Trazadora"
 
-#: lib/cannery_web/components/ammo_type_table_component.ex:150
 #: lib/cannery_web/components/container_table_component.ex:48
 #: lib/cannery_web/components/move_ammo_group_component.ex:68
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:50
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:21
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:29
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:48
 #: lib/cannery_web/live/container_live/form_component.html.heex:39
-#: lib/cannery_web/live/container_live/show.html.heex:97
-#: lib/cannery_web/live/range_live/index.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "Type"
 msgstr "Tipo"
@@ -472,7 +465,7 @@ msgid "No ammo staged"
 msgstr "No hay munición preparada"
 
 #: lib/cannery_web/components/add_shot_group_component.html.heex:3
-#: lib/cannery_web/live/ammo_group_live/index.ex:30
+#: lib/cannery_web/live/ammo_group_live/index.ex:35
 #, elixir-autogen, elixir-format
 msgid "Record shots"
 msgstr "Tiros récord"
@@ -513,7 +506,7 @@ msgstr "Balas disparadas"
 msgid "Shot Records"
 msgstr "Récords de Tiro"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:38
+#: lib/cannery_web/live/ammo_group_live/index.ex:43
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr "Mover munición"
@@ -804,7 +797,7 @@ msgstr ""
 msgid "Container:"
 msgstr "Contenedor:"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:85
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:87
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:64
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:166
 #, elixir-autogen, elixir-format
@@ -1056,7 +1049,7 @@ msgstr "Comprada en"
 msgid "Purchased on:"
 msgstr "Comprada en:"
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:46
+#: lib/cannery_web/live/ammo_group_live/index.ex:51
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit ammo"
 msgstr "Editar munición"
@@ -1072,7 +1065,7 @@ msgstr "Sin tipo de Munición"
 msgid "Search catalog"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:79
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:81
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Search ammo"
 msgstr ""
@@ -1258,7 +1251,7 @@ msgstr ""
 msgid "Close modal"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:56
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:58
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:35
 #: lib/cannery_web/live/container_live/show.html.heex:103
 #: lib/cannery_web/live/range_live/index.html.heex:92
@@ -1342,7 +1335,7 @@ msgstr "Sin Munición"
 msgid "None specified"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:59
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:61
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:25
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:38
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:58
@@ -1367,7 +1360,7 @@ msgstr "Tipo de espoleta"
 msgid "Projectile"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:57
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:59
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:25
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:36
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:56
@@ -1421,7 +1414,7 @@ msgstr ""
 msgid "Shot type:"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:58
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:60
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:25
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:37
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:54
@@ -1462,4 +1455,15 @@ msgstr ""
 #: lib/cannery_web/live/ammo_type_live/show.ex:135
 #, elixir-autogen, elixir-format
 msgid "Wadding:"
+msgstr ""
+
+#: lib/cannery_web/components/ammo_type_table_component.ex:150
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:50
+#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:21
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:29
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:48
+#: lib/cannery_web/live/container_live/show.html.heex:97
+#: lib/cannery_web/live/range_live/index.html.heex:86
+#, elixir-autogen, elixir-format
+msgid "Class"
 msgstr ""

@@ -24,11 +24,11 @@ defmodule Cannery.Ammo do
       [%AmmoType{}, ...]
 
       iex> list_ammo_types("cool", %User{id: 123}, :shotgun)
-      [%AmmoType{name: "My cool ammo type", type: :shotgun}, ...]
+      [%AmmoType{name: "My cool ammo type", class: :shotgun}, ...]
 
   """
-  @spec list_ammo_types(User.t(), AmmoType.type() | :all) :: [AmmoType.t()]
-  @spec list_ammo_types(search :: nil | String.t(), User.t(), AmmoType.type() | :all) ::
+  @spec list_ammo_types(User.t(), AmmoType.class() | :all) :: [AmmoType.t()]
+  @spec list_ammo_types(search :: nil | String.t(), User.t(), AmmoType.class() | :all) ::
           [AmmoType.t()]
   def list_ammo_types(search \\ nil, user, type)
 
@@ -72,14 +72,15 @@ defmodule Cannery.Ammo do
     )
   end
 
-  @spec list_ammo_types_filter_type(Queryable.t(), AmmoType.type() | :all) :: Queryable.t()
-  defp list_ammo_types_filter_type(query, :rifle), do: query |> where([at: at], at.type == :rifle)
+  @spec list_ammo_types_filter_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
+  defp list_ammo_types_filter_type(query, :rifle),
+    do: query |> where([at: at], at.class == :rifle)
 
   defp list_ammo_types_filter_type(query, :pistol),
-    do: query |> where([at: at], at.type == :pistol)
+    do: query |> where([at: at], at.class == :pistol)
 
   defp list_ammo_types_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.type == :shotgun)
+    do: query |> where([at: at], at.class == :shotgun)
 
   defp list_ammo_types_filter_type(query, _all), do: query
 
@@ -463,16 +464,16 @@ defmodule Cannery.Ammo do
     |> Repo.all()
   end
 
-  @spec list_ammo_groups_for_container_filter_type(Queryable.t(), AmmoType.type() | :all) ::
+  @spec list_ammo_groups_for_container_filter_type(Queryable.t(), AmmoType.class() | :all) ::
           Queryable.t()
   defp list_ammo_groups_for_container_filter_type(query, :rifle),
-    do: query |> where([at: at], at.type == :rifle)
+    do: query |> where([at: at], at.class == :rifle)
 
   defp list_ammo_groups_for_container_filter_type(query, :pistol),
-    do: query |> where([at: at], at.type == :pistol)
+    do: query |> where([at: at], at.class == :pistol)
 
   defp list_ammo_groups_for_container_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.type == :shotgun)
+    do: query |> where([at: at], at.class == :shotgun)
 
   defp list_ammo_groups_for_container_filter_type(query, _all), do: query
 
@@ -747,11 +748,11 @@ defmodule Cannery.Ammo do
       [%AmmoGroup{notes: "My cool ammo group"}, ...]
 
   """
-  @spec list_ammo_groups(search :: String.t() | nil, AmmoType.type() | :all, User.t()) ::
+  @spec list_ammo_groups(search :: String.t() | nil, AmmoType.class() | :all, User.t()) ::
           [AmmoGroup.t()]
   @spec list_ammo_groups(
           search :: nil | String.t(),
-          AmmoType.type() | :all,
+          AmmoType.class() | :all,
           User.t(),
           show_used :: boolean()
         ) :: [AmmoGroup.t()]
@@ -780,15 +781,15 @@ defmodule Cannery.Ammo do
     |> Repo.all()
   end
 
-  @spec list_ammo_groups_filter_on_type(Queryable.t(), AmmoType.type() | :all) :: Queryable.t()
+  @spec list_ammo_groups_filter_on_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
   defp list_ammo_groups_filter_on_type(query, :rifle),
-    do: query |> where([at: at], at.type == :rifle)
+    do: query |> where([at: at], at.class == :rifle)
 
   defp list_ammo_groups_filter_on_type(query, :pistol),
-    do: query |> where([at: at], at.type == :pistol)
+    do: query |> where([at: at], at.class == :pistol)
 
   defp list_ammo_groups_filter_on_type(query, :shotgun),
-    do: query |> where([at: at], at.type == :shotgun)
+    do: query |> where([at: at], at.class == :shotgun)
 
   defp list_ammo_groups_filter_on_type(query, _all), do: query
 

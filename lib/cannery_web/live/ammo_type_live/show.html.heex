@@ -42,14 +42,14 @@
 
   <hr class="hr" />
 
-  <%= if @ammo_type.type || @custom_fields? do %>
+  <%= if @ammo_type.class || @custom_fields? do %>
     <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
       <h3 class="title text-lg">
-        <%= gettext("Type") %>
+        <%= gettext("Class") %>
       </h3>
 
       <span class="text-primary-600">
-        <%= case @ammo_type.type do %>
+        <%= case @ammo_type.class do %>
           <% :shotgun -> %>
             <%= gettext("Shotgun") %>
           <% :rifle -> %>

@@ -73,7 +73,7 @@ msgstr "Está seguro que desea eliminar %{email}? Esta acción es permanente!"
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Está seguro que desea eliminar %{name}?"
 
-#: lib/cannery_web/live/ammo_group_live/index.html.heex:189
+#: lib/cannery_web/live/ammo_group_live/index.html.heex:191
 #: lib/cannery_web/live/ammo_group_live/show.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -233,7 +233,7 @@ msgstr "¿Está segure de que quiere cambiar el idioma?"
 msgid "Language updated successfully."
 msgstr "Idioma cambiado exitosamente."
 
-#: lib/cannery_web/live/ammo_group_live/index.ex:89
+#: lib/cannery_web/live/ammo_group_live/index.ex:94
 #: lib/cannery_web/live/ammo_group_live/show.ex:55
 #, elixir-autogen, elixir-format
 msgid "Ammo deleted succesfully"

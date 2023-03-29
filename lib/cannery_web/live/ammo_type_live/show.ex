@@ -116,11 +116,11 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     socket |> display_ammo_type(ammo_type)
   end
 
-  defp fields_to_display(%AmmoType{type: type}) do
+  defp fields_to_display(%AmmoType{class: class}) do
     [
       %{label: gettext("Cartridge:"), key: :cartridge, type: :string},
       %{
-        label: if(type == :shotgun, do: gettext("Gauge:"), else: gettext("Caliber:")),
+        label: if(class == :shotgun, do: gettext("Gauge:"), else: gettext("Caliber:")),
         key: :caliber,
         type: :string
       },

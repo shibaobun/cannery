@@ -23,8 +23,8 @@ defmodule Cannery.ActivityLog do
       [%ShotGroup{notes: "Shot some rifle rounds"}, ...]
 
   """
-  @spec list_shot_groups(AmmoType.type() | :all, User.t()) :: [ShotGroup.t()]
-  @spec list_shot_groups(search :: nil | String.t(), AmmoType.type() | :all, User.t()) ::
+  @spec list_shot_groups(AmmoType.class() | :all, User.t()) :: [ShotGroup.t()]
+  @spec list_shot_groups(search :: nil | String.t(), AmmoType.class() | :all, User.t()) ::
           [ShotGroup.t()]
   def list_shot_groups(search \\ nil, type, %{id: user_id}) do
     from(sg in ShotGroup,
@@ -79,16 +79,16 @@ defmodule Cannery.ActivityLog do
     })
   end
 
-  @spec list_shot_groups_filter_type(Queryable.t(), AmmoType.type() | :all) ::
+  @spec list_shot_groups_filter_type(Queryable.t(), AmmoType.class() | :all) ::
           Queryable.t()
   defp list_shot_groups_filter_type(query, :rifle),
-    do: query |> where([at: at], at.type == :rifle)
+    do: query |> where([at: at], at.class == :rifle)
 
   defp list_shot_groups_filter_type(query, :pistol),
-    do: query |> where([at: at], at.type == :pistol)
+    do: query |> where([at: at], at.class == :pistol)
 
   defp list_shot_groups_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.type == :shotgun)
+    do: query |> where([at: at], at.class == :shotgun)
 
   defp list_shot_groups_filter_type(query, _all), do: query
 

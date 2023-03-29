@@ -11,13 +11,13 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   @impl true
   def mount(_params, _session, socket),
-    do: {:ok, socket |> assign(type: :all, view_table: true)}
+    do: {:ok, socket |> assign(class: :all, view_table: true)}
 
   @impl true
   def handle_params(%{"id" => id}, _session, %{assigns: %{current_user: current_user}} = socket) do
     socket =
       socket
-      |> assign(view_table: true)
+      |> assign(:view_table, true)
       |> render_container(id, current_user)
 
     {:noreply, socket}
@@ -86,30 +86,30 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket |> assign(:view_table, !view_table) |> render_container()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "rifle"}}, socket) do
-    {:noreply, socket |> assign(:type, :rifle) |> render_container()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
+    {:noreply, socket |> assign(:class, :rifle) |> render_container()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "shotgun"}}, socket) do
-    {:noreply, socket |> assign(:type, :shotgun) |> render_container()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
+    {:noreply, socket |> assign(:class, :shotgun) |> render_container()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => "pistol"}}, socket) do
-    {:noreply, socket |> assign(:type, :pistol) |> render_container()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
+    {:noreply, socket |> assign(:class, :pistol) |> render_container()}
   end
 
-  def handle_event("change_type", %{"ammo_type" => %{"type" => _all}}, socket) do
-    {:noreply, socket |> assign(:type, :all) |> render_container()}
+  def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
+    {:noreply, socket |> assign(:class, :all) |> render_container()}
   end
 
   @spec render_container(Socket.t(), Container.id(), User.t()) :: Socket.t()
   defp render_container(
-         %{assigns: %{type: type, live_action: live_action}} = socket,
+         %{assigns: %{class: class, live_action: live_action}} = socket,
          id,
          current_user
        ) do
     %{name: container_name} = container = Containers.get_container!(id, current_user)
-    ammo_groups = Ammo.list_ammo_groups_for_container(container, type, current_user)
+    ammo_groups = Ammo.list_ammo_groups_for_container(container, class, current_user)
     original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
     cprs = ammo_groups |> Ammo.get_cprs(current_user)
     last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
