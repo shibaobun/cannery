@@ -10,28 +10,28 @@ defmodule Cannery.AmmoTest do
   @moduletag :ammo_test
 
   @valid_attrs %{
-    "bullet_type" => "some bullet_type",
-    "case_material" => "some case_material",
-    "desc" => "some desc",
-    "manufacturer" => "some manufacturer",
-    "name" => "some name",
-    "grains" => 120
+    bullet_type: "some bullet_type",
+    case_material: "some case_material",
+    desc: "some desc",
+    manufacturer: "some manufacturer",
+    name: "some name",
+    grains: 120
   }
   @update_attrs %{
-    "bullet_type" => "some updated bullet_type",
-    "case_material" => "some updated case_material",
-    "desc" => "some updated desc",
-    "manufacturer" => "some updated manufacturer",
-    "name" => "some updated name",
-    "grains" => 456
+    bullet_type: "some updated bullet_type",
+    case_material: "some updated case_material",
+    desc: "some updated desc",
+    manufacturer: "some updated manufacturer",
+    name: "some updated name",
+    grains: 456
   }
   @invalid_attrs %{
-    "bullet_type" => nil,
-    "case_material" => nil,
-    "desc" => nil,
-    "manufacturer" => nil,
-    "name" => nil,
-    "grains" => nil
+    bullet_type: nil,
+    case_material: nil,
+    desc: nil,
+    manufacturer: nil,
+    name: nil,
+    grains: nil
   }
 
   describe "list_ammo_types/2" do
@@ -40,34 +40,34 @@ defmodule Cannery.AmmoTest do
 
       rifle_ammo_type =
         %{
-          "name" => "bullets",
-          "type" => "rifle",
-          "desc" => "has some pews in it",
-          "grains" => 5
+          name: "bullets",
+          type: "rifle",
+          desc: "has some pews in it",
+          grains: 5
         }
         |> ammo_type_fixture(current_user)
 
       shotgun_ammo_type =
         %{
-          "name" => "hollows",
-          "type" => "shotgun",
-          "grains" => 3
+          name: "hollows",
+          type: "shotgun",
+          grains: 3
         }
         |> ammo_type_fixture(current_user)
 
       pistol_ammo_type =
         %{
-          "type" => "pistol",
-          "name" => "jackets",
-          "desc" => "brass shell",
-          "tracer" => true
+          type: "pistol",
+          name: "jackets",
+          desc: "brass shell",
+          tracer: true
         }
         |> ammo_type_fixture(current_user)
 
       _shouldnt_return =
         %{
-          "name" => "bullet",
-          "desc" => "pews brass shell"
+          name: "bullet",
+          desc: "pews brass shell"
         }
         |> ammo_type_fixture(user_fixture())
 
@@ -228,7 +228,7 @@ defmodule Cannery.AmmoTest do
          %{ammo_type: ammo_type, current_user: current_user, container: container} do
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 25.00, "count" => 1},
+          %{price_paid: 25.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -238,7 +238,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 25.00, "count" => 1},
+          %{price_paid: 25.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -248,7 +248,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 70.00, "count" => 1},
+          %{price_paid: 70.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -258,7 +258,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 30.00, "count" => 1},
+          %{price_paid: 30.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -282,7 +282,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 25.00, "count" => 1},
+          %{price_paid: 25.00, count: 1},
           another_ammo_type,
           container,
           current_user
@@ -294,7 +294,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 25.00, "count" => 1},
+          %{price_paid: 25.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -308,7 +308,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 25.00, "count" => 1},
+          %{price_paid: 25.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -322,7 +322,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 70.00, "count" => 1},
+          %{price_paid: 70.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -336,7 +336,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [_ammo_group]} =
         ammo_group_fixture(
-          %{"price_paid" => 30.00, "count" => 1},
+          %{price_paid: 30.00, count: 1},
           ammo_type,
           container,
           current_user
@@ -355,18 +355,18 @@ defmodule Cannery.AmmoTest do
       assert 0 = Ammo.get_round_count_for_ammo_type(another_ammo_type, current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert 1 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
 
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
 
       assert 51 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      shot_group_fixture(%{count: 26}, current_user, ammo_group)
       assert 25 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
       assert 24 = Ammo.get_round_count_for_ammo_type(ammo_type, current_user)
     end
 
@@ -376,7 +376,7 @@ defmodule Cannery.AmmoTest do
       container: container
     } do
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert %{ammo_type_id => 1} ==
                [ammo_type] |> Ammo.get_round_count_for_ammo_types(current_user)
@@ -384,7 +384,7 @@ defmodule Cannery.AmmoTest do
       %{id: another_ammo_type_id} = another_ammo_type = ammo_type_fixture(current_user)
 
       {1, [_another_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, another_ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, another_ammo_type, container, current_user)
 
       round_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_round_count_for_ammo_types(current_user)
@@ -392,7 +392,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 1} = round_counts
       assert %{^another_ammo_type_id => 1} = round_counts
 
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
 
       round_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_round_count_for_ammo_types(current_user)
@@ -400,7 +400,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 51} = round_counts
       assert %{^another_ammo_type_id => 1} = round_counts
 
-      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      shot_group_fixture(%{count: 26}, current_user, ammo_group)
 
       round_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_round_count_for_ammo_types(current_user)
@@ -408,7 +408,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 25} = round_counts
       assert %{^another_ammo_type_id => 1} = round_counts
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
 
       round_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_round_count_for_ammo_types(current_user)
@@ -422,18 +422,18 @@ defmodule Cannery.AmmoTest do
       assert 0 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert 1 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
 
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
 
       assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      shot_group_fixture(%{count: 26}, current_user, ammo_group)
       assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
       assert 51 = Ammo.get_historical_count_for_ammo_type(ammo_type, current_user)
     end
 
@@ -446,7 +446,7 @@ defmodule Cannery.AmmoTest do
       assert %{} == [ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert %{ammo_type_id => 1} ==
                [ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
@@ -454,7 +454,7 @@ defmodule Cannery.AmmoTest do
       %{id: another_ammo_type_id} = another_ammo_type = ammo_type_fixture(current_user)
 
       {1, [_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, another_ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, another_ammo_type, container, current_user)
 
       historical_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
@@ -462,7 +462,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 1} = historical_counts
       assert %{^another_ammo_type_id => 1} = historical_counts
 
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
 
       historical_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
@@ -470,7 +470,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 51} = historical_counts
       assert %{^another_ammo_type_id => 1} = historical_counts
 
-      shot_group_fixture(%{"count" => 26}, current_user, ammo_group)
+      shot_group_fixture(%{count: 26}, current_user, ammo_group)
 
       historical_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
@@ -478,7 +478,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 51} = historical_counts
       assert %{^another_ammo_type_id => 1} = historical_counts
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
 
       historical_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_historical_count_for_ammo_types(current_user)
@@ -492,18 +492,18 @@ defmodule Cannery.AmmoTest do
       assert 0 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert 0 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
 
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
 
       assert 0 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 50}, current_user, ammo_group)
+      shot_group_fixture(%{count: 50}, current_user, ammo_group)
       assert 1 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
       assert 2 = Ammo.get_used_ammo_groups_count_for_type(ammo_type, current_user)
     end
 
@@ -525,7 +525,7 @@ defmodule Cannery.AmmoTest do
 
       # testing ammo type with ammo group
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert %{} ==
                [ammo_type, another_ammo_type]
@@ -533,17 +533,17 @@ defmodule Cannery.AmmoTest do
 
       # testing ammo type with used ammo group
       {1, [another_ammo_group]} =
-        ammo_group_fixture(%{"count" => 50}, another_ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 50}, another_ammo_type, container, current_user)
 
-      shot_group_fixture(%{"count" => 50}, current_user, another_ammo_group)
+      shot_group_fixture(%{count: 50}, current_user, another_ammo_group)
 
       assert %{another_ammo_type_id => 1} ==
                [ammo_type, another_ammo_type]
                |> Ammo.get_used_ammo_groups_count_for_types(current_user)
 
       # testing two ammo types with zero and one used ammo groups
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 50}, ammo_type, container, current_user)
-      shot_group_fixture(%{"count" => 50}, current_user, ammo_group)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 50}, ammo_type, container, current_user)
+      shot_group_fixture(%{count: 50}, current_user, ammo_group)
 
       used_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_used_ammo_groups_count_for_types(current_user)
@@ -552,7 +552,7 @@ defmodule Cannery.AmmoTest do
       assert %{^another_ammo_type_id => 1} = used_counts
 
       # testing two ammo type with one and two used ammo groups
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
 
       used_counts =
         [ammo_type, another_ammo_type] |> Ammo.get_used_ammo_groups_count_for_types(current_user)
@@ -564,19 +564,18 @@ defmodule Cannery.AmmoTest do
     test "get_ammo_groups_count_for_container!/2 gets accurate ammo count for container",
          %{ammo_type: ammo_type, current_user: current_user, container: container} do
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, container, current_user)
 
       assert 1 = Ammo.get_ammo_groups_count_for_container!(container, current_user)
 
-      {25, _ammo_groups} =
-        ammo_group_fixture(%{"count" => 5}, 25, ammo_type, container, current_user)
+      {25, _ammo_groups} = ammo_group_fixture(%{count: 5}, 25, ammo_type, container, current_user)
 
       assert 26 = Ammo.get_ammo_groups_count_for_container!(container, current_user)
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
       assert 26 = Ammo.get_ammo_groups_count_for_container!(container, current_user)
 
-      shot_group_fixture(%{"count" => 4}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 4}, current_user, first_ammo_group)
       assert 25 = Ammo.get_ammo_groups_count_for_container!(container, current_user)
     end
 
@@ -588,10 +587,10 @@ defmodule Cannery.AmmoTest do
       %{id: another_container_id} = another_container = container_fixture(current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, container, current_user)
 
       {1, [_first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, another_container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, another_container, current_user)
 
       ammo_groups_count =
         [container, another_container]
@@ -600,8 +599,7 @@ defmodule Cannery.AmmoTest do
       assert %{^container_id => 1} = ammo_groups_count
       assert %{^another_container_id => 1} = ammo_groups_count
 
-      {25, _ammo_groups} =
-        ammo_group_fixture(%{"count" => 5}, 25, ammo_type, container, current_user)
+      {25, _ammo_groups} = ammo_group_fixture(%{count: 5}, 25, ammo_type, container, current_user)
 
       ammo_groups_count =
         [container, another_container]
@@ -610,7 +608,7 @@ defmodule Cannery.AmmoTest do
       assert %{^container_id => 26} = ammo_groups_count
       assert %{^another_container_id => 1} = ammo_groups_count
 
-      shot_group_fixture(%{"count" => 1}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, first_ammo_group)
 
       ammo_groups_count =
         [container, another_container]
@@ -619,7 +617,7 @@ defmodule Cannery.AmmoTest do
       assert %{^container_id => 26} = ammo_groups_count
       assert %{^another_container_id => 1} = ammo_groups_count
 
-      shot_group_fixture(%{"count" => 4}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 4}, current_user, first_ammo_group)
 
       ammo_groups_count =
         [container, another_container]
@@ -632,16 +630,15 @@ defmodule Cannery.AmmoTest do
     test "get_round_count_for_container!/2 gets accurate total round count for container",
          %{ammo_type: ammo_type, current_user: current_user, container: container} do
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, container, current_user)
 
       assert 5 = Ammo.get_round_count_for_container!(container, current_user)
 
-      {25, _ammo_groups} =
-        ammo_group_fixture(%{"count" => 5}, 25, ammo_type, container, current_user)
+      {25, _ammo_groups} = ammo_group_fixture(%{count: 5}, 25, ammo_type, container, current_user)
 
       assert 130 = Ammo.get_round_count_for_container!(container, current_user)
 
-      shot_group_fixture(%{"count" => 5}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, first_ammo_group)
       assert 125 = Ammo.get_round_count_for_container!(container, current_user)
     end
 
@@ -654,10 +651,10 @@ defmodule Cannery.AmmoTest do
       %{id: another_container_id} = another_container = container_fixture(current_user)
 
       {1, [first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, container, current_user)
 
       {1, [_first_ammo_group]} =
-        ammo_group_fixture(%{"count" => 5}, ammo_type, another_container, current_user)
+        ammo_group_fixture(%{count: 5}, ammo_type, another_container, current_user)
 
       round_counts =
         [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
@@ -665,8 +662,7 @@ defmodule Cannery.AmmoTest do
       assert %{^container_id => 5} = round_counts
       assert %{^another_container_id => 5} = round_counts
 
-      {25, _ammo_groups} =
-        ammo_group_fixture(%{"count" => 5}, 25, ammo_type, container, current_user)
+      {25, _ammo_groups} = ammo_group_fixture(%{count: 5}, 25, ammo_type, container, current_user)
 
       round_counts =
         [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
@@ -674,7 +670,7 @@ defmodule Cannery.AmmoTest do
       assert %{^container_id => 130} = round_counts
       assert %{^another_container_id => 5} = round_counts
 
-      shot_group_fixture(%{"count" => 5}, current_user, first_ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, first_ammo_group)
 
       round_counts =
         [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
@@ -686,20 +682,20 @@ defmodule Cannery.AmmoTest do
 
   describe "ammo_groups" do
     @valid_attrs %{
-      "count" => 42,
-      "notes" => "some notes",
-      "price_paid" => 120.5,
-      "purchased_on" => ~D[2022-11-19]
+      count: 42,
+      notes: "some notes",
+      price_paid: 120.5,
+      purchased_on: ~D[2022-11-19]
     }
     @update_attrs %{
-      "count" => 43,
-      "notes" => "some updated notes",
-      "price_paid" => 456.7
+      count: 43,
+      notes: "some updated notes",
+      price_paid: 456.7
     }
     @invalid_attrs %{
-      "count" => nil,
-      "notes" => nil,
-      "price_paid" => nil
+      count: nil,
+      notes: nil,
+      price_paid: nil
     }
 
     setup do
@@ -708,8 +704,7 @@ defmodule Cannery.AmmoTest do
       container = container_fixture(current_user)
 
       {1, [ammo_group]} =
-        %{"count" => 50, "price_paid" => 36.1}
-        |> ammo_group_fixture(ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 50, price_paid: 36.1}, ammo_type, container, current_user)
 
       another_user = user_fixture()
       another_ammo_type = ammo_type_fixture(another_user)
@@ -744,9 +739,9 @@ defmodule Cannery.AmmoTest do
       other_container = container_fixture(other_user)
 
       {1, [another_ammo_group]} =
-        ammo_group_fixture(%{"count" => 30}, other_ammo_type, other_container, other_user)
+        ammo_group_fixture(%{count: 30}, other_ammo_type, other_container, other_user)
 
-      shot_group_fixture(%{"count" => 30}, other_user, another_ammo_group)
+      shot_group_fixture(%{count: 30}, other_user, another_ammo_group)
       assert Ammo.get_ammo_groups_count!(other_user) == 0
       assert Ammo.get_ammo_groups_count!(other_user, true) == 1
     end
@@ -755,11 +750,11 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
-      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
-      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
-      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
 
       assert [^rifle_ammo_group] = Ammo.list_ammo_groups(nil, :rifle, current_user, false)
@@ -786,9 +781,9 @@ defmodule Cannery.AmmoTest do
       current_user: current_user
     } do
       {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
-        ammo_group_fixture(%{"count" => 30}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 30}, ammo_type, container, current_user)
 
-      shot_group_fixture(%{"count" => 30}, current_user, another_ammo_group)
+      shot_group_fixture(%{count: 30}, current_user, another_ammo_group)
       another_ammo_group = Ammo.get_ammo_group!(another_ammo_group_id, current_user)
 
       assert Ammo.list_ammo_groups(nil, :all, current_user, false) == [ammo_group]
@@ -806,20 +801,20 @@ defmodule Cannery.AmmoTest do
       current_user: current_user
     } do
       {1, [another_ammo_group]} =
-        %{"count" => 49, "notes" => "cool ammo group"}
+        %{count: 49, notes: "cool ammo group"}
         |> ammo_group_fixture(ammo_type, container, current_user)
 
-      another_ammo_type = ammo_type_fixture(%{"name" => "amazing ammo"}, current_user)
-      another_container = container_fixture(%{"name" => "fantastic container"}, current_user)
+      another_ammo_type = ammo_type_fixture(%{name: "amazing ammo"}, current_user)
+      another_container = container_fixture(%{name: "fantastic container"}, current_user)
 
-      tag = tag_fixture(%{"name" => "stupendous tag"}, current_user)
+      tag = tag_fixture(%{name: "stupendous tag"}, current_user)
       Containers.add_tag!(another_container, tag, current_user)
 
       {1, [amazing_ammo_group]} =
-        ammo_group_fixture(%{"count" => 48}, another_ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 48}, another_ammo_type, container, current_user)
 
       {1, [fantastic_ammo_group]} =
-        ammo_group_fixture(%{"count" => 47}, ammo_type, another_container, current_user)
+        ammo_group_fixture(%{count: 47}, ammo_type, another_container, current_user)
 
       ammo_groups = Ammo.list_ammo_groups(nil, :all, current_user, false)
       assert Enum.count(ammo_groups) == 4
@@ -863,11 +858,11 @@ defmodule Cannery.AmmoTest do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
-      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
-      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
-      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
 
       another_container = container_fixture(current_user)
@@ -948,7 +943,7 @@ defmodule Cannery.AmmoTest do
       current_user: current_user
     } do
       {1, [another_ammo_group]} =
-        ammo_group_fixture(%{"staged" => true}, ammo_type, container, current_user)
+        ammo_group_fixture(%{staged: true}, ammo_type, container, current_user)
 
       assert Ammo.list_staged_ammo_groups(current_user) == [another_ammo_group]
     end
@@ -979,7 +974,7 @@ defmodule Cannery.AmmoTest do
     } do
       assert {:ok, {1, [%AmmoGroup{} = ammo_group]}} =
                @valid_attrs
-               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Map.merge(%{ammo_type_id: ammo_type.id, container_id: container.id})
                |> Ammo.create_ammo_groups(1, current_user)
 
       assert ammo_group.count == 42
@@ -994,7 +989,7 @@ defmodule Cannery.AmmoTest do
     } do
       assert {:ok, {3, ammo_groups}} =
                @valid_attrs
-               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Map.merge(%{ammo_type_id: ammo_type.id, container_id: container.id})
                |> Ammo.create_ammo_groups(3, current_user)
 
       assert [%AmmoGroup{}, %AmmoGroup{}, %AmmoGroup{}] = ammo_groups
@@ -1011,7 +1006,7 @@ defmodule Cannery.AmmoTest do
          %{ammo_type: ammo_type, container: container, current_user: current_user} do
       assert {:error, %Changeset{}} =
                @invalid_attrs
-               |> Map.merge(%{"ammo_type_id" => ammo_type.id, "container_id" => container.id})
+               |> Map.merge(%{ammo_type_id: ammo_type.id, container_id: container.id})
                |> Ammo.create_ammo_groups(1, current_user)
     end
 
@@ -1043,15 +1038,15 @@ defmodule Cannery.AmmoTest do
          %{ammo_group: %{id: ammo_group_id} = ammo_group, current_user: current_user} do
       assert 100 = ammo_group |> Ammo.get_percentage_remaining(current_user)
 
-      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 72 = ammo_group |> Ammo.get_percentage_remaining(current_user)
 
-      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+      shot_group_fixture(%{count: 11}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 50 = ammo_group |> Ammo.get_percentage_remaining(current_user)
 
-      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+      shot_group_fixture(%{count: 25}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 0 = ammo_group |> Ammo.get_percentage_remaining(current_user)
     end
@@ -1066,7 +1061,7 @@ defmodule Cannery.AmmoTest do
                [ammo_group] |> Ammo.get_percentages_remaining(current_user)
 
       {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
-        %{"count" => 50, "price_paid" => 36.1}
+        %{count: 50, price_paid: 36.1}
         |> ammo_group_fixture(ammo_type, container, current_user)
 
       percentages =
@@ -1075,7 +1070,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_group_id => 100} = percentages
       assert %{^another_ammo_group_id => 100} = percentages
 
-      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
 
       percentages =
@@ -1084,7 +1079,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_group_id => 72} = percentages
       assert %{^another_ammo_group_id => 100} = percentages
 
-      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+      shot_group_fixture(%{count: 11}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
 
       percentages =
@@ -1093,7 +1088,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_group_id => 50} = percentages
       assert %{^another_ammo_group_id => 100} = percentages
 
-      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+      shot_group_fixture(%{count: 25}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
 
       percentages =
@@ -1105,12 +1100,12 @@ defmodule Cannery.AmmoTest do
 
     test "get_cpr/2 gets accurate cpr",
          %{ammo_type: ammo_type, container: container, current_user: current_user} do
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
       assert ammo_group |> Ammo.get_cpr(current_user) |> is_nil()
 
       {1, [ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 1, "price_paid" => 1.0},
+          %{count: 1, price_paid: 1.0},
           ammo_type,
           container,
           current_user
@@ -1120,7 +1115,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 2, "price_paid" => 3.0},
+          %{count: 2, price_paid: 3.0},
           ammo_type,
           container,
           current_user
@@ -1130,7 +1125,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 50, "price_paid" => 36.1},
+          %{count: 50, price_paid: 36.1},
           ammo_type,
           container,
           current_user
@@ -1139,19 +1134,19 @@ defmodule Cannery.AmmoTest do
       assert 0.722 = ammo_group |> Ammo.get_cpr(current_user)
 
       # with shot group, maintains total
-      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group.id, current_user)
       assert 0.722 = ammo_group |> Ammo.get_cpr(current_user)
     end
 
     test "get_cprs/2 gets accurate cprs",
          %{ammo_type: ammo_type, container: container, current_user: current_user} do
-      {1, [ammo_group]} = ammo_group_fixture(%{"count" => 1}, ammo_type, container, current_user)
+      {1, [ammo_group]} = ammo_group_fixture(%{count: 1}, ammo_type, container, current_user)
       assert %{} == [ammo_group] |> Ammo.get_cprs(current_user)
 
       {1, [%{id: ammo_group_id} = ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 1, "price_paid" => 1.0},
+          %{count: 1, price_paid: 1.0},
           ammo_type,
           container,
           current_user
@@ -1161,7 +1156,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 2, "price_paid" => 3.0},
+          %{count: 2, price_paid: 3.0},
           ammo_type,
           container,
           current_user
@@ -1173,7 +1168,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [%{id: yet_another_ammo_group_id} = yet_another_ammo_group]} =
         ammo_group_fixture(
-          %{"count" => 50, "price_paid" => 36.1},
+          %{count: 50, price_paid: 36.1},
           ammo_type,
           container,
           current_user
@@ -1187,7 +1182,7 @@ defmodule Cannery.AmmoTest do
       assert %{^yet_another_ammo_group_id => 0.722} = cprs
 
       # with shot group, maintains total
-      shot_group_fixture(%{"count" => 14}, current_user, yet_another_ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, yet_another_ammo_group)
       yet_another_ammo_group = Ammo.get_ammo_group!(yet_another_ammo_group.id, current_user)
 
       cprs =
@@ -1202,15 +1197,15 @@ defmodule Cannery.AmmoTest do
          %{ammo_group: %{id: ammo_group_id} = ammo_group, current_user: current_user} do
       assert 50 = ammo_group |> Ammo.get_original_count(current_user)
 
-      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 50 = ammo_group |> Ammo.get_original_count(current_user)
 
-      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+      shot_group_fixture(%{count: 11}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 50 = ammo_group |> Ammo.get_original_count(current_user)
 
-      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+      shot_group_fixture(%{count: 25}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       assert 50 = ammo_group |> Ammo.get_original_count(current_user)
     end
@@ -1222,25 +1217,25 @@ defmodule Cannery.AmmoTest do
       current_user: current_user
     } do
       {1, [%{id: another_ammo_group_id} = another_ammo_group]} =
-        ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 25}, ammo_type, container, current_user)
 
       original_counts = [ammo_group, another_ammo_group] |> Ammo.get_original_counts(current_user)
       assert %{^ammo_group_id => 50} = original_counts
       assert %{^another_ammo_group_id => 25} = original_counts
 
-      shot_group_fixture(%{"count" => 14}, current_user, ammo_group)
+      shot_group_fixture(%{count: 14}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       original_counts = [ammo_group, another_ammo_group] |> Ammo.get_original_counts(current_user)
       assert %{^ammo_group_id => 50} = original_counts
       assert %{^another_ammo_group_id => 25} = original_counts
 
-      shot_group_fixture(%{"count" => 11}, current_user, ammo_group)
+      shot_group_fixture(%{count: 11}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       original_counts = [ammo_group, another_ammo_group] |> Ammo.get_original_counts(current_user)
       assert %{^ammo_group_id => 50} = original_counts
       assert %{^another_ammo_group_id => 25} = original_counts
 
-      shot_group_fixture(%{"count" => 25}, current_user, ammo_group)
+      shot_group_fixture(%{count: 25}, current_user, ammo_group)
       ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
       original_counts = [ammo_group, another_ammo_group] |> Ammo.get_original_counts(current_user)
       assert %{^ammo_group_id => 50} = original_counts

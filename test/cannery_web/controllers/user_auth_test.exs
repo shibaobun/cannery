@@ -4,7 +4,6 @@ defmodule CanneryWeb.UserAuthTest do
   """
 
   use CanneryWeb.ConnCase, async: true
-  import CanneryWeb.Gettext
   alias Cannery.Accounts
   alias CanneryWeb.UserAuth
 
@@ -148,7 +147,7 @@ defmodule CanneryWeb.UserAuthTest do
       assert redirected_to(conn) == Routes.user_session_path(conn, :new)
 
       assert get_flash(conn, :error) ==
-               dgettext("errors", "You must confirm your account and log in to access this page.")
+               "You must confirm your account and log in to access this page."
     end
 
     test "stores the path to redirect to on GET", %{conn: conn} do

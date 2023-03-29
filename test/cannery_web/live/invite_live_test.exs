@@ -5,13 +5,12 @@ defmodule CanneryWeb.InviteLiveTest do
 
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
-  import CanneryWeb.Gettext
   alias Cannery.Accounts.Invites
 
   @moduletag :invite_live_test
-  @create_attrs %{"name" => "some name"}
-  @update_attrs %{"name" => "some updated name"}
-  # @invalid_attrs %{"name" => nil}
+  @create_attrs %{name: "some name"}
+  @update_attrs %{name: "some updated name"}
+  @invalid_attrs %{name: nil}
 
   describe "Index" do
     setup [:register_and_log_in_user]
@@ -24,32 +23,27 @@ defmodule CanneryWeb.InviteLiveTest do
     test "lists all invites", %{conn: conn, invite: invite} do
       {:ok, _index_live, html} = live(conn, Routes.invite_index_path(conn, :index))
 
-      assert html =~ gettext("Invites")
+      assert html =~ "Invites"
       assert html =~ invite.name
     end
 
     test "saves new invite", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.invite_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "Create Invite")) |> render_click() =~
-               gettext("New Invite")
-
+      assert index_live |> element("a", "Create Invite") |> render_click() =~ "New Invite"
       assert_patch(index_live, Routes.invite_index_path(conn, :new))
 
-      # assert index_live
-      #        |> form("#invite-form", invite: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#invite-form")
+             |> render_change(invite: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _live, html} =
         index_live
-        |> form("#invite-form", invite: @create_attrs)
-        |> render_submit()
+        |> form("#invite-form")
+        |> render_submit(invite: @create_attrs)
         |> follow_redirect(conn, Routes.invite_index_path(conn, :index))
 
-      assert html =~
-               dgettext("prompts", "%{invite_name} created successfully", invite_name: "some name")
-
-      assert html =~ "some name"
+      assert html =~ "some name created successfully"
     end
 
     test "updates invite in listing", %{conn: conn, invite: invite} do
@@ -57,27 +51,21 @@ defmodule CanneryWeb.InviteLiveTest do
 
       assert index_live
              |> element(~s/a[aria-label="Edit invite for #{invite.name}"]/)
-             |> render_click() =~
-               gettext("Edit Invite")
+             |> render_click() =~ "Edit Invite"
 
       assert_patch(index_live, Routes.invite_index_path(conn, :edit, invite))
 
-      # assert index_live
-      #        |> form("#invite-form", invite: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#invite-form")
+             |> render_change(invite: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _live, html} =
         index_live
-        |> form("#invite-form", invite: @update_attrs)
-        |> render_submit()
+        |> form("#invite-form")
+        |> render_submit(invite: @update_attrs)
         |> follow_redirect(conn, Routes.invite_index_path(conn, :index))
 
-      assert html =~
-               dgettext("prompts", "%{invite_name} updated successfully",
-                 invite_name: "some updated name"
-               )
-
-      assert html =~ "some updated name"
+      assert html =~ "some updated name updated successfully"
     end
 
     test "deletes invite in listing", %{conn: conn, invite: invite} do

@@ -1,3 +1,6 @@
+# v0.9.1
+- Code quality improvements
+
 # v0.9.0
 - Add length limits to all string fields
 - Add selectable ammo types

@@ -5,48 +5,46 @@ defmodule CanneryWeb.ContainerLiveTest do
 
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
-  import CanneryWeb.Gettext
   alias Cannery.Containers
 
   @moduletag :container_live_test
 
   @create_attrs %{
-    "desc" => "some desc",
-    "location" => "some location",
-    "name" => "some name",
-    "type" => "some type"
+    desc: "some desc",
+    location: "some location",
+    name: "some name",
+    type: "some type"
   }
   @update_attrs %{
-    "desc" => "some updated desc",
-    "location" => "some updated location",
-    "name" => "some updated name",
-    "type" => "some updated type"
+    desc: "some updated desc",
+    location: "some updated location",
+    name: "some updated name",
+    type: "some updated type"
   }
+  @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
   @ammo_type_attrs %{
-    "bullet_type" => "some bullet_type",
-    "case_material" => "some case_material",
-    "desc" => "some desc",
-    "manufacturer" => "some manufacturer",
-    "name" => "some name",
-    "grains" => 120
+    bullet_type: "some bullet_type",
+    case_material: "some case_material",
+    desc: "some desc",
+    manufacturer: "some manufacturer",
+    name: "some name",
+    grains: 120
   }
   @ammo_group_attrs %{
-    "notes" => "some ammo group",
-    "count" => 20
+    notes: "some ammo group",
+    count: 20
   }
-
-  # @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
 
   defp create_container(%{current_user: current_user}) do
     container = container_fixture(@create_attrs, current_user)
-    %{container: container}
+    [container: container]
   end
 
   defp create_ammo_group(%{container: container, current_user: current_user}) do
     ammo_type = ammo_type_fixture(@ammo_type_attrs, current_user)
     {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
 
-    %{ammo_type: ammo_type, ammo_group: ammo_group}
+    [ammo_type: ammo_type, ammo_group: ammo_group]
   end
 
   describe "Index" do
@@ -55,7 +53,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "lists all containers", %{conn: conn, container: container} do
       {:ok, _index_live, html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ gettext("Containers")
+      assert html =~ "Containers"
       assert html =~ container.location
     end
 
@@ -67,7 +65,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
         |> render_click()
 
-      assert html =~ gettext("Containers")
+      assert html =~ "Containers"
       assert html =~ container.location
     end
 
@@ -77,22 +75,20 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ container.location
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/,
-               search: %{search_term: container.location}
-             )
-             |> render_change() =~ container.location
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: container.location}) =~ container.location
 
       assert_patch(index_live, Routes.container_index_path(conn, :search, container.location))
 
       refute index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
-             |> render_change() =~ container.location
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: "something_else"}) =~ container.location
 
       assert_patch(index_live, Routes.container_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
-             |> render_change() =~ container.location
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: ""}) =~ container.location
 
       assert_patch(index_live, Routes.container_index_path(conn, :index))
     end
@@ -100,22 +96,20 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "saves new container", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Container")) |> render_click() =~
-               gettext("New Container")
-
+      assert index_live |> element("a", "New Container") |> render_click() =~ "New Container"
       assert_patch(index_live, Routes.container_index_path(conn, :new))
 
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#container-form")
+             |> render_change(container: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#container-form", container: @create_attrs)
-        |> render_submit()
+        |> form("#container-form")
+        |> render_submit(container: @create_attrs)
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "#{container.name} created successfully"
       assert html =~ "some location"
     end
 
@@ -127,22 +121,22 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element(~s/a[aria-label="Edit #{container.name}"]/) |> render_click() =~
-               gettext("Edit %{name}", name: container.name)
+               "Edit #{container.name}"
 
       assert_patch(index_live, Routes.container_index_path(conn, :edit, container))
 
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#container-form")
+             |> render_change(container: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#container-form", container: @update_attrs)
-        |> render_submit()
+        |> form("#container-form")
+        |> render_submit(container: @update_attrs)
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
+      assert html =~ "#{container.name} updated successfully"
       assert html =~ "some updated location"
     end
 
@@ -154,23 +148,23 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       html = index_live |> element(~s/a[aria-label="Clone #{container.name}"]/) |> render_click()
-      assert html =~ gettext("New Container")
+      assert html =~ "New Container"
       assert html =~ "some location"
 
       assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
 
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#container-form")
+             |> render_change(container: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#container-form", container: @create_attrs)
-        |> render_submit()
+        |> form("#container-form")
+        |> render_submit(container: @create_attrs)
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "#{container.name} created successfully"
       assert html =~ "some location"
     end
 
@@ -182,30 +176,29 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
 
       assert index_live |> element(~s/a[aria-label="Clone #{container.name}"]/) |> render_click() =~
-               gettext("New Container")
+               "New Container"
 
       assert_patch(index_live, Routes.container_index_path(conn, :clone, container))
 
-      # assert index_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#container-form")
+             |> render_change(container: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#container-form",
+        |> form("#container-form")
+        |> render_submit(
           container: Map.merge(@create_attrs, %{location: "some updated location"})
         )
-        |> render_submit()
         |> follow_redirect(conn, Routes.container_index_path(conn, :index))
 
       container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} created successfully", name: container.name)
+      assert html =~ "#{container.name} created successfully"
       assert html =~ "some updated location"
     end
 
     test "deletes container in listing", %{conn: conn, container: container} do
       {:ok, index_live, _html} = live(conn, Routes.container_index_path(conn, :index))
-
       assert index_live |> element(~s/a[aria-label="Delete #{container.name}"]/) |> render_click()
       refute has_element?(index_live, "#container-#{container.id}")
     end
@@ -219,7 +212,6 @@ defmodule CanneryWeb.ContainerLiveTest do
       container: %{name: name, location: location} = container
     } do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
-
       assert html =~ name
       assert html =~ location
     end
@@ -232,32 +224,32 @@ defmodule CanneryWeb.ContainerLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert show_live |> element(~s/a[aria-label="Edit #{container.name}"]/) |> render_click() =~
-               gettext("Edit %{name}", name: container.name)
+               "Edit #{container.name}"
 
       assert_patch(show_live, Routes.container_show_path(conn, :edit, container))
 
-      # assert show_live
-      #        |> form("#container-form", container: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert show_live
+             |> form("#container-form")
+             |> render_change(container: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         show_live
-        |> form("#container-form", container: @update_attrs)
-        |> render_submit()
+        |> form("#container-form")
+        |> render_submit(container: @update_attrs)
         |> follow_redirect(conn, Routes.container_show_path(conn, :show, container))
 
       container = container.id |> Containers.get_container!(current_user)
-      assert html =~ dgettext("prompts", "%{name} updated successfully", name: container.name)
+      assert html =~ "#{container.name} updated successfully"
       assert html =~ "some updated location"
     end
 
     test "can sort by type",
          %{conn: conn, container: container, current_user: current_user} do
-      rifle_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      rifle_type = ammo_type_fixture(%{type: "rifle"}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_type, container, current_user)
-      shotgun_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      shotgun_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_type, container, current_user)
-      pistol_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      pistol_type = ammo_type_fixture(%{type: "pistol"}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_type, container, current_user)
 
       {:ok, index_live, html} = live(conn, Routes.container_show_path(conn, :show, container))

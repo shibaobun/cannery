@@ -10,37 +10,37 @@ defmodule Cannery.ContainersTest do
   @moduletag :containers_test
 
   @valid_attrs %{
-    "desc" => "some desc",
-    "location" => "some location",
-    "name" => "some name",
-    "type" => "some type"
+    desc: "some desc",
+    location: "some location",
+    name: "some name",
+    type: "some type"
   }
   @update_attrs %{
-    "desc" => "some updated desc",
-    "location" => "some updated location",
-    "name" => "some updated name",
-    "type" => "some updated type"
+    desc: "some updated desc",
+    location: "some updated location",
+    name: "some updated name",
+    type: "some updated type"
   }
   @invalid_attrs %{
-    "desc" => nil,
-    "location" => nil,
-    "name" => nil,
-    "type" => nil
+    desc: nil,
+    location: nil,
+    name: nil,
+    type: nil
   }
   @valid_tag_attrs %{
-    "bg_color" => "#100000",
-    "name" => "some name",
-    "text_color" => "#000000"
+    bg_color: "#100000",
+    name: "some name",
+    text_color: "#000000"
   }
   @update_tag_attrs %{
-    "bg_color" => "#100001",
-    "name" => "some updated name",
-    "text_color" => "#000001"
+    bg_color: "#100001",
+    name: "some updated name",
+    text_color: "#000001"
   }
   @invalid_tag_attrs %{
-    "bg_color" => nil,
-    "name" => nil,
-    "text_color" => nil
+    bg_color: nil,
+    name: nil,
+    text_color: nil
   }
 
   describe "containers" do
@@ -57,25 +57,24 @@ defmodule Cannery.ContainersTest do
 
     test "list_containers/2 returns relevant containers for a user",
          %{current_user: current_user} do
-      container_a = container_fixture(%{"name" => "my cool container"}, current_user)
-      container_b = container_fixture(%{"desc" => "a fascinating description"}, current_user)
+      container_a = container_fixture(%{name: "my cool container"}, current_user)
+      container_b = container_fixture(%{desc: "a fascinating description"}, current_user)
 
       %{id: container_c_id} =
-        container_c = container_fixture(%{"location" => "a secret place"}, current_user)
+        container_c = container_fixture(%{location: "a secret place"}, current_user)
 
-      tag = tag_fixture(%{"name" => "stupendous tag"}, current_user)
+      tag = tag_fixture(%{name: "stupendous tag"}, current_user)
       Containers.add_tag!(container_c, tag, current_user)
       container_c = container_c_id |> Containers.get_container!(current_user)
 
       %{id: container_d_id} =
-        container_d = container_fixture(%{"type" => "musty old box"}, current_user)
+        container_d = container_fixture(%{type: "musty old box"}, current_user)
 
-      tag = tag_fixture(%{"name" => "amazing tag"}, current_user)
+      tag = tag_fixture(%{name: "amazing tag"}, current_user)
       Containers.add_tag!(container_d, tag, current_user)
       container_d = container_d_id |> Containers.get_container!(current_user)
 
-      _shouldnt_return =
-        container_fixture(%{"name" => "another person's container"}, user_fixture())
+      _shouldnt_return = container_fixture(%{name: "another person's container"}, user_fixture())
 
       # attributes
       assert Containers.list_containers("cool", current_user) == [container_a]
@@ -109,7 +108,7 @@ defmodule Cannery.ContainersTest do
 
     test "create_container/2 with valid data creates a container", %{current_user: current_user} do
       assert {:ok, %Container{} = container} =
-               @valid_attrs |> Containers.create_container(current_user)
+               Containers.create_container(@valid_attrs, current_user)
 
       assert container.desc == "some desc"
       assert container.location == "some location"
@@ -120,7 +119,7 @@ defmodule Cannery.ContainersTest do
 
     test "create_container/2 with invalid data returns error changeset",
          %{current_user: current_user} do
-      assert {:error, %Changeset{}} = @invalid_attrs |> Containers.create_container(current_user)
+      assert {:error, %Changeset{}} = Containers.create_container(@invalid_attrs, current_user)
     end
 
     test "update_container/3 with valid data updates the container",
@@ -163,15 +162,10 @@ defmodule Cannery.ContainersTest do
     end
 
     test "list_tags/2 returns relevant tags for a user", %{current_user: current_user} do
-      tag_a = tag_fixture(%{"name" => "bullets"}, current_user)
-      tag_b = tag_fixture(%{"name" => "hollows"}, current_user)
+      tag_a = tag_fixture(%{name: "bullets"}, current_user)
+      tag_b = tag_fixture(%{name: "hollows"}, current_user)
 
-      _shouldnt_return =
-        %{
-          "name" => "bullet",
-          "desc" => "pews brass shell"
-        }
-        |> tag_fixture(user_fixture())
+      tag_fixture(%{name: "bullet", desc: "pews brass shell"}, user_fixture())
 
       # name
       assert Containers.list_tags("bullet", current_user) == [tag_a]

@@ -5,26 +5,24 @@ defmodule CanneryWeb.TagLiveTest do
 
   use CanneryWeb.ConnCase
   import Phoenix.LiveViewTest
-  import CanneryWeb.Gettext
 
   @moduletag :tag_live_test
 
   @create_attrs %{
-    "bg_color" => "#100000",
-    "name" => "some name",
-    "text_color" => "#000000"
+    bg_color: "#100000",
+    name: "some name",
+    text_color: "#000000"
   }
   @update_attrs %{
-    "bg_color" => "#100001",
-    "name" => "some updated name",
-    "text_color" => "#000001"
+    bg_color: "#100001",
+    name: "some updated name",
+    text_color: "#000001"
   }
-
-  # @invalid_attrs %{
-  #   "bg_color" => nil,
-  #   "name" => nil,
-  #   "text_color" => nil
-  # }
+  @invalid_attrs %{
+    bg_color: nil,
+    name: nil,
+    text_color: nil
+  }
 
   def create_tag(%{current_user: current_user}) do
     tag = tag_fixture(current_user)
@@ -37,7 +35,7 @@ defmodule CanneryWeb.TagLiveTest do
     test "lists all tags", %{conn: conn, tag: tag} do
       {:ok, _index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
 
-      assert html =~ gettext("Tags")
+      assert html =~ "Tags"
       assert html =~ tag.bg_color
     end
 
@@ -47,22 +45,20 @@ defmodule CanneryWeb.TagLiveTest do
       assert html =~ tag.name
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/,
-               search: %{search_term: tag.name}
-             )
-             |> render_change() =~ tag.name
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: tag.name}) =~ tag.name
 
       assert_patch(index_live, Routes.tag_index_path(conn, :search, tag.name))
 
       refute index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: "something_else"})
-             |> render_change() =~ tag.name
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: "something_else"}) =~ tag.name
 
       assert_patch(index_live, Routes.tag_index_path(conn, :search, "something_else"))
 
       assert index_live
-             |> form(~s/form[phx-change="search"]/, search: %{search_term: ""})
-             |> render_change() =~ tag.name
+             |> form(~s/form[phx-change="search"]/)
+             |> render_change(search: %{search_term: ""}) =~ tag.name
 
       assert_patch(index_live, Routes.tag_index_path(conn, :index))
     end
@@ -70,22 +66,20 @@ defmodule CanneryWeb.TagLiveTest do
     test "saves new tag", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
 
-      assert index_live |> element("a", dgettext("actions", "New Tag")) |> render_click() =~
-               dgettext("actions", "New Tag")
-
+      assert index_live |> element("a", "New Tag") |> render_click() =~ "New Tag"
       assert_patch(index_live, Routes.tag_index_path(conn, :new))
 
-      # assert index_live
-      #        |> form("#tag-form", tag: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#tag-form")
+             |> render_change(tag: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#tag-form", tag: @create_attrs)
-        |> render_submit()
+        |> form("#tag-form")
+        |> render_submit(tag: @create_attrs)
         |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
 
-      assert html =~ dgettext("actions", "%{name} created successfully", name: "some name")
+      assert html =~ "some name created successfully"
       assert html =~ "#100000"
     end
 
@@ -93,23 +87,21 @@ defmodule CanneryWeb.TagLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
 
       assert index_live |> element(~s/a[aria-label="Edit #{tag.name}"]/) |> render_click() =~
-               dgettext("actions", "Edit Tag")
+               "Edit Tag"
 
       assert_patch(index_live, Routes.tag_index_path(conn, :edit, tag))
 
-      # assert index_live
-      #        |> form("#tag-form", tag: @invalid_attrs)
-      #        |> render_change() =~ dgettext("errors", "can't be blank")
+      assert index_live
+             |> form("#tag-form")
+             |> render_change(tag: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#tag-form", tag: @update_attrs)
-        |> render_submit()
+        |> form("#tag-form")
+        |> render_submit(tag: @update_attrs)
         |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
 
-      assert html =~
-               dgettext("prompts", "%{name} updated successfully", name: "some updated name")
-
+      assert html =~ "some updated name updated successfully"
       assert html =~ "#100001"
     end
 

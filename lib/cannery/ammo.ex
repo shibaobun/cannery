@@ -1055,13 +1055,21 @@ defmodule Cannery.Ammo do
   @spec create_ammo_groups(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
           {:ok, {count :: non_neg_integer(), [AmmoGroup.t()] | nil}}
           | {:error, AmmoGroup.changeset()}
-  def create_ammo_groups(
-        %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
-        multiplier,
-        %User{} = user
-      )
-      when multiplier >= 1 and multiplier <= @ammo_group_create_limit and
-             not (ammo_type_id |> is_nil()) and not (container_id |> is_nil()) do
+  def create_ammo_groups(attrs, multiplier, %User{} = user) do
+    attrs
+    |> Map.new(fn {k, v} -> {to_string(k), v} end)
+    |> do_create_ammo_groups(multiplier, user)
+  end
+
+  defp do_create_ammo_groups(
+         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+         multiplier,
+         user
+       )
+       when multiplier >= 1 and
+              multiplier <= @ammo_group_create_limit and
+              ammo_type_id |> is_binary() and
+              container_id |> is_binary() do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
     changesets =
@@ -1097,12 +1105,12 @@ defmodule Cannery.Ammo do
     end
   end
 
-  def create_ammo_groups(
-        %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
-        _multiplier,
-        user
-      )
-      when is_binary(ammo_type_id) and is_binary(container_id) do
+  defp do_create_ammo_groups(
+         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+         _multiplier,
+         user
+       )
+       when is_binary(ammo_type_id) and is_binary(container_id) do
     changeset =
       %AmmoGroup{}
       |> AmmoGroup.create_changeset(
@@ -1116,7 +1124,7 @@ defmodule Cannery.Ammo do
     {:error, changeset}
   end
 
-  def create_ammo_groups(invalid_attrs, _multiplier, user) do
+  defp do_create_ammo_groups(invalid_attrs, _multiplier, user) do
     {:error, %AmmoGroup{} |> AmmoGroup.create_changeset(nil, nil, user, invalid_attrs)}
   end
 

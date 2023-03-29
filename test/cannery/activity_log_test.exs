@@ -5,12 +5,7 @@ defmodule Cannery.ActivityLogTest do
 
   use Cannery.DataCase
   import Cannery.Fixtures
-
-  alias Cannery.{
-    ActivityLog,
-    ActivityLog.ShotGroup,
-    Ammo
-  }
+  alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo}
 
   @moduletag :activity_log_test
 
@@ -21,10 +16,10 @@ defmodule Cannery.ActivityLogTest do
       ammo_type = ammo_type_fixture(current_user)
 
       {1, [%{id: ammo_group_id} = ammo_group]} =
-        ammo_group_fixture(%{"count" => 25}, ammo_type, container, current_user)
+        ammo_group_fixture(%{count: 25}, ammo_type, container, current_user)
 
       shot_group =
-        %{"count" => 5, "date" => ~N[2022-02-13 03:17:00], "notes" => "some notes"}
+        %{count: 5, date: ~N[2022-02-13 03:17:00], notes: "some notes"}
         |> shot_group_fixture(current_user, ammo_group)
 
       ammo_group = ammo_group_id |> Ammo.get_ammo_group!(current_user)
@@ -54,7 +49,7 @@ defmodule Cannery.ActivityLogTest do
 
     test "create_shot_group/3 with valid data creates a shot_group",
          %{current_user: current_user, ammo_group: ammo_group} do
-      valid_attrs = %{"count" => 10, "date" => ~D[2022-02-13], "notes" => "some notes"}
+      valid_attrs = %{count: 10, date: ~D[2022-02-13], notes: "some notes"}
 
       assert {:ok, %ShotGroup{} = shot_group} =
                ActivityLog.create_shot_group(valid_attrs, current_user, ammo_group)
@@ -69,7 +64,7 @@ defmodule Cannery.ActivityLogTest do
            current_user: current_user,
            ammo_group: %{id: ammo_group_id, count: org_count} = ammo_group
          } do
-      valid_attrs = %{"count" => 10, "date" => ~D[2022-02-13], "notes" => "some notes"}
+      valid_attrs = %{count: 10, date: ~D[2022-02-13], notes: "some notes"}
 
       assert {:ok, %ShotGroup{} = shot_group} =
                ActivityLog.create_shot_group(valid_attrs, current_user, ammo_group)
@@ -82,7 +77,7 @@ defmodule Cannery.ActivityLogTest do
 
     test "create_shot_group/3 does not remove more than ammo group amount",
          %{current_user: current_user, ammo_group: %{id: ammo_group_id} = ammo_group} do
-      valid_attrs = %{"count" => 20, "date" => ~D[2022-02-13], "notes" => "some notes"}
+      valid_attrs = %{count: 20, date: ~D[2022-02-13], notes: "some notes"}
 
       assert {:ok, %ShotGroup{}} =
                ActivityLog.create_shot_group(valid_attrs, current_user, ammo_group)
@@ -92,12 +87,12 @@ defmodule Cannery.ActivityLogTest do
       assert ammo_group.count == 0
 
       assert {:error, %Ecto.Changeset{}} =
-               ActivityLog.create_shot_group(%{"count" => 1}, current_user, ammo_group)
+               ActivityLog.create_shot_group(%{count: 1}, current_user, ammo_group)
     end
 
     test "create_shot_group/3 with invalid data returns error changeset",
          %{current_user: current_user, ammo_group: ammo_group} do
-      invalid_params = %{"count" => nil, "date" => nil, "notes" => nil}
+      invalid_params = %{count: nil, date: nil, notes: nil}
 
       assert {:error, %Ecto.Changeset{}} =
                ActivityLog.create_shot_group(invalid_params, current_user, ammo_group)
@@ -113,9 +108,9 @@ defmodule Cannery.ActivityLogTest do
                ActivityLog.update_shot_group(
                  shot_group,
                  %{
-                   "count" => 10,
-                   "date" => ~D[2022-02-13],
-                   "notes" => "some updated notes"
+                   count: 10,
+                   date: ~D[2022-02-13],
+                   notes: "some updated notes"
                  },
                  current_user
                )
@@ -131,9 +126,9 @@ defmodule Cannery.ActivityLogTest do
                ActivityLog.update_shot_group(
                  shot_group,
                  %{
-                   "count" => 25,
-                   "date" => ~D[2022-02-13],
-                   "notes" => "some updated notes"
+                   count: 25,
+                   date: ~D[2022-02-13],
+                   notes: "some updated notes"
                  },
                  current_user
                )
@@ -149,14 +144,14 @@ defmodule Cannery.ActivityLogTest do
       assert {:error, %Ecto.Changeset{}} =
                ActivityLog.update_shot_group(
                  shot_group,
-                 %{"count" => 26, "date" => nil, "notes" => nil},
+                 %{count: 26, date: nil, notes: nil},
                  current_user
                )
 
       assert {:error, %Ecto.Changeset{}} =
                ActivityLog.update_shot_group(
                  shot_group,
-                 %{"count" => -1, "date" => nil, "notes" => nil},
+                 %{count: -1, date: nil, notes: nil},
                  current_user
                )
 
@@ -184,10 +179,10 @@ defmodule Cannery.ActivityLogTest do
       assert 0 = another_ammo_group |> ActivityLog.get_used_count(current_user)
       assert 5 = ammo_group |> ActivityLog.get_used_count(current_user)
 
-      shot_group_fixture(%{"count" => 15}, current_user, ammo_group)
+      shot_group_fixture(%{count: 15}, current_user, ammo_group)
       assert 20 = ammo_group |> ActivityLog.get_used_count(current_user)
 
-      shot_group_fixture(%{"count" => 10}, current_user, ammo_group)
+      shot_group_fixture(%{count: 10}, current_user, ammo_group)
       assert 30 = ammo_group |> ActivityLog.get_used_count(current_user)
 
       {1, [another_ammo_group]} = ammo_group_fixture(ammo_type, container, current_user)
@@ -206,17 +201,17 @@ defmodule Cannery.ActivityLogTest do
       assert %{ammo_group_id => 5} ==
                [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
 
-      shot_group_fixture(%{"count" => 5}, current_user, another_ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, another_ammo_group)
       used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
       assert %{^ammo_group_id => 5} = used_counts
       assert %{^another_ammo_group_id => 5} = used_counts
 
-      shot_group_fixture(%{"count" => 15}, current_user, ammo_group)
+      shot_group_fixture(%{count: 15}, current_user, ammo_group)
       used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
       assert %{^ammo_group_id => 20} = used_counts
       assert %{^another_ammo_group_id => 5} = used_counts
 
-      shot_group_fixture(%{"count" => 10}, current_user, ammo_group)
+      shot_group_fixture(%{count: 10}, current_user, ammo_group)
       used_counts = [ammo_group, another_ammo_group] |> ActivityLog.get_used_counts(current_user)
       assert %{^ammo_group_id => 30} = used_counts
       assert %{^another_ammo_group_id => 5} = used_counts
@@ -233,10 +228,10 @@ defmodule Cannery.ActivityLogTest do
       assert another_ammo_group |> ActivityLog.get_last_used_date(current_user) |> is_nil()
       assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
 
-      %{date: date} = shot_group_fixture(%{"date" => ~D[2022-11-10]}, current_user, ammo_group)
+      %{date: date} = shot_group_fixture(%{date: ~D[2022-11-10]}, current_user, ammo_group)
       assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
 
-      %{date: date} = shot_group_fixture(%{"date" => ~D[2022-11-11]}, current_user, ammo_group)
+      %{date: date} = shot_group_fixture(%{date: ~D[2022-11-11]}, current_user, ammo_group)
       assert ^date = ammo_group |> ActivityLog.get_last_used_date(current_user)
     end
 
@@ -254,7 +249,7 @@ defmodule Cannery.ActivityLogTest do
       assert %{ammo_group_id => date} ==
                [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
 
-      shot_group_fixture(%{"date" => ~D[2022-11-09]}, current_user, another_ammo_group)
+      shot_group_fixture(%{date: ~D[2022-11-09]}, current_user, another_ammo_group)
 
       # setting initial date
       last_used_shot_groups =
@@ -264,7 +259,7 @@ defmodule Cannery.ActivityLogTest do
       assert %{^another_ammo_group_id => ~D[2022-11-09]} = last_used_shot_groups
 
       # setting another date
-      shot_group_fixture(%{"date" => ~D[2022-11-10]}, current_user, ammo_group)
+      shot_group_fixture(%{date: ~D[2022-11-10]}, current_user, ammo_group)
 
       last_used_shot_groups =
         [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
@@ -273,7 +268,7 @@ defmodule Cannery.ActivityLogTest do
       assert %{^another_ammo_group_id => ~D[2022-11-09]} = last_used_shot_groups
 
       # setting yet another date
-      shot_group_fixture(%{"date" => ~D[2022-11-11]}, current_user, ammo_group)
+      shot_group_fixture(%{date: ~D[2022-11-11]}, current_user, ammo_group)
 
       last_used_shot_groups =
         [ammo_group, another_ammo_group] |> ActivityLog.get_last_used_dates(current_user)
@@ -288,10 +283,10 @@ defmodule Cannery.ActivityLogTest do
       assert 0 = another_ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
       assert 5 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
 
-      shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, ammo_group)
       assert 10 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
 
-      shot_group_fixture(%{"count" => 1}, current_user, ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, ammo_group)
       assert 11 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
     end
 
@@ -309,7 +304,7 @@ defmodule Cannery.ActivityLogTest do
                |> ActivityLog.get_used_count_for_ammo_types(current_user)
 
       # use generated ammo group
-      shot_group_fixture(%{"count" => 5}, current_user, ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, ammo_group)
 
       used_counts =
         [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
@@ -318,7 +313,7 @@ defmodule Cannery.ActivityLogTest do
       assert %{^another_ammo_type_id => 5} = used_counts
 
       # use generated ammo group again
-      shot_group_fixture(%{"count" => 1}, current_user, ammo_group)
+      shot_group_fixture(%{count: 1}, current_user, ammo_group)
 
       used_counts =
         [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
@@ -349,20 +344,20 @@ defmodule Cannery.ActivityLogTest do
       other_container = container_fixture(other_user)
 
       for type <- ["rifle", "shotgun", "pistol"] do
-        other_ammo_type = ammo_type_fixture(%{"type" => type}, other_user)
+        other_ammo_type = ammo_type_fixture(%{type: type}, other_user)
         {1, [other_ammo_group]} = ammo_group_fixture(other_ammo_type, other_container, other_user)
         shot_group_fixture(other_user, other_ammo_group)
       end
 
-      rifle_ammo_type = ammo_type_fixture(%{"type" => "rifle"}, current_user)
+      rifle_ammo_type = ammo_type_fixture(%{type: "rifle"}, current_user)
       {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
       rifle_shot_group = shot_group_fixture(current_user, rifle_ammo_group)
 
-      shotgun_ammo_type = ammo_type_fixture(%{"type" => "shotgun"}, current_user)
+      shotgun_ammo_type = ammo_type_fixture(%{type: "shotgun"}, current_user)
       {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
       shotgun_shot_group = shot_group_fixture(current_user, shotgun_ammo_group)
 
-      pistol_ammo_type = ammo_type_fixture(%{"type" => "pistol"}, current_user)
+      pistol_ammo_type = ammo_type_fixture(%{type: "pistol"}, current_user)
       {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
       pistol_shot_group = shot_group_fixture(current_user, pistol_ammo_group)
 
@@ -389,14 +384,14 @@ defmodule Cannery.ActivityLogTest do
       container: container,
       current_user: current_user
     } do
-      shot_group_a = shot_group_fixture(%{"notes" => "amazing"}, current_user, ammo_group)
+      shot_group_a = shot_group_fixture(%{notes: "amazing"}, current_user, ammo_group)
 
       {1, [another_ammo_group]} =
-        ammo_group_fixture(%{"notes" => "stupendous"}, ammo_type, container, current_user)
+        ammo_group_fixture(%{notes: "stupendous"}, ammo_type, container, current_user)
 
       shot_group_b = shot_group_fixture(current_user, another_ammo_group)
 
-      another_ammo_type = ammo_type_fixture(%{"name" => "fabulous ammo"}, current_user)
+      another_ammo_type = ammo_type_fixture(%{name: "fabulous ammo"}, current_user)
 
       {1, [yet_another_ammo_group]} =
         ammo_group_fixture(another_ammo_type, container, current_user)

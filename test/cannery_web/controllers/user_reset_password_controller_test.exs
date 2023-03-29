@@ -4,7 +4,6 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
   """
 
   use CanneryWeb.ConnCase, async: true
-  import CanneryWeb.Gettext
   alias Cannery.{Accounts, Repo}
 
   @moduletag :user_reset_password_controller_test
@@ -17,7 +16,7 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
     test "renders the reset password page", %{conn: conn} do
       conn = get(conn, Routes.user_reset_password_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ dgettext("actions", "Forgot your password?")
+      assert response =~ "Forgot your password?"
     end
   end
 
@@ -25,17 +24,12 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
     @tag :capture_log
     test "sends a new reset password token", %{conn: conn, user: user} do
       conn =
-        post(conn, Routes.user_reset_password_path(conn, :create), %{
-          "user" => %{"email" => user.email}
-        })
+        post(conn, Routes.user_reset_password_path(conn, :create), %{user: %{email: user.email}})
 
       assert redirected_to(conn) == "/"
 
       assert get_flash(conn, :info) =~
-               dgettext(
-                 "prompts",
-                 "If your email is in our system, you will receive instructions to reset your password shortly."
-               )
+               "If your email is in our system, you will receive instructions to reset your password shortly."
 
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "reset_password"
     end
@@ -43,16 +37,13 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
     test "does not send reset password token if email is invalid", %{conn: conn} do
       conn =
         post(conn, Routes.user_reset_password_path(conn, :create), %{
-          "user" => %{"email" => "unknown@example.com"}
+          user: %{email: "unknown@example.com"}
         })
 
       assert redirected_to(conn) == "/"
 
       assert get_flash(conn, :info) =~
-               dgettext(
-                 "prompts",
-                 "If your email is in our system, you will receive instructions to reset your password shortly."
-               )
+               "If your email is in our system, you will receive instructions to reset your password shortly."
 
       assert Repo.all(Accounts.UserToken) == []
     end
@@ -70,15 +61,13 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
 
     test "renders reset password", %{conn: conn, token: token} do
       conn = get(conn, Routes.user_reset_password_path(conn, :edit, token))
-      assert html_response(conn, 200) =~ dgettext("actions", "Reset password")
+      assert html_response(conn, 200) =~ "Reset password"
     end
 
     test "does not render reset password with invalid token", %{conn: conn} do
       conn = get(conn, Routes.user_reset_password_path(conn, :edit, "oops"))
       assert redirected_to(conn) == "/"
-
-      assert get_flash(conn, :error) =~
-               dgettext("errors", "Reset password link is invalid or it has expired")
+      assert get_flash(conn, :error) =~ "Reset password link is invalid or it has expired"
     end
   end
 
@@ -95,39 +84,37 @@ defmodule CanneryWeb.UserResetPasswordControllerTest do
     test "resets password once", %{conn: conn, user: user, token: token} do
       conn =
         put(conn, Routes.user_reset_password_path(conn, :update, token), %{
-          "user" => %{
-            "password" => "new valid password",
-            "password_confirmation" => "new valid password"
+          user: %{
+            password: "new valid password",
+            password_confirmation: "new valid password"
           }
         })
 
       assert redirected_to(conn) == Routes.user_session_path(conn, :new)
       refute get_session(conn, :user_token)
-      assert get_flash(conn, :info) =~ dgettext("prompts", "Password reset successfully")
+      assert get_flash(conn, :info) =~ "Password reset successfully"
       assert Accounts.get_user_by_email_and_password(user.email, "new valid password")
     end
 
     test "does not reset password on invalid data", %{conn: conn, token: token} do
       conn =
         put(conn, Routes.user_reset_password_path(conn, :update, token), %{
-          "user" => %{
-            "password" => "too short",
-            "password_confirmation" => "does not match"
+          user: %{
+            password: "too short",
+            password_confirmation: "does not match"
           }
         })
 
       response = html_response(conn, 200)
-      assert response =~ gettext("Reset password")
-      assert response =~ dgettext("errors", "should be at least 12 character(s)")
-      assert response =~ dgettext("errors", "does not match password")
+      assert response =~ "Reset password"
+      assert response =~ "should be at least 12 character(s)"
+      assert response =~ "does not match password"
     end
 
     test "does not reset password with invalid token", %{conn: conn} do
       conn = put(conn, Routes.user_reset_password_path(conn, :update, "oops"))
       assert redirected_to(conn) == "/"
-
-      assert get_flash(conn, :error) =~
-               dgettext("errors", "Reset password link is invalid or it has expired")
+      assert get_flash(conn, :error) =~ "Reset password link is invalid or it has expired"
     end
   end
 end

@@ -24,8 +24,8 @@ defmodule Cannery.Fixtures do
   def user_fixture(attrs \\ %{}) do
     attrs
     |> Enum.into(%{
-      "email" => unique_user_email(),
-      "password" => valid_user_password()
+      email: unique_user_email(),
+      password: valid_user_password()
     })
     |> Accounts.register_user()
     |> unwrap_ok_tuple()
@@ -36,8 +36,8 @@ defmodule Cannery.Fixtures do
   def admin_fixture(attrs \\ %{}) do
     attrs
     |> Enum.into(%{
-      "email" => unique_user_email(),
-      "password" => valid_user_password()
+      email: unique_user_email(),
+      password: valid_user_password()
     })
     |> Accounts.register_user()
     |> unwrap_ok_tuple()
@@ -76,9 +76,9 @@ defmodule Cannery.Fixtures do
   def shot_group_fixture(attrs \\ %{}, %User{} = user, %AmmoGroup{} = ammo_group) do
     attrs
     |> Enum.into(%{
-      "count" => 20,
-      "date" => ~N[2022-02-13 03:17:00],
-      "notes" => random_string()
+      count: 20,
+      date: ~N[2022-02-13 03:17:00],
+      notes: random_string()
     })
     |> Cannery.ActivityLog.create_shot_group(user, ammo_group)
     |> unwrap_ok_tuple()
@@ -91,7 +91,7 @@ defmodule Cannery.Fixtures do
   @spec container_fixture(attrs :: map(), User.t()) :: Container.t()
   def container_fixture(attrs \\ %{}, %User{} = user) do
     attrs
-    |> Enum.into(%{"name" => random_string(), "type" => "Ammo can"})
+    |> Enum.into(%{name: random_string(), type: "Ammo can"})
     |> Containers.create_container(user)
     |> unwrap_ok_tuple()
   end
@@ -103,7 +103,7 @@ defmodule Cannery.Fixtures do
   @spec ammo_type_fixture(attrs :: map(), User.t()) :: AmmoType.t()
   def ammo_type_fixture(attrs \\ %{}, %User{} = user) do
     attrs
-    |> Enum.into(%{"name" => random_string(), "type" => "rifle"})
+    |> Enum.into(%{name: random_string(), type: "rifle"})
     |> Ammo.create_ammo_type(user)
     |> unwrap_ok_tuple()
   end
@@ -131,10 +131,10 @@ defmodule Cannery.Fixtures do
       ) do
     attrs
     |> Enum.into(%{
-      "ammo_type_id" => ammo_type_id,
-      "container_id" => container_id,
-      "count" => 20,
-      "purchased_on" => Date.utc_today()
+      ammo_type_id: ammo_type_id,
+      container_id: container_id,
+      count: 20,
+      purchased_on: Date.utc_today()
     })
     |> Ammo.create_ammo_groups(multiplier, user)
     |> unwrap_ok_tuple()
@@ -148,9 +148,9 @@ defmodule Cannery.Fixtures do
   def tag_fixture(attrs \\ %{}, %User{} = user) do
     attrs
     |> Enum.into(%{
-      "bg_color" => "#100000",
-      "name" => random_string(),
-      "text_color" => "#000000"
+      bg_color: "#100000",
+      name: random_string(),
+      text_color: "#000000"
     })
     |> Containers.create_tag(user)
     |> unwrap_ok_tuple()
