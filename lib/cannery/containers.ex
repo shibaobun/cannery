@@ -5,7 +5,7 @@ defmodule Cannery.Containers do
 
   import CanneryWeb.Gettext
   import Ecto.Query, warn: false
-  alias Cannery.{Accounts.User, Ammo.AmmoGroup, Repo}
+  alias Cannery.{Accounts.User, Ammo.Pack, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
   alias Ecto.Changeset
 
@@ -203,7 +203,7 @@ defmodule Cannery.Containers do
           {:ok, Container.t()} | {:error, Container.changeset()}
   def delete_container(%Container{user_id: user_id} = container, %User{id: user_id}) do
     Repo.one(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.container_id == ^container.id,
         select: count(ag.id)
     )
@@ -221,7 +221,7 @@ defmodule Cannery.Containers do
 
         container
         |> Container.update_changeset(%{})
-        |> Changeset.add_error(:ammo_groups, error)
+        |> Changeset.add_error(:packs, error)
         |> Changeset.apply_action(:delete)
     end
   end

@@ -162,12 +162,12 @@ msgstr ""
 msgid "Tag could not be removed"
 msgstr "Le tag n’a pas pu être retiré"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:160
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:159
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "Impossible d'analyser le nombre de copies"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:150
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:149
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Ammo left must be at least 0"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:122
+#: lib/cannery/activity_log/shot_group.ex:119
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Count can be at most %{count} shots"
 msgstr "La quantité doit être inférieur à %{count}"

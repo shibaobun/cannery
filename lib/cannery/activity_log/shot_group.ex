@@ -6,7 +6,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
   use Ecto.Schema
   import CanneryWeb.Gettext
   import Ecto.Changeset
-  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup}
+  alias Cannery.{Accounts.User, Ammo, Ammo.Pack}
   alias Ecto.{Changeset, UUID}
 
   @derive {Jason.Encoder,
@@ -15,7 +15,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
              :count,
              :date,
              :notes,
-             :ammo_group_id
+             :pack_id
            ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -25,7 +25,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
     field :notes, :string
 
     field :user_id, :binary_id
-    field :ammo_group_id, :binary_id
+    field :pack_id, :binary_id
 
     timestamps()
   end
@@ -35,7 +35,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
           count: integer,
           notes: String.t() | nil,
           date: Date.t() | nil,
-          ammo_group_id: AmmoGroup.id(),
+          pack_id: Pack.id(),
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
@@ -48,46 +48,44 @@ defmodule Cannery.ActivityLog.ShotGroup do
   @spec create_changeset(
           new_shot_group(),
           User.t() | any(),
-          AmmoGroup.t() | any(),
+          Pack.t() | any(),
           attrs :: map()
         ) :: changeset()
   def create_changeset(
         shot_group,
         %User{id: user_id},
-        %AmmoGroup{id: ammo_group_id, user_id: user_id} = ammo_group,
+        %Pack{id: pack_id, user_id: user_id} = pack,
         attrs
       ) do
     shot_group
     |> change(user_id: user_id)
-    |> change(ammo_group_id: ammo_group_id)
+    |> change(pack_id: pack_id)
     |> cast(attrs, [:count, :notes, :date])
     |> validate_length(:notes, max: 255)
-    |> validate_create_shot_group_count(ammo_group)
-    |> validate_required([:date, :ammo_group_id, :user_id])
+    |> validate_create_shot_group_count(pack)
+    |> validate_required([:date, :pack_id, :user_id])
   end
 
-  def create_changeset(shot_group, _invalid_user, _invalid_ammo_group, attrs) do
+  def create_changeset(shot_group, _invalid_user, _invalid_pack, attrs) do
     shot_group
     |> cast(attrs, [:count, :notes, :date])
     |> validate_length(:notes, max: 255)
-    |> validate_required([:ammo_group_id, :user_id])
+    |> validate_required([:pack_id, :user_id])
     |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo pack"))
   end
 
-  defp validate_create_shot_group_count(changeset, %AmmoGroup{count: ammo_group_count}) do
+  defp validate_create_shot_group_count(changeset, %Pack{count: pack_count}) do
     case changeset |> Changeset.get_field(:count) do
       nil ->
         changeset |> Changeset.add_error(:ammo_left, dgettext("errors", "can't be blank"))
 
-      count when count > ammo_group_count ->
+      count when count > pack_count ->
         changeset
         |> Changeset.add_error(:ammo_left, dgettext("errors", "Ammo left must be at least 0"))
 
       count when count <= 0 ->
         error =
-          dgettext("errors", "Ammo left can be at most %{count} rounds",
-            count: ammo_group_count - 1
-          )
+          dgettext("errors", "Ammo left can be at most %{count} rounds", count: pack_count - 1)
 
         changeset |> Changeset.add_error(:ammo_left, error)
 
@@ -109,17 +107,16 @@ defmodule Cannery.ActivityLog.ShotGroup do
 
   defp validate_update_shot_group_count(
          changeset,
-         %__MODULE__{ammo_group_id: ammo_group_id, count: count},
+         %__MODULE__{pack_id: pack_id, count: count},
          user
        ) do
-    %{count: ammo_group_count} = Ammo.get_ammo_group!(ammo_group_id, user)
+    %{count: pack_count} = Ammo.get_pack!(pack_id, user)
 
     new_shot_group_count = changeset |> Changeset.get_field(:count)
     shot_diff_to_add = new_shot_group_count - count
 
-    if shot_diff_to_add > ammo_group_count do
-      error =
-        dgettext("errors", "Count can be at most %{count} shots", count: ammo_group_count + count)
+    if shot_diff_to_add > pack_count do
+      error = dgettext("errors", "Count can be at most %{count} shots", count: pack_count + count)
 
       changeset |> Changeset.add_error(:count, error)
     else

@@ -4,33 +4,33 @@ defmodule CanneryWeb.RangeLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.AmmoGroup}
+  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.Pack}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
   @impl true
-  def mount(socket), do: {:ok, socket |> assign(:ammo_group, nil)}
+  def mount(socket), do: {:ok, socket |> assign(:pack, nil)}
 
   @impl true
   @spec update(
           %{
             required(:shot_group) => ShotGroup.t(),
             required(:current_user) => User.t(),
-            optional(:ammo_group) => AmmoGroup.t(),
+            optional(:pack) => Pack.t(),
             optional(any()) => any()
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(
         %{
-          shot_group: %ShotGroup{ammo_group_id: ammo_group_id},
+          shot_group: %ShotGroup{pack_id: pack_id},
           current_user: current_user
         } = assigns,
         socket
       )
-      when is_binary(ammo_group_id) do
-    ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
-    {:ok, socket |> assign(assigns) |> assign(:ammo_group, ammo_group) |> assign_changeset(%{})}
+      when is_binary(pack_id) do
+    pack = Ammo.get_pack!(pack_id, current_user)
+    {:ok, socket |> assign(assigns) |> assign(:pack, pack) |> assign_changeset(%{})}
   end
 
   def update(%{shot_group: %ShotGroup{}} = assigns, socket) do
@@ -66,7 +66,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
            assigns: %{
              action: live_action,
              current_user: user,
-             ammo_group: ammo_group,
+             pack: pack,
              shot_group: shot_group
            }
          } = socket,
@@ -81,7 +81,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
 
     changeset =
       case default_action do
-        :insert -> shot_group |> ShotGroup.create_changeset(user, ammo_group, shot_group_params)
+        :insert -> shot_group |> ShotGroup.create_changeset(user, pack, shot_group_params)
         :update -> shot_group |> ShotGroup.update_changeset(user, shot_group_params)
       end
 

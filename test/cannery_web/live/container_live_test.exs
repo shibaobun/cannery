@@ -30,7 +30,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     name: "some name",
     grains: 120
   }
-  @ammo_group_attrs %{
+  @pack_attrs %{
     notes: "some ammo group",
     count: 20
   }
@@ -40,11 +40,11 @@ defmodule CanneryWeb.ContainerLiveTest do
     [container: container]
   end
 
-  defp create_ammo_group(%{container: container, current_user: current_user}) do
+  defp create_pack(%{container: container, current_user: current_user}) do
     ammo_type = ammo_type_fixture(@ammo_type_attrs, current_user)
-    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
+    {1, [pack]} = pack_fixture(@pack_attrs, ammo_type, container, current_user)
 
-    [ammo_type: ammo_type, ammo_group: ammo_group]
+    [ammo_type: ammo_type, pack: pack]
   end
 
   describe "Index" do
@@ -246,60 +246,60 @@ defmodule CanneryWeb.ContainerLiveTest do
     test "can sort by type",
          %{conn: conn, container: container, current_user: current_user} do
       rifle_type = ammo_type_fixture(%{class: :rifle}, current_user)
-      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_type, container, current_user)
+      {1, [rifle_pack]} = pack_fixture(rifle_type, container, current_user)
       shotgun_type = ammo_type_fixture(%{class: :shotgun}, current_user)
-      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_type, container, current_user)
+      {1, [shotgun_pack]} = pack_fixture(shotgun_type, container, current_user)
       pistol_type = ammo_type_fixture(%{class: :pistol}, current_user)
-      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_type, container, current_user)
+      {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
       {:ok, index_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert html =~ "All"
 
-      assert html =~ rifle_ammo_group.ammo_type.name
-      assert html =~ shotgun_ammo_group.ammo_type.name
-      assert html =~ pistol_ammo_group.ammo_type.name
+      assert html =~ rifle_pack.ammo_type.name
+      assert html =~ shotgun_pack.ammo_type.name
+      assert html =~ pistol_pack.ammo_type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
         |> render_change(ammo_type: %{class: :rifle})
 
-      assert html =~ rifle_ammo_group.ammo_type.name
-      refute html =~ shotgun_ammo_group.ammo_type.name
-      refute html =~ pistol_ammo_group.ammo_type.name
+      assert html =~ rifle_pack.ammo_type.name
+      refute html =~ shotgun_pack.ammo_type.name
+      refute html =~ pistol_pack.ammo_type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
         |> render_change(ammo_type: %{class: :shotgun})
 
-      refute html =~ rifle_ammo_group.ammo_type.name
-      assert html =~ shotgun_ammo_group.ammo_type.name
-      refute html =~ pistol_ammo_group.ammo_type.name
+      refute html =~ rifle_pack.ammo_type.name
+      assert html =~ shotgun_pack.ammo_type.name
+      refute html =~ pistol_pack.ammo_type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
         |> render_change(ammo_type: %{class: :pistol})
 
-      refute html =~ rifle_ammo_group.ammo_type.name
-      refute html =~ shotgun_ammo_group.ammo_type.name
-      assert html =~ pistol_ammo_group.ammo_type.name
+      refute html =~ rifle_pack.ammo_type.name
+      refute html =~ shotgun_pack.ammo_type.name
+      assert html =~ pistol_pack.ammo_type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
         |> render_change(ammo_type: %{class: :all})
 
-      assert html =~ rifle_ammo_group.ammo_type.name
-      assert html =~ shotgun_ammo_group.ammo_type.name
-      assert html =~ pistol_ammo_group.ammo_type.name
+      assert html =~ rifle_pack.ammo_type.name
+      assert html =~ shotgun_pack.ammo_type.name
+      assert html =~ pistol_pack.ammo_type.name
     end
   end
 
   describe "Show with ammo group" do
-    setup [:register_and_log_in_user, :create_container, :create_ammo_group]
+    setup [:register_and_log_in_user, :create_container, :create_pack]
 
     test "displays ammo group",
          %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do

@@ -71,7 +71,7 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
       current_user: current_user,
       tag_actions: tag_actions,
       actions: actions,
-      pack_count: Ammo.get_ammo_groups_count_for_containers(containers, current_user),
+      pack_count: Ammo.get_packs_count_for_containers(containers, current_user),
       round_count: Ammo.get_round_count_for_containers(containers, current_user)
     }
 

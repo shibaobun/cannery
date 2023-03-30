@@ -1,4 +1,4 @@
-defmodule Cannery.Ammo.AmmoGroup do
+defmodule Cannery.Ammo.Pack do
   @moduledoc """
   A group of a certain ammunition type.
 
@@ -25,7 +25,7 @@ defmodule Cannery.Ammo.AmmoGroup do
            ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "ammo_groups" do
+  schema "packs" do
     field :count, :integer
     field :notes, :string
     field :price_paid, :float
@@ -53,27 +53,27 @@ defmodule Cannery.Ammo.AmmoGroup do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_ammo_group :: %__MODULE__{}
+  @type new_pack :: %__MODULE__{}
   @type id :: UUID.t()
-  @type changeset :: Changeset.t(t() | new_ammo_group())
+  @type changeset :: Changeset.t(t() | new_pack())
 
   @doc false
   @spec create_changeset(
-          new_ammo_group(),
+          new_pack(),
           AmmoType.t() | nil,
           Container.t() | nil,
           User.t(),
           attrs :: map()
         ) :: changeset()
   def create_changeset(
-        ammo_group,
+        pack,
         %AmmoType{id: ammo_type_id},
         %Container{id: container_id, user_id: user_id},
         %User{id: user_id},
         attrs
       )
       when is_binary(ammo_type_id) and is_binary(container_id) and is_binary(user_id) do
-    ammo_group
+    pack
     |> change(ammo_type_id: ammo_type_id)
     |> change(user_id: user_id)
     |> change(container_id: container_id)
@@ -85,17 +85,17 @@ defmodule Cannery.Ammo.AmmoGroup do
   @doc """
   Invalid changeset, used to prompt user to select ammo type and container
   """
-  def create_changeset(ammo_group, _invalid_ammo_type, _invalid_container, _invalid_user, attrs) do
-    ammo_group
+  def create_changeset(pack, _invalid_ammo_type, _invalid_container, _invalid_user, attrs) do
+    pack
     |> cast(attrs, [:ammo_type_id, :container_id])
     |> validate_required([:ammo_type_id, :container_id])
     |> add_error(:invalid, dgettext("errors", "Please select an ammo type and container"))
   end
 
   @doc false
-  @spec update_changeset(t() | new_ammo_group(), attrs :: map(), User.t()) :: changeset()
-  def update_changeset(ammo_group, attrs, user) do
-    ammo_group
+  @spec update_changeset(t() | new_pack(), attrs :: map(), User.t()) :: changeset()
+  def update_changeset(pack, attrs, user) do
+    pack
     |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on, :container_id])
     |> validate_number(:count, greater_than_or_equal_to: 0)
     |> validate_container_id(user)
@@ -116,9 +116,9 @@ defmodule Cannery.Ammo.AmmoGroup do
   This range changeset is used when "using up" ammo groups, and allows for
   updating the count to 0
   """
-  @spec range_changeset(t() | new_ammo_group(), attrs :: map()) :: changeset()
-  def range_changeset(ammo_group, attrs) do
-    ammo_group
+  @spec range_changeset(t() | new_pack(), attrs :: map()) :: changeset()
+  def range_changeset(pack, attrs) do
+    pack
     |> cast(attrs, [:count, :staged])
     |> validate_required([:count, :staged])
   end

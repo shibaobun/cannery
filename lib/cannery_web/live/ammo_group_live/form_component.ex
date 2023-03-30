@@ -1,22 +1,22 @@
-defmodule CanneryWeb.AmmoGroupLive.FormComponent do
+defmodule CanneryWeb.PackLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update or create an Cannery.Ammo.AmmoGroup
+  Livecomponent that can update or create an Cannery.Ammo.Pack
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.Ammo.{Pack, AmmoType}
   alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
-  @ammo_group_create_limit 10_000
+  @pack_create_limit 10_000
 
   @impl true
   @spec update(
-          %{:ammo_group => AmmoGroup.t(), :current_user => User.t(), optional(any) => any},
+          %{:pack => Pack.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{ammo_group: _ammo_group} = assigns, socket) do
+  def update(%{pack: _pack} = assigns, socket) do
     socket |> assign(assigns) |> update()
   end
 
@@ -25,7 +25,7 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     %{assigns: %{ammo_types: ammo_types, containers: containers}} =
       socket =
       socket
-      |> assign(:ammo_group_create_limit, @ammo_group_create_limit)
+      |> assign(:pack_create_limit, @pack_create_limit)
       |> assign(:ammo_types, Ammo.list_ammo_types(current_user, :all))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
@@ -43,16 +43,16 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   end
 
   @impl true
-  def handle_event("validate", %{"ammo_group" => ammo_group_params}, socket) do
-    {:noreply, socket |> assign_changeset(ammo_group_params, :validate)}
+  def handle_event("validate", %{"pack" => pack_params}, socket) do
+    {:noreply, socket |> assign_changeset(pack_params, :validate)}
   end
 
   def handle_event(
         "save",
-        %{"ammo_group" => ammo_group_params},
+        %{"pack" => pack_params},
         %{assigns: %{action: action}} = socket
       ) do
-    save_ammo_group(socket, action, ammo_group_params)
+    save_pack(socket, action, pack_params)
   end
 
   # HTML Helpers
@@ -70,8 +70,8 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
   # Save Helpers
 
   defp assign_changeset(
-         %{assigns: %{action: action, ammo_group: ammo_group, current_user: user}} = socket,
-         ammo_group_params,
+         %{assigns: %{action: action, pack: pack, current_user: user}} = socket,
+         pack_params,
          changeset_action \\ nil
        ) do
     default_action =
@@ -83,12 +83,12 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     changeset =
       case default_action do
         :insert ->
-          ammo_type = maybe_get_ammo_type(ammo_group_params, user)
-          container = maybe_get_container(ammo_group_params, user)
-          ammo_group |> AmmoGroup.create_changeset(ammo_type, container, user, ammo_group_params)
+          ammo_type = maybe_get_ammo_type(pack_params, user)
+          container = maybe_get_container(pack_params, user)
+          pack |> Pack.create_changeset(ammo_type, container, user, pack_params)
 
         :update ->
-          ammo_group |> AmmoGroup.update_changeset(ammo_group_params, user)
+          pack |> Pack.update_changeset(pack_params, user)
       end
 
     changeset =
@@ -114,15 +114,14 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   defp maybe_get_ammo_type(_params_not_found, _user), do: nil
 
-  defp save_ammo_group(
-         %{assigns: %{ammo_group: ammo_group, current_user: current_user, return_to: return_to}} =
-           socket,
+  defp save_pack(
+         %{assigns: %{pack: pack, current_user: current_user, return_to: return_to}} = socket,
          :edit,
-         ammo_group_params
+         pack_params
        ) do
     socket =
-      case Ammo.update_ammo_group(ammo_group, ammo_group_params, current_user) do
-        {:ok, _ammo_group} ->
+      case Ammo.update_pack(pack, pack_params, current_user) do
+        {:ok, _pack} ->
           prompt = dgettext("prompts", "Ammo updated successfully")
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
@@ -133,24 +132,24 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
     {:noreply, socket}
   end
 
-  defp save_ammo_group(
+  defp save_pack(
          %{assigns: %{changeset: changeset}} = socket,
          action,
-         %{"multiplier" => multiplier_str} = ammo_group_params
+         %{"multiplier" => multiplier_str} = pack_params
        )
        when action in [:new, :clone] do
     socket =
       case multiplier_str |> Integer.parse() do
         {multiplier, _remainder}
-        when multiplier >= 1 and multiplier <= @ammo_group_create_limit ->
-          socket |> create_multiple(ammo_group_params, multiplier)
+        when multiplier >= 1 and multiplier <= @pack_create_limit ->
+          socket |> create_multiple(pack_params, multiplier)
 
         {multiplier, _remainder} ->
           error_msg =
             dgettext(
               "errors",
               "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}",
-              max: @ammo_group_create_limit,
+              max: @pack_create_limit,
               multiplier: multiplier
             )
 
@@ -176,11 +175,11 @@ defmodule CanneryWeb.AmmoGroupLive.FormComponent do
 
   defp create_multiple(
          %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
-         ammo_group_params,
+         pack_params,
          multiplier
        ) do
-    case Ammo.create_ammo_groups(ammo_group_params, multiplier, current_user) do
-      {:ok, {count, _ammo_groups}} ->
+    case Ammo.create_packs(pack_params, multiplier, current_user) do
+      {:ok, {count, _packs}} ->
         prompt =
           dngettext(
             "prompts",

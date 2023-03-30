@@ -45,12 +45,12 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
       %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
-    ammo_groups =
+    packs =
       shot_groups
-      |> Enum.map(fn %{ammo_group_id: ammo_group_id} -> ammo_group_id end)
-      |> Ammo.get_ammo_groups(current_user)
+      |> Enum.map(fn %{pack_id: pack_id} -> pack_id end)
+      |> Ammo.get_packs(current_user)
 
-    extra_data = %{current_user: current_user, actions: actions, ammo_groups: ammo_groups}
+    extra_data = %{current_user: current_user, actions: actions, packs: packs}
 
     rows =
       shot_groups
@@ -90,13 +90,13 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
     end)
   end
 
-  defp get_row_value(:name, %{ammo_group_id: ammo_group_id}, %{ammo_groups: ammo_groups}) do
-    assigns = %{ammo_group: ammo_group = Map.fetch!(ammo_groups, ammo_group_id)}
+  defp get_row_value(:name, %{pack_id: pack_id}, %{packs: packs}) do
+    assigns = %{pack: pack = Map.fetch!(packs, pack_id)}
 
-    {ammo_group.ammo_type.name,
+    {pack.ammo_type.name,
      ~H"""
-     <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="link">
-       <%= @ammo_group.ammo_type.name %>
+     <.link navigate={Routes.pack_show_path(Endpoint, :show, @pack)} class="link">
+       <%= @pack.ammo_type.name %>
      </.link>
      """}
   end

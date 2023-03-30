@@ -8,12 +8,12 @@ defmodule Cannery.Ammo do
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.Ammo.{Pack, AmmoType}
   alias Ecto.{Changeset, Queryable}
 
-  @ammo_group_create_limit 10_000
-  @ammo_group_preloads [:ammo_type]
-  @ammo_type_preloads [:ammo_groups]
+  @pack_create_limit 10_000
+  @pack_preloads [:ammo_type]
+  @ammo_type_preloads [:packs]
 
   @doc """
   Returns the list of ammo_types.
@@ -169,14 +169,14 @@ defmodule Cannery.Ammo do
     sg_total_query =
       from sg in ShotGroup,
         where: not (sg.count |> is_nil()),
-        group_by: sg.ammo_group_id,
-        select: %{ammo_group_id: sg.ammo_group_id, total: sum(sg.count)}
+        group_by: sg.pack_id,
+        select: %{pack_id: sg.pack_id, total: sum(sg.count)}
 
     Repo.all(
-      from ag in AmmoGroup,
-        as: :ammo_group,
+      from ag in Pack,
+        as: :pack,
         left_join: sg_query in subquery(sg_total_query),
-        on: ag.id == sg_query.ammo_group_id,
+        on: ag.id == sg_query.pack_id,
         where: ag.ammo_type_id in ^ammo_type_ids,
         group_by: ag.ammo_type_id,
         where: not (ag.price_paid |> is_nil()),
@@ -225,7 +225,7 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.ammo_type_id in ^ammo_type_ids,
         where: ag.user_id == ^user_id,
         group_by: ag.ammo_type_id,
@@ -376,150 +376,150 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the list of ammo_groups for a user and type.
+  Returns the list of packs for a user and type.
 
   ## Examples
 
-      iex> list_ammo_groups_for_type(
+      iex> list_packs_for_type(
       ...>   %AmmoType{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
-      [%AmmoGroup{}, ...]
+      [%Pack{}, ...]
 
-      iex> list_ammo_groups_for_type(
+      iex> list_packs_for_type(
       ...>   %AmmoType{id: 123, user_id: 456},
       ...>   %User{id: 456},
       ...>   true
       ...> )
-      [%AmmoGroup{}, %AmmoGroup{}, ...]
+      [%Pack{}, %Pack{}, ...]
 
   """
-  @spec list_ammo_groups_for_type(AmmoType.t(), User.t()) :: [AmmoGroup.t()]
-  @spec list_ammo_groups_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
-          [AmmoGroup.t()]
-  def list_ammo_groups_for_type(ammo_type, user, show_used \\ false)
+  @spec list_packs_for_type(AmmoType.t(), User.t()) :: [Pack.t()]
+  @spec list_packs_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
+          [Pack.t()]
+  def list_packs_for_type(ammo_type, user, show_used \\ false)
 
-  def list_ammo_groups_for_type(
+  def list_packs_for_type(
         %AmmoType{id: ammo_type_id, user_id: user_id},
         %User{id: user_id},
         show_used
       ) do
-    from(ag in AmmoGroup,
+    from(ag in Pack,
       as: :ag,
       where: ag.ammo_type_id == ^ammo_type_id,
       where: ag.user_id == ^user_id,
-      preload: ^@ammo_group_preloads
+      preload: ^@pack_preloads
     )
-    |> list_ammo_groups_for_type_show_used(show_used)
+    |> list_packs_for_type_show_used(show_used)
     |> Repo.all()
   end
 
-  @spec list_ammo_groups_for_type_show_used(Queryable.t(), show_used :: boolean()) ::
+  @spec list_packs_for_type_show_used(Queryable.t(), show_used :: boolean()) ::
           Queryable.t()
-  def list_ammo_groups_for_type_show_used(query, false),
+  def list_packs_for_type_show_used(query, false),
     do: query |> where([ag: ag], ag.count > 0)
 
-  def list_ammo_groups_for_type_show_used(query, _true), do: query
+  def list_packs_for_type_show_used(query, _true), do: query
 
   @doc """
-  Returns the list of ammo_groups for a user and container.
+  Returns the list of packs for a user and container.
 
   ## Examples
 
-      iex> list_ammo_groups_for_container(
+      iex> list_packs_for_container(
       ...>   %Container{id: 123, user_id: 456},
       ...>   :rifle,
       ...>   %User{id: 456}
       ...> )
-      [%AmmoGroup{}, ...]
+      [%Pack{}, ...]
 
-      iex> list_ammo_groups_for_container(
+      iex> list_packs_for_container(
       ...>   %Container{id: 123, user_id: 456},
       ...>   :all,
       ...>   %User{id: 456}
       ...> )
-      [%AmmoGroup{}, %AmmoGroup{}, ...]
+      [%Pack{}, %Pack{}, ...]
 
   """
-  @spec list_ammo_groups_for_container(
+  @spec list_packs_for_container(
           Container.t(),
           AmmoType.t() | :all,
           User.t()
-        ) :: [AmmoGroup.t()]
-  def list_ammo_groups_for_container(
+        ) :: [Pack.t()]
+  def list_packs_for_container(
         %Container{id: container_id, user_id: user_id},
         type,
         %User{id: user_id}
       ) do
-    from(ag in AmmoGroup,
+    from(ag in Pack,
       as: :ag,
       join: at in assoc(ag, :ammo_type),
       as: :at,
       where: ag.container_id == ^container_id,
       where: ag.user_id == ^user_id,
       where: ag.count > 0,
-      preload: ^@ammo_group_preloads
+      preload: ^@pack_preloads
     )
-    |> list_ammo_groups_for_container_filter_type(type)
+    |> list_packs_for_container_filter_type(type)
     |> Repo.all()
   end
 
-  @spec list_ammo_groups_for_container_filter_type(Queryable.t(), AmmoType.class() | :all) ::
+  @spec list_packs_for_container_filter_type(Queryable.t(), AmmoType.class() | :all) ::
           Queryable.t()
-  defp list_ammo_groups_for_container_filter_type(query, :rifle),
+  defp list_packs_for_container_filter_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
-  defp list_ammo_groups_for_container_filter_type(query, :pistol),
+  defp list_packs_for_container_filter_type(query, :pistol),
     do: query |> where([at: at], at.class == :pistol)
 
-  defp list_ammo_groups_for_container_filter_type(query, :shotgun),
+  defp list_packs_for_container_filter_type(query, :shotgun),
     do: query |> where([at: at], at.class == :shotgun)
 
-  defp list_ammo_groups_for_container_filter_type(query, _all), do: query
+  defp list_packs_for_container_filter_type(query, _all), do: query
 
   @doc """
-  Returns a count of ammo_groups.
+  Returns a count of packs.
 
   ## Examples
 
-      iex> get_ammo_groups_count!(%User{id: 123})
+      iex> get_packs_count!(%User{id: 123})
       3
 
-      iex> get_ammo_groups_count!(%User{id: 123}, true)
+      iex> get_packs_count!(%User{id: 123}, true)
       4
 
   """
-  @spec get_ammo_groups_count!(User.t()) :: integer()
-  @spec get_ammo_groups_count!(User.t(), show_used :: boolean()) :: integer()
-  def get_ammo_groups_count!(%User{id: user_id}, show_used \\ false) do
-    from(ag in AmmoGroup,
+  @spec get_packs_count!(User.t()) :: integer()
+  @spec get_packs_count!(User.t(), show_used :: boolean()) :: integer()
+  def get_packs_count!(%User{id: user_id}, show_used \\ false) do
+    from(ag in Pack,
       as: :ag,
       where: ag.user_id == ^user_id,
       select: count(ag.id),
       distinct: true
     )
-    |> get_ammo_groups_count_show_used(show_used)
+    |> get_packs_count_show_used(show_used)
     |> Repo.one() || 0
   end
 
-  @spec get_ammo_groups_count_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
-  defp get_ammo_groups_count_show_used(query, false),
+  @spec get_packs_count_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
+  defp get_packs_count_show_used(query, false),
     do: query |> where([ag: ag], ag.count > 0)
 
-  defp get_ammo_groups_count_show_used(query, _true), do: query
+  defp get_packs_count_show_used(query, _true), do: query
 
   @doc """
-  Returns the count of ammo_groups for an ammo type.
+  Returns the count of packs for an ammo type.
 
   ## Examples
 
-      iex> get_ammo_groups_count_for_type(
+      iex> get_packs_count_for_type(
       ...>   %AmmoType{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       3
 
-      iex> get_ammo_groups_count_for_type(
+      iex> get_packs_count_for_type(
       ...>   %AmmoType{id: 123, user_id: 456},
       ...>   %User{id: 456},
       ...>   true
@@ -527,31 +527,31 @@ defmodule Cannery.Ammo do
       5
 
   """
-  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  @spec get_ammo_groups_count_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
+  @spec get_packs_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  @spec get_packs_count_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
           non_neg_integer()
-  def get_ammo_groups_count_for_type(
+  def get_packs_count_for_type(
         %AmmoType{id: ammo_type_id} = ammo_type,
         user,
         show_used \\ false
       ) do
     [ammo_type]
-    |> get_ammo_groups_count_for_types(user, show_used)
+    |> get_packs_count_for_types(user, show_used)
     |> Map.get(ammo_type_id, 0)
   end
 
   @doc """
-  Returns the count of ammo_groups for multiple ammo types.
+  Returns the count of packs for multiple ammo types.
 
   ## Examples
 
-      iex> get_ammo_groups_count_for_types(
+      iex> get_packs_count_for_types(
       ...>   [%AmmoType{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       3
 
-      iex> get_ammo_groups_count_for_types(
+      iex> get_packs_count_for_types(
       ...>   [%AmmoType{id: 123, user_id: 456}],
       ...>   %User{id: 456},
       ...>   true
@@ -559,75 +559,75 @@ defmodule Cannery.Ammo do
       5
 
   """
-  @spec get_ammo_groups_count_for_types([AmmoType.t()], User.t()) ::
+  @spec get_packs_count_for_types([AmmoType.t()], User.t()) ::
           %{optional(AmmoType.id()) => non_neg_integer()}
-  @spec get_ammo_groups_count_for_types([AmmoType.t()], User.t(), show_used :: boolean()) ::
+  @spec get_packs_count_for_types([AmmoType.t()], User.t(), show_used :: boolean()) ::
           %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_ammo_groups_count_for_types(ammo_types, %User{id: user_id}, show_used \\ false) do
+  def get_packs_count_for_types(ammo_types, %User{id: user_id}, show_used \\ false) do
     ammo_type_ids =
       ammo_types
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
-    from(ag in AmmoGroup,
+    from(ag in Pack,
       as: :ag,
       where: ag.user_id == ^user_id,
       where: ag.ammo_type_id in ^ammo_type_ids,
       group_by: ag.ammo_type_id,
       select: {ag.ammo_type_id, count(ag.id)}
     )
-    |> get_ammo_groups_count_for_types_maybe_show_used(show_used)
+    |> get_packs_count_for_types_maybe_show_used(show_used)
     |> Repo.all()
     |> Map.new()
   end
 
-  @spec get_ammo_groups_count_for_types_maybe_show_used(Queryable.t(), show_used :: boolean()) ::
+  @spec get_packs_count_for_types_maybe_show_used(Queryable.t(), show_used :: boolean()) ::
           Queryable.t()
-  defp get_ammo_groups_count_for_types_maybe_show_used(query, true), do: query
+  defp get_packs_count_for_types_maybe_show_used(query, true), do: query
 
-  defp get_ammo_groups_count_for_types_maybe_show_used(query, _false) do
+  defp get_packs_count_for_types_maybe_show_used(query, _false) do
     query |> where([ag: ag], not (ag.count == 0))
   end
 
   @doc """
-  Returns the count of used ammo_groups for an ammo type.
+  Returns the count of used packs for an ammo type.
 
   ## Examples
 
-      iex> get_used_ammo_groups_count_for_type(
+      iex> get_used_packs_count_for_type(
       ...>   %AmmoType{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       3
 
   """
-  @spec get_used_ammo_groups_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  def get_used_ammo_groups_count_for_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
+  @spec get_used_packs_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
+  def get_used_packs_count_for_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
     [ammo_type]
-    |> get_used_ammo_groups_count_for_types(user)
+    |> get_used_packs_count_for_types(user)
     |> Map.get(ammo_type_id, 0)
   end
 
   @doc """
-  Returns the count of used ammo_groups for multiple ammo types.
+  Returns the count of used packs for multiple ammo types.
 
   ## Examples
 
-      iex> get_used_ammo_groups_count_for_types(
+      iex> get_used_packs_count_for_types(
       ...>   [%AmmoType{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 3}
 
   """
-  @spec get_used_ammo_groups_count_for_types([AmmoType.t()], User.t()) ::
+  @spec get_used_packs_count_for_types([AmmoType.t()], User.t()) ::
           %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_used_ammo_groups_count_for_types(ammo_types, %User{id: user_id}) do
+  def get_used_packs_count_for_types(ammo_types, %User{id: user_id}) do
     ammo_type_ids =
       ammo_types
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.user_id == ^user_id,
         where: ag.ammo_type_id in ^ammo_type_ids,
         where: ag.count == 0,
@@ -642,20 +642,20 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_ammo_groups_count_for_container(
+      iex> get_packs_count_for_container(
       ...>   %Container{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       3
 
   """
-  @spec get_ammo_groups_count_for_container!(Container.t(), User.t()) :: non_neg_integer()
-  def get_ammo_groups_count_for_container!(
+  @spec get_packs_count_for_container!(Container.t(), User.t()) :: non_neg_integer()
+  def get_packs_count_for_container!(
         %Container{id: container_id} = container,
         %User{} = user
       ) do
     [container]
-    |> get_ammo_groups_count_for_containers(user)
+    |> get_packs_count_for_containers(user)
     |> Map.get(container_id, 0)
   end
 
@@ -664,23 +664,23 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_ammo_groups_count_for_containers(
+      iex> get_packs_count_for_containers(
       ...>   [%Container{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 3}
 
   """
-  @spec get_ammo_groups_count_for_containers([Container.t()], User.t()) :: %{
+  @spec get_packs_count_for_containers([Container.t()], User.t()) :: %{
           Container.id() => non_neg_integer()
         }
-  def get_ammo_groups_count_for_containers(containers, %User{id: user_id}) do
+  def get_packs_count_for_containers(containers, %User{id: user_id}) do
     container_ids =
       containers
       |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
 
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.container_id in ^container_ids,
         where: ag.count > 0,
         group_by: ag.container_id,
@@ -728,7 +728,7 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
 
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.container_id in ^container_ids,
         group_by: ag.container_id,
         select: {ag.container_id, sum(ag.count)}
@@ -737,27 +737,27 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the list of ammo_groups.
+  Returns the list of packs.
 
   ## Examples
 
-      iex> list_ammo_groups(%User{id: 123})
-      [%AmmoGroup{}, ...]
+      iex> list_packs(%User{id: 123})
+      [%Pack{}, ...]
 
-      iex> list_ammo_groups("cool", %User{id: 123}, true)
-      [%AmmoGroup{notes: "My cool ammo group"}, ...]
+      iex> list_packs("cool", %User{id: 123}, true)
+      [%Pack{notes: "My cool ammo group"}, ...]
 
   """
-  @spec list_ammo_groups(search :: String.t() | nil, AmmoType.class() | :all, User.t()) ::
-          [AmmoGroup.t()]
-  @spec list_ammo_groups(
+  @spec list_packs(search :: String.t() | nil, AmmoType.class() | :all, User.t()) ::
+          [Pack.t()]
+  @spec list_packs(
           search :: nil | String.t(),
           AmmoType.class() | :all,
           User.t(),
           show_used :: boolean()
-        ) :: [AmmoGroup.t()]
-  def list_ammo_groups(search, type, %{id: user_id}, show_used \\ false) do
-    from(ag in AmmoGroup,
+        ) :: [Pack.t()]
+  def list_packs(search, type, %{id: user_id}, show_used \\ false) do
+    from(ag in Pack,
       as: :ag,
       join: at in assoc(ag, :ammo_type),
       as: :at,
@@ -773,38 +773,38 @@ defmodule Cannery.Ammo do
       as: :t,
       where: ag.user_id == ^user_id,
       distinct: ag.id,
-      preload: ^@ammo_group_preloads
+      preload: ^@pack_preloads
     )
-    |> list_ammo_groups_filter_on_type(type)
-    |> list_ammo_groups_show_used(show_used)
-    |> list_ammo_groups_search(search)
+    |> list_packs_filter_on_type(type)
+    |> list_packs_show_used(show_used)
+    |> list_packs_search(search)
     |> Repo.all()
   end
 
-  @spec list_ammo_groups_filter_on_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
-  defp list_ammo_groups_filter_on_type(query, :rifle),
+  @spec list_packs_filter_on_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
+  defp list_packs_filter_on_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
-  defp list_ammo_groups_filter_on_type(query, :pistol),
+  defp list_packs_filter_on_type(query, :pistol),
     do: query |> where([at: at], at.class == :pistol)
 
-  defp list_ammo_groups_filter_on_type(query, :shotgun),
+  defp list_packs_filter_on_type(query, :shotgun),
     do: query |> where([at: at], at.class == :shotgun)
 
-  defp list_ammo_groups_filter_on_type(query, _all), do: query
+  defp list_packs_filter_on_type(query, _all), do: query
 
-  @spec list_ammo_groups_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
-  defp list_ammo_groups_show_used(query, true), do: query
+  @spec list_packs_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
+  defp list_packs_show_used(query, true), do: query
 
-  defp list_ammo_groups_show_used(query, _false) do
+  defp list_packs_show_used(query, _false) do
     query |> where([ag: ag], not (ag.count == 0))
   end
 
-  @spec list_ammo_groups_show_used(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
-  defp list_ammo_groups_search(query, nil), do: query
-  defp list_ammo_groups_search(query, ""), do: query
+  @spec list_packs_show_used(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_packs_search(query, nil), do: query
+  defp list_packs_search(query, ""), do: query
 
-  defp list_ammo_groups_search(query, search) do
+  defp list_packs_search(query, search) do
     trimmed_search = String.trim(search)
 
     query
@@ -843,60 +843,60 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the list of staged ammo_groups for a user.
+  Returns the list of staged packs for a user.
 
   ## Examples
 
-      iex> list_staged_ammo_groups(%User{id: 123})
-      [%AmmoGroup{}, ...]
+      iex> list_staged_packs(%User{id: 123})
+      [%Pack{}, ...]
 
   """
-  @spec list_staged_ammo_groups(User.t()) :: [AmmoGroup.t()]
-  def list_staged_ammo_groups(%User{id: user_id}) do
+  @spec list_staged_packs(User.t()) :: [Pack.t()]
+  def list_staged_packs(%User{id: user_id}) do
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.user_id == ^user_id,
         where: ag.staged == true,
-        preload: ^@ammo_group_preloads
+        preload: ^@pack_preloads
     )
   end
 
   @doc """
-  Gets a single ammo_group.
+  Gets a single pack.
 
   Raises `KeyError` if the Ammo group does not exist.
 
   ## Examples
 
-      iex> get_ammo_group!(123, %User{id: 123})
-      %AmmoGroup{}
+      iex> get_pack!(123, %User{id: 123})
+      %Pack{}
 
-      iex> get_ammo_group!(456, %User{id: 123})
+      iex> get_pack!(456, %User{id: 123})
       ** (KeyError)
 
   """
-  @spec get_ammo_group!(AmmoGroup.id(), User.t()) :: AmmoGroup.t()
-  def get_ammo_group!(id, user) do
-    [id] |> get_ammo_groups(user) |> Map.fetch!(id)
+  @spec get_pack!(Pack.id(), User.t()) :: Pack.t()
+  def get_pack!(id, user) do
+    [id] |> get_packs(user) |> Map.fetch!(id)
   end
 
   @doc """
-  Gets a group of ammo_groups by their ID.
+  Gets a group of packs by their ID.
 
   ## Examples
 
-      iex> get_ammo_groups([123, 456], %User{id: 123})
-      %{123 => %AmmoGroup{}, 456 => %AmmoGroup{}}
+      iex> get_packs([123, 456], %User{id: 123})
+      %{123 => %Pack{}, 456 => %Pack{}}
 
   """
-  @spec get_ammo_groups([AmmoGroup.id()], User.t()) ::
-          %{optional(AmmoGroup.id()) => AmmoGroup.t()}
-  def get_ammo_groups(ids, %User{id: user_id}) do
+  @spec get_packs([Pack.id()], User.t()) ::
+          %{optional(Pack.id()) => Pack.t()}
+  def get_packs(ids, %User{id: user_id}) do
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         where: ag.id in ^ids,
         where: ag.user_id == ^user_id,
-        preload: ^@ammo_group_preloads,
+        preload: ^@pack_preloads,
         select: {ag.id, ag}
     )
     |> Map.new()
@@ -908,17 +908,17 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_percentage_remaining(
-      ...>   %AmmoGroup{id: 123, count: 5, user_id: 456},
+      ...>   %Pack{id: 123, count: 5, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       100
 
   """
-  @spec get_percentage_remaining(AmmoGroup.t(), User.t()) :: non_neg_integer()
-  def get_percentage_remaining(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
-    [ammo_group]
+  @spec get_percentage_remaining(Pack.t(), User.t()) :: non_neg_integer()
+  def get_percentage_remaining(%Pack{id: pack_id} = pack, user) do
+    [pack]
     |> get_percentages_remaining(user)
-    |> Map.fetch!(ammo_group_id)
+    |> Map.fetch!(pack_id)
   end
 
   @doc """
@@ -927,26 +927,26 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_percentages_remaining(
-      ...>   [%AmmoGroup{id: 123, count: 5, user_id: 456}],
+      ...>   [%Pack{id: 123, count: 5, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 100}
 
   """
-  @spec get_percentages_remaining([AmmoGroup.t()], User.t()) ::
-          %{optional(AmmoGroup.id()) => non_neg_integer()}
-  def get_percentages_remaining(ammo_groups, %User{id: user_id} = user) do
-    original_counts = get_original_counts(ammo_groups, user)
+  @spec get_percentages_remaining([Pack.t()], User.t()) ::
+          %{optional(Pack.id()) => non_neg_integer()}
+  def get_percentages_remaining(packs, %User{id: user_id} = user) do
+    original_counts = get_original_counts(packs, user)
 
-    ammo_groups
-    |> Map.new(fn %AmmoGroup{id: ammo_group_id, count: count, user_id: ^user_id} ->
+    packs
+    |> Map.new(fn %Pack{id: pack_id, count: count, user_id: ^user_id} ->
       percentage =
         case count do
           0 -> 0
-          count -> round(count / Map.fetch!(original_counts, ammo_group_id) * 100)
+          count -> round(count / Map.fetch!(original_counts, pack_id) * 100)
         end
 
-      {ammo_group_id, percentage}
+      {pack_id, percentage}
     end)
   end
 
@@ -956,17 +956,17 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_original_count(
-      ...>   %AmmoGroup{id: 123, count: 5, user_id: 456},
+      ...>   %Pack{id: 123, count: 5, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       5
 
   """
-  @spec get_original_count(AmmoGroup.t(), User.t()) :: non_neg_integer()
-  def get_original_count(%AmmoGroup{id: ammo_group_id} = ammo_group, current_user) do
-    [ammo_group]
+  @spec get_original_count(Pack.t(), User.t()) :: non_neg_integer()
+  def get_original_count(%Pack{id: pack_id} = pack, current_user) do
+    [pack]
     |> get_original_counts(current_user)
-    |> Map.fetch!(ammo_group_id)
+    |> Map.fetch!(pack_id)
   end
 
   @doc """
@@ -975,20 +975,20 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_original_counts(
-      ...>   [%AmmoGroup{id: 123, count: 5, user_id: 456}],
+      ...>   [%Pack{id: 123, count: 5, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 5}
 
   """
-  @spec get_original_counts([AmmoGroup.t()], User.t()) ::
-          %{optional(AmmoGroup.id()) => non_neg_integer()}
-  def get_original_counts(ammo_groups, %User{id: user_id} = current_user) do
-    used_counts = ActivityLog.get_used_counts(ammo_groups, current_user)
+  @spec get_original_counts([Pack.t()], User.t()) ::
+          %{optional(Pack.id()) => non_neg_integer()}
+  def get_original_counts(packs, %User{id: user_id} = current_user) do
+    used_counts = ActivityLog.get_used_counts(packs, current_user)
 
-    ammo_groups
-    |> Map.new(fn %AmmoGroup{id: ammo_group_id, count: count, user_id: ^user_id} ->
-      {ammo_group_id, count + Map.get(used_counts, ammo_group_id, 0)}
+    packs
+    |> Map.new(fn %Pack{id: pack_id, count: count, user_id: ^user_id} ->
+      {pack_id, count + Map.get(used_counts, pack_id, 0)}
     end)
   end
 
@@ -998,17 +998,17 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_cpr(
-      ...>   %AmmoGroup{id: 123, price_paid: 5, count: 5, user_id: 456},
+      ...>   %Pack{id: 123, price_paid: 5, count: 5, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       1
 
   """
-  @spec get_cpr(AmmoGroup.t(), User.t()) :: float() | nil
-  def get_cpr(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
-    [ammo_group]
+  @spec get_cpr(Pack.t(), User.t()) :: float() | nil
+  def get_cpr(%Pack{id: pack_id} = pack, user) do
+    [pack]
     |> get_cprs(user)
-    |> Map.get(ammo_group_id)
+    |> Map.get(pack_id)
   end
 
   @doc """
@@ -1017,22 +1017,22 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> get_cprs(
-      ...>   [%AmmoGroup{id: 123, price_paid: 5, count: 5, user_id: 456}],
+      ...>   [%Pack{id: 123, price_paid: 5, count: 5, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 1}
 
   """
-  @spec get_cprs([AmmoGroup.t()], User.t()) :: %{optional(AmmoGroup.id()) => float()}
-  def get_cprs(ammo_groups, %User{id: user_id} = current_user) do
-    original_counts = get_original_counts(ammo_groups, current_user)
+  @spec get_cprs([Pack.t()], User.t()) :: %{optional(Pack.id()) => float()}
+  def get_cprs(packs, %User{id: user_id} = current_user) do
+    original_counts = get_original_counts(packs, current_user)
 
-    ammo_groups
-    |> Enum.reject(fn %AmmoGroup{price_paid: price_paid, user_id: ^user_id} ->
+    packs
+    |> Enum.reject(fn %Pack{price_paid: price_paid, user_id: ^user_id} ->
       price_paid |> is_nil()
     end)
-    |> Map.new(fn %{id: ammo_group_id, price_paid: price_paid} ->
-      {ammo_group_id, calculate_cpr(price_paid, Map.fetch!(original_counts, ammo_group_id))}
+    |> Map.new(fn %{id: pack_id, price_paid: price_paid} ->
+      {pack_id, calculate_cpr(price_paid, Map.fetch!(original_counts, pack_id))}
     end)
   end
 
@@ -1042,41 +1042,41 @@ defmodule Cannery.Ammo do
   defp calculate_cpr(price_paid, total_count), do: price_paid / total_count
 
   @doc """
-  Creates multiple ammo_groups at once.
+  Creates multiple packs at once.
 
   ## Examples
 
-      iex> create_ammo_groups(%{field: value}, 3, %User{id: 123})
-      {:ok, {3, [%AmmoGroup{}]}}
+      iex> create_packs(%{field: value}, 3, %User{id: 123})
+      {:ok, {3, [%Pack{}]}}
 
-      iex> create_ammo_groups(%{field: bad_value}, 3, %User{id: 123})
+      iex> create_packs(%{field: bad_value}, 3, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec create_ammo_groups(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
-          {:ok, {count :: non_neg_integer(), [AmmoGroup.t()] | nil}}
-          | {:error, AmmoGroup.changeset()}
-  def create_ammo_groups(attrs, multiplier, %User{} = user) do
+  @spec create_packs(attrs :: map(), multiplier :: non_neg_integer(), User.t()) ::
+          {:ok, {count :: non_neg_integer(), [Pack.t()] | nil}}
+          | {:error, Pack.changeset()}
+  def create_packs(attrs, multiplier, %User{} = user) do
     attrs
     |> Map.new(fn {k, v} -> {to_string(k), v} end)
-    |> do_create_ammo_groups(multiplier, user)
+    |> do_create_packs(multiplier, user)
   end
 
-  defp do_create_ammo_groups(
+  defp do_create_packs(
          %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
          multiplier,
          user
        )
        when multiplier >= 1 and
-              multiplier <= @ammo_group_create_limit and
+              multiplier <= @pack_create_limit and
               ammo_type_id |> is_binary() and
               container_id |> is_binary() do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
     changesets =
       Enum.map(1..multiplier, fn _count ->
-        %AmmoGroup{}
-        |> AmmoGroup.create_changeset(
+        %Pack{}
+        |> Pack.create_changeset(
           get_ammo_type!(ammo_type_id, user),
           Containers.get_container!(container_id, user),
           user,
@@ -1085,9 +1085,9 @@ defmodule Cannery.Ammo do
       end)
 
     if changesets |> Enum.all?(fn %{valid?: valid} -> valid end) do
-      {count, inserted_ammo_groups} =
+      {count, inserted_packs} =
         Repo.insert_all(
-          AmmoGroup,
+          Pack,
           changesets
           |> Enum.map(fn changeset ->
             changeset
@@ -1097,7 +1097,7 @@ defmodule Cannery.Ammo do
           returning: true
         )
 
-      {:ok, {count, inserted_ammo_groups |> preload_ammo_group()}}
+      {:ok, {count, inserted_packs |> preload_pack()}}
     else
       changesets
       |> Enum.reject(fn %{valid?: valid} -> valid end)
@@ -1106,15 +1106,15 @@ defmodule Cannery.Ammo do
     end
   end
 
-  defp do_create_ammo_groups(
+  defp do_create_packs(
          %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
          _multiplier,
          user
        )
        when is_binary(ammo_type_id) and is_binary(container_id) do
     changeset =
-      %AmmoGroup{}
-      |> AmmoGroup.create_changeset(
+      %Pack{}
+      |> Pack.create_changeset(
         get_ammo_type!(ammo_type_id, user),
         Containers.get_container!(container_id, user),
         user,
@@ -1125,79 +1125,79 @@ defmodule Cannery.Ammo do
     {:error, changeset}
   end
 
-  defp do_create_ammo_groups(invalid_attrs, _multiplier, user) do
-    {:error, %AmmoGroup{} |> AmmoGroup.create_changeset(nil, nil, user, invalid_attrs)}
+  defp do_create_packs(invalid_attrs, _multiplier, user) do
+    {:error, %Pack{} |> Pack.create_changeset(nil, nil, user, invalid_attrs)}
   end
 
-  @spec preload_ammo_group(AmmoGroup.t()) :: AmmoGroup.t()
-  @spec preload_ammo_group([AmmoGroup.t()]) :: [AmmoGroup.t()]
-  defp preload_ammo_group(ammo_group_or_ammo_groups) do
-    ammo_group_or_ammo_groups |> Repo.preload(@ammo_group_preloads)
+  @spec preload_pack(Pack.t()) :: Pack.t()
+  @spec preload_pack([Pack.t()]) :: [Pack.t()]
+  defp preload_pack(pack_or_packs) do
+    pack_or_packs |> Repo.preload(@pack_preloads)
   end
 
   @doc """
-  Updates a ammo_group.
+  Updates a pack.
 
   ## Examples
 
-      iex> update_ammo_group(ammo_group, %{field: new_value}, %User{id: 123})
-      {:ok, %AmmoGroup{}}
+      iex> update_pack(pack, %{field: new_value}, %User{id: 123})
+      {:ok, %Pack{}}
 
-      iex> update_ammo_group(ammo_group, %{field: bad_value}, %User{id: 123})
+      iex> update_pack(pack, %{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec update_ammo_group(AmmoGroup.t(), attrs :: map(), User.t()) ::
-          {:ok, AmmoGroup.t()} | {:error, AmmoGroup.changeset()}
-  def update_ammo_group(
-        %AmmoGroup{user_id: user_id} = ammo_group,
+  @spec update_pack(Pack.t(), attrs :: map(), User.t()) ::
+          {:ok, Pack.t()} | {:error, Pack.changeset()}
+  def update_pack(
+        %Pack{user_id: user_id} = pack,
         attrs,
         %User{id: user_id} = user
       ) do
-    ammo_group
-    |> AmmoGroup.update_changeset(attrs, user)
+    pack
+    |> Pack.update_changeset(attrs, user)
     |> Repo.update()
     |> case do
-      {:ok, ammo_group} -> {:ok, ammo_group |> preload_ammo_group()}
+      {:ok, pack} -> {:ok, pack |> preload_pack()}
       {:error, changeset} -> {:error, changeset}
     end
   end
 
   @doc """
-  Deletes a ammo_group.
+  Deletes a pack.
 
   ## Examples
 
-      iex> delete_ammo_group(ammo_group, %User{id: 123})
-      {:ok, %AmmoGroup{}}
+      iex> delete_pack(pack, %User{id: 123})
+      {:ok, %Pack{}}
 
-      iex> delete_ammo_group(ammo_group, %User{id: 123})
+      iex> delete_pack(pack, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec delete_ammo_group(AmmoGroup.t(), User.t()) ::
-          {:ok, AmmoGroup.t()} | {:error, AmmoGroup.changeset()}
-  def delete_ammo_group(%AmmoGroup{user_id: user_id} = ammo_group, %User{id: user_id}) do
-    ammo_group
+  @spec delete_pack(Pack.t(), User.t()) ::
+          {:ok, Pack.t()} | {:error, Pack.changeset()}
+  def delete_pack(%Pack{user_id: user_id} = pack, %User{id: user_id}) do
+    pack
     |> Repo.delete()
     |> case do
-      {:ok, ammo_group} -> {:ok, ammo_group |> preload_ammo_group()}
+      {:ok, pack} -> {:ok, pack |> preload_pack()}
       {:error, changeset} -> {:error, changeset}
     end
   end
 
   @doc """
-  Deletes a ammo_group.
+  Deletes a pack.
 
   ## Examples
 
-      iex> delete_ammo_group!(ammo_group, %User{id: 123})
-      %AmmoGroup{}
+      iex> delete_pack!(pack, %User{id: 123})
+      %Pack{}
 
   """
-  @spec delete_ammo_group!(AmmoGroup.t(), User.t()) :: AmmoGroup.t()
-  def delete_ammo_group!(ammo_group, user) do
-    {:ok, ammo_group} = delete_ammo_group(ammo_group, user)
-    ammo_group
+  @spec delete_pack!(Pack.t(), User.t()) :: Pack.t()
+  def delete_pack!(pack, user) do
+    {:ok, pack} = delete_pack(pack, user)
+    pack
   end
 end

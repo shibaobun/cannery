@@ -16,16 +16,16 @@ defmodule CanneryWeb.RangeLiveTest do
     container = container_fixture(%{staged: true}, current_user)
     ammo_type = ammo_type_fixture(current_user)
 
-    {1, [ammo_group]} = ammo_group_fixture(%{staged: true}, ammo_type, container, current_user)
+    {1, [pack]} = pack_fixture(%{staged: true}, ammo_type, container, current_user)
 
     shot_group =
       %{count: 5, date: ~N[2022-02-13 03:17:00], notes: "some notes"}
-      |> shot_group_fixture(current_user, ammo_group)
+      |> shot_group_fixture(current_user, pack)
 
     [
       container: container,
       ammo_type: ammo_type,
-      ammo_group: ammo_group,
+      pack: pack,
       shot_group: shot_group
     ]
   end
@@ -43,21 +43,19 @@ defmodule CanneryWeb.RangeLiveTest do
     test "can sort by type",
          %{conn: conn, container: container, current_user: current_user} do
       rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
-      {1, [rifle_ammo_group]} = ammo_group_fixture(rifle_ammo_type, container, current_user)
+      {1, [rifle_pack]} = pack_fixture(rifle_ammo_type, container, current_user)
 
-      rifle_shot_group = shot_group_fixture(%{notes: "group_one"}, current_user, rifle_ammo_group)
+      rifle_shot_group = shot_group_fixture(%{notes: "group_one"}, current_user, rifle_pack)
 
       shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
-      {1, [shotgun_ammo_group]} = ammo_group_fixture(shotgun_ammo_type, container, current_user)
+      {1, [shotgun_pack]} = pack_fixture(shotgun_ammo_type, container, current_user)
 
-      shotgun_shot_group =
-        shot_group_fixture(%{notes: "group_two"}, current_user, shotgun_ammo_group)
+      shotgun_shot_group = shot_group_fixture(%{notes: "group_two"}, current_user, shotgun_pack)
 
       pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
-      {1, [pistol_ammo_group]} = ammo_group_fixture(pistol_ammo_type, container, current_user)
+      {1, [pistol_pack]} = pack_fixture(pistol_ammo_type, container, current_user)
 
-      pistol_shot_group =
-        shot_group_fixture(%{notes: "group_three"}, current_user, pistol_ammo_group)
+      pistol_shot_group = shot_group_fixture(%{notes: "group_three"}, current_user, pistol_pack)
 
       {:ok, index_live, html} = live(conn, Routes.range_index_path(conn, :index))
 
@@ -128,11 +126,11 @@ defmodule CanneryWeb.RangeLiveTest do
       assert_patch(index_live, Routes.range_index_path(conn, :index))
     end
 
-    test "saves new shot_group", %{conn: conn, ammo_group: ammo_group} do
+    test "saves new shot_group", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.range_index_path(conn, :add_shot_group, ammo_group))
+      assert_patch(index_live, Routes.range_index_path(conn, :add_shot_group, pack))
 
       assert index_live
              |> form("#shot-group-form")

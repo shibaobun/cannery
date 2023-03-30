@@ -1,6 +1,6 @@
 defmodule CanneryWeb.RangeLive.Index do
   @moduledoc """
-  Main page for range day mode, where `AmmoGroup`s can be used up.
+  Main page for range day mode, where `Pack`s can be used up.
   """
 
   use CanneryWeb, :live_view
@@ -30,7 +30,7 @@ defmodule CanneryWeb.RangeLive.Index do
     socket
     |> assign(
       page_title: gettext("Record Shots"),
-      ammo_group: Ammo.get_ammo_group!(id, current_user)
+      pack: Ammo.get_pack!(id, current_user)
     )
   end
 
@@ -82,13 +82,12 @@ defmodule CanneryWeb.RangeLive.Index do
 
   def handle_event(
         "toggle_staged",
-        %{"ammo_group_id" => ammo_group_id},
+        %{"pack_id" => pack_id},
         %{assigns: %{current_user: current_user}} = socket
       ) do
-    ammo_group = Ammo.get_ammo_group!(ammo_group_id, current_user)
+    pack = Ammo.get_pack!(pack_id, current_user)
 
-    {:ok, _ammo_group} =
-      ammo_group |> Ammo.update_ammo_group(%{"staged" => !ammo_group.staged}, current_user)
+    {:ok, _pack} = pack |> Ammo.update_pack(%{"staged" => !pack.staged}, current_user)
 
     prompt = dgettext("prompts", "Ammo unstaged succesfully")
     {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
@@ -123,15 +122,15 @@ defmodule CanneryWeb.RangeLive.Index do
          %{assigns: %{class: class, search: search, current_user: current_user}} = socket
        ) do
     shot_groups = ActivityLog.list_shot_groups(search, class, current_user)
-    ammo_groups = Ammo.list_staged_ammo_groups(current_user)
+    packs = Ammo.list_staged_packs(current_user)
     chart_data = shot_groups |> get_chart_data_for_shot_group()
-    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
-    cprs = ammo_groups |> Ammo.get_cprs(current_user)
-    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
+    original_counts = packs |> Ammo.get_original_counts(current_user)
+    cprs = packs |> Ammo.get_cprs(current_user)
+    last_used_dates = packs |> ActivityLog.get_last_used_dates(current_user)
 
     socket
     |> assign(
-      ammo_groups: ammo_groups,
+      packs: packs,
       original_counts: original_counts,
       cprs: cprs,
       last_used_dates: last_used_dates,

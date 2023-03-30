@@ -1,11 +1,11 @@
-defmodule CanneryWeb.AmmoGroupLive.Show do
+defmodule CanneryWeb.PackLive.Show do
   @moduledoc """
-  Liveview for showing and editing an Cannery.Ammo.AmmoGroup
+  Liveview for showing and editing an Cannery.Ammo.Pack
   """
 
   use CanneryWeb, :live_view
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
-  alias Cannery.{Ammo, Ammo.AmmoGroup}
+  alias Cannery.{Ammo, Ammo.Pack}
   alias Cannery.{ComparableDate, Containers}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
@@ -24,7 +24,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     socket =
       socket
       |> assign(page_title: page_title(live_action), shot_group: shot_group)
-      |> display_ammo_group(id)
+      |> display_pack(id)
 
     {:noreply, socket}
   end
@@ -33,7 +33,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     socket =
       socket
       |> assign(page_title: page_title(live_action))
-      |> display_ammo_group(id)
+      |> display_pack(id)
 
     {:noreply, socket}
   end
@@ -48,12 +48,12 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   def handle_event(
         "delete",
         _params,
-        %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
+        %{assigns: %{pack: pack, current_user: current_user}} = socket
       ) do
-    ammo_group |> Ammo.delete_ammo_group!(current_user)
+    pack |> Ammo.delete_pack!(current_user)
 
     prompt = dgettext("prompts", "Ammo deleted succesfully")
-    redirect_to = Routes.ammo_group_index_path(socket, :index)
+    redirect_to = Routes.pack_index_path(socket, :index)
 
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
@@ -61,31 +61,30 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
   def handle_event(
         "toggle_staged",
         _params,
-        %{assigns: %{ammo_group: ammo_group, current_user: current_user}} = socket
+        %{assigns: %{pack: pack, current_user: current_user}} = socket
       ) do
-    {:ok, ammo_group} =
-      ammo_group |> Ammo.update_ammo_group(%{"staged" => !ammo_group.staged}, current_user)
+    {:ok, pack} = pack |> Ammo.update_pack(%{"staged" => !pack.staged}, current_user)
 
-    {:noreply, socket |> display_ammo_group(ammo_group)}
+    {:noreply, socket |> display_pack(pack)}
   end
 
   def handle_event(
         "delete_shot_group",
         %{"id" => id},
-        %{assigns: %{ammo_group: %{id: ammo_group_id}, current_user: current_user}} = socket
+        %{assigns: %{pack: %{id: pack_id}, current_user: current_user}} = socket
       ) do
     {:ok, _} =
       ActivityLog.get_shot_group!(id, current_user)
       |> ActivityLog.delete_shot_group(current_user)
 
     prompt = dgettext("prompts", "Shot records deleted succesfully")
-    {:noreply, socket |> put_flash(:info, prompt) |> display_ammo_group(ammo_group_id)}
+    {:noreply, socket |> put_flash(:info, prompt) |> display_pack(pack_id)}
   end
 
-  @spec display_ammo_group(Socket.t(), AmmoGroup.t() | AmmoGroup.id()) :: Socket.t()
-  defp display_ammo_group(
+  @spec display_pack(Socket.t(), Pack.t() | Pack.id()) :: Socket.t()
+  defp display_pack(
          %{assigns: %{current_user: current_user}} = socket,
-         %AmmoGroup{container_id: container_id} = ammo_group
+         %Pack{container_id: container_id} = pack
        ) do
     columns = [
       %{label: gettext("Rounds shot"), key: :count},
@@ -94,19 +93,19 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
       %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
-    shot_groups = ActivityLog.list_shot_groups_for_ammo_group(ammo_group, current_user)
+    shot_groups = ActivityLog.list_shot_groups_for_pack(pack, current_user)
 
     rows =
       shot_groups
       |> Enum.map(fn shot_group ->
-        ammo_group |> get_table_row_for_shot_group(shot_group, columns)
+        pack |> get_table_row_for_shot_group(shot_group, columns)
       end)
 
     socket
     |> assign(
-      ammo_group: ammo_group,
-      original_count: Ammo.get_original_count(ammo_group, current_user),
-      percentage_remaining: Ammo.get_percentage_remaining(ammo_group, current_user),
+      pack: pack,
+      original_count: Ammo.get_original_count(pack, current_user),
+      percentage_remaining: Ammo.get_percentage_remaining(pack, current_user),
       container: container_id && Containers.get_container!(container_id, current_user),
       shot_groups: shot_groups,
       columns: columns,
@@ -114,15 +113,15 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
     )
   end
 
-  defp display_ammo_group(%{assigns: %{current_user: current_user}} = socket, id),
-    do: display_ammo_group(socket, Ammo.get_ammo_group!(id, current_user))
+  defp display_pack(%{assigns: %{current_user: current_user}} = socket, id),
+    do: display_pack(socket, Ammo.get_pack!(id, current_user))
 
   @spec display_currency(float()) :: String.t()
   defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
 
-  @spec get_table_row_for_shot_group(AmmoGroup.t(), ShotGroup.t(), [map()]) :: map()
-  defp get_table_row_for_shot_group(ammo_group, %{id: id, date: date} = shot_group, columns) do
-    assigns = %{ammo_group: ammo_group, shot_group: shot_group}
+  @spec get_table_row_for_shot_group(Pack.t(), ShotGroup.t(), [map()]) :: map()
+  defp get_table_row_for_shot_group(pack, %{id: id, date: date} = shot_group, columns) do
+    assigns = %{pack: pack, shot_group: shot_group}
 
     columns
     |> Map.new(fn %{key: key} ->
@@ -140,7 +139,7 @@ defmodule CanneryWeb.AmmoGroupLive.Show do
             ~H"""
             <div class="px-4 py-2 space-x-4 flex justify-center items-center">
               <.link
-                patch={Routes.ammo_group_show_path(Endpoint, :edit_shot_group, @ammo_group, @shot_group)}
+                patch={Routes.pack_show_path(Endpoint, :edit_shot_group, @pack, @shot_group)}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "Edit shot group of %{shot_group_count} shots",

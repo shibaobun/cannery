@@ -1,10 +1,10 @@
-defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
+defmodule CanneryWeb.Components.MovePackComponent do
   @moduledoc """
   Livecomponent that can move an ammo group to another container
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoGroup, Containers, Containers.Container}
+  alias Cannery.{Accounts.User, Ammo, Ammo.Pack, Containers, Containers.Container}
   alias CanneryWeb.Endpoint
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
@@ -13,17 +13,16 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
   @spec update(
           %{
             required(:current_user) => User.t(),
-            required(:ammo_group) => AmmoGroup.t(),
+            required(:pack) => Pack.t(),
             optional(any()) => any()
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(
-        %{ammo_group: %{container_id: container_id} = ammo_group, current_user: current_user} =
-          assigns,
+        %{pack: %{container_id: container_id} = pack, current_user: current_user} = assigns,
         socket
       ) do
-    changeset = ammo_group |> AmmoGroup.update_changeset(%{}, current_user)
+    changeset = pack |> Pack.update_changeset(%{}, current_user)
 
     containers =
       Containers.list_containers(current_user)
@@ -41,16 +40,15 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
   def handle_event(
         "move",
         %{"container_id" => container_id},
-        %{assigns: %{ammo_group: ammo_group, current_user: current_user, return_to: return_to}} =
-          socket
+        %{assigns: %{pack: pack, current_user: current_user, return_to: return_to}} = socket
       ) do
     %{name: container_name} = Containers.get_container!(container_id, current_user)
 
     socket =
-      ammo_group
-      |> Ammo.update_ammo_group(%{"container_id" => container_id}, current_user)
+      pack
+      |> Ammo.update_pack(%{"container_id" => container_id}, current_user)
       |> case do
-        {:ok, _ammo_group} ->
+        {:ok, _pack} ->
           prompt = dgettext("prompts", "Ammo moved to %{name} successfully", name: container_name)
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
@@ -92,7 +90,7 @@ defmodule CanneryWeb.Components.MoveAmmoGroupComponent do
       <% else %>
         <.live_component
           module={CanneryWeb.Components.TableComponent}
-          id="move_ammo_group_table"
+          id="move_pack_table"
           columns={@columns}
           rows={@rows}
         />

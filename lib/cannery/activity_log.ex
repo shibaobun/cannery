@@ -4,7 +4,7 @@ defmodule Cannery.ActivityLog do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Ammo.{AmmoGroup, AmmoType}
+  alias Cannery.Ammo.{Pack, AmmoType}
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
   alias Ecto.{Multi, Queryable}
 
@@ -29,9 +29,9 @@ defmodule Cannery.ActivityLog do
   def list_shot_groups(search \\ nil, type, %{id: user_id}) do
     from(sg in ShotGroup,
       as: :sg,
-      left_join: ag in AmmoGroup,
+      left_join: ag in Pack,
       as: :ag,
-      on: sg.ammo_group_id == ag.id,
+      on: sg.pack_id == ag.id,
       left_join: at in AmmoType,
       as: :at,
       on: ag.ammo_type_id == at.id,
@@ -92,14 +92,14 @@ defmodule Cannery.ActivityLog do
 
   defp list_shot_groups_filter_type(query, _all), do: query
 
-  @spec list_shot_groups_for_ammo_group(AmmoGroup.t(), User.t()) :: [ShotGroup.t()]
-  def list_shot_groups_for_ammo_group(
-        %AmmoGroup{id: ammo_group_id, user_id: user_id},
+  @spec list_shot_groups_for_pack(Pack.t(), User.t()) :: [ShotGroup.t()]
+  def list_shot_groups_for_pack(
+        %Pack{id: pack_id, user_id: user_id},
         %User{id: user_id}
       ) do
     Repo.all(
       from sg in ShotGroup,
-        where: sg.ammo_group_id == ^ammo_group_id,
+        where: sg.pack_id == ^pack_id,
         where: sg.user_id == ^user_id
     )
   end
@@ -140,31 +140,31 @@ defmodule Cannery.ActivityLog do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_shot_group(attrs :: map(), User.t(), AmmoGroup.t()) ::
+  @spec create_shot_group(attrs :: map(), User.t(), Pack.t()) ::
           {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset() | nil}
-  def create_shot_group(attrs, user, ammo_group) do
+  def create_shot_group(attrs, user, pack) do
     Multi.new()
     |> Multi.insert(
       :create_shot_group,
-      %ShotGroup{} |> ShotGroup.create_changeset(user, ammo_group, attrs)
+      %ShotGroup{} |> ShotGroup.create_changeset(user, pack, attrs)
     )
     |> Multi.run(
-      :ammo_group,
-      fn _repo, %{create_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
-        ammo_group =
+      :pack,
+      fn _repo, %{create_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+        pack =
           Repo.one(
-            from ag in AmmoGroup,
-              where: ag.id == ^ammo_group_id,
+            from ag in Pack,
+              where: ag.id == ^pack_id,
               where: ag.user_id == ^user_id
           )
 
-        {:ok, ammo_group}
+        {:ok, pack}
       end
     )
     |> Multi.update(
-      :update_ammo_group,
-      fn %{create_shot_group: %{count: shot_group_count}, ammo_group: %{count: ammo_group_count}} ->
-        ammo_group |> AmmoGroup.range_changeset(%{"count" => ammo_group_count - shot_group_count})
+      :update_pack,
+      fn %{create_shot_group: %{count: shot_group_count}, pack: %{count: pack_count}} ->
+        pack |> Pack.range_changeset(%{"count" => pack_count - shot_group_count})
       end
     )
     |> Repo.transaction()
@@ -200,21 +200,20 @@ defmodule Cannery.ActivityLog do
       shot_group |> ShotGroup.update_changeset(user, attrs)
     )
     |> Multi.run(
-      :ammo_group,
-      fn repo, %{update_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
-        {:ok,
-         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
+      :pack,
+      fn repo, %{update_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+        {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
       end
     )
     |> Multi.update(
-      :update_ammo_group,
+      :update_pack,
       fn %{
            update_shot_group: %{count: new_count},
-           ammo_group: %{count: ammo_group_count} = ammo_group
+           pack: %{count: pack_count} = pack
          } ->
         shot_diff_to_add = new_count - count
-        new_ammo_group_count = ammo_group_count - shot_diff_to_add
-        ammo_group |> AmmoGroup.range_changeset(%{"count" => new_ammo_group_count})
+        new_pack_count = pack_count - shot_diff_to_add
+        pack |> Pack.range_changeset(%{"count" => new_pack_count})
       end
     )
     |> Repo.transaction()
@@ -246,20 +245,19 @@ defmodule Cannery.ActivityLog do
     Multi.new()
     |> Multi.delete(:delete_shot_group, shot_group)
     |> Multi.run(
-      :ammo_group,
-      fn repo, %{delete_shot_group: %{ammo_group_id: ammo_group_id, user_id: user_id}} ->
-        {:ok,
-         repo.one(from ag in AmmoGroup, where: ag.id == ^ammo_group_id and ag.user_id == ^user_id)}
+      :pack,
+      fn repo, %{delete_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+        {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
       end
     )
     |> Multi.update(
-      :update_ammo_group,
+      :update_pack,
       fn %{
            delete_shot_group: %{count: count},
-           ammo_group: %{count: ammo_group_count} = ammo_group
+           pack: %{count: pack_count} = pack
          } ->
-        new_ammo_group_count = ammo_group_count + count
-        ammo_group |> AmmoGroup.range_changeset(%{"count" => new_ammo_group_count})
+        new_pack_count = pack_count + count
+        pack |> Pack.range_changeset(%{"count" => new_pack_count})
       end
     )
     |> Repo.transaction()
@@ -273,29 +271,29 @@ defmodule Cannery.ActivityLog do
   @doc """
   Returns the number of shot rounds for an ammo group
   """
-  @spec get_used_count(AmmoGroup.t(), User.t()) :: non_neg_integer()
-  def get_used_count(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
-    [ammo_group]
+  @spec get_used_count(Pack.t(), User.t()) :: non_neg_integer()
+  def get_used_count(%Pack{id: pack_id} = pack, user) do
+    [pack]
     |> get_used_counts(user)
-    |> Map.get(ammo_group_id, 0)
+    |> Map.get(pack_id, 0)
   end
 
   @doc """
   Returns the number of shot rounds for multiple ammo groups
   """
-  @spec get_used_counts([AmmoGroup.t()], User.t()) ::
-          %{optional(AmmoGroup.id()) => non_neg_integer()}
-  def get_used_counts(ammo_groups, %User{id: user_id}) do
-    ammo_group_ids =
-      ammo_groups
-      |> Enum.map(fn %{id: ammo_group_id} -> ammo_group_id end)
+  @spec get_used_counts([Pack.t()], User.t()) ::
+          %{optional(Pack.id()) => non_neg_integer()}
+  def get_used_counts(packs, %User{id: user_id}) do
+    pack_ids =
+      packs
+      |> Enum.map(fn %{id: pack_id} -> pack_id end)
 
     Repo.all(
       from sg in ShotGroup,
-        where: sg.ammo_group_id in ^ammo_group_ids,
+        where: sg.pack_id in ^pack_ids,
         where: sg.user_id == ^user_id,
-        group_by: sg.ammo_group_id,
-        select: {sg.ammo_group_id, sum(sg.count)}
+        group_by: sg.pack_id,
+        select: {sg.pack_id, sum(sg.count)}
     )
     |> Map.new()
   end
@@ -303,28 +301,28 @@ defmodule Cannery.ActivityLog do
   @doc """
   Returns the last entered shot group date for an ammo group
   """
-  @spec get_last_used_date(AmmoGroup.t(), User.t()) :: Date.t() | nil
-  def get_last_used_date(%AmmoGroup{id: ammo_group_id} = ammo_group, user) do
-    [ammo_group]
+  @spec get_last_used_date(Pack.t(), User.t()) :: Date.t() | nil
+  def get_last_used_date(%Pack{id: pack_id} = pack, user) do
+    [pack]
     |> get_last_used_dates(user)
-    |> Map.get(ammo_group_id)
+    |> Map.get(pack_id)
   end
 
   @doc """
   Returns the last entered shot group date for an ammo group
   """
-  @spec get_last_used_dates([AmmoGroup.t()], User.t()) :: %{optional(AmmoGroup.id()) => Date.t()}
-  def get_last_used_dates(ammo_groups, %User{id: user_id}) do
-    ammo_group_ids =
-      ammo_groups
-      |> Enum.map(fn %AmmoGroup{id: ammo_group_id, user_id: ^user_id} -> ammo_group_id end)
+  @spec get_last_used_dates([Pack.t()], User.t()) :: %{optional(Pack.id()) => Date.t()}
+  def get_last_used_dates(packs, %User{id: user_id}) do
+    pack_ids =
+      packs
+      |> Enum.map(fn %Pack{id: pack_id, user_id: ^user_id} -> pack_id end)
 
     Repo.all(
       from sg in ShotGroup,
-        where: sg.ammo_group_id in ^ammo_group_ids,
+        where: sg.pack_id in ^pack_ids,
         where: sg.user_id == ^user_id,
-        group_by: sg.ammo_group_id,
-        select: {sg.ammo_group_id, max(sg.date)}
+        group_by: sg.pack_id,
+        select: {sg.pack_id, max(sg.date)}
     )
     |> Map.new()
   end
@@ -367,9 +365,9 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
     Repo.all(
-      from ag in AmmoGroup,
+      from ag in Pack,
         left_join: sg in ShotGroup,
-        on: ag.id == sg.ammo_group_id,
+        on: ag.id == sg.pack_id,
         where: ag.ammo_type_id in ^ammo_type_ids,
         where: not (sg.count |> is_nil()),
         group_by: ag.ammo_type_id,

@@ -79,15 +79,15 @@ defmodule CanneryWeb.ContainerLive.Index do
               prompt = dgettext("prompts", "%{name} has been deleted", name: container_name)
               socket |> put_flash(:info, prompt) |> display_containers()
 
-            {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
-              ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
+            {:error, %{action: :delete, errors: [packs: _error], valid?: false} = changeset} ->
+              packs_error = changeset |> changeset_errors(:packs) |> Enum.join(", ")
 
               prompt =
                 dgettext(
                   "errors",
                   "Could not delete %{name}: %{error}",
                   name: changeset |> Changeset.get_field(:name, "container"),
-                  error: ammo_groups_error
+                  error: packs_error
                 )
 
               socket |> put_flash(:error, prompt)

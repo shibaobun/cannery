@@ -33,7 +33,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     name: nil,
     grains: nil
   }
-  @ammo_group_attrs %{
+  @pack_attrs %{
     notes: "some ammo group",
     count: 20
   }
@@ -46,18 +46,18 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     [ammo_type: ammo_type_fixture(@create_attrs, current_user)]
   end
 
-  defp create_ammo_group(%{ammo_type: ammo_type, current_user: current_user}) do
+  defp create_pack(%{ammo_type: ammo_type, current_user: current_user}) do
     container = container_fixture(current_user)
-    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
-    [ammo_group: ammo_group, container: container]
+    {1, [pack]} = pack_fixture(@pack_attrs, ammo_type, container, current_user)
+    [pack: pack, container: container]
   end
 
-  defp create_empty_ammo_group(%{ammo_type: ammo_type, current_user: current_user}) do
+  defp create_empty_pack(%{ammo_type: ammo_type, current_user: current_user}) do
     container = container_fixture(current_user)
-    {1, [ammo_group]} = ammo_group_fixture(@ammo_group_attrs, ammo_type, container, current_user)
-    shot_group = shot_group_fixture(@shot_group_attrs, current_user, ammo_group)
-    ammo_group = ammo_group |> Repo.reload!()
-    [ammo_group: ammo_group, container: container, shot_group: shot_group]
+    {1, [pack]} = pack_fixture(@pack_attrs, ammo_type, container, current_user)
+    shot_group = shot_group_fixture(@shot_group_attrs, current_user, pack)
+    pack = pack |> Repo.reload!()
+    [pack: pack, container: container, shot_group: shot_group]
   end
 
   describe "Index" do
@@ -249,10 +249,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   end
 
   describe "Index with ammo group" do
-    setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
+    setup [:register_and_log_in_user, :create_ammo_type, :create_pack]
 
     test "shows used ammo groups on toggle",
-         %{conn: conn, ammo_group: ammo_group, current_user: current_user} do
+         %{conn: conn, pack: pack, current_user: current_user} do
       {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
       assert html =~ "Show used"
@@ -275,7 +275,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ "\n0\n"
       assert html =~ "\n1\n"
 
-      shot_group_fixture(%{count: 5}, current_user, ammo_group)
+      shot_group_fixture(%{count: 5}, current_user, pack)
 
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
@@ -328,7 +328,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   end
 
   describe "Show ammo type with ammo group" do
-    setup [:register_and_log_in_user, :create_ammo_type, :create_ammo_group]
+    setup [:register_and_log_in_user, :create_ammo_type, :create_pack]
 
     test "displays ammo group", %{
       conn: conn,
@@ -357,7 +357,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   end
 
   describe "Show ammo type with empty ammo group" do
-    setup [:register_and_log_in_user, :create_ammo_type, :create_empty_ammo_group]
+    setup [:register_and_log_in_user, :create_ammo_type, :create_empty_pack]
 
     test "displays empty ammo groups on toggle",
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do

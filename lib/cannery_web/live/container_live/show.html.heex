@@ -20,7 +20,7 @@
 
   <span class="rounded-lg title text-lg">
     <%= gettext("Packs:") %>
-    <%= @ammo_groups_count %>
+    <%= @packs_count %>
   </span>
 
   <span class="rounded-lg title text-lg">
@@ -118,16 +118,16 @@
   </div>
 
   <div class="w-full p-4">
-    <%= if @ammo_groups |> Enum.empty?() do %>
+    <%= if @packs |> Enum.empty?() do %>
       <h2 class="mx-4 title text-lg text-primary-600 text-center">
         <%= gettext("No ammo in this container") %>
       </h2>
     <% else %>
       <%= if @view_table do %>
         <.live_component
-          module={CanneryWeb.Components.AmmoGroupTableComponent}
+          module={CanneryWeb.Components.PackTableComponent}
           id="ammo-type-show-table"
-          ammo_groups={@ammo_groups}
+          packs={@packs}
           current_user={@current_user}
           show_used={false}
         >
@@ -140,11 +140,11 @@
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">
           <.ammo_group_card
-            :for={%{id: ammo_group_id} = ammo_group <- @ammo_groups}
-            ammo_group={ammo_group}
-            original_count={Map.fetch!(@original_counts, ammo_group_id)}
-            cpr={Map.get(@cprs, ammo_group_id)}
-            last_used_date={Map.get(@last_used_dates, ammo_group_id)}
+            :for={%{id: pack_id} = pack <- @packs}
+            pack={pack}
+            original_count={Map.fetch!(@original_counts, pack_id)}
+            cpr={Map.get(@cprs, pack_id)}
+            last_used_date={Map.get(@last_used_dates, pack_id)}
             current_user={@current_user}
           />
         </div>

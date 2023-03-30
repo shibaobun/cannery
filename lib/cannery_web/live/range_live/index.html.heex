@@ -3,43 +3,43 @@
     <%= gettext("Range day") %>
   </h1>
 
-  <%= if @ammo_groups |> Enum.empty?() do %>
+  <%= if @packs |> Enum.empty?() do %>
     <h1 class="title text-xl text-primary-600">
       <%= gettext("No ammo staged") %>
       <%= display_emoji("😔") %>
     </h1>
 
-    <.link navigate={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={Routes.pack_index_path(Endpoint, :index)} class="btn btn-primary">
       <%= dgettext("actions", "Why not get some ready to shoot?") %>
     </.link>
   <% else %>
-    <.link navigate={Routes.ammo_group_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={Routes.pack_index_path(Endpoint, :index)} class="btn btn-primary">
       <%= dgettext("actions", "Stage ammo") %>
     </.link>
 
     <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
       <.ammo_group_card
-        :for={%{id: ammo_group_id} = ammo_group <- @ammo_groups}
-        ammo_group={ammo_group}
-        original_count={Map.fetch!(@original_counts, ammo_group_id)}
-        cpr={Map.get(@cprs, ammo_group_id)}
-        last_used_date={Map.get(@last_used_dates, ammo_group_id)}
+        :for={%{id: pack_id} = pack <- @packs}
+        pack={pack}
+        original_count={Map.fetch!(@original_counts, pack_id)}
+        cpr={Map.get(@cprs, pack_id)}
+        last_used_date={Map.get(@last_used_dates, pack_id)}
         current_user={@current_user}
       >
         <button
           type="button"
           class="btn btn-primary"
           phx-click="toggle_staged"
-          phx-value-ammo_group_id={ammo_group.id}
+          phx-value-pack_id={pack.id}
           data-confirm={"#{dgettext("prompts", "Are you sure you want to unstage this ammo?")}"}
         >
-          <%= if ammo_group.staged,
+          <%= if pack.staged,
             do: dgettext("actions", "Unstage from range"),
             else: dgettext("actions", "Stage for range") %>
         </button>
 
         <.link
-          patch={Routes.range_index_path(Endpoint, :add_shot_group, ammo_group)}
+          patch={Routes.range_index_path(Endpoint, :add_shot_group, pack)}
           class="btn btn-primary"
         >
           <%= dgettext("actions", "Record shots") %>
@@ -186,7 +186,7 @@
         id={:new}
         title={@page_title}
         action={@live_action}
-        ammo_group={@ammo_group}
+        pack={@pack}
         return_to={Routes.range_index_path(Endpoint, :index)}
         current_user={@current_user}
       />

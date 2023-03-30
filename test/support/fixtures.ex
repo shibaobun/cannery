@@ -10,7 +10,7 @@ defmodule Cannery.Fixtures do
     Accounts.User,
     ActivityLog.ShotGroup,
     Ammo,
-    Ammo.AmmoGroup,
+    Ammo.Pack,
     Ammo.AmmoType,
     Containers,
     Containers.Container,
@@ -71,16 +71,16 @@ defmodule Cannery.Fixtures do
   @doc """
   Generate a ShotGroup
   """
-  @spec shot_group_fixture(User.t(), AmmoGroup.t()) :: ShotGroup.t()
-  @spec shot_group_fixture(attrs :: map(), User.t(), AmmoGroup.t()) :: ShotGroup.t()
-  def shot_group_fixture(attrs \\ %{}, %User{} = user, %AmmoGroup{} = ammo_group) do
+  @spec shot_group_fixture(User.t(), Pack.t()) :: ShotGroup.t()
+  @spec shot_group_fixture(attrs :: map(), User.t(), Pack.t()) :: ShotGroup.t()
+  def shot_group_fixture(attrs \\ %{}, %User{} = user, %Pack{} = pack) do
     attrs
     |> Enum.into(%{
       count: 20,
       date: ~N[2022-02-13 03:17:00],
       notes: random_string()
     })
-    |> Cannery.ActivityLog.create_shot_group(user, ammo_group)
+    |> Cannery.ActivityLog.create_shot_group(user, pack)
     |> unwrap_ok_tuple()
   end
 
@@ -109,20 +109,20 @@ defmodule Cannery.Fixtures do
   end
 
   @doc """
-  Generate a AmmoGroup
+  Generate a Pack
   """
-  @spec ammo_group_fixture(AmmoType.t(), Container.t(), User.t()) ::
-          {count :: non_neg_integer(), [AmmoGroup.t()]}
-  @spec ammo_group_fixture(attrs :: map(), AmmoType.t(), Container.t(), User.t()) ::
-          {count :: non_neg_integer(), [AmmoGroup.t()]}
-  @spec ammo_group_fixture(
+  @spec pack_fixture(AmmoType.t(), Container.t(), User.t()) ::
+          {count :: non_neg_integer(), [Pack.t()]}
+  @spec pack_fixture(attrs :: map(), AmmoType.t(), Container.t(), User.t()) ::
+          {count :: non_neg_integer(), [Pack.t()]}
+  @spec pack_fixture(
           attrs :: map(),
           multiplier :: non_neg_integer(),
           AmmoType.t(),
           Container.t(),
           User.t()
-        ) :: {count :: non_neg_integer(), [AmmoGroup.t()]}
-  def ammo_group_fixture(
+        ) :: {count :: non_neg_integer(), [Pack.t()]}
+  def pack_fixture(
         attrs \\ %{},
         multiplier \\ 1,
         %AmmoType{id: ammo_type_id},
@@ -136,7 +136,7 @@ defmodule Cannery.Fixtures do
       count: 20,
       purchased_on: Date.utc_today()
     })
-    |> Ammo.create_ammo_groups(multiplier, user)
+    |> Ammo.create_packs(multiplier, user)
     |> unwrap_ok_tuple()
   end
 

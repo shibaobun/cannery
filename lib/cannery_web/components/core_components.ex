@@ -5,7 +5,7 @@ defmodule CanneryWeb.CoreComponents do
   use Phoenix.Component
   import CanneryWeb.{Gettext, ViewHelpers}
   alias Cannery.{Accounts, Accounts.Invite, Accounts.User}
-  alias Cannery.{Ammo, Ammo.AmmoGroup}
+  alias Cannery.{Ammo, Ammo.Pack}
   alias Cannery.{Containers.Container, Containers.Tag}
   alias CanneryWeb.{Endpoint, HomeLive}
   alias CanneryWeb.Router.Helpers, as: Routes
@@ -86,7 +86,7 @@ defmodule CanneryWeb.CoreComponents do
 
   def simple_tag_card(assigns)
 
-  attr :ammo_group, AmmoGroup, required: true
+  attr :pack, Pack, required: true
   attr :current_user, User, required: true
   attr :original_count, :integer, default: nil
   attr :cpr, :integer, default: nil

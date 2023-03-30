@@ -1,12 +1,12 @@
 <div class="mx-auto space-y-4 max-w-3xl flex flex-col justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
-    <%= @ammo_group.ammo_type.name %>
+    <%= @pack.ammo_type.name %>
   </h1>
 
   <div class="space-y-2 flex flex-col justify-center items-center">
     <span class="rounded-lg title text-lg">
       <%= gettext("Count:") %>
-      <%= @ammo_group.count %>
+      <%= @pack.count %>
     </span>
 
     <span class="rounded-lg title text-lg">
@@ -19,28 +19,28 @@
       <%= gettext("%{percentage}%", percentage: @percentage_remaining) %>
     </span>
 
-    <%= if @ammo_group.notes do %>
+    <%= if @pack.notes do %>
       <span class="rounded-lg title text-lg">
         <%= gettext("Notes:") %>
-        <%= @ammo_group.notes %>
+        <%= @pack.notes %>
       </span>
     <% end %>
 
     <span class="rounded-lg title text-lg">
       <%= gettext("Purchased on:") %>
-      <.date id={"#{@ammo_group.id}-purchased-on"} date={@ammo_group.purchased_on} />
+      <.date id={"#{@pack.id}-purchased-on"} date={@pack.purchased_on} />
     </span>
 
-    <%= if @ammo_group.price_paid do %>
+    <%= if @pack.price_paid do %>
       <span class="rounded-lg title text-lg">
         <%= gettext("Original cost:") %>
-        <%= gettext("$%{amount}", amount: display_currency(@ammo_group.price_paid)) %>
+        <%= gettext("$%{amount}", amount: display_currency(@pack.price_paid)) %>
       </span>
 
       <span class="rounded-lg title text-lg">
         <%= gettext("Current value:") %>
         <%= gettext("$%{amount}",
-          amount: display_currency(@ammo_group.price_paid * @percentage_remaining / 100)
+          amount: display_currency(@pack.price_paid * @percentage_remaining / 100)
         ) %>
       </span>
     <% end %>
@@ -49,19 +49,17 @@
   <div class="flex flex-col justify-center items-center">
     <div class="flex flex-wrap justify-center items-center text-primary-600">
       <.link
-        navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_group.ammo_type)}
+        navigate={Routes.ammo_type_show_path(Endpoint, :show, @pack.ammo_type)}
         class="mx-4 my-2 btn btn-primary"
       >
         <%= dgettext("actions", "View in Catalog") %>
       </.link>
 
       <.link
-        patch={Routes.ammo_group_show_path(Endpoint, :edit, @ammo_group)}
+        patch={Routes.pack_show_path(Endpoint, :edit, @pack)}
         class="mx-4 my-2 text-primary-600 link"
         aria-label={
-          dgettext("actions", "Edit ammo group of %{ammo_group_count} bullets",
-            ammo_group_count: @ammo_group.count
-          )
+          dgettext("actions", "Edit ammo group of %{pack_count} bullets", pack_count: @pack.count)
         }
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
@@ -73,8 +71,8 @@
         phx-click="delete"
         data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
         aria-label={
-          dgettext("actions", "Delete ammo group of %{ammo_group_count} bullets",
-            ammo_group_count: @ammo_group.count
+          dgettext("actions", "Delete ammo group of %{pack_count} bullets",
+            pack_count: @pack.count
           )
         }
       >
@@ -84,20 +82,17 @@
 
     <div class="flex flex-wrap justify-center items-center text-primary-600">
       <button type="button" class="mx-4 my-2 btn btn-primary" phx-click="toggle_staged">
-        <%= if @ammo_group.staged,
+        <%= if @pack.staged,
           do: dgettext("actions", "Unstage from range"),
           else: dgettext("actions", "Stage for range") %>
       </button>
 
-      <.link
-        patch={Routes.ammo_group_show_path(Endpoint, :move, @ammo_group)}
-        class="btn btn-primary"
-      >
+      <.link patch={Routes.pack_show_path(Endpoint, :move, @pack)} class="btn btn-primary">
         <%= dgettext("actions", "Move ammo") %>
       </.link>
 
       <.link
-        patch={Routes.ammo_group_show_path(Endpoint, :add_shot_group, @ammo_group)}
+        patch={Routes.pack_show_path(Endpoint, :add_shot_group, @pack)}
         class="mx-4 my-2 btn btn-primary"
       >
         <%= dgettext("actions", "Record shots") %>
@@ -128,7 +123,7 @@
 
     <.live_component
       module={CanneryWeb.Components.TableComponent}
-      id="ammo_group_shot_groups_table"
+      id="pack_shot_groups_table"
       columns={@columns}
       rows={@rows}
     />
@@ -137,50 +132,50 @@
 
 <%= case @live_action do %>
   <% :edit -> %>
-    <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+    <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
-        module={CanneryWeb.AmmoGroupLive.FormComponent}
-        id={@ammo_group.id}
+        module={CanneryWeb.PackLive.FormComponent}
+        id={@pack.id}
         title={@page_title}
         action={@live_action}
-        ammo_group={@ammo_group}
-        return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        pack={@pack}
+        return_to={Routes.pack_show_path(Endpoint, :show, @pack)}
         current_user={@current_user}
       />
     </.modal>
   <% :edit_shot_group -> %>
-    <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+    <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
         module={CanneryWeb.RangeLive.FormComponent}
         id={@shot_group.id}
         title={@page_title}
         action={@live_action}
         shot_group={@shot_group}
-        return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        return_to={Routes.pack_show_path(Endpoint, :show, @pack)}
         current_user={@current_user}
       />
     </.modal>
   <% :add_shot_group -> %>
-    <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+    <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
         module={CanneryWeb.Components.AddShotGroupComponent}
         id={:new}
         title={@page_title}
         action={@live_action}
-        ammo_group={@ammo_group}
-        return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        pack={@pack}
+        return_to={Routes.pack_show_path(Endpoint, :show, @pack)}
         current_user={@current_user}
       />
     </.modal>
   <% :move -> %>
-    <.modal return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}>
+    <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
-        module={CanneryWeb.Components.MoveAmmoGroupComponent}
-        id={@ammo_group.id}
+        module={CanneryWeb.Components.MovePackComponent}
+        id={@pack.id}
         title={@page_title}
         action={@live_action}
-        ammo_group={@ammo_group}
-        return_to={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)}
+        pack={@pack}
+        return_to={Routes.pack_show_path(Endpoint, :show, @pack)}
         current_user={@current_user}
       />
     </.modal>

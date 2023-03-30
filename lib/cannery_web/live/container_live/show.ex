@@ -64,13 +64,13 @@ defmodule CanneryWeb.ContainerLive.Show do
           |> put_flash(:info, prompt)
           |> push_navigate(to: Routes.container_index_path(socket, :index))
 
-        {:error, %{action: :delete, errors: [ammo_groups: _error], valid?: false} = changeset} ->
-          ammo_groups_error = changeset |> changeset_errors(:ammo_groups) |> Enum.join(", ")
+        {:error, %{action: :delete, errors: [packs: _error], valid?: false} = changeset} ->
+          packs_error = changeset |> changeset_errors(:packs) |> Enum.join(", ")
 
           prompt =
             dgettext("errors", "Could not delete %{name}: %{error}",
               name: changeset |> Changeset.get_field(:name, "container"),
-              error: ammo_groups_error
+              error: packs_error
             )
 
           socket |> put_flash(:error, prompt)
@@ -109,10 +109,10 @@ defmodule CanneryWeb.ContainerLive.Show do
          current_user
        ) do
     %{name: container_name} = container = Containers.get_container!(id, current_user)
-    ammo_groups = Ammo.list_ammo_groups_for_container(container, class, current_user)
-    original_counts = ammo_groups |> Ammo.get_original_counts(current_user)
-    cprs = ammo_groups |> Ammo.get_cprs(current_user)
-    last_used_dates = ammo_groups |> ActivityLog.get_last_used_dates(current_user)
+    packs = Ammo.list_packs_for_container(container, class, current_user)
+    original_counts = packs |> Ammo.get_original_counts(current_user)
+    cprs = packs |> Ammo.get_cprs(current_user)
+    last_used_dates = packs |> ActivityLog.get_last_used_dates(current_user)
 
     page_title =
       case live_action do
@@ -125,8 +125,8 @@ defmodule CanneryWeb.ContainerLive.Show do
     |> assign(
       container: container,
       round_count: Ammo.get_round_count_for_container!(container, current_user),
-      ammo_groups_count: Ammo.get_ammo_groups_count_for_container!(container, current_user),
-      ammo_groups: ammo_groups,
+      packs_count: Ammo.get_packs_count_for_container!(container, current_user),
+      packs: packs,
       original_counts: original_counts,
       cprs: cprs,
       last_used_dates: last_used_dates,

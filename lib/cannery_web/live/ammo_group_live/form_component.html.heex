@@ -6,7 +6,7 @@
   <.form
     :let={f}
     for={@changeset}
-    id="ammo_group-form"
+    id="pack-form"
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save"
@@ -68,7 +68,7 @@
 
         <%= label(f, :multiplier, gettext("Copies"), class: "title text-lg text-primary-600") %>
         <%= number_input(f, :multiplier,
-          max: @ammo_group_create_limit,
+          max: @pack_create_limit,
           class: "text-center input input-primary",
           value: 1,
           phx_update: "ignore"

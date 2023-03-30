@@ -175,7 +175,7 @@
   </div>
 
   <div class="w-full p-4">
-    <%= if @ammo_groups |> Enum.empty?() do %>
+    <%= if @packs |> Enum.empty?() do %>
       <h2 class="px-4 title text-lg text-primary-600">
         <%= gettext("No ammo for this type") %>
         <%= display_emoji("😔") %>
@@ -183,13 +183,13 @@
     <% else %>
       <%= if @view_table do %>
         <.live_component
-          module={CanneryWeb.Components.AmmoGroupTableComponent}
+          module={CanneryWeb.Components.PackTableComponent}
           id="ammo-type-show-table"
-          ammo_groups={@ammo_groups}
+          packs={@packs}
           current_user={@current_user}
           show_used={@show_used}
         >
-          <:container :let={{_ammo_group, %{name: container_name} = container}}>
+          <:container :let={{_pack, %{name: container_name} = container}}>
             <.link
               navigate={Routes.container_show_path(Endpoint, :show, container)}
               class="mx-2 my-1 link"
@@ -197,14 +197,14 @@
               <%= container_name %>
             </.link>
           </:container>
-          <:actions :let={%{count: ammo_group_count} = ammo_group}>
+          <:actions :let={%{count: pack_count} = pack}>
             <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
               <.link
-                navigate={Routes.ammo_group_show_path(Endpoint, :show, ammo_group)}
+                navigate={Routes.pack_show_path(Endpoint, :show, pack)}
                 class="text-primary-600 link"
                 aria-label={
-                  dgettext("actions", "View ammo group of %{ammo_group_count} bullets",
-                    ammo_group_count: ammo_group_count
+                  dgettext("actions", "View ammo group of %{pack_count} bullets",
+                    pack_count: pack_count
                   )
                 }
               >
@@ -216,11 +216,11 @@
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">
           <.ammo_group_card
-            :for={%{id: ammo_group_id, container_id: container_id} = ammo_group <- @ammo_groups}
-            ammo_group={ammo_group}
-            original_count={@original_counts && Map.fetch!(@original_counts, ammo_group_id)}
-            cpr={Map.get(@cprs, ammo_group_id)}
-            last_used_date={Map.get(@last_used_dates, ammo_group_id)}
+            :for={%{id: pack_id, container_id: container_id} = pack <- @packs}
+            pack={pack}
+            original_count={@original_counts && Map.fetch!(@original_counts, pack_id)}
+            cpr={Map.get(@cprs, pack_id)}
+            last_used_date={Map.get(@last_used_dates, pack_id)}
             current_user={@current_user}
             container={Map.fetch!(@containers, container_id)}
           />

@@ -22,7 +22,7 @@
     <%= label(f, :ammo_left, gettext("Rounds left"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :ammo_left,
       min: 0,
-      max: @ammo_group.count - 1,
+      max: @pack.count - 1,
       placeholder: gettext("Rounds left"),
       class: "input input-primary"
     ) %>

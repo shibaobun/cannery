@@ -1,48 +1,45 @@
 <div
-  id={"ammo_group-#{@ammo_group.id}"}
+  id={"pack-#{@pack.id}"}
   class="mx-4 my-2 px-8 py-4
     flex flex-col justify-center items-center
     border border-gray-400 rounded-lg shadow-lg hover:shadow-md
     transition-all duration-300 ease-in-out"
 >
-  <.link navigate={Routes.ammo_group_show_path(Endpoint, :show, @ammo_group)} class="mb-2 link">
+  <.link navigate={Routes.pack_show_path(Endpoint, :show, @pack)} class="mb-2 link">
     <h1 class="title text-xl title-primary-500">
-      <%= @ammo_group.ammo_type.name %>
+      <%= @pack.ammo_type.name %>
     </h1>
   </.link>
 
   <div class="flex flex-col justify-center items-center">
     <span class="rounded-lg title text-lg">
       <%= gettext("Count:") %>
-      <%= if @ammo_group.count == 0, do: gettext("Empty"), else: @ammo_group.count %>
+      <%= if @pack.count == 0, do: gettext("Empty"), else: @pack.count %>
     </span>
 
-    <span
-      :if={@original_count && @original_count != @ammo_group.count}
-      class="rounded-lg title text-lg"
-    >
+    <span :if={@original_count && @original_count != @pack.count} class="rounded-lg title text-lg">
       <%= gettext("Original Count:") %>
       <%= @original_count %>
     </span>
 
-    <span :if={@ammo_group.notes} class="rounded-lg title text-lg">
+    <span :if={@pack.notes} class="rounded-lg title text-lg">
       <%= gettext("Notes:") %>
-      <%= @ammo_group.notes %>
+      <%= @pack.notes %>
     </span>
 
-    <span :if={@ammo_group.purchased_on} class="rounded-lg title text-lg">
+    <span :if={@pack.purchased_on} class="rounded-lg title text-lg">
       <%= gettext("Purchased on:") %>
-      <.date id={"#{@ammo_group.id}-purchased-on"} date={@ammo_group.purchased_on} />
+      <.date id={"#{@pack.id}-purchased-on"} date={@pack.purchased_on} />
     </span>
 
     <span :if={@last_used_date} class="rounded-lg title text-lg">
       <%= gettext("Last used on:") %>
-      <.date id={"#{@ammo_group.id}-last-used-on"} date={@last_used_date} />
+      <.date id={"#{@pack.id}-last-used-on"} date={@last_used_date} />
     </span>
 
-    <span :if={@ammo_group.price_paid} class="rounded-lg title text-lg">
+    <span :if={@pack.price_paid} class="rounded-lg title text-lg">
       <%= gettext("Price paid:") %>
-      <%= gettext("$%{amount}", amount: display_currency(@ammo_group.price_paid)) %>
+      <%= gettext("$%{amount}", amount: display_currency(@pack.price_paid)) %>
     </span>
 
     <span :if={@cpr} class="rounded-lg title text-lg">

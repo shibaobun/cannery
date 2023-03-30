@@ -161,12 +161,12 @@ msgstr "Debe confirmar su cuenta e iniciar sesión para acceder a esta página."
 msgid "Tag could not be removed"
 msgstr "La etiqueta no pudo ser eliminada"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:160
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:159
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "No se ha podido procesar el número de copias"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:150
+#: lib/cannery_web/live/ammo_group_live/form_component.ex:149
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Número inválido de copias, debe ser entre 1 y %{max}. Fue %{multiplier"
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Ammo left must be at least 0"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:122
+#: lib/cannery/activity_log/shot_group.ex:119
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Count can be at most %{count} shots"
 msgstr "El recuento debe ser menos de %{count}"

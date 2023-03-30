@@ -17,8 +17,8 @@ If you're multilingual, this project can use your translations! Visit
   functions as short as possible while keeping variable names descriptive! For
   instance, use inline `do:` blocks for short functions and make your aliases as
   short as possible without introducing ambiguity.
-  - I.e. since there's only one `AmmoGroup` in the app, please alias
-    `AmmoGroup.t()` instead of using `Cannery.Ammo.AmmoGroup.t()`
+  - I.e. since there's only one `Pack` in the app, please alias
+    `Pack.t()` instead of using `Cannery.Ammo.Pack.t()`
 - Use pipelines when possible. If only calling a single method, a pipeline isn't
   strictly necessary but still encouraged for future modification.
 - Please add typespecs to your functions! Even your private functions may be

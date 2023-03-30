@@ -153,7 +153,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
 
     round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
-    packs_count = ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user)
+    packs_count = ammo_types |> Ammo.get_packs_count_for_types(current_user)
     average_costs = ammo_types |> Ammo.get_average_cost_for_ammo_types(current_user)
 
     [used_counts, historical_round_counts, historical_pack_counts, used_pack_counts] =
@@ -161,8 +161,8 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
         [
           ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user),
           ammo_types |> Ammo.get_historical_count_for_ammo_types(current_user),
-          ammo_types |> Ammo.get_ammo_groups_count_for_types(current_user, true),
-          ammo_types |> Ammo.get_used_ammo_groups_count_for_types(current_user)
+          ammo_types |> Ammo.get_packs_count_for_types(current_user, true),
+          ammo_types |> Ammo.get_used_packs_count_for_types(current_user)
         ]
       else
         [nil, nil, nil, nil]

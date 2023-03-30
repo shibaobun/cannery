@@ -1,9 +1,9 @@
-defmodule CanneryWeb.Components.AmmoGroupTableComponent do
+defmodule CanneryWeb.Components.PackTableComponent do
   @moduledoc """
   A component that displays a list of ammo groups
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Ammo.AmmoGroup, ComparableDate}
+  alias Cannery.{Accounts.User, Ammo.Pack, ComparableDate}
   alias Cannery.{ActivityLog, Ammo, Containers}
   alias CanneryWeb.Components.TableComponent
   alias Ecto.UUID
@@ -14,7 +14,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
           %{
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
-            required(:ammo_groups) => [AmmoGroup.t()],
+            required(:packs) => [Pack.t()],
             required(:show_used) => boolean(),
             optional(:ammo_type) => Rendered.t(),
             optional(:range) => Rendered.t(),
@@ -25,8 +25,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(
-        %{id: _id, ammo_groups: _ammo_group, current_user: _current_user, show_used: _show_used} =
-          assigns,
+        %{id: _id, packs: _pack, current_user: _current_user, show_used: _show_used} = assigns,
         socket
       ) do
     socket =
@@ -36,15 +35,15 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       |> assign_new(:range, fn -> [] end)
       |> assign_new(:container, fn -> [] end)
       |> assign_new(:actions, fn -> [] end)
-      |> display_ammo_groups()
+      |> display_packs()
 
     {:ok, socket}
   end
 
-  defp display_ammo_groups(
+  defp display_packs(
          %{
            assigns: %{
-             ammo_groups: ammo_groups,
+             packs: packs,
              current_user: current_user,
              ammo_type: ammo_type,
              range: range,
@@ -98,7 +97,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       )
 
     containers =
-      ammo_groups
+      packs
       |> Enum.map(fn %{container_id: container_id} -> container_id end)
       |> Containers.get_containers(current_user)
 
@@ -108,18 +107,18 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
       columns: columns,
       container: container,
       containers: containers,
-      original_counts: Ammo.get_original_counts(ammo_groups, current_user),
-      cprs: Ammo.get_cprs(ammo_groups, current_user),
-      last_used_dates: ActivityLog.get_last_used_dates(ammo_groups, current_user),
-      percentages_remaining: Ammo.get_percentages_remaining(ammo_groups, current_user),
+      original_counts: Ammo.get_original_counts(packs, current_user),
+      cprs: Ammo.get_cprs(packs, current_user),
+      last_used_dates: ActivityLog.get_last_used_dates(packs, current_user),
+      percentages_remaining: Ammo.get_percentages_remaining(packs, current_user),
       actions: actions,
       range: range
     }
 
     rows =
-      ammo_groups
-      |> Enum.map(fn ammo_group ->
-        ammo_group |> get_row_data_for_ammo_group(extra_data)
+      packs
+      |> Enum.map(fn pack ->
+        pack |> get_row_data_for_pack(extra_data)
       end)
 
     socket |> assign(columns: columns, rows: rows)
@@ -134,15 +133,15 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
     """
   end
 
-  @spec get_row_data_for_ammo_group(AmmoGroup.t(), additional_data :: map()) :: map()
-  defp get_row_data_for_ammo_group(ammo_group, %{columns: columns} = additional_data) do
+  @spec get_row_data_for_pack(Pack.t(), additional_data :: map()) :: map()
+  defp get_row_data_for_pack(pack, %{columns: columns} = additional_data) do
     columns
     |> Map.new(fn %{key: key} ->
-      {key, get_value_for_key(key, ammo_group, additional_data)}
+      {key, get_value_for_key(key, pack, additional_data)}
     end)
   end
 
-  @spec get_value_for_key(atom(), AmmoGroup.t(), additional_data :: map()) ::
+  @spec get_value_for_key(atom(), Pack.t(), additional_data :: map()) ::
           any() | {any(), Rendered.t()}
   defp get_value_for_key(
          :ammo_type,
@@ -170,9 +169,9 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:used_up_on, %{id: ammo_group_id}, %{last_used_dates: last_used_dates}) do
-    last_used_date = last_used_dates |> Map.get(ammo_group_id)
-    assigns = %{id: ammo_group_id, last_used_date: last_used_date}
+  defp get_value_for_key(:used_up_on, %{id: pack_id}, %{last_used_dates: last_used_dates}) do
+    last_used_date = last_used_dates |> Map.get(pack_id)
+    assigns = %{id: pack_id, last_used_date: last_used_date}
 
     {last_used_date,
      ~H"""
@@ -184,29 +183,29 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
      """}
   end
 
-  defp get_value_for_key(:range, %{staged: staged} = ammo_group, %{range: range}) do
-    assigns = %{range: range, ammo_group: ammo_group}
+  defp get_value_for_key(:range, %{staged: staged} = pack, %{range: range}) do
+    assigns = %{range: range, pack: pack}
 
     {staged,
      ~H"""
-     <%= render_slot(@range, @ammo_group) %>
+     <%= render_slot(@range, @pack) %>
      """}
   end
 
   defp get_value_for_key(
          :remaining,
-         %{id: ammo_group_id},
+         %{id: pack_id},
          %{percentages_remaining: percentages_remaining}
        ) do
-    percentage = Map.fetch!(percentages_remaining, ammo_group_id)
+    percentage = Map.fetch!(percentages_remaining, pack_id)
     {percentage, gettext("%{percentage}%", percentage: percentage)}
   end
 
-  defp get_value_for_key(:actions, ammo_group, %{actions: actions}) do
-    assigns = %{actions: actions, ammo_group: ammo_group}
+  defp get_value_for_key(:actions, pack, %{actions: actions}) do
+    assigns = %{actions: actions, pack: pack}
 
     ~H"""
-    <%= render_slot(@actions, @ammo_group) %>
+    <%= render_slot(@actions, @pack) %>
     """
   end
 
@@ -214,7 +213,7 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
 
   defp get_value_for_key(
          :container,
-         %{container_id: container_id} = ammo_group,
+         %{container_id: container_id} = pack,
          %{container: container_block, containers: containers}
        ) do
     container = %{name: container_name} = Map.fetch!(containers, container_id)
@@ -222,35 +221,35 @@ defmodule CanneryWeb.Components.AmmoGroupTableComponent do
     assigns = %{
       container: container,
       container_block: container_block,
-      ammo_group: ammo_group
+      pack: pack
     }
 
     {container_name,
      ~H"""
-     <%= render_slot(@container_block, {@ammo_group, @container}) %>
+     <%= render_slot(@container_block, {@pack, @container}) %>
      """}
   end
 
   defp get_value_for_key(
          :original_count,
-         %{id: ammo_group_id},
+         %{id: pack_id},
          %{original_counts: original_counts}
        ) do
-    Map.fetch!(original_counts, ammo_group_id)
+    Map.fetch!(original_counts, pack_id)
   end
 
   defp get_value_for_key(:cpr, %{price_paid: nil}, _additional_data),
     do: {0, gettext("No cost information")}
 
-  defp get_value_for_key(:cpr, %{id: ammo_group_id}, %{cprs: cprs}) do
-    amount = Map.fetch!(cprs, ammo_group_id)
+  defp get_value_for_key(:cpr, %{id: pack_id}, %{cprs: cprs}) do
+    amount = Map.fetch!(cprs, pack_id)
     {amount, gettext("$%{amount}", amount: display_currency(amount))}
   end
 
   defp get_value_for_key(:count, %{count: count}, _additional_data),
     do: if(count == 0, do: {0, gettext("Empty")}, else: count)
 
-  defp get_value_for_key(key, ammo_group, _additional_data), do: ammo_group |> Map.get(key)
+  defp get_value_for_key(key, pack, _additional_data), do: pack |> Map.get(key)
 
   @spec display_currency(float()) :: String.t()
   defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
