@@ -127,6 +127,7 @@ defmodule CanneryWeb.RangeLive.Index do
     original_counts = packs |> Ammo.get_original_counts(current_user)
     cprs = packs |> Ammo.get_cprs(current_user)
     last_used_dates = packs |> ActivityLog.get_last_used_dates(current_user)
+    shot_record_count = ActivityLog.get_shot_record_count!(current_user)
 
     socket
     |> assign(
@@ -135,7 +136,8 @@ defmodule CanneryWeb.RangeLive.Index do
       cprs: cprs,
       last_used_dates: last_used_dates,
       chart_data: chart_data,
-      shot_groups: shot_groups
+      shot_groups: shot_groups,
+      shot_record_count: shot_record_count
     )
   end
 

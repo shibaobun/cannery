@@ -33,6 +33,26 @@ defmodule Cannery.ActivityLogTest do
       ]
     end
 
+    test "get_shot_record_count!/1 returns the correct amount of shot records",
+         %{pack: pack, current_user: current_user} do
+      assert ActivityLog.get_shot_record_count!(current_user) == 1
+
+      shot_group_fixture(%{count: 1, date: ~N[2022-02-13 03:17:00]}, current_user, pack)
+      assert ActivityLog.get_shot_record_count!(current_user) == 2
+
+      shot_group_fixture(%{count: 1, date: ~N[2022-02-13 03:17:00]}, current_user, pack)
+      assert ActivityLog.get_shot_record_count!(current_user) == 3
+
+      other_user = user_fixture()
+      assert ActivityLog.get_shot_record_count!(other_user) == 0
+
+      container = container_fixture(other_user)
+      ammo_type = ammo_type_fixture(other_user)
+      {1, [pack]} = pack_fixture(%{count: 25}, ammo_type, container, other_user)
+      shot_group_fixture(%{count: 1, date: ~N[2022-02-13 03:17:00]}, other_user, pack)
+      assert ActivityLog.get_shot_record_count!(other_user) == 1
+    end
+
     test "get_shot_group!/2 returns the shot_group with given id",
          %{shot_group: shot_group, current_user: current_user} do
       assert ActivityLog.get_shot_group!(shot_group.id, current_user) == shot_group

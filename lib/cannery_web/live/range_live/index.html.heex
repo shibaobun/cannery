@@ -50,7 +50,7 @@
 
   <hr class="hr" />
 
-  <%= if @shot_groups |> Enum.empty?() and @search |> is_nil() do %>
+  <%= if @shot_record_count == 0 do %>
     <h1 class="title text-xl text-primary-600">
       <%= gettext("No shots recorded") %>
       <%= display_emoji("😔") %>

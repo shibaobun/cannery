@@ -92,6 +92,25 @@ defmodule Cannery.ActivityLog do
 
   defp list_shot_groups_filter_type(query, _all), do: query
 
+  @doc """
+  Returns a count of shot records.
+
+  ## Examples
+
+      iex> get_shot_record_count!(%User{id: 123})
+      3
+
+  """
+  @spec get_shot_record_count!(User.t()) :: integer()
+  def get_shot_record_count!(%User{id: user_id}) do
+    Repo.one(
+      from sg in ShotGroup,
+        where: sg.user_id == ^user_id,
+        select: count(sg.id),
+        distinct: true
+    ) || 0
+  end
+
   @spec list_shot_groups_for_pack(Pack.t(), User.t()) :: [ShotGroup.t()]
   def list_shot_groups_for_pack(
         %Pack{id: pack_id, user_id: user_id},
