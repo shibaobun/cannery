@@ -91,7 +91,12 @@ defmodule Cannery.Fixtures do
   @spec container_fixture(attrs :: map(), User.t()) :: Container.t()
   def container_fixture(attrs \\ %{}, %User{} = user) do
     attrs
-    |> Enum.into(%{name: random_string(), type: "Ammo can"})
+    |> Enum.into(%{
+      name: random_string(),
+      type: "Ammo can",
+      location: random_string(),
+      desc: random_string()
+    })
     |> Containers.create_container(user)
     |> unwrap_ok_tuple()
   end
@@ -103,7 +108,40 @@ defmodule Cannery.Fixtures do
   @spec ammo_type_fixture(attrs :: map(), User.t()) :: AmmoType.t()
   def ammo_type_fixture(attrs \\ %{}, %User{} = user) do
     attrs
-    |> Enum.into(%{name: random_string(), class: :rifle})
+    |> Enum.into(%{
+      name: random_string(),
+      class: :rifle,
+      desc: random_string(),
+      bullet_type: random_string(),
+      bullet_core: random_string(),
+      cartridge: random_string(),
+      caliber: random_string(),
+      case_material: random_string(),
+      jacket_type: random_string(),
+      muzzle_velocity: 3,
+      powder_type: random_string(),
+      powder_grains_per_charge: 5,
+      grains: 7,
+      pressure: random_string(),
+      primer_type: random_string(),
+      firing_type: random_string(),
+      wadding: random_string(),
+      shot_type: random_string(),
+      shot_material: random_string(),
+      shot_size: random_string(),
+      unfired_length: random_string(),
+      brass_height: random_string(),
+      chamber_size: random_string(),
+      load_grains: 9,
+      shot_charge_weight: random_string(),
+      dram_equivalent: random_string(),
+      tracer: false,
+      incendiary: false,
+      blank: false,
+      corrosive: false,
+      manufacturer: random_string(),
+      upc: random_string()
+    })
     |> Ammo.create_ammo_type(user)
     |> unwrap_ok_tuple()
   end

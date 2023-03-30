@@ -43,7 +43,7 @@ defmodule Cannery.AmmoTest do
           name: "bullets",
           class: :rifle,
           desc: "has some pews in it",
-          grains: 5
+          grains: 53_453
         }
         |> ammo_type_fixture(current_user)
 
@@ -51,7 +51,7 @@ defmodule Cannery.AmmoTest do
         %{
           name: "hollows",
           class: :shotgun,
-          grains: 3
+          grains: 3_234_234
         }
         |> ammo_type_fixture(current_user)
 
@@ -131,8 +131,8 @@ defmodule Cannery.AmmoTest do
       assert Ammo.list_ammo_types("shell", current_user, :all) == [pistol_ammo_type]
 
       # grains (integer)
-      assert Ammo.list_ammo_types("5", current_user, :all) == [rifle_ammo_type]
-      assert Ammo.list_ammo_types("3", current_user, :all) == [shotgun_ammo_type]
+      assert Ammo.list_ammo_types("53453", current_user, :all) == [rifle_ammo_type]
+      assert Ammo.list_ammo_types("3234234", current_user, :all) == [shotgun_ammo_type]
 
       # tracer (boolean)
       assert Ammo.list_ammo_types("tracer", current_user, :all) == [pistol_ammo_type]
