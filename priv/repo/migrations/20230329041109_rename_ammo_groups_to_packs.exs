@@ -5,6 +5,9 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
     drop index(:ammo_groups, [:user_id], where: "count = 0", name: :empty_ammo_groups_index)
     drop index(:ammo_groups, [:user_id, :ammo_type_id])
     drop index(:ammo_groups, [:user_id, :container_id])
+    drop index(:ammo_groups, [:ammo_type_id])
+    drop index(:ammo_groups, [:container_id])
+    drop index(:ammo_groups, [:user_id])
 
     flush()
 
@@ -15,6 +18,9 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
     create index(:packs, [:user_id], where: "count = 0", name: :empty_packs_index)
     create index(:packs, [:user_id, :ammo_type_id])
     create index(:packs, [:user_id, :container_id])
+    create index(:packs, [:ammo_type_id])
+    create index(:packs, [:container_id])
+    create index(:packs, [:user_id])
 
     rename table(:shot_groups), :ammo_group_id, to: :pack_id
   end
@@ -23,6 +29,9 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
     drop index(:packs, [:user_id], where: "count = 0", name: :empty_packs_index)
     drop index(:packs, [:user_id, :ammo_type_id])
     drop index(:packs, [:user_id, :container_id])
+    drop index(:packs, [:ammo_type_id])
+    drop index(:packs, [:container_id])
+    drop index(:packs, [:user_id])
 
     flush()
 
@@ -33,6 +42,9 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
     create index(:ammo_groups, [:user_id], where: "count = 0", name: :empty_ammo_groups_index)
     create index(:ammo_groups, [:user_id, :ammo_type_id])
     create index(:ammo_groups, [:user_id, :container_id])
+    create index(:ammo_groups, [:ammo_type_id])
+    create index(:ammo_groups, [:container_id])
+    create index(:ammo_groups, [:user_id])
 
     rename table(:shot_groups), :pack_id, to: :ammo_group_id
   end
