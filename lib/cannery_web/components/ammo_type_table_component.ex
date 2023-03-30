@@ -147,7 +147,7 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       })
       |> TableComponent.maybe_compose_columns(filtered_columns)
       |> TableComponent.maybe_compose_columns(
-        %{label: gettext("Class"), key: :type, type: :atom},
+        %{label: gettext("Class"), key: :class, type: :atom},
         class in [:all, nil]
       )
       |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
