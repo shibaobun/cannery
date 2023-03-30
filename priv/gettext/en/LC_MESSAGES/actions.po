@@ -157,7 +157,7 @@ msgid "Why not get some ready to shoot?"
 msgstr ""
 
 #: lib/cannery_web/live/pack_live/index.html.heex:127
-#: lib/cannery_web/live/pack_live/show.html.heex:98
+#: lib/cannery_web/live/pack_live/show.html.heex:96
 #: lib/cannery_web/live/range_live/index.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Record shots"
@@ -210,7 +210,7 @@ msgstr ""
 
 #: lib/cannery_web/components/move_pack_component.ex:78
 #: lib/cannery_web/live/pack_live/index.html.heex:144
-#: lib/cannery_web/live/pack_live/show.html.heex:91
+#: lib/cannery_web/live/pack_live/show.html.heex:89
 #, elixir-autogen, elixir-format
 msgid "Move ammo"
 msgstr ""
@@ -220,13 +220,13 @@ msgstr ""
 msgid "Set Unlimited"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.html.heex:87
+#: lib/cannery_web/live/pack_live/show.html.heex:85
 #: lib/cannery_web/live/range_live/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Stage for range"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.html.heex:86
+#: lib/cannery_web/live/pack_live/show.html.heex:84
 #: lib/cannery_web/live/range_live/index.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Unstage from range"
@@ -336,25 +336,25 @@ msgstr ""
 msgid "View %{ammo_type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:178
+#: lib/cannery_web/live/pack_live/index.html.heex:174
 #, elixir-autogen, elixir-format, fuzzy
-msgid "Clone ammo group of %{pack_count} bullets"
+msgid "Clone pack of %{pack_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:193
+#: lib/cannery_web/live/pack_live/index.html.heex:189
 #: lib/cannery_web/live/pack_live/show.html.heex:74
 #, elixir-autogen, elixir-format, fuzzy
-msgid "Delete ammo group of %{pack_count} bullets"
+msgid "Delete pack of %{pack_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:166
+#: lib/cannery_web/live/pack_live/index.html.heex:164
 #: lib/cannery_web/live/pack_live/show.html.heex:62
 #, elixir-autogen, elixir-format, fuzzy
-msgid "Edit ammo group of %{pack_count} bullets"
+msgid "Edit pack of %{pack_count} bullets"
 msgstr ""
 
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:206
 #: lib/cannery_web/live/pack_live/index.html.heex:154
 #, elixir-autogen, elixir-format, fuzzy
-msgid "View ammo group of %{pack_count} bullets"
+msgid "View pack of %{pack_count} bullets"
 msgstr ""

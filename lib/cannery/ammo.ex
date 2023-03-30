@@ -8,7 +8,7 @@ defmodule Cannery.Ammo do
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
   alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
-  alias Cannery.Ammo.{Pack, AmmoType}
+  alias Cannery.Ammo.{AmmoType, Pack}
   alias Ecto.{Changeset, Queryable}
 
   @pack_create_limit 10_000
@@ -128,7 +128,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Gets the average cost of an ammo type from ammo groups with price information.
+  Gets the average cost of an ammo type from packs with price information.
 
   ## Examples
 
@@ -147,7 +147,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Gets the average cost of ammo types from ammo groups with price information
+  Gets the average cost of ammo types from packs with price information
   for multiple ammo types.
 
   ## Examples
@@ -745,7 +745,7 @@ defmodule Cannery.Ammo do
       [%Pack{}, ...]
 
       iex> list_packs("cool", %User{id: 123}, true)
-      [%Pack{notes: "My cool ammo group"}, ...]
+      [%Pack{notes: "My cool pack"}, ...]
 
   """
   @spec list_packs(search :: String.t() | nil, AmmoType.class() | :all, User.t()) ::
@@ -864,7 +864,7 @@ defmodule Cannery.Ammo do
   @doc """
   Gets a single pack.
 
-  Raises `KeyError` if the Ammo group does not exist.
+  Raises `KeyError` if the pack does not exist.
 
   ## Examples
 
@@ -903,7 +903,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Calculates the percentage remaining of an ammo group out of 100
+  Calculates the percentage remaining of a pack out of 100
 
   ## Examples
 
@@ -922,7 +922,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Calculates the percentages remaining of multiple ammo groups out of 100
+  Calculates the percentages remaining of multiple packs out of 100
 
   ## Examples
 
@@ -951,7 +951,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Gets the original count for an ammo group
+  Gets the original count for a pack
 
   ## Examples
 
@@ -970,7 +970,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Gets the original counts for multiple ammo groups
+  Gets the original counts for multiple packs
 
   ## Examples
 
@@ -993,7 +993,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Calculates the CPR for a single ammo group
+  Calculates the CPR for a single pack
 
   ## Examples
 
@@ -1012,7 +1012,7 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Calculates the CPR for multiple ammo groups
+  Calculates the CPR for multiple packs
 
   ## Examples
 

@@ -31,7 +31,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     grains: 120
   }
   @pack_attrs %{
-    notes: "some ammo group",
+    notes: "some pack",
     count: 20
   }
 
@@ -298,10 +298,10 @@ defmodule CanneryWeb.ContainerLiveTest do
     end
   end
 
-  describe "Show with ammo group" do
+  describe "Show with pack" do
     setup [:register_and_log_in_user, :create_container, :create_pack]
 
-    test "displays ammo group",
+    test "displays pack",
          %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
@@ -309,7 +309,7 @@ defmodule CanneryWeb.ContainerLiveTest do
       assert html =~ "\n20\n"
     end
 
-    test "displays ammo group in table",
+    test "displays pack in table",
          %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 

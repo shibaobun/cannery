@@ -1,6 +1,6 @@
 defmodule CanneryWeb.Components.MovePackComponent do
   @moduledoc """
-  Livecomponent that can move an ammo group to another container
+  Livecomponent that can move a pack to another container
   """
 
   use CanneryWeb, :live_component

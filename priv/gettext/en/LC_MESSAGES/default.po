@@ -360,7 +360,7 @@ msgstr ""
 msgid "Steel"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.html.heex:108
+#: lib/cannery_web/live/pack_live/show.html.heex:106
 #, elixir-autogen, elixir-format
 msgid "Stored in"
 msgstr ""
@@ -641,7 +641,7 @@ msgstr ""
 msgid "Percentage left:"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.html.heex:121
+#: lib/cannery_web/live/pack_live/show.html.heex:119
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds used"
 msgstr ""
@@ -756,7 +756,7 @@ msgstr ""
 msgid "Show Ammo"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.html.heex:113
+#: lib/cannery_web/live/pack_live/show.html.heex:111
 #, elixir-autogen, elixir-format, fuzzy
 msgid "This ammo is not in a container"
 msgstr ""

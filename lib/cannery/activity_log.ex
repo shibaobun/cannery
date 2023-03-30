@@ -4,7 +4,7 @@ defmodule Cannery.ActivityLog do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Ammo.{Pack, AmmoType}
+  alias Cannery.Ammo.{AmmoType, Pack}
   alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
   alias Ecto.{Multi, Queryable}
 
@@ -269,7 +269,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the number of shot rounds for an ammo group
+  Returns the number of shot rounds for a pack
   """
   @spec get_used_count(Pack.t(), User.t()) :: non_neg_integer()
   def get_used_count(%Pack{id: pack_id} = pack, user) do
@@ -279,7 +279,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the number of shot rounds for multiple ammo groups
+  Returns the number of shot rounds for multiple packs
   """
   @spec get_used_counts([Pack.t()], User.t()) ::
           %{optional(Pack.id()) => non_neg_integer()}
@@ -299,7 +299,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the last entered shot group date for an ammo group
+  Returns the last entered shot group date for a pack
   """
   @spec get_last_used_date(Pack.t(), User.t()) :: Date.t() | nil
   def get_last_used_date(%Pack{id: pack_id} = pack, user) do
@@ -309,7 +309,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the last entered shot group date for an ammo group
+  Returns the last entered shot group date for a pack
   """
   @spec get_last_used_dates([Pack.t()], User.t()) :: %{optional(Pack.id()) => Date.t()}
   def get_last_used_dates(packs, %User{id: user_id}) do

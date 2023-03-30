@@ -151,9 +151,7 @@
                 navigate={Routes.pack_show_path(Endpoint, :show, pack)}
                 class="text-primary-600 link"
                 aria-label={
-                  dgettext("actions", "View ammo group of %{pack_count} bullets",
-                    pack_count: pack_count
-                  )
+                  dgettext("actions", "View pack of %{pack_count} bullets", pack_count: pack_count)
                 }
               >
                 <i class="fa-fw fa-lg fas fa-eye"></i>
@@ -163,9 +161,7 @@
                 patch={Routes.pack_index_path(Endpoint, :edit, pack)}
                 class="text-primary-600 link"
                 aria-label={
-                  dgettext("actions", "Edit ammo group of %{pack_count} bullets",
-                    pack_count: pack_count
-                  )
+                  dgettext("actions", "Edit pack of %{pack_count} bullets", pack_count: pack_count)
                 }
               >
                 <i class="fa-fw fa-lg fas fa-edit"></i>
@@ -175,7 +171,7 @@
                 patch={Routes.pack_index_path(Endpoint, :clone, pack)}
                 class="text-primary-600 link"
                 aria-label={
-                  dgettext("actions", "Clone ammo group of %{pack_count} bullets",
+                  dgettext("actions", "Clone pack of %{pack_count} bullets",
                     pack_count: pack_count
                   )
                 }
@@ -190,7 +186,7 @@
                 phx-value-id={pack.id}
                 data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
                 aria-label={
-                  dgettext("actions", "Delete ammo group of %{pack_count} bullets",
+                  dgettext("actions", "Delete pack of %{pack_count} bullets",
                     pack_count: pack_count
                   )
                 }

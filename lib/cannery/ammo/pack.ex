@@ -113,7 +113,7 @@ defmodule Cannery.Ammo.Pack do
   end
 
   @doc """
-  This range changeset is used when "using up" ammo groups, and allows for
+  This range changeset is used when "using up" packs, and allows for
   updating the count to 0
   """
   @spec range_changeset(t() | new_pack(), attrs :: map()) :: changeset()

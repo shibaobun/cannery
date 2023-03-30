@@ -34,7 +34,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     grains: nil
   }
   @pack_attrs %{
-    notes: "some ammo group",
+    notes: "some pack",
     count: 20
   }
   @shot_group_attrs %{
@@ -248,10 +248,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     end
   end
 
-  describe "Index with ammo group" do
+  describe "Index with pack" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_pack]
 
-    test "shows used ammo groups on toggle",
+    test "shows used packs on toggle",
          %{conn: conn, pack: pack, current_user: current_user} do
       {:ok, index_live, html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 
@@ -327,10 +327,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     end
   end
 
-  describe "Show ammo type with ammo group" do
+  describe "Show ammo type with pack" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_pack]
 
-    test "displays ammo group", %{
+    test "displays pack", %{
       conn: conn,
       ammo_type: %{name: ammo_type_name} = ammo_type,
       container: %{name: container_name}
@@ -342,7 +342,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ container_name
     end
 
-    test "displays ammo group in table",
+    test "displays pack in table",
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 
@@ -356,10 +356,10 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     end
   end
 
-  describe "Show ammo type with empty ammo group" do
+  describe "Show ammo type with empty pack" do
     setup [:register_and_log_in_user, :create_ammo_type, :create_empty_pack]
 
-    test "displays empty ammo groups on toggle",
+    test "displays empty packs on toggle",
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
       assert html =~ "Show used"
@@ -375,7 +375,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ container_name
     end
 
-    test "displays empty ammo groups in table on toggle",
+    test "displays empty packs in table on toggle",
          %{conn: conn, ammo_type: ammo_type, container: %{name: container_name}} do
       {:ok, show_live, _html} = live(conn, Routes.ammo_type_show_path(conn, :show, ammo_type))
 

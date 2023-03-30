@@ -1,6 +1,6 @@
 defmodule CanneryWeb.PackLiveTest do
   @moduledoc """
-  Tests ammo group live pages
+  Tests pack live pages
   """
 
   use CanneryWeb.ConnCase
@@ -52,7 +52,7 @@ defmodule CanneryWeb.PackLiveTest do
     [empty_pack: pack, shot_group: shot_group]
   end
 
-  describe "Index of ammo group" do
+  describe "Index of pack" do
     setup [:register_and_log_in_user, :create_pack]
 
     test "lists all packs", %{conn: conn, pack: pack} do
@@ -213,7 +213,7 @@ defmodule CanneryWeb.PackLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
 
       assert index_live
-             |> element(~s/a[aria-label="Edit ammo group of #{pack.count} bullets"]/)
+             |> element(~s/a[aria-label="Edit pack of #{pack.count} bullets"]/)
              |> render_click() =~ "Edit ammo"
 
       assert_patch(index_live, Routes.pack_index_path(conn, :edit, pack))
@@ -237,7 +237,7 @@ defmodule CanneryWeb.PackLiveTest do
 
       html =
         index_live
-        |> element(~s/a[aria-label="Clone ammo group of #{pack.count} bullets"]/)
+        |> element(~s/a[aria-label="Clone pack of #{pack.count} bullets"]/)
         |> render_click()
 
       assert html =~ "Add Ammo"
@@ -261,7 +261,7 @@ defmodule CanneryWeb.PackLiveTest do
 
       html =
         index_live
-        |> element(~s/a[aria-label="Clone ammo group of #{pack.count} bullets"]/)
+        |> element(~s/a[aria-label="Clone pack of #{pack.count} bullets"]/)
         |> render_click()
 
       assert html =~ "Add Ammo"
@@ -279,7 +279,7 @@ defmodule CanneryWeb.PackLiveTest do
 
       html =
         index_live
-        |> element(~s/a[aria-label="Clone ammo group of #{pack.count} bullets"]/)
+        |> element(~s/a[aria-label="Clone pack of #{pack.count} bullets"]/)
         |> render_click()
 
       assert html =~ "Add Ammo"
@@ -305,7 +305,7 @@ defmodule CanneryWeb.PackLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
 
       assert index_live
-             |> element(~s/a[aria-label="Delete ammo group of #{pack.count} bullets"]/)
+             |> element(~s/a[aria-label="Delete pack of #{pack.count} bullets"]/)
              |> render_click()
 
       refute has_element?(index_live, "#pack-#{pack.id}")
@@ -334,10 +334,10 @@ defmodule CanneryWeb.PackLiveTest do
     defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
   end
 
-  describe "Index of empty ammo group" do
+  describe "Index of empty pack" do
     setup [:register_and_log_in_user, :create_pack, :create_empty_pack]
 
-    test "hides empty ammo groups by default", %{
+    test "hides empty packs by default", %{
       conn: conn,
       empty_pack: pack,
       current_user: current_user
@@ -361,7 +361,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
   end
 
-  describe "Show ammo group" do
+  describe "Show pack" do
     setup [:register_and_log_in_user, :create_pack]
 
     test "displays pack", %{conn: conn, pack: pack} do
@@ -375,7 +375,7 @@ defmodule CanneryWeb.PackLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.pack_show_path(conn, :show, pack))
 
       assert show_live
-             |> element(~s/a[aria-label="Edit ammo group of #{pack.count} bullets"]/)
+             |> element(~s/a[aria-label="Edit pack of #{pack.count} bullets"]/)
              |> render_click() =~ "Edit Ammo"
 
       assert_patch(show_live, Routes.pack_show_path(conn, :edit, pack))
@@ -414,7 +414,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
   end
 
-  describe "Show ammo group with shot group" do
+  describe "Show pack with shot group" do
     setup [:register_and_log_in_user, :create_pack, :create_shot_group]
 
     test "updates shot_group in listing",

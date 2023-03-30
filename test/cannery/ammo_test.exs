@@ -4,7 +4,7 @@ defmodule Cannery.AmmoTest do
   """
 
   use Cannery.DataCase
-  alias Cannery.{Ammo, Ammo.Pack, Ammo.AmmoType, Containers}
+  alias Cannery.{Ammo, Ammo.AmmoType, Ammo.Pack, Containers}
   alias Ecto.Changeset
 
   @moduletag :ammo_test
@@ -211,7 +211,7 @@ defmodule Cannery.AmmoTest do
     end
   end
 
-  describe "ammo types with ammo groups" do
+  describe "ammo types with packs" do
     setup do
       current_user = user_fixture()
       ammo_type = ammo_type_fixture(current_user)
@@ -516,14 +516,14 @@ defmodule Cannery.AmmoTest do
                [ammo_type, another_ammo_type]
                |> Ammo.get_used_packs_count_for_types(current_user)
 
-      # testing ammo type with ammo group
+      # testing ammo type with pack
       {1, [first_pack]} = pack_fixture(%{count: 1}, ammo_type, container, current_user)
 
       assert %{} ==
                [ammo_type, another_ammo_type]
                |> Ammo.get_used_packs_count_for_types(current_user)
 
-      # testing ammo type with used ammo group
+      # testing ammo type with used pack
       {1, [another_pack]} = pack_fixture(%{count: 50}, another_ammo_type, container, current_user)
 
       shot_group_fixture(%{count: 50}, current_user, another_pack)
@@ -532,7 +532,7 @@ defmodule Cannery.AmmoTest do
                [ammo_type, another_ammo_type]
                |> Ammo.get_used_packs_count_for_types(current_user)
 
-      # testing two ammo types with zero and one used ammo groups
+      # testing two ammo types with zero and one used packs
       {1, [pack]} = pack_fixture(%{count: 50}, ammo_type, container, current_user)
       shot_group_fixture(%{count: 50}, current_user, pack)
 
@@ -542,7 +542,7 @@ defmodule Cannery.AmmoTest do
       assert %{^ammo_type_id => 1} = used_counts
       assert %{^another_ammo_type_id => 1} = used_counts
 
-      # testing two ammo type with one and two used ammo groups
+      # testing two ammo type with one and two used packs
       shot_group_fixture(%{count: 1}, current_user, first_pack)
 
       used_counts =
@@ -778,14 +778,14 @@ defmodule Cannery.AmmoTest do
       assert pack in packs
     end
 
-    test "list_packs/4 returns relevant ammo groups when searched", %{
+    test "list_packs/4 returns relevant packs when searched", %{
       ammo_type: ammo_type,
       pack: pack,
       container: container,
       current_user: current_user
     } do
       {1, [another_pack]} =
-        %{count: 49, notes: "cool ammo group"}
+        %{count: 49, notes: "cool pack"}
         |> pack_fixture(ammo_type, container, current_user)
 
       another_ammo_type = ammo_type_fixture(%{name: "amazing ammo"}, current_user)
@@ -806,7 +806,7 @@ defmodule Cannery.AmmoTest do
       assert another_pack in packs
       assert pack in packs
 
-      # search works for ammo group attributes
+      # search works for pack attributes
       assert Ammo.list_packs("cool", :all, current_user, true) == [another_pack]
 
       # search works for ammo type attributes

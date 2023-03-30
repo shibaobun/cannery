@@ -76,8 +76,8 @@
 - Add shading to table component
 - Fix chart to sum by day
 - Fix whitespace when copying invite url
-- Make ammo type show page also display ammo groups as table
-- Make container show page also display ammo groups as table
+- Make ammo type show page also display packs as table
+- Make container show page also display packs as table
 - Display CPR for ammo packs
 - Add original count for ammo packs
 - Add ammo pack CPR and original count to json export

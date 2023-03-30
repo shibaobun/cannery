@@ -1,6 +1,6 @@
 defmodule CanneryWeb.Components.PackTableComponent do
   @moduledoc """
-  A component that displays a list of ammo groups
+  A component that displays a list of packs
   """
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Ammo.Pack, ComparableDate}

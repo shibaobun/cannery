@@ -366,7 +366,7 @@ msgstr "Simple :"
 msgid "Steel"
 msgstr "Acier"
 
-#: lib/cannery_web/live/pack_live/show.html.heex:108
+#: lib/cannery_web/live/pack_live/show.html.heex:106
 #, elixir-autogen, elixir-format
 msgid "Stored in"
 msgstr "Est stocké dans"
@@ -649,7 +649,7 @@ msgstr "Nombre original :"
 msgid "Percentage left:"
 msgstr "Pourcentage restant :"
 
-#: lib/cannery_web/live/pack_live/show.html.heex:121
+#: lib/cannery_web/live/pack_live/show.html.heex:119
 #, elixir-autogen, elixir-format
 msgid "Rounds used"
 msgstr "Cartouches utilisées"
@@ -764,7 +764,7 @@ msgstr "Aucun groupe de munition pour ce conteneur"
 msgid "Show Ammo"
 msgstr "Montrer le type de munition"
 
-#: lib/cannery_web/live/pack_live/show.html.heex:113
+#: lib/cannery_web/live/pack_live/show.html.heex:111
 #, elixir-autogen, elixir-format, fuzzy
 msgid "This ammo is not in a container"
 msgstr "Ce groupe de munition n’est pas dans un conteneur"

@@ -59,7 +59,7 @@ defmodule Cannery.ActivityLogTest do
       assert shot_group.notes == "some notes"
     end
 
-    test "create_shot_group/3 removes corresponding count from ammo group",
+    test "create_shot_group/3 removes corresponding count from pack",
          %{
            current_user: current_user,
            pack: %{id: pack_id, count: org_count} = pack
@@ -75,7 +75,7 @@ defmodule Cannery.ActivityLogTest do
       assert new_count == 10
     end
 
-    test "create_shot_group/3 does not remove more than ammo group amount",
+    test "create_shot_group/3 does not remove more tha pack amount",
          %{current_user: current_user, pack: %{id: pack_id} = pack} do
       valid_attrs = %{count: 20, date: ~D[2022-02-13], notes: "some notes"}
 
@@ -302,7 +302,7 @@ defmodule Cannery.ActivityLogTest do
                [ammo_type, another_ammo_type]
                |> ActivityLog.get_used_count_for_ammo_types(current_user)
 
-      # use generated ammo group
+      # use generated pack
       shot_group_fixture(%{count: 5}, current_user, pack)
 
       used_counts =
@@ -311,7 +311,7 @@ defmodule Cannery.ActivityLogTest do
       assert %{^ammo_type_id => 5} = used_counts
       assert %{^another_ammo_type_id => 5} = used_counts
 
-      # use generated ammo group again
+      # use generated pack again
       shot_group_fixture(%{count: 1}, current_user, pack)
 
       used_counts =
@@ -407,7 +407,7 @@ defmodule Cannery.ActivityLogTest do
       # notes
       assert ActivityLog.list_shot_groups("amazing", :all, current_user) == [shot_group_a]
 
-      # ammo group attributes
+      # pack attributes
       assert ActivityLog.list_shot_groups("stupendous", :all, current_user) == [shot_group_b]
 
       # ammo type attributes

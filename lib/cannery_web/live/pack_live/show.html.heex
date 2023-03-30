@@ -59,7 +59,7 @@
         patch={Routes.pack_show_path(Endpoint, :edit, @pack)}
         class="mx-4 my-2 text-primary-600 link"
         aria-label={
-          dgettext("actions", "Edit ammo group of %{pack_count} bullets", pack_count: @pack.count)
+          dgettext("actions", "Edit pack of %{pack_count} bullets", pack_count: @pack.count)
         }
       >
         <i class="fa-fw fa-lg fas fa-edit"></i>
@@ -71,9 +71,7 @@
         phx-click="delete"
         data-confirm={dgettext("prompts", "Are you sure you want to delete this ammo?")}
         aria-label={
-          dgettext("actions", "Delete ammo group of %{pack_count} bullets",
-            pack_count: @pack.count
-          )
+          dgettext("actions", "Delete pack of %{pack_count} bullets", pack_count: @pack.count)
         }
       >
         <i class="fa-fw fa-lg fas fa-trash"></i>

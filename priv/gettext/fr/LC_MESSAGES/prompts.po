@@ -74,7 +74,7 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr "Êtes-vous certain·e de supprimer %{name} ?"
 
-#: lib/cannery_web/live/pack_live/index.html.heex:191
+#: lib/cannery_web/live/pack_live/index.html.heex:187
 #: lib/cannery_web/live/pack_live/show.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
