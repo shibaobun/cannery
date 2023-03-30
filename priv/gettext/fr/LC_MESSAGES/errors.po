@@ -162,12 +162,12 @@ msgstr ""
 msgid "Tag could not be removed"
 msgstr "Le tag n’a pas pu être retiré"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:159
+#: lib/cannery_web/live/pack_live/form_component.ex:159
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "Impossible d'analyser le nombre de copies"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:149
+#: lib/cannery_web/live/pack_live/form_component.ex:149
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
@@ -177,7 +177,7 @@ msgstr "Nombre de copies invalide, doit être 1 et %{max}. Été %{multiplier}"
 msgid "Invalid multiplier"
 msgstr "Multiplicateur invalide"
 
-#: lib/cannery/ammo/ammo_group.ex:92
+#: lib/cannery/ammo/pack.ex:92
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr "Veuillez choisir un type de munitions et un conteneur"

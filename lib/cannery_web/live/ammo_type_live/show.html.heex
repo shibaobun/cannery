@@ -215,7 +215,7 @@
         </.live_component>
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">
-          <.ammo_group_card
+          <.pack_card
             :for={%{id: pack_id, container_id: container_id} = pack <- @packs}
             pack={pack}
             original_count={@original_counts && Map.fetch!(@original_counts, pack_id)}

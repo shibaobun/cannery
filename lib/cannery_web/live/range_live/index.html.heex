@@ -18,7 +18,7 @@
     </.link>
 
     <div class="w-full flex flex-row flex-wrap justify-center items-stretch">
-      <.ammo_group_card
+      <.pack_card
         :for={%{id: pack_id} = pack <- @packs}
         pack={pack}
         original_count={Map.fetch!(@original_counts, pack_id)}
@@ -44,7 +44,7 @@
         >
           <%= dgettext("actions", "Record shots") %>
         </.link>
-      </.ammo_group_card>
+      </.pack_card>
     </div>
   <% end %>
 

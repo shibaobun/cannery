@@ -161,12 +161,12 @@ msgstr "Debe confirmar su cuenta e iniciar sesión para acceder a esta página."
 msgid "Tag could not be removed"
 msgstr "La etiqueta no pudo ser eliminada"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:159
+#: lib/cannery_web/live/pack_live/form_component.ex:159
 #, elixir-autogen, elixir-format
 msgid "Could not parse number of copies"
 msgstr "No se ha podido procesar el número de copias"
 
-#: lib/cannery_web/live/ammo_group_live/form_component.ex:149
+#: lib/cannery_web/live/pack_live/form_component.ex:149
 #, elixir-autogen, elixir-format
 msgid "Invalid number of copies, must be between 1 and %{max}. Was %{multiplier}"
 msgstr "Número inválido de copias, debe ser entre 1 y %{max}. Fue %{multiplier"
@@ -176,7 +176,7 @@ msgstr "Número inválido de copias, debe ser entre 1 y %{max}. Fue %{multiplier
 msgid "Invalid multiplier"
 msgstr "Multiplicador inválido"
 
-#: lib/cannery/ammo/ammo_group.ex:92
+#: lib/cannery/ammo/pack.ex:92
 #, elixir-autogen, elixir-format
 msgid "Please select an ammo type and container"
 msgstr "Por favor escoja un tipo de munición y un contenedor"

@@ -94,7 +94,7 @@ defmodule CanneryWeb.CoreComponents do
   attr :container, Container, default: nil
   slot(:inner_block)
 
-  def ammo_group_card(assigns)
+  def pack_card(assigns)
 
   @spec display_currency(float()) :: String.t()
   defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)
