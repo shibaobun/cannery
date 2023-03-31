@@ -12,18 +12,18 @@ defmodule CanneryWeb.PackLiveTest do
   @update_attrs %{count: 43, notes: "some updated notes", price_paid: 456.7}
   @invalid_attrs %{count: nil, notes: nil, price_paid: nil}
   @pack_create_limit 10_000
-  @shot_group_create_attrs %{ammo_left: 5, notes: "some notes"}
-  @shot_group_update_attrs %{
+  @shot_record_create_attrs %{ammo_left: 5, notes: "some notes"}
+  @shot_record_update_attrs %{
     count: 5,
     date: ~N[2022-02-13 03:17:00],
     notes: "some updated notes"
   }
-  @shot_group_invalid_attrs %{ammo_left: nil, count: nil, notes: nil}
+  @shot_record_invalid_attrs %{ammo_left: nil, count: nil, notes: nil}
   @empty_attrs %{
     price_paid: 50,
     count: 20
   }
-  @shot_group_attrs %{
+  @shot_record_attrs %{
     price_paid: 50,
     count: 20
   }
@@ -35,10 +35,10 @@ defmodule CanneryWeb.PackLiveTest do
     [ammo_type: ammo_type, pack: pack, container: container]
   end
 
-  defp create_shot_group(%{current_user: current_user, pack: pack}) do
-    shot_group = shot_group_fixture(@shot_group_update_attrs, current_user, pack)
+  defp create_shot_record(%{current_user: current_user, pack: pack}) do
+    shot_record = shot_record_fixture(@shot_record_update_attrs, current_user, pack)
     pack = pack |> Repo.reload!()
-    [pack: pack, shot_group: shot_group]
+    [pack: pack, shot_record: shot_record]
   end
 
   defp create_empty_pack(%{
@@ -47,9 +47,9 @@ defmodule CanneryWeb.PackLiveTest do
          container: container
        }) do
     {1, [pack]} = pack_fixture(@empty_attrs, ammo_type, container, current_user)
-    shot_group = shot_group_fixture(@shot_group_attrs, current_user, pack)
+    shot_record = shot_record_fixture(@shot_record_attrs, current_user, pack)
     pack = pack |> Repo.reload!()
-    [empty_pack: pack, shot_group: shot_group]
+    [empty_pack: pack, shot_record: shot_record]
   end
 
   describe "Index of pack" do
@@ -311,20 +311,20 @@ defmodule CanneryWeb.PackLiveTest do
       refute has_element?(index_live, "#pack-#{pack.id}")
     end
 
-    test "saves new shot_group", %{conn: conn, pack: pack} do
+    test "saves new shot_record", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.pack_index_path(conn, :add_shot_group, pack))
+      assert_patch(index_live, Routes.pack_index_path(conn, :add_shot_record, pack))
 
       assert index_live
              |> form("#shot-group-form")
-             |> render_change(shot_group: @shot_group_invalid_attrs) =~ "can&#39;t be blank"
+             |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
         |> form("#shot-group-form")
-        |> render_submit(shot_group: @shot_group_create_attrs)
+        |> render_submit(shot_record: @shot_record_create_attrs)
         |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
 
       assert html =~ "Shots recorded successfully"
@@ -394,66 +394,66 @@ defmodule CanneryWeb.PackLiveTest do
       assert html =~ "some updated notes"
     end
 
-    test "saves new shot_group", %{conn: conn, pack: pack} do
+    test "saves new shot_record", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, Routes.pack_show_path(conn, :show, pack))
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.pack_show_path(conn, :add_shot_group, pack))
+      assert_patch(index_live, Routes.pack_show_path(conn, :add_shot_record, pack))
 
       assert index_live
              |> form("#shot-group-form")
-             |> render_change(shot_group: @shot_group_invalid_attrs) =~ "can&#39;t be blank"
+             |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
         |> form("#shot-group-form")
-        |> render_submit(shot_group: @shot_group_create_attrs)
+        |> render_submit(shot_record: @shot_record_create_attrs)
         |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
 
       assert html =~ "Shots recorded successfully"
     end
   end
 
-  describe "Show pack with shot group" do
-    setup [:register_and_log_in_user, :create_pack, :create_shot_group]
+  describe "Show pack with shot recorddd" do
+    setup [:register_and_log_in_user, :create_pack, :create_shot_record]
 
-    test "updates shot_group in listing",
-         %{conn: conn, pack: pack, shot_group: shot_group} do
+    test "updates shot_record in listing",
+         %{conn: conn, pack: pack, shot_record: shot_record} do
       {:ok, index_live, _html} = live(conn, Routes.pack_show_path(conn, :edit, pack))
 
       assert index_live
-             |> element(~s/a[aria-label="Edit shot group of #{shot_group.count} shots"]/)
+             |> element(~s/a[aria-label="Edit shot recordd of #{shot_record.count} shots"]/)
              |> render_click() =~ "Edit Shot Records"
 
       assert_patch(
         index_live,
-        Routes.pack_show_path(conn, :edit_shot_group, pack, shot_group)
+        Routes.pack_show_path(conn, :edit_shot_record, pack, shot_record)
       )
 
       assert index_live
              |> form("#shot-group-form")
-             |> render_change(shot_group: @shot_group_invalid_attrs) =~ "can&#39;t be blank"
+             |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
         |> form("#shot-group-form")
-        |> render_submit(shot_group: @shot_group_update_attrs)
+        |> render_submit(shot_record: @shot_record_update_attrs)
         |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
 
       assert html =~ "Shot records updated successfully"
       assert html =~ "some updated notes"
     end
 
-    test "deletes shot_group in listing",
-         %{conn: conn, pack: pack, shot_group: shot_group} do
+    test "deletes shot_record in listing",
+         %{conn: conn, pack: pack, shot_record: shot_record} do
       {:ok, index_live, _html} =
-        live(conn, Routes.pack_show_path(conn, :edit_shot_group, pack, shot_group))
+        live(conn, Routes.pack_show_path(conn, :edit_shot_record, pack, shot_record))
 
       assert index_live
-             |> element(~s/a[aria-label="Delete shot record of #{shot_group.count} shots"]/)
+             |> element(~s/a[aria-label="Delete shot record of #{shot_record.count} shots"]/)
              |> render_click()
 
-      refute has_element?(index_live, "#shot_group-#{shot_group.id}")
+      refute has_element?(index_live, "#shot_record-#{shot_record.id}")
     end
   end
 end

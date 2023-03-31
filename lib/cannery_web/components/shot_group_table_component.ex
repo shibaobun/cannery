@@ -1,9 +1,9 @@
-defmodule CanneryWeb.Components.ShotGroupTableComponent do
+defmodule CanneryWeb.Components.ShotRecordTableComponent do
   @moduledoc """
-  A component that displays a list of shot groups
+  A component that displays a list of shot records
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Ammo, ComparableDate}
+  alias Cannery.{Accounts.User, ActivityLog.ShotRecord, Ammo, ComparableDate}
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
 
@@ -12,26 +12,29 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
           %{
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
-            optional(:shot_groups) => [ShotGroup.t()],
+            optional(:shot_records) => [ShotRecord.t()],
             optional(:actions) => Rendered.t(),
             optional(any()) => any()
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{id: _id, shot_groups: _shot_groups, current_user: _current_user} = assigns, socket) do
+  def update(
+        %{id: _id, shot_records: _shot_records, current_user: _current_user} = assigns,
+        socket
+      ) do
     socket =
       socket
       |> assign(assigns)
       |> assign_new(:actions, fn -> [] end)
-      |> display_shot_groups()
+      |> display_shot_records()
 
     {:ok, socket}
   end
 
-  defp display_shot_groups(
+  defp display_shot_records(
          %{
            assigns: %{
-             shot_groups: shot_groups,
+             shot_records: shot_records,
              current_user: current_user,
              actions: actions
            }
@@ -46,16 +49,16 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
     ]
 
     packs =
-      shot_groups
+      shot_records
       |> Enum.map(fn %{pack_id: pack_id} -> pack_id end)
       |> Ammo.get_packs(current_user)
 
     extra_data = %{current_user: current_user, actions: actions, packs: packs}
 
     rows =
-      shot_groups
-      |> Enum.map(fn shot_group ->
-        shot_group |> get_row_data_for_shot_group(columns, extra_data)
+      shot_records
+      |> Enum.map(fn shot_record ->
+        shot_record |> get_row_data_for_shot_record(columns, extra_data)
       end)
 
     socket
@@ -81,12 +84,12 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
     """
   end
 
-  @spec get_row_data_for_shot_group(ShotGroup.t(), columns :: [map()], extra_data :: map()) ::
+  @spec get_row_data_for_shot_record(ShotRecord.t(), columns :: [map()], extra_data :: map()) ::
           map()
-  defp get_row_data_for_shot_group(shot_group, columns, extra_data) do
+  defp get_row_data_for_shot_record(shot_record, columns, extra_data) do
     columns
     |> Map.new(fn %{key: key} ->
-      {key, get_row_value(key, shot_group, extra_data)}
+      {key, get_row_value(key, shot_record, extra_data)}
     end)
   end
 
@@ -108,13 +111,13 @@ defmodule CanneryWeb.Components.ShotGroupTableComponent do
      """}
   end
 
-  defp get_row_value(:actions, shot_group, %{actions: actions}) do
-    assigns = %{actions: actions, shot_group: shot_group}
+  defp get_row_value(:actions, shot_record, %{actions: actions}) do
+    assigns = %{actions: actions, shot_record: shot_record}
 
     ~H"""
-    <%= render_slot(@actions, @shot_group) %>
+    <%= render_slot(@actions, @shot_record) %>
     """
   end
 
-  defp get_row_value(key, shot_group, _extra_data), do: shot_group |> Map.get(key)
+  defp get_row_value(key, shot_record, _extra_data), do: shot_record |> Map.get(key)
 end

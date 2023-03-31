@@ -93,19 +93,19 @@ defmodule CanneryWeb.Router do
     live "/ammo/new", PackLive.Index, :new
     live "/ammo/edit/:id", PackLive.Index, :edit
     live "/ammo/clone/:id", PackLive.Index, :clone
-    live "/ammo/add_shot_group/:id", PackLive.Index, :add_shot_group
+    live "/ammo/add_shot_record/:id", PackLive.Index, :add_shot_record
     live "/ammo/move/:id", PackLive.Index, :move
     live "/ammo/search/:search", PackLive.Index, :search
 
     live "/ammo/show/:id", PackLive.Show, :show
     live "/ammo/show/edit/:id", PackLive.Show, :edit
-    live "/ammo/show/add_shot_group/:id", PackLive.Show, :add_shot_group
+    live "/ammo/show/add_shot_record/:id", PackLive.Show, :add_shot_record
     live "/ammo/show/move/:id", PackLive.Show, :move
-    live "/ammo/show/:id/edit/:shot_group_id", PackLive.Show, :edit_shot_group
+    live "/ammo/show/:id/edit/:shot_record_id", PackLive.Show, :edit_shot_record
 
     live "/range", RangeLive.Index, :index
     live "/range/edit/:id", RangeLive.Index, :edit
-    live "/range/add_shot_group/:id", RangeLive.Index, :add_shot_group
+    live "/range/add_shot_record/:id", RangeLive.Index, :add_shot_record
     live "/range/search/:search", RangeLive.Index, :search
   end
 

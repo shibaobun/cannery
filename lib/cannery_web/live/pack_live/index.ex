@@ -27,7 +27,7 @@ defmodule CanneryWeb.PackLive.Index do
 
   defp apply_action(
          %{assigns: %{current_user: current_user}} = socket,
-         :add_shot_group,
+         :add_shot_record,
          %{"id" => id}
        ) do
     socket

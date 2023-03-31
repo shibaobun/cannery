@@ -1,6 +1,6 @@
-defmodule Cannery.ActivityLog.ShotGroup do
+defmodule Cannery.ActivityLog.ShotRecord do
   @moduledoc """
-  A shot group records a group of ammo shot during a range trip
+  A shot record records a group of ammo shot during a range trip
   """
 
   use Ecto.Schema
@@ -19,7 +19,7 @@ defmodule Cannery.ActivityLog.ShotGroup do
            ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "shot_groups" do
+  schema "shot_records" do
     field :count, :integer
     field :date, :date
     field :notes, :string
@@ -40,41 +40,41 @@ defmodule Cannery.ActivityLog.ShotGroup do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_shot_group :: %__MODULE__{}
+  @type new_shot_record :: %__MODULE__{}
   @type id :: UUID.t()
-  @type changeset :: Changeset.t(t() | new_shot_group())
+  @type changeset :: Changeset.t(t() | new_shot_record())
 
   @doc false
   @spec create_changeset(
-          new_shot_group(),
+          new_shot_record(),
           User.t() | any(),
           Pack.t() | any(),
           attrs :: map()
         ) :: changeset()
   def create_changeset(
-        shot_group,
+        shot_record,
         %User{id: user_id},
         %Pack{id: pack_id, user_id: user_id} = pack,
         attrs
       ) do
-    shot_group
+    shot_record
     |> change(user_id: user_id)
     |> change(pack_id: pack_id)
     |> cast(attrs, [:count, :notes, :date])
     |> validate_length(:notes, max: 255)
-    |> validate_create_shot_group_count(pack)
+    |> validate_create_shot_record_count(pack)
     |> validate_required([:date, :pack_id, :user_id])
   end
 
-  def create_changeset(shot_group, _invalid_user, _invalid_pack, attrs) do
-    shot_group
+  def create_changeset(shot_record, _invalid_user, _invalid_pack, attrs) do
+    shot_record
     |> cast(attrs, [:count, :notes, :date])
     |> validate_length(:notes, max: 255)
     |> validate_required([:pack_id, :user_id])
     |> add_error(:invalid, dgettext("errors", "Please select a valid user and ammo pack"))
   end
 
-  defp validate_create_shot_group_count(changeset, %Pack{count: pack_count}) do
+  defp validate_create_shot_record_count(changeset, %Pack{count: pack_count}) do
     case changeset |> Changeset.get_field(:count) do
       nil ->
         changeset |> Changeset.add_error(:ammo_left, dgettext("errors", "can't be blank"))
@@ -95,25 +95,25 @@ defmodule Cannery.ActivityLog.ShotGroup do
   end
 
   @doc false
-  @spec update_changeset(t() | new_shot_group(), User.t(), attrs :: map()) :: changeset()
-  def update_changeset(%__MODULE__{} = shot_group, user, attrs) do
-    shot_group
+  @spec update_changeset(t() | new_shot_record(), User.t(), attrs :: map()) :: changeset()
+  def update_changeset(%__MODULE__{} = shot_record, user, attrs) do
+    shot_record
     |> cast(attrs, [:count, :notes, :date])
     |> validate_length(:notes, max: 255)
     |> validate_number(:count, greater_than: 0)
     |> validate_required([:count, :date])
-    |> validate_update_shot_group_count(shot_group, user)
+    |> validate_update_shot_record_count(shot_record, user)
   end
 
-  defp validate_update_shot_group_count(
+  defp validate_update_shot_record_count(
          changeset,
          %__MODULE__{pack_id: pack_id, count: count},
          user
        ) do
     %{count: pack_count} = Ammo.get_pack!(pack_id, user)
 
-    new_shot_group_count = changeset |> Changeset.get_field(:count)
-    shot_diff_to_add = new_shot_group_count - count
+    new_shot_record_count = changeset |> Changeset.get_field(:count)
+    shot_diff_to_add = new_shot_record_count - count
 
     if shot_diff_to_add > pack_count do
       error = dgettext("errors", "Count can be at most %{count} shots", count: pack_count + count)

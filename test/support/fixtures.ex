@@ -8,7 +8,7 @@ defmodule Cannery.Fixtures do
   alias Cannery.{
     Accounts,
     Accounts.User,
-    ActivityLog.ShotGroup,
+    ActivityLog.ShotRecord,
     Ammo,
     Ammo.AmmoType,
     Ammo.Pack,
@@ -69,18 +69,18 @@ defmodule Cannery.Fixtures do
   end
 
   @doc """
-  Generate a ShotGroup
+  Generate a ShotRecord
   """
-  @spec shot_group_fixture(User.t(), Pack.t()) :: ShotGroup.t()
-  @spec shot_group_fixture(attrs :: map(), User.t(), Pack.t()) :: ShotGroup.t()
-  def shot_group_fixture(attrs \\ %{}, %User{} = user, %Pack{} = pack) do
+  @spec shot_record_fixture(User.t(), Pack.t()) :: ShotRecord.t()
+  @spec shot_record_fixture(attrs :: map(), User.t(), Pack.t()) :: ShotRecord.t()
+  def shot_record_fixture(attrs \\ %{}, %User{} = user, %Pack{} = pack) do
     attrs
     |> Enum.into(%{
       count: 20,
       date: ~N[2022-02-13 03:17:00],
       notes: random_string()
     })
-    |> Cannery.ActivityLog.create_shot_group(user, pack)
+    |> Cannery.ActivityLog.create_shot_record(user, pack)
     |> unwrap_ok_tuple()
   end
 

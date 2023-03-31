@@ -39,7 +39,7 @@
         </button>
 
         <.link
-          patch={Routes.range_index_path(Endpoint, :add_shot_group, pack)}
+          patch={Routes.range_index_path(Endpoint, :add_shot_record, pack)}
           class="btn btn-primary"
         >
           <%= dgettext("actions", "Record shots") %>
@@ -117,26 +117,26 @@
       </.form>
     </div>
 
-    <%= if @shot_groups |> Enum.empty?() do %>
+    <%= if @shot_records |> Enum.empty?() do %>
       <h1 class="title text-xl text-primary-600">
         <%= gettext("No shots recorded") %>
         <%= display_emoji("😔") %>
       </h1>
     <% else %>
       <.live_component
-        module={CanneryWeb.Components.ShotGroupTableComponent}
-        id="shot_groups_index_table"
-        shot_groups={@shot_groups}
+        module={CanneryWeb.Components.ShotRecordTableComponent}
+        id="shot_records_index_table"
+        shot_records={@shot_records}
         current_user={@current_user}
       >
-        <:actions :let={shot_group}>
+        <:actions :let={shot_record}>
           <div class="px-4 py-2 space-x-4 flex justify-center items-center">
             <.link
-              patch={Routes.range_index_path(Endpoint, :edit, shot_group)}
+              patch={Routes.range_index_path(Endpoint, :edit, shot_record)}
               class="text-primary-600 link"
               aria-label={
-                dgettext("actions", "Edit shot record of %{shot_group_count} shots",
-                  shot_group_count: shot_group.count
+                dgettext("actions", "Edit shot record of %{shot_record_count} shots",
+                  shot_record_count: shot_record.count
                 )
               }
             >
@@ -147,13 +147,13 @@
               href="#"
               class="text-primary-600 link"
               phx-click="delete"
-              phx-value-id={shot_group.id}
+              phx-value-id={shot_record.id}
               data-confirm={
                 dgettext("prompts", "Are you sure you want to delete this shot record?")
               }
               aria-label={
-                dgettext("actions", "Delete shot record of %{shot_group_count} shots",
-                  shot_group_count: shot_group.count
+                dgettext("actions", "Delete shot record of %{shot_record_count} shots",
+                  shot_record_count: shot_record.count
                 )
               }
             >
@@ -171,18 +171,18 @@
     <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
       <.live_component
         module={CanneryWeb.RangeLive.FormComponent}
-        id={@shot_group.id}
+        id={@shot_record.id}
         title={@page_title}
         action={@live_action}
-        shot_group={@shot_group}
+        shot_record={@shot_record}
         return_to={Routes.range_index_path(Endpoint, :index)}
         current_user={@current_user}
       />
     </.modal>
-  <% :add_shot_group -> %>
+  <% :add_shot_record -> %>
     <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
       <.live_component
-        module={CanneryWeb.Components.AddShotGroupComponent}
+        module={CanneryWeb.Components.AddShotRecordComponent}
         id={:new}
         title={@page_title}
         action={@live_action}

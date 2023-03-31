@@ -47,7 +47,7 @@ defmodule CanneryWeb.ExportController do
         })
       end)
 
-    shot_groups = ActivityLog.list_shot_groups(:all, current_user)
+    shot_records = ActivityLog.list_shot_records(:all, current_user)
 
     containers =
       Containers.list_containers(current_user)
@@ -68,7 +68,7 @@ defmodule CanneryWeb.ExportController do
       user: current_user,
       ammo_types: ammo_types,
       packs: packs,
-      shot_groups: shot_groups,
+      shot_records: shot_records,
       containers: containers
     })
   end

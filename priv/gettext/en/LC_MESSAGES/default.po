@@ -26,7 +26,7 @@ msgid "Admins:"
 msgstr ""
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:58
-#: lib/cannery_web/components/shot_group_table_component.ex:41
+#: lib/cannery_web/components/shot_group_table_component.ex:44
 #: lib/cannery_web/live/pack_live/index.ex:75
 #: lib/cannery_web/live/pack_live/index.ex:84
 #: lib/cannery_web/live/pack_live/index.html.heex:3
@@ -286,8 +286,7 @@ msgstr ""
 msgid "No tags"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:38
-#: lib/cannery_web/components/shot_group_table_component.ex:43
+#: lib/cannery_web/components/shot_group_table_component.ex:46
 #: lib/cannery_web/live/pack_live/form_component.html.heex:50
 #: lib/cannery_web/live/pack_live/show.ex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:30
@@ -439,8 +438,7 @@ msgstr ""
 msgid "Range day"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:49
-#: lib/cannery_web/components/shot_group_table_component.ex:44
+#: lib/cannery_web/components/shot_group_table_component.ex:47
 #: lib/cannery_web/live/pack_live/show.ex:92
 #: lib/cannery_web/live/range_live/form_component.html.heex:41
 #, elixir-autogen, elixir-format
@@ -457,7 +455,6 @@ msgstr ""
 msgid "No ammo staged"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:3
 #: lib/cannery_web/live/pack_live/index.ex:35
 #, elixir-autogen, elixir-format
 msgid "Record shots"
@@ -480,13 +477,7 @@ msgstr ""
 msgid "No shots recorded"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:22
-#: lib/cannery_web/components/add_shot_group_component.html.heex:26
-#, elixir-autogen, elixir-format
-msgid "Rounds left"
-msgstr ""
-
-#: lib/cannery_web/components/shot_group_table_component.ex:42
+#: lib/cannery_web/components/shot_group_table_component.ex:45
 #: lib/cannery_web/live/pack_live/show.ex:90
 #: lib/cannery_web/live/range_live/index.html.heex:69
 #, elixir-autogen, elixir-format
@@ -866,11 +857,6 @@ msgstr ""
 msgid "Used rounds:"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:34
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Used up!"
-msgstr ""
-
 #: lib/cannery_web/live/range_live/index.html.heex:71
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Rounds shot chart"
@@ -1195,7 +1181,6 @@ msgstr ""
 msgid "Centerfire"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:43
 #: lib/cannery_web/live/range_live/form_component.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Really great weather"
@@ -1205,7 +1190,7 @@ msgstr ""
 #: lib/cannery_web/components/container_table_component.ex:67
 #: lib/cannery_web/components/move_pack_component.ex:68
 #: lib/cannery_web/components/pack_table_component.ex:59
-#: lib/cannery_web/components/shot_group_table_component.ex:45
+#: lib/cannery_web/components/shot_group_table_component.ex:48
 #: lib/cannery_web/live/pack_live/show.ex:93
 #, elixir-autogen, elixir-format
 msgid "Actions"

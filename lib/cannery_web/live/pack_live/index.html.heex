@@ -121,7 +121,7 @@
               </button>
 
               <.link
-                patch={Routes.pack_index_path(Endpoint, :add_shot_group, pack)}
+                patch={Routes.pack_index_path(Endpoint, :add_shot_record, pack)}
                 class="mx-2 my-1 text-sm btn btn-primary"
               >
                 <%= dgettext("actions", "Record shots") %>
@@ -213,10 +213,10 @@
         current_user={@current_user}
       />
     </.modal>
-  <% :add_shot_group -> %>
+  <% :add_shot_record -> %>
     <.modal return_to={Routes.pack_index_path(Endpoint, :index)}>
       <.live_component
-        module={CanneryWeb.Components.AddShotGroupComponent}
+        module={CanneryWeb.Components.AddShotRecordComponent}
         id={:new}
         title={@page_title}
         action={@live_action}

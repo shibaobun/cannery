@@ -1,10 +1,10 @@
-defmodule CanneryWeb.Components.AddShotGroupComponent do
+defmodule CanneryWeb.Components.AddShotRecordComponent do
   @moduledoc """
-  Livecomponent that can create a ShotGroup
+  Livecomponent that can create a ShotRecord
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo.Pack}
+  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotRecord, Ammo.Pack}
   alias Ecto.Changeset
   alias Phoenix.LiveView.{JS, Socket}
 
@@ -19,8 +19,8 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
         ) :: {:ok, Socket.t()}
   def update(%{pack: pack, current_user: current_user} = assigns, socket) do
     changeset =
-      %ShotGroup{date: Date.utc_today()}
-      |> ShotGroup.create_changeset(current_user, pack, %{})
+      %ShotRecord{date: Date.utc_today()}
+      |> ShotRecord.create_changeset(current_user, pack, %{})
 
     {:ok, socket |> assign(assigns) |> assign(:changeset, changeset)}
   end
@@ -28,12 +28,12 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
   @impl true
   def handle_event(
         "validate",
-        %{"shot_group" => shot_group_params},
+        %{"shot_record" => shot_record_params},
         %{assigns: %{pack: pack, current_user: current_user}} = socket
       ) do
-    params = shot_group_params |> process_params(pack)
+    params = shot_record_params |> process_params(pack)
 
-    changeset = %ShotGroup{} |> ShotGroup.create_changeset(current_user, pack, params)
+    changeset = %ShotRecord{} |> ShotRecord.create_changeset(current_user, pack, params)
 
     changeset =
       case changeset |> Changeset.apply_action(:validate) do
@@ -46,17 +46,17 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
 
   def handle_event(
         "save",
-        %{"shot_group" => shot_group_params},
+        %{"shot_record" => shot_record_params},
         %{
           assigns: %{pack: pack, current_user: current_user, return_to: return_to}
         } = socket
       ) do
     socket =
-      shot_group_params
+      shot_record_params
       |> process_params(pack)
-      |> ActivityLog.create_shot_group(current_user, pack)
+      |> ActivityLog.create_shot_record(current_user, pack)
       |> case do
-        {:ok, _shot_group} ->
+        {:ok, _shot_record} ->
           prompt = dgettext("prompts", "Shots recorded successfully")
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
@@ -69,7 +69,7 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
 
   # calculate count from shots left
   defp process_params(params, %Pack{count: count}) do
-    shot_group_count =
+    shot_record_count =
       if params |> Map.get("ammo_left", "") == "" do
         nil
       else
@@ -77,6 +77,6 @@ defmodule CanneryWeb.Components.AddShotGroupComponent do
         count - new_count
       end
 
-    params |> Map.put("count", shot_group_count)
+    params |> Map.put("count", shot_record_count)
   end
 end

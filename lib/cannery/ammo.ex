@@ -7,7 +7,7 @@ defmodule Cannery.Ammo do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
-  alias Cannery.{ActivityLog, ActivityLog.ShotGroup}
+  alias Cannery.{ActivityLog, ActivityLog.ShotRecord}
   alias Cannery.Ammo.{AmmoType, Pack}
   alias Ecto.{Changeset, Queryable}
 
@@ -167,7 +167,7 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
 
     sg_total_query =
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: not (sg.count |> is_nil()),
         group_by: sg.pack_id,
         select: %{pack_id: sg.pack_id, total: sum(sg.count)}

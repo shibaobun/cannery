@@ -90,7 +90,7 @@
       </.link>
 
       <.link
-        patch={Routes.pack_show_path(Endpoint, :add_shot_group, @pack)}
+        patch={Routes.pack_show_path(Endpoint, :add_shot_record, @pack)}
         class="mx-4 my-2 btn btn-primary"
       >
         <%= dgettext("actions", "Record shots") %>
@@ -112,7 +112,7 @@
     <% end %>
   </div>
 
-  <%= unless @shot_groups |> Enum.empty?() do %>
+  <%= unless @shot_records |> Enum.empty?() do %>
     <hr class="mb-4 w-full" />
 
     <h1 class="mb-4 px-4 py-2 text-center rounded-lg title text-xl">
@@ -121,7 +121,7 @@
 
     <.live_component
       module={CanneryWeb.Components.TableComponent}
-      id="pack_shot_groups_table"
+      id="pack_shot_records_table"
       columns={@columns}
       rows={@rows}
     />
@@ -141,22 +141,22 @@
         current_user={@current_user}
       />
     </.modal>
-  <% :edit_shot_group -> %>
+  <% :edit_shot_record -> %>
     <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
         module={CanneryWeb.RangeLive.FormComponent}
-        id={@shot_group.id}
+        id={@shot_record.id}
         title={@page_title}
         action={@live_action}
-        shot_group={@shot_group}
+        shot_record={@shot_record}
         return_to={Routes.pack_show_path(Endpoint, :show, @pack)}
         current_user={@current_user}
       />
     </.modal>
-  <% :add_shot_group -> %>
+  <% :add_shot_record -> %>
     <.modal return_to={Routes.pack_show_path(Endpoint, :show, @pack)}>
       <.live_component
-        module={CanneryWeb.Components.AddShotGroupComponent}
+        module={CanneryWeb.Components.AddShotRecordComponent}
         id={:new}
         title={@page_title}
         action={@live_action}

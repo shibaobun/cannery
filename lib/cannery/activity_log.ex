@@ -5,29 +5,29 @@ defmodule Cannery.ActivityLog do
 
   import Ecto.Query, warn: false
   alias Cannery.Ammo.{AmmoType, Pack}
-  alias Cannery.{Accounts.User, ActivityLog.ShotGroup, Repo}
+  alias Cannery.{Accounts.User, ActivityLog.ShotRecord, Repo}
   alias Ecto.{Multi, Queryable}
 
   @doc """
-  Returns the list of shot_groups.
+  Returns the list of shot_records.
 
   ## Examples
 
-      iex> list_shot_groups(:all, %User{id: 123})
-      [%ShotGroup{}, ...]
+      iex> list_shot_records(:all, %User{id: 123})
+      [%ShotRecord{}, ...]
 
-      iex> list_shot_groups("cool", :all, %User{id: 123})
-      [%ShotGroup{notes: "My cool shot group"}, ...]
+      iex> list_shot_records("cool", :all, %User{id: 123})
+      [%ShotRecord{notes: "My cool shot record"}, ...]
 
-      iex> list_shot_groups("cool", :rifle, %User{id: 123})
-      [%ShotGroup{notes: "Shot some rifle rounds"}, ...]
+      iex> list_shot_records("cool", :rifle, %User{id: 123})
+      [%ShotRecord{notes: "Shot some rifle rounds"}, ...]
 
   """
-  @spec list_shot_groups(AmmoType.class() | :all, User.t()) :: [ShotGroup.t()]
-  @spec list_shot_groups(search :: nil | String.t(), AmmoType.class() | :all, User.t()) ::
-          [ShotGroup.t()]
-  def list_shot_groups(search \\ nil, type, %{id: user_id}) do
-    from(sg in ShotGroup,
+  @spec list_shot_records(AmmoType.class() | :all, User.t()) :: [ShotRecord.t()]
+  @spec list_shot_records(search :: nil | String.t(), AmmoType.class() | :all, User.t()) ::
+          [ShotRecord.t()]
+  def list_shot_records(search \\ nil, type, %{id: user_id}) do
+    from(sg in ShotRecord,
       as: :sg,
       left_join: ag in Pack,
       as: :ag,
@@ -38,16 +38,16 @@ defmodule Cannery.ActivityLog do
       where: sg.user_id == ^user_id,
       distinct: sg.id
     )
-    |> list_shot_groups_search(search)
-    |> list_shot_groups_filter_type(type)
+    |> list_shot_records_search(search)
+    |> list_shot_records_filter_type(type)
     |> Repo.all()
   end
 
-  @spec list_shot_groups_search(Queryable.t(), search :: String.t() | nil) ::
+  @spec list_shot_records_search(Queryable.t(), search :: String.t() | nil) ::
           Queryable.t()
-  defp list_shot_groups_search(query, search) when search in ["", nil], do: query
+  defp list_shot_records_search(query, search) when search in ["", nil], do: query
 
-  defp list_shot_groups_search(query, search) when search |> is_binary() do
+  defp list_shot_records_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     query
@@ -79,18 +79,18 @@ defmodule Cannery.ActivityLog do
     })
   end
 
-  @spec list_shot_groups_filter_type(Queryable.t(), AmmoType.class() | :all) ::
+  @spec list_shot_records_filter_type(Queryable.t(), AmmoType.class() | :all) ::
           Queryable.t()
-  defp list_shot_groups_filter_type(query, :rifle),
+  defp list_shot_records_filter_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
-  defp list_shot_groups_filter_type(query, :pistol),
+  defp list_shot_records_filter_type(query, :pistol),
     do: query |> where([at: at], at.class == :pistol)
 
-  defp list_shot_groups_filter_type(query, :shotgun),
+  defp list_shot_records_filter_type(query, :shotgun),
     do: query |> where([at: at], at.class == :shotgun)
 
-  defp list_shot_groups_filter_type(query, _all), do: query
+  defp list_shot_records_filter_type(query, _all), do: query
 
   @doc """
   Returns a count of shot records.
@@ -104,43 +104,43 @@ defmodule Cannery.ActivityLog do
   @spec get_shot_record_count!(User.t()) :: integer()
   def get_shot_record_count!(%User{id: user_id}) do
     Repo.one(
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: sg.user_id == ^user_id,
         select: count(sg.id),
         distinct: true
     ) || 0
   end
 
-  @spec list_shot_groups_for_pack(Pack.t(), User.t()) :: [ShotGroup.t()]
-  def list_shot_groups_for_pack(
+  @spec list_shot_records_for_pack(Pack.t(), User.t()) :: [ShotRecord.t()]
+  def list_shot_records_for_pack(
         %Pack{id: pack_id, user_id: user_id},
         %User{id: user_id}
       ) do
     Repo.all(
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: sg.pack_id == ^pack_id,
         where: sg.user_id == ^user_id
     )
   end
 
   @doc """
-  Gets a single shot_group.
+  Gets a single shot_record.
 
-  Raises `Ecto.NoResultsError` if the Shot group does not exist.
+  Raises `Ecto.NoResultsError` if the shot record does not exist.
 
   ## Examples
 
-      iex> get_shot_group!(123, %User{id: 123})
-      %ShotGroup{}
+      iex> get_shot_record!(123, %User{id: 123})
+      %ShotRecord{}
 
-      iex> get_shot_group!(456, %User{id: 123})
+      iex> get_shot_record!(456, %User{id: 123})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_shot_group!(ShotGroup.id(), User.t()) :: ShotGroup.t()
-  def get_shot_group!(id, %User{id: user_id}) do
+  @spec get_shot_record!(ShotRecord.id(), User.t()) :: ShotRecord.t()
+  def get_shot_record!(id, %User{id: user_id}) do
     Repo.one!(
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: sg.id == ^id,
         where: sg.user_id == ^user_id,
         order_by: sg.date
@@ -148,28 +148,28 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Creates a shot_group.
+  Creates a shot_record.
 
   ## Examples
 
-      iex> create_shot_group(%{field: value}, %User{id: 123})
-      {:ok, %ShotGroup{}}
+      iex> create_shot_record(%{field: value}, %User{id: 123})
+      {:ok, %ShotRecord{}}
 
-      iex> create_shot_group(%{field: bad_value}, %User{id: 123})
+      iex> create_shot_record(%{field: bad_value}, %User{id: 123})
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_shot_group(attrs :: map(), User.t(), Pack.t()) ::
-          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset() | nil}
-  def create_shot_group(attrs, user, pack) do
+  @spec create_shot_record(attrs :: map(), User.t(), Pack.t()) ::
+          {:ok, ShotRecord.t()} | {:error, ShotRecord.changeset() | nil}
+  def create_shot_record(attrs, user, pack) do
     Multi.new()
     |> Multi.insert(
-      :create_shot_group,
-      %ShotGroup{} |> ShotGroup.create_changeset(user, pack, attrs)
+      :create_shot_record,
+      %ShotRecord{} |> ShotRecord.create_changeset(user, pack, attrs)
     )
     |> Multi.run(
       :pack,
-      fn _repo, %{create_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+      fn _repo, %{create_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
         pack =
           Repo.one(
             from ag in Pack,
@@ -182,52 +182,52 @@ defmodule Cannery.ActivityLog do
     )
     |> Multi.update(
       :update_pack,
-      fn %{create_shot_group: %{count: shot_group_count}, pack: %{count: pack_count}} ->
-        pack |> Pack.range_changeset(%{"count" => pack_count - shot_group_count})
+      fn %{create_shot_record: %{count: shot_record_count}, pack: %{count: pack_count}} ->
+        pack |> Pack.range_changeset(%{"count" => pack_count - shot_record_count})
       end
     )
     |> Repo.transaction()
     |> case do
-      {:ok, %{create_shot_group: shot_group}} -> {:ok, shot_group}
-      {:error, :create_shot_group, changeset, _changes_so_far} -> {:error, changeset}
+      {:ok, %{create_shot_record: shot_record}} -> {:ok, shot_record}
+      {:error, :create_shot_record, changeset, _changes_so_far} -> {:error, changeset}
       {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
   end
 
   @doc """
-  Updates a shot_group.
+  Updates a shot_record.
 
   ## Examples
 
-      iex> update_shot_group(shot_group, %{field: new_value}, %User{id: 123})
-      {:ok, %ShotGroup{}}
+      iex> update_shot_record(shot_record, %{field: new_value}, %User{id: 123})
+      {:ok, %ShotRecord{}}
 
-      iex> update_shot_group(shot_group, %{field: bad_value}, %User{id: 123})
+      iex> update_shot_record(shot_record, %{field: bad_value}, %User{id: 123})
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_shot_group(ShotGroup.t(), attrs :: map(), User.t()) ::
-          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset() | nil}
-  def update_shot_group(
-        %ShotGroup{count: count, user_id: user_id} = shot_group,
+  @spec update_shot_record(ShotRecord.t(), attrs :: map(), User.t()) ::
+          {:ok, ShotRecord.t()} | {:error, ShotRecord.changeset() | nil}
+  def update_shot_record(
+        %ShotRecord{count: count, user_id: user_id} = shot_record,
         attrs,
         %User{id: user_id} = user
       ) do
     Multi.new()
     |> Multi.update(
-      :update_shot_group,
-      shot_group |> ShotGroup.update_changeset(user, attrs)
+      :update_shot_record,
+      shot_record |> ShotRecord.update_changeset(user, attrs)
     )
     |> Multi.run(
       :pack,
-      fn repo, %{update_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+      fn repo, %{update_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
         {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
       end
     )
     |> Multi.update(
       :update_pack,
       fn %{
-           update_shot_group: %{count: new_count},
+           update_shot_record: %{count: new_count},
            pack: %{count: pack_count} = pack
          } ->
         shot_diff_to_add = new_count - count
@@ -237,42 +237,42 @@ defmodule Cannery.ActivityLog do
     )
     |> Repo.transaction()
     |> case do
-      {:ok, %{update_shot_group: shot_group}} -> {:ok, shot_group}
-      {:error, :update_shot_group, changeset, _changes_so_far} -> {:error, changeset}
+      {:ok, %{update_shot_record: shot_record}} -> {:ok, shot_record}
+      {:error, :update_shot_record, changeset, _changes_so_far} -> {:error, changeset}
       {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
   end
 
   @doc """
-  Deletes a shot_group.
+  Deletes a shot_record.
 
   ## Examples
 
-      iex> delete_shot_group(shot_group, %User{id: 123})
-      {:ok, %ShotGroup{}}
+      iex> delete_shot_record(shot_record, %User{id: 123})
+      {:ok, %ShotRecord{}}
 
-      iex> delete_shot_group(shot_group, %User{id: 123})
+      iex> delete_shot_record(shot_record, %User{id: 123})
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_shot_group(ShotGroup.t(), User.t()) ::
-          {:ok, ShotGroup.t()} | {:error, ShotGroup.changeset()}
-  def delete_shot_group(
-        %ShotGroup{user_id: user_id} = shot_group,
+  @spec delete_shot_record(ShotRecord.t(), User.t()) ::
+          {:ok, ShotRecord.t()} | {:error, ShotRecord.changeset()}
+  def delete_shot_record(
+        %ShotRecord{user_id: user_id} = shot_record,
         %User{id: user_id}
       ) do
     Multi.new()
-    |> Multi.delete(:delete_shot_group, shot_group)
+    |> Multi.delete(:delete_shot_record, shot_record)
     |> Multi.run(
       :pack,
-      fn repo, %{delete_shot_group: %{pack_id: pack_id, user_id: user_id}} ->
+      fn repo, %{delete_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
         {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
       end
     )
     |> Multi.update(
       :update_pack,
       fn %{
-           delete_shot_group: %{count: count},
+           delete_shot_record: %{count: count},
            pack: %{count: pack_count} = pack
          } ->
         new_pack_count = pack_count + count
@@ -281,8 +281,8 @@ defmodule Cannery.ActivityLog do
     )
     |> Repo.transaction()
     |> case do
-      {:ok, %{delete_shot_group: shot_group}} -> {:ok, shot_group}
-      {:error, :delete_shot_group, changeset, _changes_so_far} -> {:error, changeset}
+      {:ok, %{delete_shot_record: shot_record}} -> {:ok, shot_record}
+      {:error, :delete_shot_record, changeset, _changes_so_far} -> {:error, changeset}
       {:error, _other_transaction, _value, _changes_so_far} -> {:error, nil}
     end
   end
@@ -308,7 +308,7 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %{id: pack_id} -> pack_id end)
 
     Repo.all(
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: sg.pack_id in ^pack_ids,
         where: sg.user_id == ^user_id,
         group_by: sg.pack_id,
@@ -318,7 +318,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the last entered shot group date for a pack
+  Returns the last entered shot record date for a pack
   """
   @spec get_last_used_date(Pack.t(), User.t()) :: Date.t() | nil
   def get_last_used_date(%Pack{id: pack_id} = pack, user) do
@@ -328,7 +328,7 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the last entered shot group date for a pack
+  Returns the last entered shot record date for a pack
   """
   @spec get_last_used_dates([Pack.t()], User.t()) :: %{optional(Pack.id()) => Date.t()}
   def get_last_used_dates(packs, %User{id: user_id}) do
@@ -337,7 +337,7 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %Pack{id: pack_id, user_id: ^user_id} -> pack_id end)
 
     Repo.all(
-      from sg in ShotGroup,
+      from sg in ShotRecord,
         where: sg.pack_id in ^pack_ids,
         where: sg.user_id == ^user_id,
         group_by: sg.pack_id,
@@ -385,7 +385,7 @@ defmodule Cannery.ActivityLog do
 
     Repo.all(
       from ag in Pack,
-        left_join: sg in ShotGroup,
+        left_join: sg in ShotRecord,
         on: ag.id == sg.pack_id,
         where: ag.ammo_type_id in ^ammo_type_ids,
         where: not (sg.count |> is_nil()),

@@ -129,7 +129,6 @@ msgstr "Mot de passe mis à jour avec succès."
 msgid "Please check your email to verify your account"
 msgstr "Veuillez vérifier votre mél pour confirmer votre compte"
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:59
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:351
 #: lib/cannery_web/live/container_live/form_component.html.heex:59
 #: lib/cannery_web/live/invite_live/form_component.html.heex:37

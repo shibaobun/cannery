@@ -57,7 +57,7 @@
 # v0.8.0
 - Add search to catalog, ammo, container, tag and range index pages
 - Tweak urls for catalog, ammo, containers, tags and shot records
-- Fix bug with shot group chart not drawing lines between days correctly
+- Fix bug with shot record chart not drawing lines between days correctly
 - Improve cards across app (make them line up with each other)
 - Update translations and add spanish!!! (thank you Brea and Hannah!)
 
@@ -69,7 +69,7 @@
 - Fix toggle button styling
 - Miscellanous code improvements
 - Improve container index table
-- Fix bug with ammo not updating after deleting shot group
+- Fix bug with ammo not updating after deleting shot record
 - Replace ammo "added on" with "purchased on"
 - Miscellaneous wording improvements
 - Update translations
@@ -103,7 +103,7 @@
 - Add ammo type cloning
 - Add container cloning
 - Fix bug with moving ammo packs between containers
-- Add button to set rounds left to 0 when creating a shot group
+- Add button to set rounds left to 0 when creating a shot record
 - Update project dependencies
 
 # v0.5.4
@@ -155,8 +155,8 @@
 # v0.3.0
 - Fix ammo type counts not showing when count is 0
 - Add prompt to create first container before first ammo group
-- Edit and delete shot groups from ammo group show page
-- Use today's date when adding new shot groups
+- Edit and delete shot records from ammo group show page
+- Use today's date when adding new shot records
 - Create multiple ammo groups at one time
 
 # v0.2.3

@@ -37,8 +37,8 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
     notes: "some pack",
     count: 20
   }
-  @shot_group_attrs %{
-    notes: "some shot group",
+  @shot_record_attrs %{
+    notes: "some shot recorddd",
     count: 20
   }
 
@@ -55,9 +55,9 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
   defp create_empty_pack(%{ammo_type: ammo_type, current_user: current_user}) do
     container = container_fixture(current_user)
     {1, [pack]} = pack_fixture(@pack_attrs, ammo_type, container, current_user)
-    shot_group = shot_group_fixture(@shot_group_attrs, current_user, pack)
+    shot_record = shot_record_fixture(@shot_record_attrs, current_user, pack)
     pack = pack |> Repo.reload!()
-    [pack: pack, container: container, shot_group: shot_group]
+    [pack: pack, container: container, shot_record: shot_record]
   end
 
   describe "Index" do
@@ -275,7 +275,7 @@ defmodule CanneryWeb.AmmoTypeLiveTest do
       assert html =~ "\n0\n"
       assert html =~ "\n1\n"
 
-      shot_group_fixture(%{count: 5}, current_user, pack)
+      shot_record_fixture(%{count: 5}, current_user, pack)
 
       {:ok, index_live, _html} = live(conn, Routes.ammo_type_index_path(conn, :index))
 

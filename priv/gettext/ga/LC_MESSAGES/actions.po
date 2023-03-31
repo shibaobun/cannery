@@ -131,7 +131,6 @@ msgstr ""
 msgid "Reset password"
 msgstr ""
 
-#: lib/cannery_web/components/add_shot_group_component.html.heex:57
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:350
 #: lib/cannery_web/live/container_live/form_component.html.heex:57
 #: lib/cannery_web/live/invite_live/form_component.html.heex:35
@@ -287,12 +286,6 @@ msgstr ""
 msgid "Delete invite for %{invite_name}"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.ex:160
-#: lib/cannery_web/live/range_live/index.html.heex:155
-#, elixir-autogen, elixir-format
-msgid "Delete shot record of %{shot_group_count} shots"
-msgstr ""
-
 #: lib/cannery_web/live/ammo_type_live/index.html.heex:100
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:19
 #, elixir-autogen, elixir-format
@@ -314,16 +307,6 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Edit invite for %{invite_name}"
-msgstr ""
-
-#: lib/cannery_web/live/pack_live/show.ex:145
-#, elixir-autogen, elixir-format
-msgid "Edit shot group of %{shot_group_count} shots"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/index.html.heex:138
-#, elixir-autogen, elixir-format
-msgid "Edit shot record of %{shot_group_count} shots"
 msgstr ""
 
 #: lib/cannery_web/live/pack_live/index.html.heex:120
@@ -368,4 +351,16 @@ msgstr ""
 #: lib/cannery_web/live/pack_live/index.html.heex:154
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View pack of %{pack_count} bullets"
+msgstr ""
+
+#: lib/cannery_web/live/pack_live/show.ex:160
+#: lib/cannery_web/live/range_live/index.html.heex:155
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete shot record of %{shot_record_count} shots"
+msgstr ""
+
+#: lib/cannery_web/live/pack_live/show.ex:145
+#: lib/cannery_web/live/range_live/index.html.heex:138
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit shot record of %{shot_record_count} shots"
 msgstr ""

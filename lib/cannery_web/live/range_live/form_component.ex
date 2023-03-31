@@ -1,10 +1,10 @@
 defmodule CanneryWeb.RangeLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update a ShotGroup
+  Livecomponent that can update a ShotRecord
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotGroup, Ammo, Ammo.Pack}
+  alias Cannery.{Accounts.User, ActivityLog, ActivityLog.ShotRecord, Ammo, Ammo.Pack}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
@@ -14,7 +14,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
   @impl true
   @spec update(
           %{
-            required(:shot_group) => ShotGroup.t(),
+            required(:shot_record) => ShotRecord.t(),
             required(:current_user) => User.t(),
             optional(:pack) => Pack.t(),
             optional(any()) => any()
@@ -23,7 +23,7 @@ defmodule CanneryWeb.RangeLive.FormComponent do
         ) :: {:ok, Socket.t()}
   def update(
         %{
-          shot_group: %ShotGroup{pack_id: pack_id},
+          shot_record: %ShotRecord{pack_id: pack_id},
           current_user: current_user
         } = assigns,
         socket
@@ -33,24 +33,24 @@ defmodule CanneryWeb.RangeLive.FormComponent do
     {:ok, socket |> assign(assigns) |> assign(:pack, pack) |> assign_changeset(%{})}
   end
 
-  def update(%{shot_group: %ShotGroup{}} = assigns, socket) do
+  def update(%{shot_record: %ShotRecord{}} = assigns, socket) do
     {:ok, socket |> assign(assigns) |> assign_changeset(%{})}
   end
 
   @impl true
-  def handle_event("validate", %{"shot_group" => shot_group_params}, socket) do
-    {:noreply, socket |> assign_changeset(shot_group_params, :validate)}
+  def handle_event("validate", %{"shot_record" => shot_record_params}, socket) do
+    {:noreply, socket |> assign_changeset(shot_record_params, :validate)}
   end
 
   def handle_event(
         "save",
-        %{"shot_group" => shot_group_params},
-        %{assigns: %{shot_group: shot_group, current_user: current_user, return_to: return_to}} =
+        %{"shot_record" => shot_record_params},
+        %{assigns: %{shot_record: shot_record, current_user: current_user, return_to: return_to}} =
           socket
       ) do
     socket =
-      case ActivityLog.update_shot_group(shot_group, shot_group_params, current_user) do
-        {:ok, _shot_group} ->
+      case ActivityLog.update_shot_record(shot_record, shot_record_params, current_user) do
+        {:ok, _shot_record} ->
           prompt = dgettext("prompts", "Shot records updated successfully")
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
@@ -67,22 +67,22 @@ defmodule CanneryWeb.RangeLive.FormComponent do
              action: live_action,
              current_user: user,
              pack: pack,
-             shot_group: shot_group
+             shot_record: shot_record
            }
          } = socket,
-         shot_group_params,
+         shot_record_params,
          action \\ nil
        ) do
     default_action =
       case live_action do
-        :add_shot_group -> :insert
-        editing when editing in [:edit, :edit_shot_group] -> :update
+        :add_shot_record -> :insert
+        editing when editing in [:edit, :edit_shot_record] -> :update
       end
 
     changeset =
       case default_action do
-        :insert -> shot_group |> ShotGroup.create_changeset(user, pack, shot_group_params)
-        :update -> shot_group |> ShotGroup.update_changeset(user, shot_group_params)
+        :insert -> shot_record |> ShotRecord.create_changeset(user, pack, shot_record_params)
+        :update -> shot_record |> ShotRecord.update_changeset(user, shot_record_params)
       end
 
     changeset =

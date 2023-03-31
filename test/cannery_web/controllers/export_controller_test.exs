@@ -16,14 +16,14 @@ defmodule CanneryWeb.ExportControllerTest do
     tag = tag_fixture(current_user)
     Containers.add_tag!(container, tag, current_user)
     {1, [pack]} = pack_fixture(ammo_type, container, current_user)
-    shot_group = shot_group_fixture(current_user, pack)
+    shot_record = shot_record_fixture(current_user, pack)
     pack = pack |> Repo.reload!()
 
     %{
       ammo_type: ammo_type,
       pack: pack,
       container: container,
-      shot_group: shot_group,
+      shot_record: shot_record,
       tag: tag
     }
   end
@@ -37,7 +37,7 @@ defmodule CanneryWeb.ExportControllerTest do
       container: container,
       ammo_type: ammo_type,
       pack: pack,
-      shot_group: shot_group,
+      shot_record: shot_record,
       tag: tag
     } do
       conn = get(conn, Routes.export_path(conn, :export, :json))
@@ -104,12 +104,12 @@ defmodule CanneryWeb.ExportControllerTest do
         "round_count" => container |> Ammo.get_round_count_for_container!(current_user)
       }
 
-      ideal_shot_group = %{
-        "pack_id" => shot_group.pack_id,
-        "count" => shot_group.count,
-        "date" => to_string(shot_group.date),
-        "id" => shot_group.id,
-        "notes" => shot_group.notes
+      ideal_shot_record = %{
+        "pack_id" => shot_record.pack_id,
+        "count" => shot_record.count,
+        "date" => to_string(shot_record.date),
+        "id" => shot_record.id,
+        "notes" => shot_record.notes
       }
 
       ideal_user = %{
@@ -127,7 +127,7 @@ defmodule CanneryWeb.ExportControllerTest do
       assert %{"packs" => [^ideal_pack]} = json_resp
       assert %{"ammo_types" => [^ideal_ammo_type]} = json_resp
       assert %{"containers" => [^ideal_container]} = json_resp
-      assert %{"shot_groups" => [^ideal_shot_group]} = json_resp
+      assert %{"shot_records" => [^ideal_shot_record]} = json_resp
       assert %{"user" => ^ideal_user} = json_resp
     end
   end

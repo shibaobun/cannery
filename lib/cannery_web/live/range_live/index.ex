@@ -4,17 +4,17 @@ defmodule CanneryWeb.RangeLive.Index do
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{ActivityLog, ActivityLog.ShotGroup, Ammo}
+  alias Cannery.{ActivityLog, ActivityLog.ShotRecord, Ammo}
   alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do
-    {:ok, socket |> assign(class: :all, search: search) |> display_shot_groups()}
+    {:ok, socket |> assign(class: :all, search: search) |> display_shot_records()}
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(class: :all, search: nil) |> display_shot_groups()}
+    {:ok, socket |> assign(class: :all, search: nil) |> display_shot_records()}
   end
 
   @impl true
@@ -24,7 +24,7 @@ defmodule CanneryWeb.RangeLive.Index do
 
   defp apply_action(
          %{assigns: %{current_user: current_user}} = socket,
-         :add_shot_group,
+         :add_shot_record,
          %{"id" => id}
        ) do
     socket
@@ -38,7 +38,7 @@ defmodule CanneryWeb.RangeLive.Index do
     socket
     |> assign(
       page_title: gettext("Edit Shot Records"),
-      shot_group: ActivityLog.get_shot_group!(id, current_user)
+      shot_record: ActivityLog.get_shot_record!(id, current_user)
     )
   end
 
@@ -46,7 +46,7 @@ defmodule CanneryWeb.RangeLive.Index do
     socket
     |> assign(
       page_title: gettext("New Shot Records"),
-      shot_group: %ShotGroup{}
+      shot_record: %ShotRecord{}
     )
   end
 
@@ -55,9 +55,9 @@ defmodule CanneryWeb.RangeLive.Index do
     |> assign(
       page_title: gettext("Shot Records"),
       search: nil,
-      shot_group: nil
+      shot_record: nil
     )
-    |> display_shot_groups()
+    |> display_shot_records()
   end
 
   defp apply_action(socket, :search, %{"search" => search}) do
@@ -65,19 +65,19 @@ defmodule CanneryWeb.RangeLive.Index do
     |> assign(
       page_title: gettext("Shot Records"),
       search: search,
-      shot_group: nil
+      shot_record: nil
     )
-    |> display_shot_groups()
+    |> display_shot_records()
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: current_user}} = socket) do
     {:ok, _} =
-      ActivityLog.get_shot_group!(id, current_user)
-      |> ActivityLog.delete_shot_group(current_user)
+      ActivityLog.get_shot_record!(id, current_user)
+      |> ActivityLog.delete_shot_record(current_user)
 
     prompt = dgettext("prompts", "Shot records deleted succesfully")
-    {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
+    {:noreply, socket |> put_flash(:info, prompt) |> display_shot_records()}
   end
 
   def handle_event(
@@ -90,7 +90,7 @@ defmodule CanneryWeb.RangeLive.Index do
     {:ok, _pack} = pack |> Ammo.update_pack(%{"staged" => !pack.staged}, current_user)
 
     prompt = dgettext("prompts", "Ammo unstaged succesfully")
-    {:noreply, socket |> put_flash(:info, prompt) |> display_shot_groups()}
+    {:noreply, socket |> put_flash(:info, prompt) |> display_shot_records()}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
@@ -102,28 +102,28 @@ defmodule CanneryWeb.RangeLive.Index do
   end
 
   def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
-    {:noreply, socket |> assign(:class, :rifle) |> display_shot_groups()}
+    {:noreply, socket |> assign(:class, :rifle) |> display_shot_records()}
   end
 
   def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
-    {:noreply, socket |> assign(:class, :shotgun) |> display_shot_groups()}
+    {:noreply, socket |> assign(:class, :shotgun) |> display_shot_records()}
   end
 
   def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
-    {:noreply, socket |> assign(:class, :pistol) |> display_shot_groups()}
+    {:noreply, socket |> assign(:class, :pistol) |> display_shot_records()}
   end
 
   def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
-    {:noreply, socket |> assign(:class, :all) |> display_shot_groups()}
+    {:noreply, socket |> assign(:class, :all) |> display_shot_records()}
   end
 
-  @spec display_shot_groups(Socket.t()) :: Socket.t()
-  defp display_shot_groups(
+  @spec display_shot_records(Socket.t()) :: Socket.t()
+  defp display_shot_records(
          %{assigns: %{class: class, search: search, current_user: current_user}} = socket
        ) do
-    shot_groups = ActivityLog.list_shot_groups(search, class, current_user)
+    shot_records = ActivityLog.list_shot_records(search, class, current_user)
     packs = Ammo.list_staged_packs(current_user)
-    chart_data = shot_groups |> get_chart_data_for_shot_group()
+    chart_data = shot_records |> get_chart_data_for_shot_record()
     original_counts = packs |> Ammo.get_original_counts(current_user)
     cprs = packs |> Ammo.get_cprs(current_user)
     last_used_dates = packs |> ActivityLog.get_last_used_dates(current_user)
@@ -136,14 +136,14 @@ defmodule CanneryWeb.RangeLive.Index do
       cprs: cprs,
       last_used_dates: last_used_dates,
       chart_data: chart_data,
-      shot_groups: shot_groups,
+      shot_records: shot_records,
       shot_record_count: shot_record_count
     )
   end
 
-  @spec get_chart_data_for_shot_group([ShotGroup.t()]) :: [map()]
-  defp get_chart_data_for_shot_group(shot_groups) do
-    shot_groups
+  @spec get_chart_data_for_shot_record([ShotRecord.t()]) :: [map()]
+  defp get_chart_data_for_shot_record(shot_records) do
+    shot_records
     |> Enum.group_by(fn %{date: date} -> date end, fn %{count: count} -> count end)
     |> Enum.map(fn {date, rounds} ->
       sum = Enum.sum(rounds)
