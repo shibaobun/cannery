@@ -171,27 +171,27 @@ msgstr ""
 msgid "Your browser does not support the canvas element."
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:74
+#: lib/cannery/activity_log/shot_record.ex:74
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Please select a valid user and ammo pack"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:88
+#: lib/cannery/activity_log/shot_record.ex:88
 #, elixir-autogen, elixir-format
 msgid "Ammo left can be at most %{count} rounds"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:84
+#: lib/cannery/activity_log/shot_record.ex:84
 #, elixir-autogen, elixir-format
 msgid "Ammo left must be at least 0"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:119
+#: lib/cannery/activity_log/shot_record.ex:119
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Count can be at most %{count} shots"
 msgstr ""
 
-#: lib/cannery/activity_log/shot_group.ex:80
+#: lib/cannery/activity_log/shot_record.ex:80
 #, elixir-autogen, elixir-format
 msgid "can't be blank"
 msgstr ""

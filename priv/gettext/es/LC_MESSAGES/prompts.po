@@ -128,6 +128,7 @@ msgstr "Contraseña cambiada exitosamente."
 msgid "Please check your email to verify your account"
 msgstr "Por favor chequea el correo para verificar tu cuenta"
 
+#: lib/cannery_web/components/add_shot_record_component.html.heex:59
 #: lib/cannery_web/live/ammo_type_live/form_component.html.heex:351
 #: lib/cannery_web/live/container_live/form_component.html.heex:59
 #: lib/cannery_web/live/invite_live/form_component.html.heex:37
@@ -164,7 +165,7 @@ msgstr "se ha removido %{tag_name} de %{container_name}"
 msgid "Adding..."
 msgstr "Añadiendo..."
 
-#: lib/cannery_web/components/add_shot_group_component.ex:60
+#: lib/cannery_web/components/add_shot_record_component.ex:60
 #, elixir-autogen, elixir-format
 msgid "Shots recorded successfully"
 msgstr "Tiros registrados exitosamente"
