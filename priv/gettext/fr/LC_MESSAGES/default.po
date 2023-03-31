@@ -471,12 +471,6 @@ msgstr "Aucune munition sélectionnée"
 msgid "Record shots"
 msgstr "Tirs enregistrés"
 
-#: lib/cannery_web/live/pack_live/show.ex:42
-#: lib/cannery_web/live/range_live/index.ex:40
-#, elixir-autogen, elixir-format
-msgid "Edit Shot Records"
-msgstr "Modifier les enregistrements de tir"
-
 #: lib/cannery_web/live/range_live/index.ex:48
 #, elixir-autogen, elixir-format
 msgid "New Shot Records"
@@ -1468,3 +1462,9 @@ msgstr "Cartouches :"
 #, elixir-autogen, elixir-format
 msgid "Used up!"
 msgstr ""
+
+#: lib/cannery_web/live/pack_live/show.ex:42
+#: lib/cannery_web/live/range_live/index.ex:40
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit Shot Record"
+msgstr "Modifier les enregistrements de tir"

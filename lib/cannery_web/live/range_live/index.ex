@@ -37,7 +37,7 @@ defmodule CanneryWeb.RangeLive.Index do
   defp apply_action(%{assigns: %{current_user: current_user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(
-      page_title: gettext("Edit Shot Records"),
+      page_title: gettext("Edit Shot Record"),
       shot_record: ActivityLog.get_shot_record!(id, current_user)
     )
   end

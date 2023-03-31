@@ -463,12 +463,6 @@ msgstr ""
 msgid "Record shots"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.ex:42
-#: lib/cannery_web/live/range_live/index.ex:40
-#, elixir-autogen, elixir-format
-msgid "Edit Shot Records"
-msgstr ""
-
 #: lib/cannery_web/live/range_live/index.ex:48
 #, elixir-autogen, elixir-format
 msgid "New Shot Records"
@@ -1447,4 +1441,10 @@ msgstr ""
 #: lib/cannery_web/components/add_shot_record_component.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Used up!"
+msgstr ""
+
+#: lib/cannery_web/live/pack_live/show.ex:42
+#: lib/cannery_web/live/range_live/index.ex:40
+#, elixir-autogen, elixir-format
+msgid "Edit Shot Record"
 msgstr ""

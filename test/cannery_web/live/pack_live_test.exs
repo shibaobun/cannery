@@ -318,12 +318,12 @@ defmodule CanneryWeb.PackLiveTest do
       assert_patch(index_live, Routes.pack_index_path(conn, :add_shot_record, pack))
 
       assert index_live
-             |> form("#shot-group-form")
+             |> form("#shot-record-form")
              |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#shot-group-form")
+        |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_create_attrs)
         |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
 
@@ -401,12 +401,12 @@ defmodule CanneryWeb.PackLiveTest do
       assert_patch(index_live, Routes.pack_show_path(conn, :add_shot_record, pack))
 
       assert index_live
-             |> form("#shot-group-form")
+             |> form("#shot-record-form")
              |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#shot-group-form")
+        |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_create_attrs)
         |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
 
@@ -423,7 +423,7 @@ defmodule CanneryWeb.PackLiveTest do
 
       assert index_live
              |> element(~s/a[aria-label="Edit shot recordd of #{shot_record.count} shots"]/)
-             |> render_click() =~ "Edit Shot Records"
+             |> render_click() =~ "Edit Shot Record"
 
       assert_patch(
         index_live,
@@ -431,12 +431,12 @@ defmodule CanneryWeb.PackLiveTest do
       )
 
       assert index_live
-             |> form("#shot-group-form")
+             |> form("#shot-record-form")
              |> render_change(shot_record: @shot_record_invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#shot-group-form")
+        |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_update_attrs)
         |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
 

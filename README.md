@@ -13,8 +13,8 @@ The self-hosted firearm tracker website.
 # Features
 
 - Create containers to store your ammunition, and tag them with custom tags
-- Add ammunition types to Cannery, and then ammunition groups to your containers
-- Stage groups of ammo for range day and record your ammo usage
+- Add ammunition types to Cannery, and then ammo packs to your containers
+- Stage ammo packs for range day and track your usage with shot records
 - Invitations via invite tokens or public registration
 
 # Installation

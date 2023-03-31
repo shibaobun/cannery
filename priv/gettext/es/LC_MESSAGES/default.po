@@ -470,12 +470,6 @@ msgstr "No hay munición preparada"
 msgid "Record shots"
 msgstr "Tiros récord"
 
-#: lib/cannery_web/live/pack_live/show.ex:42
-#: lib/cannery_web/live/range_live/index.ex:40
-#, elixir-autogen, elixir-format
-msgid "Edit Shot Records"
-msgstr "Editar Tiros Récord"
-
 #: lib/cannery_web/live/range_live/index.ex:48
 #, elixir-autogen, elixir-format
 msgid "New Shot Records"
@@ -1467,3 +1461,9 @@ msgstr "Balas"
 #, elixir-autogen, elixir-format
 msgid "Used up!"
 msgstr ""
+
+#: lib/cannery_web/live/pack_live/show.ex:42
+#: lib/cannery_web/live/range_live/index.ex:40
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit Shot Record"
+msgstr "Editar Tiros Récord"

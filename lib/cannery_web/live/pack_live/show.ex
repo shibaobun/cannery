@@ -39,7 +39,7 @@ defmodule CanneryWeb.PackLive.Show do
   end
 
   defp page_title(:add_shot_record), do: gettext("Record Shots")
-  defp page_title(:edit_shot_record), do: gettext("Edit Shot Records")
+  defp page_title(:edit_shot_record), do: gettext("Edit Shot Record")
   defp page_title(:move), do: gettext("Move Ammo")
   defp page_title(:show), do: gettext("Show Ammo")
   defp page_title(:edit), do: gettext("Edit Ammo")

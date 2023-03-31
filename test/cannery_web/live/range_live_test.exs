@@ -133,12 +133,12 @@ defmodule CanneryWeb.RangeLiveTest do
       assert_patch(index_live, Routes.range_index_path(conn, :add_shot_record, pack))
 
       assert index_live
-             |> form("#shot-group-form")
+             |> form("#shot-record-form")
              |> render_change(shot_record: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#shot-group-form")
+        |> form("#shot-record-form")
         |> render_submit(shot_record: @create_attrs)
         |> follow_redirect(conn, Routes.range_index_path(conn, :index))
 
@@ -151,17 +151,17 @@ defmodule CanneryWeb.RangeLiveTest do
 
       assert index_live
              |> element(~s/a[aria-label="Edit shot record of #{shot_record.count} shots"]/)
-             |> render_click() =~ "Edit Shot Records"
+             |> render_click() =~ "Edit Shot Record"
 
       assert_patch(index_live, Routes.range_index_path(conn, :edit, shot_record))
 
       assert index_live
-             |> form("#shot-group-form")
+             |> form("#shot-record-form")
              |> render_change(shot_record: @invalid_attrs) =~ "can&#39;t be blank"
 
       {:ok, _view, html} =
         index_live
-        |> form("#shot-group-form", shot_record: @update_attrs)
+        |> form("#shot-record-form", shot_record: @update_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.range_index_path(conn, :index))
 

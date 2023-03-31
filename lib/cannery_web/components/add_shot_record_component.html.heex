@@ -6,7 +6,7 @@
   <.form
     :let={f}
     for={@changeset}
-    id="shot-group-form"
+    id="shot-record-form"
     class="flex flex-col space-y-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 justify-center items-center"
     phx-target={@myself}
     phx-change="validate"
@@ -29,7 +29,7 @@
     <button
       type="button"
       class="mx-2 my-1 text-sm btn btn-primary"
-      phx-click={JS.dispatch("cannery:set-zero", to: "#shot-group-form_ammo_left")}
+      phx-click={JS.dispatch("cannery:set-zero", to: "#shot-record-form_ammo_left")}
     >
       <%= gettext("Used up!") %>
     </button>
@@ -37,7 +37,7 @@
 
     <%= label(f, :notes, gettext("Notes"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :notes,
-      id: "add-shot-group-form-notes",
+      id: "add-shot-record-form-notes",
       class: "input input-primary col-span-2",
       maxlength: 255,
       placeholder: gettext("Really great weather"),
