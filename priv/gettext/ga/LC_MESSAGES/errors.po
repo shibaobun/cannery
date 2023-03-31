@@ -70,7 +70,7 @@ msgstr "Seoladh email nó pasfhocal neamhbhailí"
 msgid "Not found"
 msgstr "Ní feidir é a fáil"
 
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:18
+#: lib/cannery_web/live/type_live/form_component.html.heex:18
 #: lib/cannery_web/templates/user_registration/new.html.heex:13
 #: lib/cannery_web/templates/user_reset_password/edit.html.heex:13
 #: lib/cannery_web/templates/user_settings/edit.html.heex:22

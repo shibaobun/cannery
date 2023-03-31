@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Language: en\n"
 
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:88
 #: lib/cannery_web/live/container_live/form_component.ex:89
 #: lib/cannery_web/live/invite_live/form_component.ex:80
 #: lib/cannery_web/live/tag_live/form_component.ex:78
+#: lib/cannery_web/live/type_live/form_component.ex:88
 #, elixir-autogen, elixir-format
 msgid "%{name} created successfully"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.ex:72
-#: lib/cannery_web/live/ammo_type_live/show.ex:27
 #: lib/cannery_web/live/tag_live/index.ex:65
+#: lib/cannery_web/live/type_live/index.ex:72
+#: lib/cannery_web/live/type_live/show.ex:27
 #, elixir-autogen, elixir-format
 msgid "%{name} deleted succesfully"
 msgstr ""
@@ -31,10 +31,10 @@ msgstr ""
 msgid "%{name} has been deleted"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:69
 #: lib/cannery_web/live/container_live/form_component.ex:70
 #: lib/cannery_web/live/invite_live/form_component.ex:62
 #: lib/cannery_web/live/tag_live/form_component.ex:60
+#: lib/cannery_web/live/type_live/form_component.ex:69
 #, elixir-autogen, elixir-format
 msgid "%{name} updated successfully"
 msgstr ""
@@ -110,12 +110,12 @@ msgid "Please check your email to verify your account"
 msgstr ""
 
 #: lib/cannery_web/components/add_shot_record_component.html.heex:59
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:351
 #: lib/cannery_web/live/container_live/form_component.html.heex:59
 #: lib/cannery_web/live/invite_live/form_component.html.heex:37
 #: lib/cannery_web/live/pack_live/form_component.html.heex:85
 #: lib/cannery_web/live/range_live/form_component.html.heex:47
 #: lib/cannery_web/live/tag_live/form_component.html.heex:39
+#: lib/cannery_web/live/type_live/form_component.html.heex:351
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
@@ -236,8 +236,8 @@ msgid_plural "Ammo added successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:116
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:29
+#: lib/cannery_web/live/type_live/index.html.heex:116
+#: lib/cannery_web/live/type_live/show.html.heex:29
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
 msgstr ""

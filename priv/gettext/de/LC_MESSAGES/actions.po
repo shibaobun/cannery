@@ -40,7 +40,7 @@ msgstr "Fügen Sie ihre erste Box hinzu!"
 msgid "Add your first container!"
 msgstr "Fügen Sie ihren ersten Behälter hinzu!"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:13
+#: lib/cannery_web/live/type_live/index.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "Add your first type!"
 msgstr "Fügen Sie ihre erste Munitionsart hinzu!"
@@ -129,12 +129,12 @@ msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: lib/cannery_web/components/add_shot_record_component.html.heex:57
-#: lib/cannery_web/live/ammo_type_live/form_component.html.heex:350
 #: lib/cannery_web/live/container_live/form_component.html.heex:57
 #: lib/cannery_web/live/invite_live/form_component.html.heex:35
 #: lib/cannery_web/live/pack_live/form_component.html.heex:84
 #: lib/cannery_web/live/range_live/form_component.html.heex:45
 #: lib/cannery_web/live/tag_live/form_component.html.heex:37
+#: lib/cannery_web/live/type_live/form_component.html.heex:350
 #, elixir-autogen, elixir-format
 msgid "Save"
 msgstr "Speichern"
@@ -318,8 +318,8 @@ msgstr ""
 msgid "Edit pack of %{pack_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:204
 #: lib/cannery_web/live/pack_live/index.html.heex:154
+#: lib/cannery_web/live/type_live/show.html.heex:204
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View pack of %{pack_count} bullets"
 msgstr ""
@@ -336,29 +336,29 @@ msgstr ""
 msgid "Edit shot record of %{shot_record_count} shots"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:105
+#: lib/cannery_web/live/type_live/index.html.heex:105
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Clone %{type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:122
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:35
+#: lib/cannery_web/live/type_live/index.html.heex:122
+#: lib/cannery_web/live/type_live/show.html.heex:35
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete %{type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:97
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:19
+#: lib/cannery_web/live/type_live/index.html.heex:97
+#: lib/cannery_web/live/type_live/show.html.heex:19
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit %{type_name}"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:17
+#: lib/cannery_web/live/type_live/index.html.heex:17
 #, elixir-autogen, elixir-format, fuzzy
 msgid "New Type"
 msgstr "Neue Munitionsart"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:89
+#: lib/cannery_web/live/type_live/index.html.heex:89
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View %{type_name}"
 msgstr ""
