@@ -3,27 +3,27 @@ defmodule CanneryWeb.ExportController do
   alias Cannery.{ActivityLog, Ammo, Containers}
 
   def export(%{assigns: %{current_user: current_user}} = conn, %{"mode" => "json"}) do
-    ammo_types = Ammo.list_ammo_types(current_user, :all)
-    used_counts = ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user)
-    round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
-    pack_counts = ammo_types |> Ammo.get_packs_count_for_types(current_user)
+    types = Ammo.list_types(current_user, :all)
+    used_counts = types |> ActivityLog.get_used_count_for_types(current_user)
+    round_counts = types |> Ammo.get_round_count_for_types(current_user)
+    pack_counts = types |> Ammo.get_packs_count_for_types(current_user)
 
-    total_pack_counts = ammo_types |> Ammo.get_packs_count_for_types(current_user, true)
+    total_pack_counts = types |> Ammo.get_packs_count_for_types(current_user, true)
 
-    average_costs = ammo_types |> Ammo.get_average_cost_for_ammo_types(current_user)
+    average_costs = types |> Ammo.get_average_cost_for_types(current_user)
 
-    ammo_types =
-      ammo_types
-      |> Enum.map(fn %{id: ammo_type_id} = ammo_type ->
-        ammo_type
+    types =
+      types
+      |> Enum.map(fn %{id: type_id} = type ->
+        type
         |> Jason.encode!()
         |> Jason.decode!()
         |> Map.merge(%{
-          "average_cost" => Map.get(average_costs, ammo_type_id),
-          "round_count" => Map.get(round_counts, ammo_type_id, 0),
-          "used_count" => Map.get(used_counts, ammo_type_id, 0),
-          "pack_count" => Map.get(pack_counts, ammo_type_id, 0),
-          "total_pack_count" => Map.get(total_pack_counts, ammo_type_id, 0)
+          "average_cost" => Map.get(average_costs, type_id),
+          "round_count" => Map.get(round_counts, type_id, 0),
+          "used_count" => Map.get(used_counts, type_id, 0),
+          "pack_count" => Map.get(pack_counts, type_id, 0),
+          "total_pack_count" => Map.get(total_pack_counts, type_id, 0)
         })
       end)
 
@@ -66,7 +66,7 @@ defmodule CanneryWeb.ExportController do
 
     json(conn, %{
       user: current_user,
-      ammo_types: ammo_types,
+      types: types,
       packs: packs,
       shot_records: shot_records,
       containers: containers

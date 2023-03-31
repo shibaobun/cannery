@@ -1,22 +1,22 @@
 <div class="space-y-4 flex flex-col justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
-    <%= @ammo_type.name %>
+    <%= @type.name %>
   </h1>
 
   <span
-    :if={@ammo_type.desc}
+    :if={@type.desc}
     class="max-w-2xl w-full px-8 py-4 rounded-lg
       text-center title text-lg
       border border-primary-600"
   >
-    <%= @ammo_type.desc %>
+    <%= @type.desc %>
   </span>
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
     <.link
-      patch={Routes.ammo_type_show_path(Endpoint, :edit, @ammo_type)}
+      patch={Routes.type_show_path(Endpoint, :edit, @type)}
       class="text-primary-600 link"
-      aria-label={dgettext("actions", "Edit %{ammo_type_name}", ammo_type_name: @ammo_type.name)}
+      aria-label={dgettext("actions", "Edit %{type_name}", type_name: @type.name)}
     >
       <i class="fa-fw fa-lg fas fa-edit"></i>
     </.link>
@@ -29,12 +29,10 @@
         dgettext(
           "prompts",
           "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!",
-          name: @ammo_type.name
+          name: @type.name
         )
       }
-      aria-label={
-        dgettext("actions", "Delete %{ammo_type_name}", ammo_type_name: @ammo_type.name)
-      }
+      aria-label={dgettext("actions", "Delete %{type_name}", type_name: @type.name)}
     >
       <i class="fa-fw fa-lg fas fa-trash"></i>
     </.link>
@@ -42,14 +40,14 @@
 
   <hr class="hr" />
 
-  <%= if @ammo_type.class || @custom_fields? do %>
+  <%= if @type.class || @custom_fields? do %>
     <div class="grid sm:grid-cols-2 gap-4 text-center justify-center items-center">
       <h3 class="title text-lg">
         <%= gettext("Class") %>
       </h3>
 
       <span class="text-primary-600">
-        <%= case @ammo_type.class do %>
+        <%= case @type.class do %>
           <% :shotgun -> %>
             <%= gettext("Shotgun") %>
           <% :rifle -> %>
@@ -62,7 +60,7 @@
       </span>
 
       <%= for %{label: label, key: key, type: type} <- @fields_to_display do %>
-        <%= if @ammo_type |> Map.get(key) do %>
+        <%= if @type |> Map.get(key) do %>
           <h3 class="title text-lg">
             <%= label %>
           </h3>
@@ -70,9 +68,9 @@
           <span class="text-primary-600">
             <%= case type do %>
               <% :boolean -> %>
-                <%= @ammo_type |> Map.get(key) |> humanize() %>
+                <%= @type |> Map.get(key) |> humanize() %>
               <% _ -> %>
-                <%= @ammo_type |> Map.get(key) %>
+                <%= @type |> Map.get(key) %>
             <% end %>
           </span>
         <% end %>
@@ -140,7 +138,7 @@
     </h3>
 
     <span class="text-primary-600">
-      <.datetime id={"#{@ammo_type.id}-inserted-at"} datetime={@ammo_type.inserted_at} />
+      <.datetime id={"#{@type.id}-inserted-at"} datetime={@type.inserted_at} />
     </span>
 
     <%= if @avg_cost_per_round do %>
@@ -184,7 +182,7 @@
       <%= if @view_table do %>
         <.live_component
           module={CanneryWeb.Components.PackTableComponent}
-          id="ammo-type-show-table"
+          id="type-show-table"
           packs={@packs}
           current_user={@current_user}
           show_used={@show_used}
@@ -228,17 +226,14 @@
   </div>
 </div>
 
-<.modal
-  :if={@live_action == :edit}
-  return_to={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
->
+<.modal :if={@live_action == :edit} return_to={Routes.type_show_path(Endpoint, :show, @type)}>
   <.live_component
-    module={CanneryWeb.AmmoTypeLive.FormComponent}
-    id={@ammo_type.id}
+    module={CanneryWeb.TypeLive.FormComponent}
+    id={@type.id}
     title={@page_title}
     action={@live_action}
-    ammo_type={@ammo_type}
-    return_to={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)}
+    type={@type}
+    return_to={Routes.type_show_path(Endpoint, :show, @type)}
     current_user={@current_user}
   />
 </.modal>

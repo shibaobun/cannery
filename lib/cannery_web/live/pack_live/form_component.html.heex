@@ -19,11 +19,11 @@
       <%= changeset_errors(@changeset) %>
     </div>
 
-    <%= label(f, :ammo_type_id, gettext("Ammo type"), class: "title text-lg text-primary-600") %>
-    <%= select(f, :ammo_type_id, ammo_type_options(@ammo_types),
+    <%= label(f, :type_id, gettext("Type"), class: "title text-lg text-primary-600") %>
+    <%= select(f, :type_id, type_options(@types),
       class: "text-center col-span-2 input input-primary"
     ) %>
-    <%= error_tag(f, :ammo_type_id, "col-span-3 text-center") %>
+    <%= error_tag(f, :type_id, "col-span-3 text-center") %>
 
     <%= label(f, :count, gettext("Count"), class: "title text-lg text-primary-600") %>
     <%= number_input(f, :count,

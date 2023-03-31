@@ -9,7 +9,7 @@ defmodule Cannery.Ammo.Pack do
   use Ecto.Schema
   import CanneryWeb.Gettext
   import Ecto.Changeset
-  alias Cannery.Ammo.AmmoType
+  alias Cannery.Ammo.Type
   alias Cannery.{Accounts.User, Containers, Containers.Container}
   alias Ecto.{Changeset, UUID}
 
@@ -20,7 +20,7 @@ defmodule Cannery.Ammo.Pack do
              :notes,
              :price_paid,
              :staged,
-             :ammo_type_id,
+             :type_id,
              :container_id
            ]}
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -32,7 +32,7 @@ defmodule Cannery.Ammo.Pack do
     field :staged, :boolean, default: false
     field :purchased_on, :date
 
-    belongs_to :ammo_type, AmmoType
+    belongs_to :type, Type
     field :container_id, :binary_id
     field :user_id, :binary_id
 
@@ -46,8 +46,8 @@ defmodule Cannery.Ammo.Pack do
           price_paid: float() | nil,
           staged: boolean(),
           purchased_on: Date.t(),
-          ammo_type: AmmoType.t() | nil,
-          ammo_type_id: AmmoType.id(),
+          type: Type.t() | nil,
+          type_id: Type.id(),
           container_id: Container.id(),
           user_id: User.id(),
           inserted_at: NaiveDateTime.t(),
@@ -60,36 +60,36 @@ defmodule Cannery.Ammo.Pack do
   @doc false
   @spec create_changeset(
           new_pack(),
-          AmmoType.t() | nil,
+          Type.t() | nil,
           Container.t() | nil,
           User.t(),
           attrs :: map()
         ) :: changeset()
   def create_changeset(
         pack,
-        %AmmoType{id: ammo_type_id},
+        %Type{id: type_id},
         %Container{id: container_id, user_id: user_id},
         %User{id: user_id},
         attrs
       )
-      when is_binary(ammo_type_id) and is_binary(container_id) and is_binary(user_id) do
+      when is_binary(type_id) and is_binary(container_id) and is_binary(user_id) do
     pack
-    |> change(ammo_type_id: ammo_type_id)
+    |> change(type_id: type_id)
     |> change(user_id: user_id)
     |> change(container_id: container_id)
     |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on])
     |> validate_number(:count, greater_than: 0)
-    |> validate_required([:count, :staged, :purchased_on, :ammo_type_id, :container_id, :user_id])
+    |> validate_required([:count, :staged, :purchased_on, :type_id, :container_id, :user_id])
   end
 
   @doc """
-  Invalid changeset, used to prompt user to select ammo type and container
+  Invalid changeset, used to prompt user to select type and container
   """
-  def create_changeset(pack, _invalid_ammo_type, _invalid_container, _invalid_user, attrs) do
+  def create_changeset(pack, _invalid_type, _invalid_container, _invalid_user, attrs) do
     pack
-    |> cast(attrs, [:ammo_type_id, :container_id])
-    |> validate_required([:ammo_type_id, :container_id])
-    |> add_error(:invalid, dgettext("errors", "Please select an ammo type and container"))
+    |> cast(attrs, [:type_id, :container_id])
+    |> validate_required([:type_id, :container_id])
+    |> add_error(:invalid, dgettext("errors", "Please select a type and container"))
   end
 
   @doc false

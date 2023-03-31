@@ -173,14 +173,9 @@ msgstr ""
 "Ungültige Nummer an Kopien. Muss zwischen 1 and %{max} liegen. War "
 "%{multiplier}"
 
-#: lib/cannery/ammo.ex:1123
+#: lib/cannery/ammo.ex:1121
 #, elixir-autogen, elixir-format
 msgid "Invalid multiplier"
-msgstr ""
-
-#: lib/cannery/ammo/pack.ex:92
-#, elixir-autogen, elixir-format
-msgid "Please select an ammo type and container"
 msgstr ""
 
 #: lib/cannery_web/live/range_live/index.html.heex:74
@@ -211,4 +206,9 @@ msgstr "Anzahl muss weniger als %{count} betragen"
 #: lib/cannery/activity_log/shot_record.ex:80
 #, elixir-autogen, elixir-format
 msgid "can't be blank"
+msgstr ""
+
+#: lib/cannery/ammo/pack.ex:92
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Please select a type and container"
 msgstr ""

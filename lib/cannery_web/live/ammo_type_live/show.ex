@@ -1,10 +1,10 @@
-defmodule CanneryWeb.AmmoTypeLive.Show do
+defmodule CanneryWeb.TypeLive.Show do
   @moduledoc """
-  Liveview for showing and editing an Cannery.Ammo.AmmoType
+  Liveview for showing and editing an Cannery.Ammo.Type
   """
 
   use CanneryWeb, :live_view
-  alias Cannery.{ActivityLog, Ammo, Ammo.AmmoType, Containers}
+  alias Cannery.{ActivityLog, Ammo, Ammo.Type, Containers}
   alias CanneryWeb.Endpoint
 
   @impl true
@@ -13,38 +13,38 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _params, socket) do
-    {:noreply, socket |> display_ammo_type(id)}
+    {:noreply, socket |> display_type(id)}
   end
 
   @impl true
   def handle_event(
         "delete",
         _params,
-        %{assigns: %{ammo_type: ammo_type, current_user: current_user}} = socket
+        %{assigns: %{type: type, current_user: current_user}} = socket
       ) do
-    %{name: ammo_type_name} = ammo_type |> Ammo.delete_ammo_type!(current_user)
+    %{name: type_name} = type |> Ammo.delete_type!(current_user)
 
-    prompt = dgettext("prompts", "%{name} deleted succesfully", name: ammo_type_name)
-    redirect_to = Routes.ammo_type_index_path(socket, :index)
+    prompt = dgettext("prompts", "%{name} deleted succesfully", name: type_name)
+    redirect_to = Routes.type_index_path(socket, :index)
 
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
 
   def handle_event("toggle_show_used", _params, %{assigns: %{show_used: show_used}} = socket) do
-    {:noreply, socket |> assign(:show_used, !show_used) |> display_ammo_type()}
+    {:noreply, socket |> assign(:show_used, !show_used) |> display_type()}
   end
 
   def handle_event("toggle_table", _params, %{assigns: %{view_table: view_table}} = socket) do
     {:noreply, socket |> assign(:view_table, !view_table)}
   end
 
-  defp display_ammo_type(
+  defp display_type(
          %{assigns: %{live_action: live_action, current_user: current_user, show_used: show_used}} =
            socket,
-         %AmmoType{name: ammo_type_name} = ammo_type
+         %Type{name: type_name} = type
        ) do
     custom_fields? =
-      fields_to_display(ammo_type)
+      fields_to_display(type)
       |> Enum.any?(fn %{key: field, type: type} ->
         default_value =
           case type do
@@ -52,10 +52,10 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
             _other_type -> nil
           end
 
-        ammo_type |> Map.get(field) != default_value
+        type |> Map.get(field) != default_value
       end)
 
-    packs = ammo_type |> Ammo.list_packs_for_type(current_user, show_used)
+    packs = type |> Ammo.list_packs_for_type(current_user, show_used)
 
     [
       original_counts,
@@ -67,10 +67,10 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
       if show_used do
         [
           packs |> Ammo.get_original_counts(current_user),
-          ammo_type |> Ammo.get_used_packs_count_for_type(current_user),
-          ammo_type |> Ammo.get_packs_count_for_type(current_user, true),
-          ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user),
-          ammo_type |> Ammo.get_historical_count_for_ammo_type(current_user)
+          type |> Ammo.get_used_packs_count_for_type(current_user),
+          type |> Ammo.get_packs_count_for_type(current_user, true),
+          type |> ActivityLog.get_used_count_for_type(current_user),
+          type |> Ammo.get_historical_count_for_type(current_user)
         ]
       else
         [nil, nil, nil, nil, nil]
@@ -78,8 +78,8 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
 
     page_title =
       case live_action do
-        :show -> ammo_type_name
-        :edit -> gettext("Edit %{ammo_type_name}", ammo_type_name: ammo_type_name)
+        :show -> type_name
+        :edit -> gettext("Edit %{type_name}", type_name: type_name)
       end
 
     containers =
@@ -90,33 +90,33 @@ defmodule CanneryWeb.AmmoTypeLive.Show do
     socket
     |> assign(
       page_title: page_title,
-      ammo_type: ammo_type,
+      type: type,
       packs: packs,
       containers: containers,
       cprs: packs |> Ammo.get_cprs(current_user),
       last_used_dates: packs |> ActivityLog.get_last_used_dates(current_user),
-      avg_cost_per_round: ammo_type |> Ammo.get_average_cost_for_ammo_type(current_user),
-      rounds: ammo_type |> Ammo.get_round_count_for_ammo_type(current_user),
+      avg_cost_per_round: type |> Ammo.get_average_cost_for_type(current_user),
+      rounds: type |> Ammo.get_round_count_for_type(current_user),
       original_counts: original_counts,
       used_rounds: used_rounds,
       historical_round_count: historical_round_count,
-      packs_count: ammo_type |> Ammo.get_packs_count_for_type(current_user),
+      packs_count: type |> Ammo.get_packs_count_for_type(current_user),
       used_packs_count: used_packs_count,
       historical_packs_count: historical_packs_count,
-      fields_to_display: fields_to_display(ammo_type),
+      fields_to_display: fields_to_display(type),
       custom_fields?: custom_fields?
     )
   end
 
-  defp display_ammo_type(%{assigns: %{current_user: current_user}} = socket, ammo_type_id) do
-    socket |> display_ammo_type(Ammo.get_ammo_type!(ammo_type_id, current_user))
+  defp display_type(%{assigns: %{current_user: current_user}} = socket, type_id) do
+    socket |> display_type(Ammo.get_type!(type_id, current_user))
   end
 
-  defp display_ammo_type(%{assigns: %{ammo_type: ammo_type}} = socket) do
-    socket |> display_ammo_type(ammo_type)
+  defp display_type(%{assigns: %{type: type}} = socket) do
+    socket |> display_type(type)
   end
 
-  defp fields_to_display(%AmmoType{class: class}) do
+  defp fields_to_display(%Type{class: class}) do
     [
       %{label: gettext("Cartridge:"), key: :cartridge, type: :string},
       %{

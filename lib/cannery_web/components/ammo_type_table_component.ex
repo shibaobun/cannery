@@ -1,9 +1,9 @@
-defmodule CanneryWeb.Components.AmmoTypeTableComponent do
+defmodule CanneryWeb.Components.TypeTableComponent do
   @moduledoc """
-  A component that displays a list of ammo type
+  A component that displays a list of types
   """
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, ActivityLog, Ammo, Ammo.AmmoType}
+  alias Cannery.{Accounts.User, ActivityLog, Ammo, Ammo.Type}
   alias CanneryWeb.Components.TableComponent
   alias Ecto.UUID
   alias Phoenix.LiveView.{Rendered, Socket}
@@ -13,30 +13,30 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
           %{
             required(:id) => UUID.t(),
             required(:current_user) => User.t(),
-            optional(:class) => AmmoType.class() | nil,
+            optional(:class) => Type.class() | nil,
             optional(:show_used) => boolean(),
-            optional(:ammo_types) => [AmmoType.t()],
+            optional(:types) => [Type.t()],
             optional(:actions) => Rendered.t(),
             optional(any()) => any()
           },
           Socket.t()
         ) :: {:ok, Socket.t()}
-  def update(%{id: _id, ammo_types: _ammo_types, current_user: _current_user} = assigns, socket) do
+  def update(%{id: _id, types: _types, current_user: _current_user} = assigns, socket) do
     socket =
       socket
       |> assign(assigns)
       |> assign_new(:show_used, fn -> false end)
       |> assign_new(:class, fn -> :all end)
       |> assign_new(:actions, fn -> [] end)
-      |> display_ammo_types()
+      |> display_types()
 
     {:ok, socket}
   end
 
-  defp display_ammo_types(
+  defp display_types(
          %{
            assigns: %{
-             ammo_types: ammo_types,
+             types: types,
              current_user: current_user,
              show_used: show_used,
              class: class,
@@ -92,8 +92,8 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
         # remove columns if all values match defaults
         default_value = if type == :atom, do: false, else: nil
 
-        ammo_types
-        |> Enum.any?(fn ammo_type -> Map.get(ammo_type, key, default_value) != default_value end)
+        types
+        |> Enum.any?(fn type -> Map.get(type, key, default_value) != default_value end)
       end)
 
     columns =
@@ -152,17 +152,17 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
       )
       |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
 
-    round_counts = ammo_types |> Ammo.get_round_count_for_ammo_types(current_user)
-    packs_count = ammo_types |> Ammo.get_packs_count_for_types(current_user)
-    average_costs = ammo_types |> Ammo.get_average_cost_for_ammo_types(current_user)
+    round_counts = types |> Ammo.get_round_count_for_types(current_user)
+    packs_count = types |> Ammo.get_packs_count_for_types(current_user)
+    average_costs = types |> Ammo.get_average_cost_for_types(current_user)
 
     [used_counts, historical_round_counts, historical_pack_counts, used_pack_counts] =
       if show_used do
         [
-          ammo_types |> ActivityLog.get_used_count_for_ammo_types(current_user),
-          ammo_types |> Ammo.get_historical_count_for_ammo_types(current_user),
-          ammo_types |> Ammo.get_packs_count_for_types(current_user, true),
-          ammo_types |> Ammo.get_used_packs_count_for_types(current_user)
+          types |> ActivityLog.get_used_count_for_types(current_user),
+          types |> Ammo.get_historical_count_for_types(current_user),
+          types |> Ammo.get_packs_count_for_types(current_user, true),
+          types |> Ammo.get_used_packs_count_for_types(current_user)
         ]
       else
         [nil, nil, nil, nil]
@@ -181,9 +181,9 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
     }
 
     rows =
-      ammo_types
-      |> Enum.map(fn ammo_type ->
-        ammo_type |> get_ammo_type_values(columns, extra_data)
+      types
+      |> Enum.map(fn type ->
+        type |> get_type_values(columns, extra_data)
       end)
 
     socket |> assign(columns: columns, rows: rows)
@@ -198,92 +198,92 @@ defmodule CanneryWeb.Components.AmmoTypeTableComponent do
     """
   end
 
-  defp get_ammo_type_values(ammo_type, columns, extra_data) do
+  defp get_type_values(type, columns, extra_data) do
     columns
-    |> Map.new(fn %{key: key, type: type} ->
-      {key, get_ammo_type_value(type, key, ammo_type, extra_data)}
+    |> Map.new(fn %{key: key, type: column_type} ->
+      {key, get_type_value(column_type, key, type, extra_data)}
     end)
   end
 
-  defp get_ammo_type_value(:atom, key, ammo_type, _other_data),
-    do: ammo_type |> Map.get(key) |> humanize()
+  defp get_type_value(:atom, key, type, _other_data),
+    do: type |> Map.get(key) |> humanize()
 
-  defp get_ammo_type_value(:round_count, _key, %{id: ammo_type_id}, %{round_counts: round_counts}),
-    do: Map.get(round_counts, ammo_type_id, 0)
+  defp get_type_value(:round_count, _key, %{id: type_id}, %{round_counts: round_counts}),
+    do: Map.get(round_counts, type_id, 0)
 
-  defp get_ammo_type_value(
+  defp get_type_value(
          :historical_round_count,
          _key,
-         %{id: ammo_type_id},
+         %{id: type_id},
          %{historical_round_counts: historical_round_counts}
        ) do
-    Map.get(historical_round_counts, ammo_type_id, 0)
+    Map.get(historical_round_counts, type_id, 0)
   end
 
-  defp get_ammo_type_value(
+  defp get_type_value(
          :used_round_count,
          _key,
-         %{id: ammo_type_id},
+         %{id: type_id},
          %{used_counts: used_counts}
        ) do
-    Map.get(used_counts, ammo_type_id, 0)
+    Map.get(used_counts, type_id, 0)
   end
 
-  defp get_ammo_type_value(
+  defp get_type_value(
          :historical_pack_count,
          _key,
-         %{id: ammo_type_id},
+         %{id: type_id},
          %{historical_pack_counts: historical_pack_counts}
        ) do
-    Map.get(historical_pack_counts, ammo_type_id, 0)
+    Map.get(historical_pack_counts, type_id, 0)
   end
 
-  defp get_ammo_type_value(
+  defp get_type_value(
          :used_pack_count,
          _key,
-         %{id: ammo_type_id},
+         %{id: type_id},
          %{used_pack_counts: used_pack_counts}
        ) do
-    Map.get(used_pack_counts, ammo_type_id, 0)
+    Map.get(used_pack_counts, type_id, 0)
   end
 
-  defp get_ammo_type_value(:ammo_count, _key, %{id: ammo_type_id}, %{packs_count: packs_count}),
-    do: Map.get(packs_count, ammo_type_id)
+  defp get_type_value(:ammo_count, _key, %{id: type_id}, %{packs_count: packs_count}),
+    do: Map.get(packs_count, type_id)
 
-  defp get_ammo_type_value(
+  defp get_type_value(
          :avg_price_paid,
          _key,
-         %{id: ammo_type_id},
+         %{id: type_id},
          %{average_costs: average_costs}
        ) do
-    case Map.get(average_costs, ammo_type_id) do
+    case Map.get(average_costs, type_id) do
       nil -> {0, gettext("No cost information")}
       count -> {count, gettext("$%{amount}", amount: display_currency(count))}
     end
   end
 
-  defp get_ammo_type_value(:name, _key, %{name: ammo_type_name} = ammo_type, _other_data) do
-    assigns = %{ammo_type: ammo_type}
+  defp get_type_value(:name, _key, %{name: type_name} = type, _other_data) do
+    assigns = %{type: type}
 
-    {ammo_type_name,
+    {type_name,
      ~H"""
-     <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, @ammo_type)} class="link">
-       <%= @ammo_type.name %>
+     <.link navigate={Routes.type_show_path(Endpoint, :show, @type)} class="link">
+       <%= @type.name %>
      </.link>
      """}
   end
 
-  defp get_ammo_type_value(:actions, _key, ammo_type, %{actions: actions}) do
-    assigns = %{actions: actions, ammo_type: ammo_type}
+  defp get_type_value(:actions, _key, type, %{actions: actions}) do
+    assigns = %{actions: actions, type: type}
 
     ~H"""
-    <%= render_slot(@actions, @ammo_type) %>
+    <%= render_slot(@actions, @type) %>
     """
   end
 
-  defp get_ammo_type_value(nil, _key, _ammo_type, _other_data), do: nil
+  defp get_type_value(nil, _key, _type, _other_data), do: nil
 
-  defp get_ammo_type_value(_other, key, ammo_type, _other_data), do: ammo_type |> Map.get(key)
+  defp get_type_value(_other, key, type, _other_data), do: type |> Map.get(key)
 
   @spec display_currency(float()) :: String.t()
   defp display_currency(float), do: :erlang.float_to_binary(float, decimals: 2)

@@ -8,46 +8,46 @@ defmodule Cannery.Ammo do
   alias Cannery.{Accounts.User, Containers, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
   alias Cannery.{ActivityLog, ActivityLog.ShotRecord}
-  alias Cannery.Ammo.{AmmoType, Pack}
+  alias Cannery.Ammo.{Pack, Type}
   alias Ecto.{Changeset, Queryable}
 
   @pack_create_limit 10_000
-  @pack_preloads [:ammo_type]
-  @ammo_type_preloads [:packs]
+  @pack_preloads [:type]
+  @type_preloads [:packs]
 
   @doc """
-  Returns the list of ammo_types.
+  Returns the list of types.
 
   ## Examples
 
-      iex> list_ammo_types(%User{id: 123}, :all)
-      [%AmmoType{}, ...]
+      iex> list_types(%User{id: 123}, :all)
+      [%Type{}, ...]
 
-      iex> list_ammo_types("cool", %User{id: 123}, :shotgun)
-      [%AmmoType{name: "My cool ammo type", class: :shotgun}, ...]
+      iex> list_types("cool", %User{id: 123}, :shotgun)
+      [%Type{name: "My cool type", class: :shotgun}, ...]
 
   """
-  @spec list_ammo_types(User.t(), AmmoType.class() | :all) :: [AmmoType.t()]
-  @spec list_ammo_types(search :: nil | String.t(), User.t(), AmmoType.class() | :all) ::
-          [AmmoType.t()]
-  def list_ammo_types(search \\ nil, user, type)
+  @spec list_types(User.t(), Type.class() | :all) :: [Type.t()]
+  @spec list_types(search :: nil | String.t(), User.t(), Type.class() | :all) ::
+          [Type.t()]
+  def list_types(search \\ nil, user, type)
 
-  def list_ammo_types(search, %{id: user_id}, type) do
-    from(at in AmmoType,
+  def list_types(search, %{id: user_id}, type) do
+    from(at in Type,
       as: :at,
       where: at.user_id == ^user_id,
-      preload: ^@ammo_type_preloads
+      preload: ^@type_preloads
     )
-    |> list_ammo_types_filter_type(type)
-    |> list_ammo_types_filter_search(search)
+    |> list_types_filter_type(type)
+    |> list_types_filter_search(search)
     |> Repo.all()
   end
 
-  @spec list_ammo_types_filter_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
-  defp list_ammo_types_filter_search(query, search) when search in ["", nil],
+  @spec list_types_filter_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_types_filter_search(query, search) when search in ["", nil],
     do: query |> order_by([at: at], at.name)
 
-  defp list_ammo_types_filter_search(query, search) when search |> is_binary() do
+  defp list_types_filter_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     query
@@ -72,31 +72,31 @@ defmodule Cannery.Ammo do
     )
   end
 
-  @spec list_ammo_types_filter_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
-  defp list_ammo_types_filter_type(query, :rifle),
+  @spec list_types_filter_type(Queryable.t(), Type.class() | :all) :: Queryable.t()
+  defp list_types_filter_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
-  defp list_ammo_types_filter_type(query, :pistol),
+  defp list_types_filter_type(query, :pistol),
     do: query |> where([at: at], at.class == :pistol)
 
-  defp list_ammo_types_filter_type(query, :shotgun),
+  defp list_types_filter_type(query, :shotgun),
     do: query |> where([at: at], at.class == :shotgun)
 
-  defp list_ammo_types_filter_type(query, _all), do: query
+  defp list_types_filter_type(query, _all), do: query
 
   @doc """
-  Returns a count of ammo_types.
+  Returns a count of types.
 
   ## Examples
 
-      iex> get_ammo_types_count!(%User{id: 123})
+      iex> get_types_count!(%User{id: 123})
       3
 
   """
-  @spec get_ammo_types_count!(User.t()) :: integer()
-  def get_ammo_types_count!(%User{id: user_id}) do
+  @spec get_types_count!(User.t()) :: integer()
+  def get_types_count!(%User{id: user_id}) do
     Repo.one(
-      from at in AmmoType,
+      from at in Type,
         where: at.user_id == ^user_id,
         select: count(at.id),
         distinct: true
@@ -104,67 +104,67 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Gets a single ammo_type.
+  Gets a single type.
 
-  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+  Raises `Ecto.NoResultsError` if the type does not exist.
 
   ## Examples
 
-      iex> get_ammo_type!(123, %User{id: 123})
-      %AmmoType{}
+      iex> get_type!(123, %User{id: 123})
+      %Type{}
 
-      iex> get_ammo_type!(456, %User{id: 123})
+      iex> get_type!(456, %User{id: 123})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_ammo_type!(AmmoType.id(), User.t()) :: AmmoType.t()
-  def get_ammo_type!(id, %User{id: user_id}) do
+  @spec get_type!(Type.id(), User.t()) :: Type.t()
+  def get_type!(id, %User{id: user_id}) do
     Repo.one!(
-      from at in AmmoType,
+      from at in Type,
         where: at.id == ^id,
         where: at.user_id == ^user_id,
-        preload: ^@ammo_type_preloads
+        preload: ^@type_preloads
     )
   end
 
   @doc """
-  Gets the average cost of an ammo type from packs with price information.
+  Gets the average cost of a type from packs with price information.
 
   ## Examples
 
-      iex> get_average_cost_for_ammo_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      iex> get_average_cost_for_type(
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       1.50
 
   """
-  @spec get_average_cost_for_ammo_type(AmmoType.t(), User.t()) :: float() | nil
-  def get_average_cost_for_ammo_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
-    [ammo_type]
-    |> get_average_cost_for_ammo_types(user)
-    |> Map.get(ammo_type_id)
+  @spec get_average_cost_for_type(Type.t(), User.t()) :: float() | nil
+  def get_average_cost_for_type(%Type{id: type_id} = type, user) do
+    [type]
+    |> get_average_cost_for_types(user)
+    |> Map.get(type_id)
   end
 
   @doc """
-  Gets the average cost of ammo types from packs with price information
-  for multiple ammo types.
+  Gets the average cost of types from packs with price information
+  for multiple types.
 
   ## Examples
 
-      iex> get_average_cost_for_ammo_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      iex> get_average_cost_for_types(
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       1.50
 
   """
-  @spec get_average_cost_for_ammo_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => float()}
-  def get_average_cost_for_ammo_types(ammo_types, %User{id: user_id}) do
-    ammo_type_ids =
-      ammo_types
-      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+  @spec get_average_cost_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => float()}
+  def get_average_cost_for_types(types, %User{id: user_id}) do
+    type_ids =
+      types
+      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     sg_total_query =
       from sg in ShotRecord,
@@ -177,202 +177,200 @@ defmodule Cannery.Ammo do
         as: :pack,
         left_join: sg_query in subquery(sg_total_query),
         on: ag.id == sg_query.pack_id,
-        where: ag.ammo_type_id in ^ammo_type_ids,
-        group_by: ag.ammo_type_id,
+        where: ag.type_id in ^type_ids,
+        group_by: ag.type_id,
         where: not (ag.price_paid |> is_nil()),
-        select:
-          {ag.ammo_type_id, sum(ag.price_paid) / sum(ag.count + coalesce(sg_query.total, 0))}
+        select: {ag.type_id, sum(ag.price_paid) / sum(ag.count + coalesce(sg_query.total, 0))}
     )
     |> Map.new()
   end
 
   @doc """
-  Gets the total number of rounds for an ammo type
+  Gets the total number of rounds for a type
 
   ## Examples
 
-      iex> get_round_count_for_ammo_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      iex> get_round_count_for_type(
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       35
 
   """
-  @spec get_round_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  def get_round_count_for_ammo_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
-    [ammo_type]
-    |> get_round_count_for_ammo_types(user)
-    |> Map.get(ammo_type_id, 0)
+  @spec get_round_count_for_type(Type.t(), User.t()) :: non_neg_integer()
+  def get_round_count_for_type(%Type{id: type_id} = type, user) do
+    [type]
+    |> get_round_count_for_types(user)
+    |> Map.get(type_id, 0)
   end
 
   @doc """
-  Gets the total number of rounds for multiple ammo types
+  Gets the total number of rounds for multiple types
 
   ## Examples
 
-      iex> get_round_count_for_ammo_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      iex> get_round_count_for_types(
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 35}
 
   """
-  @spec get_round_count_for_ammo_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_round_count_for_ammo_types(ammo_types, %User{id: user_id}) do
-    ammo_type_ids =
-      ammo_types
-      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+  @spec get_round_count_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  def get_round_count_for_types(types, %User{id: user_id}) do
+    type_ids =
+      types
+      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
       from ag in Pack,
-        where: ag.ammo_type_id in ^ammo_type_ids,
+        where: ag.type_id in ^type_ids,
         where: ag.user_id == ^user_id,
-        group_by: ag.ammo_type_id,
-        select: {ag.ammo_type_id, sum(ag.count)}
+        group_by: ag.type_id,
+        select: {ag.type_id, sum(ag.count)}
     )
     |> Map.new()
   end
 
   @doc """
-  Gets the total number of ammo ever bought for an ammo type
+  Gets the total number of ammo ever bought for a type
 
   ## Examples
 
-      iex> get_historical_count_for_ammo_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      iex> get_historical_count_for_type(
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       5
 
   """
-  @spec get_historical_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  def get_historical_count_for_ammo_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
-    [ammo_type]
-    |> get_historical_count_for_ammo_types(user)
-    |> Map.get(ammo_type_id, 0)
+  @spec get_historical_count_for_type(Type.t(), User.t()) :: non_neg_integer()
+  def get_historical_count_for_type(%Type{id: type_id} = type, user) do
+    [type]
+    |> get_historical_count_for_types(user)
+    |> Map.get(type_id, 0)
   end
 
   @doc """
-  Gets the total number of ammo ever bought for multiple ammo types
+  Gets the total number of ammo ever bought for multiple types
 
   ## Examples
 
-      iex> get_historical_count_for_ammo_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      iex> get_historical_count_for_types(
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 5}
 
   """
-  @spec get_historical_count_for_ammo_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_historical_count_for_ammo_types(ammo_types, %User{id: user_id} = user) do
-    used_counts = ammo_types |> ActivityLog.get_used_count_for_ammo_types(user)
-    round_counts = ammo_types |> get_round_count_for_ammo_types(user)
+  @spec get_historical_count_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  def get_historical_count_for_types(types, %User{id: user_id} = user) do
+    used_counts = types |> ActivityLog.get_used_count_for_types(user)
+    round_counts = types |> get_round_count_for_types(user)
 
-    ammo_types
-    |> Enum.filter(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} ->
-      Map.has_key?(used_counts, ammo_type_id) or Map.has_key?(round_counts, ammo_type_id)
+    types
+    |> Enum.filter(fn %Type{id: type_id, user_id: ^user_id} ->
+      Map.has_key?(used_counts, type_id) or Map.has_key?(round_counts, type_id)
     end)
-    |> Map.new(fn %{id: ammo_type_id} ->
-      historical_count =
-        Map.get(used_counts, ammo_type_id, 0) + Map.get(round_counts, ammo_type_id, 0)
+    |> Map.new(fn %{id: type_id} ->
+      historical_count = Map.get(used_counts, type_id, 0) + Map.get(round_counts, type_id, 0)
 
-      {ammo_type_id, historical_count}
+      {type_id, historical_count}
     end)
   end
 
   @doc """
-  Creates a ammo_type.
+  Creates a type.
 
   ## Examples
 
-      iex> create_ammo_type(%{field: value}, %User{id: 123})
-      {:ok, %AmmoType{}}
+      iex> create_type(%{field: value}, %User{id: 123})
+      {:ok, %Type{}}
 
-      iex> create_ammo_type(%{field: bad_value}, %User{id: 123})
+      iex> create_type(%{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec create_ammo_type(attrs :: map(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
-  def create_ammo_type(attrs \\ %{}, %User{} = user) do
-    %AmmoType{}
-    |> AmmoType.create_changeset(user, attrs)
+  @spec create_type(attrs :: map(), User.t()) ::
+          {:ok, Type.t()} | {:error, Type.changeset()}
+  def create_type(attrs \\ %{}, %User{} = user) do
+    %Type{}
+    |> Type.create_changeset(user, attrs)
     |> Repo.insert()
     |> case do
-      {:ok, ammo_type} -> {:ok, ammo_type |> preload_ammo_type()}
+      {:ok, type} -> {:ok, type |> preload_type()}
       {:error, changeset} -> {:error, changeset}
     end
   end
 
-  @spec preload_ammo_type(AmmoType.t()) :: AmmoType.t()
-  @spec preload_ammo_type([AmmoType.t()]) :: [AmmoType.t()]
-  defp preload_ammo_type(ammo_type_or_ammo_types) do
-    ammo_type_or_ammo_types |> Repo.preload(@ammo_type_preloads)
+  @spec preload_type(Type.t()) :: Type.t()
+  @spec preload_type([Type.t()]) :: [Type.t()]
+  defp preload_type(type_or_types) do
+    type_or_types |> Repo.preload(@type_preloads)
   end
 
   @doc """
-  Updates a ammo_type.
+  Updates a type.
 
   ## Examples
 
-      iex> update_ammo_type(ammo_type, %{field: new_value}, %User{id: 123})
-      {:ok, %AmmoType{}}
+      iex> update_type(type, %{field: new_value}, %User{id: 123})
+      {:ok, %Type{}}
 
-      iex> update_ammo_type(ammo_type, %{field: bad_value}, %User{id: 123})
+      iex> update_type(type, %{field: bad_value}, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec update_ammo_type(AmmoType.t(), attrs :: map(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
-  def update_ammo_type(%AmmoType{user_id: user_id} = ammo_type, attrs, %User{id: user_id}) do
-    ammo_type
-    |> AmmoType.update_changeset(attrs)
+  @spec update_type(Type.t(), attrs :: map(), User.t()) ::
+          {:ok, Type.t()} | {:error, Type.changeset()}
+  def update_type(%Type{user_id: user_id} = type, attrs, %User{id: user_id}) do
+    type
+    |> Type.update_changeset(attrs)
     |> Repo.update()
     |> case do
-      {:ok, ammo_type} -> {:ok, ammo_type |> preload_ammo_type()}
+      {:ok, type} -> {:ok, type |> preload_type()}
       {:error, changeset} -> {:error, changeset}
     end
   end
 
   @doc """
-  Deletes a ammo_type.
+  Deletes a type.
 
   ## Examples
 
-      iex> delete_ammo_type(ammo_type, %User{id: 123})
-      {:ok, %AmmoType{}}
+      iex> delete_type(type, %User{id: 123})
+      {:ok, %Type{}}
 
-      iex> delete_ammo_type(ammo_type, %User{id: 123})
+      iex> delete_type(type, %User{id: 123})
       {:error, %Changeset{}}
 
   """
-  @spec delete_ammo_type(AmmoType.t(), User.t()) ::
-          {:ok, AmmoType.t()} | {:error, AmmoType.changeset()}
-  def delete_ammo_type(%AmmoType{user_id: user_id} = ammo_type, %User{id: user_id}) do
-    ammo_type
+  @spec delete_type(Type.t(), User.t()) ::
+          {:ok, Type.t()} | {:error, Type.changeset()}
+  def delete_type(%Type{user_id: user_id} = type, %User{id: user_id}) do
+    type
     |> Repo.delete()
     |> case do
-      {:ok, ammo_type} -> {:ok, ammo_type |> preload_ammo_type()}
+      {:ok, type} -> {:ok, type |> preload_type()}
       {:error, changeset} -> {:error, changeset}
     end
   end
 
   @doc """
-  Deletes a ammo_type.
+  Deletes a type.
 
   ## Examples
 
-      iex> delete_ammo_type!(ammo_type, %User{id: 123})
-      %AmmoType{}
+      iex> delete_type!(type, %User{id: 123})
+      %Type{}
 
   """
-  @spec delete_ammo_type!(AmmoType.t(), User.t()) :: AmmoType.t()
-  def delete_ammo_type!(ammo_type, user) do
-    {:ok, ammo_type} = delete_ammo_type(ammo_type, user)
-    ammo_type
+  @spec delete_type!(Type.t(), User.t()) :: Type.t()
+  def delete_type!(type, user) do
+    {:ok, type} = delete_type(type, user)
+    type
   end
 
   @doc """
@@ -381,32 +379,32 @@ defmodule Cannery.Ammo do
   ## Examples
 
       iex> list_packs_for_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       [%Pack{}, ...]
 
       iex> list_packs_for_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456},
       ...>   true
       ...> )
       [%Pack{}, %Pack{}, ...]
 
   """
-  @spec list_packs_for_type(AmmoType.t(), User.t()) :: [Pack.t()]
-  @spec list_packs_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
+  @spec list_packs_for_type(Type.t(), User.t()) :: [Pack.t()]
+  @spec list_packs_for_type(Type.t(), User.t(), show_used :: boolean()) ::
           [Pack.t()]
-  def list_packs_for_type(ammo_type, user, show_used \\ false)
+  def list_packs_for_type(type, user, show_used \\ false)
 
   def list_packs_for_type(
-        %AmmoType{id: ammo_type_id, user_id: user_id},
+        %Type{id: type_id, user_id: user_id},
         %User{id: user_id},
         show_used
       ) do
     from(ag in Pack,
       as: :ag,
-      where: ag.ammo_type_id == ^ammo_type_id,
+      where: ag.type_id == ^type_id,
       where: ag.user_id == ^user_id,
       preload: ^@pack_preloads
     )
@@ -443,7 +441,7 @@ defmodule Cannery.Ammo do
   """
   @spec list_packs_for_container(
           Container.t(),
-          AmmoType.t() | :all,
+          Type.t() | :all,
           User.t()
         ) :: [Pack.t()]
   def list_packs_for_container(
@@ -453,7 +451,7 @@ defmodule Cannery.Ammo do
       ) do
     from(ag in Pack,
       as: :ag,
-      join: at in assoc(ag, :ammo_type),
+      join: at in assoc(ag, :type),
       as: :at,
       where: ag.container_id == ^container_id,
       where: ag.user_id == ^user_id,
@@ -464,7 +462,7 @@ defmodule Cannery.Ammo do
     |> Repo.all()
   end
 
-  @spec list_packs_for_container_filter_type(Queryable.t(), AmmoType.class() | :all) ::
+  @spec list_packs_for_container_filter_type(Queryable.t(), Type.class() | :all) ::
           Queryable.t()
   defp list_packs_for_container_filter_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
@@ -509,71 +507,71 @@ defmodule Cannery.Ammo do
   defp get_packs_count_show_used(query, _true), do: query
 
   @doc """
-  Returns the count of packs for an ammo type.
+  Returns the count of packs for a type.
 
   ## Examples
 
       iex> get_packs_count_for_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       3
 
       iex> get_packs_count_for_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456},
       ...>   true
       ...> )
       5
 
   """
-  @spec get_packs_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  @spec get_packs_count_for_type(AmmoType.t(), User.t(), show_used :: boolean()) ::
+  @spec get_packs_count_for_type(Type.t(), User.t()) :: non_neg_integer()
+  @spec get_packs_count_for_type(Type.t(), User.t(), show_used :: boolean()) ::
           non_neg_integer()
   def get_packs_count_for_type(
-        %AmmoType{id: ammo_type_id} = ammo_type,
+        %Type{id: type_id} = type,
         user,
         show_used \\ false
       ) do
-    [ammo_type]
+    [type]
     |> get_packs_count_for_types(user, show_used)
-    |> Map.get(ammo_type_id, 0)
+    |> Map.get(type_id, 0)
   end
 
   @doc """
-  Returns the count of packs for multiple ammo types.
+  Returns the count of packs for multiple types.
 
   ## Examples
 
       iex> get_packs_count_for_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       3
 
       iex> get_packs_count_for_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456},
       ...>   true
       ...> )
       5
 
   """
-  @spec get_packs_count_for_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  @spec get_packs_count_for_types([AmmoType.t()], User.t(), show_used :: boolean()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_packs_count_for_types(ammo_types, %User{id: user_id}, show_used \\ false) do
-    ammo_type_ids =
-      ammo_types
-      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+  @spec get_packs_count_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  @spec get_packs_count_for_types([Type.t()], User.t(), show_used :: boolean()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  def get_packs_count_for_types(types, %User{id: user_id}, show_used \\ false) do
+    type_ids =
+      types
+      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     from(ag in Pack,
       as: :ag,
       where: ag.user_id == ^user_id,
-      where: ag.ammo_type_id in ^ammo_type_ids,
-      group_by: ag.ammo_type_id,
-      select: {ag.ammo_type_id, count(ag.id)}
+      where: ag.type_id in ^type_ids,
+      group_by: ag.type_id,
+      select: {ag.type_id, count(ag.id)}
     )
     |> get_packs_count_for_types_maybe_show_used(show_used)
     |> Repo.all()
@@ -589,50 +587,50 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the count of used packs for an ammo type.
+  Returns the count of used packs for a type.
 
   ## Examples
 
       iex> get_used_packs_count_for_type(
-      ...>   %AmmoType{id: 123, user_id: 456},
+      ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       3
 
   """
-  @spec get_used_packs_count_for_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  def get_used_packs_count_for_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
-    [ammo_type]
+  @spec get_used_packs_count_for_type(Type.t(), User.t()) :: non_neg_integer()
+  def get_used_packs_count_for_type(%Type{id: type_id} = type, user) do
+    [type]
     |> get_used_packs_count_for_types(user)
-    |> Map.get(ammo_type_id, 0)
+    |> Map.get(type_id, 0)
   end
 
   @doc """
-  Returns the count of used packs for multiple ammo types.
+  Returns the count of used packs for multiple types.
 
   ## Examples
 
       iex> get_used_packs_count_for_types(
-      ...>   [%AmmoType{id: 123, user_id: 456}],
+      ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 3}
 
   """
-  @spec get_used_packs_count_for_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_used_packs_count_for_types(ammo_types, %User{id: user_id}) do
-    ammo_type_ids =
-      ammo_types
-      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+  @spec get_used_packs_count_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  def get_used_packs_count_for_types(types, %User{id: user_id}) do
+    type_ids =
+      types
+      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
       from ag in Pack,
         where: ag.user_id == ^user_id,
-        where: ag.ammo_type_id in ^ammo_type_ids,
+        where: ag.type_id in ^type_ids,
         where: ag.count == 0,
-        group_by: ag.ammo_type_id,
-        select: {ag.ammo_type_id, count(ag.id)}
+        group_by: ag.type_id,
+        select: {ag.type_id, count(ag.id)}
     )
     |> Map.new()
   end
@@ -748,18 +746,18 @@ defmodule Cannery.Ammo do
       [%Pack{notes: "My cool pack"}, ...]
 
   """
-  @spec list_packs(search :: String.t() | nil, AmmoType.class() | :all, User.t()) ::
+  @spec list_packs(search :: String.t() | nil, Type.class() | :all, User.t()) ::
           [Pack.t()]
   @spec list_packs(
           search :: nil | String.t(),
-          AmmoType.class() | :all,
+          Type.class() | :all,
           User.t(),
           show_used :: boolean()
         ) :: [Pack.t()]
   def list_packs(search, type, %{id: user_id}, show_used \\ false) do
     from(ag in Pack,
       as: :ag,
-      join: at in assoc(ag, :ammo_type),
+      join: at in assoc(ag, :type),
       as: :at,
       join: c in Container,
       on: ag.container_id == c.id,
@@ -781,7 +779,7 @@ defmodule Cannery.Ammo do
     |> Repo.all()
   end
 
-  @spec list_packs_filter_on_type(Queryable.t(), AmmoType.class() | :all) :: Queryable.t()
+  @spec list_packs_filter_on_type(Queryable.t(), Type.class() | :all) :: Queryable.t()
   defp list_packs_filter_on_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
@@ -1063,13 +1061,13 @@ defmodule Cannery.Ammo do
   end
 
   defp do_create_packs(
-         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+         %{"type_id" => type_id, "container_id" => container_id} = attrs,
          multiplier,
          user
        )
        when multiplier >= 1 and
               multiplier <= @pack_create_limit and
-              ammo_type_id |> is_binary() and
+              type_id |> is_binary() and
               container_id |> is_binary() do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
@@ -1077,7 +1075,7 @@ defmodule Cannery.Ammo do
       Enum.map(1..multiplier, fn _count ->
         %Pack{}
         |> Pack.create_changeset(
-          get_ammo_type!(ammo_type_id, user),
+          get_type!(type_id, user),
           Containers.get_container!(container_id, user),
           user,
           attrs
@@ -1107,15 +1105,15 @@ defmodule Cannery.Ammo do
   end
 
   defp do_create_packs(
-         %{"ammo_type_id" => ammo_type_id, "container_id" => container_id} = attrs,
+         %{"type_id" => type_id, "container_id" => container_id} = attrs,
          _multiplier,
          user
        )
-       when is_binary(ammo_type_id) and is_binary(container_id) do
+       when is_binary(type_id) and is_binary(container_id) do
     changeset =
       %Pack{}
       |> Pack.create_changeset(
-        get_ammo_type!(ammo_type_id, user),
+        get_type!(type_id, user),
         Containers.get_container!(container_id, user),
         user,
         attrs

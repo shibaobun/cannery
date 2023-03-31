@@ -101,19 +101,19 @@ defmodule CanneryWeb.RangeLive.Index do
     {:noreply, socket |> push_patch(to: Routes.range_index_path(Endpoint, :search, search_term))}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do
     {:noreply, socket |> assign(:class, :rifle) |> display_shot_records()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "shotgun"}}, socket) do
     {:noreply, socket |> assign(:class, :shotgun) |> display_shot_records()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "pistol"}}, socket) do
     {:noreply, socket |> assign(:class, :pistol) |> display_shot_records()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => _all}}, socket) do
     {:noreply, socket |> assign(:class, :all) |> display_shot_records()}
   end
 

@@ -122,19 +122,19 @@ defmodule CanneryWeb.PackLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do
     {:noreply, socket |> assign(:class, :rifle) |> display_packs()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "shotgun"}}, socket) do
     {:noreply, socket |> assign(:class, :shotgun) |> display_packs()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "pistol"}}, socket) do
     {:noreply, socket |> assign(:class, :pistol) |> display_packs()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => _all}}, socket) do
     {:noreply, socket |> assign(:class, :all) |> display_packs()}
   end
 
@@ -152,13 +152,13 @@ defmodule CanneryWeb.PackLive.Index do
     # prompts
     packs_count = Ammo.get_packs_count!(current_user, true)
     packs = Ammo.list_packs(search, class, current_user, show_used)
-    ammo_types_count = Ammo.get_ammo_types_count!(current_user)
+    types_count = Ammo.get_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)
 
     socket
     |> assign(
       packs: packs,
-      ammo_types_count: ammo_types_count,
+      types_count: types_count,
       containers_count: containers_count,
       packs_count: packs_count
     )

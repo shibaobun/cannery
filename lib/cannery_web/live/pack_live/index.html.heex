@@ -14,14 +14,14 @@
           <%= dgettext("actions", "add a container first") %>
         </.link>
       </div>
-    <% @ammo_types_count == 0 -> %>
+    <% @types_count == 0 -> %>
       <div class="flex justify-center items-center">
         <h2 class="m-2 title text-md text-primary-600">
           <%= dgettext("prompts", "You'll need to") %>
         </h2>
 
-        <.link navigate={Routes.ammo_type_index_path(Endpoint, :new)} class="btn btn-primary">
-          <%= dgettext("actions", "add an ammo type first") %>
+        <.link navigate={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
+          <%= dgettext("actions", "add a type first") %>
         </.link>
       </div>
     <% @packs_count == 0 -> %>
@@ -42,7 +42,7 @@
         <.form
           :let={f}
           for={%{}}
-          as={:ammo_type}
+          as={:type}
           phx-change="change_class"
           phx-submit="change_class"
           class="flex items-center"
@@ -102,11 +102,11 @@
           current_user={@current_user}
           show_used={@show_used}
         >
-          <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
-            <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
-              <%= ammo_type_name %>
+          <:type :let={%{name: type_name} = type}>
+            <.link navigate={Routes.type_show_path(Endpoint, :show, type)} class="link">
+              <%= type_name %>
             </.link>
-          </:ammo_type>
+          </:type>
           <:range :let={pack}>
             <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
               <button

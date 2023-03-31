@@ -10,8 +10,8 @@ defmodule Cannery.Fixtures do
     Accounts.User,
     ActivityLog.ShotRecord,
     Ammo,
-    Ammo.AmmoType,
     Ammo.Pack,
+    Ammo.Type,
     Containers,
     Containers.Container,
     Containers.Tag,
@@ -102,11 +102,11 @@ defmodule Cannery.Fixtures do
   end
 
   @doc """
-  Generate a AmmoType
+  Generate a Type
   """
-  @spec ammo_type_fixture(User.t()) :: AmmoType.t()
-  @spec ammo_type_fixture(attrs :: map(), User.t()) :: AmmoType.t()
-  def ammo_type_fixture(attrs \\ %{}, %User{} = user) do
+  @spec type_fixture(User.t()) :: Type.t()
+  @spec type_fixture(attrs :: map(), User.t()) :: Type.t()
+  def type_fixture(attrs \\ %{}, %User{} = user) do
     attrs
     |> Enum.into(%{
       name: random_string(),
@@ -142,34 +142,34 @@ defmodule Cannery.Fixtures do
       manufacturer: random_string(),
       upc: random_string()
     })
-    |> Ammo.create_ammo_type(user)
+    |> Ammo.create_type(user)
     |> unwrap_ok_tuple()
   end
 
   @doc """
   Generate a Pack
   """
-  @spec pack_fixture(AmmoType.t(), Container.t(), User.t()) ::
+  @spec pack_fixture(Type.t(), Container.t(), User.t()) ::
           {count :: non_neg_integer(), [Pack.t()]}
-  @spec pack_fixture(attrs :: map(), AmmoType.t(), Container.t(), User.t()) ::
+  @spec pack_fixture(attrs :: map(), Type.t(), Container.t(), User.t()) ::
           {count :: non_neg_integer(), [Pack.t()]}
   @spec pack_fixture(
           attrs :: map(),
           multiplier :: non_neg_integer(),
-          AmmoType.t(),
+          Type.t(),
           Container.t(),
           User.t()
         ) :: {count :: non_neg_integer(), [Pack.t()]}
   def pack_fixture(
         attrs \\ %{},
         multiplier \\ 1,
-        %AmmoType{id: ammo_type_id},
+        %Type{id: type_id},
         %Container{id: container_id},
         %User{} = user
       ) do
     attrs
     |> Enum.into(%{
-      ammo_type_id: ammo_type_id,
+      type_id: type_id,
       container_id: container_id,
       count: 20,
       purchased_on: Date.utc_today()

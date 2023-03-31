@@ -86,19 +86,19 @@ defmodule CanneryWeb.ContainerLive.Show do
     {:noreply, socket |> assign(:view_table, !view_table) |> render_container()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "rifle"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do
     {:noreply, socket |> assign(:class, :rifle) |> render_container()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "shotgun"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "shotgun"}}, socket) do
     {:noreply, socket |> assign(:class, :shotgun) |> render_container()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => "pistol"}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => "pistol"}}, socket) do
     {:noreply, socket |> assign(:class, :pistol) |> render_container()}
   end
 
-  def handle_event("change_class", %{"ammo_type" => %{"class" => _all}}, socket) do
+  def handle_event("change_class", %{"type" => %{"class" => _all}}, socket) do
     {:noreply, socket |> assign(:class, :all) |> render_container()}
   end
 

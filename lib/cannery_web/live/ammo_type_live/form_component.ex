@@ -1,16 +1,16 @@
-defmodule CanneryWeb.AmmoTypeLive.FormComponent do
+defmodule CanneryWeb.TypeLive.FormComponent do
   @moduledoc """
-  Livecomponent that can update or create an Cannery.Ammo.AmmoType
+  Livecomponent that can update or create an Cannery.Ammo.Type
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.{Accounts.User, Ammo, Ammo.AmmoType}
+  alias Cannery.{Accounts.User, Ammo, Ammo.Type}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
   @impl true
   @spec update(
-          %{:ammo_type => AmmoType.t(), :current_user => User.t(), optional(any) => any},
+          %{:type => Type.t(), :current_user => User.t(), optional(any) => any},
           Socket.t()
         ) :: {:ok, Socket.t()}
   def update(%{current_user: _current_user} = assigns, socket) do
@@ -18,21 +18,21 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
   end
 
   @impl true
-  def handle_event("validate", %{"ammo_type" => ammo_type_params}, socket) do
-    {:noreply, socket |> assign_changeset(ammo_type_params)}
+  def handle_event("validate", %{"type" => type_params}, socket) do
+    {:noreply, socket |> assign_changeset(type_params)}
   end
 
   def handle_event(
         "save",
-        %{"ammo_type" => ammo_type_params},
+        %{"type" => type_params},
         %{assigns: %{action: action}} = socket
       ) do
-    save_ammo_type(socket, action, ammo_type_params)
+    save_type(socket, action, type_params)
   end
 
   defp assign_changeset(
-         %{assigns: %{action: action, ammo_type: ammo_type, current_user: user}} = socket,
-         ammo_type_params
+         %{assigns: %{action: action, type: type, current_user: user}} = socket,
+         type_params
        ) do
     changeset_action =
       case action do
@@ -43,10 +43,10 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
     changeset =
       case action do
         create when create in [:new, :clone] ->
-          ammo_type |> AmmoType.create_changeset(user, ammo_type_params)
+          type |> Type.create_changeset(user, type_params)
 
         :edit ->
-          ammo_type |> AmmoType.update_changeset(ammo_type_params)
+          type |> Type.update_changeset(type_params)
       end
 
     changeset =
@@ -58,16 +58,15 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
     socket |> assign(changeset: changeset)
   end
 
-  defp save_ammo_type(
-         %{assigns: %{ammo_type: ammo_type, current_user: current_user, return_to: return_to}} =
-           socket,
+  defp save_type(
+         %{assigns: %{type: type, current_user: current_user, return_to: return_to}} = socket,
          :edit,
-         ammo_type_params
+         type_params
        ) do
     socket =
-      case Ammo.update_ammo_type(ammo_type, ammo_type_params, current_user) do
-        {:ok, %{name: ammo_type_name}} ->
-          prompt = dgettext("prompts", "%{name} updated successfully", name: ammo_type_name)
+      case Ammo.update_type(type, type_params, current_user) do
+        {:ok, %{name: type_name}} ->
+          prompt = dgettext("prompts", "%{name} updated successfully", name: type_name)
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->
@@ -77,16 +76,16 @@ defmodule CanneryWeb.AmmoTypeLive.FormComponent do
     {:noreply, socket}
   end
 
-  defp save_ammo_type(
+  defp save_type(
          %{assigns: %{current_user: current_user, return_to: return_to}} = socket,
          action,
-         ammo_type_params
+         type_params
        )
        when action in [:new, :clone] do
     socket =
-      case Ammo.create_ammo_type(ammo_type_params, current_user) do
-        {:ok, %{name: ammo_type_name}} ->
-          prompt = dgettext("prompts", "%{name} created successfully", name: ammo_type_name)
+      case Ammo.create_type(type_params, current_user) do
+        {:ok, %{name: type_name}} ->
+          prompt = dgettext("prompts", "%{name} created successfully", name: type_name)
           socket |> put_flash(:info, prompt) |> push_navigate(to: return_to)
 
         {:error, %Changeset{} = changeset} ->

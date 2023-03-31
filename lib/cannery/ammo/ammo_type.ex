@@ -1,4 +1,4 @@
-defmodule Cannery.Ammo.AmmoType do
+defmodule Cannery.Ammo.Type do
   @moduledoc """
   An ammunition type.
 
@@ -38,7 +38,7 @@ defmodule Cannery.Ammo.AmmoType do
            ]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "ammo_types" do
+  schema "types" do
     field :name, :string
     field :desc, :string
 
@@ -127,9 +127,9 @@ defmodule Cannery.Ammo.AmmoType do
           inserted_at: NaiveDateTime.t(),
           updated_at: NaiveDateTime.t()
         }
-  @type new_ammo_type :: %__MODULE__{}
+  @type new_type :: %__MODULE__{}
   @type id :: UUID.t()
-  @type changeset :: Changeset.t(t() | new_ammo_type())
+  @type changeset :: Changeset.t(t() | new_type())
   @type class :: :rifle | :shotgun | :pistol | nil
 
   @spec changeset_fields() :: [atom()]
@@ -197,10 +197,10 @@ defmodule Cannery.Ammo.AmmoType do
     ]
 
   @doc false
-  @spec create_changeset(new_ammo_type(), User.t(), attrs :: map()) :: changeset()
-  def create_changeset(ammo_type, %User{id: user_id}, attrs) do
+  @spec create_changeset(new_type(), User.t(), attrs :: map()) :: changeset()
+  def create_changeset(type, %User{id: user_id}, attrs) do
     changeset =
-      ammo_type
+      type
       |> change(user_id: user_id)
       |> cast(attrs, changeset_fields())
 
@@ -210,10 +210,10 @@ defmodule Cannery.Ammo.AmmoType do
   end
 
   @doc false
-  @spec update_changeset(t() | new_ammo_type(), attrs :: map()) :: changeset()
-  def update_changeset(ammo_type, attrs) do
+  @spec update_changeset(t() | new_type(), attrs :: map()) :: changeset()
+  def update_changeset(type, attrs) do
     changeset =
-      ammo_type
+      type
       |> cast(attrs, changeset_fields())
 
     string_fields()

@@ -4,7 +4,7 @@ defmodule CanneryWeb.PackLive.FormComponent do
   """
 
   use CanneryWeb, :live_component
-  alias Cannery.Ammo.{AmmoType, Pack}
+  alias Cannery.Ammo.{Pack, Type}
   alias Cannery.{Accounts.User, Ammo, Containers, Containers.Container}
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
@@ -22,17 +22,17 @@ defmodule CanneryWeb.PackLive.FormComponent do
 
   @spec update(Socket.t()) :: {:ok, Socket.t()}
   def update(%{assigns: %{current_user: current_user}} = socket) do
-    %{assigns: %{ammo_types: ammo_types, containers: containers}} =
+    %{assigns: %{types: types, containers: containers}} =
       socket =
       socket
       |> assign(:pack_create_limit, @pack_create_limit)
-      |> assign(:ammo_types, Ammo.list_ammo_types(current_user, :all))
+      |> assign(:types, Ammo.list_types(current_user, :all))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
     params =
-      if ammo_types |> List.first() |> is_nil(),
+      if types |> List.first() |> is_nil(),
         do: %{},
-        else: %{} |> Map.put("ammo_type_id", ammo_types |> List.first() |> Map.get(:id))
+        else: %{} |> Map.put("type_id", types |> List.first() |> Map.get(:id))
 
     params =
       if containers |> List.first() |> is_nil(),
@@ -62,9 +62,9 @@ defmodule CanneryWeb.PackLive.FormComponent do
     containers |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
   end
 
-  @spec ammo_type_options([AmmoType.t()]) :: [{String.t(), AmmoType.id()}]
-  defp ammo_type_options(ammo_types) do
-    ammo_types |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
+  @spec type_options([Type.t()]) :: [{String.t(), Type.id()}]
+  defp type_options(types) do
+    types |> Enum.map(fn %{id: id, name: name} -> {name, id} end)
   end
 
   # Save Helpers
@@ -83,9 +83,9 @@ defmodule CanneryWeb.PackLive.FormComponent do
     changeset =
       case default_action do
         :insert ->
-          ammo_type = maybe_get_ammo_type(pack_params, user)
+          type = maybe_get_type(pack_params, user)
           container = maybe_get_container(pack_params, user)
-          pack |> Pack.create_changeset(ammo_type, container, user, pack_params)
+          pack |> Pack.create_changeset(type, container, user, pack_params)
 
         :update ->
           pack |> Pack.update_changeset(pack_params, user)
@@ -107,12 +107,12 @@ defmodule CanneryWeb.PackLive.FormComponent do
 
   defp maybe_get_container(_params_not_found, _user), do: nil
 
-  defp maybe_get_ammo_type(%{"ammo_type_id" => ammo_type_id}, user)
-       when is_binary(ammo_type_id) do
-    ammo_type_id |> Ammo.get_ammo_type!(user)
+  defp maybe_get_type(%{"type_id" => type_id}, user)
+       when is_binary(type_id) do
+    type_id |> Ammo.get_type!(user)
   end
 
-  defp maybe_get_ammo_type(_params_not_found, _user), do: nil
+  defp maybe_get_type(_params_not_found, _user), do: nil
 
   defp save_pack(
          %{assigns: %{pack: pack, current_user: current_user, return_to: return_to}} = socket,

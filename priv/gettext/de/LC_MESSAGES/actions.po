@@ -95,11 +95,6 @@ msgstr "Einloggen"
 msgid "Make your first tag!"
 msgstr "Erstellen Sie ihren ersten Tag!"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "New Ammo type"
-msgstr "Neue Munitionsart"
-
 #: lib/cannery_web/live/container_live/index.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "New Container"
@@ -216,11 +211,6 @@ msgstr "Sprache wechseln"
 msgid "View in Catalog"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:24
-#, elixir-autogen, elixir-format
-msgid "add an ammo type first"
-msgstr ""
-
 #: lib/cannery_web/components/move_pack_component.ex:78
 #: lib/cannery_web/live/pack_live/index.html.heex:144
 #: lib/cannery_web/live/pack_live/show.html.heex:89
@@ -250,11 +240,6 @@ msgstr ""
 msgid "Export Data as JSON"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:110
-#, elixir-autogen, elixir-format
-msgid "Clone %{ammo_type_name}"
-msgstr ""
-
 #: lib/cannery_web/live/container_live/index.html.heex:87
 #: lib/cannery_web/live/container_live/index.html.heex:145
 #, elixir-autogen, elixir-format
@@ -264,12 +249,6 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Copy invite link for %{invite_name}"
-msgstr ""
-
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:129
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:36
-#, elixir-autogen, elixir-format
-msgid "Delete %{ammo_type_name}"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.html.heex:104
@@ -287,12 +266,6 @@ msgstr ""
 #: lib/cannery_web/live/invite_live/index.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Delete invite for %{invite_name}"
-msgstr ""
-
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:100
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:19
-#, elixir-autogen, elixir-format
-msgid "Edit %{ammo_type_name}"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.html.heex:77
@@ -328,11 +301,6 @@ msgstr ""
 msgid "Unstage"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:90
-#, elixir-autogen, elixir-format
-msgid "View %{ammo_type_name}"
-msgstr ""
-
 #: lib/cannery_web/live/pack_live/index.html.heex:174
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Clone pack of %{pack_count} bullets"
@@ -350,7 +318,7 @@ msgstr ""
 msgid "Edit pack of %{pack_count} bullets"
 msgstr ""
 
-#: lib/cannery_web/live/ammo_type_live/show.html.heex:206
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:204
 #: lib/cannery_web/live/pack_live/index.html.heex:154
 #, elixir-autogen, elixir-format, fuzzy
 msgid "View pack of %{pack_count} bullets"
@@ -366,4 +334,36 @@ msgstr ""
 #: lib/cannery_web/live/range_live/index.html.heex:138
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit shot record of %{shot_record_count} shots"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:105
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Clone %{type_name}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:122
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:35
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Delete %{type_name}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:97
+#: lib/cannery_web/live/ammo_type_live/show.html.heex:19
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Edit %{type_name}"
+msgstr ""
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:17
+#, elixir-autogen, elixir-format, fuzzy
+msgid "New Type"
+msgstr "Neue Munitionsart"
+
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:89
+#, elixir-autogen, elixir-format, fuzzy
+msgid "View %{type_name}"
+msgstr ""
+
+#: lib/cannery_web/live/pack_live/index.html.heex:24
+#, elixir-autogen, elixir-format, fuzzy
+msgid "add a type first"
 msgstr ""

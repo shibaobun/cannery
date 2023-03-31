@@ -14,9 +14,9 @@ defmodule CanneryWeb.RangeLiveTest do
 
   defp create_shot_record(%{current_user: current_user}) do
     container = container_fixture(%{staged: true}, current_user)
-    ammo_type = ammo_type_fixture(current_user)
+    type = type_fixture(current_user)
 
-    {1, [pack]} = pack_fixture(%{staged: true}, ammo_type, container, current_user)
+    {1, [pack]} = pack_fixture(%{staged: true}, type, container, current_user)
 
     shot_record =
       %{count: 5, date: ~N[2022-02-13 03:17:00], notes: "some notes"}
@@ -24,7 +24,7 @@ defmodule CanneryWeb.RangeLiveTest do
 
     [
       container: container,
-      ammo_type: ammo_type,
+      type: type,
       pack: pack,
       shot_record: shot_record
     ]
@@ -42,18 +42,18 @@ defmodule CanneryWeb.RangeLiveTest do
 
     test "can sort by type",
          %{conn: conn, container: container, current_user: current_user} do
-      rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
-      {1, [rifle_pack]} = pack_fixture(rifle_ammo_type, container, current_user)
+      rifle_type = type_fixture(%{class: :rifle}, current_user)
+      {1, [rifle_pack]} = pack_fixture(rifle_type, container, current_user)
 
       rifle_shot_record = shot_record_fixture(%{notes: "group_one"}, current_user, rifle_pack)
 
-      shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
-      {1, [shotgun_pack]} = pack_fixture(shotgun_ammo_type, container, current_user)
+      shotgun_type = type_fixture(%{class: :shotgun}, current_user)
+      {1, [shotgun_pack]} = pack_fixture(shotgun_type, container, current_user)
 
       shotgun_shot_record = shot_record_fixture(%{notes: "group_two"}, current_user, shotgun_pack)
 
-      pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
-      {1, [pistol_pack]} = pack_fixture(pistol_ammo_type, container, current_user)
+      pistol_type = type_fixture(%{class: :pistol}, current_user)
+      {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
       pistol_shot_record = shot_record_fixture(%{notes: "group_three"}, current_user, pistol_pack)
 
@@ -68,7 +68,7 @@ defmodule CanneryWeb.RangeLiveTest do
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :rifle})
+        |> render_change(type: %{class: :rifle})
 
       assert html =~ rifle_shot_record.notes
       refute html =~ shotgun_shot_record.notes
@@ -77,7 +77,7 @@ defmodule CanneryWeb.RangeLiveTest do
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :shotgun})
+        |> render_change(type: %{class: :shotgun})
 
       refute html =~ rifle_shot_record.notes
       assert html =~ shotgun_shot_record.notes
@@ -86,7 +86,7 @@ defmodule CanneryWeb.RangeLiveTest do
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :pistol})
+        |> render_change(type: %{class: :pistol})
 
       refute html =~ rifle_shot_record.notes
       refute html =~ shotgun_shot_record.notes
@@ -95,7 +95,7 @@ defmodule CanneryWeb.RangeLiveTest do
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :all})
+        |> render_change(type: %{class: :all})
 
       assert html =~ rifle_shot_record.notes
       assert html =~ shotgun_shot_record.notes

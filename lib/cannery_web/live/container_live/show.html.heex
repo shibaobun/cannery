@@ -89,7 +89,7 @@
     <.form
       :let={f}
       for={%{}}
-      as={:ammo_type}
+      as={:type}
       phx-change="change_class"
       phx-submit="change_class"
       class="flex items-center"
@@ -126,16 +126,16 @@
       <%= if @view_table do %>
         <.live_component
           module={CanneryWeb.Components.PackTableComponent}
-          id="ammo-type-show-table"
+          id="type-show-table"
           packs={@packs}
           current_user={@current_user}
           show_used={false}
         >
-          <:ammo_type :let={%{name: ammo_type_name} = ammo_type}>
-            <.link navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)} class="link">
-              <%= ammo_type_name %>
+          <:type :let={%{name: type_name} = type}>
+            <.link navigate={Routes.type_show_path(Endpoint, :show, type)} class="link">
+              <%= type_name %>
             </.link>
-          </:ammo_type>
+          </:type>
         </.live_component>
       <% else %>
         <div class="flex flex-wrap justify-center items-stretch">

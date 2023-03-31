@@ -5,7 +5,7 @@
   <.form
     :let={f}
     for={@changeset}
-    id="ammo_type-form"
+    id="type-form"
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save"
@@ -37,7 +37,7 @@
 
     <%= label(f, :desc, gettext("Description"), class: "title text-lg text-primary-600") %>
     <%= textarea(f, :desc,
-      id: "ammo-type-form-desc",
+      id: "type-form-desc",
       class: "text-center col-span-2 input input-primary",
       phx_hook: "MaintainAttrs",
       phx_update: "ignore"

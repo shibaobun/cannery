@@ -1,6 +1,7 @@
 # v0.9.1
 - Rename ammo type's "type" to "class" to avoid confusion
-- Fixes ammo type search
+- Rename "ammo type" to "type" to avoid confusion
+- Fixes type search
 - Fixes shot records table disappearing after selecting an empty ammo class
 - Code quality improvements
 

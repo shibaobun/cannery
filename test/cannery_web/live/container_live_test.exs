@@ -22,7 +22,7 @@ defmodule CanneryWeb.ContainerLiveTest do
     type: "some updated type"
   }
   @invalid_attrs %{desc: nil, location: nil, name: nil, type: nil}
-  @ammo_type_attrs %{
+  @type_attrs %{
     bullet_type: "some bullet_type",
     case_material: "some case_material",
     desc: "some desc",
@@ -41,10 +41,10 @@ defmodule CanneryWeb.ContainerLiveTest do
   end
 
   defp create_pack(%{container: container, current_user: current_user}) do
-    ammo_type = ammo_type_fixture(@ammo_type_attrs, current_user)
-    {1, [pack]} = pack_fixture(@pack_attrs, ammo_type, container, current_user)
+    type = type_fixture(@type_attrs, current_user)
+    {1, [pack]} = pack_fixture(@pack_attrs, type, container, current_user)
 
-    [ammo_type: ammo_type, pack: pack]
+    [type: type, pack: pack]
   end
 
   describe "Index" do
@@ -245,56 +245,56 @@ defmodule CanneryWeb.ContainerLiveTest do
 
     test "can sort by type",
          %{conn: conn, container: container, current_user: current_user} do
-      rifle_type = ammo_type_fixture(%{class: :rifle}, current_user)
+      rifle_type = type_fixture(%{class: :rifle}, current_user)
       {1, [rifle_pack]} = pack_fixture(rifle_type, container, current_user)
-      shotgun_type = ammo_type_fixture(%{class: :shotgun}, current_user)
+      shotgun_type = type_fixture(%{class: :shotgun}, current_user)
       {1, [shotgun_pack]} = pack_fixture(shotgun_type, container, current_user)
-      pistol_type = ammo_type_fixture(%{class: :pistol}, current_user)
+      pistol_type = type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
       {:ok, index_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       assert html =~ "All"
 
-      assert html =~ rifle_pack.ammo_type.name
-      assert html =~ shotgun_pack.ammo_type.name
-      assert html =~ pistol_pack.ammo_type.name
+      assert html =~ rifle_pack.type.name
+      assert html =~ shotgun_pack.type.name
+      assert html =~ pistol_pack.type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :rifle})
+        |> render_change(type: %{class: :rifle})
 
-      assert html =~ rifle_pack.ammo_type.name
-      refute html =~ shotgun_pack.ammo_type.name
-      refute html =~ pistol_pack.ammo_type.name
-
-      html =
-        index_live
-        |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :shotgun})
-
-      refute html =~ rifle_pack.ammo_type.name
-      assert html =~ shotgun_pack.ammo_type.name
-      refute html =~ pistol_pack.ammo_type.name
+      assert html =~ rifle_pack.type.name
+      refute html =~ shotgun_pack.type.name
+      refute html =~ pistol_pack.type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :pistol})
+        |> render_change(type: %{class: :shotgun})
 
-      refute html =~ rifle_pack.ammo_type.name
-      refute html =~ shotgun_pack.ammo_type.name
-      assert html =~ pistol_pack.ammo_type.name
+      refute html =~ rifle_pack.type.name
+      assert html =~ shotgun_pack.type.name
+      refute html =~ pistol_pack.type.name
 
       html =
         index_live
         |> form(~s/form[phx-change="change_class"]/)
-        |> render_change(ammo_type: %{class: :all})
+        |> render_change(type: %{class: :pistol})
 
-      assert html =~ rifle_pack.ammo_type.name
-      assert html =~ shotgun_pack.ammo_type.name
-      assert html =~ pistol_pack.ammo_type.name
+      refute html =~ rifle_pack.type.name
+      refute html =~ shotgun_pack.type.name
+      assert html =~ pistol_pack.type.name
+
+      html =
+        index_live
+        |> form(~s/form[phx-change="change_class"]/)
+        |> render_change(type: %{class: :all})
+
+      assert html =~ rifle_pack.type.name
+      assert html =~ shotgun_pack.type.name
+      assert html =~ pistol_pack.type.name
     end
   end
 
@@ -302,15 +302,15 @@ defmodule CanneryWeb.ContainerLiveTest do
     setup [:register_and_log_in_user, :create_container, :create_pack]
 
     test "displays pack",
-         %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
+         %{conn: conn, type: %{name: type_name}, container: container} do
       {:ok, _show_live, html} = live(conn, Routes.container_show_path(conn, :show, container))
 
-      assert html =~ ammo_type_name
+      assert html =~ type_name
       assert html =~ "\n20\n"
     end
 
     test "displays pack in table",
-         %{conn: conn, ammo_type: %{name: ammo_type_name}, container: container} do
+         %{conn: conn, type: %{name: type_name}, container: container} do
       {:ok, show_live, _html} = live(conn, Routes.container_show_path(conn, :show, container))
 
       html =
@@ -318,7 +318,7 @@ defmodule CanneryWeb.ContainerLiveTest do
         |> element(~s/input[type="checkbox"][aria-labelledby="toggle_table-label"}]/)
         |> render_click()
 
-      assert html =~ ammo_type_name
+      assert html =~ type_name
       assert html =~ "\n20\n"
     end
   end

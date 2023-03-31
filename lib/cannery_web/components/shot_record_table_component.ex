@@ -96,10 +96,10 @@ defmodule CanneryWeb.Components.ShotRecordTableComponent do
   defp get_row_value(:name, %{pack_id: pack_id}, %{packs: packs}) do
     assigns = %{pack: pack = Map.fetch!(packs, pack_id)}
 
-    {pack.ammo_type.name,
+    {pack.type.name,
      ~H"""
      <.link navigate={Routes.pack_show_path(Endpoint, :show, @pack)} class="link">
-       <%= @pack.ammo_type.name %>
+       <%= @pack.type.name %>
      </.link>
      """}
   end

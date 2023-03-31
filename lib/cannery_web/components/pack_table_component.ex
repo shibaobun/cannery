@@ -16,7 +16,7 @@ defmodule CanneryWeb.Components.PackTableComponent do
             required(:current_user) => User.t(),
             required(:packs) => [Pack.t()],
             required(:show_used) => boolean(),
-            optional(:ammo_type) => Rendered.t(),
+            optional(:type) => Rendered.t(),
             optional(:range) => Rendered.t(),
             optional(:container) => Rendered.t(),
             optional(:actions) => Rendered.t(),
@@ -31,7 +31,7 @@ defmodule CanneryWeb.Components.PackTableComponent do
     socket =
       socket
       |> assign(assigns)
-      |> assign_new(:ammo_type, fn -> [] end)
+      |> assign_new(:type, fn -> [] end)
       |> assign_new(:range, fn -> [] end)
       |> assign_new(:container, fn -> [] end)
       |> assign_new(:actions, fn -> [] end)
@@ -45,7 +45,7 @@ defmodule CanneryWeb.Components.PackTableComponent do
            assigns: %{
              packs: packs,
              current_user: current_user,
-             ammo_type: ammo_type,
+             type: type,
              range: range,
              container: container,
              actions: actions,
@@ -92,8 +92,8 @@ defmodule CanneryWeb.Components.PackTableComponent do
         key: :count
       })
       |> TableComponent.maybe_compose_columns(
-        %{label: gettext("Ammo type"), key: :ammo_type},
-        ammo_type != []
+        %{label: gettext("Type"), key: :type},
+        type != []
       )
 
     containers =
@@ -103,7 +103,7 @@ defmodule CanneryWeb.Components.PackTableComponent do
 
     extra_data = %{
       current_user: current_user,
-      ammo_type: ammo_type,
+      type: type,
       columns: columns,
       container: container,
       containers: containers,
@@ -144,15 +144,15 @@ defmodule CanneryWeb.Components.PackTableComponent do
   @spec get_value_for_key(atom(), Pack.t(), additional_data :: map()) ::
           any() | {any(), Rendered.t()}
   defp get_value_for_key(
-         :ammo_type,
-         %{ammo_type: %{name: ammo_type_name} = ammo_type},
-         %{ammo_type: ammo_type_block}
+         :type,
+         %{type: %{name: type_name} = type},
+         %{type: type_block}
        ) do
-    assigns = %{ammo_type: ammo_type, ammo_type_block: ammo_type_block}
+    assigns = %{type: type, type_block: type_block}
 
-    {ammo_type_name,
+    {type_name,
      ~H"""
-     <%= render_slot(@ammo_type_block, @ammo_type) %>
+     <%= render_slot(@type_block, @type) %>
      """}
   end
 

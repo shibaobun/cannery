@@ -1,6 +1,6 @@
 <div class="mx-auto space-y-4 max-w-3xl flex flex-col justify-center items-center">
   <h1 class="title text-2xl title-primary-500">
-    <%= @pack.ammo_type.name %>
+    <%= @pack.type.name %>
   </h1>
 
   <div class="space-y-2 flex flex-col justify-center items-center">
@@ -49,7 +49,7 @@
   <div class="flex flex-col justify-center items-center">
     <div class="flex flex-wrap justify-center items-center text-primary-600">
       <.link
-        navigate={Routes.ammo_type_show_path(Endpoint, :show, @pack.ammo_type)}
+        navigate={Routes.type_show_path(Endpoint, :show, @pack.type)}
         class="mx-4 my-2 btn btn-primary"
       >
         <%= dgettext("actions", "View in Catalog") %>

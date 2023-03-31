@@ -23,7 +23,7 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:89
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:88
 #: lib/cannery_web/live/container_live/form_component.ex:89
 #: lib/cannery_web/live/invite_live/form_component.ex:80
 #: lib/cannery_web/live/tag_live/form_component.ex:78
@@ -44,7 +44,7 @@ msgstr "%{name} borrado exitosamente"
 msgid "%{name} has been deleted"
 msgstr "%{name} ha sido borrado"
 
-#: lib/cannery_web/live/ammo_type_live/form_component.ex:70
+#: lib/cannery_web/live/ammo_type_live/form_component.ex:69
 #: lib/cannery_web/live/container_live/form_component.ex:70
 #: lib/cannery_web/live/invite_live/form_component.ex:62
 #: lib/cannery_web/live/tag_live/form_component.ex:60
@@ -256,7 +256,7 @@ msgid_plural "Ammo added successfully"
 msgstr[0] "Munición añadida exitosamente"
 msgstr[1] "Municiones añadidas exitosamente"
 
-#: lib/cannery_web/live/ammo_type_live/index.html.heex:122
+#: lib/cannery_web/live/ammo_type_live/index.html.heex:116
 #: lib/cannery_web/live/ammo_type_live/show.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"

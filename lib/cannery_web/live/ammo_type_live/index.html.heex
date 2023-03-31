@@ -3,25 +3,25 @@
     <%= gettext("Catalog") %>
   </h1>
 
-  <%= if @ammo_types_count == 0 do %>
+  <%= if @types_count == 0 do %>
     <h2 class="title text-xl text-primary-600">
-      <%= gettext("No Ammo types") %>
+      <%= gettext("No Types") %>
       <%= display_emoji("😔") %>
     </h2>
 
-    <.link patch={Routes.ammo_type_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
       <%= dgettext("actions", "Add your first type!") %>
     </.link>
   <% else %>
-    <.link patch={Routes.ammo_type_index_path(Endpoint, :new)} class="btn btn-primary">
-      <%= dgettext("actions", "New Ammo type") %>
+    <.link patch={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
+      <%= dgettext("actions", "New Type") %>
     </.link>
 
     <div class="w-full flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-2xl">
       <.form
         :let={f}
         for={%{}}
-        as={:ammo_type}
+        as={:type}
         phx-change="change_class"
         phx-submit="change_class"
         class="flex items-center"
@@ -66,49 +66,43 @@
       </.toggle_button>
     </div>
 
-    <%= if @ammo_types |> Enum.empty?() do %>
+    <%= if @types |> Enum.empty?() do %>
       <h2 class="title text-xl text-primary-600">
-        <%= gettext("No Ammo types") %>
+        <%= gettext("No Types") %>
         <%= display_emoji("😔") %>
       </h2>
     <% else %>
       <.live_component
-        module={CanneryWeb.Components.AmmoTypeTableComponent}
-        id="ammo_types_index_table"
+        module={CanneryWeb.Components.TypeTableComponent}
+        id="types_index_table"
         action={@live_action}
-        ammo_types={@ammo_types}
+        types={@types}
         current_user={@current_user}
         show_used={@show_used}
         class={@class}
       >
-        <:actions :let={ammo_type}>
+        <:actions :let={type}>
           <div class="px-4 py-2 space-x-4 flex justify-center items-center">
             <.link
-              navigate={Routes.ammo_type_show_path(Endpoint, :show, ammo_type)}
+              navigate={Routes.type_show_path(Endpoint, :show, type)}
               class="text-primary-600 link"
-              aria-label={
-                dgettext("actions", "View %{ammo_type_name}", ammo_type_name: ammo_type.name)
-              }
+              aria-label={dgettext("actions", "View %{type_name}", type_name: type.name)}
             >
               <i class="fa-fw fa-lg fas fa-eye"></i>
             </.link>
 
             <.link
-              patch={Routes.ammo_type_index_path(Endpoint, :edit, ammo_type)}
+              patch={Routes.type_index_path(Endpoint, :edit, type)}
               class="text-primary-600 link"
-              aria-label={
-                dgettext("actions", "Edit %{ammo_type_name}", ammo_type_name: ammo_type.name)
-              }
+              aria-label={dgettext("actions", "Edit %{type_name}", type_name: type.name)}
             >
               <i class="fa-fw fa-lg fas fa-edit"></i>
             </.link>
 
             <.link
-              patch={Routes.ammo_type_index_path(Endpoint, :clone, ammo_type)}
+              patch={Routes.type_index_path(Endpoint, :clone, type)}
               class="text-primary-600 link"
-              aria-label={
-                dgettext("actions", "Clone %{ammo_type_name}", ammo_type_name: ammo_type.name)
-              }
+              aria-label={dgettext("actions", "Clone %{type_name}", type_name: type.name)}
             >
               <i class="fa-fw fa-lg fas fa-copy"></i>
             </.link>
@@ -117,17 +111,15 @@
               href="#"
               class="text-primary-600 link"
               phx-click="delete"
-              phx-value-id={ammo_type.id}
+              phx-value-id={type.id}
               data-confirm={
                 dgettext(
                   "prompts",
                   "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!",
-                  name: ammo_type.name
+                  name: type.name
                 )
               }
-              aria-label={
-                dgettext("actions", "Delete %{ammo_type_name}", ammo_type_name: ammo_type.name)
-              }
+              aria-label={dgettext("actions", "Delete %{type_name}", type_name: type.name)}
             >
               <i class="fa-lg fas fa-trash"></i>
             </.link>
@@ -140,15 +132,15 @@
 
 <.modal
   :if={@live_action in [:new, :edit, :clone]}
-  return_to={Routes.ammo_type_index_path(Endpoint, :index)}
+  return_to={Routes.type_index_path(Endpoint, :index)}
 >
   <.live_component
-    module={CanneryWeb.AmmoTypeLive.FormComponent}
-    id={@ammo_type.id || :new}
+    module={CanneryWeb.TypeLive.FormComponent}
+    id={@type.id || :new}
     title={@page_title}
     action={@live_action}
-    ammo_type={@ammo_type}
-    return_to={Routes.ammo_type_index_path(Endpoint, :index)}
+    type={@type}
+    return_to={Routes.type_index_path(Endpoint, :index)}
     current_user={@current_user}
     }
   />

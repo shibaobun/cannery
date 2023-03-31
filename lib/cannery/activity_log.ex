@@ -4,7 +4,7 @@ defmodule Cannery.ActivityLog do
   """
 
   import Ecto.Query, warn: false
-  alias Cannery.Ammo.{AmmoType, Pack}
+  alias Cannery.Ammo.{Pack, Type}
   alias Cannery.{Accounts.User, ActivityLog.ShotRecord, Repo}
   alias Ecto.{Multi, Queryable}
 
@@ -23,8 +23,8 @@ defmodule Cannery.ActivityLog do
       [%ShotRecord{notes: "Shot some rifle rounds"}, ...]
 
   """
-  @spec list_shot_records(AmmoType.class() | :all, User.t()) :: [ShotRecord.t()]
-  @spec list_shot_records(search :: nil | String.t(), AmmoType.class() | :all, User.t()) ::
+  @spec list_shot_records(Type.class() | :all, User.t()) :: [ShotRecord.t()]
+  @spec list_shot_records(search :: nil | String.t(), Type.class() | :all, User.t()) ::
           [ShotRecord.t()]
   def list_shot_records(search \\ nil, type, %{id: user_id}) do
     from(sg in ShotRecord,
@@ -32,9 +32,9 @@ defmodule Cannery.ActivityLog do
       left_join: ag in Pack,
       as: :ag,
       on: sg.pack_id == ag.id,
-      left_join: at in AmmoType,
+      left_join: at in Type,
       as: :at,
-      on: ag.ammo_type_id == at.id,
+      on: ag.type_id == at.id,
       where: sg.user_id == ^user_id,
       distinct: sg.id
     )
@@ -79,7 +79,7 @@ defmodule Cannery.ActivityLog do
     })
   end
 
-  @spec list_shot_records_filter_type(Queryable.t(), AmmoType.class() | :all) ::
+  @spec list_shot_records_filter_type(Queryable.t(), Type.class() | :all) ::
           Queryable.t()
   defp list_shot_records_filter_type(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
@@ -347,50 +347,50 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Gets the total number of rounds shot for an ammo type
+  Gets the total number of rounds shot for a type
 
-  Raises `Ecto.NoResultsError` if the Ammo type does not exist.
+  Raises `Ecto.NoResultsError` if the type does not exist.
 
   ## Examples
 
-      iex> get_used_count_for_ammo_type(123, %User{id: 123})
+      iex> get_used_count_for_type(123, %User{id: 123})
       35
 
-      iex> get_used_count_for_ammo_type(456, %User{id: 123})
+      iex> get_used_count_for_type(456, %User{id: 123})
       ** (Ecto.NoResultsError)
 
   """
-  @spec get_used_count_for_ammo_type(AmmoType.t(), User.t()) :: non_neg_integer()
-  def get_used_count_for_ammo_type(%AmmoType{id: ammo_type_id} = ammo_type, user) do
-    [ammo_type]
-    |> get_used_count_for_ammo_types(user)
-    |> Map.get(ammo_type_id, 0)
+  @spec get_used_count_for_type(Type.t(), User.t()) :: non_neg_integer()
+  def get_used_count_for_type(%Type{id: type_id} = type, user) do
+    [type]
+    |> get_used_count_for_types(user)
+    |> Map.get(type_id, 0)
   end
 
   @doc """
-  Gets the total number of rounds shot for multiple ammo types
+  Gets the total number of rounds shot for multiple types
 
   ## Examples
 
-      iex> get_used_count_for_ammo_types(123, %User{id: 123})
+      iex> get_used_count_for_types(123, %User{id: 123})
       35
 
   """
-  @spec get_used_count_for_ammo_types([AmmoType.t()], User.t()) ::
-          %{optional(AmmoType.id()) => non_neg_integer()}
-  def get_used_count_for_ammo_types(ammo_types, %User{id: user_id}) do
-    ammo_type_ids =
-      ammo_types
-      |> Enum.map(fn %AmmoType{id: ammo_type_id, user_id: ^user_id} -> ammo_type_id end)
+  @spec get_used_count_for_types([Type.t()], User.t()) ::
+          %{optional(Type.id()) => non_neg_integer()}
+  def get_used_count_for_types(types, %User{id: user_id}) do
+    type_ids =
+      types
+      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
       from ag in Pack,
         left_join: sg in ShotRecord,
         on: ag.id == sg.pack_id,
-        where: ag.ammo_type_id in ^ammo_type_ids,
+        where: ag.type_id in ^type_ids,
         where: not (sg.count |> is_nil()),
-        group_by: ag.ammo_type_id,
-        select: {ag.ammo_type_id, sum(sg.count)}
+        group_by: ag.type_id,
+        select: {ag.type_id, sum(sg.count)}
     )
     |> Map.new()
   end

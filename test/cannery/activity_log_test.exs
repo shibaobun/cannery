@@ -13,10 +13,9 @@ defmodule Cannery.ActivityLogTest do
     setup do
       current_user = user_fixture()
       container = container_fixture(current_user)
-      ammo_type = ammo_type_fixture(current_user)
+      type = type_fixture(current_user)
 
-      {1, [%{id: pack_id} = pack]} =
-        pack_fixture(%{count: 25}, ammo_type, container, current_user)
+      {1, [%{id: pack_id} = pack]} = pack_fixture(%{count: 25}, type, container, current_user)
 
       shot_record =
         %{count: 5, date: ~N[2022-02-13 03:17:00], notes: "some notes"}
@@ -27,7 +26,7 @@ defmodule Cannery.ActivityLogTest do
       [
         current_user: current_user,
         container: container,
-        ammo_type: ammo_type,
+        type: type,
         pack: pack,
         shot_record: shot_record
       ]
@@ -47,8 +46,8 @@ defmodule Cannery.ActivityLogTest do
       assert ActivityLog.get_shot_record_count!(other_user) == 0
 
       container = container_fixture(other_user)
-      ammo_type = ammo_type_fixture(other_user)
-      {1, [pack]} = pack_fixture(%{count: 25}, ammo_type, container, other_user)
+      type = type_fixture(other_user)
+      {1, [pack]} = pack_fixture(%{count: 25}, type, container, other_user)
       shot_record_fixture(%{count: 1, date: ~N[2022-02-13 03:17:00]}, other_user, pack)
       assert ActivityLog.get_shot_record_count!(other_user) == 1
     end
@@ -191,11 +190,11 @@ defmodule Cannery.ActivityLogTest do
 
     test "get_used_count/2 returns accurate used count", %{
       pack: pack,
-      ammo_type: ammo_type,
+      type: type,
       container: container,
       current_user: current_user
     } do
-      {1, [another_pack]} = pack_fixture(ammo_type, container, current_user)
+      {1, [another_pack]} = pack_fixture(type, container, current_user)
       assert 0 = another_pack |> ActivityLog.get_used_count(current_user)
       assert 5 = pack |> ActivityLog.get_used_count(current_user)
 
@@ -205,18 +204,17 @@ defmodule Cannery.ActivityLogTest do
       shot_record_fixture(%{count: 10}, current_user, pack)
       assert 30 = pack |> ActivityLog.get_used_count(current_user)
 
-      {1, [another_pack]} = pack_fixture(ammo_type, container, current_user)
+      {1, [another_pack]} = pack_fixture(type, container, current_user)
       assert 0 = another_pack |> ActivityLog.get_used_count(current_user)
     end
 
     test "get_used_counts/2 returns accurate used counts", %{
       pack: %{id: pack_id} = pack,
-      ammo_type: ammo_type,
+      type: type,
       container: container,
       current_user: current_user
     } do
-      {1, [%{id: another_pack_id} = another_pack]} =
-        pack_fixture(ammo_type, container, current_user)
+      {1, [%{id: another_pack_id} = another_pack]} = pack_fixture(type, container, current_user)
 
       assert %{pack_id => 5} ==
                [pack, another_pack] |> ActivityLog.get_used_counts(current_user)
@@ -239,12 +237,12 @@ defmodule Cannery.ActivityLogTest do
 
     test "get_last_used_date/2 returns accurate used count", %{
       pack: pack,
-      ammo_type: ammo_type,
+      type: type,
       container: container,
       shot_record: %{date: date},
       current_user: current_user
     } do
-      {1, [another_pack]} = pack_fixture(ammo_type, container, current_user)
+      {1, [another_pack]} = pack_fixture(type, container, current_user)
       assert another_pack |> ActivityLog.get_last_used_date(current_user) |> is_nil()
       assert ^date = pack |> ActivityLog.get_last_used_date(current_user)
 
@@ -257,13 +255,12 @@ defmodule Cannery.ActivityLogTest do
 
     test "get_last_used_dates/2 returns accurate used counts", %{
       pack: %{id: pack_id} = pack,
-      ammo_type: ammo_type,
+      type: type,
       container: container,
       shot_record: %{date: date},
       current_user: current_user
     } do
-      {1, [%{id: another_pack_id} = another_pack]} =
-        pack_fixture(ammo_type, container, current_user)
+      {1, [%{id: another_pack_id} = another_pack]} = pack_fixture(type, container, current_user)
 
       # unset date
       assert %{pack_id => date} ==
@@ -297,49 +294,47 @@ defmodule Cannery.ActivityLogTest do
       assert %{^another_pack_id => ~D[2022-11-09]} = last_used_shot_records
     end
 
-    test "get_used_count_for_ammo_type/2 gets accurate used round count for ammo type",
-         %{ammo_type: ammo_type, pack: pack, current_user: current_user} do
-      another_ammo_type = ammo_type_fixture(current_user)
-      assert 0 = another_ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
-      assert 5 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+    test "get_used_count_for_type/2 gets accurate used round count for type",
+         %{type: type, pack: pack, current_user: current_user} do
+      another_type = type_fixture(current_user)
+      assert 0 = another_type |> ActivityLog.get_used_count_for_type(current_user)
+      assert 5 = type |> ActivityLog.get_used_count_for_type(current_user)
 
       shot_record_fixture(%{count: 5}, current_user, pack)
-      assert 10 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+      assert 10 = type |> ActivityLog.get_used_count_for_type(current_user)
 
       shot_record_fixture(%{count: 1}, current_user, pack)
-      assert 11 = ammo_type |> ActivityLog.get_used_count_for_ammo_type(current_user)
+      assert 11 = type |> ActivityLog.get_used_count_for_type(current_user)
     end
 
-    test "get_used_count_for_ammo_types/2 gets accurate used round count for ammo types", %{
-      ammo_type: %{id: ammo_type_id} = ammo_type,
+    test "get_used_count_for_types/2 gets accurate used round count for types", %{
+      type: %{id: type_id} = type,
       container: container,
       current_user: current_user
     } do
-      # testing unused ammo type
-      %{id: another_ammo_type_id} = another_ammo_type = ammo_type_fixture(current_user)
-      {1, [pack]} = pack_fixture(another_ammo_type, container, current_user)
+      # testing unused type
+      %{id: another_type_id} = another_type = type_fixture(current_user)
+      {1, [pack]} = pack_fixture(another_type, container, current_user)
 
-      assert %{ammo_type_id => 5} ==
-               [ammo_type, another_ammo_type]
-               |> ActivityLog.get_used_count_for_ammo_types(current_user)
+      assert %{type_id => 5} ==
+               [type, another_type]
+               |> ActivityLog.get_used_count_for_types(current_user)
 
       # use generated pack
       shot_record_fixture(%{count: 5}, current_user, pack)
 
-      used_counts =
-        [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
+      used_counts = [type, another_type] |> ActivityLog.get_used_count_for_types(current_user)
 
-      assert %{^ammo_type_id => 5} = used_counts
-      assert %{^another_ammo_type_id => 5} = used_counts
+      assert %{^type_id => 5} = used_counts
+      assert %{^another_type_id => 5} = used_counts
 
       # use generated pack again
       shot_record_fixture(%{count: 1}, current_user, pack)
 
-      used_counts =
-        [ammo_type, another_ammo_type] |> ActivityLog.get_used_count_for_ammo_types(current_user)
+      used_counts = [type, another_type] |> ActivityLog.get_used_count_for_types(current_user)
 
-      assert %{^ammo_type_id => 5} = used_counts
-      assert %{^another_ammo_type_id => 6} = used_counts
+      assert %{^type_id => 5} = used_counts
+      assert %{^another_type_id => 6} = used_counts
     end
   end
 
@@ -347,13 +342,13 @@ defmodule Cannery.ActivityLogTest do
     setup do
       current_user = user_fixture()
       container = container_fixture(current_user)
-      ammo_type = ammo_type_fixture(current_user)
-      {1, [pack]} = pack_fixture(ammo_type, container, current_user)
+      type = type_fixture(current_user)
+      {1, [pack]} = pack_fixture(type, container, current_user)
 
       [
         current_user: current_user,
         container: container,
-        ammo_type: ammo_type,
+        type: type,
         pack: pack
       ]
     end
@@ -364,21 +359,21 @@ defmodule Cannery.ActivityLogTest do
       other_container = container_fixture(other_user)
 
       for class <- ["rifle", "shotgun", "pistol"] do
-        other_ammo_type = ammo_type_fixture(%{class: class}, other_user)
-        {1, [other_pack]} = pack_fixture(other_ammo_type, other_container, other_user)
+        other_type = type_fixture(%{class: class}, other_user)
+        {1, [other_pack]} = pack_fixture(other_type, other_container, other_user)
         shot_record_fixture(other_user, other_pack)
       end
 
-      rifle_ammo_type = ammo_type_fixture(%{class: :rifle}, current_user)
-      {1, [rifle_pack]} = pack_fixture(rifle_ammo_type, container, current_user)
+      rifle_type = type_fixture(%{class: :rifle}, current_user)
+      {1, [rifle_pack]} = pack_fixture(rifle_type, container, current_user)
       rifle_shot_record = shot_record_fixture(current_user, rifle_pack)
 
-      shotgun_ammo_type = ammo_type_fixture(%{class: :shotgun}, current_user)
-      {1, [shotgun_pack]} = pack_fixture(shotgun_ammo_type, container, current_user)
+      shotgun_type = type_fixture(%{class: :shotgun}, current_user)
+      {1, [shotgun_pack]} = pack_fixture(shotgun_type, container, current_user)
       shotgun_shot_record = shot_record_fixture(current_user, shotgun_pack)
 
-      pistol_ammo_type = ammo_type_fixture(%{class: :pistol}, current_user)
-      {1, [pistol_pack]} = pack_fixture(pistol_ammo_type, container, current_user)
+      pistol_type = type_fixture(%{class: :pistol}, current_user)
+      {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
       pistol_shot_record = shot_record_fixture(current_user, pistol_pack)
 
       assert [^rifle_shot_record] = ActivityLog.list_shot_records(:rifle, current_user)
@@ -399,29 +394,28 @@ defmodule Cannery.ActivityLogTest do
     end
 
     test "list_shot_records/3 returns relevant shot_records for a search", %{
-      ammo_type: ammo_type,
+      type: type,
       pack: pack,
       container: container,
       current_user: current_user
     } do
       shot_record_a = shot_record_fixture(%{notes: "amazing"}, current_user, pack)
 
-      {1, [another_pack]} =
-        pack_fixture(%{notes: "stupendous"}, ammo_type, container, current_user)
+      {1, [another_pack]} = pack_fixture(%{notes: "stupendous"}, type, container, current_user)
 
       shot_record_b = shot_record_fixture(current_user, another_pack)
 
-      another_ammo_type = ammo_type_fixture(%{name: "fabulous ammo"}, current_user)
+      another_type = type_fixture(%{name: "fabulous ammo"}, current_user)
 
-      {1, [yet_another_pack]} = pack_fixture(another_ammo_type, container, current_user)
+      {1, [yet_another_pack]} = pack_fixture(another_type, container, current_user)
 
       shot_record_c = shot_record_fixture(current_user, yet_another_pack)
 
       another_user = user_fixture()
       another_container = container_fixture(another_user)
-      another_ammo_type = ammo_type_fixture(another_user)
+      another_type = type_fixture(another_user)
 
-      {1, [another_pack]} = pack_fixture(another_ammo_type, another_container, another_user)
+      {1, [another_pack]} = pack_fixture(another_type, another_container, another_user)
 
       _shouldnt_return = shot_record_fixture(another_user, another_pack)
 
@@ -431,7 +425,7 @@ defmodule Cannery.ActivityLogTest do
       # pack attributes
       assert ActivityLog.list_shot_records("stupendous", :all, current_user) == [shot_record_b]
 
-      # ammo type attributes
+      # type attributes
       assert ActivityLog.list_shot_records("fabulous", :all, current_user) == [shot_record_c]
     end
   end
