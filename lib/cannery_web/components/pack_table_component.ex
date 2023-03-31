@@ -53,6 +53,9 @@ defmodule CanneryWeb.Components.PackTableComponent do
            }
          } = socket
        ) do
+    lot_number_used = packs |> Enum.any?(fn %{lot_number: lot_number} -> !!lot_number end)
+    price_paid_used = packs |> Enum.any?(fn %{price_paid: price_paid} -> !!price_paid end)
+
     columns =
       []
       |> TableComponent.maybe_compose_columns(
@@ -77,8 +80,18 @@ defmodule CanneryWeb.Components.PackTableComponent do
         %{label: gettext("Range"), key: :range},
         range != []
       )
-      |> TableComponent.maybe_compose_columns(%{label: gettext("CPR"), key: :cpr})
-      |> TableComponent.maybe_compose_columns(%{label: gettext("Price paid"), key: :price_paid})
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Lot number"), key: :lot_number},
+        lot_number_used
+      )
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("CPR"), key: :cpr},
+        price_paid_used
+      )
+      |> TableComponent.maybe_compose_columns(
+        %{label: gettext("Price paid"), key: :price_paid},
+        price_paid_used
+      )
       |> TableComponent.maybe_compose_columns(
         %{label: gettext("% left"), key: :remaining},
         show_used

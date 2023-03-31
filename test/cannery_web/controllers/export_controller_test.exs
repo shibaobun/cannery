@@ -49,6 +49,7 @@ defmodule CanneryWeb.ExportControllerTest do
         "id" => pack.id,
         "notes" => pack.notes,
         "price_paid" => pack.price_paid,
+        "lot_number" => pack.lot_number,
         "staged" => pack.staged,
         "used_count" => pack |> ActivityLog.get_used_count(current_user),
         "original_count" => pack |> Ammo.get_original_count(current_user),

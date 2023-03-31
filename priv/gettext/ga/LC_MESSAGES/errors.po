@@ -206,7 +206,7 @@ msgstr ""
 msgid "can't be blank"
 msgstr ""
 
-#: lib/cannery/ammo/pack.ex:92
+#: lib/cannery/ammo/pack.ex:100
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Please select a type and container"
 msgstr ""

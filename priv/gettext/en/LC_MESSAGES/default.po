@@ -81,8 +81,8 @@ msgid "Case material"
 msgstr ""
 
 #: lib/cannery_web/components/move_pack_component.ex:65
-#: lib/cannery_web/components/pack_table_component.ex:73
-#: lib/cannery_web/live/pack_live/form_component.html.heex:59
+#: lib/cannery_web/components/pack_table_component.ex:76
+#: lib/cannery_web/live/pack_live/form_component.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Container"
 msgstr ""
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Corrosive"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:91
+#: lib/cannery_web/components/pack_table_component.ex:104
 #: lib/cannery_web/live/pack_live/form_component.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Count"
@@ -276,7 +276,7 @@ msgstr ""
 
 #: lib/cannery_web/components/add_shot_record_component.html.heex:38
 #: lib/cannery_web/components/shot_record_table_component.ex:46
-#: lib/cannery_web/live/pack_live/form_component.html.heex:50
+#: lib/cannery_web/live/pack_live/form_component.html.heex:57
 #: lib/cannery_web/live/pack_live/show.ex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:30
 #, elixir-autogen, elixir-format
@@ -300,7 +300,7 @@ msgstr ""
 msgid "Pressure"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:81
+#: lib/cannery_web/components/pack_table_component.ex:92
 #: lib/cannery_web/live/pack_live/form_component.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Price paid"
@@ -385,7 +385,7 @@ msgstr ""
 
 #: lib/cannery_web/components/container_table_component.ex:48
 #: lib/cannery_web/components/move_pack_component.ex:66
-#: lib/cannery_web/components/pack_table_component.ex:95
+#: lib/cannery_web/components/pack_table_component.ex:108
 #: lib/cannery_web/live/container_live/form_component.html.heex:39
 #: lib/cannery_web/live/pack_live/form_component.html.heex:22
 #, elixir-autogen, elixir-format
@@ -419,7 +419,7 @@ msgid "No tags for this container"
 msgstr ""
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:66
-#: lib/cannery_web/components/pack_table_component.ex:77
+#: lib/cannery_web/components/pack_table_component.ex:80
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr ""
@@ -494,8 +494,8 @@ msgstr ""
 
 #: lib/cannery_web/components/core_components/pack_card.html.heex:42
 #: lib/cannery_web/components/core_components/pack_card.html.heex:47
-#: lib/cannery_web/components/pack_table_component.ex:163
-#: lib/cannery_web/components/pack_table_component.ex:246
+#: lib/cannery_web/components/pack_table_component.ex:176
+#: lib/cannery_web/components/pack_table_component.ex:259
 #: lib/cannery_web/components/type_table_component.ex:261
 #: lib/cannery_web/live/pack_live/show.html.heex:37
 #: lib/cannery_web/live/pack_live/show.html.heex:42
@@ -586,15 +586,15 @@ msgstr ""
 msgid "Rounds:"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:160
-#: lib/cannery_web/components/pack_table_component.ex:242
+#: lib/cannery_web/components/pack_table_component.ex:173
+#: lib/cannery_web/components/pack_table_component.ex:255
 #: lib/cannery_web/components/type_table_component.ex:260
 #: lib/cannery_web/live/type_live/show.html.heex:154
 #, elixir-autogen, elixir-format
 msgid "No cost information"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:83
+#: lib/cannery_web/components/pack_table_component.ex:96
 #, elixir-autogen, elixir-format
 msgid "% left"
 msgstr ""
@@ -655,7 +655,7 @@ msgstr ""
 msgid "Record Shots"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/form_component.html.heex:69
+#: lib/cannery_web/live/pack_live/form_component.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Copies"
 msgstr ""
@@ -762,7 +762,7 @@ msgstr ""
 msgid "Leave \"Uses left\" blank to make invite unlimited"
 msgstr ""
 
-#: lib/cannery_web/components/core_components/pack_card.html.heex:51
+#: lib/cannery_web/components/core_components/pack_card.html.heex:56
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Container:"
 msgstr ""
@@ -774,7 +774,7 @@ msgstr ""
 msgid "Show used"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:201
+#: lib/cannery_web/components/pack_table_component.ex:214
 #: lib/cannery_web/live/pack_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
@@ -951,12 +951,12 @@ msgid "Average CPR"
 msgstr ""
 
 #: lib/cannery_web/components/core_components/pack_card.html.heex:17
-#: lib/cannery_web/components/pack_table_component.ex:250
+#: lib/cannery_web/components/pack_table_component.ex:263
 #, elixir-autogen, elixir-format
 msgid "Empty"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:80
+#: lib/cannery_web/components/pack_table_component.ex:88
 #, elixir-autogen, elixir-format
 msgid "CPR"
 msgstr ""
@@ -966,7 +966,7 @@ msgstr ""
 msgid "CPR:"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:87
+#: lib/cannery_web/components/pack_table_component.ex:100
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Original Count"
 msgstr ""
@@ -981,7 +981,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:63
+#: lib/cannery_web/components/pack_table_component.ex:66
 #, elixir-autogen, elixir-format
 msgid "Last used on"
 msgstr ""
@@ -991,13 +991,13 @@ msgstr ""
 msgid "Last used on:"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:181
+#: lib/cannery_web/components/pack_table_component.ex:194
 #, elixir-autogen, elixir-format
 msgid "Never used"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:68
-#: lib/cannery_web/live/pack_live/form_component.html.heex:42
+#: lib/cannery_web/components/pack_table_component.ex:71
+#: lib/cannery_web/live/pack_live/form_component.html.heex:49
 #, elixir-autogen, elixir-format
 msgid "Purchased on"
 msgstr ""
@@ -1164,7 +1164,7 @@ msgstr ""
 
 #: lib/cannery_web/components/container_table_component.ex:67
 #: lib/cannery_web/components/move_pack_component.ex:68
-#: lib/cannery_web/components/pack_table_component.ex:59
+#: lib/cannery_web/components/pack_table_component.ex:62
 #: lib/cannery_web/components/shot_record_table_component.ex:48
 #: lib/cannery_web/components/type_table_component.ex:100
 #: lib/cannery_web/live/pack_live/show.ex:93
@@ -1182,7 +1182,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: lib/cannery_web/components/pack_table_component.ex:91
+#: lib/cannery_web/components/pack_table_component.ex:104
 #, elixir-autogen, elixir-format
 msgid "Current Count"
 msgstr ""
@@ -1443,4 +1443,15 @@ msgstr ""
 #: lib/cannery_web/live/type_live/index.html.heex:71
 #, elixir-autogen, elixir-format, fuzzy
 msgid "No Types"
+msgstr ""
+
+#: lib/cannery_web/components/pack_table_component.ex:84
+#: lib/cannery_web/live/pack_live/form_component.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Lot number"
+msgstr ""
+
+#: lib/cannery_web/components/core_components/pack_card.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Lot number:"
 msgstr ""

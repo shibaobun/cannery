@@ -47,6 +47,11 @@
       <%= gettext("$%{amount}", amount: display_currency(@cpr)) %>
     </span>
 
+    <span :if={@pack.lot_number} class="rounded-lg title text-lg">
+      <%= gettext("Lot number:") %>
+      <%= @pack.lot_number %>
+    </span>
+
     <span :if={@container} class="rounded-lg title text-lg">
       <%= gettext("Container:") %>
 

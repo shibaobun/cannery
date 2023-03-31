@@ -131,7 +131,7 @@ msgstr "Réinitialisé le mot de passe"
 #: lib/cannery_web/components/add_shot_record_component.html.heex:57
 #: lib/cannery_web/live/container_live/form_component.html.heex:57
 #: lib/cannery_web/live/invite_live/form_component.html.heex:35
-#: lib/cannery_web/live/pack_live/form_component.html.heex:84
+#: lib/cannery_web/live/pack_live/form_component.html.heex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:45
 #: lib/cannery_web/live/tag_live/form_component.html.heex:37
 #: lib/cannery_web/live/type_live/form_component.html.heex:350
@@ -191,7 +191,7 @@ msgstr "Copier dans le presse-papier"
 msgid "add a container first"
 msgstr "ajouter un conteneur en premier"
 
-#: lib/cannery_web/live/pack_live/form_component.html.heex:77
+#: lib/cannery_web/live/pack_live/form_component.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "Create"
 msgstr "Créer"

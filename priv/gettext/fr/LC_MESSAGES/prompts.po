@@ -132,7 +132,7 @@ msgstr "Veuillez vérifier votre mél pour confirmer votre compte"
 #: lib/cannery_web/components/add_shot_record_component.html.heex:59
 #: lib/cannery_web/live/container_live/form_component.html.heex:59
 #: lib/cannery_web/live/invite_live/form_component.html.heex:37
-#: lib/cannery_web/live/pack_live/form_component.html.heex:85
+#: lib/cannery_web/live/pack_live/form_component.html.heex:92
 #: lib/cannery_web/live/range_live/form_component.html.heex:47
 #: lib/cannery_web/live/tag_live/form_component.html.heex:39
 #: lib/cannery_web/live/type_live/form_component.html.heex:351
@@ -220,7 +220,7 @@ msgstr "%{name} retiré avec succès"
 msgid "You'll need to"
 msgstr "Vous aurez besoin de"
 
-#: lib/cannery_web/live/pack_live/form_component.html.heex:78
+#: lib/cannery_web/live/pack_live/form_component.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Creating..."
 msgstr "Création en cours…"

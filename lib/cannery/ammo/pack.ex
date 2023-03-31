@@ -19,6 +19,7 @@ defmodule Cannery.Ammo.Pack do
              :count,
              :notes,
              :price_paid,
+             :lot_number,
              :staged,
              :type_id,
              :container_id
@@ -30,6 +31,7 @@ defmodule Cannery.Ammo.Pack do
     field :notes, :string
     field :price_paid, :float
     field :staged, :boolean, default: false
+    field :lot_number, :string
     field :purchased_on, :date
 
     belongs_to :type, Type
@@ -45,6 +47,7 @@ defmodule Cannery.Ammo.Pack do
           notes: String.t() | nil,
           price_paid: float() | nil,
           staged: boolean(),
+          lot_number: String.t() | nil,
           purchased_on: Date.t(),
           type: Type.t() | nil,
           type_id: Type.id(),
@@ -77,8 +80,10 @@ defmodule Cannery.Ammo.Pack do
     |> change(type_id: type_id)
     |> change(user_id: user_id)
     |> change(container_id: container_id)
-    |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on])
+    |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on, :lot_number])
     |> validate_number(:count, greater_than: 0)
+    |> validate_number(:price_paid, greater_than_or_equal_to: 0)
+    |> validate_length(:lot_number, max: 255)
     |> validate_required([:count, :staged, :purchased_on, :type_id, :container_id, :user_id])
   end
 
@@ -89,6 +94,9 @@ defmodule Cannery.Ammo.Pack do
     pack
     |> cast(attrs, [:type_id, :container_id])
     |> validate_required([:type_id, :container_id])
+    |> validate_number(:count, greater_than: 0)
+    |> validate_number(:price_paid, greater_than_or_equal_to: 0)
+    |> validate_length(:lot_number, max: 255)
     |> add_error(:invalid, dgettext("errors", "Please select a type and container"))
   end
 
@@ -96,9 +104,19 @@ defmodule Cannery.Ammo.Pack do
   @spec update_changeset(t() | new_pack(), attrs :: map(), User.t()) :: changeset()
   def update_changeset(pack, attrs, user) do
     pack
-    |> cast(attrs, [:count, :price_paid, :notes, :staged, :purchased_on, :container_id])
+    |> cast(attrs, [
+      :count,
+      :price_paid,
+      :notes,
+      :staged,
+      :purchased_on,
+      :lot_number,
+      :container_id
+    ])
     |> validate_number(:count, greater_than_or_equal_to: 0)
+    |> validate_number(:price_paid, greater_than_or_equal_to: 0)
     |> validate_container_id(user)
+    |> validate_length(:lot_number, max: 255)
     |> validate_required([:count, :staged, :purchased_on, :container_id])
   end
 

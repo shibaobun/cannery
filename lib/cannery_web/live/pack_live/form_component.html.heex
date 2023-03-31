@@ -39,6 +39,13 @@
     ) %>
     <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
 
+    <%= label(f, :lot_number, gettext("Lot number"), class: "title text-lg text-primary-600") %>
+    <%= text_input(f, :lot_number,
+      class: "text-center col-span-2 input input-primary",
+      maxlength: 255
+    ) %>
+    <%= error_tag(f, :price_paid, "col-span-3 text-center") %>
+
     <%= label(f, :purchased_on, gettext("Purchased on"), class: "title text-lg text-primary-600") %>
     <%= date_input(f, :purchased_on,
       class: "input input-primary col-span-2",
