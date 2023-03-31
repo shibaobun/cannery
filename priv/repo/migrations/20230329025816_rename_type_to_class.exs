@@ -2,10 +2,6 @@ defmodule Cannery.Repo.Migrations.RenameTypeToClass do
   use Ecto.Migration
 
   def up do
-    drop index(:ammo_types, [:type])
-
-    flush()
-
     rename table(:ammo_types), :type, to: :class
 
     alter table(:ammo_types) do
@@ -13,8 +9,6 @@ defmodule Cannery.Repo.Migrations.RenameTypeToClass do
     end
 
     flush()
-
-    create index(:ammo_types, [:class])
 
     execute """
     ALTER TABLE ammo_types
@@ -59,10 +53,6 @@ defmodule Cannery.Repo.Migrations.RenameTypeToClass do
   end
 
   def down do
-    drop index(:ammo_types, [:class])
-
-    flush()
-
     rename table(:ammo_types), :class, to: :type
 
     alter table(:ammo_types) do
@@ -70,8 +60,6 @@ defmodule Cannery.Repo.Migrations.RenameTypeToClass do
     end
 
     flush()
-
-    create index(:ammo_types, [:type])
 
     execute """
     ALTER TABLE ammo_types

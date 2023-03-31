@@ -3,6 +3,7 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
 
   def up do
     drop index(:ammo_groups, [:user_id], where: "count = 0", name: :empty_ammo_groups_index)
+    drop index(:shot_groups, [:user_id, :ammo_group_id])
 
     flush()
 
@@ -25,5 +26,9 @@ defmodule Cannery.Repo.Migrations.RenameAmmoGroupsToPacks do
 
     create index(:ammo_groups, [:user_id], where: "count = 0", name: :empty_ammo_groups_index)
     rename table(:shot_groups), :pack_id, to: :ammo_group_id
+
+    flush()
+
+    create index(:shot_groups, [:user_id, :ammo_group_id])
   end
 end
