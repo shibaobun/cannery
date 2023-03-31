@@ -45,9 +45,9 @@ defmodule CanneryWeb.TypeLive.Show do
        ) do
     custom_fields? =
       fields_to_display(type)
-      |> Enum.any?(fn %{key: field, type: type} ->
+      |> Enum.any?(fn %{key: field, type: column_type} ->
         default_value =
-          case type do
+          case column_type do
             :boolean -> false
             _other_type -> nil
           end

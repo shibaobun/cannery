@@ -414,7 +414,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
   end
 
-  describe "Show pack with shot recorddd" do
+  describe "Show pack with shot record" do
     setup [:register_and_log_in_user, :create_pack, :create_shot_record]
 
     test "updates shot_record in listing",
@@ -422,7 +422,7 @@ defmodule CanneryWeb.PackLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.pack_show_path(conn, :edit, pack))
 
       assert index_live
-             |> element(~s/a[aria-label="Edit shot recordd of #{shot_record.count} shots"]/)
+             |> element(~s/a[aria-label="Edit shot record of #{shot_record.count} shots"]/)
              |> render_click() =~ "Edit Shot Record"
 
       assert_patch(

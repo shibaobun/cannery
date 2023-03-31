@@ -38,7 +38,7 @@ defmodule CanneryWeb.TypeLiveTest do
     count: 20
   }
   @shot_record_attrs %{
-    notes: "some shot recorddd",
+    notes: "some shot record",
     count: 20
   }
 
