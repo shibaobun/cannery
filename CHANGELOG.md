@@ -1,6 +1,7 @@
 # v0.9.2
 - Add lot number to packs
 - Don't show price paid and lot number columns when displaying packs if not used
+- Fix additional shotgun fields not being exportable
 
 # v0.9.1
 - Rename ammo type's "type" to "class" to avoid confusion
