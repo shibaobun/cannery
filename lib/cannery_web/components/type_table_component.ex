@@ -55,7 +55,6 @@ defmodule CanneryWeb.Components.TypeTableComponent do
         %{label: gettext("Unfired shell length"), key: :unfired_length, type: :string},
         %{label: gettext("Brass height"), key: :brass_height, type: :string},
         %{label: gettext("Chamber size"), key: :chamber_size, type: :string},
-        %{label: gettext("Chamber size"), key: :chamber_size, type: :string},
         %{label: gettext("Grains"), key: :grains, type: :string},
         %{label: gettext("Bullet type"), key: :bullet_type, type: :string},
         %{
