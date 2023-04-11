@@ -4,6 +4,7 @@
 - Fix additional shotgun fields not being exportable
 - Fixes duplicate chamber size column for ammo types
 - Hide bullet type field when editing/creating shotgun ammo types
+- Fix ammo type creation not displaying all the necessary fields on first load
 
 # v0.9.1
 - Rename ammo type's "type" to "class" to avoid confusion

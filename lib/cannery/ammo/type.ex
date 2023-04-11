@@ -52,7 +52,7 @@ defmodule Cannery.Ammo.Type do
     field :name, :string
     field :desc, :string
 
-    field :class, Ecto.Enum, values: [:rifle, :shotgun, :pistol]
+    field :class, Ecto.Enum, values: [:rifle, :shotgun, :pistol], default: :rifle
 
     # common fields
     field :bullet_core, :string
