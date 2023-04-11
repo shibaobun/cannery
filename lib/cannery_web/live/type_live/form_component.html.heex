@@ -117,24 +117,28 @@
     ) %>
     <%= error_tag(f, :grains, "col-span-3 text-center") %>
 
-    <%= label f, :bullet_type, class: "flex title text-lg text-primary-600 space-x-2" do %>
-      <p><%= gettext("Bullet type") %></p>
+    <%= if Changeset.get_field(@changeset, :class) in [:rifle, :pistol] do %>
+      <%= label f, :bullet_type, class: "flex title text-lg text-primary-600 space-x-2" do %>
+        <p><%= gettext("Bullet type") %></p>
 
-      <.link
-        href="https://shootersreference.com/reloadingdata/bullet_abbreviations/"
-        class="link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="fas fa-md fa-external-link-alt"></i>
-      </.link>
+        <.link
+          href="https://shootersreference.com/reloadingdata/bullet_abbreviations/"
+          class="link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fas fa-md fa-external-link-alt"></i>
+        </.link>
+      <% end %>
+      <%= text_input(f, :bullet_type,
+        class: "text-center col-span-2 input input-primary",
+        maxlength: 255,
+        placeholder: gettext("FMJ")
+      ) %>
+      <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
+    <% else %>
+      <%= hidden_input(f, :bullet_type, value: nil) %>
     <% end %>
-    <%= text_input(f, :bullet_type,
-      class: "text-center col-span-2 input input-primary",
-      maxlength: 255,
-      placeholder: gettext("FMJ")
-    ) %>
-    <%= error_tag(f, :bullet_type, "col-span-3 text-center") %>
 
     <%= label(
       f,

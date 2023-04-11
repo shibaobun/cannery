@@ -55,8 +55,6 @@ defmodule Cannery.Ammo.Type do
     field :class, Ecto.Enum, values: [:rifle, :shotgun, :pistol]
 
     # common fields
-    # https://shootersreference.com/reloadingdata/bullet_abbreviations/
-    field :bullet_type, :string
     field :bullet_core, :string
     # also gauge for shotguns
     field :caliber, :string
@@ -75,6 +73,8 @@ defmodule Cannery.Ammo.Type do
     field :corrosive, :boolean, default: false
 
     # rifle/pistol fields
+    # https://shootersreference.com/reloadingdata/bullet_abbreviations/
+    field :bullet_type, :string
     field :cartridge, :string
     field :jacket_type, :string
     field :powder_grains_per_charge, :integer

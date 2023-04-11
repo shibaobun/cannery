@@ -132,7 +132,7 @@ msgstr ""
 #: lib/cannery_web/live/pack_live/form_component.html.heex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:45
 #: lib/cannery_web/live/tag_live/form_component.html.heex:37
-#: lib/cannery_web/live/type_live/form_component.html.heex:350
+#: lib/cannery_web/live/type_live/form_component.html.heex:354
 #, elixir-autogen, elixir-format
 msgid "Save"
 msgstr ""

@@ -134,7 +134,7 @@ msgstr "Por favor chequea el correo para verificar tu cuenta"
 #: lib/cannery_web/live/pack_live/form_component.html.heex:92
 #: lib/cannery_web/live/range_live/form_component.html.heex:47
 #: lib/cannery_web/live/tag_live/form_component.html.heex:39
-#: lib/cannery_web/live/type_live/form_component.html.heex:351
+#: lib/cannery_web/live/type_live/form_component.html.heex:355
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Guardando..."

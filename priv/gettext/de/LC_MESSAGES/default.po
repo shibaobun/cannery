@@ -44,24 +44,24 @@ msgid "Background color"
 msgstr "Hintergrundfarbe"
 
 #: lib/cannery_web/components/type_table_component.ex:86
-#: lib/cannery_web/live/type_live/form_component.html.heex:324
+#: lib/cannery_web/live/type_live/form_component.html.heex:328
 #, elixir-autogen, elixir-format
 msgid "Blank"
 msgstr "Knallpatrone"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:171
+#: lib/cannery_web/live/type_live/form_component.html.heex:175
 #, elixir-autogen, elixir-format
 msgid "Brass"
 msgstr "Messing"
 
 #: lib/cannery_web/components/type_table_component.ex:61
-#: lib/cannery_web/live/type_live/form_component.html.heex:144
+#: lib/cannery_web/live/type_live/form_component.html.heex:148
 #, elixir-autogen, elixir-format
 msgid "Bullet core"
 msgstr "Projektilkern"
 
 #: lib/cannery_web/components/type_table_component.ex:59
-#: lib/cannery_web/live/type_live/form_component.html.heex:121
+#: lib/cannery_web/live/type_live/form_component.html.heex:122
 #, elixir-autogen, elixir-format
 msgid "Bullet type"
 msgstr "Patronenart"
@@ -79,7 +79,7 @@ msgid "Cartridge"
 msgstr "Patrone"
 
 #: lib/cannery_web/components/type_table_component.ex:66
-#: lib/cannery_web/live/type_live/form_component.html.heex:167
+#: lib/cannery_web/live/type_live/form_component.html.heex:171
 #, elixir-autogen, elixir-format
 msgid "Case material"
 msgstr "Gehäusematerial"
@@ -100,7 +100,7 @@ msgid "Containers"
 msgstr "Behälter"
 
 #: lib/cannery_web/components/type_table_component.ex:87
-#: lib/cannery_web/live/type_live/form_component.html.heex:328
+#: lib/cannery_web/live/type_live/form_component.html.heex:332
 #, elixir-autogen, elixir-format
 msgid "Corrosive"
 msgstr "Korrosiv"
@@ -145,7 +145,7 @@ msgstr "Einladung bearbeiten"
 msgid "Edit Tag"
 msgstr "Tag bearbeiten"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:135
+#: lib/cannery_web/live/type_live/form_component.html.heex:136
 #, elixir-autogen, elixir-format
 msgid "FMJ"
 msgstr "VM"
@@ -157,7 +157,7 @@ msgid "Grains"
 msgstr "Körner"
 
 #: lib/cannery_web/components/type_table_component.ex:85
-#: lib/cannery_web/live/type_live/form_component.html.heex:320
+#: lib/cannery_web/live/type_live/form_component.html.heex:324
 #, elixir-autogen, elixir-format
 msgid "Incendiary"
 msgstr "Brandmunition"
@@ -208,8 +208,8 @@ msgid "Magazine, Clip, Ammo Box, etc"
 msgstr "Magazin, Ladestreifen, Munitionskiste usw."
 
 #: lib/cannery_web/components/type_table_component.ex:88
-#: lib/cannery_web/live/type_live/form_component.html.heex:333
-#: lib/cannery_web/live/type_live/form_component.html.heex:336
+#: lib/cannery_web/live/type_live/form_component.html.heex:337
+#: lib/cannery_web/live/type_live/form_component.html.heex:340
 #, elixir-autogen, elixir-format
 msgid "Manufacturer"
 msgstr "Hersteller"
@@ -299,7 +299,7 @@ msgid "On the bookshelf"
 msgstr "Auf dem Bücherregal"
 
 #: lib/cannery_web/components/type_table_component.ex:79
-#: lib/cannery_web/live/type_live/form_component.html.heex:257
+#: lib/cannery_web/live/type_live/form_component.html.heex:261
 #, elixir-autogen, elixir-format
 msgid "Pressure"
 msgstr "Druck"
@@ -316,7 +316,7 @@ msgid "Price paid:"
 msgstr "Kaufpreis:"
 
 #: lib/cannery_web/components/type_table_component.ex:82
-#: lib/cannery_web/live/type_live/form_component.html.heex:296
+#: lib/cannery_web/live/type_live/form_component.html.heex:300
 #, elixir-autogen, elixir-format
 msgid "Primer type"
 msgstr "Zündertyp"
@@ -349,7 +349,7 @@ msgstr "Einstellungen"
 msgid "Simple:"
 msgstr "Einfach:"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:151
+#: lib/cannery_web/live/type_live/form_component.html.heex:155
 #, elixir-autogen, elixir-format
 msgid "Steel"
 msgstr "Stahl"
@@ -384,7 +384,7 @@ msgid "The self-hosted firearm tracker website"
 msgstr "Die selbst-gehostete Website zur Verwaltung von Schusswaffen"
 
 #: lib/cannery_web/components/type_table_component.ex:84
-#: lib/cannery_web/live/type_live/form_component.html.heex:316
+#: lib/cannery_web/live/type_live/form_component.html.heex:320
 #, elixir-autogen, elixir-format
 msgid "Tracer"
 msgstr "Leuchtspur"
@@ -510,36 +510,36 @@ msgstr "Schießkladde"
 msgid "$%{amount}"
 msgstr "$%{amount}"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:160
+#: lib/cannery_web/live/type_live/form_component.html.heex:164
 #, elixir-autogen, elixir-format
 msgid "Bimetal"
 msgstr "Bimetall"
 
 #: lib/cannery_web/components/type_table_component.ex:65
-#: lib/cannery_web/live/type_live/form_component.html.heex:156
+#: lib/cannery_web/live/type_live/form_component.html.heex:160
 #, elixir-autogen, elixir-format
 msgid "Jacket type"
 msgstr "Patronenhülse"
 
 #: lib/cannery_web/components/type_table_component.ex:81
-#: lib/cannery_web/live/type_live/form_component.html.heex:279
+#: lib/cannery_web/live/type_live/form_component.html.heex:283
 #, elixir-autogen, elixir-format
 msgid "Muzzle velocity"
 msgstr "Mündungsgeschwindigkeit"
 
 #: lib/cannery_web/components/type_table_component.ex:75
-#: lib/cannery_web/live/type_live/form_component.html.heex:244
+#: lib/cannery_web/live/type_live/form_component.html.heex:248
 #, elixir-autogen, elixir-format
 msgid "Powder grains per charge"
 msgstr "Pulverkörner pro Ladung"
 
 #: lib/cannery_web/components/type_table_component.ex:73
-#: lib/cannery_web/live/type_live/form_component.html.heex:236
+#: lib/cannery_web/live/type_live/form_component.html.heex:240
 #, elixir-autogen, elixir-format
 msgid "Powder type"
 msgstr "Pulverart"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:343
+#: lib/cannery_web/live/type_live/form_component.html.heex:347
 #, elixir-autogen, elixir-format
 msgid "UPC"
 msgstr "UPC"
@@ -563,7 +563,7 @@ msgid "New password"
 msgstr "Neues Passwort"
 
 #: lib/cannery_web/components/type_table_component.ex:83
-#: lib/cannery_web/live/type_live/form_component.html.heex:304
+#: lib/cannery_web/live/type_live/form_component.html.heex:308
 #, elixir-autogen, elixir-format
 msgid "Firing type"
 msgstr "Patronenhülsenform"
@@ -1148,7 +1148,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:261
+#: lib/cannery_web/live/type_live/form_component.html.heex:265
 #, elixir-autogen, elixir-format
 msgid "+P"
 msgstr ""
@@ -1163,12 +1163,12 @@ msgstr ""
 msgid "5.56x46mm NATO"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:300
+#: lib/cannery_web/live/type_live/form_component.html.heex:304
 #, elixir-autogen, elixir-format
 msgid "Boxer"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:308
+#: lib/cannery_web/live/type_live/form_component.html.heex:312
 #, elixir-autogen, elixir-format
 msgid "Centerfire"
 msgstr ""
@@ -1218,7 +1218,7 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:313
+#: lib/cannery_web/live/type_live/form_component.html.heex:317
 #, elixir-autogen, elixir-format
 msgid "Attributes"
 msgstr ""
@@ -1251,7 +1251,7 @@ msgid "Dimensions"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:80
-#: lib/cannery_web/live/type_live/form_component.html.heex:266
+#: lib/cannery_web/live/type_live/form_component.html.heex:270
 #, elixir-autogen, elixir-format
 msgid "Dram equivalent"
 msgstr ""
@@ -1273,7 +1273,7 @@ msgid "Gauge:"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:71
-#: lib/cannery_web/live/type_live/form_component.html.heex:207
+#: lib/cannery_web/live/type_live/form_component.html.heex:211
 #, elixir-autogen, elixir-format
 msgid "Load grains"
 msgstr ""
@@ -1303,12 +1303,12 @@ msgstr ""
 msgid "Pistol"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:233
+#: lib/cannery_web/live/type_live/form_component.html.heex:237
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Powder"
 msgstr "Pulverart"
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:293
+#: lib/cannery_web/live/type_live/form_component.html.heex:297
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Primer"
 msgstr "Zündertyp"
@@ -1329,7 +1329,7 @@ msgid "Rifle"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:72
-#: lib/cannery_web/live/type_live/form_component.html.heex:215
+#: lib/cannery_web/live/type_live/form_component.html.heex:219
 #, elixir-autogen, elixir-format
 msgid "Shot charge weight"
 msgstr ""
@@ -1340,7 +1340,7 @@ msgid "Shot charge weight:"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:69
-#: lib/cannery_web/live/type_live/form_component.html.heex:191
+#: lib/cannery_web/live/type_live/form_component.html.heex:195
 #, elixir-autogen, elixir-format
 msgid "Shot material"
 msgstr ""
@@ -1351,7 +1351,7 @@ msgid "Shot material:"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:70
-#: lib/cannery_web/live/type_live/form_component.html.heex:200
+#: lib/cannery_web/live/type_live/form_component.html.heex:204
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Shot size"
 msgstr "Schüsse abgegeben"
@@ -1362,7 +1362,7 @@ msgid "Shot size:"
 msgstr "Schüsse abgegeben"
 
 #: lib/cannery_web/components/type_table_component.ex:68
-#: lib/cannery_web/live/type_live/form_component.html.heex:183
+#: lib/cannery_web/live/type_live/form_component.html.heex:187
 #, elixir-autogen, elixir-format
 msgid "Shot type"
 msgstr ""
@@ -1383,12 +1383,12 @@ msgid "Shotgun"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:61
-#: lib/cannery_web/live/type_live/form_component.html.heex:143
+#: lib/cannery_web/live/type_live/form_component.html.heex:147
 #, elixir-autogen, elixir-format
 msgid "Slug core"
 msgstr ""
 
-#: lib/cannery_web/live/type_live/form_component.html.heex:187
+#: lib/cannery_web/live/type_live/form_component.html.heex:191
 #, elixir-autogen, elixir-format
 msgid "Target, bird, buck, etc"
 msgstr ""
@@ -1405,7 +1405,7 @@ msgid "Unfired shell length"
 msgstr ""
 
 #: lib/cannery_web/components/type_table_component.ex:67
-#: lib/cannery_web/live/type_live/form_component.html.heex:176
+#: lib/cannery_web/live/type_live/form_component.html.heex:180
 #, elixir-autogen, elixir-format
 msgid "Wadding"
 msgstr ""
