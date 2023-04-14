@@ -1,3 +1,6 @@
+# v0.9.3
+- Update dependencies
+
 # v0.9.2
 - Add lot number to packs
 - Don't show price paid and lot number columns when displaying packs if not used

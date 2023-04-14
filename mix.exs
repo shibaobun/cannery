@@ -4,8 +4,8 @@ defmodule Cannery.MixProject do
   def project do
     [
       app: :cannery,
-      version: "0.9.2",
-      elixir: "1.14.1",
+      version: "0.9.3",
+      elixir: "1.14.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
