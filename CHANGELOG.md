@@ -1,5 +1,6 @@
 # v0.9.3
 - Update dependencies
+- Add pack lot number to search
 
 # v0.9.2
 - Add lot number to packs
