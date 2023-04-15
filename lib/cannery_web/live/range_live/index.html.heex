@@ -9,11 +9,11 @@
       <%= display_emoji("😔") %>
     </h1>
 
-    <.link navigate={Routes.pack_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={~p"/ammo"} class="btn btn-primary">
       <%= dgettext("actions", "Why not get some ready to shoot?") %>
     </.link>
   <% else %>
-    <.link navigate={Routes.pack_index_path(Endpoint, :index)} class="btn btn-primary">
+    <.link navigate={~p"/ammo"} class="btn btn-primary">
       <%= dgettext("actions", "Stage ammo") %>
     </.link>
 
@@ -38,10 +38,7 @@
             else: dgettext("actions", "Stage for range") %>
         </button>
 
-        <.link
-          patch={Routes.range_index_path(Endpoint, :add_shot_record, pack)}
-          class="btn btn-primary"
-        >
+        <.link patch={~p"/range/add_shot_record/#{pack}"} class="btn btn-primary">
           <%= dgettext("actions", "Record shots") %>
         </.link>
       </.pack_card>
@@ -132,7 +129,7 @@
         <:actions :let={shot_record}>
           <div class="px-4 py-2 space-x-4 flex justify-center items-center">
             <.link
-              patch={Routes.range_index_path(Endpoint, :edit, shot_record)}
+              patch={~p"/range/edit/#{shot_record}"}
               class="text-primary-600 link"
               aria-label={
                 dgettext("actions", "Edit shot record of %{shot_record_count} shots",
@@ -168,26 +165,26 @@
 
 <%= case @live_action do %>
   <% :edit -> %>
-    <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/range"}>
       <.live_component
         module={CanneryWeb.RangeLive.FormComponent}
         id={@shot_record.id}
         title={@page_title}
         action={@live_action}
         shot_record={@shot_record}
-        return_to={Routes.range_index_path(Endpoint, :index)}
+        return_to={~p"/range"}
         current_user={@current_user}
       />
     </.modal>
   <% :add_shot_record -> %>
-    <.modal return_to={Routes.range_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/range"}>
       <.live_component
         module={CanneryWeb.Components.AddShotRecordComponent}
         id={:new}
         title={@page_title}
         action={@live_action}
         pack={@pack}
-        return_to={Routes.range_index_path(Endpoint, :index)}
+        return_to={~p"/range"}
         current_user={@current_user}
       />
     </.modal>

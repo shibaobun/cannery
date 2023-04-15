@@ -56,7 +56,7 @@ defmodule CanneryWeb.PackLiveTest do
     setup [:register_and_log_in_user, :create_pack]
 
     test "lists all packs", %{conn: conn, pack: pack} do
-      {:ok, _index_live, html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, _index_live, html} = live(conn, ~p"/ammo")
       pack = pack |> Repo.preload(:type)
       assert html =~ "Ammo"
       assert html =~ pack.type.name
@@ -71,7 +71,7 @@ defmodule CanneryWeb.PackLiveTest do
       pistol_type = type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
-      {:ok, index_live, html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/ammo")
 
       assert html =~ "All"
 
@@ -117,7 +117,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "can search for packs", %{conn: conn, pack: pack} do
-      {:ok, index_live, html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/ammo")
 
       pack = pack |> Repo.preload(:type)
 
@@ -128,30 +128,27 @@ defmodule CanneryWeb.PackLiveTest do
              |> render_change(search: %{search_term: pack.type.name}) =~
                pack.type.name
 
-      assert_patch(
-        index_live,
-        Routes.pack_index_path(conn, :search, pack.type.name)
-      )
+      assert_patch(index_live, ~p"/ammo/search/#{pack.type.name}")
 
       refute index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: "something_else"}) =~
                pack.type.name
 
-      assert_patch(index_live, Routes.pack_index_path(conn, :search, "something_else"))
+      assert_patch(index_live, ~p"/ammo/search/something_else")
 
       assert index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: ""}) =~ pack.type.name
 
-      assert_patch(index_live, Routes.pack_index_path(conn, :index))
+      assert_patch(index_live, ~p"/ammo")
     end
 
     test "saves a single new pack", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
-      assert_patch(index_live, Routes.pack_index_path(conn, :new))
+      assert_patch(index_live, ~p"/ammo/new")
 
       assert index_live
              |> form("#pack-form")
@@ -161,7 +158,7 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#pack-form")
         |> render_submit(pack: @create_attrs)
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo added successfully"
       assert html =~ "\n42\n"
@@ -169,10 +166,10 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "saves multiple new packs", %{conn: conn, current_user: current_user} do
       multiplier = 25
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
-      assert_patch(index_live, Routes.pack_index_path(conn, :new))
+      assert_patch(index_live, ~p"/ammo/new")
 
       assert index_live
              |> form("#pack-form")
@@ -182,17 +179,17 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#pack-form")
         |> render_submit(pack: @create_attrs |> Map.put(:multiplier, multiplier))
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo added successfully"
       assert Ammo.list_packs(nil, :all, current_user) |> Enum.count() == multiplier + 1
     end
 
     test "does not save invalid number of new packs", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
-      assert_patch(index_live, Routes.pack_index_path(conn, :new))
+      assert_patch(index_live, ~p"/ammo/new")
 
       assert index_live
              |> form("#pack-form")
@@ -210,13 +207,13 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "updates pack in listing", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live
              |> element(~s/a[aria-label="Edit pack of #{pack.count} bullets"]/)
              |> render_click() =~ "Edit ammo"
 
-      assert_patch(index_live, Routes.pack_index_path(conn, :edit, pack))
+      assert_patch(index_live, ~p"/ammo/edit/#{pack}")
 
       assert index_live
              |> form("#pack-form")
@@ -226,14 +223,14 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#pack-form")
         |> render_submit(pack: @update_attrs)
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo updated successfully"
       assert html =~ "\n43\n"
     end
 
     test "clones pack in listing", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       html =
         index_live
@@ -243,13 +240,13 @@ defmodule CanneryWeb.PackLiveTest do
       assert html =~ "Add Ammo"
       assert html =~ "$#{display_currency(120.5)}"
 
-      assert_patch(index_live, Routes.pack_index_path(conn, :clone, pack))
+      assert_patch(index_live, ~p"/ammo/clone/#{pack}")
 
       {:ok, _index_live, html} =
         index_live
         |> form("#pack-form")
         |> render_submit()
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo added successfully"
       assert html =~ "\n42\n"
@@ -257,7 +254,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "checks validity when cloning", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       html =
         index_live
@@ -267,7 +264,7 @@ defmodule CanneryWeb.PackLiveTest do
       assert html =~ "Add Ammo"
       assert html =~ "$#{display_currency(120.5)}"
 
-      assert_patch(index_live, Routes.pack_index_path(conn, :clone, pack))
+      assert_patch(index_live, ~p"/ammo/clone/#{pack}")
 
       assert index_live
              |> form("#pack-form")
@@ -275,7 +272,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "clones pack in listing with updates", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       html =
         index_live
@@ -284,7 +281,7 @@ defmodule CanneryWeb.PackLiveTest do
 
       assert html =~ "Add Ammo"
       assert html =~ "$#{display_currency(120.5)}"
-      assert_patch(index_live, Routes.pack_index_path(conn, :clone, pack))
+      assert_patch(index_live, ~p"/ammo/clone/#{pack}")
 
       assert index_live
              |> form("#pack-form")
@@ -294,7 +291,7 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#pack-form")
         |> render_submit(pack: @create_attrs |> Map.put(:count, 43))
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo added successfully"
       assert html =~ "\n43\n"
@@ -302,7 +299,7 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "deletes pack in listing", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live
              |> element(~s/a[aria-label="Delete pack of #{pack.count} bullets"]/)
@@ -312,10 +309,10 @@ defmodule CanneryWeb.PackLiveTest do
     end
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo")
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.pack_index_path(conn, :add_shot_record, pack))
+      assert_patch(index_live, ~p"/ammo/add_shot_record/#{pack}")
 
       assert index_live
              |> form("#shot-record-form")
@@ -325,7 +322,7 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_create_attrs)
-        |> follow_redirect(conn, Routes.pack_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Shots recorded successfully"
     end
@@ -342,7 +339,7 @@ defmodule CanneryWeb.PackLiveTest do
       empty_pack: pack,
       current_user: current_user
     } do
-      {:ok, show_live, html} = live(conn, Routes.pack_index_path(conn, :index))
+      {:ok, show_live, html} = live(conn, ~p"/ammo")
 
       assert html =~ "Show used"
       refute html =~ "$#{display_currency(50.00)}"
@@ -365,20 +362,20 @@ defmodule CanneryWeb.PackLiveTest do
     setup [:register_and_log_in_user, :create_pack]
 
     test "displays pack", %{conn: conn, pack: pack} do
-      {:ok, _show_live, html} = live(conn, Routes.pack_show_path(conn, :show, pack))
+      {:ok, _show_live, html} = live(conn, ~p"/ammo/show/#{pack}")
       pack = pack |> Repo.preload(:type)
       assert html =~ "Show Ammo"
       assert html =~ pack.type.name
     end
 
     test "updates pack within modal", %{conn: conn, pack: pack} do
-      {:ok, show_live, _html} = live(conn, Routes.pack_show_path(conn, :show, pack))
+      {:ok, show_live, _html} = live(conn, ~p"/ammo/show/#{pack}")
 
       assert show_live
              |> element(~s/a[aria-label="Edit pack of #{pack.count} bullets"]/)
              |> render_click() =~ "Edit Ammo"
 
-      assert_patch(show_live, Routes.pack_show_path(conn, :edit, pack))
+      assert_patch(show_live, ~p"/ammo/show/edit/#{pack}")
 
       assert show_live
              |> form("#pack-form")
@@ -388,17 +385,17 @@ defmodule CanneryWeb.PackLiveTest do
         show_live
         |> form("#pack-form")
         |> render_submit(pack: @update_attrs)
-        |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
+        |> follow_redirect(conn, ~p"/ammo/show/#{pack}")
 
       assert html =~ "Ammo updated successfully"
       assert html =~ "some updated notes"
     end
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_show_path(conn, :show, pack))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo/show/#{pack}")
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.pack_show_path(conn, :add_shot_record, pack))
+      assert_patch(index_live, ~p"/ammo/show/add_shot_record/#{pack}")
 
       assert index_live
              |> form("#shot-record-form")
@@ -408,7 +405,7 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_create_attrs)
-        |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
+        |> follow_redirect(conn, ~p"/ammo/show/#{pack}")
 
       assert html =~ "Shots recorded successfully"
     end
@@ -419,16 +416,13 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "updates shot_record in listing",
          %{conn: conn, pack: pack, shot_record: shot_record} do
-      {:ok, index_live, _html} = live(conn, Routes.pack_show_path(conn, :edit, pack))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo/show/edit/#{pack}")
 
       assert index_live
              |> element(~s/a[aria-label="Edit shot record of #{shot_record.count} shots"]/)
              |> render_click() =~ "Edit Shot Record"
 
-      assert_patch(
-        index_live,
-        Routes.pack_show_path(conn, :edit_shot_record, pack, shot_record)
-      )
+      assert_patch(index_live, ~p"/ammo/show/#{pack}/edit/#{shot_record}")
 
       assert index_live
              |> form("#shot-record-form")
@@ -438,7 +432,7 @@ defmodule CanneryWeb.PackLiveTest do
         index_live
         |> form("#shot-record-form")
         |> render_submit(shot_record: @shot_record_update_attrs)
-        |> follow_redirect(conn, Routes.pack_show_path(conn, :show, pack))
+        |> follow_redirect(conn, ~p"/ammo/show/#{pack}")
 
       assert html =~ "Shot records updated successfully"
       assert html =~ "some updated notes"
@@ -446,8 +440,7 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "deletes shot_record in listing",
          %{conn: conn, pack: pack, shot_record: shot_record} do
-      {:ok, index_live, _html} =
-        live(conn, Routes.pack_show_path(conn, :edit_shot_record, pack, shot_record))
+      {:ok, index_live, _html} = live(conn, ~p"/ammo/show/#{pack}/edit/#{shot_record}")
 
       assert index_live
              |> element(~s/a[aria-label="Delete shot record of #{shot_record.count} shots"]/)

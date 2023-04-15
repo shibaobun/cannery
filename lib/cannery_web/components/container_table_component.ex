@@ -109,14 +109,12 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
   end
 
   @spec get_value_for_key(atom(), Container.t(), extra_data :: map) :: any()
-  defp get_value_for_key(:name, %{id: id, name: container_name}, _extra_data) do
-    assigns = %{id: id, container_name: container_name}
-
+  defp get_value_for_key(:name, %{name: container_name} = assigns, _extra_data) do
     {container_name,
      ~H"""
      <div class="flex flex-wrap justify-center items-center">
-       <.link navigate={Routes.container_show_path(Endpoint, :show, @id)} class="link">
-         <%= @container_name %>
+       <.link navigate={~p"/container/#{@id}"} class="link">
+         <%= @name %>
        </.link>
      </div>
      """}

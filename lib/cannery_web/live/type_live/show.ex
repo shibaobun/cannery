@@ -5,7 +5,6 @@ defmodule CanneryWeb.TypeLive.Show do
 
   use CanneryWeb, :live_view
   alias Cannery.{ActivityLog, Ammo, Ammo.Type, Containers}
-  alias CanneryWeb.Endpoint
 
   @impl true
   def mount(_params, _session, socket),
@@ -25,7 +24,7 @@ defmodule CanneryWeb.TypeLive.Show do
     %{name: type_name} = type |> Ammo.delete_type!(current_user)
 
     prompt = dgettext("prompts", "%{name} deleted succesfully", name: type_name)
-    redirect_to = Routes.type_index_path(socket, :index)
+    redirect_to = ~p"/catalog"
 
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end

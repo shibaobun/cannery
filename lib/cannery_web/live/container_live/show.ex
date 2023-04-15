@@ -5,7 +5,6 @@ defmodule CanneryWeb.ContainerLive.Show do
 
   use CanneryWeb, :live_view
   alias Cannery.{Accounts.User, ActivityLog, Ammo, Containers, Containers.Container}
-  alias CanneryWeb.Endpoint
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
@@ -59,10 +58,7 @@ defmodule CanneryWeb.ContainerLive.Show do
       |> case do
         {:ok, %{name: container_name}} ->
           prompt = dgettext("prompts", "%{name} has been deleted", name: container_name)
-
-          socket
-          |> put_flash(:info, prompt)
-          |> push_navigate(to: Routes.container_index_path(socket, :index))
+          socket |> put_flash(:info, prompt) |> push_navigate(to: ~p"/containers")
 
         {:error, %{action: :delete, errors: [packs: _error], valid?: false} = changeset} ->
           packs_error = changeset |> changeset_errors(:packs) |> Enum.join(", ")

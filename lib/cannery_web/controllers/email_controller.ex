@@ -6,7 +6,8 @@ defmodule CanneryWeb.EmailController do
   use CanneryWeb, :controller
   alias Cannery.Accounts.User
 
-  plug :put_layout, {CanneryWeb.LayoutView, :email}
+  plug :put_root_layout, html: {CanneryWeb.Layouts, :email_html}
+  plug :put_layout, false
 
   @sample_assigns %{
     email: %{subject: "Example subject"},
@@ -18,6 +19,6 @@ defmodule CanneryWeb.EmailController do
   Debug route used to preview emails
   """
   def preview(conn, %{"id" => template}) do
-    render(conn, "#{template |> to_string()}.html", @sample_assigns)
+    render(conn, String.to_existing_atom(template), @sample_assigns)
   end
 end

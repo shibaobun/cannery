@@ -33,14 +33,14 @@ defmodule CanneryWeb.TagLiveTest do
     setup [:register_and_log_in_user, :create_tag]
 
     test "lists all tags", %{conn: conn, tag: tag} do
-      {:ok, _index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
+      {:ok, _index_live, html} = live(conn, ~p"/tags")
 
       assert html =~ "Tags"
       assert html =~ tag.bg_color
     end
 
     test "can search for tag", %{conn: conn, tag: tag} do
-      {:ok, index_live, html} = live(conn, Routes.tag_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/tags")
 
       assert html =~ tag.name
 
@@ -48,26 +48,26 @@ defmodule CanneryWeb.TagLiveTest do
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: tag.name}) =~ tag.name
 
-      assert_patch(index_live, Routes.tag_index_path(conn, :search, tag.name))
+      assert_patch(index_live, ~p"/tags/search/#{tag.name}")
 
       refute index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: "something_else"}) =~ tag.name
 
-      assert_patch(index_live, Routes.tag_index_path(conn, :search, "something_else"))
+      assert_patch(index_live, ~p"/tags/search/something_else")
 
       assert index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: ""}) =~ tag.name
 
-      assert_patch(index_live, Routes.tag_index_path(conn, :index))
+      assert_patch(index_live, ~p"/tags")
     end
 
     test "saves new tag", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/tags")
 
       assert index_live |> element("a", "New Tag") |> render_click() =~ "New Tag"
-      assert_patch(index_live, Routes.tag_index_path(conn, :new))
+      assert_patch(index_live, ~p"/tags/new")
 
       assert index_live
              |> form("#tag-form")
@@ -77,19 +77,19 @@ defmodule CanneryWeb.TagLiveTest do
         index_live
         |> form("#tag-form")
         |> render_submit(tag: @create_attrs)
-        |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/tags")
 
       assert html =~ "some name created successfully"
       assert html =~ "#100000"
     end
 
     test "updates tag in listing", %{conn: conn, tag: tag} do
-      {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/tags")
 
       assert index_live |> element(~s/a[aria-label="Edit #{tag.name}"]/) |> render_click() =~
                "Edit Tag"
 
-      assert_patch(index_live, Routes.tag_index_path(conn, :edit, tag))
+      assert_patch(index_live, ~p"/tags/edit/#{tag}")
 
       assert index_live
              |> form("#tag-form")
@@ -99,14 +99,14 @@ defmodule CanneryWeb.TagLiveTest do
         index_live
         |> form("#tag-form")
         |> render_submit(tag: @update_attrs)
-        |> follow_redirect(conn, Routes.tag_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/tags")
 
       assert html =~ "some updated name updated successfully"
       assert html =~ "#100001"
     end
 
     test "deletes tag in listing", %{conn: conn, tag: tag} do
-      {:ok, index_live, _html} = live(conn, Routes.tag_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/tags")
 
       assert index_live |> element(~s/a[aria-label="Delete #{tag.name}"]/) |> render_click()
       refute has_element?(index_live, "#tag-#{tag.id}")

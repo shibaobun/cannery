@@ -30,7 +30,7 @@
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
     <.link
-      patch={Routes.container_show_path(Endpoint, :edit, @container)}
+      patch={~p"/container/edit/#{@container}"}
       class="text-primary-600 link"
       aria-label={dgettext("actions", "Edit %{container_name}", container_name: @container.name)}
     >
@@ -61,10 +61,7 @@
         <%= display_emoji("😔") %>
       </h2>
 
-      <.link
-        patch={Routes.container_show_path(Endpoint, :edit_tags, @container)}
-        class="btn btn-primary"
-      >
+      <.link patch={~p"/container/edit_tags/#{@container}"} class="btn btn-primary">
         <%= dgettext("actions", "Why not add one?") %>
       </.link>
     </div>
@@ -73,10 +70,7 @@
       <.simple_tag_card :for={tag <- @container.tags} tag={tag} />
 
       <div class="mx-4 my-2">
-        <.link
-          patch={Routes.container_show_path(Endpoint, :edit_tags, @container)}
-          class="text-primary-600 link"
-        >
+        <.link patch={~p"/container/edit_tags/#{@container}"} class="text-primary-600 link">
           <i class="fa-fw fa-lg fas fa-tags"></i>
         </.link>
       </div>
@@ -132,7 +126,7 @@
           show_used={false}
         >
           <:type :let={%{name: type_name} = type}>
-            <.link navigate={Routes.type_show_path(Endpoint, :show, type)} class="link">
+            <.link navigate={~p"/type/#{type}"} class="link">
               <%= type_name %>
             </.link>
           </:type>
@@ -155,27 +149,27 @@
 
 <%= case @live_action do %>
   <% :edit -> %>
-    <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+    <.modal return_to={~p"/container/#{@container}"}>
       <.live_component
         module={CanneryWeb.ContainerLive.FormComponent}
         id={@container.id}
         title={@page_title}
         action={@live_action}
         container={@container}
-        return_to={Routes.container_show_path(Endpoint, :show, @container)}
+        return_to={~p"/container/#{@container}"}
         current_user={@current_user}
       />
     </.modal>
   <% :edit_tags -> %>
-    <.modal return_to={Routes.container_show_path(Endpoint, :show, @container)}>
+    <.modal return_to={~p"/container/#{@container}"}>
       <.live_component
         module={CanneryWeb.ContainerLive.EditTagsComponent}
         id={@container.id}
         title={@page_title}
         action={@live_action}
         container={@container}
-        return_to={Routes.container_show_path(Endpoint, :show, @container)}
-        current_path={Routes.container_show_path(Endpoint, :edit_tags, @container)}
+        return_to={~p"/container/#{@container}"}
+        current_path={~p"/container/edit_tags/#{@container}"}
         current_user={@current_user}
       />
     </.modal>

@@ -5,7 +5,6 @@ defmodule CanneryWeb.RangeLive.Index do
 
   use CanneryWeb, :live_view
   alias Cannery.{ActivityLog, ActivityLog.ShotRecord, Ammo}
-  alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
   @impl true
@@ -94,11 +93,11 @@ defmodule CanneryWeb.RangeLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.range_index_path(Endpoint, :index))}
+    {:noreply, socket |> push_patch(to: ~p"/range")}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.range_index_path(Endpoint, :search, search_term))}
+    {:noreply, socket |> push_patch(to: ~p"/range/search/#{search_term}")}
   end
 
   def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do

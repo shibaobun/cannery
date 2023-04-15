@@ -6,14 +6,14 @@ defmodule CanneryWeb.UserResetPasswordController do
   plug :get_user_by_reset_password_token when action in [:edit, :update]
 
   def new(conn, _params) do
-    render(conn, "new.html", page_title: gettext("Forgot your password?"))
+    render(conn, :new, page_title: gettext("Forgot your password?"))
   end
 
   def create(conn, %{"user" => %{"email" => email}}) do
     if user = Accounts.get_user_by_email(email) do
       Accounts.deliver_user_reset_password_instructions(
         user,
-        &Routes.user_reset_password_url(conn, :edit, &1)
+        fn token -> url(CanneryWeb.Endpoint, ~p"/users/reset_password/#{token}") end
       )
     end
 
@@ -23,15 +23,14 @@ defmodule CanneryWeb.UserResetPasswordController do
       :info,
       dgettext(
         "prompts",
-        "If your email is in our system, you will receive instructions to " <>
-          "reset your password shortly."
+        "If your email is in our system, you will receive instructions to reset your password shortly."
       )
     )
-    |> redirect(to: "/")
+    |> redirect(to: ~p"/")
   end
 
   def edit(conn, _params) do
-    render(conn, "edit.html",
+    render(conn, :edit,
       changeset: Accounts.change_user_password(conn.assigns.user),
       page_title: gettext("Reset your password")
     )
@@ -44,10 +43,10 @@ defmodule CanneryWeb.UserResetPasswordController do
       {:ok, _} ->
         conn
         |> put_flash(:info, dgettext("prompts", "Password reset successfully."))
-        |> redirect(to: Routes.user_session_path(conn, :new))
+        |> redirect(to: ~p"/users/log_in")
 
       {:error, changeset} ->
-        render(conn, "edit.html", changeset: changeset)
+        render(conn, :edit, changeset: changeset)
     end
   end
 
@@ -62,7 +61,7 @@ defmodule CanneryWeb.UserResetPasswordController do
         :error,
         dgettext("errors", "Reset password link is invalid or it has expired.")
       )
-      |> redirect(to: "/")
+      |> redirect(to: ~p"/")
       |> halt()
     end
   end

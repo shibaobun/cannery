@@ -20,7 +20,7 @@ defmodule CanneryWeb.Endpoint do
     at: "/",
     from: :cannery,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: CanneryWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

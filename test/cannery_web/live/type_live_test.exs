@@ -64,7 +64,7 @@ defmodule CanneryWeb.TypeLiveTest do
     setup [:register_and_log_in_user, :create_type]
 
     test "lists all types", %{conn: conn, type: type} do
-      {:ok, _index_live, html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, _index_live, html} = live(conn, ~p"/catalog")
       assert html =~ "Catalog"
       assert html =~ type.bullet_type
     end
@@ -74,7 +74,7 @@ defmodule CanneryWeb.TypeLiveTest do
       shotgun_type = type_fixture(%{class: :shotgun}, current_user)
       pistol_type = type_fixture(%{class: :pistol}, current_user)
 
-      {:ok, index_live, html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/catalog")
 
       assert html =~ "All"
 
@@ -120,7 +120,7 @@ defmodule CanneryWeb.TypeLiveTest do
     end
 
     test "can search for type", %{conn: conn, type: type} do
-      {:ok, index_live, html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/catalog")
 
       assert html =~ type.bullet_type
 
@@ -129,26 +129,26 @@ defmodule CanneryWeb.TypeLiveTest do
              |> render_change(search: %{search_term: type.bullet_type}) =~
                type.bullet_type
 
-      assert_patch(index_live, Routes.type_index_path(conn, :search, type.bullet_type))
+      assert_patch(index_live, ~p"/catalog/search/#{type.bullet_type}")
 
       refute index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: "something_else"}) =~ type.bullet_type
 
-      assert_patch(index_live, Routes.type_index_path(conn, :search, "something_else"))
+      assert_patch(index_live, ~p"/catalog/search/something_else")
 
       assert index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: ""}) =~ type.bullet_type
 
-      assert_patch(index_live, Routes.type_index_path(conn, :index))
+      assert_patch(index_live, ~p"/catalog")
     end
 
     test "saves new type", %{conn: conn, current_user: current_user, type: type} do
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       assert index_live |> element("a", "New Type") |> render_click() =~ "New Type"
-      assert_patch(index_live, Routes.type_index_path(conn, :new))
+      assert_patch(index_live, ~p"/catalog/new")
 
       assert index_live
              |> form("#type-form")
@@ -158,7 +158,7 @@ defmodule CanneryWeb.TypeLiveTest do
         index_live
         |> form("#type-form")
         |> render_submit(type: @create_attrs)
-        |> follow_redirect(conn, Routes.type_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/catalog")
 
       type = type.id |> Ammo.get_type!(current_user)
       assert html =~ "#{type.name} created successfully"
@@ -167,12 +167,12 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "updates type in listing",
          %{conn: conn, current_user: current_user, type: type} do
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       assert index_live |> element(~s/a[aria-label="Edit #{type.name}"]/) |> render_click() =~
                "Edit #{type.name}"
 
-      assert_patch(index_live, Routes.type_index_path(conn, :edit, type))
+      assert_patch(index_live, ~p"/catalog/edit/#{type}")
 
       assert index_live
              |> form("#type-form")
@@ -182,7 +182,7 @@ defmodule CanneryWeb.TypeLiveTest do
         index_live
         |> form("#type-form")
         |> render_submit(type: @update_attrs)
-        |> follow_redirect(conn, Routes.type_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/catalog")
 
       type = type.id |> Ammo.get_type!(current_user)
       assert html =~ "#{type.name} updated successfully"
@@ -191,13 +191,13 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "clones type in listing",
          %{conn: conn, current_user: current_user, type: type} do
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       html = index_live |> element(~s/a[aria-label="Clone #{type.name}"]/) |> render_click()
       assert html =~ "New Type"
       assert html =~ "some bullet_type"
 
-      assert_patch(index_live, Routes.type_index_path(conn, :clone, type))
+      assert_patch(index_live, ~p"/catalog/clone/#{type}")
 
       assert index_live
              |> form("#type-form")
@@ -207,7 +207,7 @@ defmodule CanneryWeb.TypeLiveTest do
         index_live
         |> form("#type-form")
         |> render_submit(type: @create_attrs)
-        |> follow_redirect(conn, Routes.type_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/catalog")
 
       type = type.id |> Ammo.get_type!(current_user)
       assert html =~ "#{type.name} created successfully"
@@ -216,13 +216,13 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "clones type in listing with updates",
          %{conn: conn, current_user: current_user, type: type} do
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       html = index_live |> element(~s/a[aria-label="Clone #{type.name}"]/) |> render_click()
       assert html =~ "New Type"
       assert html =~ "some bullet_type"
 
-      assert_patch(index_live, Routes.type_index_path(conn, :clone, type))
+      assert_patch(index_live, ~p"/catalog/clone/#{type}")
 
       assert index_live
              |> form("#type-form")
@@ -234,7 +234,7 @@ defmodule CanneryWeb.TypeLiveTest do
         |> render_submit(
           type: Map.merge(@create_attrs, %{bullet_type: "some updated bullet_type"})
         )
-        |> follow_redirect(conn, Routes.type_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/catalog")
 
       type = type.id |> Ammo.get_type!(current_user)
       assert html =~ "#{type.name} created successfully"
@@ -242,7 +242,7 @@ defmodule CanneryWeb.TypeLiveTest do
     end
 
     test "deletes type in listing", %{conn: conn, type: type} do
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
       assert index_live |> element(~s/a[aria-label="Delete #{type.name}"]/) |> render_click()
       refute has_element?(index_live, "#type-#{type.id}")
     end
@@ -253,7 +253,7 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "shows used packs on toggle",
          %{conn: conn, pack: pack, current_user: current_user} do
-      {:ok, index_live, html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/catalog")
 
       assert html =~ "Show used"
       refute html =~ "Used rounds"
@@ -277,7 +277,7 @@ defmodule CanneryWeb.TypeLiveTest do
 
       shot_record_fixture(%{count: 5}, current_user, pack)
 
-      {:ok, index_live, _html} = live(conn, Routes.type_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       html =
         index_live
@@ -296,7 +296,7 @@ defmodule CanneryWeb.TypeLiveTest do
       conn: conn,
       type: %{name: name, bullet_type: bullet_type} = type
     } do
-      {:ok, _show_live, html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, _show_live, html} = live(conn, ~p"/type/#{type}")
 
       assert html =~ name
       assert html =~ bullet_type
@@ -304,12 +304,12 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "updates type within modal",
          %{conn: conn, current_user: current_user, type: %{name: name} = type} do
-      {:ok, show_live, _html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, show_live, _html} = live(conn, ~p"/type/#{type}")
 
       assert show_live |> element(~s/a[aria-label="Edit #{type.name}"]/) |> render_click() =~
                "Edit #{name}"
 
-      assert_patch(show_live, Routes.type_show_path(conn, :edit, type))
+      assert_patch(show_live, ~p"/type/#{type}/edit")
 
       assert show_live
              |> form("#type-form")
@@ -319,7 +319,7 @@ defmodule CanneryWeb.TypeLiveTest do
         show_live
         |> form("#type-form")
         |> render_submit(type: @update_attrs)
-        |> follow_redirect(conn, Routes.type_show_path(conn, :show, type))
+        |> follow_redirect(conn, ~p"/type/#{type}")
 
       type = type.id |> Ammo.get_type!(current_user)
       assert html =~ "#{type.name} updated successfully"
@@ -335,7 +335,7 @@ defmodule CanneryWeb.TypeLiveTest do
       type: %{name: type_name} = type,
       container: %{name: container_name}
     } do
-      {:ok, _show_live, html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, _show_live, html} = live(conn, ~p"/type/#{type}")
 
       assert html =~ type_name
       assert html =~ "\n20\n"
@@ -344,7 +344,7 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "displays pack in table",
          %{conn: conn, type: type, container: %{name: container_name}} do
-      {:ok, show_live, _html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, show_live, _html} = live(conn, ~p"/type/#{type}")
 
       html =
         show_live
@@ -361,7 +361,7 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "displays empty packs on toggle",
          %{conn: conn, type: type, container: %{name: container_name}} do
-      {:ok, show_live, html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, show_live, html} = live(conn, ~p"/type/#{type}")
       assert html =~ "Show used"
       refute html =~ "\n20\n"
 
@@ -377,7 +377,7 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "displays empty packs in table on toggle",
          %{conn: conn, type: type, container: %{name: container_name}} do
-      {:ok, show_live, _html} = live(conn, Routes.type_show_path(conn, :show, type))
+      {:ok, show_live, _html} = live(conn, ~p"/type/#{type}")
 
       html =
         show_live

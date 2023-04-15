@@ -8,7 +8,7 @@ defmodule CanneryWeb.HomeControllerTest do
   @moduletag :home_controller_test
 
   test "GET /", %{conn: conn} do
-    conn = get(conn, "/")
+    conn = get(conn, ~p"/")
     assert html_response(conn, 200) =~ "Welcome to Cannery"
   end
 end

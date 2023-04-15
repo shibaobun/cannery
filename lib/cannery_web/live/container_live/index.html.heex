@@ -9,11 +9,11 @@
       <%= display_emoji("😔") %>
     </h2>
 
-    <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/containers/new"} class="btn btn-primary">
       <%= dgettext("actions", "Add your first container!") %>
     </.link>
   <% else %>
-    <.link patch={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/containers/new"} class="btn btn-primary">
       <%= dgettext("actions", "New Container") %>
     </.link>
 
@@ -59,7 +59,7 @@
           <:tag_actions :let={container}>
             <div class="mx-4 my-2">
               <.link
-                patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+                patch={~p"/containers/edit_tags/#{container}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "Tag %{container_name}", container_name: container.name)
@@ -71,7 +71,7 @@
           </:tag_actions>
           <:actions :let={container}>
             <.link
-              patch={Routes.container_index_path(Endpoint, :edit, container)}
+              patch={~p"/containers/edit/#{container}"}
               class="text-primary-600 link"
               aria-label={
                 dgettext("actions", "Edit %{container_name}", container_name: container.name)
@@ -81,7 +81,7 @@
             </.link>
 
             <.link
-              patch={Routes.container_index_path(Endpoint, :clone, container)}
+              patch={~p"/containers/clone/#{container}"}
               class="text-primary-600 link"
               aria-label={
                 dgettext("actions", "Clone %{container_name}", container_name: container.name)
@@ -118,7 +118,7 @@
             <:tag_actions>
               <div class="mx-4 my-2">
                 <.link
-                  patch={Routes.container_index_path(Endpoint, :edit_tags, container)}
+                  patch={~p"/containers/edit_tags/#{container}"}
                   class="text-primary-600 link"
                   aria-label={
                     dgettext("actions", "Tag %{container_name}", container_name: container.name)
@@ -129,7 +129,7 @@
               </div>
             </:tag_actions>
             <.link
-              patch={Routes.container_index_path(Endpoint, :edit, container)}
+              patch={~p"/containers/edit/#{container}"}
               class="text-primary-600 link"
               aria-label={
                 dgettext("actions", "Edit %{container_name}", container_name: container.name)
@@ -139,7 +139,7 @@
             </.link>
 
             <.link
-              patch={Routes.container_index_path(Endpoint, :clone, container)}
+              patch={~p"/containers/clone/#{container}"}
               class="text-primary-600 link"
               aria-label={
                 dgettext("actions", "Clone %{container_name}", container_name: container.name)
@@ -173,26 +173,26 @@
 
 <%= case @live_action do %>
   <% modifying when modifying in [:new, :edit, :clone] -> %>
-    <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/containers"}>
       <.live_component
         module={CanneryWeb.ContainerLive.FormComponent}
         id={@container.id || :new}
         title={@page_title}
         action={@live_action}
         container={@container}
-        return_to={Routes.container_index_path(Endpoint, :index)}
+        return_to={~p"/containers"}
         current_user={@current_user}
       />
     </.modal>
   <% :edit_tags -> %>
-    <.modal return_to={Routes.container_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/containers"}>
       <.live_component
         module={CanneryWeb.ContainerLive.EditTagsComponent}
         id={@container.id}
         title={@page_title}
         action={@live_action}
         container={@container}
-        current_path={Routes.container_index_path(Endpoint, :edit_tags, @container)}
+        current_path={~p"/containers/edit_tags/#{@container}"}
         current_user={@current_user}
       />
     </.modal>

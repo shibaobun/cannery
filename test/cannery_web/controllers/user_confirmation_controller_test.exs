@@ -14,7 +14,7 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
 
   describe "GET /users/confirm" do
     test "renders the confirmation page", %{conn: conn} do
-      conn = get(conn, Routes.user_confirmation_path(conn, :new))
+      conn = get(conn, ~p"/users/confirm")
       response = html_response(conn, 200)
       assert response =~ "Resend confirmation instructions"
     end
@@ -23,12 +23,10 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
   describe "POST /users/confirm" do
     @tag :capture_log
     test "sends a new confirmation token", %{conn: conn, user: user} do
-      conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{user: %{email: user.email}})
+      conn = post(conn, ~p"/users/confirm", %{user: %{email: user.email}})
+      assert redirected_to(conn) == ~p"/"
 
-      assert redirected_to(conn) == "/"
-
-      assert get_flash(conn, :info) =~
+      assert conn.assigns.flash["info"] =~
                "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "confirm"
@@ -37,24 +35,18 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
     test "does not send confirmation token if User is confirmed", %{conn: conn, user: user} do
       Repo.update!(Accounts.User.confirm_changeset(user))
 
-      conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{user: %{email: user.email}})
+      conn = post(conn, ~p"/users/confirm", %{user: %{email: user.email}})
+      assert redirected_to(conn) == ~p"/"
 
-      assert redirected_to(conn) == "/"
-
-      assert get_flash(conn, :info) =~
+      assert conn.assigns.flash["info"] =~
                "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
     end
 
     test "does not send confirmation token if email is invalid", %{conn: conn} do
-      conn =
-        post(conn, Routes.user_confirmation_path(conn, :create), %{
-          user: %{email: "unknown@example.com"}
-        })
+      conn = post(conn, ~p"/users/confirm", %{user: %{email: "unknown@example.com"}})
+      assert redirected_to(conn) == ~p"/"
 
-      assert redirected_to(conn) == "/"
-
-      assert get_flash(conn, :info) =~
+      assert conn.assigns.flash["info"] =~
                "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
 
       assert Repo.all(Accounts.UserToken) == []
@@ -68,33 +60,33 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
           Accounts.deliver_user_confirmation_instructions(user, url)
         end)
 
-      conn = get(conn, Routes.user_confirmation_path(conn, :confirm, token))
-      assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "#{user.email} confirmed successfully"
+      conn = get(conn, ~p"/users/confirm/#{token}")
+      assert redirected_to(conn) == ~p"/"
+      assert conn.assigns.flash["info"] =~ "#{user.email} confirmed successfully"
       assert Accounts.get_user!(user.id).confirmed_at
       refute get_session(conn, :user_token)
       assert Repo.all(Accounts.UserToken) == []
 
       # When not logged in
-      conn = get(conn, Routes.user_confirmation_path(conn, :confirm, token))
-      assert redirected_to(conn) == "/"
+      conn = get(conn, ~p"/users/confirm/#{token}")
+      assert redirected_to(conn) == ~p"/"
 
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      assert conn.assigns.flash["error"] =~ "User confirmation link is invalid or it has expired"
 
       # When logged in
       conn =
         build_conn()
         |> log_in_user(user)
-        |> get(Routes.user_confirmation_path(conn, :confirm, token))
+        |> get(~p"/users/confirm/#{token}")
 
-      assert redirected_to(conn) == "/"
-      refute get_flash(conn, :error)
+      assert redirected_to(conn) == ~p"/"
+      refute conn.assigns.flash["error"]
     end
 
     test "does not confirm email with invalid token", %{conn: conn, user: user} do
-      conn = get(conn, Routes.user_confirmation_path(conn, :confirm, "oops"))
-      assert redirected_to(conn) == "/"
-      assert get_flash(conn, :error) =~ "User confirmation link is invalid or it has expired"
+      conn = get(conn, ~p"/users/confirm/oops")
+      assert redirected_to(conn) == ~p"/"
+      assert conn.assigns.flash["error"] =~ "User confirmation link is invalid or it has expired"
       refute Accounts.get_user!(user.id).confirmed_at
     end
   end

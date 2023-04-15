@@ -5,7 +5,6 @@ defmodule CanneryWeb.HomeLive do
 
   use CanneryWeb, :live_view
   alias Cannery.Accounts
-  alias CanneryWeb.Endpoint
 
   @version Mix.Project.config()[:version]
 

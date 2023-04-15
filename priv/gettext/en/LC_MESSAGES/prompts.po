@@ -20,13 +20,13 @@ msgstr ""
 
 #: lib/cannery_web/live/tag_live/index.ex:65
 #: lib/cannery_web/live/type_live/index.ex:72
-#: lib/cannery_web/live/type_live/show.ex:27
+#: lib/cannery_web/live/type_live/show.ex:26
 #, elixir-autogen, elixir-format
 msgid "%{name} deleted succesfully"
 msgstr ""
 
 #: lib/cannery_web/live/container_live/index.ex:79
-#: lib/cannery_web/live/container_live/show.ex:61
+#: lib/cannery_web/live/container_live/show.ex:60
 #, elixir-autogen, elixir-format
 msgid "%{name} has been deleted"
 msgstr ""
@@ -58,18 +58,18 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:187
-#: lib/cannery_web/live/pack_live/show.html.heex:72
+#: lib/cannery_web/live/pack_live/index.html.heex:181
+#: lib/cannery_web/live/pack_live/show.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:157
+#: lib/cannery_web/controllers/user_settings_html/edit.html.heex:153
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete your account?"
 msgstr ""
 
-#: lib/cannery_web/components/core_components/topbar.html.heex:89
+#: lib/cannery_web/components/core_components/topbar.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to log out?"
 msgstr ""
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Logged out successfully."
 msgstr ""
 
-#: lib/cannery_web/controllers/user_reset_password_controller.ex:46
+#: lib/cannery_web/controllers/user_reset_password_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "Password reset successfully."
 msgstr ""
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Password updated successfully."
 msgstr ""
 
-#: lib/cannery_web/controllers/user_registration_controller.ex:66
+#: lib/cannery_web/controllers/user_registration_controller.ex:65
 #, elixir-autogen, elixir-format
 msgid "Please check your email to verify your account"
 msgstr ""
@@ -135,7 +135,7 @@ msgstr ""
 msgid "%{name} added successfully"
 msgstr ""
 
-#: lib/cannery_web/live/container_live/show.ex:38
+#: lib/cannery_web/live/container_live/show.ex:37
 #, elixir-autogen, elixir-format
 msgid "%{tag_name} has been removed from %{container_name}"
 msgstr ""
@@ -155,14 +155,14 @@ msgstr ""
 msgid "Are you sure you want to unstage this ammo?"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.ex:158
-#: lib/cannery_web/live/range_live/index.html.heex:152
+#: lib/cannery_web/live/pack_live/show.ex:157
+#: lib/cannery_web/live/range_live/index.html.heex:149
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/show.ex:80
-#: lib/cannery_web/live/range_live/index.ex:79
+#: lib/cannery_web/live/pack_live/show.ex:79
+#: lib/cannery_web/live/range_live/index.ex:78
 #, elixir-autogen, elixir-format
 msgid "Shot records deleted succesfully"
 msgstr ""
@@ -172,12 +172,12 @@ msgstr ""
 msgid "Shot records updated successfully"
 msgstr ""
 
-#: lib/cannery_web/controllers/user_confirmation_controller.ex:38
+#: lib/cannery_web/controllers/user_confirmation_controller.ex:37
 #, elixir-autogen, elixir-format
 msgid "%{email} confirmed successfully."
 msgstr ""
 
-#: lib/cannery_web/components/move_pack_component.ex:52
+#: lib/cannery_web/components/move_pack_component.ex:51
 #, elixir-autogen, elixir-format
 msgid "Ammo moved to %{name} successfully"
 msgstr ""
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Creating..."
 msgstr ""
 
-#: lib/cannery_web/templates/user_settings/edit.html.heex:138
+#: lib/cannery_web/controllers/user_settings_html/edit.html.heex:138
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to change your language?"
 msgstr ""
@@ -214,12 +214,12 @@ msgid "Language updated successfully."
 msgstr ""
 
 #: lib/cannery_web/live/pack_live/index.ex:94
-#: lib/cannery_web/live/pack_live/show.ex:55
+#: lib/cannery_web/live/pack_live/show.ex:54
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo deleted succesfully"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:92
+#: lib/cannery_web/live/range_live/index.ex:91
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Ammo unstaged succesfully"
 msgstr ""

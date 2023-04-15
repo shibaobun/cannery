@@ -29,7 +29,7 @@ defmodule CanneryWeb.ConnCase do
       import Cannery.{DataCase, Fixtures}
       import CanneryWeb.ConnCase
 
-      alias CanneryWeb.Router.Helpers, as: Routes
+      use CanneryWeb, :verified_routes
 
       # The default endpoint for testing
       @endpoint CanneryWeb.Endpoint

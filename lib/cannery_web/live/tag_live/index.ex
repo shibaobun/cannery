@@ -5,7 +5,7 @@ defmodule CanneryWeb.TagLive.Index do
 
   use CanneryWeb, :live_view
   alias Cannery.{Containers, Containers.Tag}
-  alias CanneryWeb.ViewHelpers
+  alias CanneryWeb.HTMLHelpers
 
   @impl true
   def mount(%{"search" => search}, _session, socket) do
@@ -33,7 +33,7 @@ defmodule CanneryWeb.TagLive.Index do
     socket
     |> assign(
       page_title: gettext("New Tag"),
-      tag: %Tag{bg_color: ViewHelpers.random_color(), text_color: "#ffffff"}
+      tag: %Tag{bg_color: HTMLHelpers.random_color(), text_color: "#ffffff"}
     )
   end
 
@@ -67,11 +67,11 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.tag_index_path(Endpoint, :index))}
+    {:noreply, socket |> push_patch(to: ~p"/tags")}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.tag_index_path(Endpoint, :search, search_term))}
+    {:noreply, socket |> push_patch(to: ~p"/tags/search/#{search_term}")}
   end
 
   defp display_tags(%{assigns: %{search: search, current_user: current_user}} = socket) do

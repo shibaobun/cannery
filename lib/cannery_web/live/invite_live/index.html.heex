@@ -9,11 +9,11 @@
       <%= display_emoji("😔") %>
     </h1>
 
-    <.link patch={Routes.invite_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/invites/new"} class="btn btn-primary">
       <%= dgettext("actions", "Invite someone new!") %>
     </.link>
   <% else %>
-    <.link patch={Routes.invite_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/invites/new"} class="btn btn-primary">
       <%= dgettext("actions", "Create Invite") %>
     </.link>
   <% end %>
@@ -40,7 +40,7 @@
         </form>
       </:code_actions>
       <.link
-        patch={Routes.invite_index_path(Endpoint, :edit, invite)}
+        patch={~p"/invites/#{invite}/edit"}
         class="text-primary-600 link"
         aria-label={
           dgettext("actions", "Edit invite for %{invite_name}", invite_name: invite.name)
@@ -149,14 +149,14 @@
   <% end %>
 </div>
 
-<.modal :if={@live_action in [:new, :edit]} return_to={Routes.invite_index_path(Endpoint, :index)}>
+<.modal :if={@live_action in [:new, :edit]} return_to={~p"/invites"}>
   <.live_component
     module={CanneryWeb.InviteLive.FormComponent}
     id={@invite.id || :new}
     title={@page_title}
     action={@live_action}
     invite={@invite}
-    return_to={Routes.invite_index_path(Endpoint, :index)}
+    return_to={~p"/invites"}
     current_user={@current_user}
   />
 </.modal>

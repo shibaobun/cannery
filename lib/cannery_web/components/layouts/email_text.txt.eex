@@ -1,0 +1,11 @@
+<%= @email.subject %>
+
+====================
+
+<%= @inner_content %>
+
+=====================
+
+<%= dgettext("emails",
+  "This email was sent from Cannery at %{url}, the self-hosted firearm tracker website.",
+  url: ~p"/") %>

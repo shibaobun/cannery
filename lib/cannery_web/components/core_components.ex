@@ -3,11 +3,11 @@ defmodule CanneryWeb.CoreComponents do
   Provides core UI components.
   """
   use Phoenix.Component
-  import CanneryWeb.{Gettext, ViewHelpers}
+  use CanneryWeb, :verified_routes
+  import CanneryWeb.{Gettext, HTMLHelpers}
   alias Cannery.{Accounts, Accounts.Invite, Accounts.User}
   alias Cannery.{Ammo, Ammo.Pack}
   alias Cannery.{Containers.Container, Containers.Tag}
-  alias CanneryWeb.{Endpoint, HomeLive}
   alias CanneryWeb.Router.Helpers, as: Routes
   alias Phoenix.LiveView.{JS, Rendered}
 
@@ -29,13 +29,13 @@ defmodule CanneryWeb.CoreComponents do
 
   ## Examples
 
-      <.modal return_to={Routes.<%= schema.singular %>_index_path(Endpoint, :index)}>
+      <.modal return_to={~p"/\#{<%= schema.plural %>}"}>
         <.live_component
           module={<%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Live.FormComponent}
           id={@<%= schema.singular %>.id || :new}
           title={@page_title}
           action={@live_action}
-          return_to={Routes.<%= schema.singular %>_index_path(Endpoint, :index)}
+          return_to={~p"/\#{<%= schema.singular %>}"}
           <%= schema.singular %>: @<%= schema.singular %>
         />
       </.modal>

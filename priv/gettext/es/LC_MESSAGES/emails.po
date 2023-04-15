@@ -14,44 +14,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.14.2\n"
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:3
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:2
-#: lib/cannery_web/templates/email/reset_password.html.heex:3
-#: lib/cannery_web/templates/email/reset_password.txt.eex:2
-#: lib/cannery_web/templates/email/update_email.html.heex:3
-#: lib/cannery_web/templates/email/update_email.txt.eex:2
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:3
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:2
+#: lib/cannery_web/components/email_html/reset_password.html.heex:3
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:2
+#: lib/cannery_web/components/email_html/update_email.html.heex:3
+#: lib/cannery_web/components/email_html/update_email.txt.eex:2
 #, elixir-autogen, elixir-format
 msgid "Hi %{email},"
 msgstr "Hola %{email},"
 
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:10
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:10
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{url}, please ignore this."
 msgstr "Si no creó un usuario en %{url}, por favor, ignore este mensaje."
 
-#: lib/cannery_web/templates/email/reset_password.txt.eex:8
-#: lib/cannery_web/templates/email/update_email.txt.eex:8
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:8
+#: lib/cannery_web/components/email_html/update_email.txt.eex:8
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{url}, please ignore this."
 msgstr "Si no pidió este cambio desde %{url}, por favor, ignore este mensaje."
 
-#: lib/cannery_web/templates/email/update_email.html.heex:8
-#: lib/cannery_web/templates/email/update_email.txt.eex:4
+#: lib/cannery_web/components/email_html/update_email.html.heex:8
+#: lib/cannery_web/components/email_html/update_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can change your email by visiting the URL below:"
 msgstr ""
 "Puede cambiar su correo electrónico visitando el enlace que se muestra a "
 "continuación:"
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:14
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:6
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:14
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:6
 #, elixir-autogen, elixir-format
 msgid "You can confirm your account by visiting the URL below:"
 msgstr ""
 "Puede confirmar su cuenta visitando el enlace que se muestra a continuación:"
 
-#: lib/cannery_web/templates/email/reset_password.html.heex:8
-#: lib/cannery_web/templates/email/reset_password.txt.eex:4
+#: lib/cannery_web/components/email_html/reset_password.html.heex:8
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can reset your password by visiting the URL below:"
 msgstr ""
@@ -67,50 +67,50 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery/accounts/email.ex:30
+#: lib/cannery/accounts/email.ex:31
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Confirm your Cannery account"
 msgstr "Confirma el %{name} de la cuenta"
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:22
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:22
 #, elixir-autogen, elixir-format, fuzzy
 msgid "If you didn't create an account at Cannery, please ignore this."
 msgstr "Si no ha creado una cuenta en %{name}, por favor, ignore este mensaje."
 
-#: lib/cannery_web/templates/email/reset_password.html.heex:16
-#: lib/cannery_web/templates/email/update_email.html.heex:16
+#: lib/cannery_web/components/email_html/reset_password.html.heex:16
+#: lib/cannery_web/components/email_html/update_email.html.heex:16
 #, elixir-autogen, elixir-format, fuzzy
 msgid "If you didn't request this change from Cannery, please ignore this."
 msgstr ""
 "Si no ha solicitado este cambio desde %{name}, por favor, ignore este "
 "mensaje."
 
-#: lib/cannery/accounts/email.ex:37
+#: lib/cannery/accounts/email.ex:38
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Reset your Cannery password"
 msgstr "Reseteé su contraseña en %{name}"
 
-#: lib/cannery_web/templates/layout/email.txt.eex:9
+#: lib/cannery_web/components/layouts/email_text.txt.eex:9
 #, elixir-autogen, elixir-format, fuzzy
 msgid "This email was sent from Cannery at %{url}, the self-hosted firearm tracker website."
 msgstr ""
 "Este correo se mandó por %{name} desde %{url}, la página de seguimiento de "
 "armas autogestionada."
 
-#: lib/cannery_web/templates/layout/email.html.heex:13
+#: lib/cannery_web/components/layouts/email_html.html.heex:13
 #, elixir-autogen, elixir-format, fuzzy
 msgid "This email was sent from Cannery, the self-hosted firearm tracker website."
 msgstr ""
 "Este correo se mandó por %{name}, la página de seguimiento de armas "
 "autogestionada."
 
-#: lib/cannery/accounts/email.ex:44
+#: lib/cannery/accounts/email.ex:45
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Update your Cannery email"
 msgstr "Actualice su correo en &{url}"
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:9
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:4
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:9
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:4
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Welcome to Cannery"
 msgstr "¡Bienvenide a %{name}!"

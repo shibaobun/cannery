@@ -5,7 +5,6 @@ defmodule CanneryWeb.Components.MovePackComponent do
 
   use CanneryWeb, :live_component
   alias Cannery.{Accounts.User, Ammo, Ammo.Pack, Containers, Containers.Container}
-  alias CanneryWeb.Endpoint
   alias Ecto.Changeset
   alias Phoenix.LiveView.Socket
 
@@ -84,7 +83,7 @@ defmodule CanneryWeb.Components.MovePackComponent do
           <%= display_emoji("😔") %>
         </h2>
 
-        <.link navigate={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+        <.link navigate={~p"/containers/new"} class="btn btn-primary">
           <%= dgettext("actions", "Add another container!") %>
         </.link>
       <% else %>

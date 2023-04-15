@@ -1,6 +1,6 @@
 <div class="mx-auto px-8 sm:px-16 flex flex-col justify-center items-center text-center space-y-4 max-w-3xl">
   <img
-    src={Routes.static_path(Endpoint, "/images/cannery.svg")}
+    src={~p"/images/cannery.svg"}
     alt={gettext("Cannery logo")}
     class="inline-block w-32 hover:-mt-2 hover:mb-2 transition-all duration-500 ease-in-out"
     title={gettext("isn't he cute >:3")}
@@ -59,7 +59,7 @@
       </b>
       <p>
         <%= if @admins |> Enum.empty?() do %>
-          <.link href={Routes.user_registration_path(Endpoint, :new)} class="hover:underline">
+          <.link href={~p"/users/register"} class="hover:underline">
             <%= dgettext("prompts", "Register to setup Cannery") %>
           </.link>
         <% else %>

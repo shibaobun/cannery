@@ -10,83 +10,83 @@
 msgid ""
 msgstr ""
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:3
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:2
-#: lib/cannery_web/templates/email/reset_password.html.heex:3
-#: lib/cannery_web/templates/email/reset_password.txt.eex:2
-#: lib/cannery_web/templates/email/update_email.html.heex:3
-#: lib/cannery_web/templates/email/update_email.txt.eex:2
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:3
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:2
+#: lib/cannery_web/components/email_html/reset_password.html.heex:3
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:2
+#: lib/cannery_web/components/email_html/update_email.html.heex:3
+#: lib/cannery_web/components/email_html/update_email.txt.eex:2
 #, elixir-autogen, elixir-format
 msgid "Hi %{email},"
 msgstr ""
 
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:10
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:10
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at %{url}, please ignore this."
 msgstr ""
 
-#: lib/cannery_web/templates/email/reset_password.txt.eex:8
-#: lib/cannery_web/templates/email/update_email.txt.eex:8
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:8
+#: lib/cannery_web/components/email_html/update_email.txt.eex:8
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from %{url}, please ignore this."
 msgstr ""
 
-#: lib/cannery_web/templates/email/update_email.html.heex:8
-#: lib/cannery_web/templates/email/update_email.txt.eex:4
+#: lib/cannery_web/components/email_html/update_email.html.heex:8
+#: lib/cannery_web/components/email_html/update_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can change your email by visiting the URL below:"
 msgstr ""
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:14
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:6
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:14
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:6
 #, elixir-autogen, elixir-format
 msgid "You can confirm your account by visiting the URL below:"
 msgstr ""
 
-#: lib/cannery_web/templates/email/reset_password.html.heex:8
-#: lib/cannery_web/templates/email/reset_password.txt.eex:4
+#: lib/cannery_web/components/email_html/reset_password.html.heex:8
+#: lib/cannery_web/components/email_html/reset_password.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "You can reset your password by visiting the URL below:"
 msgstr ""
 
-#: lib/cannery/accounts/email.ex:30
+#: lib/cannery/accounts/email.ex:31
 #, elixir-autogen, elixir-format
 msgid "Confirm your Cannery account"
 msgstr ""
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:22
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "If you didn't create an account at Cannery, please ignore this."
 msgstr ""
 
-#: lib/cannery_web/templates/email/reset_password.html.heex:16
-#: lib/cannery_web/templates/email/update_email.html.heex:16
+#: lib/cannery_web/components/email_html/reset_password.html.heex:16
+#: lib/cannery_web/components/email_html/update_email.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "If you didn't request this change from Cannery, please ignore this."
 msgstr ""
 
-#: lib/cannery/accounts/email.ex:37
+#: lib/cannery/accounts/email.ex:38
 #, elixir-autogen, elixir-format
 msgid "Reset your Cannery password"
 msgstr ""
 
-#: lib/cannery_web/templates/layout/email.txt.eex:9
+#: lib/cannery_web/components/layouts/email_text.txt.eex:9
 #, elixir-autogen, elixir-format
 msgid "This email was sent from Cannery at %{url}, the self-hosted firearm tracker website."
 msgstr ""
 
-#: lib/cannery_web/templates/layout/email.html.heex:13
+#: lib/cannery_web/components/layouts/email_html.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "This email was sent from Cannery, the self-hosted firearm tracker website."
 msgstr ""
 
-#: lib/cannery/accounts/email.ex:44
+#: lib/cannery/accounts/email.ex:45
 #, elixir-autogen, elixir-format
 msgid "Update your Cannery email"
 msgstr ""
 
-#: lib/cannery_web/templates/email/confirm_email.html.heex:9
-#: lib/cannery_web/templates/email/confirm_email.txt.eex:4
+#: lib/cannery_web/components/email_html/confirm_email.html.heex:9
+#: lib/cannery_web/components/email_html/confirm_email.txt.eex:4
 #, elixir-autogen, elixir-format
 msgid "Welcome to Cannery"
 msgstr ""

@@ -10,7 +10,7 @@
           <%= dgettext("prompts", "You'll need to") %>
         </h2>
 
-        <.link navigate={Routes.container_index_path(Endpoint, :new)} class="btn btn-primary">
+        <.link navigate={~p"/containers/new"} class="btn btn-primary">
           <%= dgettext("actions", "add a container first") %>
         </.link>
       </div>
@@ -20,7 +20,7 @@
           <%= dgettext("prompts", "You'll need to") %>
         </h2>
 
-        <.link navigate={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
+        <.link navigate={~p"/catalog/new"} class="btn btn-primary">
           <%= dgettext("actions", "add a type first") %>
         </.link>
       </div>
@@ -30,11 +30,11 @@
         <%= display_emoji("😔") %>
       </h2>
 
-      <.link patch={Routes.pack_index_path(Endpoint, :new)} class="btn btn-primary">
+      <.link patch={~p"/ammo/new"} class="btn btn-primary">
         <%= dgettext("actions", "Add your first box!") %>
       </.link>
     <% true -> %>
-      <.link patch={Routes.pack_index_path(Endpoint, :new)} class="btn btn-primary">
+      <.link patch={~p"/ammo/new"} class="btn btn-primary">
         <%= dgettext("actions", "Add Ammo") %>
       </.link>
 
@@ -103,7 +103,7 @@
           show_used={@show_used}
         >
           <:type :let={%{name: type_name} = type}>
-            <.link navigate={Routes.type_show_path(Endpoint, :show, type)} class="link">
+            <.link navigate={~p"/type/#{type}"} class="link">
               <%= type_name %>
             </.link>
           </:type>
@@ -121,7 +121,7 @@
               </button>
 
               <.link
-                patch={Routes.pack_index_path(Endpoint, :add_shot_record, pack)}
+                patch={~p"/ammo/add_shot_record/#{pack}"}
                 class="mx-2 my-1 text-sm btn btn-primary"
               >
                 <%= dgettext("actions", "Record shots") %>
@@ -130,17 +130,11 @@
           </:range>
           <:container :let={{pack, %{name: container_name} = container}}>
             <div class="min-w-20 py-2 px-4 h-full flex flew-wrap justify-center items-center">
-              <.link
-                navigate={Routes.container_show_path(Endpoint, :show, container)}
-                class="mx-2 my-1 link"
-              >
+              <.link navigate={~p"/container/#{container}"} class="mx-2 my-1 link">
                 <%= container_name %>
               </.link>
 
-              <.link
-                patch={Routes.pack_index_path(Endpoint, :move, pack)}
-                class="mx-2 my-1 text-sm btn btn-primary"
-              >
+              <.link patch={~p"/ammo/move/#{pack}"} class="mx-2 my-1 text-sm btn btn-primary">
                 <%= dgettext("actions", "Move ammo") %>
               </.link>
             </div>
@@ -148,7 +142,7 @@
           <:actions :let={%{count: pack_count} = pack}>
             <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
               <.link
-                navigate={Routes.pack_show_path(Endpoint, :show, pack)}
+                navigate={~p"/ammo/show/#{pack}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "View pack of %{pack_count} bullets", pack_count: pack_count)
@@ -158,7 +152,7 @@
               </.link>
 
               <.link
-                patch={Routes.pack_index_path(Endpoint, :edit, pack)}
+                patch={~p"/ammo/edit/#{pack}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "Edit pack of %{pack_count} bullets", pack_count: pack_count)
@@ -168,7 +162,7 @@
               </.link>
 
               <.link
-                patch={Routes.pack_index_path(Endpoint, :clone, pack)}
+                patch={~p"/ammo/clone/#{pack}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "Clone pack of %{pack_count} bullets",
@@ -202,38 +196,38 @@
 
 <%= case @live_action do %>
   <% create when create in [:new, :edit, :clone] -> %>
-    <.modal return_to={Routes.pack_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/ammo"}>
       <.live_component
         module={CanneryWeb.PackLive.FormComponent}
         id={@pack.id || :new}
         title={@page_title}
         action={@live_action}
         pack={@pack}
-        return_to={Routes.pack_index_path(Endpoint, :index)}
+        return_to={~p"/ammo"}
         current_user={@current_user}
       />
     </.modal>
   <% :add_shot_record -> %>
-    <.modal return_to={Routes.pack_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/ammo"}>
       <.live_component
         module={CanneryWeb.Components.AddShotRecordComponent}
         id={:new}
         title={@page_title}
         action={@live_action}
         pack={@pack}
-        return_to={Routes.pack_index_path(Endpoint, :index)}
+        return_to={~p"/ammo"}
         current_user={@current_user}
       />
     </.modal>
   <% :move -> %>
-    <.modal return_to={Routes.pack_index_path(Endpoint, :index)}>
+    <.modal return_to={~p"/ammo"}>
       <.live_component
         module={CanneryWeb.Components.MovePackComponent}
         id={@pack.id}
         title={@page_title}
         action={@live_action}
         pack={@pack}
-        return_to={Routes.pack_index_path(Endpoint, :index)}
+        return_to={~p"/ammo"}
         current_user={@current_user}
       />
     </.modal>

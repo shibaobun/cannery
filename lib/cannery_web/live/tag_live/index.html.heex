@@ -11,11 +11,11 @@
       <%= display_emoji("😔") %>
     </h2>
 
-    <.link patch={Routes.tag_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/tags/new"} class="btn btn-primary">
       <%= dgettext("actions", "Make your first tag!") %>
     </.link>
   <% else %>
-    <.link patch={Routes.tag_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/tags/new"} class="btn btn-primary">
       <%= dgettext("actions", "New Tag") %>
     </.link>
 
@@ -47,7 +47,7 @@
       <div class="flex flex-row flex-wrap justify-center items-stretch">
         <.tag_card :for={tag <- @tags} tag={tag}>
           <.link
-            patch={Routes.tag_index_path(Endpoint, :edit, tag)}
+            patch={~p"/tags/edit/#{tag}"}
             class="text-primary-600 link"
             aria-label={dgettext("actions", "Edit %{tag_name}", tag_name: tag.name)}
           >
@@ -72,14 +72,14 @@
   <% end %>
 </div>
 
-<.modal :if={@live_action in [:new, :edit]} return_to={Routes.tag_index_path(Endpoint, :index)}>
+<.modal :if={@live_action in [:new, :edit]} return_to={~p"/tags"}>
   <.live_component
     module={CanneryWeb.TagLive.FormComponent}
     id={@tag.id || :new}
     title={@page_title}
     action={@live_action}
     tag={@tag}
-    return_to={Routes.tag_index_path(Endpoint, :index)}
+    return_to={~p"/tags"}
     current_user={@current_user}
   />
 </.modal>

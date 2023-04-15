@@ -105,12 +105,11 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.container_index_path(Endpoint, :index))}
+    {:noreply, socket |> push_patch(to: ~p"/containers")}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    {:noreply,
-     socket |> push_patch(to: Routes.container_index_path(Endpoint, :search, search_term))}
+    {:noreply, socket |> push_patch(to: ~p"/containers/search/#{search_term}")}
   end
 
   defp display_containers(%{assigns: %{search: search, current_user: current_user}} = socket) do

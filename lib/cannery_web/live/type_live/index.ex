@@ -78,12 +78,11 @@ defmodule CanneryWeb.TypeLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.type_index_path(Endpoint, :index))}
+    {:noreply, socket |> push_patch(to: ~p"/catalog")}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    search_path = Routes.type_index_path(Endpoint, :search, search_term)
-    {:noreply, socket |> push_patch(to: search_path)}
+    {:noreply, socket |> push_patch(to: ~p"/catalog/search/#{search_term}")}
   end
 
   def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do

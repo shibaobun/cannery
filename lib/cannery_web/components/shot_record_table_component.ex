@@ -98,7 +98,7 @@ defmodule CanneryWeb.Components.ShotRecordTableComponent do
 
     {pack.type.name,
      ~H"""
-     <.link navigate={Routes.pack_show_path(Endpoint, :show, @pack)} class="link">
+     <.link navigate={~p"/ammo/show/#{@pack}"} class="link">
        <%= @pack.type.name %>
      </.link>
      """}

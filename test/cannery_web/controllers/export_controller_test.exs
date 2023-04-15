@@ -40,7 +40,7 @@ defmodule CanneryWeb.ExportControllerTest do
       shot_record: shot_record,
       tag: tag
     } do
-      conn = get(conn, Routes.export_path(conn, :export, :json))
+      conn = get(conn, ~p"/export/json")
 
       ideal_pack = %{
         "type_id" => pack.type_id,

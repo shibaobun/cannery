@@ -9,11 +9,11 @@
       <%= display_emoji("😔") %>
     </h2>
 
-    <.link patch={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/catalog/new"} class="btn btn-primary">
       <%= dgettext("actions", "Add your first type!") %>
     </.link>
   <% else %>
-    <.link patch={Routes.type_index_path(Endpoint, :new)} class="btn btn-primary">
+    <.link patch={~p"/catalog/new"} class="btn btn-primary">
       <%= dgettext("actions", "New Type") %>
     </.link>
 
@@ -84,7 +84,7 @@
         <:actions :let={type}>
           <div class="px-4 py-2 space-x-4 flex justify-center items-center">
             <.link
-              navigate={Routes.type_show_path(Endpoint, :show, type)}
+              navigate={~p"/type/#{type}"}
               class="text-primary-600 link"
               aria-label={dgettext("actions", "View %{type_name}", type_name: type.name)}
             >
@@ -92,7 +92,7 @@
             </.link>
 
             <.link
-              patch={Routes.type_index_path(Endpoint, :edit, type)}
+              patch={~p"/catalog/edit/#{type}"}
               class="text-primary-600 link"
               aria-label={dgettext("actions", "Edit %{type_name}", type_name: type.name)}
             >
@@ -100,7 +100,7 @@
             </.link>
 
             <.link
-              patch={Routes.type_index_path(Endpoint, :clone, type)}
+              patch={~p"/catalog/clone/#{type}"}
               class="text-primary-600 link"
               aria-label={dgettext("actions", "Clone %{type_name}", type_name: type.name)}
             >
@@ -130,17 +130,14 @@
   <% end %>
 </div>
 
-<.modal
-  :if={@live_action in [:new, :edit, :clone]}
-  return_to={Routes.type_index_path(Endpoint, :index)}
->
+<.modal :if={@live_action in [:new, :edit, :clone]} return_to={~p"/catalog"}>
   <.live_component
     module={CanneryWeb.TypeLive.FormComponent}
     id={@type.id || :new}
     title={@page_title}
     action={@live_action}
     type={@type}
-    return_to={Routes.type_index_path(Endpoint, :index)}
+    return_to={~p"/catalog"}
     current_user={@current_user}
     }
   />

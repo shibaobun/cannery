@@ -5,7 +5,7 @@ defmodule CanneryWeb.UserSessionController do
   alias CanneryWeb.UserAuth
 
   def new(conn, _params) do
-    render(conn, "new.html", error_message: nil, page_title: gettext("Log in"))
+    render(conn, :new, error_message: nil, page_title: gettext("Log in"))
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -14,7 +14,7 @@ defmodule CanneryWeb.UserSessionController do
     if user = Accounts.get_user_by_email_and_password(email, password) do
       UserAuth.log_in_user(conn, user, user_params)
     else
-      render(conn, "new.html", error_message: dgettext("errors", "Invalid email or password"))
+      render(conn, :new, error_message: dgettext("errors", "Invalid email or password"))
     end
   end
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" class="m-0 p-0 w-full h-full bg-white">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= csrf_meta_tag() %>
+    <link rel="shortcut icon" type="image/jpg" href={~p"/images/cannery.svg"} />
+    <.live_title suffix={" | #{gettext("Cannery")}"}>
+      <%= assigns[:page_title] || gettext("Cannery") %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/css/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/js/app.js"}>
+    </script>
+  </head>
+
+  <body class="m-0 p-0 w-full h-full subpixel-antialiased">
+    <%= @inner_content %>
+  </body>
+</html>

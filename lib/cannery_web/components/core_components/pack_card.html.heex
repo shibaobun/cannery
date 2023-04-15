@@ -5,7 +5,7 @@
     border border-gray-400 rounded-lg shadow-lg hover:shadow-md
     transition-all duration-300 ease-in-out"
 >
-  <.link navigate={Routes.pack_show_path(Endpoint, :show, @pack)} class="mb-2 link">
+  <.link navigate={~p"/ammo/show/#{@pack}"} class="mb-2 link">
     <h1 class="title text-xl title-primary-500">
       <%= @pack.type.name %>
     </h1>
@@ -55,7 +55,7 @@
     <span :if={@container} class="rounded-lg title text-lg">
       <%= gettext("Container:") %>
 
-      <.link navigate={Routes.container_show_path(Endpoint, :show, @container)} class="link">
+      <.link navigate={~p"/container/#{@container}"} class="link">
         <%= @container.name %>
       </.link>
     </span>

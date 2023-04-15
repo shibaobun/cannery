@@ -113,13 +113,11 @@ defmodule CanneryWeb.PackLive.Index do
   end
 
   def handle_event("search", %{"search" => %{"search_term" => ""}}, socket) do
-    {:noreply, socket |> push_patch(to: Routes.pack_index_path(Endpoint, :index))}
+    {:noreply, socket |> push_patch(to: ~p"/ammo")}
   end
 
   def handle_event("search", %{"search" => %{"search_term" => search_term}}, socket) do
-    socket = socket |> push_patch(to: Routes.pack_index_path(Endpoint, :search, search_term))
-
-    {:noreply, socket}
+    {:noreply, socket |> push_patch(to: ~p"/ammo/search/#{search_term}")}
   end
 
   def handle_event("change_class", %{"type" => %{"class" => "rifle"}}, socket) do

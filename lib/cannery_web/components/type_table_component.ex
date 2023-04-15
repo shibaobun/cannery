@@ -261,13 +261,11 @@ defmodule CanneryWeb.Components.TypeTableComponent do
     end
   end
 
-  defp get_type_value(:name, _key, %{name: type_name} = type, _other_data) do
-    assigns = %{type: type}
-
+  defp get_type_value(:name, _key, %{name: type_name} = assigns, _other_data) do
     {type_name,
      ~H"""
-     <.link navigate={Routes.type_show_path(Endpoint, :show, @type)} class="link">
-       <%= @type.name %>
+     <.link navigate={~p"/type/#{@id}"} class="link">
+       <%= @name %>
      </.link>
      """}
   end

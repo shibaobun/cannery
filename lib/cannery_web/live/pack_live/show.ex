@@ -7,7 +7,6 @@ defmodule CanneryWeb.PackLive.Show do
   alias Cannery.{ActivityLog, ActivityLog.ShotRecord}
   alias Cannery.{Ammo, Ammo.Pack}
   alias Cannery.{ComparableDate, Containers}
-  alias CanneryWeb.Endpoint
   alias Phoenix.LiveView.Socket
 
   @impl true
@@ -53,7 +52,7 @@ defmodule CanneryWeb.PackLive.Show do
     pack |> Ammo.delete_pack!(current_user)
 
     prompt = dgettext("prompts", "Ammo deleted succesfully")
-    redirect_to = Routes.pack_index_path(socket, :index)
+    redirect_to = ~p"/ammo"
 
     {:noreply, socket |> put_flash(:info, prompt) |> push_navigate(to: redirect_to)}
   end
@@ -139,7 +138,7 @@ defmodule CanneryWeb.PackLive.Show do
             ~H"""
             <div class="px-4 py-2 space-x-4 flex justify-center items-center">
               <.link
-                patch={Routes.pack_show_path(Endpoint, :edit_shot_record, @pack, @shot_record)}
+                patch={~p"/ammo/show/#{@pack}/edit/#{@shot_record}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "Edit shot record of %{shot_record_count} shots",

@@ -34,7 +34,7 @@ defmodule CanneryWeb.RangeLiveTest do
     setup [:register_and_log_in_user, :create_shot_record]
 
     test "lists all shot_records", %{conn: conn, shot_record: shot_record} do
-      {:ok, _index_live, html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, _index_live, html} = live(conn, ~p"/range")
 
       assert html =~ "Range day"
       assert html =~ shot_record.notes
@@ -57,7 +57,7 @@ defmodule CanneryWeb.RangeLiveTest do
 
       pistol_shot_record = shot_record_fixture(%{notes: "group_three"}, current_user, pistol_pack)
 
-      {:ok, index_live, html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/range")
 
       assert html =~ "All"
 
@@ -103,7 +103,7 @@ defmodule CanneryWeb.RangeLiveTest do
     end
 
     test "can search for shot_record", %{conn: conn, shot_record: shot_record} do
-      {:ok, index_live, html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, index_live, html} = live(conn, ~p"/range")
 
       assert html =~ shot_record.notes
 
@@ -111,26 +111,26 @@ defmodule CanneryWeb.RangeLiveTest do
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: shot_record.notes}) =~ shot_record.notes
 
-      assert_patch(index_live, Routes.range_index_path(conn, :search, shot_record.notes))
+      assert_patch(index_live, ~p"/range/search/#{shot_record.notes}")
 
       refute index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: "something_else"}) =~ shot_record.notes
 
-      assert_patch(index_live, Routes.range_index_path(conn, :search, "something_else"))
+      assert_patch(index_live, ~p"/range/search/something_else")
 
       assert index_live
              |> form(~s/form[phx-change="search"]/)
              |> render_change(search: %{search_term: ""}) =~ shot_record.notes
 
-      assert_patch(index_live, Routes.range_index_path(conn, :index))
+      assert_patch(index_live, ~p"/range")
     end
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
-      {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/range")
 
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
-      assert_patch(index_live, Routes.range_index_path(conn, :add_shot_record, pack))
+      assert_patch(index_live, ~p"/range/add_shot_record/#{pack}")
 
       assert index_live
              |> form("#shot-record-form")
@@ -140,20 +140,20 @@ defmodule CanneryWeb.RangeLiveTest do
         index_live
         |> form("#shot-record-form")
         |> render_submit(shot_record: @create_attrs)
-        |> follow_redirect(conn, Routes.range_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/range")
 
       assert html =~ "Shots recorded successfully"
       assert html =~ "some notes"
     end
 
     test "updates shot_record in listing", %{conn: conn, shot_record: shot_record} do
-      {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/range")
 
       assert index_live
              |> element(~s/a[aria-label="Edit shot record of #{shot_record.count} shots"]/)
              |> render_click() =~ "Edit Shot Record"
 
-      assert_patch(index_live, Routes.range_index_path(conn, :edit, shot_record))
+      assert_patch(index_live, ~p"/range/edit/#{shot_record}")
 
       assert index_live
              |> form("#shot-record-form")
@@ -163,14 +163,14 @@ defmodule CanneryWeb.RangeLiveTest do
         index_live
         |> form("#shot-record-form", shot_record: @update_attrs)
         |> render_submit()
-        |> follow_redirect(conn, Routes.range_index_path(conn, :index))
+        |> follow_redirect(conn, ~p"/range")
 
       assert html =~ "Shot records updated successfully"
       assert html =~ "some updated notes"
     end
 
     test "deletes shot_record in listing", %{conn: conn, shot_record: shot_record} do
-      {:ok, index_live, _html} = live(conn, Routes.range_index_path(conn, :index))
+      {:ok, index_live, _html} = live(conn, ~p"/range")
 
       assert index_live
              |> element(~s/a[aria-label="Delete shot record of #{shot_record.count} shots"]/)

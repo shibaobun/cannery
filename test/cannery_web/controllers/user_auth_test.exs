@@ -24,7 +24,7 @@ defmodule CanneryWeb.UserAuthTest do
       conn = UserAuth.log_in_user(conn, current_user)
       assert token = get_session(conn, :user_token)
       assert get_session(conn, :live_socket_id) == "users_sessions:#{Base.url_encode64(token)}"
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == ~p"/"
       assert Accounts.get_user_by_session_token(token)
     end
 
@@ -65,7 +65,7 @@ defmodule CanneryWeb.UserAuthTest do
       refute get_session(conn, :user_token)
       refute conn.cookies[@remember_me_cookie]
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == ~p"/"
       refute Accounts.get_user_by_session_token(user_token)
     end
 
@@ -87,7 +87,7 @@ defmodule CanneryWeb.UserAuthTest do
       conn = conn |> fetch_cookies() |> UserAuth.log_out_user()
       refute get_session(conn, :user_token)
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == ~p"/"
     end
   end
 
@@ -130,7 +130,7 @@ defmodule CanneryWeb.UserAuthTest do
         |> UserAuth.redirect_if_user_is_authenticated([])
 
       assert conn.halted
-      assert redirected_to(conn) == "/"
+      assert redirected_to(conn) == ~p"/"
     end
 
     test "does not redirect if user is not authenticated", %{conn: conn} do
@@ -144,9 +144,9 @@ defmodule CanneryWeb.UserAuthTest do
     test "redirects if user is not authenticated", %{conn: conn} do
       conn = conn |> fetch_flash() |> UserAuth.require_authenticated_user([])
       assert conn.halted
-      assert redirected_to(conn) == Routes.user_session_path(conn, :new)
+      assert redirected_to(conn) == ~p"/users/log_in"
 
-      assert get_flash(conn, :error) ==
+      assert conn.assigns.flash["error"] ==
                "You must confirm your account and log in to access this page."
     end
 

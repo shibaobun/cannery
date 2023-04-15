@@ -14,7 +14,7 @@
 
   <div class="flex space-x-4 justify-center items-center text-primary-600">
     <.link
-      patch={Routes.type_show_path(Endpoint, :edit, @type)}
+      patch={~p"/type/#{@type}/edit"}
       class="text-primary-600 link"
       aria-label={dgettext("actions", "Edit %{type_name}", type_name: @type.name)}
     >
@@ -188,17 +188,14 @@
           show_used={@show_used}
         >
           <:container :let={{_pack, %{name: container_name} = container}}>
-            <.link
-              navigate={Routes.container_show_path(Endpoint, :show, container)}
-              class="mx-2 my-1 link"
-            >
+            <.link navigate={~p"/container/#{container}"} class="mx-2 my-1 link">
               <%= container_name %>
             </.link>
           </:container>
           <:actions :let={%{count: pack_count} = pack}>
             <div class="py-2 px-4 h-full space-x-4 flex justify-center items-center">
               <.link
-                navigate={Routes.pack_show_path(Endpoint, :show, pack)}
+                navigate={~p"/ammo/show/#{pack}"}
                 class="text-primary-600 link"
                 aria-label={
                   dgettext("actions", "View pack of %{pack_count} bullets", pack_count: pack_count)
@@ -226,14 +223,14 @@
   </div>
 </div>
 
-<.modal :if={@live_action == :edit} return_to={Routes.type_show_path(Endpoint, :show, @type)}>
+<.modal :if={@live_action == :edit} return_to={~p"/type/#{@type}"}>
   <.live_component
     module={CanneryWeb.TypeLive.FormComponent}
     id={@type.id}
     title={@page_title}
     action={@live_action}
     type={@type}
-    return_to={Routes.type_show_path(Endpoint, :show, @type)}
+    return_to={~p"/type/#{@type}"}
     current_user={@current_user}
   />
 </.modal>
