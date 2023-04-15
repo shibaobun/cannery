@@ -3,7 +3,7 @@ defmodule Cannery.AmmoTest do
   Tests the Ammo context
   """
 
-  use Cannery.DataCase
+  use Cannery.DataCase, async: true
   alias Cannery.{Ammo, Ammo.Pack, Ammo.Type, Containers}
   alias Ecto.Changeset
 

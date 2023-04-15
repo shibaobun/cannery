@@ -3,7 +3,7 @@ defmodule Cannery.AccountsTest do
   This tests the accounts module
   """
 
-  use Cannery.DataCase
+  use Cannery.DataCase, async: true
   alias Cannery.Accounts
   alias Cannery.Accounts.{Invites, User, UserToken}
   alias Ecto.Changeset

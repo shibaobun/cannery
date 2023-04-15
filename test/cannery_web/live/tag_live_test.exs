@@ -3,7 +3,7 @@ defmodule CanneryWeb.TagLiveTest do
   Tests the tag liveviews
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
 
   @moduletag :tag_live_test

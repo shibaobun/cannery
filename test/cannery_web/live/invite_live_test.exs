@@ -3,7 +3,7 @@ defmodule CanneryWeb.InviteLiveTest do
   Tests the invite liveview
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   alias Cannery.Accounts.Invites
 

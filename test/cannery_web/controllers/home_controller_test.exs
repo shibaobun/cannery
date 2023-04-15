@@ -3,7 +3,7 @@ defmodule CanneryWeb.HomeControllerTest do
   Tests the home page
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
 
   @moduletag :home_controller_test
 

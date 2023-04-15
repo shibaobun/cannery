@@ -3,7 +3,7 @@ defmodule CanneryWeb.RangeLiveTest do
   This module tests the Range LiveViews
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   import Cannery.Fixtures
 

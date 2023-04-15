@@ -3,7 +3,7 @@ defmodule CanneryWeb.ContainerLiveTest do
   Tests the containers liveviews
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   alias Cannery.Containers
 

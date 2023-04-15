@@ -3,7 +3,7 @@ defmodule Cannery.ActivityLogTest do
   This module tests the ActivityLog context
   """
 
-  use Cannery.DataCase
+  use Cannery.DataCase, async: true
   import Cannery.Fixtures
   alias Cannery.{ActivityLog, ActivityLog.ShotRecord, Ammo}
 

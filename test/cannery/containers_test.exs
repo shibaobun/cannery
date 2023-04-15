@@ -3,7 +3,7 @@ defmodule Cannery.ContainersTest do
   Tests for the Containers context
   """
 
-  use Cannery.DataCase
+  use Cannery.DataCase, async: true
   alias Cannery.{Containers, Containers.Container, Containers.Tag}
   alias Ecto.Changeset
 

@@ -3,7 +3,7 @@ defmodule CanneryWeb.HomeLiveTest do
   Tests the home page
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
 
   @moduletag :home_live_test

@@ -3,7 +3,7 @@ defmodule CanneryWeb.ExportControllerTest do
   Tests the export function
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   alias Cannery.{ActivityLog, Ammo, Containers, Repo}
 
   @moduletag :export_controller_test

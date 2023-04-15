@@ -3,7 +3,7 @@ defmodule CanneryWeb.PackLiveTest do
   Tests pack live pages
   """
 
-  use CanneryWeb.ConnCase
+  use CanneryWeb.ConnCase, async: true
   import Phoenix.LiveViewTest
   alias Cannery.{Ammo, Repo}
 
