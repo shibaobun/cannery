@@ -34,14 +34,12 @@ defmodule CanneryWeb.TagLiveTest do
 
     test "lists all tags", %{conn: conn, tag: tag} do
       {:ok, _index_live, html} = live(conn, ~p"/tags")
-
       assert html =~ "Tags"
       assert html =~ tag.bg_color
     end
 
     test "can search for tag", %{conn: conn, tag: tag} do
       {:ok, index_live, html} = live(conn, ~p"/tags")
-
       assert html =~ tag.name
 
       assert index_live
@@ -65,7 +63,6 @@ defmodule CanneryWeb.TagLiveTest do
 
     test "saves new tag", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/tags")
-
       assert index_live |> element("a", "New Tag") |> render_click() =~ "New Tag"
       assert_patch(index_live, ~p"/tags/new")
 
@@ -107,7 +104,6 @@ defmodule CanneryWeb.TagLiveTest do
 
     test "deletes tag in listing", %{conn: conn, tag: tag} do
       {:ok, index_live, _html} = live(conn, ~p"/tags")
-
       assert index_live |> element(~s/a[aria-label="Delete #{tag.name}"]/) |> render_click()
       refute has_element?(index_live, "#tag-#{tag.id}")
     end

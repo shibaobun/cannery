@@ -72,9 +72,7 @@ defmodule CanneryWeb.PackLiveTest do
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
       {:ok, index_live, html} = live(conn, ~p"/ammo")
-
       assert html =~ "All"
-
       assert html =~ rifle_pack.type.name
       assert html =~ shotgun_pack.type.name
       assert html =~ pistol_pack.type.name
@@ -120,7 +118,6 @@ defmodule CanneryWeb.PackLiveTest do
       {:ok, index_live, html} = live(conn, ~p"/ammo")
 
       pack = pack |> Repo.preload(:type)
-
       assert html =~ pack.type.name
 
       assert index_live
@@ -146,7 +143,6 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "saves a single new pack", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/ammo")
-
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
       assert_patch(index_live, ~p"/ammo/new")
 
@@ -167,7 +163,6 @@ defmodule CanneryWeb.PackLiveTest do
     test "saves multiple new packs", %{conn: conn, current_user: current_user} do
       multiplier = 25
       {:ok, index_live, _html} = live(conn, ~p"/ammo")
-
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
       assert_patch(index_live, ~p"/ammo/new")
 
@@ -187,7 +182,6 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "does not save invalid number of new packs", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/ammo")
-
       assert index_live |> element("a", "Add Ammo") |> render_click() =~ "Add Ammo"
       assert_patch(index_live, ~p"/ammo/new")
 
@@ -239,7 +233,6 @@ defmodule CanneryWeb.PackLiveTest do
 
       assert html =~ "Add Ammo"
       assert html =~ "$#{display_currency(120.5)}"
-
       assert_patch(index_live, ~p"/ammo/clone/#{pack}")
 
       {:ok, _index_live, html} =
@@ -263,7 +256,6 @@ defmodule CanneryWeb.PackLiveTest do
 
       assert html =~ "Add Ammo"
       assert html =~ "$#{display_currency(120.5)}"
-
       assert_patch(index_live, ~p"/ammo/clone/#{pack}")
 
       assert index_live
@@ -310,7 +302,6 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, ~p"/ammo")
-
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
       assert_patch(index_live, ~p"/ammo/add_shot_record/#{pack}")
 
@@ -340,10 +331,8 @@ defmodule CanneryWeb.PackLiveTest do
       current_user: current_user
     } do
       {:ok, show_live, html} = live(conn, ~p"/ammo")
-
       assert html =~ "Show used"
       refute html =~ "$#{display_currency(50.00)}"
-
       percentage = pack |> Ammo.get_percentage_remaining(current_user)
       refute html =~ "\n#{"#{percentage}%"}\n"
 
@@ -393,7 +382,6 @@ defmodule CanneryWeb.PackLiveTest do
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, ~p"/ammo/show/#{pack}")
-
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
       assert_patch(index_live, ~p"/ammo/show/add_shot_record/#{pack}")
 

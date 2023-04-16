@@ -1,3 +1,6 @@
+# v0.9.4
+- Improve tests
+
 # v0.9.3
 - Update dependencies
 - Add pack lot number to search

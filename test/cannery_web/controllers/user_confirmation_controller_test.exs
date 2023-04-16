@@ -70,7 +70,6 @@ defmodule CanneryWeb.UserConfirmationControllerTest do
       # When not logged in
       conn = get(conn, ~p"/users/confirm/#{token}")
       assert redirected_to(conn) == ~p"/"
-
       assert conn.assigns.flash["error"] =~ "User confirmation link is invalid or it has expired"
 
       # When logged in

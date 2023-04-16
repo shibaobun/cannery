@@ -75,9 +75,7 @@ defmodule CanneryWeb.TypeLiveTest do
       pistol_type = type_fixture(%{class: :pistol}, current_user)
 
       {:ok, index_live, html} = live(conn, ~p"/catalog")
-
       assert html =~ "All"
-
       assert html =~ rifle_type.name
       assert html =~ shotgun_type.name
       assert html =~ pistol_type.name
@@ -121,7 +119,6 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "can search for type", %{conn: conn, type: type} do
       {:ok, index_live, html} = live(conn, ~p"/catalog")
-
       assert html =~ type.bullet_type
 
       assert index_live
@@ -146,7 +143,6 @@ defmodule CanneryWeb.TypeLiveTest do
 
     test "saves new type", %{conn: conn, current_user: current_user, type: type} do
       {:ok, index_live, _html} = live(conn, ~p"/catalog")
-
       assert index_live |> element("a", "New Type") |> render_click() =~ "New Type"
       assert_patch(index_live, ~p"/catalog/new")
 
@@ -192,11 +188,9 @@ defmodule CanneryWeb.TypeLiveTest do
     test "clones type in listing",
          %{conn: conn, current_user: current_user, type: type} do
       {:ok, index_live, _html} = live(conn, ~p"/catalog")
-
       html = index_live |> element(~s/a[aria-label="Clone #{type.name}"]/) |> render_click()
       assert html =~ "New Type"
       assert html =~ "some bullet_type"
-
       assert_patch(index_live, ~p"/catalog/clone/#{type}")
 
       assert index_live
@@ -217,11 +211,9 @@ defmodule CanneryWeb.TypeLiveTest do
     test "clones type in listing with updates",
          %{conn: conn, current_user: current_user, type: type} do
       {:ok, index_live, _html} = live(conn, ~p"/catalog")
-
       html = index_live |> element(~s/a[aria-label="Clone #{type.name}"]/) |> render_click()
       assert html =~ "New Type"
       assert html =~ "some bullet_type"
-
       assert_patch(index_live, ~p"/catalog/clone/#{type}")
 
       assert index_live
@@ -254,7 +246,6 @@ defmodule CanneryWeb.TypeLiveTest do
     test "shows used packs on toggle",
          %{conn: conn, pack: pack, current_user: current_user} do
       {:ok, index_live, html} = live(conn, ~p"/catalog")
-
       assert html =~ "Show used"
       refute html =~ "Used rounds"
       refute html =~ "Total ever rounds"
@@ -270,13 +261,11 @@ defmodule CanneryWeb.TypeLiveTest do
       assert html =~ "Total ever rounds"
       assert html =~ "Used packs"
       assert html =~ "Total ever packs"
-
       assert html =~ "\n20\n"
       assert html =~ "\n0\n"
       assert html =~ "\n1\n"
 
       shot_record_fixture(%{count: 5}, current_user, pack)
-
       {:ok, index_live, _html} = live(conn, ~p"/catalog")
 
       html =
@@ -297,7 +286,6 @@ defmodule CanneryWeb.TypeLiveTest do
       type: %{name: name, bullet_type: bullet_type} = type
     } do
       {:ok, _show_live, html} = live(conn, ~p"/type/#{type}")
-
       assert html =~ name
       assert html =~ bullet_type
     end
@@ -336,7 +324,6 @@ defmodule CanneryWeb.TypeLiveTest do
       container: %{name: container_name}
     } do
       {:ok, _show_live, html} = live(conn, ~p"/type/#{type}")
-
       assert html =~ type_name
       assert html =~ "\n20\n"
       assert html =~ container_name

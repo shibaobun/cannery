@@ -35,7 +35,6 @@ defmodule CanneryWeb.RangeLiveTest do
 
     test "lists all shot_records", %{conn: conn, shot_record: shot_record} do
       {:ok, _index_live, html} = live(conn, ~p"/range")
-
       assert html =~ "Range day"
       assert html =~ shot_record.notes
     end
@@ -44,23 +43,18 @@ defmodule CanneryWeb.RangeLiveTest do
          %{conn: conn, container: container, current_user: current_user} do
       rifle_type = type_fixture(%{class: :rifle}, current_user)
       {1, [rifle_pack]} = pack_fixture(rifle_type, container, current_user)
-
       rifle_shot_record = shot_record_fixture(%{notes: "group_one"}, current_user, rifle_pack)
 
       shotgun_type = type_fixture(%{class: :shotgun}, current_user)
       {1, [shotgun_pack]} = pack_fixture(shotgun_type, container, current_user)
-
       shotgun_shot_record = shot_record_fixture(%{notes: "group_two"}, current_user, shotgun_pack)
 
       pistol_type = type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
-
       pistol_shot_record = shot_record_fixture(%{notes: "group_three"}, current_user, pistol_pack)
 
       {:ok, index_live, html} = live(conn, ~p"/range")
-
       assert html =~ "All"
-
       assert html =~ rifle_shot_record.notes
       assert html =~ shotgun_shot_record.notes
       assert html =~ pistol_shot_record.notes
@@ -104,7 +98,6 @@ defmodule CanneryWeb.RangeLiveTest do
 
     test "can search for shot_record", %{conn: conn, shot_record: shot_record} do
       {:ok, index_live, html} = live(conn, ~p"/range")
-
       assert html =~ shot_record.notes
 
       assert index_live
@@ -128,7 +121,6 @@ defmodule CanneryWeb.RangeLiveTest do
 
     test "saves new shot_record", %{conn: conn, pack: pack} do
       {:ok, index_live, _html} = live(conn, ~p"/range")
-
       assert index_live |> element("a", "Record shots") |> render_click() =~ "Record shots"
       assert_patch(index_live, ~p"/range/add_shot_record/#{pack}")
 

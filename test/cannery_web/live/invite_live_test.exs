@@ -22,14 +22,12 @@ defmodule CanneryWeb.InviteLiveTest do
 
     test "lists all invites", %{conn: conn, invite: invite} do
       {:ok, _index_live, html} = live(conn, ~p"/invites")
-
       assert html =~ "Invites"
       assert html =~ invite.name
     end
 
     test "saves new invite", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/invites")
-
       assert index_live |> element("a", "Create Invite") |> render_click() =~ "New Invite"
       assert_patch(index_live, ~p"/invites/new")
 

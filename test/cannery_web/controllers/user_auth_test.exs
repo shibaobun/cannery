@@ -44,7 +44,6 @@ defmodule CanneryWeb.UserAuthTest do
         conn |> fetch_cookies() |> UserAuth.log_in_user(current_user, %{"remember_me" => "true"})
 
       assert get_session(conn, :user_token) == conn.cookies[@remember_me_cookie]
-
       assert %{value: signed_token, max_age: max_age} = conn.resp_cookies[@remember_me_cookie]
       assert signed_token != get_session(conn, :user_token)
       assert max_age == 5_184_000
