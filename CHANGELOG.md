@@ -1,10 +1,9 @@
-# v0.9.4
-- Improve tests
-- Change invite path slightly
-
 # v0.9.3
 - Update dependencies
 - Add pack lot number to search
+- Improve tests
+- Change invite path slightly
+- Build in arm64 and amd64
 
 # v0.9.2
 - Add lot number to packs
