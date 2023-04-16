@@ -51,7 +51,7 @@ defmodule CanneryWeb.InviteLiveTest do
              |> element(~s/a[aria-label="Edit invite for #{invite.name}"]/)
              |> render_click() =~ "Edit Invite"
 
-      assert_patch(index_live, ~p"/invites/#{invite}/edit")
+      assert_patch(index_live, ~p"/invites/edit/#{invite}")
 
       assert index_live
              |> form("#invite-form")
