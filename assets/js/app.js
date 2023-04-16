@@ -25,7 +25,6 @@ import 'phoenix_html'
 import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
 import topbar from 'topbar'
-import MaintainAttrs from './maintain_attrs'
 import ShotLogChart from './shot_log_chart'
 import Date from './date'
 import DateTime from './datetime'
@@ -33,7 +32,7 @@ import DateTime from './datetime'
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content')
 const liveSocket = new LiveSocket('/live', Socket, {
   params: { _csrf_token: csrfToken },
-  hooks: { Date, DateTime, MaintainAttrs, ShotLogChart }
+  hooks: { Date, DateTime, ShotLogChart }
 })
 
 // Show progress bar on live navigation and form submits

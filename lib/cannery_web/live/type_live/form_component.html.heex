@@ -39,7 +39,6 @@
     <%= textarea(f, :desc,
       id: "type-form-desc",
       class: "text-center col-span-2 input input-primary",
-      phx_hook: "MaintainAttrs",
       phx_update: "ignore"
     ) %>
     <%= error_tag(f, :desc, "col-span-3 text-center") %>

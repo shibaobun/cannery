@@ -128,13 +128,13 @@ msgstr "Bestätigungsmail erneut senden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: lib/cannery_web/components/add_shot_record_component.html.heex:57
-#: lib/cannery_web/live/container_live/form_component.html.heex:57
+#: lib/cannery_web/components/add_shot_record_component.html.heex:56
+#: lib/cannery_web/live/container_live/form_component.html.heex:55
 #: lib/cannery_web/live/invite_live/form_component.html.heex:35
-#: lib/cannery_web/live/pack_live/form_component.html.heex:91
-#: lib/cannery_web/live/range_live/form_component.html.heex:45
+#: lib/cannery_web/live/pack_live/form_component.html.heex:90
+#: lib/cannery_web/live/range_live/form_component.html.heex:44
 #: lib/cannery_web/live/tag_live/form_component.html.heex:37
-#: lib/cannery_web/live/type_live/form_component.html.heex:354
+#: lib/cannery_web/live/type_live/form_component.html.heex:353
 #, elixir-autogen, elixir-format
 msgid "Save"
 msgstr "Speichern"
@@ -191,7 +191,7 @@ msgstr "In die Zwischenablage kopieren"
 msgid "add a container first"
 msgstr "Zuerst einen Behälter hinzufügen"
 
-#: lib/cannery_web/live/pack_live/form_component.html.heex:84
+#: lib/cannery_web/live/pack_live/form_component.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Create"
 msgstr "Erstellen"
