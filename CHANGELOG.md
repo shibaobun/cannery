@@ -3,7 +3,7 @@
 - Add pack lot number to search
 - Improve tests
 - Change invite path slightly
-- Build in arm64 and amd64
+- Disable arm builds since ci fails to build
 
 # v0.9.2
 - Add lot number to packs
