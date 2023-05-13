@@ -32,7 +32,7 @@ defmodule Cannery.Ammo do
           [Type.t()]
   def list_types(search \\ nil, user, type)
 
-  def list_types(search, %{id: user_id}, type) do
+  def list_types(search, %User{id: user_id}, type) do
     from(at in Type,
       as: :at,
       where: at.user_id == ^user_id,
@@ -754,7 +754,7 @@ defmodule Cannery.Ammo do
           User.t(),
           show_used :: boolean()
         ) :: [Pack.t()]
-  def list_packs(search, class, %{id: user_id}, show_used \\ false) do
+  def list_packs(search, class, %User{id: user_id}, show_used \\ false) do
     from(p in Pack,
       as: :p,
       join: at in assoc(p, :type),

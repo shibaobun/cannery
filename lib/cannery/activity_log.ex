@@ -26,7 +26,7 @@ defmodule Cannery.ActivityLog do
   @spec list_shot_records(Type.class() | :all, User.t()) :: [ShotRecord.t()]
   @spec list_shot_records(search :: nil | String.t(), Type.class() | :all, User.t()) ::
           [ShotRecord.t()]
-  def list_shot_records(search \\ nil, type, %{id: user_id}) do
+  def list_shot_records(search \\ nil, type, %User{id: user_id}) do
     from(sg in ShotRecord,
       as: :sg,
       left_join: p in Pack,
