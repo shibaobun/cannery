@@ -33,9 +33,9 @@ defmodule Cannery.Ammo do
   def list_types(search \\ nil, user, type)
 
   def list_types(search, %User{id: user_id}, type) do
-    from(at in Type,
-      as: :at,
-      where: at.user_id == ^user_id,
+    from(t in Type,
+      as: :t,
+      where: t.user_id == ^user_id,
       preload: ^@type_preloads
     )
     |> list_types_filter_type(type)
@@ -45,27 +45,27 @@ defmodule Cannery.Ammo do
 
   @spec list_types_filter_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
   defp list_types_filter_search(query, search) when search in ["", nil],
-    do: query |> order_by([at: at], at.name)
+    do: query |> order_by([t: t], t.name)
 
   defp list_types_filter_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     query
     |> where(
-      [at: at],
+      [t: t],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
-        at.search,
+        t.search,
         ^trimmed_search
       )
     )
     |> order_by(
-      [at: at],
+      [t: t],
       {
         :desc,
         fragment(
           "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-          at.search,
+          t.search,
           ^trimmed_search
         )
       }
@@ -74,13 +74,13 @@ defmodule Cannery.Ammo do
 
   @spec list_types_filter_type(Queryable.t(), Type.class() | :all) :: Queryable.t()
   defp list_types_filter_type(query, :rifle),
-    do: query |> where([at: at], at.class == :rifle)
+    do: query |> where([t: t], t.class == :rifle)
 
   defp list_types_filter_type(query, :pistol),
-    do: query |> where([at: at], at.class == :pistol)
+    do: query |> where([t: t], t.class == :pistol)
 
   defp list_types_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.class == :shotgun)
+    do: query |> where([t: t], t.class == :shotgun)
 
   defp list_types_filter_type(query, _all), do: query
 
@@ -96,9 +96,9 @@ defmodule Cannery.Ammo do
   @spec get_types_count!(User.t()) :: integer()
   def get_types_count!(%User{id: user_id}) do
     Repo.one(
-      from at in Type,
-        where: at.user_id == ^user_id,
-        select: count(at.id),
+      from t in Type,
+        where: t.user_id == ^user_id,
+        select: count(t.id),
         distinct: true
     ) || 0
   end
@@ -120,9 +120,9 @@ defmodule Cannery.Ammo do
   @spec get_type!(Type.id(), User.t()) :: Type.t()
   def get_type!(id, %User{id: user_id}) do
     Repo.one!(
-      from at in Type,
-        where: at.id == ^id,
-        where: at.user_id == ^user_id,
+      from t in Type,
+        where: t.id == ^id,
+        where: t.user_id == ^user_id,
         preload: ^@type_preloads
     )
   end
@@ -451,8 +451,8 @@ defmodule Cannery.Ammo do
       ) do
     from(p in Pack,
       as: :p,
-      join: at in assoc(p, :type),
-      as: :at,
+      join: t in assoc(p, :type),
+      as: :t,
       where: p.container_id == ^container_id,
       where: p.user_id == ^user_id,
       where: p.count > 0,
@@ -465,13 +465,13 @@ defmodule Cannery.Ammo do
   @spec list_packs_for_container_filter_type(Queryable.t(), Type.class() | :all) ::
           Queryable.t()
   defp list_packs_for_container_filter_type(query, :rifle),
-    do: query |> where([at: at], at.class == :rifle)
+    do: query |> where([t: t], t.class == :rifle)
 
   defp list_packs_for_container_filter_type(query, :pistol),
-    do: query |> where([at: at], at.class == :pistol)
+    do: query |> where([t: t], t.class == :pistol)
 
   defp list_packs_for_container_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.class == :shotgun)
+    do: query |> where([t: t], t.class == :shotgun)
 
   defp list_packs_for_container_filter_type(query, _all), do: query
 
@@ -757,18 +757,18 @@ defmodule Cannery.Ammo do
   def list_packs(search, class, %User{id: user_id}, show_used \\ false) do
     from(p in Pack,
       as: :p,
-      join: at in assoc(p, :type),
-      as: :at,
+      join: t in assoc(p, :type),
+      as: :t,
       join: c in Container,
       on: p.container_id == c.id,
       on: p.user_id == c.user_id,
       as: :c,
       left_join: ct in ContainerTag,
       on: c.id == ct.container_id,
-      left_join: t in Tag,
-      on: ct.tag_id == t.id,
-      on: c.user_id == t.user_id,
-      as: :t,
+      left_join: tag in Tag,
+      on: ct.tag_id == tag.id,
+      on: c.user_id == tag.user_id,
+      as: :tag,
       where: p.user_id == ^user_id,
       distinct: p.id,
       preload: ^@pack_preloads
@@ -781,13 +781,13 @@ defmodule Cannery.Ammo do
 
   @spec list_packs_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
   defp list_packs_class(query, :rifle),
-    do: query |> where([at: at], at.class == :rifle)
+    do: query |> where([t: t], t.class == :rifle)
 
   defp list_packs_class(query, :pistol),
-    do: query |> where([at: at], at.class == :pistol)
+    do: query |> where([t: t], t.class == :pistol)
 
   defp list_packs_class(query, :shotgun),
-    do: query |> where([at: at], at.class == :shotgun)
+    do: query |> where([t: t], t.class == :shotgun)
 
   defp list_packs_class(query, _all), do: query
 
@@ -807,7 +807,7 @@ defmodule Cannery.Ammo do
 
     query
     |> where(
-      [p: p, at: at, c: c, t: t],
+      [p: p, t: t, c: c, tag: tag],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
         p.search,
@@ -815,7 +815,7 @@ defmodule Cannery.Ammo do
       ) or
         fragment(
           "? @@ websearch_to_tsquery('english', ?)",
-          at.search,
+          t.search,
           ^trimmed_search
         ) or
         fragment(
@@ -825,7 +825,7 @@ defmodule Cannery.Ammo do
         ) or
         fragment(
           "? @@ websearch_to_tsquery('english', ?)",
-          t.search,
+          tag.search,
           ^trimmed_search
         )
     )
