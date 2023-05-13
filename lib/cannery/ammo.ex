@@ -173,14 +173,14 @@ defmodule Cannery.Ammo do
         select: %{pack_id: sg.pack_id, total: sum(sg.count)}
 
     Repo.all(
-      from ag in Pack,
+      from p in Pack,
         as: :pack,
         left_join: sg_query in subquery(sg_total_query),
-        on: ag.id == sg_query.pack_id,
-        where: ag.type_id in ^type_ids,
-        group_by: ag.type_id,
-        where: not (ag.price_paid |> is_nil()),
-        select: {ag.type_id, sum(ag.price_paid) / sum(ag.count + coalesce(sg_query.total, 0))}
+        on: p.id == sg_query.pack_id,
+        where: p.type_id in ^type_ids,
+        group_by: p.type_id,
+        where: not (p.price_paid |> is_nil()),
+        select: {p.type_id, sum(p.price_paid) / sum(p.count + coalesce(sg_query.total, 0))}
     )
     |> Map.new()
   end
@@ -224,11 +224,11 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
-      from ag in Pack,
-        where: ag.type_id in ^type_ids,
-        where: ag.user_id == ^user_id,
-        group_by: ag.type_id,
-        select: {ag.type_id, sum(ag.count)}
+      from p in Pack,
+        where: p.type_id in ^type_ids,
+        where: p.user_id == ^user_id,
+        group_by: p.type_id,
+        select: {p.type_id, sum(p.count)}
     )
     |> Map.new()
   end
@@ -402,10 +402,10 @@ defmodule Cannery.Ammo do
         %User{id: user_id},
         show_used
       ) do
-    from(ag in Pack,
-      as: :ag,
-      where: ag.type_id == ^type_id,
-      where: ag.user_id == ^user_id,
+    from(p in Pack,
+      as: :p,
+      where: p.type_id == ^type_id,
+      where: p.user_id == ^user_id,
       preload: ^@pack_preloads
     )
     |> list_packs_for_type_show_used(show_used)
@@ -415,7 +415,7 @@ defmodule Cannery.Ammo do
   @spec list_packs_for_type_show_used(Queryable.t(), show_used :: boolean()) ::
           Queryable.t()
   def list_packs_for_type_show_used(query, false),
-    do: query |> where([ag: ag], ag.count > 0)
+    do: query |> where([p: p], p.count > 0)
 
   def list_packs_for_type_show_used(query, _true), do: query
 
@@ -449,13 +449,13 @@ defmodule Cannery.Ammo do
         type,
         %User{id: user_id}
       ) do
-    from(ag in Pack,
-      as: :ag,
-      join: at in assoc(ag, :type),
+    from(p in Pack,
+      as: :p,
+      join: at in assoc(p, :type),
       as: :at,
-      where: ag.container_id == ^container_id,
-      where: ag.user_id == ^user_id,
-      where: ag.count > 0,
+      where: p.container_id == ^container_id,
+      where: p.user_id == ^user_id,
+      where: p.count > 0,
       preload: ^@pack_preloads
     )
     |> list_packs_for_container_filter_type(type)
@@ -490,10 +490,10 @@ defmodule Cannery.Ammo do
   @spec get_packs_count!(User.t()) :: integer()
   @spec get_packs_count!(User.t(), show_used :: boolean()) :: integer()
   def get_packs_count!(%User{id: user_id}, show_used \\ false) do
-    from(ag in Pack,
-      as: :ag,
-      where: ag.user_id == ^user_id,
-      select: count(ag.id),
+    from(p in Pack,
+      as: :p,
+      where: p.user_id == ^user_id,
+      select: count(p.id),
       distinct: true
     )
     |> get_packs_count_show_used(show_used)
@@ -502,7 +502,7 @@ defmodule Cannery.Ammo do
 
   @spec get_packs_count_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
   defp get_packs_count_show_used(query, false),
-    do: query |> where([ag: ag], ag.count > 0)
+    do: query |> where([p: p], p.count > 0)
 
   defp get_packs_count_show_used(query, _true), do: query
 
@@ -566,12 +566,12 @@ defmodule Cannery.Ammo do
       types
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
-    from(ag in Pack,
-      as: :ag,
-      where: ag.user_id == ^user_id,
-      where: ag.type_id in ^type_ids,
-      group_by: ag.type_id,
-      select: {ag.type_id, count(ag.id)}
+    from(p in Pack,
+      as: :p,
+      where: p.user_id == ^user_id,
+      where: p.type_id in ^type_ids,
+      group_by: p.type_id,
+      select: {p.type_id, count(p.id)}
     )
     |> get_packs_count_for_types_maybe_show_used(show_used)
     |> Repo.all()
@@ -583,7 +583,7 @@ defmodule Cannery.Ammo do
   defp get_packs_count_for_types_maybe_show_used(query, true), do: query
 
   defp get_packs_count_for_types_maybe_show_used(query, _false) do
-    query |> where([ag: ag], not (ag.count == 0))
+    query |> where([p: p], not (p.count == 0))
   end
 
   @doc """
@@ -625,12 +625,12 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
-      from ag in Pack,
-        where: ag.user_id == ^user_id,
-        where: ag.type_id in ^type_ids,
-        where: ag.count == 0,
-        group_by: ag.type_id,
-        select: {ag.type_id, count(ag.id)}
+      from p in Pack,
+        where: p.user_id == ^user_id,
+        where: p.type_id in ^type_ids,
+        where: p.count == 0,
+        group_by: p.type_id,
+        select: {p.type_id, count(p.id)}
     )
     |> Map.new()
   end
@@ -678,11 +678,11 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
 
     Repo.all(
-      from ag in Pack,
-        where: ag.container_id in ^container_ids,
-        where: ag.count > 0,
-        group_by: ag.container_id,
-        select: {ag.container_id, count(ag.id)}
+      from p in Pack,
+        where: p.container_id in ^container_ids,
+        where: p.count > 0,
+        group_by: p.container_id,
+        select: {p.container_id, count(p.id)}
     )
     |> Map.new()
   end
@@ -726,10 +726,10 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
 
     Repo.all(
-      from ag in Pack,
-        where: ag.container_id in ^container_ids,
-        group_by: ag.container_id,
-        select: {ag.container_id, sum(ag.count)}
+      from p in Pack,
+        where: p.container_id in ^container_ids,
+        group_by: p.container_id,
+        select: {p.container_id, sum(p.count)}
     )
     |> Map.new()
   end
@@ -754,14 +754,14 @@ defmodule Cannery.Ammo do
           User.t(),
           show_used :: boolean()
         ) :: [Pack.t()]
-  def list_packs(search, type, %{id: user_id}, show_used \\ false) do
-    from(ag in Pack,
-      as: :ag,
-      join: at in assoc(ag, :type),
+  def list_packs(search, class, %{id: user_id}, show_used \\ false) do
+    from(p in Pack,
+      as: :p,
+      join: at in assoc(p, :type),
       as: :at,
       join: c in Container,
-      on: ag.container_id == c.id,
-      on: ag.user_id == c.user_id,
+      on: p.container_id == c.id,
+      on: p.user_id == c.user_id,
       as: :c,
       left_join: ct in ContainerTag,
       on: c.id == ct.container_id,
@@ -769,33 +769,33 @@ defmodule Cannery.Ammo do
       on: ct.tag_id == t.id,
       on: c.user_id == t.user_id,
       as: :t,
-      where: ag.user_id == ^user_id,
-      distinct: ag.id,
+      where: p.user_id == ^user_id,
+      distinct: p.id,
       preload: ^@pack_preloads
     )
-    |> list_packs_filter_on_type(type)
+    |> list_packs_class(class)
     |> list_packs_show_used(show_used)
     |> list_packs_search(search)
     |> Repo.all()
   end
 
-  @spec list_packs_filter_on_type(Queryable.t(), Type.class() | :all) :: Queryable.t()
-  defp list_packs_filter_on_type(query, :rifle),
+  @spec list_packs_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
+  defp list_packs_class(query, :rifle),
     do: query |> where([at: at], at.class == :rifle)
 
-  defp list_packs_filter_on_type(query, :pistol),
+  defp list_packs_class(query, :pistol),
     do: query |> where([at: at], at.class == :pistol)
 
-  defp list_packs_filter_on_type(query, :shotgun),
+  defp list_packs_class(query, :shotgun),
     do: query |> where([at: at], at.class == :shotgun)
 
-  defp list_packs_filter_on_type(query, _all), do: query
+  defp list_packs_class(query, _all), do: query
 
   @spec list_packs_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
   defp list_packs_show_used(query, true), do: query
 
   defp list_packs_show_used(query, _false) do
-    query |> where([ag: ag], not (ag.count == 0))
+    query |> where([p: p], not (p.count == 0))
   end
 
   @spec list_packs_show_used(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
@@ -807,10 +807,10 @@ defmodule Cannery.Ammo do
 
     query
     |> where(
-      [ag: ag, at: at, c: c, t: t],
+      [p: p, at: at, c: c, t: t],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
-        ag.search,
+        p.search,
         ^trimmed_search
       ) or
         fragment(
@@ -830,11 +830,11 @@ defmodule Cannery.Ammo do
         )
     )
     |> order_by(
-      [ag: ag],
+      [p: p],
       desc:
         fragment(
           "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-          ag.search,
+          p.search,
           ^trimmed_search
         )
     )
@@ -852,9 +852,9 @@ defmodule Cannery.Ammo do
   @spec list_staged_packs(User.t()) :: [Pack.t()]
   def list_staged_packs(%User{id: user_id}) do
     Repo.all(
-      from ag in Pack,
-        where: ag.user_id == ^user_id,
-        where: ag.staged == true,
+      from p in Pack,
+        where: p.user_id == ^user_id,
+        where: p.staged == true,
         preload: ^@pack_preloads
     )
   end
@@ -891,11 +891,11 @@ defmodule Cannery.Ammo do
           %{optional(Pack.id()) => Pack.t()}
   def get_packs(ids, %User{id: user_id}) do
     Repo.all(
-      from ag in Pack,
-        where: ag.id in ^ids,
-        where: ag.user_id == ^user_id,
+      from p in Pack,
+        where: p.id in ^ids,
+        where: p.user_id == ^user_id,
         preload: ^@pack_preloads,
-        select: {ag.id, ag}
+        select: {p.id, p}
     )
     |> Map.new()
   end

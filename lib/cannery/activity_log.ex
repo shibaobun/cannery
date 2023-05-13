@@ -29,12 +29,12 @@ defmodule Cannery.ActivityLog do
   def list_shot_records(search \\ nil, type, %{id: user_id}) do
     from(sg in ShotRecord,
       as: :sg,
-      left_join: ag in Pack,
-      as: :ag,
-      on: sg.pack_id == ag.id,
+      left_join: p in Pack,
+      as: :p,
+      on: sg.pack_id == p.id,
       left_join: at in Type,
       as: :at,
-      on: ag.type_id == at.id,
+      on: p.type_id == at.id,
       where: sg.user_id == ^user_id,
       distinct: sg.id
     )
@@ -52,7 +52,7 @@ defmodule Cannery.ActivityLog do
 
     query
     |> where(
-      [sg: sg, ag: ag, at: at],
+      [sg: sg, p: p, at: at],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
         sg.search,
@@ -60,7 +60,7 @@ defmodule Cannery.ActivityLog do
       ) or
         fragment(
           "? @@ websearch_to_tsquery('english', ?)",
-          ag.search,
+          p.search,
           ^trimmed_search
         ) or
         fragment(
@@ -172,9 +172,9 @@ defmodule Cannery.ActivityLog do
       fn _repo, %{create_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
         pack =
           Repo.one(
-            from ag in Pack,
-              where: ag.id == ^pack_id,
-              where: ag.user_id == ^user_id
+            from p in Pack,
+              where: p.id == ^pack_id,
+              where: p.user_id == ^user_id
           )
 
         {:ok, pack}
@@ -221,7 +221,7 @@ defmodule Cannery.ActivityLog do
     |> Multi.run(
       :pack,
       fn repo, %{update_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
-        {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
+        {:ok, repo.one(from p in Pack, where: p.id == ^pack_id and p.user_id == ^user_id)}
       end
     )
     |> Multi.update(
@@ -266,7 +266,7 @@ defmodule Cannery.ActivityLog do
     |> Multi.run(
       :pack,
       fn repo, %{delete_shot_record: %{pack_id: pack_id, user_id: user_id}} ->
-        {:ok, repo.one(from ag in Pack, where: ag.id == ^pack_id and ag.user_id == ^user_id)}
+        {:ok, repo.one(from p in Pack, where: p.id == ^pack_id and p.user_id == ^user_id)}
       end
     )
     |> Multi.update(
@@ -384,13 +384,13 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     Repo.all(
-      from ag in Pack,
+      from p in Pack,
         left_join: sg in ShotRecord,
-        on: ag.id == sg.pack_id,
-        where: ag.type_id in ^type_ids,
+        on: p.id == sg.pack_id,
+        where: p.type_id in ^type_ids,
         where: not (sg.count |> is_nil()),
-        group_by: ag.type_id,
-        select: {ag.type_id, sum(sg.count)}
+        group_by: p.type_id,
+        select: {p.type_id, sum(sg.count)}
     )
     |> Map.new()
   end

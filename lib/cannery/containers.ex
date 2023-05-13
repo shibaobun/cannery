@@ -203,9 +203,9 @@ defmodule Cannery.Containers do
           {:ok, Container.t()} | {:error, Container.changeset()}
   def delete_container(%Container{user_id: user_id} = container, %User{id: user_id}) do
     Repo.one(
-      from ag in Pack,
-        where: ag.container_id == ^container.id,
-        select: count(ag.id)
+      from p in Pack,
+        where: p.container_id == ^container.id,
+        select: count(p.id)
     )
     |> case do
       0 ->
@@ -305,10 +305,10 @@ defmodule Cannery.Containers do
   @spec list_tags(search :: nil | String.t(), User.t()) :: [Tag.t()]
   def list_tags(search \\ nil, user)
 
-  def list_tags(search, %{id: user_id}) when search |> is_nil() or search == "",
+  def list_tags(search, %User{id: user_id}) when search |> is_nil() or search == "",
     do: Repo.all(from t in Tag, where: t.user_id == ^user_id, order_by: t.name)
 
-  def list_tags(search, %{id: user_id}) when search |> is_binary() do
+  def list_tags(search, %User{id: user_id}) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     Repo.all(
