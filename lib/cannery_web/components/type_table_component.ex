@@ -192,7 +192,12 @@ defmodule CanneryWeb.Components.TypeTableComponent do
   def render(assigns) do
     ~H"""
     <div id={@id} class="w-full">
-      <.live_component module={TableComponent} id={"table-#{@id}"} columns={@columns} rows={@rows} />
+      <.live_component
+        module={TableComponent}
+        id={"type-table-#{@id}"}
+        columns={@columns}
+        rows={@rows}
+      />
     </div>
     """
   end

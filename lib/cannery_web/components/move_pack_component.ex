@@ -89,7 +89,7 @@ defmodule CanneryWeb.Components.MovePackComponent do
       <% else %>
         <.live_component
           module={CanneryWeb.Components.TableComponent}
-          id="move_pack_table"
+          id="move-pack-table"
           columns={@columns}
           rows={@rows}
         />

@@ -74,7 +74,7 @@ defmodule CanneryWeb.Components.ShotRecordTableComponent do
     <div id={@id} class="w-full">
       <.live_component
         module={CanneryWeb.Components.TableComponent}
-        id={"table-#{@id}"}
+        id={"shot-record-table-#{@id}"}
         columns={@columns}
         rows={@rows}
         initial_key={:date}

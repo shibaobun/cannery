@@ -1,3 +1,6 @@
+# v0.10.0
+- Code quality fixes
+
 # v0.9.3
 - Update dependencies
 - Add pack lot number to search

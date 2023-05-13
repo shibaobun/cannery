@@ -501,9 +501,9 @@ msgstr "Registro de tiros"
 
 #: lib/cannery_web/components/core_components/pack_card.html.heex:42
 #: lib/cannery_web/components/core_components/pack_card.html.heex:47
-#: lib/cannery_web/components/pack_table_component.ex:176
-#: lib/cannery_web/components/pack_table_component.ex:259
-#: lib/cannery_web/components/type_table_component.ex:260
+#: lib/cannery_web/components/pack_table_component.ex:181
+#: lib/cannery_web/components/pack_table_component.ex:264
+#: lib/cannery_web/components/type_table_component.ex:265
 #: lib/cannery_web/live/pack_live/show.html.heex:37
 #: lib/cannery_web/live/pack_live/show.html.heex:42
 #: lib/cannery_web/live/type_live/show.html.heex:150
@@ -593,9 +593,9 @@ msgstr "Editar etiquetas de %{name}"
 msgid "Rounds:"
 msgstr "Balas:"
 
-#: lib/cannery_web/components/pack_table_component.ex:173
-#: lib/cannery_web/components/pack_table_component.ex:255
-#: lib/cannery_web/components/type_table_component.ex:259
+#: lib/cannery_web/components/pack_table_component.ex:178
+#: lib/cannery_web/components/pack_table_component.ex:260
+#: lib/cannery_web/components/type_table_component.ex:264
 #: lib/cannery_web/live/type_live/show.html.heex:154
 #, elixir-autogen, elixir-format
 msgid "No cost information"
@@ -782,7 +782,7 @@ msgstr "Contenedor:"
 msgid "Show used"
 msgstr "Mostrar usadas"
 
-#: lib/cannery_web/components/pack_table_component.ex:214
+#: lib/cannery_web/components/pack_table_component.ex:219
 #: lib/cannery_web/live/pack_live/show.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "%{percentage}%"
@@ -959,7 +959,7 @@ msgid "Average CPR"
 msgstr ""
 
 #: lib/cannery_web/components/core_components/pack_card.html.heex:17
-#: lib/cannery_web/components/pack_table_component.ex:263
+#: lib/cannery_web/components/pack_table_component.ex:268
 #, elixir-autogen, elixir-format
 msgid "Empty"
 msgstr "Vacio"
@@ -999,7 +999,7 @@ msgstr "Usada por última vez en"
 msgid "Last used on:"
 msgstr "Usada por última vez en:"
 
-#: lib/cannery_web/components/pack_table_component.ex:194
+#: lib/cannery_web/components/pack_table_component.ex:199
 #, elixir-autogen, elixir-format
 msgid "Never used"
 msgstr "Nunca usada"
