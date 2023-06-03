@@ -75,6 +75,6 @@ defmodule CanneryWeb.TagLive.Index do
   end
 
   defp display_tags(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    socket |> assign(tags: Containers.list_tags(search, current_user))
+    socket |> assign(tags: Containers.list_tags(current_user, search: search))
   end
 end

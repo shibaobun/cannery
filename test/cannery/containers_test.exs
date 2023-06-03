@@ -168,10 +168,10 @@ defmodule Cannery.ContainersTest do
       tag_fixture(%{name: "bullet", desc: "pews brass shell"}, user_fixture())
 
       # name
-      assert Containers.list_tags("bullet", current_user) == [tag_a]
-      assert Containers.list_tags("bullets", current_user) == [tag_a]
-      assert Containers.list_tags("hollow", current_user) == [tag_b]
-      assert Containers.list_tags("hollows", current_user) == [tag_b]
+      assert Containers.list_tags(current_user, search: "bullet") == [tag_a]
+      assert Containers.list_tags(current_user, search: "bullets") == [tag_a]
+      assert Containers.list_tags(current_user, search: "hollow") == [tag_b]
+      assert Containers.list_tags(current_user, search: "hollows") == [tag_b]
     end
 
     test "get_tag!/2 returns the tag with given id", %{tag: tag, current_user: current_user} do

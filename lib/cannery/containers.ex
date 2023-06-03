@@ -7,7 +7,7 @@ defmodule Cannery.Containers do
   import Ecto.Query, warn: false
   alias Cannery.{Accounts.User, Ammo.Pack, Repo}
   alias Cannery.Containers.{Container, ContainerTag, Tag}
-  alias Ecto.Changeset
+  alias Ecto.{Changeset, Queryable}
 
   @container_preloads [:tags]
 
@@ -289,6 +289,9 @@ defmodule Cannery.Containers do
 
   # Container Tags
 
+  @type list_tags_option :: {:search, String.t() | nil}
+  @type list_tags_options :: [list_tags_option()]
+
   @doc """
   Returns the list of tags.
 
@@ -297,38 +300,42 @@ defmodule Cannery.Containers do
       iex> list_tags(%User{id: 123})
       [%Tag{}, ...]
 
-      iex> list_tags("cool", %User{id: 123})
+      iex> list_tags(%User{id: 123}, search: "cool")
       [%Tag{name: "my cool tag"}, ...]
 
   """
   @spec list_tags(User.t()) :: [Tag.t()]
-  @spec list_tags(search :: nil | String.t(), User.t()) :: [Tag.t()]
-  def list_tags(search \\ nil, user)
+  @spec list_tags(User.t(), list_tags_options()) :: [Tag.t()]
+  def list_tags(%User{id: user_id}, opts \\ []) do
+    from(t in Tag, as: :t, where: t.user_id == ^user_id)
+    |> list_tags_search(Keyword.get(opts, :search))
+    |> Repo.all()
+  end
 
-  def list_tags(search, %User{id: user_id}) when search |> is_nil() or search == "",
-    do: Repo.all(from t in Tag, where: t.user_id == ^user_id, order_by: t.name)
+  @spec list_tags_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_tags_search(query, search) when search in ["", nil],
+    do: query |> order_by([t: t], t.name)
 
-  def list_tags(search, %User{id: user_id}) when search |> is_binary() do
+  defp list_tags_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
-    Repo.all(
-      from t in Tag,
-        where: t.user_id == ^user_id,
-        where:
-          fragment(
-            "? @@ websearch_to_tsquery('english', ?)",
-            t.search,
-            ^trimmed_search
-          ),
-        order_by: {
-          :desc,
-          fragment(
-            "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-            t.search,
-            ^trimmed_search
-          )
-        }
+    query
+    |> where(
+      [t: t],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        t.search,
+        ^trimmed_search
+      )
     )
+    |> order_by([t: t], {
+      :desc,
+      fragment(
+        "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+        t.search,
+        ^trimmed_search
+      )
+    })
   end
 
   @doc """
