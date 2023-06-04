@@ -177,7 +177,7 @@ defmodule CanneryWeb.PackLiveTest do
         |> follow_redirect(conn, ~p"/ammo")
 
       assert html =~ "Ammo added successfully"
-      assert Ammo.list_packs(nil, :all, current_user) |> Enum.count() == multiplier + 1
+      assert Ammo.list_packs(current_user) |> Enum.count() == multiplier + 1
     end
 
     test "does not save invalid number of new packs", %{conn: conn} do

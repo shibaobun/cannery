@@ -40,7 +40,7 @@ defmodule CanneryWeb.TypeLive.Show do
   defp display_type(
          %{assigns: %{live_action: live_action, current_user: current_user, show_used: show_used}} =
            socket,
-         %Type{name: type_name} = type
+         %Type{id: type_id, name: type_name} = type
        ) do
     custom_fields? =
       fields_to_display(type)
@@ -54,7 +54,7 @@ defmodule CanneryWeb.TypeLive.Show do
         type |> Map.get(field) != default_value
       end)
 
-    packs = type |> Ammo.list_packs_for_type(current_user, show_used)
+    packs = Ammo.list_packs(current_user, type_id: type_id, show_used: show_used)
 
     [
       original_counts,

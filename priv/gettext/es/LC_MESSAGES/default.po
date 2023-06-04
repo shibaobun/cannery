@@ -575,13 +575,13 @@ msgid "Reconnecting..."
 msgstr "Reconectando..."
 
 #: lib/cannery_web/live/container_live/index.ex:28
-#: lib/cannery_web/live/container_live/show.ex:116
+#: lib/cannery_web/live/container_live/show.ex:118
 #, elixir-autogen, elixir-format
 msgid "Edit %{name}"
 msgstr "Editar %{name}"
 
 #: lib/cannery_web/live/container_live/index.ex:63
-#: lib/cannery_web/live/container_live/show.ex:117
+#: lib/cannery_web/live/container_live/show.ex:119
 #, elixir-autogen, elixir-format
 msgid "Edit %{name} tags"
 msgstr "Editar etiquetas de %{name}"

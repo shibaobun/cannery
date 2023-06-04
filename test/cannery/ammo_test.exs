@@ -716,7 +716,7 @@ defmodule Cannery.AmmoTest do
       assert Ammo.get_packs_count!(other_user, true) == 1
     end
 
-    test "list_packs/4 returns all packs for a type" do
+    test "list_packs/2 returns all packs for a type" do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
@@ -727,24 +727,24 @@ defmodule Cannery.AmmoTest do
       pistol_type = type_fixture(%{class: :pistol}, current_user)
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
 
-      assert [^rifle_pack] = Ammo.list_packs(nil, :rifle, current_user, false)
-      assert [^shotgun_pack] = Ammo.list_packs(nil, :shotgun, current_user, false)
-      assert [^pistol_pack] = Ammo.list_packs(nil, :pistol, current_user, false)
+      assert [^rifle_pack] = Ammo.list_packs(current_user, class: :rifle)
+      assert [^shotgun_pack] = Ammo.list_packs(current_user, class: :shotgun)
+      assert [^pistol_pack] = Ammo.list_packs(current_user, class: :pistol)
 
-      packs = Ammo.list_packs(nil, :all, current_user, false)
+      packs = Ammo.list_packs(current_user, class: :all)
       assert Enum.count(packs) == 3
       assert rifle_pack in packs
       assert shotgun_pack in packs
       assert pistol_pack in packs
 
-      packs = Ammo.list_packs(nil, nil, current_user, false)
+      packs = Ammo.list_packs(current_user)
       assert Enum.count(packs) == 3
       assert rifle_pack in packs
       assert shotgun_pack in packs
       assert pistol_pack in packs
     end
 
-    test "list_packs/4 returns all relevant packs including used", %{
+    test "list_packs/2 returns all relevant packs including used", %{
       type: type,
       pack: pack,
       container: container,
@@ -756,15 +756,15 @@ defmodule Cannery.AmmoTest do
       shot_record_fixture(%{count: 30}, current_user, another_pack)
       another_pack = Ammo.get_pack!(another_pack_id, current_user)
 
-      assert Ammo.list_packs(nil, :all, current_user, false) == [pack]
+      assert Ammo.list_packs(current_user, show_used: false) == [pack]
 
-      packs = Ammo.list_packs(nil, :all, current_user, true)
+      packs = Ammo.list_packs(current_user, show_used: true)
       assert Enum.count(packs) == 2
       assert another_pack in packs
       assert pack in packs
     end
 
-    test "list_packs/4 returns relevant packs when searched", %{
+    test "list_packs/2 returns relevant packs when searched", %{
       type: type,
       pack: pack,
       container: container,
@@ -784,7 +784,7 @@ defmodule Cannery.AmmoTest do
 
       {1, [fantastic_pack]} = pack_fixture(%{count: 47}, type, another_container, current_user)
 
-      packs = Ammo.list_packs(nil, :all, current_user, false)
+      packs = Ammo.list_packs(current_user, search: nil)
       assert Enum.count(packs) == 4
       assert fantastic_pack in packs
       assert amazing_pack in packs
@@ -792,37 +792,51 @@ defmodule Cannery.AmmoTest do
       assert pack in packs
 
       # search works for pack attributes
-      assert Ammo.list_packs("cool", :all, current_user, true) == [another_pack]
+      assert Ammo.list_packs(current_user, search: "cool") == [another_pack]
 
       # search works for type attributes
-      assert Ammo.list_packs("amazing", :all, current_user, true) == [amazing_pack]
+      assert Ammo.list_packs(current_user, search: "amazing") == [amazing_pack]
 
       # search works for container attributes
-      assert Ammo.list_packs("fantastic", :all, current_user, true) ==
-               [fantastic_pack]
+      assert Ammo.list_packs(current_user, search: "fantastic") == [fantastic_pack]
 
       # search works for container tag attributes
-      assert Ammo.list_packs("stupendous", :all, current_user, true) ==
-               [fantastic_pack]
-
-      assert Ammo.list_packs("random", :all, current_user, true) == []
+      assert Ammo.list_packs(current_user, search: "stupendous") == [fantastic_pack]
+      assert Ammo.list_packs(current_user, search: "random") == []
     end
 
-    test "list_packs_for_type/3 returns all packs for a type", %{
+    test "list_packs/2 returns all relevant packs including staged", %{
+      type: type,
+      container: container,
+      pack: unstaged_pack,
+      current_user: current_user
+    } do
+      {1, [staged_pack]} = pack_fixture(%{staged: true}, type, container, current_user)
+
+      assert Ammo.list_packs(current_user, staged: false) == [unstaged_pack]
+      assert Ammo.list_packs(current_user, staged: true) == [staged_pack]
+
+      packs = Ammo.list_packs(current_user)
+      assert Enum.count(packs) == 2
+      assert unstaged_pack in packs
+      assert staged_pack in packs
+    end
+
+    test "list_packs/2 returns all relevant packs for a type", %{
       container: container,
       current_user: current_user
     } do
       type = type_fixture(current_user)
       {1, [pack]} = pack_fixture(type, container, current_user)
-      assert [^pack] = Ammo.list_packs_for_type(type, current_user)
+      assert [^pack] = Ammo.list_packs(current_user, type_id: type.id)
 
       shot_record_fixture(current_user, pack)
       pack = Ammo.get_pack!(pack.id, current_user)
-      assert [] == Ammo.list_packs_for_type(type, current_user)
-      assert [^pack] = Ammo.list_packs_for_type(type, current_user, true)
+      assert [] == Ammo.list_packs(current_user, type_id: type.id)
+      assert [^pack] = Ammo.list_packs(current_user, type_id: type.id, show_used: true)
     end
 
-    test "list_packs_for_container/3 returns all packs for a container" do
+    test "list_packs/2 returns all relevant packs for a container" do
       current_user = user_fixture()
       container = container_fixture(current_user)
 
@@ -838,19 +852,22 @@ defmodule Cannery.AmmoTest do
       pack_fixture(shotgun_type, another_container, current_user)
       pack_fixture(pistol_type, another_container, current_user)
 
-      assert [^rifle_pack] = Ammo.list_packs_for_container(container, :rifle, current_user)
+      assert [^rifle_pack] =
+               Ammo.list_packs(current_user, container_id: container.id, class: :rifle)
 
-      assert [^shotgun_pack] = Ammo.list_packs_for_container(container, :shotgun, current_user)
+      assert [^shotgun_pack] =
+               Ammo.list_packs(current_user, container_id: container.id, class: :shotgun)
 
-      assert [^pistol_pack] = Ammo.list_packs_for_container(container, :pistol, current_user)
+      assert [^pistol_pack] =
+               Ammo.list_packs(current_user, container_id: container.id, class: :pistol)
 
-      packs = Ammo.list_packs_for_container(container, :all, current_user)
+      packs = Ammo.list_packs(current_user, container_id: container.id, class: :all)
       assert Enum.count(packs) == 3
       assert rifle_pack in packs
       assert shotgun_pack in packs
       assert pistol_pack in packs
 
-      packs = Ammo.list_packs_for_container(container, nil, current_user)
+      packs = Ammo.list_packs(current_user, container_id: container.id)
       assert Enum.count(packs) == 3
       assert rifle_pack in packs
       assert shotgun_pack in packs
@@ -898,16 +915,6 @@ defmodule Cannery.AmmoTest do
 
       assert %{^type_id => 6} = packs_count
       assert %{^another_type_id => 1} = packs_count
-    end
-
-    test "list_staged_packs/1 returns all packs that are staged", %{
-      type: type,
-      container: container,
-      current_user: current_user
-    } do
-      {1, [another_pack]} = pack_fixture(%{staged: true}, type, container, current_user)
-
-      assert Ammo.list_staged_packs(current_user) == [another_pack]
     end
 
     test "get_pack!/2 returns the pack with given id",

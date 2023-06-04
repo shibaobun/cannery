@@ -104,8 +104,10 @@ defmodule CanneryWeb.ContainerLive.Show do
          id,
          current_user
        ) do
-    %{name: container_name} = container = Containers.get_container!(id, current_user)
-    packs = Ammo.list_packs_for_container(container, class, current_user)
+    %{id: container_id, name: container_name} =
+      container = Containers.get_container!(id, current_user)
+
+    packs = Ammo.list_packs(current_user, container_id: container_id, class: class)
     original_counts = packs |> Ammo.get_original_counts(current_user)
     cprs = packs |> Ammo.get_cprs(current_user)
     last_used_dates = packs |> ActivityLog.get_last_used_dates(current_user)

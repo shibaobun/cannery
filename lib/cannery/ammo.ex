@@ -373,107 +373,144 @@ defmodule Cannery.Ammo do
     type
   end
 
+  # Packs
+
+  @type list_packs_option ::
+          {:type_id, Type.id()}
+          | {:container_id, Container.id()}
+          | {:class, Type.class() | :all}
+          | {:show_used, boolean() | nil}
+          | {:search, String.t() | nil}
+          | {:staged, boolean() | nil}
+  @type list_packs_options :: [list_packs_option()]
+
   @doc """
   Returns the list of packs for a user and type.
 
   ## Examples
 
-      iex> list_packs_for_type(
-      ...>   %Type{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
+      iex> list_packs(%User{id: 456})
       [%Pack{}, ...]
 
-      iex> list_packs_for_type(
-      ...>   %Type{id: 123, user_id: 456},
+      iex> list_packs(
       ...>   %User{id: 456},
-      ...>   true
+      ...>   show_used: true,
+      ...>   type_id: 123,
+      ...>   container_id: 789,
+      ...>   search: "something",
+      ...>   staged: true
       ...> )
       [%Pack{}, %Pack{}, ...]
 
   """
-  @spec list_packs_for_type(Type.t(), User.t()) :: [Pack.t()]
-  @spec list_packs_for_type(Type.t(), User.t(), show_used :: boolean()) ::
-          [Pack.t()]
-  def list_packs_for_type(type, user, show_used \\ false)
-
-  def list_packs_for_type(
-        %Type{id: type_id, user_id: user_id},
-        %User{id: user_id},
-        show_used
-      ) do
-    from(p in Pack,
-      as: :p,
-      where: p.type_id == ^type_id,
-      where: p.user_id == ^user_id,
-      preload: ^@pack_preloads
-    )
-    |> list_packs_for_type_show_used(show_used)
-    |> Repo.all()
-  end
-
-  @spec list_packs_for_type_show_used(Queryable.t(), show_used :: boolean()) ::
-          Queryable.t()
-  def list_packs_for_type_show_used(query, false),
-    do: query |> where([p: p], p.count > 0)
-
-  def list_packs_for_type_show_used(query, _true), do: query
-
-  @doc """
-  Returns the list of packs for a user and container.
-
-  ## Examples
-
-      iex> list_packs_for_container(
-      ...>   %Container{id: 123, user_id: 456},
-      ...>   :rifle,
-      ...>   %User{id: 456}
-      ...> )
-      [%Pack{}, ...]
-
-      iex> list_packs_for_container(
-      ...>   %Container{id: 123, user_id: 456},
-      ...>   :all,
-      ...>   %User{id: 456}
-      ...> )
-      [%Pack{}, %Pack{}, ...]
-
-  """
-  @spec list_packs_for_container(
-          Container.t(),
-          Type.t() | :all,
-          User.t()
-        ) :: [Pack.t()]
-  def list_packs_for_container(
-        %Container{id: container_id, user_id: user_id},
-        type,
-        %User{id: user_id}
-      ) do
+  @spec list_packs(User.t()) :: [Pack.t()]
+  @spec list_packs(User.t(), list_packs_options()) :: [Pack.t()]
+  def list_packs(%User{id: user_id}, opts \\ []) do
     from(p in Pack,
       as: :p,
       join: t in assoc(p, :type),
+      on: p.user_id == t.user_id,
       as: :t,
-      where: p.container_id == ^container_id,
+      join: c in Container,
+      on: p.container_id == c.id,
+      on: p.user_id == c.user_id,
+      as: :c,
+      where: p.user_id == c.user_id,
+      left_join: ct in ContainerTag,
+      on: c.id == ct.container_id,
+      left_join: tag in Tag,
+      on: ct.tag_id == tag.id,
+      on: p.user_id == tag.user_id,
+      as: :tag,
       where: p.user_id == ^user_id,
-      where: p.count > 0,
+      distinct: p.id,
       preload: ^@pack_preloads
     )
-    |> list_packs_for_container_filter_type(type)
+    |> list_packs_search(Keyword.get(opts, :search))
+    |> list_packs_class(Keyword.get(opts, :class, :all))
+    |> list_packs_show_used(Keyword.get(opts, :show_used))
+    |> list_packs_staged(Keyword.get(opts, :staged))
+    |> list_packs_container_id(Keyword.get(opts, :container_id))
+    |> list_packs_type_id(Keyword.get(opts, :type_id))
     |> Repo.all()
   end
 
-  @spec list_packs_for_container_filter_type(Queryable.t(), Type.class() | :all) ::
-          Queryable.t()
-  defp list_packs_for_container_filter_type(query, :rifle),
+  @spec list_packs_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_packs_search(query, search) when search in ["", nil], do: query
+
+  defp list_packs_search(query, search) when search |> is_binary() do
+    trimmed_search = String.trim(search)
+
+    query
+    |> where(
+      [p: p, t: t, c: c, tag: tag],
+      fragment(
+        "? @@ websearch_to_tsquery('english', ?)",
+        p.search,
+        ^trimmed_search
+      ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          t.search,
+          ^trimmed_search
+        ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          c.search,
+          ^trimmed_search
+        ) or
+        fragment(
+          "? @@ websearch_to_tsquery('english', ?)",
+          tag.search,
+          ^trimmed_search
+        )
+    )
+    |> order_by(
+      [p: p],
+      desc:
+        fragment(
+          "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
+          p.search,
+          ^trimmed_search
+        )
+    )
+  end
+
+  @spec list_packs_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
+  defp list_packs_class(query, :rifle),
     do: query |> where([t: t], t.class == :rifle)
 
-  defp list_packs_for_container_filter_type(query, :pistol),
+  defp list_packs_class(query, :pistol),
     do: query |> where([t: t], t.class == :pistol)
 
-  defp list_packs_for_container_filter_type(query, :shotgun),
+  defp list_packs_class(query, :shotgun),
     do: query |> where([t: t], t.class == :shotgun)
 
-  defp list_packs_for_container_filter_type(query, _all), do: query
+  defp list_packs_class(query, _all), do: query
+
+  @spec list_packs_show_used(Queryable.t(), show_used :: boolean() | nil) :: Queryable.t()
+  defp list_packs_show_used(query, true), do: query
+
+  defp list_packs_show_used(query, _false),
+    do: query |> where([p: p], not (p.count == 0))
+
+  @spec list_packs_container_id(Queryable.t(), Container.id() | nil) :: Queryable.t()
+  defp list_packs_container_id(query, container_id) when container_id |> is_binary(),
+    do: query |> where([p: p], p.container_id == ^container_id)
+
+  defp list_packs_container_id(query, _nil), do: query
+
+  @spec list_packs_type_id(Queryable.t(), Type.id() | nil) :: Queryable.t()
+  defp list_packs_type_id(query, type_id) when type_id |> is_binary(),
+    do: query |> where([p: p], p.type_id == ^type_id)
+
+  defp list_packs_type_id(query, _nil), do: query
+
+  @spec list_packs_staged(Queryable.t(), staged :: boolean() | nil) :: Queryable.t()
+  defp list_packs_staged(query, staged) when staged |> is_boolean(),
+    do: query |> where([p: p], p.staged == ^staged)
+
+  defp list_packs_staged(query, _nil), do: query
 
   @doc """
   Returns a count of packs.
@@ -732,131 +769,6 @@ defmodule Cannery.Ammo do
         select: {p.container_id, sum(p.count)}
     )
     |> Map.new()
-  end
-
-  @doc """
-  Returns the list of packs.
-
-  ## Examples
-
-      iex> list_packs(%User{id: 123})
-      [%Pack{}, ...]
-
-      iex> list_packs("cool", %User{id: 123}, true)
-      [%Pack{notes: "My cool pack"}, ...]
-
-  """
-  @spec list_packs(search :: String.t() | nil, Type.class() | :all, User.t()) ::
-          [Pack.t()]
-  @spec list_packs(
-          search :: nil | String.t(),
-          Type.class() | :all,
-          User.t(),
-          show_used :: boolean()
-        ) :: [Pack.t()]
-  def list_packs(search, class, %User{id: user_id}, show_used \\ false) do
-    from(p in Pack,
-      as: :p,
-      join: t in assoc(p, :type),
-      as: :t,
-      join: c in Container,
-      on: p.container_id == c.id,
-      on: p.user_id == c.user_id,
-      as: :c,
-      left_join: ct in ContainerTag,
-      on: c.id == ct.container_id,
-      left_join: tag in Tag,
-      on: ct.tag_id == tag.id,
-      on: c.user_id == tag.user_id,
-      as: :tag,
-      where: p.user_id == ^user_id,
-      distinct: p.id,
-      preload: ^@pack_preloads
-    )
-    |> list_packs_class(class)
-    |> list_packs_show_used(show_used)
-    |> list_packs_search(search)
-    |> Repo.all()
-  end
-
-  @spec list_packs_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
-  defp list_packs_class(query, :rifle),
-    do: query |> where([t: t], t.class == :rifle)
-
-  defp list_packs_class(query, :pistol),
-    do: query |> where([t: t], t.class == :pistol)
-
-  defp list_packs_class(query, :shotgun),
-    do: query |> where([t: t], t.class == :shotgun)
-
-  defp list_packs_class(query, _all), do: query
-
-  @spec list_packs_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
-  defp list_packs_show_used(query, true), do: query
-
-  defp list_packs_show_used(query, _false) do
-    query |> where([p: p], not (p.count == 0))
-  end
-
-  @spec list_packs_show_used(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
-  defp list_packs_search(query, nil), do: query
-  defp list_packs_search(query, ""), do: query
-
-  defp list_packs_search(query, search) do
-    trimmed_search = String.trim(search)
-
-    query
-    |> where(
-      [p: p, t: t, c: c, tag: tag],
-      fragment(
-        "? @@ websearch_to_tsquery('english', ?)",
-        p.search,
-        ^trimmed_search
-      ) or
-        fragment(
-          "? @@ websearch_to_tsquery('english', ?)",
-          t.search,
-          ^trimmed_search
-        ) or
-        fragment(
-          "? @@ websearch_to_tsquery('english', ?)",
-          c.search,
-          ^trimmed_search
-        ) or
-        fragment(
-          "? @@ websearch_to_tsquery('english', ?)",
-          tag.search,
-          ^trimmed_search
-        )
-    )
-    |> order_by(
-      [p: p],
-      desc:
-        fragment(
-          "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-          p.search,
-          ^trimmed_search
-        )
-    )
-  end
-
-  @doc """
-  Returns the list of staged packs for a user.
-
-  ## Examples
-
-      iex> list_staged_packs(%User{id: 123})
-      [%Pack{}, ...]
-
-  """
-  @spec list_staged_packs(User.t()) :: [Pack.t()]
-  def list_staged_packs(%User{id: user_id}) do
-    Repo.all(
-      from p in Pack,
-        where: p.user_id == ^user_id,
-        where: p.staged == true,
-        preload: ^@pack_preloads
-    )
   end
 
   @doc """
