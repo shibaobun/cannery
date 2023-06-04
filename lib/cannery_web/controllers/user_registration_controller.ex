@@ -71,7 +71,7 @@ defmodule CanneryWeb.UserRegistrationController do
         |> redirect(to: ~p"/")
 
       {:error, %Changeset{} = changeset} ->
-        conn |> render("new.html", changeset: changeset, invite_token: invite_token)
+        conn |> render(:new, changeset: changeset, invite_token: invite_token)
     end
   end
 end
