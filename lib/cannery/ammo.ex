@@ -15,31 +15,31 @@ defmodule Cannery.Ammo do
   @pack_preloads [:type]
   @type_preloads [:packs]
 
+  @type list_types_option :: {:search, String.t() | nil} | {:class, Type.class() | :all}
+  @type list_types_options :: [list_types_option()]
+
   @doc """
   Returns the list of types.
 
   ## Examples
 
-      iex> list_types(%User{id: 123}, :all)
+      iex> list_types(%User{id: 123})
       [%Type{}, ...]
 
-      iex> list_types("cool", %User{id: 123}, :shotgun)
+      iex> list_types(%User{id: 123}, search: "cool", class: :shotgun)
       [%Type{name: "My cool type", class: :shotgun}, ...]
 
   """
-  @spec list_types(User.t(), Type.class() | :all) :: [Type.t()]
-  @spec list_types(search :: nil | String.t(), User.t(), Type.class() | :all) ::
-          [Type.t()]
-  def list_types(search \\ nil, user, type)
-
-  def list_types(search, %User{id: user_id}, type) do
+  @spec list_types(User.t()) :: [Type.t()]
+  @spec list_types(User.t(), list_types_options()) :: [Type.t()]
+  def list_types(%User{id: user_id}, opts \\ []) do
     from(t in Type,
       as: :t,
       where: t.user_id == ^user_id,
       preload: ^@type_preloads
     )
-    |> list_types_filter_type(type)
-    |> list_types_filter_search(search)
+    |> list_types_filter_class(Keyword.get(opts, :class, :all))
+    |> list_types_filter_search(Keyword.get(opts, :search))
     |> Repo.all()
   end
 
@@ -72,17 +72,17 @@ defmodule Cannery.Ammo do
     )
   end
 
-  @spec list_types_filter_type(Queryable.t(), Type.class() | :all) :: Queryable.t()
-  defp list_types_filter_type(query, :rifle),
+  @spec list_types_filter_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
+  defp list_types_filter_class(query, :rifle),
     do: query |> where([t: t], t.class == :rifle)
 
-  defp list_types_filter_type(query, :pistol),
+  defp list_types_filter_class(query, :pistol),
     do: query |> where([t: t], t.class == :pistol)
 
-  defp list_types_filter_type(query, :shotgun),
+  defp list_types_filter_class(query, :shotgun),
     do: query |> where([t: t], t.class == :shotgun)
 
-  defp list_types_filter_type(query, _all), do: query
+  defp list_types_filter_class(query, _all), do: query
 
   @doc """
   Returns a count of types.

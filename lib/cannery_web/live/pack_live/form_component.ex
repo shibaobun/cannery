@@ -26,7 +26,7 @@ defmodule CanneryWeb.PackLive.FormComponent do
       socket =
       socket
       |> assign(:pack_create_limit, @pack_create_limit)
-      |> assign(:types, Ammo.list_types(current_user, :all))
+      |> assign(:types, Ammo.list_types(current_user))
       |> assign_new(:containers, fn -> Containers.list_containers(current_user) end)
 
     params =

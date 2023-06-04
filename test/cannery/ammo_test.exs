@@ -85,7 +85,7 @@ defmodule Cannery.AmmoTest do
       pistol_type: pistol_type,
       current_user: current_user
     } do
-      results = Ammo.list_types(current_user, :all)
+      results = Ammo.list_types(current_user, class: :all)
       assert results |> Enum.count() == 3
       assert rifle_type in results
       assert shotgun_type in results
@@ -96,21 +96,21 @@ defmodule Cannery.AmmoTest do
       rifle_type: rifle_type,
       current_user: current_user
     } do
-      assert [^rifle_type] = Ammo.list_types(current_user, :rifle)
+      assert [^rifle_type] = Ammo.list_types(current_user, class: :rifle)
     end
 
     test "list_types/2 returns shotgun types", %{
       shotgun_type: shotgun_type,
       current_user: current_user
     } do
-      assert [^shotgun_type] = Ammo.list_types(current_user, :shotgun)
+      assert [^shotgun_type] = Ammo.list_types(current_user, class: :shotgun)
     end
 
     test "list_types/2 returns pistol types", %{
       pistol_type: pistol_type,
       current_user: current_user
     } do
-      assert [^pistol_type] = Ammo.list_types(current_user, :pistol)
+      assert [^pistol_type] = Ammo.list_types(current_user, class: :pistol)
     end
 
     test "list_types/2 returns relevant types for a user", %{
@@ -120,22 +120,22 @@ defmodule Cannery.AmmoTest do
       current_user: current_user
     } do
       # name
-      assert Ammo.list_types("bullet", current_user, :all) == [rifle_type]
-      assert Ammo.list_types("bullets", current_user, :all) == [rifle_type]
-      assert Ammo.list_types("hollow", current_user, :all) == [shotgun_type]
-      assert Ammo.list_types("jacket", current_user, :all) == [pistol_type]
+      assert Ammo.list_types(current_user, search: "bullet") == [rifle_type]
+      assert Ammo.list_types(current_user, search: "bullets") == [rifle_type]
+      assert Ammo.list_types(current_user, search: "hollow") == [shotgun_type]
+      assert Ammo.list_types(current_user, search: "jacket") == [pistol_type]
 
       # desc
-      assert Ammo.list_types("pew", current_user, :all) == [rifle_type]
-      assert Ammo.list_types("brass", current_user, :all) == [pistol_type]
-      assert Ammo.list_types("shell", current_user, :all) == [pistol_type]
+      assert Ammo.list_types(current_user, search: "pew") == [rifle_type]
+      assert Ammo.list_types(current_user, search: "brass") == [pistol_type]
+      assert Ammo.list_types(current_user, search: "shell") == [pistol_type]
 
       # grains (integer)
-      assert Ammo.list_types("53453", current_user, :all) == [rifle_type]
-      assert Ammo.list_types("3234234", current_user, :all) == [shotgun_type]
+      assert Ammo.list_types(current_user, search: "53453") == [rifle_type]
+      assert Ammo.list_types(current_user, search: "3234234") == [shotgun_type]
 
       # tracer (boolean)
-      assert Ammo.list_types("tracer", current_user, :all) == [pistol_type]
+      assert Ammo.list_types(current_user, search: "tracer") == [pistol_type]
     end
   end
 

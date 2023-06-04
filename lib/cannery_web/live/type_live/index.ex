@@ -106,7 +106,7 @@ defmodule CanneryWeb.TypeLive.Index do
        ) do
     socket
     |> assign(
-      types: Ammo.list_types(search, current_user, class),
+      types: Ammo.list_types(current_user, class: class, search: search),
       types_count: Ammo.get_types_count!(current_user)
     )
   end
