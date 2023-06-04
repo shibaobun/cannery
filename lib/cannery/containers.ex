@@ -11,6 +11,9 @@ defmodule Cannery.Containers do
 
   @container_preloads [:tags]
 
+  @type list_containers_option :: {:search, String.t() | nil}
+  @type list_containers_options :: [list_containers_option()]
+
   @doc """
   Returns the list of containers.
 
@@ -19,30 +22,31 @@ defmodule Cannery.Containers do
       iex> list_containers(%User{id: 123})
       [%Container{}, ...]
 
-      iex> list_containers("cool", %User{id: 123})
+      iex> list_containers(%User{id: 123}, search: "cool")
       [%Container{name: "my cool container"}, ...]
 
   """
   @spec list_containers(User.t()) :: [Container.t()]
-  @spec list_containers(search :: nil | String.t(), User.t()) :: [Container.t()]
-  def list_containers(search \\ nil, %User{id: user_id}) do
+  @spec list_containers(User.t(), list_containers_options()) :: [Container.t()]
+  def list_containers(%User{id: user_id}, opts \\ []) do
     from(c in Container,
       as: :c,
       left_join: t in assoc(c, :tags),
+      on: c.user_id == t.user_id,
       as: :t,
       where: c.user_id == ^user_id,
-      order_by: c.name,
       distinct: c.id,
       preload: ^@container_preloads
     )
-    |> list_containers_search(search)
+    |> list_containers_search(Keyword.get(opts, :search))
     |> Repo.all()
   end
 
-  defp list_containers_search(query, nil), do: query
-  defp list_containers_search(query, ""), do: query
+  @spec list_containers_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_containers_search(query, search) when search in ["", nil],
+    do: query |> order_by([c: c], c.name)
 
-  defp list_containers_search(query, search) do
+  defp list_containers_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     query

@@ -77,16 +77,16 @@ defmodule Cannery.ContainersTest do
       _shouldnt_return = container_fixture(%{name: "another person's container"}, user_fixture())
 
       # attributes
-      assert Containers.list_containers("cool", current_user) == [container_a]
-      assert Containers.list_containers("fascinating", current_user) == [container_b]
-      assert Containers.list_containers("secret", current_user) == [container_c]
-      assert Containers.list_containers("box", current_user) == [container_d]
+      assert Containers.list_containers(current_user, search: "cool") == [container_a]
+      assert Containers.list_containers(current_user, search: "fascinating") == [container_b]
+      assert Containers.list_containers(current_user, search: "secret") == [container_c]
+      assert Containers.list_containers(current_user, search: "box") == [container_d]
 
       # tags
-      assert Containers.list_containers("stupendous", current_user) == [container_c]
-      assert Containers.list_containers("amazing", current_user) == [container_d]
+      assert Containers.list_containers(current_user, search: "stupendous") == [container_c]
+      assert Containers.list_containers(current_user, search: "amazing") == [container_d]
 
-      assert Containers.list_containers("asajslkdflskdf", current_user) == []
+      assert Containers.list_containers(current_user, search: "asajslkdflskdf") == []
     end
 
     test "get_container!/2 returns the container with given id",

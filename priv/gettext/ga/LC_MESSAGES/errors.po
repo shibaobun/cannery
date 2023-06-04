@@ -24,7 +24,7 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-#: lib/cannery/containers.ex:220
+#: lib/cannery/containers.ex:224
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
 msgstr "Caithfidh an coimeádán a bheidh follamh roimh scriosadh"

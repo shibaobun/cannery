@@ -113,6 +113,6 @@ defmodule CanneryWeb.ContainerLive.Index do
   end
 
   defp display_containers(%{assigns: %{search: search, current_user: current_user}} = socket) do
-    socket |> assign(:containers, Containers.list_containers(search, current_user))
+    socket |> assign(:containers, Containers.list_containers(current_user, search: search))
   end
 end

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/cannery/containers.ex:220
+#: lib/cannery/containers.ex:224
 #, elixir-autogen, elixir-format
 msgid "Container must be empty before deleting"
 msgstr ""
