@@ -6,9 +6,10 @@ defmodule CanneryWeb.ExportController do
     types = Ammo.list_types(current_user)
     used_counts = types |> ActivityLog.get_used_count_for_types(current_user)
     round_counts = types |> Ammo.get_round_count_for_types(current_user)
-    pack_counts = types |> Ammo.get_packs_count_for_types(current_user)
+    pack_counts = Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id)
 
-    total_pack_counts = types |> Ammo.get_packs_count_for_types(current_user, true)
+    total_pack_counts =
+      Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id, show_used: true)
 
     average_costs = types |> Ammo.get_average_cost_for_types(current_user)
 

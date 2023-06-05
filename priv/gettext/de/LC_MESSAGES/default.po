@@ -502,7 +502,7 @@ msgstr "Schießkladde"
 #: lib/cannery_web/components/core_components/pack_card.html.heex:47
 #: lib/cannery_web/components/pack_table_component.ex:181
 #: lib/cannery_web/components/pack_table_component.ex:264
-#: lib/cannery_web/components/type_table_component.ex:265
+#: lib/cannery_web/components/type_table_component.ex:273
 #: lib/cannery_web/live/pack_live/show.html.heex:37
 #: lib/cannery_web/live/pack_live/show.html.heex:42
 #: lib/cannery_web/live/type_live/show.html.heex:150
@@ -594,7 +594,7 @@ msgstr "Patronen:"
 
 #: lib/cannery_web/components/pack_table_component.ex:178
 #: lib/cannery_web/components/pack_table_component.ex:260
-#: lib/cannery_web/components/type_table_component.ex:264
+#: lib/cannery_web/components/type_table_component.ex:272
 #: lib/cannery_web/live/type_live/show.html.heex:154
 #, elixir-autogen, elixir-format
 msgid "No cost information"

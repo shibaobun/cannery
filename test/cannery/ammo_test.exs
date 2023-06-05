@@ -490,28 +490,39 @@ defmodule Cannery.AmmoTest do
       assert 2 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
     end
 
-    test "get_used_packs_count_for_types/2 gets accurate total ammo counts for types",
+    test "get_grouped_packs_count/2 gets accurate total ammo counts for types",
          %{
            type: %{id: type_id} = type,
            current_user: current_user,
            container: container
          } do
       # testing empty type
-      assert %{} == [type] |> Ammo.get_used_packs_count_for_types(current_user)
+      assert %{} ==
+               Ammo.get_grouped_packs_count(current_user,
+                 types: [type],
+                 group_by: :type_id,
+                 show_used: :only_used
+               )
 
       # testing two empty types
       %{id: another_type_id} = another_type = type_fixture(current_user)
 
       assert %{} ==
-               [type, another_type]
-               |> Ammo.get_used_packs_count_for_types(current_user)
+               Ammo.get_grouped_packs_count(current_user,
+                 types: [type, another_type],
+                 group_by: :type_id,
+                 show_used: :only_used
+               )
 
       # testing type with pack
       {1, [first_pack]} = pack_fixture(%{count: 1}, type, container, current_user)
 
       assert %{} ==
-               [type, another_type]
-               |> Ammo.get_used_packs_count_for_types(current_user)
+               Ammo.get_grouped_packs_count(current_user,
+                 types: [type, another_type],
+                 group_by: :type_id,
+                 show_used: :only_used
+               )
 
       # testing type with used pack
       {1, [another_pack]} = pack_fixture(%{count: 50}, another_type, container, current_user)
@@ -519,14 +530,22 @@ defmodule Cannery.AmmoTest do
       shot_record_fixture(%{count: 50}, current_user, another_pack)
 
       assert %{another_type_id => 1} ==
-               [type, another_type]
-               |> Ammo.get_used_packs_count_for_types(current_user)
+               Ammo.get_grouped_packs_count(current_user,
+                 types: [type, another_type],
+                 group_by: :type_id,
+                 show_used: :only_used
+               )
 
       # testing two types with zero and one used packs
       {1, [pack]} = pack_fixture(%{count: 50}, type, container, current_user)
       shot_record_fixture(%{count: 50}, current_user, pack)
 
-      used_counts = [type, another_type] |> Ammo.get_used_packs_count_for_types(current_user)
+      used_counts =
+        Ammo.get_grouped_packs_count(current_user,
+          types: [type, another_type],
+          group_by: :type_id,
+          show_used: :only_used
+        )
 
       assert %{^type_id => 1} = used_counts
       assert %{^another_type_id => 1} = used_counts
@@ -534,7 +553,12 @@ defmodule Cannery.AmmoTest do
       # testing two type with one and two used packs
       shot_record_fixture(%{count: 1}, current_user, first_pack)
 
-      used_counts = [type, another_type] |> Ammo.get_used_packs_count_for_types(current_user)
+      used_counts =
+        Ammo.get_grouped_packs_count(current_user,
+          types: [type, another_type],
+          group_by: :type_id,
+          show_used: :only_used
+        )
 
       assert %{^type_id => 2} = used_counts
       assert %{^another_type_id => 1} = used_counts
@@ -557,7 +581,7 @@ defmodule Cannery.AmmoTest do
       assert 25 = Ammo.get_packs_count(current_user, container_id: container.id)
     end
 
-    test "get_packs_count_for_containers/2 gets accurate ammo count for containers", %{
+    test "get_grouped_packs_count/2 gets accurate ammo count for containers", %{
       type: type,
       current_user: current_user,
       container: %{id: container_id} = container
@@ -569,8 +593,10 @@ defmodule Cannery.AmmoTest do
       {1, [_first_pack]} = pack_fixture(%{count: 5}, type, another_container, current_user)
 
       packs_count =
-        [container, another_container]
-        |> Ammo.get_packs_count_for_containers(current_user)
+        Ammo.get_grouped_packs_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 1} = packs_count
       assert %{^another_container_id => 1} = packs_count
@@ -578,8 +604,10 @@ defmodule Cannery.AmmoTest do
       {25, _packs} = pack_fixture(%{count: 5}, 25, type, container, current_user)
 
       packs_count =
-        [container, another_container]
-        |> Ammo.get_packs_count_for_containers(current_user)
+        Ammo.get_grouped_packs_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 26} = packs_count
       assert %{^another_container_id => 1} = packs_count
@@ -587,8 +615,10 @@ defmodule Cannery.AmmoTest do
       shot_record_fixture(%{count: 1}, current_user, first_pack)
 
       packs_count =
-        [container, another_container]
-        |> Ammo.get_packs_count_for_containers(current_user)
+        Ammo.get_grouped_packs_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 26} = packs_count
       assert %{^another_container_id => 1} = packs_count
@@ -596,8 +626,10 @@ defmodule Cannery.AmmoTest do
       shot_record_fixture(%{count: 4}, current_user, first_pack)
 
       packs_count =
-        [container, another_container]
-        |> Ammo.get_packs_count_for_containers(current_user)
+        Ammo.get_grouped_packs_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 25} = packs_count
       assert %{^another_container_id => 1} = packs_count
@@ -888,30 +920,34 @@ defmodule Cannery.AmmoTest do
       assert 6 = Ammo.get_packs_count(current_user, type_id: type.id)
     end
 
-    test "get_packs_count_for_types/2 returns counts of packs for types", %{
+    test "get_grouped_packs_count/2 returns counts of packs for types", %{
       type: %{id: type_id} = type,
       container: container,
       current_user: current_user
     } do
       assert %{type_id => 1} ==
-               [type] |> Ammo.get_packs_count_for_types(current_user)
+               Ammo.get_grouped_packs_count(current_user, types: [type], group_by: :type_id)
 
       %{id: another_type_id} = another_type = type_fixture(current_user)
 
       assert %{type_id => 1} ==
-               [type, another_type]
-               |> Ammo.get_packs_count_for_types(current_user)
+               Ammo.get_grouped_packs_count(current_user,
+                 types: [type, another_type],
+                 group_by: :type_id
+               )
 
       {1, [_pack]} = pack_fixture(another_type, container, current_user)
 
-      packs_count = [type, another_type] |> Ammo.get_packs_count_for_types(current_user)
+      packs_count =
+        Ammo.get_grouped_packs_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 1} = packs_count
       assert %{^another_type_id => 1} = packs_count
 
       {5, _packs} = pack_fixture(%{}, 5, type, container, current_user)
 
-      packs_count = [type, another_type] |> Ammo.get_packs_count_for_types(current_user)
+      packs_count =
+        Ammo.get_grouped_packs_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 6} = packs_count
       assert %{^another_type_id => 1} = packs_count

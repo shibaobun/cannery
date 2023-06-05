@@ -573,112 +573,101 @@ defmodule Cannery.Ammo do
 
   defp get_packs_count_container_id(query, _nil), do: query
 
+  @type get_grouped_packs_count_opt ::
+          {:group_by, atom()}
+          | {:containers, [Container.t()] | nil}
+          | {:types, [Type.t()] | nil}
+          | {:show_used, :only_used | boolean() | nil}
+  @type get_grouped_packs_counts_opts :: [get_grouped_packs_count_opt()]
+
   @doc """
   Returns the count of packs for multiple types.
 
   ## Examples
 
-      iex> get_packs_count_for_types(
-      ...>   [%Type{id: 123, user_id: 456}],
-      ...>   %User{id: 456}
+      iex> get_grouped_packs_count(
+      ...>   %User{id: 456},
+      ...>   group_by: :type_id,
+      ...>   types: [%Type{id: 123, user_id: 456}]
       ...> )
       3
 
-      iex> get_packs_count_for_types(
-      ...>   [%Type{id: 123, user_id: 456}],
+      iex> get_grouped_packs_count(
       ...>   %User{id: 456},
-      ...>   true
+      ...>   group_by: :type_id,
+      ...>   types: [%Type{id: 123, user_id: 456}],
+      ...>   show_used: true
       ...> )
       5
 
-  """
-  @spec get_packs_count_for_types([Type.t()], User.t()) ::
-          %{optional(Type.id()) => non_neg_integer()}
-  @spec get_packs_count_for_types([Type.t()], User.t(), show_used :: boolean()) ::
-          %{optional(Type.id()) => non_neg_integer()}
-  def get_packs_count_for_types(types, %User{id: user_id}, show_used \\ false) do
-    type_ids =
-      types
-      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
+      iex> get_grouped_packs_count(
+      ...>   %User{id: 456},
+      ...>   group_by: :type_id,
+      ...>   types: [%Type{id: 123, user_id: 456}],
+      ...>   show_used: :only_used
+      ...> )
+      2
 
+      iex> get_grouped_packs_count(
+      ...>   %User{id: 456},
+      ...>   group_by: :container_id,
+      ...>   containers: [%Container{id: 123, user_id: 456}]
+      ...> )
+      7
+
+  """
+  @spec get_grouped_packs_count(User.t(), get_grouped_packs_counts_opts()) ::
+          %{optional(Type.id() | Container.id()) => non_neg_integer()}
+  def get_grouped_packs_count(%User{id: user_id}, opts) do
     from(p in Pack,
       as: :p,
-      where: p.user_id == ^user_id,
-      where: p.type_id in ^type_ids,
-      group_by: p.type_id,
-      select: {p.type_id, count(p.id)}
+      where: p.user_id == ^user_id
     )
-    |> get_packs_count_for_types_maybe_show_used(show_used)
+    |> get_grouped_packs_count_group_by(Keyword.fetch!(opts, :group_by))
+    |> get_grouped_packs_count_filter_ids(
+      Keyword.fetch!(opts, :group_by),
+      Keyword.get(opts, :types)
+    )
+    |> get_grouped_packs_count_filter_ids(
+      Keyword.fetch!(opts, :group_by),
+      Keyword.get(opts, :containers)
+    )
+    |> get_grouped_packs_count_show_used(Keyword.get(opts, :show_used))
     |> Repo.all()
     |> Map.new()
   end
 
-  @spec get_packs_count_for_types_maybe_show_used(Queryable.t(), show_used :: boolean()) ::
-          Queryable.t()
-  defp get_packs_count_for_types_maybe_show_used(query, true), do: query
+  @spec get_grouped_packs_count_group_by(Queryable.t(), :type_id | :container_id) :: Queryable.t()
+  defp get_grouped_packs_count_group_by(query, group_key) when group_key |> is_atom() do
+    query
+    |> group_by([p: p], field(p, ^group_key))
+    |> select([p: p], {field(p, ^group_key), count(p.id)})
+  end
 
-  defp get_packs_count_for_types_maybe_show_used(query, _false) do
+  @spec get_grouped_packs_count_filter_ids(
+          Queryable.t(),
+          :type_id | :container_id,
+          [Type.t()] | [Container.t()] | nil
+        ) :: Queryable.t()
+  defp get_grouped_packs_count_filter_ids(query, group_key, items) when items |> is_list() do
+    item_ids = items |> Enum.map(fn %{id: id} -> id end)
+    query |> where([p: p], field(p, ^group_key) in ^item_ids)
+  end
+
+  defp get_grouped_packs_count_filter_ids(query, _filter_key, _nil), do: query
+
+  @spec get_grouped_packs_count_show_used(
+          Queryable.t(),
+          show_used :: :only_used | boolean() | nil
+        ) :: Queryable.t()
+  defp get_grouped_packs_count_show_used(query, true), do: query
+
+  defp get_grouped_packs_count_show_used(query, :only_used) do
+    query |> where([p: p], p.count == 0)
+  end
+
+  defp get_grouped_packs_count_show_used(query, _false) do
     query |> where([p: p], not (p.count == 0))
-  end
-
-  @doc """
-  Returns the count of used packs for multiple types.
-
-  ## Examples
-
-      iex> get_used_packs_count_for_types(
-      ...>   [%Type{id: 123, user_id: 456}],
-      ...>   %User{id: 456}
-      ...> )
-      %{123 => 3}
-
-  """
-  @spec get_used_packs_count_for_types([Type.t()], User.t()) ::
-          %{optional(Type.id()) => non_neg_integer()}
-  def get_used_packs_count_for_types(types, %User{id: user_id}) do
-    type_ids =
-      types
-      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
-
-    Repo.all(
-      from p in Pack,
-        where: p.user_id == ^user_id,
-        where: p.type_id in ^type_ids,
-        where: p.count == 0,
-        group_by: p.type_id,
-        select: {p.type_id, count(p.id)}
-    )
-    |> Map.new()
-  end
-
-  @doc """
-  Returns number of ammo packs in multiple containers.
-
-  ## Examples
-
-      iex> get_packs_count_for_containers(
-      ...>   [%Container{id: 123, user_id: 456}],
-      ...>   %User{id: 456}
-      ...> )
-      %{123 => 3}
-
-  """
-  @spec get_packs_count_for_containers([Container.t()], User.t()) :: %{
-          Container.id() => non_neg_integer()
-        }
-  def get_packs_count_for_containers(containers, %User{id: user_id}) do
-    container_ids =
-      containers
-      |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
-
-    Repo.all(
-      from p in Pack,
-        where: p.container_id in ^container_ids,
-        where: p.count > 0,
-        group_by: p.container_id,
-        select: {p.container_id, count(p.id)}
-    )
-    |> Map.new()
   end
 
   @doc """
