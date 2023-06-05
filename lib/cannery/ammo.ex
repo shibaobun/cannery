@@ -512,68 +512,66 @@ defmodule Cannery.Ammo do
 
   defp list_packs_staged(query, _nil), do: query
 
+  @type get_packs_count_option ::
+          {:container_id, Container.id() | nil}
+          | {:type_id, Type.id() | nil}
+          | {:show_used, :only_used | boolean() | nil}
+  @type get_packs_count_options :: [get_packs_count_option()]
+
   @doc """
   Returns a count of packs.
 
   ## Examples
 
-      iex> get_packs_count!(%User{id: 123})
+      iex> get_packs_count(%User{id: 123})
       3
 
-      iex> get_packs_count!(%User{id: 123}, true)
+      iex> get_packs_count(%User{id: 123}, show_used: true)
       4
 
+      iex> get_packs_count(%User{id: 123}, container_id: 456)
+      1
+
+      iex> get_packs_count(%User{id: 123}, type_id: 456)
+      2
+
   """
-  @spec get_packs_count!(User.t()) :: integer()
-  @spec get_packs_count!(User.t(), show_used :: boolean()) :: integer()
-  def get_packs_count!(%User{id: user_id}, show_used \\ false) do
+  @spec get_packs_count(User.t()) :: integer()
+  @spec get_packs_count(User.t(), get_packs_count_options()) :: integer()
+  def get_packs_count(%User{id: user_id}, opts \\ []) do
     from(p in Pack,
       as: :p,
       where: p.user_id == ^user_id,
       select: count(p.id),
       distinct: true
     )
-    |> get_packs_count_show_used(show_used)
+    |> get_packs_count_show_used(Keyword.get(opts, :show_used))
+    |> get_packs_count_container_id(Keyword.get(opts, :container_id))
+    |> get_packs_count_type_id(Keyword.get(opts, :type_id))
     |> Repo.one() || 0
   end
 
-  @spec get_packs_count_show_used(Queryable.t(), show_used :: boolean()) :: Queryable.t()
-  defp get_packs_count_show_used(query, false),
+  @spec get_packs_count_show_used(Queryable.t(), show_used :: :only_used | boolean() | nil) ::
+          Queryable.t()
+  defp get_packs_count_show_used(query, true), do: query
+
+  defp get_packs_count_show_used(query, :only_used),
+    do: query |> where([p: p], p.count == 0)
+
+  defp get_packs_count_show_used(query, _false),
     do: query |> where([p: p], p.count > 0)
 
-  defp get_packs_count_show_used(query, _true), do: query
+  @spec get_packs_count_type_id(Queryable.t(), Type.id() | nil) :: Queryable.t()
+  defp get_packs_count_type_id(query, type_id) when type_id |> is_binary(),
+    do: query |> where([p: p], p.type_id == ^type_id)
 
-  @doc """
-  Returns the count of packs for a type.
+  defp get_packs_count_type_id(query, _nil), do: query
 
-  ## Examples
+  @spec get_packs_count_container_id(Queryable.t(), Container.id() | nil) :: Queryable.t()
+  defp get_packs_count_container_id(query, container_id) when container_id |> is_binary(),
+    do: query |> where([p: p], p.container_id == ^container_id)
 
-      iex> get_packs_count_for_type(
-      ...>   %Type{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
-      3
-
-      iex> get_packs_count_for_type(
-      ...>   %Type{id: 123, user_id: 456},
-      ...>   %User{id: 456},
-      ...>   true
-      ...> )
-      5
-
-  """
-  @spec get_packs_count_for_type(Type.t(), User.t()) :: non_neg_integer()
-  @spec get_packs_count_for_type(Type.t(), User.t(), show_used :: boolean()) ::
-          non_neg_integer()
-  def get_packs_count_for_type(
-        %Type{id: type_id} = type,
-        user,
-        show_used \\ false
-      ) do
-    [type]
-    |> get_packs_count_for_types(user, show_used)
-    |> Map.get(type_id, 0)
-  end
+  defp get_packs_count_container_id(query, _nil), do: query
 
   @doc """
   Returns the count of packs for multiple types.
@@ -624,25 +622,6 @@ defmodule Cannery.Ammo do
   end
 
   @doc """
-  Returns the count of used packs for a type.
-
-  ## Examples
-
-      iex> get_used_packs_count_for_type(
-      ...>   %Type{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
-      3
-
-  """
-  @spec get_used_packs_count_for_type(Type.t(), User.t()) :: non_neg_integer()
-  def get_used_packs_count_for_type(%Type{id: type_id} = type, user) do
-    [type]
-    |> get_used_packs_count_for_types(user)
-    |> Map.get(type_id, 0)
-  end
-
-  @doc """
   Returns the count of used packs for multiple types.
 
   ## Examples
@@ -670,28 +649,6 @@ defmodule Cannery.Ammo do
         select: {p.type_id, count(p.id)}
     )
     |> Map.new()
-  end
-
-  @doc """
-  Returns number of ammo packs in a container.
-
-  ## Examples
-
-      iex> get_packs_count_for_container(
-      ...>   %Container{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
-      3
-
-  """
-  @spec get_packs_count_for_container!(Container.t(), User.t()) :: non_neg_integer()
-  def get_packs_count_for_container!(
-        %Container{id: container_id} = container,
-        %User{} = user
-      ) do
-    [container]
-    |> get_packs_count_for_containers(user)
-    |> Map.get(container_id, 0)
   end
 
   @doc """

@@ -148,7 +148,7 @@ defmodule CanneryWeb.PackLive.Index do
        ) do
     # get total number of packs to determine whether to display onboarding
     # prompts
-    packs_count = Ammo.get_packs_count!(current_user, true)
+    packs_count = Ammo.get_packs_count(current_user, show_used: true)
     packs = Ammo.list_packs(current_user, search: search, class: class, show_used: show_used)
     types_count = Ammo.get_types_count!(current_user)
     containers_count = Containers.get_containers_count!(current_user)

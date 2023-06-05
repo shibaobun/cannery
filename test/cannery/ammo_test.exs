@@ -471,23 +471,23 @@ defmodule Cannery.AmmoTest do
       assert %{^another_type_id => 1} = historical_counts
     end
 
-    test "get_used_packs_count_for_type/2 gets accurate total ammo count for type",
+    test "get_packs_count/2 gets accurate total ammo count for type with show_used",
          %{type: type, current_user: current_user, container: container} do
-      assert 0 = Ammo.get_used_packs_count_for_type(type, current_user)
+      assert 0 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
 
       {1, [first_pack]} = pack_fixture(%{count: 1}, type, container, current_user)
 
-      assert 0 = Ammo.get_used_packs_count_for_type(type, current_user)
+      assert 0 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
 
       {1, [pack]} = pack_fixture(%{count: 50}, type, container, current_user)
 
-      assert 0 = Ammo.get_used_packs_count_for_type(type, current_user)
+      assert 0 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
 
       shot_record_fixture(%{count: 50}, current_user, pack)
-      assert 1 = Ammo.get_used_packs_count_for_type(type, current_user)
+      assert 1 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
 
       shot_record_fixture(%{count: 1}, current_user, first_pack)
-      assert 2 = Ammo.get_used_packs_count_for_type(type, current_user)
+      assert 2 = Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used)
     end
 
     test "get_used_packs_count_for_types/2 gets accurate total ammo counts for types",
@@ -540,21 +540,21 @@ defmodule Cannery.AmmoTest do
       assert %{^another_type_id => 1} = used_counts
     end
 
-    test "get_packs_count_for_container!/2 gets accurate ammo count for container",
+    test "get_packs_count/2 gets accurate ammo count for container by container_id",
          %{type: type, current_user: current_user, container: container} do
       {1, [first_pack]} = pack_fixture(%{count: 5}, type, container, current_user)
 
-      assert 1 = Ammo.get_packs_count_for_container!(container, current_user)
+      assert 1 = Ammo.get_packs_count(current_user, container_id: container.id)
 
       {25, _packs} = pack_fixture(%{count: 5}, 25, type, container, current_user)
 
-      assert 26 = Ammo.get_packs_count_for_container!(container, current_user)
+      assert 26 = Ammo.get_packs_count(current_user, container_id: container.id)
 
       shot_record_fixture(%{count: 1}, current_user, first_pack)
-      assert 26 = Ammo.get_packs_count_for_container!(container, current_user)
+      assert 26 = Ammo.get_packs_count(current_user, container_id: container.id)
 
       shot_record_fixture(%{count: 4}, current_user, first_pack)
-      assert 25 = Ammo.get_packs_count_for_container!(container, current_user)
+      assert 25 = Ammo.get_packs_count(current_user, container_id: container.id)
     end
 
     test "get_packs_count_for_containers/2 gets accurate ammo count for containers", %{
@@ -607,14 +607,14 @@ defmodule Cannery.AmmoTest do
          %{type: type, current_user: current_user, container: container} do
       {1, [first_pack]} = pack_fixture(%{count: 5}, type, container, current_user)
 
-      assert 5 = Ammo.get_round_count_for_container!(container, current_user)
+      assert 5 = container |> Ammo.get_round_count_for_container!(current_user)
 
       {25, _packs} = pack_fixture(%{count: 5}, 25, type, container, current_user)
 
-      assert 130 = Ammo.get_round_count_for_container!(container, current_user)
+      assert 130 = container |> Ammo.get_round_count_for_container!(current_user)
 
       shot_record_fixture(%{count: 5}, current_user, first_pack)
-      assert 125 = Ammo.get_round_count_for_container!(container, current_user)
+      assert 125 = container |> Ammo.get_round_count_for_container!(current_user)
     end
 
     test "get_round_count_for_containers/2 gets accurate total round count for containers",
@@ -692,19 +692,19 @@ defmodule Cannery.AmmoTest do
       ]
     end
 
-    test "get_packs_count!/2 returns the correct amount of ammo",
+    test "get_packs_count/2 returns the correct amount of ammo",
          %{type: type, container: container, current_user: current_user} do
-      assert Ammo.get_packs_count!(current_user) == 1
+      assert Ammo.get_packs_count(current_user) == 1
 
       pack_fixture(type, container, current_user)
-      assert Ammo.get_packs_count!(current_user) == 2
+      assert Ammo.get_packs_count(current_user) == 2
 
       pack_fixture(type, container, current_user)
-      assert Ammo.get_packs_count!(current_user) == 3
+      assert Ammo.get_packs_count(current_user) == 3
 
       other_user = user_fixture()
-      assert Ammo.get_packs_count!(other_user) == 0
-      assert Ammo.get_packs_count!(other_user, true) == 0
+      assert Ammo.get_packs_count(other_user) == 0
+      assert Ammo.get_packs_count(other_user, show_used: true) == 0
 
       other_type = type_fixture(other_user)
       other_container = container_fixture(other_user)
@@ -712,8 +712,8 @@ defmodule Cannery.AmmoTest do
       {1, [another_pack]} = pack_fixture(%{count: 30}, other_type, other_container, other_user)
 
       shot_record_fixture(%{count: 30}, other_user, another_pack)
-      assert Ammo.get_packs_count!(other_user) == 0
-      assert Ammo.get_packs_count!(other_user, true) == 1
+      assert Ammo.get_packs_count(other_user) == 0
+      assert Ammo.get_packs_count(other_user, show_used: true) == 1
     end
 
     test "list_packs/2 returns all packs for a type" do
@@ -874,18 +874,18 @@ defmodule Cannery.AmmoTest do
       assert pistol_pack in packs
     end
 
-    test "get_packs_count_for_type/2 returns count of packs for a type", %{
+    test "get_packs_count/2 with type_id returns count of packs for a type", %{
       type: type,
       container: container,
       current_user: current_user
     } do
-      assert 1 = Ammo.get_packs_count_for_type(type, current_user)
+      assert 1 = Ammo.get_packs_count(current_user, type_id: type.id)
 
       another_type = type_fixture(current_user)
-      assert 0 = Ammo.get_packs_count_for_type(another_type, current_user)
+      assert 0 = Ammo.get_packs_count(current_user, type_id: another_type.id)
 
       {5, _packs} = pack_fixture(%{}, 5, type, container, current_user)
-      assert 6 = Ammo.get_packs_count_for_type(type, current_user)
+      assert 6 = Ammo.get_packs_count(current_user, type_id: type.id)
     end
 
     test "get_packs_count_for_types/2 returns counts of packs for types", %{

@@ -27,10 +27,10 @@
       <%= @container.location %>
     </span>
 
-    <%= if @container |> Ammo.get_packs_count_for_container!(@current_user) != 0 do %>
+    <%= if Ammo.get_packs_count(@current_user, container_id: @container.id) != 0 do %>
       <span class="rounded-lg title text-lg">
         <%= gettext("Packs:") %>
-        <%= @container |> Ammo.get_packs_count_for_container!(@current_user) %>
+        <%= Ammo.get_packs_count(@current_user, container_id: @container.id) %>
       </span>
 
       <span class="rounded-lg title text-lg">

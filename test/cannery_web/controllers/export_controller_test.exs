@@ -93,8 +93,9 @@ defmodule CanneryWeb.ExportControllerTest do
         "average_cost" => type |> Ammo.get_average_cost_for_type(current_user),
         "round_count" => type |> Ammo.get_round_count_for_type(current_user),
         "used_count" => type |> ActivityLog.get_used_count_for_type(current_user),
-        "pack_count" => type |> Ammo.get_packs_count_for_type(current_user),
-        "total_pack_count" => type |> Ammo.get_packs_count_for_type(current_user, true)
+        "pack_count" => Ammo.get_packs_count(current_user, type_id: type.id),
+        "total_pack_count" =>
+          Ammo.get_packs_count(current_user, type_id: type.id, show_used: true)
       }
 
       ideal_container = %{
@@ -111,7 +112,7 @@ defmodule CanneryWeb.ExportControllerTest do
           }
         ],
         "type" => container.type,
-        "pack_count" => container |> Ammo.get_packs_count_for_container!(current_user),
+        "pack_count" => Ammo.get_packs_count(current_user, container_id: container.id),
         "round_count" => container |> Ammo.get_round_count_for_container!(current_user)
       }
 
