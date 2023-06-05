@@ -288,26 +288,6 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the number of shot rounds for multiple packs
-  """
-  @spec get_used_counts([Pack.t()], User.t()) ::
-          %{optional(Pack.id()) => non_neg_integer()}
-  def get_used_counts(packs, %User{id: user_id}) do
-    pack_ids =
-      packs
-      |> Enum.map(fn %{id: pack_id} -> pack_id end)
-
-    Repo.all(
-      from sr in ShotRecord,
-        where: sr.pack_id in ^pack_ids,
-        where: sr.user_id == ^user_id,
-        group_by: sr.pack_id,
-        select: {sr.pack_id, sum(sr.count)}
-    )
-    |> Map.new()
-  end
-
-  @doc """
   Returns the last entered shot record date for a pack
   """
   @spec get_last_used_date(Pack.t(), User.t()) :: Date.t() | nil
@@ -385,31 +365,77 @@ defmodule Cannery.ActivityLog do
 
   defp get_used_count_type_id(query, _nil), do: query
 
+  @type get_grouped_used_counts_option ::
+          {:packs, [Pack.t()] | nil}
+          | {:types, [Type.t()] | nil}
+          | {:group_by, :type_id | :pack_id}
+  @type get_grouped_used_counts_options :: [get_grouped_used_counts_option()]
+
   @doc """
-  Gets the total number of rounds shot for multiple types
+  Gets the total number of rounds shot for multiple types or packs
 
   ## Examples
 
-      iex> get_used_count_for_types(123, %User{id: 123})
+      iex> get_grouped_used_counts(
+      ...>   %User{id: 123},
+      ...>   group_by: :type_id,
+      ...>   types: [%Type{id: 456, user_id: 123}]
+      ...> )
       35
 
-  """
-  @spec get_used_count_for_types([Type.t()], User.t()) ::
-          %{optional(Type.id()) => non_neg_integer()}
-  def get_used_count_for_types(types, %User{id: user_id}) do
-    type_ids =
-      types
-      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
+      iex> get_grouped_used_counts(
+      ...>   %User{id: 123},
+      ...>   group_by: :pack_id,
+      ...>   packs: [%Pack{id: 456, user_id: 123}]
+      ...> )
+      22
 
-    Repo.all(
-      from p in Pack,
-        left_join: sr in ShotRecord,
-        on: p.id == sr.pack_id,
-        where: p.type_id in ^type_ids,
-        where: not (sr.count |> is_nil()),
-        group_by: p.type_id,
-        select: {p.type_id, sum(sr.count)}
+  """
+  @spec get_grouped_used_counts(User.t(), get_grouped_used_counts_options()) ::
+          %{optional(Type.id() | Pack.id()) => non_neg_integer()}
+  def get_grouped_used_counts(%User{id: user_id}, opts) do
+    from(p in Pack,
+      as: :p,
+      left_join: sr in ShotRecord,
+      on: p.id == sr.pack_id,
+      on: p.user_id == ^user_id,
+      as: :sr,
+      where: sr.user_id == ^user_id,
+      where: not (sr.count |> is_nil())
     )
+    |> get_grouped_used_counts_group_by(Keyword.fetch!(opts, :group_by))
+    |> get_grouped_used_counts_types(Keyword.get(opts, :types))
+    |> get_grouped_used_counts_packs(Keyword.get(opts, :packs))
+    |> Repo.all()
     |> Map.new()
   end
+
+  @spec get_grouped_used_counts_group_by(Queryable.t(), :type_id | :pack_id) :: Queryable.t()
+  defp get_grouped_used_counts_group_by(query, :type_id) do
+    query
+    |> group_by([p: p], p.type_id)
+    |> select([sr: sr, p: p], {p.type_id, sum(sr.count)})
+  end
+
+  defp get_grouped_used_counts_group_by(query, :pack_id) do
+    query
+    |> group_by([sr: sr], sr.pack_id)
+    |> select([sr: sr], {sr.pack_id, sum(sr.count)})
+  end
+
+  @spec get_grouped_used_counts_types(Queryable.t(), [Type.t()] | nil) :: Queryable.t()
+  defp get_grouped_used_counts_types(query, types) when types |> is_list() do
+    type_ids = types |> Enum.map(fn %Type{id: type_id} -> type_id end)
+    query |> where([p: p], p.type_id in ^type_ids)
+  end
+
+  defp get_grouped_used_counts_types(query, _nil), do: query
+
+  @spec get_grouped_used_counts_packs(Queryable.t(), [Pack.t()] | nil) :: Queryable.t()
+  defp get_grouped_used_counts_packs(query, packs) when packs |> is_list() do
+    pack_ids = packs |> Enum.map(fn %Pack{id: pack_id} -> pack_id end)
+    query |> where([p: p], p.id in ^pack_ids)
+  end
+
+  defp get_grouped_used_counts_packs(query, _nil), do: query
 end

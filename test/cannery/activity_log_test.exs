@@ -208,7 +208,7 @@ defmodule Cannery.ActivityLogTest do
       assert 0 = ActivityLog.get_used_count(current_user, pack_id: another_pack.id)
     end
 
-    test "get_used_counts/2 returns accurate used counts", %{
+    test "get_grouped_used_counts/2 returns accurate used counts for packs", %{
       pack: %{id: pack_id} = pack,
       type: type,
       container: container,
@@ -217,20 +217,41 @@ defmodule Cannery.ActivityLogTest do
       {1, [%{id: another_pack_id} = another_pack]} = pack_fixture(type, container, current_user)
 
       assert %{pack_id => 5} ==
-               [pack, another_pack] |> ActivityLog.get_used_counts(current_user)
+               ActivityLog.get_grouped_used_counts(current_user,
+                 packs: [pack, another_pack],
+                 group_by: :pack_id
+               )
 
       shot_record_fixture(%{count: 5}, current_user, another_pack)
-      used_counts = [pack, another_pack] |> ActivityLog.get_used_counts(current_user)
+
+      used_counts =
+        ActivityLog.get_grouped_used_counts(current_user,
+          packs: [pack, another_pack],
+          group_by: :pack_id
+        )
+
       assert %{^pack_id => 5} = used_counts
       assert %{^another_pack_id => 5} = used_counts
 
       shot_record_fixture(%{count: 15}, current_user, pack)
-      used_counts = [pack, another_pack] |> ActivityLog.get_used_counts(current_user)
+
+      used_counts =
+        ActivityLog.get_grouped_used_counts(current_user,
+          packs: [pack, another_pack],
+          group_by: :pack_id
+        )
+
       assert %{^pack_id => 20} = used_counts
       assert %{^another_pack_id => 5} = used_counts
 
       shot_record_fixture(%{count: 10}, current_user, pack)
-      used_counts = [pack, another_pack] |> ActivityLog.get_used_counts(current_user)
+
+      used_counts =
+        ActivityLog.get_grouped_used_counts(current_user,
+          packs: [pack, another_pack],
+          group_by: :pack_id
+        )
+
       assert %{^pack_id => 30} = used_counts
       assert %{^another_pack_id => 5} = used_counts
     end
@@ -317,13 +338,19 @@ defmodule Cannery.ActivityLogTest do
       {1, [pack]} = pack_fixture(another_type, container, current_user)
 
       assert %{type_id => 5} ==
-               [type, another_type]
-               |> ActivityLog.get_used_count_for_types(current_user)
+               ActivityLog.get_grouped_used_counts(current_user,
+                 types: [type, another_type],
+                 group_by: :type_id
+               )
 
       # use generated pack
       shot_record_fixture(%{count: 5}, current_user, pack)
 
-      used_counts = [type, another_type] |> ActivityLog.get_used_count_for_types(current_user)
+      used_counts =
+        ActivityLog.get_grouped_used_counts(current_user,
+          types: [type, another_type],
+          group_by: :type_id
+        )
 
       assert %{^type_id => 5} = used_counts
       assert %{^another_type_id => 5} = used_counts
@@ -331,7 +358,11 @@ defmodule Cannery.ActivityLogTest do
       # use generated pack again
       shot_record_fixture(%{count: 1}, current_user, pack)
 
-      used_counts = [type, another_type] |> ActivityLog.get_used_count_for_types(current_user)
+      used_counts =
+        ActivityLog.get_grouped_used_counts(current_user,
+          types: [type, another_type],
+          group_by: :type_id
+        )
 
       assert %{^type_id => 5} = used_counts
       assert %{^another_type_id => 6} = used_counts

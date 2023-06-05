@@ -267,7 +267,7 @@ defmodule Cannery.Ammo do
   @spec get_historical_count_for_types([Type.t()], User.t()) ::
           %{optional(Type.id()) => non_neg_integer()}
   def get_historical_count_for_types(types, %User{id: user_id} = user) do
-    used_counts = types |> ActivityLog.get_used_count_for_types(user)
+    used_counts = ActivityLog.get_grouped_used_counts(user, types: types, group_by: :type_id)
     round_counts = types |> get_round_count_for_types(user)
 
     types
@@ -840,7 +840,8 @@ defmodule Cannery.Ammo do
   @spec get_original_counts([Pack.t()], User.t()) ::
           %{optional(Pack.id()) => non_neg_integer()}
   def get_original_counts(packs, %User{id: user_id} = current_user) do
-    used_counts = ActivityLog.get_used_counts(packs, current_user)
+    used_counts =
+      ActivityLog.get_grouped_used_counts(current_user, packs: packs, group_by: :pack_id)
 
     packs
     |> Map.new(fn %Pack{id: pack_id, count: count, user_id: ^user_id} ->

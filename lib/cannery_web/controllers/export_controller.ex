@@ -4,7 +4,10 @@ defmodule CanneryWeb.ExportController do
 
   def export(%{assigns: %{current_user: current_user}} = conn, %{"mode" => "json"}) do
     types = Ammo.list_types(current_user)
-    used_counts = types |> ActivityLog.get_used_count_for_types(current_user)
+
+    used_counts =
+      ActivityLog.get_grouped_used_counts(current_user, types: types, group_by: :type_id)
+
     round_counts = types |> Ammo.get_round_count_for_types(current_user)
     pack_counts = Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id)
 
@@ -29,7 +32,10 @@ defmodule CanneryWeb.ExportController do
       end)
 
     packs = Ammo.list_packs(current_user, show_used: true)
-    used_counts = packs |> ActivityLog.get_used_counts(current_user)
+
+    used_counts =
+      ActivityLog.get_grouped_used_counts(current_user, packs: packs, group_by: :pack_id)
+
     original_counts = packs |> Ammo.get_original_counts(current_user)
     cprs = packs |> Ammo.get_cprs(current_user)
     percentages_remaining = packs |> Ammo.get_percentages_remaining(current_user)
