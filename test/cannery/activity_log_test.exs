@@ -188,24 +188,24 @@ defmodule Cannery.ActivityLogTest do
       end
     end
 
-    test "get_used_count/2 returns accurate used count", %{
+    test "get_used_count/2 returns accurate used count for pack_id", %{
       pack: pack,
       type: type,
       container: container,
       current_user: current_user
     } do
       {1, [another_pack]} = pack_fixture(type, container, current_user)
-      assert 0 = another_pack |> ActivityLog.get_used_count(current_user)
-      assert 5 = pack |> ActivityLog.get_used_count(current_user)
+      assert 0 = ActivityLog.get_used_count(current_user, pack_id: another_pack.id)
+      assert 5 = ActivityLog.get_used_count(current_user, pack_id: pack.id)
 
       shot_record_fixture(%{count: 15}, current_user, pack)
-      assert 20 = pack |> ActivityLog.get_used_count(current_user)
+      assert 20 = ActivityLog.get_used_count(current_user, pack_id: pack.id)
 
       shot_record_fixture(%{count: 10}, current_user, pack)
-      assert 30 = pack |> ActivityLog.get_used_count(current_user)
+      assert 30 = ActivityLog.get_used_count(current_user, pack_id: pack.id)
 
       {1, [another_pack]} = pack_fixture(type, container, current_user)
-      assert 0 = another_pack |> ActivityLog.get_used_count(current_user)
+      assert 0 = ActivityLog.get_used_count(current_user, pack_id: another_pack.id)
     end
 
     test "get_used_counts/2 returns accurate used counts", %{
@@ -294,17 +294,17 @@ defmodule Cannery.ActivityLogTest do
       assert %{^another_pack_id => ~D[2022-11-09]} = last_used_shot_records
     end
 
-    test "get_used_count_for_type/2 gets accurate used round count for type",
+    test "get_used_count/2 gets accurate used round count for type_id",
          %{type: type, pack: pack, current_user: current_user} do
       another_type = type_fixture(current_user)
-      assert 0 = another_type |> ActivityLog.get_used_count_for_type(current_user)
-      assert 5 = type |> ActivityLog.get_used_count_for_type(current_user)
+      assert 0 = ActivityLog.get_used_count(current_user, type_id: another_type.id)
+      assert 5 = ActivityLog.get_used_count(current_user, type_id: type.id)
 
       shot_record_fixture(%{count: 5}, current_user, pack)
-      assert 10 = type |> ActivityLog.get_used_count_for_type(current_user)
+      assert 10 = ActivityLog.get_used_count(current_user, type_id: type.id)
 
       shot_record_fixture(%{count: 1}, current_user, pack)
-      assert 11 = type |> ActivityLog.get_used_count_for_type(current_user)
+      assert 11 = ActivityLog.get_used_count(current_user, type_id: type.id)
     end
 
     test "get_used_count_for_types/2 gets accurate used round count for types", %{

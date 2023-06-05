@@ -51,7 +51,7 @@ defmodule CanneryWeb.ExportControllerTest do
         "price_paid" => pack.price_paid,
         "lot_number" => pack.lot_number,
         "staged" => pack.staged,
-        "used_count" => pack |> ActivityLog.get_used_count(current_user),
+        "used_count" => ActivityLog.get_used_count(current_user, pack_id: pack.id),
         "original_count" => pack |> Ammo.get_original_count(current_user),
         "cpr" => pack |> Ammo.get_cpr(current_user),
         "percentage_remaining" => pack |> Ammo.get_percentage_remaining(current_user)
@@ -92,7 +92,7 @@ defmodule CanneryWeb.ExportControllerTest do
         "dram_equivalent" => type.dram_equivalent,
         "average_cost" => type |> Ammo.get_average_cost_for_type(current_user),
         "round_count" => type |> Ammo.get_round_count_for_type(current_user),
-        "used_count" => type |> ActivityLog.get_used_count_for_type(current_user),
+        "used_count" => ActivityLog.get_used_count(current_user, type_id: type.id),
         "pack_count" => Ammo.get_packs_count(current_user, type_id: type.id),
         "total_pack_count" =>
           Ammo.get_packs_count(current_user, type_id: type.id, show_used: true)

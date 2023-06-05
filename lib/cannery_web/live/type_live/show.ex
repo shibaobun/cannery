@@ -68,7 +68,7 @@ defmodule CanneryWeb.TypeLive.Show do
           packs |> Ammo.get_original_counts(current_user),
           Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used),
           Ammo.get_packs_count(current_user, type_id: type.id, show_used: true),
-          type |> ActivityLog.get_used_count_for_type(current_user),
+          ActivityLog.get_used_count(current_user, type_id: type.id),
           type |> Ammo.get_historical_count_for_type(current_user)
         ]
       else

@@ -288,16 +288,6 @@ defmodule Cannery.ActivityLog do
   end
 
   @doc """
-  Returns the number of shot rounds for a pack
-  """
-  @spec get_used_count(Pack.t(), User.t()) :: non_neg_integer()
-  def get_used_count(%Pack{id: pack_id} = pack, user) do
-    [pack]
-    |> get_used_counts(user)
-    |> Map.get(pack_id, 0)
-  end
-
-  @doc """
   Returns the number of shot rounds for multiple packs
   """
   @spec get_used_counts([Pack.t()], User.t()) ::
@@ -346,6 +336,9 @@ defmodule Cannery.ActivityLog do
     |> Map.new()
   end
 
+  @type get_used_count_option :: {:pack_id, Pack.id() | nil} | {:type_id, Type.id() | nil}
+  @type get_used_count_options :: [get_used_count_option()]
+
   @doc """
   Gets the total number of rounds shot for a type
 
@@ -353,19 +346,44 @@ defmodule Cannery.ActivityLog do
 
   ## Examples
 
-      iex> get_used_count_for_type(123, %User{id: 123})
+      iex> get_used_count(%User{id: 123}, type_id: 123)
       35
 
-      iex> get_used_count_for_type(456, %User{id: 123})
-      ** (Ecto.NoResultsError)
+      iex> get_used_count(%User{id: 123}, pack_id: 456)
+      50
 
   """
-  @spec get_used_count_for_type(Type.t(), User.t()) :: non_neg_integer()
-  def get_used_count_for_type(%Type{id: type_id} = type, user) do
-    [type]
-    |> get_used_count_for_types(user)
-    |> Map.get(type_id, 0)
+  @spec get_used_count(User.t(), get_used_count_options()) :: non_neg_integer()
+  def get_used_count(%User{id: user_id}, opts) do
+    from(sr in ShotRecord,
+      as: :sr,
+      left_join: p in Pack,
+      on: sr.pack_id == p.id,
+      on: p.user_id == ^user_id,
+      as: :p,
+      where: sr.user_id == ^user_id,
+      where: not (sr.count |> is_nil()),
+      select: sum(sr.count),
+      distinct: true
+    )
+    |> get_used_count_type_id(Keyword.get(opts, :type_id))
+    |> get_used_count_pack_id(Keyword.get(opts, :pack_id))
+    |> Repo.one() || 0
   end
+
+  @spec get_used_count_pack_id(Queryable.t(), Pack.id() | nil) :: Queryable.t()
+  defp get_used_count_pack_id(query, pack_id) when pack_id |> is_binary() do
+    query |> where([sr: sr], sr.pack_id == ^pack_id)
+  end
+
+  defp get_used_count_pack_id(query, _nil), do: query
+
+  @spec get_used_count_type_id(Queryable.t(), Type.id() | nil) :: Queryable.t()
+  defp get_used_count_type_id(query, type_id) when type_id |> is_binary() do
+    query |> where([p: p], p.type_id == ^type_id)
+  end
+
+  defp get_used_count_type_id(query, _nil), do: query
 
   @doc """
   Gets the total number of rounds shot for multiple types
