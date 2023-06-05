@@ -27,16 +27,16 @@ defmodule Cannery.ActivityLog do
   @spec list_shot_records(search :: nil | String.t(), Type.class() | :all, User.t()) ::
           [ShotRecord.t()]
   def list_shot_records(search \\ nil, type, %User{id: user_id}) do
-    from(sg in ShotRecord,
-      as: :sg,
+    from(sr in ShotRecord,
+      as: :sr,
       left_join: p in Pack,
       as: :p,
-      on: sg.pack_id == p.id,
+      on: sr.pack_id == p.id,
       left_join: at in Type,
       as: :at,
       on: p.type_id == at.id,
-      where: sg.user_id == ^user_id,
-      distinct: sg.id
+      where: sr.user_id == ^user_id,
+      distinct: sr.id
     )
     |> list_shot_records_search(search)
     |> list_shot_records_filter_type(type)
@@ -52,10 +52,10 @@ defmodule Cannery.ActivityLog do
 
     query
     |> where(
-      [sg: sg, p: p, at: at],
+      [sr: sr, p: p, at: at],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
-        sg.search,
+        sr.search,
         ^trimmed_search
       ) or
         fragment(
@@ -69,11 +69,11 @@ defmodule Cannery.ActivityLog do
           ^trimmed_search
         )
     )
-    |> order_by([sg: sg], {
+    |> order_by([sr: sr], {
       :desc,
       fragment(
         "ts_rank_cd(?, websearch_to_tsquery('english', ?), 4)",
-        sg.search,
+        sr.search,
         ^trimmed_search
       )
     })
@@ -104,9 +104,9 @@ defmodule Cannery.ActivityLog do
   @spec get_shot_record_count!(User.t()) :: integer()
   def get_shot_record_count!(%User{id: user_id}) do
     Repo.one(
-      from sg in ShotRecord,
-        where: sg.user_id == ^user_id,
-        select: count(sg.id),
+      from sr in ShotRecord,
+        where: sr.user_id == ^user_id,
+        select: count(sr.id),
         distinct: true
     ) || 0
   end
@@ -117,9 +117,9 @@ defmodule Cannery.ActivityLog do
         %User{id: user_id}
       ) do
     Repo.all(
-      from sg in ShotRecord,
-        where: sg.pack_id == ^pack_id,
-        where: sg.user_id == ^user_id
+      from sr in ShotRecord,
+        where: sr.pack_id == ^pack_id,
+        where: sr.user_id == ^user_id
     )
   end
 
@@ -140,10 +140,10 @@ defmodule Cannery.ActivityLog do
   @spec get_shot_record!(ShotRecord.id(), User.t()) :: ShotRecord.t()
   def get_shot_record!(id, %User{id: user_id}) do
     Repo.one!(
-      from sg in ShotRecord,
-        where: sg.id == ^id,
-        where: sg.user_id == ^user_id,
-        order_by: sg.date
+      from sr in ShotRecord,
+        where: sr.id == ^id,
+        where: sr.user_id == ^user_id,
+        order_by: sr.date
     )
   end
 
@@ -308,11 +308,11 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %{id: pack_id} -> pack_id end)
 
     Repo.all(
-      from sg in ShotRecord,
-        where: sg.pack_id in ^pack_ids,
-        where: sg.user_id == ^user_id,
-        group_by: sg.pack_id,
-        select: {sg.pack_id, sum(sg.count)}
+      from sr in ShotRecord,
+        where: sr.pack_id in ^pack_ids,
+        where: sr.user_id == ^user_id,
+        group_by: sr.pack_id,
+        select: {sr.pack_id, sum(sr.count)}
     )
     |> Map.new()
   end
@@ -337,11 +337,11 @@ defmodule Cannery.ActivityLog do
       |> Enum.map(fn %Pack{id: pack_id, user_id: ^user_id} -> pack_id end)
 
     Repo.all(
-      from sg in ShotRecord,
-        where: sg.pack_id in ^pack_ids,
-        where: sg.user_id == ^user_id,
-        group_by: sg.pack_id,
-        select: {sg.pack_id, max(sg.date)}
+      from sr in ShotRecord,
+        where: sr.pack_id in ^pack_ids,
+        where: sr.user_id == ^user_id,
+        group_by: sr.pack_id,
+        select: {sr.pack_id, max(sr.date)}
     )
     |> Map.new()
   end
@@ -385,12 +385,12 @@ defmodule Cannery.ActivityLog do
 
     Repo.all(
       from p in Pack,
-        left_join: sg in ShotRecord,
-        on: p.id == sg.pack_id,
+        left_join: sr in ShotRecord,
+        on: p.id == sr.pack_id,
         where: p.type_id in ^type_ids,
-        where: not (sg.count |> is_nil()),
+        where: not (sr.count |> is_nil()),
         group_by: p.type_id,
-        select: {p.type_id, sum(sg.count)}
+        select: {p.type_id, sum(sr.count)}
     )
     |> Map.new()
   end

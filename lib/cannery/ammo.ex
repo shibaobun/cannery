@@ -167,10 +167,10 @@ defmodule Cannery.Ammo do
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
 
     sg_total_query =
-      from sg in ShotRecord,
-        where: not (sg.count |> is_nil()),
-        group_by: sg.pack_id,
-        select: %{pack_id: sg.pack_id, total: sum(sg.count)}
+      from sr in ShotRecord,
+        where: not (sr.count |> is_nil()),
+        group_by: sr.pack_id,
+        select: %{pack_id: sr.pack_id, total: sum(sr.count)}
 
     Repo.all(
       from p in Pack,
