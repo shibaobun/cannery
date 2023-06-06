@@ -8,7 +8,7 @@ defmodule CanneryWeb.ExportController do
     used_counts =
       ActivityLog.get_grouped_used_counts(current_user, types: types, group_by: :type_id)
 
-    round_counts = types |> Ammo.get_round_count_for_types(current_user)
+    round_counts = Ammo.get_grouped_round_count(current_user, types: types, group_by: :type_id)
     pack_counts = Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id)
 
     total_pack_counts =

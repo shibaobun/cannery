@@ -73,7 +73,8 @@ defmodule CanneryWeb.Components.ContainerTableComponent do
       actions: actions,
       pack_count:
         Ammo.get_grouped_packs_count(current_user, containers: containers, group_by: :container_id),
-      round_count: Ammo.get_round_count_for_containers(containers, current_user)
+      round_count:
+        Ammo.get_grouped_round_count(current_user, containers: containers, group_by: :container_id)
     }
 
     rows =

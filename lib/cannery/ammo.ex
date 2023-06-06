@@ -228,34 +228,61 @@ defmodule Cannery.Ammo do
 
   defp get_round_count_container_id(query, _nil), do: query
 
+  @type get_grouped_round_count_option ::
+          {:types, [Type.t()] | nil} | {:containers, [Container.t()] | nil} | {:group_by, atom()}
+  @type get_grouped_round_count_options :: [get_grouped_round_count_option()]
+
   @doc """
   Gets the total number of rounds for multiple types
 
   ## Examples
 
-      iex> get_round_count_for_types(
-      ...>   [%Type{id: 123, user_id: 456}],
-      ...>   %User{id: 456}
+      iex> get_grouped_round_count(
+      ...>   %User{id: 456},
+      ...>   group_by: :type_id,
+      ...>   types: [%Type{id: 123, user_id: 456}]
       ...> )
       %{123 => 35}
 
   """
-  @spec get_round_count_for_types([Type.t()], User.t()) ::
-          %{optional(Type.id()) => non_neg_integer()}
-  def get_round_count_for_types(types, %User{id: user_id}) do
-    type_ids =
-      types
-      |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
-
-    Repo.all(
-      from p in Pack,
-        where: p.type_id in ^type_ids,
-        where: p.user_id == ^user_id,
-        group_by: p.type_id,
-        select: {p.type_id, sum(p.count)}
+  @spec get_grouped_round_count(User.t(), get_grouped_round_count_options()) ::
+          %{optional(Type.id() | Container.id()) => non_neg_integer()}
+  def get_grouped_round_count(%User{id: user_id}, opts) do
+    from(p in Pack,
+      as: :p,
+      where: p.user_id == ^user_id
     )
+    |> get_grouped_round_count_filter_ids(
+      Keyword.fetch!(opts, :group_by),
+      Keyword.get(opts, :types)
+    )
+    |> get_grouped_round_count_filter_ids(
+      Keyword.fetch!(opts, :group_by),
+      Keyword.get(opts, :containers)
+    )
+    |> get_grouped_round_count_group_by(Keyword.fetch!(opts, :group_by))
+    |> Repo.all()
     |> Map.new()
   end
+
+  @spec get_grouped_round_count_group_by(Queryable.t(), atom()) :: Queryable.t()
+  defp get_grouped_round_count_group_by(query, group_key) when group_key |> is_atom() do
+    query
+    |> group_by([p: p], field(p, ^group_key))
+    |> select([p: p], {field(p, ^group_key), sum(p.count)})
+  end
+
+  @spec get_grouped_round_count_filter_ids(
+          Queryable.t(),
+          atom(),
+          [Type.t()] | [Container.t()] | nil
+        ) :: Queryable.t()
+  defp get_grouped_round_count_filter_ids(query, group_key, items) when items |> is_list() do
+    item_ids = items |> Enum.map(fn %{id: id} -> id end)
+    query |> where([p: p], field(p, ^group_key) in ^item_ids)
+  end
+
+  defp get_grouped_round_count_filter_ids(query, _group_key, _nil), do: query
 
   @doc """
   Gets the total number of ammo ever bought for a type
@@ -292,7 +319,7 @@ defmodule Cannery.Ammo do
           %{optional(Type.id()) => non_neg_integer()}
   def get_historical_count_for_types(types, %User{id: user_id} = user) do
     used_counts = ActivityLog.get_grouped_used_counts(user, types: types, group_by: :type_id)
-    round_counts = types |> get_round_count_for_types(user)
+    round_counts = get_grouped_round_count(user, types: types, group_by: :type_id)
 
     types
     |> Enum.filter(fn %Type{id: type_id, user_id: ^user_id} ->
@@ -692,34 +719,6 @@ defmodule Cannery.Ammo do
 
   defp get_grouped_packs_count_show_used(query, _false) do
     query |> where([p: p], not (p.count == 0))
-  end
-
-  @doc """
-  Returns number of ammo packs in multiple containers.
-
-  ## Examples
-
-      iex> get_round_count_for_containers(
-      ...>   [%Container{id: 123, user_id: 456}],
-      ...>   %User{id: 456}
-      ...> )
-      %{123 => 5}
-
-  """
-  @spec get_round_count_for_containers([Container.t()], User.t()) ::
-          %{Container.id() => non_neg_integer()}
-  def get_round_count_for_containers(containers, %User{id: user_id}) do
-    container_ids =
-      containers
-      |> Enum.map(fn %Container{id: container_id, user_id: ^user_id} -> container_id end)
-
-    Repo.all(
-      from p in Pack,
-        where: p.container_id in ^container_ids,
-        group_by: p.container_id,
-        select: {p.container_id, sum(p.count)}
-    )
-    |> Map.new()
   end
 
   @doc """

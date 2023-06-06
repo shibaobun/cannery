@@ -371,34 +371,38 @@ defmodule Cannery.AmmoTest do
       {1, [first_pack]} = pack_fixture(%{count: 1}, type, container, current_user)
 
       assert %{type_id => 1} ==
-               [type] |> Ammo.get_round_count_for_types(current_user)
+               Ammo.get_grouped_round_count(current_user, types: [type], group_by: :type_id)
 
       %{id: another_type_id} = another_type = type_fixture(current_user)
 
       {1, [_another_pack]} = pack_fixture(%{count: 1}, another_type, container, current_user)
 
-      round_counts = [type, another_type] |> Ammo.get_round_count_for_types(current_user)
+      round_counts =
+        Ammo.get_grouped_round_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 1} = round_counts
       assert %{^another_type_id => 1} = round_counts
 
       {1, [pack]} = pack_fixture(%{count: 50}, type, container, current_user)
 
-      round_counts = [type, another_type] |> Ammo.get_round_count_for_types(current_user)
+      round_counts =
+        Ammo.get_grouped_round_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 51} = round_counts
       assert %{^another_type_id => 1} = round_counts
 
       shot_record_fixture(%{count: 26}, current_user, pack)
 
-      round_counts = [type, another_type] |> Ammo.get_round_count_for_types(current_user)
+      round_counts =
+        Ammo.get_grouped_round_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 25} = round_counts
       assert %{^another_type_id => 1} = round_counts
 
       shot_record_fixture(%{count: 1}, current_user, first_pack)
 
-      round_counts = [type, another_type] |> Ammo.get_round_count_for_types(current_user)
+      round_counts =
+        Ammo.get_grouped_round_count(current_user, types: [type, another_type], group_by: :type_id)
 
       assert %{^type_id => 24} = round_counts
       assert %{^another_type_id => 1} = round_counts
@@ -649,7 +653,7 @@ defmodule Cannery.AmmoTest do
       assert 125 = Ammo.get_round_count(current_user, container_id: container.id)
     end
 
-    test "get_round_count_for_containers/2 gets accurate total round count for containers",
+    test "get_grouped_round_count/2 gets accurate total round count for containers",
          %{
            type: type,
            current_user: current_user,
@@ -662,7 +666,10 @@ defmodule Cannery.AmmoTest do
       {1, [_first_pack]} = pack_fixture(%{count: 5}, type, another_container, current_user)
 
       round_counts =
-        [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
+        Ammo.get_grouped_round_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 5} = round_counts
       assert %{^another_container_id => 5} = round_counts
@@ -670,7 +677,10 @@ defmodule Cannery.AmmoTest do
       {25, _packs} = pack_fixture(%{count: 5}, 25, type, container, current_user)
 
       round_counts =
-        [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
+        Ammo.get_grouped_round_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 130} = round_counts
       assert %{^another_container_id => 5} = round_counts
@@ -678,7 +688,10 @@ defmodule Cannery.AmmoTest do
       shot_record_fixture(%{count: 5}, current_user, first_pack)
 
       round_counts =
-        [container, another_container] |> Ammo.get_round_count_for_containers(current_user)
+        Ammo.get_grouped_round_count(current_user,
+          containers: [container, another_container],
+          group_by: :container_id
+        )
 
       assert %{^container_id => 125} = round_counts
       assert %{^another_container_id => 5} = round_counts

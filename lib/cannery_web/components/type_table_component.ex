@@ -151,7 +151,7 @@ defmodule CanneryWeb.Components.TypeTableComponent do
       )
       |> TableComponent.maybe_compose_columns(%{label: gettext("Name"), key: :name, type: :name})
 
-    round_counts = types |> Ammo.get_round_count_for_types(current_user)
+    round_counts = Ammo.get_grouped_round_count(current_user, types: types, group_by: :type_id)
     packs_count = Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id)
     average_costs = types |> Ammo.get_average_cost_for_types(current_user)
 
