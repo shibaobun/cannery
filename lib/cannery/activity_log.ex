@@ -8,38 +8,49 @@ defmodule Cannery.ActivityLog do
   alias Cannery.{Accounts.User, ActivityLog.ShotRecord, Repo}
   alias Ecto.{Multi, Queryable}
 
+  @type list_shot_records_option ::
+          {:search, String.t() | nil}
+          | {:class, Type.class() | :all | nil}
+          | {:pack_id, Pack.id() | nil}
+  @type list_shot_records_options :: [list_shot_records_option()]
+
   @doc """
   Returns the list of shot_records.
 
   ## Examples
 
-      iex> list_shot_records(:all, %User{id: 123})
+      iex> list_shot_records(%User{id: 123})
       [%ShotRecord{}, ...]
 
-      iex> list_shot_records("cool", :all, %User{id: 123})
+      iex> list_shot_records(%User{id: 123}, search: "cool")
       [%ShotRecord{notes: "My cool shot record"}, ...]
 
-      iex> list_shot_records("cool", :rifle, %User{id: 123})
+      iex> list_shot_records(%User{id: 123}, search: "cool", class: :rifle)
       [%ShotRecord{notes: "Shot some rifle rounds"}, ...]
 
+      iex> list_shot_records(%User{id: 123}, pack_id: 456)
+      [%ShotRecord{pack_id: 456}, ...]
+
   """
-  @spec list_shot_records(Type.class() | :all, User.t()) :: [ShotRecord.t()]
-  @spec list_shot_records(search :: nil | String.t(), Type.class() | :all, User.t()) ::
-          [ShotRecord.t()]
-  def list_shot_records(search \\ nil, type, %User{id: user_id}) do
+  @spec list_shot_records(User.t()) :: [ShotRecord.t()]
+  @spec list_shot_records(User.t(), list_shot_records_options()) :: [ShotRecord.t()]
+  def list_shot_records(%User{id: user_id}, opts \\ []) do
     from(sr in ShotRecord,
       as: :sr,
       left_join: p in Pack,
       as: :p,
       on: sr.pack_id == p.id,
-      left_join: at in Type,
-      as: :at,
-      on: p.type_id == at.id,
+      on: p.user_id == ^user_id,
+      left_join: t in Type,
+      as: :t,
+      on: p.type_id == t.id,
+      on: t.user_id == ^user_id,
       where: sr.user_id == ^user_id,
       distinct: sr.id
     )
-    |> list_shot_records_search(search)
-    |> list_shot_records_filter_type(type)
+    |> list_shot_records_search(Keyword.get(opts, :search))
+    |> list_shot_records_class(Keyword.get(opts, :class))
+    |> list_shot_records_pack_id(Keyword.get(opts, :pack_id))
     |> Repo.all()
   end
 
@@ -52,7 +63,7 @@ defmodule Cannery.ActivityLog do
 
     query
     |> where(
-      [sr: sr, p: p, at: at],
+      [sr: sr, p: p, t: t],
       fragment(
         "? @@ websearch_to_tsquery('english', ?)",
         sr.search,
@@ -65,7 +76,7 @@ defmodule Cannery.ActivityLog do
         ) or
         fragment(
           "? @@ websearch_to_tsquery('english', ?)",
-          at.search,
+          t.search,
           ^trimmed_search
         )
     )
@@ -79,18 +90,17 @@ defmodule Cannery.ActivityLog do
     })
   end
 
-  @spec list_shot_records_filter_type(Queryable.t(), Type.class() | :all) ::
-          Queryable.t()
-  defp list_shot_records_filter_type(query, :rifle),
-    do: query |> where([at: at], at.class == :rifle)
+  @spec list_shot_records_class(Queryable.t(), Type.class() | :all | nil) :: Queryable.t()
+  defp list_shot_records_class(query, class) when class in [:rifle, :pistol, :shotgun],
+    do: query |> where([t: t], t.class == ^class)
 
-  defp list_shot_records_filter_type(query, :pistol),
-    do: query |> where([at: at], at.class == :pistol)
+  defp list_shot_records_class(query, _all), do: query
 
-  defp list_shot_records_filter_type(query, :shotgun),
-    do: query |> where([at: at], at.class == :shotgun)
+  @spec list_shot_records_pack_id(Queryable.t(), Pack.id() | nil) :: Queryable.t()
+  defp list_shot_records_pack_id(query, pack_id) when pack_id |> is_binary(),
+    do: query |> where([sr: sr], sr.pack_id == ^pack_id)
 
-  defp list_shot_records_filter_type(query, _all), do: query
+  defp list_shot_records_pack_id(query, _all), do: query
 
   @doc """
   Returns a count of shot records.
@@ -109,18 +119,6 @@ defmodule Cannery.ActivityLog do
         select: count(sr.id),
         distinct: true
     ) || 0
-  end
-
-  @spec list_shot_records_for_pack(Pack.t(), User.t()) :: [ShotRecord.t()]
-  def list_shot_records_for_pack(
-        %Pack{id: pack_id, user_id: user_id},
-        %User{id: user_id}
-      ) do
-    Repo.all(
-      from sr in ShotRecord,
-        where: sr.pack_id == ^pack_id,
-        where: sr.user_id == ^user_id
-    )
   end
 
   @doc """

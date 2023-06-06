@@ -407,17 +407,17 @@ defmodule Cannery.ActivityLogTest do
       {1, [pistol_pack]} = pack_fixture(pistol_type, container, current_user)
       pistol_shot_record = shot_record_fixture(current_user, pistol_pack)
 
-      assert [^rifle_shot_record] = ActivityLog.list_shot_records(:rifle, current_user)
-      assert [^shotgun_shot_record] = ActivityLog.list_shot_records(:shotgun, current_user)
-      assert [^pistol_shot_record] = ActivityLog.list_shot_records(:pistol, current_user)
+      assert [^rifle_shot_record] = ActivityLog.list_shot_records(current_user, class: :rifle)
+      assert [^shotgun_shot_record] = ActivityLog.list_shot_records(current_user, class: :shotgun)
+      assert [^pistol_shot_record] = ActivityLog.list_shot_records(current_user, class: :pistol)
 
-      shot_records = ActivityLog.list_shot_records(:all, current_user)
+      shot_records = ActivityLog.list_shot_records(current_user, class: :all)
       assert Enum.count(shot_records) == 3
       assert rifle_shot_record in shot_records
       assert shotgun_shot_record in shot_records
       assert pistol_shot_record in shot_records
 
-      shot_records = ActivityLog.list_shot_records(nil, current_user)
+      shot_records = ActivityLog.list_shot_records(current_user, class: nil)
       assert Enum.count(shot_records) == 3
       assert rifle_shot_record in shot_records
       assert shotgun_shot_record in shot_records
@@ -451,13 +451,13 @@ defmodule Cannery.ActivityLogTest do
       _shouldnt_return = shot_record_fixture(another_user, another_pack)
 
       # notes
-      assert ActivityLog.list_shot_records("amazing", :all, current_user) == [shot_record_a]
+      assert ActivityLog.list_shot_records(current_user, search: "amazing") == [shot_record_a]
 
       # pack attributes
-      assert ActivityLog.list_shot_records("stupendous", :all, current_user) == [shot_record_b]
+      assert ActivityLog.list_shot_records(current_user, search: "stupendous") == [shot_record_b]
 
       # type attributes
-      assert ActivityLog.list_shot_records("fabulous", :all, current_user) == [shot_record_c]
+      assert ActivityLog.list_shot_records(current_user, search: "fabulous") == [shot_record_c]
     end
   end
 end

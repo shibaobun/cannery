@@ -120,7 +120,7 @@ defmodule CanneryWeb.RangeLive.Index do
   defp display_shot_records(
          %{assigns: %{class: class, search: search, current_user: current_user}} = socket
        ) do
-    shot_records = ActivityLog.list_shot_records(search, class, current_user)
+    shot_records = ActivityLog.list_shot_records(current_user, search: search, class: class)
     packs = Ammo.list_packs(current_user, staged: true)
     chart_data = shot_records |> get_chart_data_for_shot_record()
     original_counts = packs |> Ammo.get_original_counts(current_user)

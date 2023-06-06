@@ -92,7 +92,7 @@ defmodule CanneryWeb.PackLive.Show do
       %{label: gettext("Actions"), key: :actions, sortable: false}
     ]
 
-    shot_records = ActivityLog.list_shot_records_for_pack(pack, current_user)
+    shot_records = ActivityLog.list_shot_records(current_user, pack_id: pack.id)
 
     rows =
       shot_records

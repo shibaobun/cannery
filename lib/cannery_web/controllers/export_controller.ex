@@ -54,7 +54,7 @@ defmodule CanneryWeb.ExportController do
         })
       end)
 
-    shot_records = ActivityLog.list_shot_records(:all, current_user)
+    shot_records = ActivityLog.list_shot_records(current_user)
 
     containers =
       Containers.list_containers(current_user)
