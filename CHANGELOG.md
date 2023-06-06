@@ -1,6 +1,7 @@
 # v0.9.4
 - Code quality fixes
 - Fix error/404 pages not rendering properly
+- Update dependencies
 
 # v0.9.3
 - Update dependencies
