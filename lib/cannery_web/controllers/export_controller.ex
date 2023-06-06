@@ -14,7 +14,7 @@ defmodule CanneryWeb.ExportController do
     total_pack_counts =
       Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id, show_used: true)
 
-    average_costs = types |> Ammo.get_average_cost_for_types(current_user)
+    average_costs = Ammo.get_average_costs(types, current_user)
 
     types =
       types

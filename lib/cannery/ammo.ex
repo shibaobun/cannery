@@ -132,17 +132,17 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_average_cost_for_type(
+      iex> get_average_cost(
       ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       1.50
 
   """
-  @spec get_average_cost_for_type(Type.t(), User.t()) :: float() | nil
-  def get_average_cost_for_type(%Type{id: type_id} = type, user) do
+  @spec get_average_cost(Type.t(), User.t()) :: float() | nil
+  def get_average_cost(%Type{id: type_id} = type, user) do
     [type]
-    |> get_average_cost_for_types(user)
+    |> get_average_costs(user)
     |> Map.get(type_id)
   end
 
@@ -152,16 +152,16 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_average_cost_for_types(
+      iex> get_average_costs(
       ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       1.50
 
   """
-  @spec get_average_cost_for_types([Type.t()], User.t()) ::
+  @spec get_average_costs([Type.t()], User.t()) ::
           %{optional(Type.id()) => float()}
-  def get_average_cost_for_types(types, %User{id: user_id}) do
+  def get_average_costs(types, %User{id: user_id}) do
     type_ids =
       types
       |> Enum.map(fn %Type{id: type_id, user_id: ^user_id} -> type_id end)
@@ -289,17 +289,17 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_historical_count_for_type(
+      iex> get_historical_count(
       ...>   %Type{id: 123, user_id: 456},
       ...>   %User{id: 456}
       ...> )
       5
 
   """
-  @spec get_historical_count_for_type(Type.t(), User.t()) :: non_neg_integer()
-  def get_historical_count_for_type(%Type{id: type_id} = type, user) do
+  @spec get_historical_count(Type.t(), User.t()) :: non_neg_integer()
+  def get_historical_count(%Type{id: type_id} = type, user) do
     [type]
-    |> get_historical_count_for_types(user)
+    |> get_historical_counts(user)
     |> Map.get(type_id, 0)
   end
 
@@ -308,16 +308,16 @@ defmodule Cannery.Ammo do
 
   ## Examples
 
-      iex> get_historical_count_for_types(
+      iex> get_historical_counts(
       ...>   [%Type{id: 123, user_id: 456}],
       ...>   %User{id: 456}
       ...> )
       %{123 => 5}
 
   """
-  @spec get_historical_count_for_types([Type.t()], User.t()) ::
+  @spec get_historical_counts([Type.t()], User.t()) ::
           %{optional(Type.id()) => non_neg_integer()}
-  def get_historical_count_for_types(types, %User{id: user_id} = user) do
+  def get_historical_counts(types, %User{id: user_id} = user) do
     used_counts = ActivityLog.get_grouped_used_counts(user, types: types, group_by: :type_id)
     round_counts = get_grouped_round_count(user, types: types, group_by: :type_id)
 

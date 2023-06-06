@@ -153,13 +153,13 @@ defmodule CanneryWeb.Components.TypeTableComponent do
 
     round_counts = Ammo.get_grouped_round_count(current_user, types: types, group_by: :type_id)
     packs_count = Ammo.get_grouped_packs_count(current_user, types: types, group_by: :type_id)
-    average_costs = types |> Ammo.get_average_cost_for_types(current_user)
+    average_costs = Ammo.get_average_costs(types, current_user)
 
     [used_counts, historical_round_counts, historical_pack_counts, used_pack_counts] =
       if show_used do
         [
           ActivityLog.get_grouped_used_counts(current_user, types: types, group_by: :type_id),
-          types |> Ammo.get_historical_count_for_types(current_user),
+          Ammo.get_historical_counts(types, current_user),
           Ammo.get_grouped_packs_count(current_user,
             types: types,
             group_by: :type_id,

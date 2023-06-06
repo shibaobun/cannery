@@ -90,7 +90,7 @@ defmodule CanneryWeb.ExportControllerTest do
         "load_grains" => type.load_grains,
         "shot_charge_weight" => type.shot_charge_weight,
         "dram_equivalent" => type.dram_equivalent,
-        "average_cost" => type |> Ammo.get_average_cost_for_type(current_user),
+        "average_cost" => Ammo.get_average_cost(type, current_user),
         "round_count" => Ammo.get_round_count(current_user, type_id: type.id),
         "used_count" => ActivityLog.get_used_count(current_user, type_id: type.id),
         "pack_count" => Ammo.get_packs_count(current_user, type_id: type.id),

@@ -69,7 +69,7 @@ defmodule CanneryWeb.TypeLive.Show do
           Ammo.get_packs_count(current_user, type_id: type.id, show_used: :only_used),
           Ammo.get_packs_count(current_user, type_id: type.id, show_used: true),
           ActivityLog.get_used_count(current_user, type_id: type.id),
-          type |> Ammo.get_historical_count_for_type(current_user)
+          Ammo.get_historical_count(type, current_user)
         ]
       else
         [nil, nil, nil, nil, nil]
@@ -94,7 +94,7 @@ defmodule CanneryWeb.TypeLive.Show do
       containers: containers,
       cprs: packs |> Ammo.get_cprs(current_user),
       last_used_dates: packs |> ActivityLog.get_last_used_dates(current_user),
-      avg_cost_per_round: type |> Ammo.get_average_cost_for_type(current_user),
+      avg_cost_per_round: Ammo.get_average_cost(type, current_user),
       rounds: Ammo.get_round_count(current_user, type_id: type.id),
       original_counts: original_counts,
       used_rounds: used_rounds,
