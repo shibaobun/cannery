@@ -91,7 +91,7 @@ defmodule CanneryWeb.ExportControllerTest do
         "shot_charge_weight" => type.shot_charge_weight,
         "dram_equivalent" => type.dram_equivalent,
         "average_cost" => type |> Ammo.get_average_cost_for_type(current_user),
-        "round_count" => type |> Ammo.get_round_count_for_type(current_user),
+        "round_count" => Ammo.get_round_count(current_user, type_id: type.id),
         "used_count" => ActivityLog.get_used_count(current_user, type_id: type.id),
         "pack_count" => Ammo.get_packs_count(current_user, type_id: type.id),
         "total_pack_count" =>
@@ -113,7 +113,7 @@ defmodule CanneryWeb.ExportControllerTest do
         ],
         "type" => container.type,
         "pack_count" => Ammo.get_packs_count(current_user, container_id: container.id),
-        "round_count" => container |> Ammo.get_round_count_for_container!(current_user)
+        "round_count" => Ammo.get_round_count(current_user, container_id: container.id)
       }
 
       ideal_shot_record = %{

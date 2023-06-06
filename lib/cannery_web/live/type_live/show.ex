@@ -95,7 +95,7 @@ defmodule CanneryWeb.TypeLive.Show do
       cprs: packs |> Ammo.get_cprs(current_user),
       last_used_dates: packs |> ActivityLog.get_last_used_dates(current_user),
       avg_cost_per_round: type |> Ammo.get_average_cost_for_type(current_user),
-      rounds: type |> Ammo.get_round_count_for_type(current_user),
+      rounds: Ammo.get_round_count(current_user, type_id: type.id),
       original_counts: original_counts,
       used_rounds: used_rounds,
       historical_round_count: historical_round_count,

@@ -343,24 +343,24 @@ defmodule Cannery.AmmoTest do
       assert %{^another_type_id => 25.0} = average_costs
     end
 
-    test "get_round_count_for_type/2 gets accurate round count for type",
+    test "get_round_count/2 gets accurate round count for type",
          %{type: type, current_user: current_user, container: container} do
       another_type = type_fixture(current_user)
-      assert 0 = Ammo.get_round_count_for_type(another_type, current_user)
+      assert 0 = Ammo.get_round_count(current_user, type_id: another_type.id)
 
       {1, [first_pack]} = pack_fixture(%{count: 1}, type, container, current_user)
 
-      assert 1 = Ammo.get_round_count_for_type(type, current_user)
+      assert 1 = Ammo.get_round_count(current_user, type_id: type.id)
 
       {1, [pack]} = pack_fixture(%{count: 50}, type, container, current_user)
 
-      assert 51 = Ammo.get_round_count_for_type(type, current_user)
+      assert 51 = Ammo.get_round_count(current_user, type_id: type.id)
 
       shot_record_fixture(%{count: 26}, current_user, pack)
-      assert 25 = Ammo.get_round_count_for_type(type, current_user)
+      assert 25 = Ammo.get_round_count(current_user, type_id: type.id)
 
       shot_record_fixture(%{count: 1}, current_user, first_pack)
-      assert 24 = Ammo.get_round_count_for_type(type, current_user)
+      assert 24 = Ammo.get_round_count(current_user, type_id: type.id)
     end
 
     test "get_round_count_for_types/2 gets accurate round counts for types", %{
@@ -635,18 +635,18 @@ defmodule Cannery.AmmoTest do
       assert %{^another_container_id => 1} = packs_count
     end
 
-    test "get_round_count_for_container!/2 gets accurate total round count for container",
+    test "get_round_count/2 gets accurate total round count for container_id",
          %{type: type, current_user: current_user, container: container} do
       {1, [first_pack]} = pack_fixture(%{count: 5}, type, container, current_user)
 
-      assert 5 = container |> Ammo.get_round_count_for_container!(current_user)
+      assert 5 = Ammo.get_round_count(current_user, container_id: container.id)
 
       {25, _packs} = pack_fixture(%{count: 5}, 25, type, container, current_user)
 
-      assert 130 = container |> Ammo.get_round_count_for_container!(current_user)
+      assert 130 = Ammo.get_round_count(current_user, container_id: container.id)
 
       shot_record_fixture(%{count: 5}, current_user, first_pack)
-      assert 125 = container |> Ammo.get_round_count_for_container!(current_user)
+      assert 125 = Ammo.get_round_count(current_user, container_id: container.id)
     end
 
     test "get_round_count_for_containers/2 gets accurate total round count for containers",

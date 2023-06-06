@@ -185,24 +185,48 @@ defmodule Cannery.Ammo do
     |> Map.new()
   end
 
+  @type get_round_count_option :: {:type_id, Type.id() | nil} | {:container_id, Container.id()}
+  @type get_round_count_options :: [get_round_count_option()]
+
   @doc """
   Gets the total number of rounds for a type
 
   ## Examples
 
-      iex> get_round_count_for_type(
-      ...>   %Type{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
+      iex> get_round_count(%User{id: 456}, type_id: 123)
       35
 
+      iex> get_round_count(%User{id: 456}, container_id: 123)
+      25
+
   """
-  @spec get_round_count_for_type(Type.t(), User.t()) :: non_neg_integer()
-  def get_round_count_for_type(%Type{id: type_id} = type, user) do
-    [type]
-    |> get_round_count_for_types(user)
-    |> Map.get(type_id, 0)
+  @spec get_round_count(User.t()) :: non_neg_integer()
+  @spec get_round_count(User.t(), get_round_count_options()) :: non_neg_integer()
+  def get_round_count(%User{id: user_id}, opts \\ []) do
+    from(p in Pack,
+      as: :p,
+      where: p.user_id == ^user_id,
+      select: sum(p.count),
+      distinct: true
+    )
+    |> get_round_count_type_id(Keyword.get(opts, :type_id))
+    |> get_round_count_container_id(Keyword.get(opts, :container_id))
+    |> Repo.one() || 0
   end
+
+  @spec get_round_count_type_id(Queryable.t(), Type.id() | nil) :: Queryable.t()
+  defp get_round_count_type_id(query, type_id) when type_id |> is_binary() do
+    query |> where([p: p], p.type_id == ^type_id)
+  end
+
+  defp get_round_count_type_id(query, _nil), do: query
+
+  @spec get_round_count_container_id(Queryable.t(), Container.id() | nil) :: Queryable.t()
+  defp get_round_count_container_id(query, container_id) when container_id |> is_binary() do
+    query |> where([p: p], p.container_id == ^container_id)
+  end
+
+  defp get_round_count_container_id(query, _nil), do: query
 
   @doc """
   Gets the total number of rounds for multiple types
@@ -668,25 +692,6 @@ defmodule Cannery.Ammo do
 
   defp get_grouped_packs_count_show_used(query, _false) do
     query |> where([p: p], not (p.count == 0))
-  end
-
-  @doc """
-  Returns number of rounds in a container.
-
-  ## Examples
-
-      iex> get_round_count_for_container(
-      ...>   %Container{id: 123, user_id: 456},
-      ...>   %User{id: 456}
-      ...> )
-      5
-
-  """
-  @spec get_round_count_for_container!(Container.t(), User.t()) :: non_neg_integer()
-  def get_round_count_for_container!(%Container{id: container_id} = container, user) do
-    [container]
-    |> get_round_count_for_containers(user)
-    |> Map.get(container_id, 0)
   end
 
   @doc """

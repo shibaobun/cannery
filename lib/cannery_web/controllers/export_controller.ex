@@ -59,15 +59,12 @@ defmodule CanneryWeb.ExportController do
     containers =
       Containers.list_containers(current_user)
       |> Enum.map(fn container ->
-        pack_count = Ammo.get_packs_count(current_user, container_id: container.id)
-        round_count = container |> Ammo.get_round_count_for_container!(current_user)
-
         container
         |> Jason.encode!()
         |> Jason.decode!()
         |> Map.merge(%{
-          "pack_count" => pack_count,
-          "round_count" => round_count
+          "pack_count" => Ammo.get_packs_count(current_user, container_id: container.id),
+          "round_count" => Ammo.get_round_count(current_user, container_id: container.id)
         })
       end)
 

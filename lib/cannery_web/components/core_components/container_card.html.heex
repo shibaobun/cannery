@@ -35,7 +35,7 @@
 
       <span class="rounded-lg title text-lg">
         <%= gettext("Rounds:") %>
-        <%= @container |> Ammo.get_round_count_for_container!(@current_user) %>
+        <%= Ammo.get_round_count(@current_user, container_id: @container.id) %>
       </span>
     <% end %>
 

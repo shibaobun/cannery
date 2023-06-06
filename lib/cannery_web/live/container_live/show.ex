@@ -122,7 +122,7 @@ defmodule CanneryWeb.ContainerLive.Show do
     socket
     |> assign(
       container: container,
-      round_count: container |> Ammo.get_round_count_for_container!(current_user),
+      round_count: Ammo.get_round_count(current_user, container_id: container.id),
       packs_count: Ammo.get_packs_count(current_user, container_id: container.id),
       packs: packs,
       original_counts: original_counts,
