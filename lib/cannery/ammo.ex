@@ -38,16 +38,16 @@ defmodule Cannery.Ammo do
       where: t.user_id == ^user_id,
       preload: ^@type_preloads
     )
-    |> list_types_filter_class(Keyword.get(opts, :class, :all))
-    |> list_types_filter_search(Keyword.get(opts, :search))
+    |> list_types_class(Keyword.get(opts, :class, :all))
+    |> list_types_search(Keyword.get(opts, :search))
     |> Repo.all()
   end
 
-  @spec list_types_filter_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
-  defp list_types_filter_search(query, search) when search in ["", nil],
+  @spec list_types_search(Queryable.t(), search :: String.t() | nil) :: Queryable.t()
+  defp list_types_search(query, search) when search in ["", nil],
     do: query |> order_by([t: t], t.name)
 
-  defp list_types_filter_search(query, search) when search |> is_binary() do
+  defp list_types_search(query, search) when search |> is_binary() do
     trimmed_search = String.trim(search)
 
     query
@@ -72,17 +72,11 @@ defmodule Cannery.Ammo do
     )
   end
 
-  @spec list_types_filter_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
-  defp list_types_filter_class(query, :rifle),
-    do: query |> where([t: t], t.class == :rifle)
+  @spec list_types_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
+  defp list_types_class(query, class) when class in [:rifle, :pistol, :shotgun],
+    do: query |> where([t: t], t.class == ^class)
 
-  defp list_types_filter_class(query, :pistol),
-    do: query |> where([t: t], t.class == :pistol)
-
-  defp list_types_filter_class(query, :shotgun),
-    do: query |> where([t: t], t.class == :shotgun)
-
-  defp list_types_filter_class(query, _all), do: query
+  defp list_types_class(query, _all), do: query
 
   @doc """
   Returns a count of types.
@@ -229,7 +223,9 @@ defmodule Cannery.Ammo do
   defp get_round_count_container_id(query, _nil), do: query
 
   @type get_grouped_round_count_option ::
-          {:types, [Type.t()] | nil} | {:containers, [Container.t()] | nil} | {:group_by, atom()}
+          {:types, [Type.t()] | nil}
+          | {:containers, [Container.t()] | nil}
+          | {:group_by, atom()}
   @type get_grouped_round_count_options :: [get_grouped_round_count_option()]
 
   @doc """
@@ -528,14 +524,8 @@ defmodule Cannery.Ammo do
   end
 
   @spec list_packs_class(Queryable.t(), Type.class() | :all) :: Queryable.t()
-  defp list_packs_class(query, :rifle),
-    do: query |> where([t: t], t.class == :rifle)
-
-  defp list_packs_class(query, :pistol),
-    do: query |> where([t: t], t.class == :pistol)
-
-  defp list_packs_class(query, :shotgun),
-    do: query |> where([t: t], t.class == :shotgun)
+  defp list_packs_class(query, class) when class in [:rifle, :pistol, :shotgun],
+    do: query |> where([t: t], t.class == ^class)
 
   defp list_packs_class(query, _all), do: query
 
