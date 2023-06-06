@@ -2,6 +2,7 @@
 - Code quality fixes
 - Fix error/404 pages not rendering properly
 - Update dependencies
+- Fix Range page title
 
 # v0.9.3
 - Update dependencies

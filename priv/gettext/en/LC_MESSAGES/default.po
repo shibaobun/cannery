@@ -420,6 +420,8 @@ msgstr ""
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:48
 #: lib/cannery_web/components/pack_table_component.ex:80
+#: lib/cannery_web/live/range_live/index.ex:55
+#: lib/cannery_web/live/range_live/index.ex:65
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr ""
@@ -453,11 +455,6 @@ msgstr ""
 msgid "Record shots"
 msgstr ""
 
-#: lib/cannery_web/live/range_live/index.ex:47
-#, elixir-autogen, elixir-format
-msgid "New Shot Records"
-msgstr ""
-
 #: lib/cannery_web/live/range_live/index.html.heex:52
 #: lib/cannery_web/live/range_live/index.html.heex:119
 #, elixir-autogen, elixir-format
@@ -469,12 +466,6 @@ msgstr ""
 #: lib/cannery_web/live/range_live/index.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
-msgstr ""
-
-#: lib/cannery_web/live/range_live/index.ex:55
-#: lib/cannery_web/live/range_live/index.ex:65
-#, elixir-autogen, elixir-format
-msgid "Shot Records"
 msgstr ""
 
 #: lib/cannery_web/live/pack_live/index.ex:43
@@ -651,6 +642,7 @@ msgstr ""
 
 #: lib/cannery_web/live/pack_live/show.ex:40
 #: lib/cannery_web/live/range_live/index.ex:31
+#: lib/cannery_web/live/range_live/index.ex:47
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Record Shots"
 msgstr ""

@@ -426,6 +426,8 @@ msgstr "Keine Tags für diesen Behälter"
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:48
 #: lib/cannery_web/components/pack_table_component.ex:80
+#: lib/cannery_web/live/range_live/index.ex:55
+#: lib/cannery_web/live/range_live/index.ex:65
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr "Schießplatz"
@@ -459,11 +461,6 @@ msgstr "Keine Munition selektiert"
 msgid "Record shots"
 msgstr "Schüsse dokumentieren"
 
-#: lib/cannery_web/live/range_live/index.ex:47
-#, elixir-autogen, elixir-format
-msgid "New Shot Records"
-msgstr "Neue Schießkladde"
-
 #: lib/cannery_web/live/range_live/index.html.heex:52
 #: lib/cannery_web/live/range_live/index.html.heex:119
 #, elixir-autogen, elixir-format
@@ -476,12 +473,6 @@ msgstr "Keine Schüsse dokumentiert"
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
 msgstr "Patronen abgefeuert"
-
-#: lib/cannery_web/live/range_live/index.ex:55
-#: lib/cannery_web/live/range_live/index.ex:65
-#, elixir-autogen, elixir-format
-msgid "Shot Records"
-msgstr "Schießkladde"
 
 #: lib/cannery_web/live/pack_live/index.ex:43
 #, elixir-autogen, elixir-format
@@ -657,6 +648,7 @@ msgstr "Passwort zurücksetzen"
 
 #: lib/cannery_web/live/pack_live/show.ex:40
 #: lib/cannery_web/live/range_live/index.ex:31
+#: lib/cannery_web/live/range_live/index.ex:47
 #, elixir-autogen, elixir-format
 msgid "Record Shots"
 msgstr "Schüsse dokumentieren"

@@ -427,6 +427,8 @@ msgstr "Contenedor sin etiquetas"
 
 #: lib/cannery_web/components/core_components/topbar.html.heex:48
 #: lib/cannery_web/components/pack_table_component.ex:80
+#: lib/cannery_web/live/range_live/index.ex:55
+#: lib/cannery_web/live/range_live/index.ex:65
 #, elixir-autogen, elixir-format
 msgid "Range"
 msgstr "Campo de tiro"
@@ -460,11 +462,6 @@ msgstr "No hay munición preparada"
 msgid "Record shots"
 msgstr "Tiros récord"
 
-#: lib/cannery_web/live/range_live/index.ex:47
-#, elixir-autogen, elixir-format
-msgid "New Shot Records"
-msgstr "Nuevos Tiros Récord"
-
 #: lib/cannery_web/live/range_live/index.html.heex:52
 #: lib/cannery_web/live/range_live/index.html.heex:119
 #, elixir-autogen, elixir-format
@@ -477,12 +474,6 @@ msgstr "No se han grabado tiros"
 #, elixir-autogen, elixir-format
 msgid "Rounds shot"
 msgstr "Balas disparadas"
-
-#: lib/cannery_web/live/range_live/index.ex:55
-#: lib/cannery_web/live/range_live/index.ex:65
-#, elixir-autogen, elixir-format
-msgid "Shot Records"
-msgstr "Récords de Tiro"
 
 #: lib/cannery_web/live/pack_live/index.ex:43
 #, elixir-autogen, elixir-format
@@ -658,6 +649,7 @@ msgstr "Reestablecer contraseña"
 
 #: lib/cannery_web/live/pack_live/show.ex:40
 #: lib/cannery_web/live/range_live/index.ex:31
+#: lib/cannery_web/live/range_live/index.ex:47
 #, elixir-autogen, elixir-format
 msgid "Record Shots"
 msgstr "Tiros Récord"

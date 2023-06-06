@@ -44,7 +44,7 @@ defmodule CanneryWeb.RangeLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(
-      page_title: gettext("New Shot Records"),
+      page_title: gettext("Record Shots"),
       shot_record: %ShotRecord{}
     )
   end
@@ -52,7 +52,7 @@ defmodule CanneryWeb.RangeLive.Index do
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(
-      page_title: gettext("Shot Records"),
+      page_title: gettext("Range"),
       search: nil,
       shot_record: nil
     )
@@ -62,7 +62,7 @@ defmodule CanneryWeb.RangeLive.Index do
   defp apply_action(socket, :search, %{"search" => search}) do
     socket
     |> assign(
-      page_title: gettext("Shot Records"),
+      page_title: gettext("Range"),
       search: search,
       shot_record: nil
     )
