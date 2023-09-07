@@ -85,14 +85,18 @@
       ) %>
       <%= error_tag(f, :unfired_length, "col-span-3 text-center") %>
 
-      <%= label(f, :brass_height, gettext("Brass height"), class: "title text-lg text-primary-600") %>
+      <%= label(f, :brass_height, gettext("Brass height"),
+        class: "title text-lg text-primary-600"
+      ) %>
       <%= text_input(f, :brass_height,
         class: "text-center col-span-2 input input-primary",
         maxlength: 255
       ) %>
       <%= error_tag(f, :brass_height, "col-span-3 text-center") %>
 
-      <%= label(f, :chamber_size, gettext("Chamber size"), class: "title text-lg text-primary-600") %>
+      <%= label(f, :chamber_size, gettext("Chamber size"),
+        class: "title text-lg text-primary-600"
+      ) %>
       <%= text_input(f, :chamber_size,
         class: "text-center col-span-2 input input-primary",
         maxlength: 255
@@ -167,7 +171,9 @@
       <%= hidden_input(f, :jacket_type, value: nil) %>
     <% end %>
 
-    <%= label(f, :case_material, gettext("Case material"), class: "title text-lg text-primary-600") %>
+    <%= label(f, :case_material, gettext("Case material"),
+      class: "title text-lg text-primary-600"
+    ) %>
     <%= text_input(f, :case_material,
       class: "text-center col-span-2 input input-primary",
       maxlength: 255,

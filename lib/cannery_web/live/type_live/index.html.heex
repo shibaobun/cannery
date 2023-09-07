@@ -26,7 +26,9 @@
         phx-submit="change_class"
         class="flex items-center"
       >
-        <%= label(f, :class, gettext("Class"), class: "title text-primary-600 text-lg text-center") %>
+        <%= label(f, :class, gettext("Class"),
+          class: "title text-primary-600 text-lg text-center"
+        ) %>
 
         <%= select(
           f,

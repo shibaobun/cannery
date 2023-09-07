@@ -58,7 +58,7 @@ msgstr ""
 msgid "Are you sure you want to delete %{name}?"
 msgstr ""
 
-#: lib/cannery_web/live/pack_live/index.html.heex:181
+#: lib/cannery_web/live/pack_live/index.html.heex:185
 #: lib/cannery_web/live/pack_live/show.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this ammo?"
@@ -115,7 +115,7 @@ msgstr ""
 #: lib/cannery_web/live/pack_live/form_component.html.heex:91
 #: lib/cannery_web/live/range_live/form_component.html.heex:46
 #: lib/cannery_web/live/tag_live/form_component.html.heex:39
-#: lib/cannery_web/live/type_live/form_component.html.heex:354
+#: lib/cannery_web/live/type_live/form_component.html.heex:360
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
@@ -156,7 +156,7 @@ msgid "Are you sure you want to unstage this ammo?"
 msgstr ""
 
 #: lib/cannery_web/live/pack_live/show.ex:157
-#: lib/cannery_web/live/range_live/index.html.heex:149
+#: lib/cannery_web/live/range_live/index.html.heex:151
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this shot record?"
 msgstr ""
@@ -236,7 +236,7 @@ msgid_plural "Ammo added successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/cannery_web/live/type_live/index.html.heex:116
+#: lib/cannery_web/live/type_live/index.html.heex:118
 #: lib/cannery_web/live/type_live/show.html.heex:29
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Are you sure you want to delete %{name}? This will delete all %{name} type ammo as well!"
