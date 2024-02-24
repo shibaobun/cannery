@@ -21,7 +21,6 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery_web/live/container_live/form_component.ex:89
 #: lib/cannery_web/live/invite_live/form_component.ex:80
 #: lib/cannery_web/live/tag_live/form_component.ex:78

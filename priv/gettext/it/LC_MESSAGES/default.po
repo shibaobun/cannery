@@ -21,7 +21,6 @@ msgstr ""
 ## Run "mix gettext.extract" to bring this file up to
 ## date. Leave "msgstr"s empty as changing them here has no
 ## effect: edit them in PO (.po) files instead.
-
 #: lib/cannery_web/live/home_live.html.heex:44
 #, elixir-autogen, elixir-format
 msgid "Access from any internet-capable device"
