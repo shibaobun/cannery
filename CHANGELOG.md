@@ -1,4 +1,5 @@
 # v0.9.6
+- Make ammo packs in containers directly navigable in table view
 - Update dependencies
 
 # v0.9.5

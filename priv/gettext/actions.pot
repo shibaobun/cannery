@@ -305,6 +305,7 @@ msgstr ""
 msgid "Edit pack of %{pack_count} bullets"
 msgstr ""
 
+#: lib/cannery_web/live/container_live/show.html.heex:139
 #: lib/cannery_web/live/pack_live/index.html.heex:148
 #: lib/cannery_web/live/type_live/show.html.heex:201
 #, elixir-autogen, elixir-format
