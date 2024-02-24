@@ -69,6 +69,7 @@ defmodule CanneryWeb do
 
   def html do
     quote do
+      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
       use Phoenix.Component
 
       # Import convenience functions from controllers
@@ -82,11 +83,8 @@ defmodule CanneryWeb do
 
   defp html_helpers do
     quote do
-      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
-      use Phoenix.HTML
-
-      # credo:disable-for-next-line Credo.Check.Consistency.MultiAliasImportRequireUse
-      import Phoenix.Component
+      use PhoenixHTMLHelpers
+      import Phoenix.{Component, HTML, HTML.Form}
       import CanneryWeb.{ErrorHelpers, Gettext, CoreComponents, HTMLHelpers}
 
       # Shortcut for generating JS commands

@@ -3,7 +3,8 @@ defmodule CanneryWeb.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
-  use Phoenix.HTML
+  use PhoenixHTMLHelpers
+  import Phoenix.HTML.Form
   import Phoenix.Component
   alias Ecto.Changeset
   alias Phoenix.{HTML.Form, LiveView.Rendered}
@@ -65,7 +66,7 @@ defmodule CanneryWeb.ErrorHelpers do
     changeset
     |> changeset_error_map()
     |> Enum.map_join(". ", fn {key, errors} ->
-      "#{key |> humanize()}: #{errors |> Enum.join(", ")}"
+      "#{key |> Phoenix.Naming.humanize()}: #{errors |> Enum.join(", ")}"
     end)
   end
 
