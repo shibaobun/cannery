@@ -560,7 +560,7 @@ msgstr "Nueva contraseña"
 msgid "Firing type"
 msgstr "Tipo de fuego"
 
-#: lib/cannery_web/components/layouts/live.html.heex:43
+#: lib/cannery_web/components/layouts/app.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Reconnecting..."
 msgstr "Reconectando..."

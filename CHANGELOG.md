@@ -1,3 +1,6 @@
+# v0.9.7
+- Fix margin on bottom of page
+
 # v0.9.6
 - Make ammo packs in containers directly navigable in table view
 - Update dependencies

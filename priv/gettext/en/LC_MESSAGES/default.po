@@ -553,7 +553,7 @@ msgstr ""
 msgid "Firing type"
 msgstr ""
 
-#: lib/cannery_web/components/layouts/live.html.heex:43
+#: lib/cannery_web/components/layouts/app.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Reconnecting..."
 msgstr ""
