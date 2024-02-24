@@ -26,7 +26,7 @@ config :cannery, Cannery.Mailer, adapter: Swoosh.Adapters.Test
 config :cannery, Cannery.Accounts, registration: "public"
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
