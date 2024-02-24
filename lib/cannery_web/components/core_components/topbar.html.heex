@@ -48,7 +48,7 @@
             <%= gettext("Range") %>
           </.link>
         </li>
-        <li :if={@current_user |> Accounts.is_already_admin?()} class="mx-2 my-1">
+        <li :if={@current_user |> Accounts.already_admin?()} class="mx-2 my-1">
           <.link navigate={~p"/invites"} class="text-white hover:underline">
             <%= gettext("Invites") %>
           </.link>
@@ -70,7 +70,7 @@
         </li>
         <li
           :if={
-            @current_user |> Accounts.is_already_admin?() and
+            @current_user |> Accounts.already_admin?() and
               function_exported?(Routes, :live_dashboard_path, 2)
           }
           class="mx-2 my-1"
