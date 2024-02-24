@@ -5,7 +5,7 @@ defmodule Cannery.MixProject do
     [
       app: :cannery,
       version: "0.9.5",
-      elixir: "1.15.4",
+      elixir: "1.16.1",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -47,11 +47,11 @@ defmodule Cannery.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
-      {:phoenix, "~> 1.7.0"},
+      {:phoenix, "~> 1.7.11"},
       {:phoenix_ecto, "~> 4.4"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 4.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.19.0"},
+      {:phoenix_live_view, "~> 0.20.0"},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
@@ -65,7 +65,7 @@ defmodule Cannery.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"},
+      {:plug_cowboy, "~> 2.7"},
       {:ecto_psql_extras, "~> 0.6"},
       {:eqrcode, "~> 0.1.10"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
