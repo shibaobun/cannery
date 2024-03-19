@@ -1,5 +1,6 @@
 # v0.9.8
 - Make bar graph ignore empty days
+- Update dependencies
 
 # v0.9.7
 - Fix margin on bottom of page
