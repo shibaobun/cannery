@@ -58,6 +58,9 @@ export default {
             type: 'time',
             time: {
               unit: 'day'
+            },
+            ticks: {
+              source: 'data'
             }
           }
         },

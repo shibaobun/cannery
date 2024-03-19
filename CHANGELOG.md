@@ -1,3 +1,6 @@
+# v0.9.8
+- Make bar graph ignore empty days
+
 # v0.9.7
 - Fix margin on bottom of page
 - Use bar graph instead of line graph
