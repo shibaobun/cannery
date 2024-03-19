@@ -55,7 +55,7 @@ export default {
             }
           },
           x: {
-            type: 'time',
+            type: 'timeseries',
             time: {
               unit: 'day'
             },

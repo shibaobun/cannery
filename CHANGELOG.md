@@ -1,3 +1,6 @@
+# v0.9.9
+- Actually fix bar graph
+
 # v0.9.8
 - Make bar graph ignore empty days
 - Update dependencies
