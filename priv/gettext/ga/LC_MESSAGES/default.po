@@ -182,7 +182,7 @@ msgstr ""
 msgid "Invites"
 msgstr ""
 
-#: lib/cannery_web/controllers/user_session_html/new.html.heex:23
+#: lib/cannery_web/controllers/user_session_html/new.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in for 60 days"
 msgstr ""
@@ -1129,7 +1129,7 @@ msgid "Email"
 msgstr ""
 
 #: lib/cannery_web/controllers/user_registration_html/new.html.heex:24
-#: lib/cannery_web/controllers/user_session_html/new.html.heex:20
+#: lib/cannery_web/controllers/user_session_html/new.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr ""

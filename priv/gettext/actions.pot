@@ -56,7 +56,7 @@ msgstr ""
 
 #: lib/cannery_web/controllers/user_registration_html/new.html.heex:47
 #: lib/cannery_web/controllers/user_reset_password_html/new.html.heex:3
-#: lib/cannery_web/controllers/user_session_html/new.html.heex:38
+#: lib/cannery_web/controllers/user_session_html/new.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
 msgstr ""
@@ -72,7 +72,7 @@ msgstr ""
 #: lib/cannery_web/controllers/user_reset_password_html/edit.html.heex:41
 #: lib/cannery_web/controllers/user_reset_password_html/new.html.heex:28
 #: lib/cannery_web/controllers/user_session_html/new.html.heex:3
-#: lib/cannery_web/controllers/user_session_html/new.html.heex:28
+#: lib/cannery_web/controllers/user_session_html/new.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
@@ -98,7 +98,7 @@ msgstr ""
 #: lib/cannery_web/controllers/user_registration_html/new.html.heex:37
 #: lib/cannery_web/controllers/user_reset_password_html/edit.html.heex:38
 #: lib/cannery_web/controllers/user_reset_password_html/new.html.heex:25
-#: lib/cannery_web/controllers/user_session_html/new.html.heex:35
+#: lib/cannery_web/controllers/user_session_html/new.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
