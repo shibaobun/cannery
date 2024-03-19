@@ -1,5 +1,6 @@
 # v0.9.7
 - Fix margin on bottom of page
+- Use bar graph instead of line graph
 
 # v0.9.6
 - Make ammo packs in containers directly navigable in table view

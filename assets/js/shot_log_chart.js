@@ -1,13 +1,12 @@
-import { Chart, Title, Tooltip, Legend, LineController, LineElement, PointElement, TimeScale, LinearScale } from 'chart.js'
+import Chart from 'chart.js/auto'
 import 'chartjs-adapter-date-fns'
-Chart.register(Title, Tooltip, Legend, LineController, LineElement, PointElement, TimeScale, LinearScale)
 
 export default {
   initalizeChart (el) {
     const data = JSON.parse(el.dataset.chartData)
 
     this.el.chart = new Chart(el, {
-      type: 'line',
+      type: 'bar',
       data: {
         datasets: [{
           label: el.dataset.label,
@@ -51,7 +50,8 @@ export default {
             stacked: true,
             grace: '15%',
             ticks: {
-              padding: 15
+              padding: 15,
+              precision: 0
             }
           },
           x: {
